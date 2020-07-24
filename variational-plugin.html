@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Plugins for variational algorithms &mdash; myQLM documentation myQLM-0.0.7.122 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/contentui.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ObservableSplitter : turning observable sampling into qubit sampling" href="observable-splitter.html" />
+    <link rel="prev" title="Arithmetic routines" href="qat-lang-arith.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> myQLM documentation
+          
+
+          
+            
+            <img src="_static/myqlm.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                myQLM-0.0.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/install.html">Installing myQLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programming.html">Writing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulating.html">Executing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="source_doc.html">Source code documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-core-library">The core library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-programming-library">The programming library</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="source_doc.html#plugins">Plugins</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Plugins for variational algorithms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#scipy-minimize-binders">Scipy minimize binders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spsa-minimizer-binder">SPSA minimizer binder</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="observable-splitter.html">ObservableSplitter : turning observable sampling into qubit sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="circuit-inliner.html">CircuitInliner : inlining circuit inside a stack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="display-plugin.html">Display : a console displayer plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quameleon.html">QuameleonPlugin : emulating hardware constraints via a plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#qpus">QPUs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#interoperations-with-other-frameworks">Interoperations with other frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#combinatorial-optimization-and-qaoa">Combinatorial optimization and QAOA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Command line tools</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">myQLM documentation</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="source_doc.html">Source code documentation</a> &raquo;</li>
+        
+      <li>Plugins for variational algorithms</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/variational-plugin.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="plugins-for-variational-algorithms">
+<h1>Plugins for variational algorithms<a class="headerlink" href="#plugins-for-variational-algorithms" title="Permalink to this headline">¶</a></h1>
+<p>The following plugins inherits from the class <a class="reference internal" href="qat-core.html#qat.plugins.Optimizer" title="qat.plugins.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> and provide an easy way to include your favorite classical optimizer inside a QLM stack.
+These plugins do not provide particular interface for gradient based optimization.</p>
+<p>They require the input job to have abstract parameters (i.e the circuit and/or the observable should be parametrized).</p>
+<p>We can, for instance, build a very simple variational job as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.plugins</span> <span class="kn">import</span> <span class="n">ScipyMinimizePlugin</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RY</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">RY</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">))(</span><span class="n">qbits</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">Observable</span><span class="o">.</span><span class="n">sigma_z</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="n">stack</span> <span class="o">=</span> <span class="n">ScipyMinimizePlugin</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;COBYLA&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">get_default_qpu</span><span class="p">()</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Final energy:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Minimization trace:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">meta_data</span><span class="p">[</span><span class="s2">&quot;optimization_trace&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best parameters:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">meta_data</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Final</span> <span class="n">energy</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.9999999895845733</span>
+<span class="n">Minimization</span> <span class="n">trace</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.9248436009706168</span><span class="p">,</span> <span class="mf">0.1796436419160941</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.7307198530469847</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9692628850059221</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.31667009047522626</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.7326564082535783</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999989910690584</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9685600032839236</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9920195639292833</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9981352280929957</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9994663661998046</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9998991179959701</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999573760218983</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999969105617831</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999943092827361</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.999999901453191</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999998581631767</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999990174708</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999998581631767</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999583926449</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999984503685</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999895845733</span><span class="p">]</span>
+<span class="n">Best</span> <span class="n">parameters</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.141736982566095</span><span class="p">]</span>
+</pre></div>
+</div>
+<span class="target" id="module-qat.vsolve.optimize.scipy_binder"></span><div class="section" id="scipy-minimize-binders">
+<h2>Scipy minimize binders<a class="headerlink" href="#scipy-minimize-binders" title="Permalink to this headline">¶</a></h2>
+<p>The following classes are wrappers for the <code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.optimize.minimize</span></code> method.
+Their usage is pretty close to <cite>scipy</cite> API.</p>
+<dl class="py class">
+<dt id="qat.vsolve.optimize.scipy_binder.ScipyMinimizePlugin">
+<em class="property">class </em><code class="sig-prename descclassname">qat.vsolve.optimize.scipy_binder.</code><code class="sig-name descname">ScipyMinimizePlugin</code><a class="headerlink" href="#qat.vsolve.optimize.scipy_binder.ScipyMinimizePlugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>A particularization of the <a class="reference internal" href="qat-core.html#qat.plugins.Optimizer" title="qat.plugins.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> class
+for the <cite>scipy.optimize.minimize</cite> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>binding_args</strong> (<em>dict</em>) – arguments passed to the variable binding method</p></li>
+<li><p><strong>kwargs</strong> – minimize parameters (see scipy’s API)</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><cite>scipy.minimize</cite> requires some initialization value for the optimization (parameter x0).
+In our wrapper, if no value is given, we assume random initilization:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">variables</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>Parameters can be changed dynamically using the <a class="reference internal" href="#qat.vsolve.optimize.scipy_binder.ScipyMinimizePlugin.set_options" title="qat.vsolve.optimize.scipy_binder.ScipyMinimizePlugin.set_options"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_options()</span></code></a> method.</p>
+<p>This plugin is as ready-to-use as it gets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">form</span> <span class="n">qat</span><span class="o">.</span><span class="n">plugins</span> <span class="kn">import</span> <span class="nn">ScipyMinimizePlugin</span>
+<span class="kn">from</span> <span class="nn">qat.linalg</span> <span class="kn">import</span> <span class="n">LinAlg</span>
+
+<span class="n">plugin</span> <span class="o">=</span> <span class="n">ScipyMinimizePlugin</span><span class="p">(</span><span class="n">x0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+                             <span class="n">method</span><span class="o">=</span><span class="s2">&quot;COBYLA&quot;</span><span class="p">,</span>
+                             <span class="n">tol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
+                             <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;maxiter&quot;</span><span class="p">:</span> <span class="mi">300</span><span class="p">})</span>
+
+<span class="n">stack</span> <span class="o">=</span> <span class="n">plugin</span> <span class="o">|</span> <span class="n">LinAlg</span><span class="p">()</span>
+<span class="c1"># Any job will run, as long as it contains 10 variables!</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">my_job</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="qat.vsolve.optimize.scipy_binder.ScipyMinimizePlugin.optimize">
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var_names</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.vsolve.optimize.scipy_binder.ScipyMinimizePlugin.optimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform the optimization via <code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.optimize.minimize</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.vsolve.optimize.scipy_binder.ScipyMinimizePlugin.set_options">
+<code class="sig-name descname">set_options</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.vsolve.optimize.scipy_binder.ScipyMinimizePlugin.set_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets new options for the minimize function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – a new set of options</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-qat.vsolve.optimize.spsa"></span><div class="section" id="spsa-minimizer-binder">
+<h2>SPSA minimizer binder<a class="headerlink" href="#spsa-minimizer-binder" title="Permalink to this headline">¶</a></h2>
+<p>The following classes contains simple wrappers for the SPSA minimization algorithm.</p>
+<dl class="py class">
+<dt id="qat.vsolve.optimize.spsa.SPSAMinimizePlugin">
+<em class="property">class </em><code class="sig-prename descclassname">qat.vsolve.optimize.spsa.</code><code class="sig-name descname">SPSAMinimizePlugin</code><a class="headerlink" href="#qat.vsolve.optimize.spsa.SPSAMinimizePlugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>A particularization of the <a class="reference internal" href="qat-core.html#qat.plugins.Optimizer" title="qat.plugins.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> class
+for the SPSA algorithm.</p>
+<p>This plugin is as ready-to-use as it gets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>theta0</strong> (<em>np array</em>) – initial values</p></li>
+<li><p><strong>binding_args</strong> (<em>dict</em>) – arguments to bind job variables (see <code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code> documentation)</p></li>
+<li><p><strong>**kwargs</strong> – see <code class="xref py py-class docutils literal notranslate"><span class="pre">SPSAMinimize</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="qat.vsolve.optimize.spsa.spsa_minimize">
+<code class="sig-prename descclassname">qat.vsolve.optimize.spsa.</code><code class="sig-name descname">spsa_minimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">theta0</span></em>, <em class="sig-param"><span class="n">maxiter</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">a</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">A</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">0.602</span></em>, <em class="sig-param"><span class="n">c</span><span class="o">=</span><span class="default_value">0.01</span></em>, <em class="sig-param"><span class="n">gamma</span><span class="o">=</span><span class="default_value">0.101</span></em>, <em class="sig-param"><span class="n">precision</span><span class="o">=</span><span class="default_value">0.0001</span></em>, <em class="sig-param"><span class="n">stop_condition</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">a_calibration</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">n_calibrations</span><span class="o">=</span><span class="default_value">25</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.vsolve.optimize.spsa.spsa_minimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns minimum of a function using Simultaneous Perturbation Stochastic Approximation (SPSA)
+optimizer.</p>
+<p class="rubric">References</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Simultaneous_perturbation_stochastic_approximation">https://en.wikipedia.org/wiki/Simultaneous_perturbation_stochastic_approximation</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<em>function</em>) – contains the function to optimize.
+This function has one parameter: a list of parameters to optimize, return a float.</p></li>
+<li><p><strong>theta0</strong> (<em>array</em>) – initial list of parameters to optimize</p></li>
+<li><p><strong>maxiter</strong> (<em>int</em>) – maximal number of iterations</p></li>
+<li><p><strong>A</strong><strong>, </strong><strong>alpha</strong><strong>, </strong><strong>c</strong><strong>, </strong><strong>gamma</strong> (<em>a</em><em>,</em>) – SPSA parameters</p></li>
+<li><p><strong>precision</strong> (<em>float</em>) – stop after ‘stop_condition’ consecutive times when difference between
+two successive function evalutions are lower than precision</p></li>
+<li><p><strong>stop_condition</strong> (<em>int</em><em>, </em><em>optional</em>) – see ‘precision’</p></li>
+<li><p><strong>a_calibration</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether to calibrate a param. Defaults to False</p></li>
+<li><p><strong>n_calibrations</strong> (<em>int</em><em>, </em><em>optional</em>) – </p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – seed for random number generator. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>optimized parameter array, number of function evaluations</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.array, int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="observable-splitter.html" class="btn btn-neutral float-right" title="ObservableSplitter : turning observable sampling into qubit sampling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="qat-lang-arith.html" class="btn btn-neutral float-left" title="Arithmetic routines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Atos 2016-2020
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

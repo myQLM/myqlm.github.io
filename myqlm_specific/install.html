@@ -1,0 +1,384 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installing myQLM &mdash; myQLM documentation myQLM-0.0.7.122 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/contentui.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Getting started" href="../getting_started.html" />
+    <link rel="prev" title="Quantum Application Toolset" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> myQLM documentation
+          
+
+          
+            
+            <img src="../_static/myqlm.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                myQLM-0.0.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installing myQLM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirement">Requirement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install">Install</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#download-myqlm">Download myQLM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-myqlm-wheels">Install myQLM wheels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-myqlm-magics">Install myQLM magics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interoperability">Interoperability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#for-qiskit">For Qiskit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#for-projectq">For ProjectQ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#for-cirq">For Cirq</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#for-pyquil">For PyQuil</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#for-all-of-them">For all of them</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../programming.html">Writing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulating.html">Executing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Architecture and data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_programming.html">Advanced programming using pyAQASM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability in the QLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source_doc.html">Source code documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aqasm.html">The AQASM format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands.html">Command line tools</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">myQLM documentation</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Installing myQLM</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/myqlm_specific/install.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="installing-myqlm">
+<h1>Installing myQLM<a class="headerlink" href="#installing-myqlm" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="requirement">
+<h2>Requirement<a class="headerlink" href="#requirement" title="Permalink to this headline">¶</a></h2>
+<p>This version of myQLM works for Windows (with <strong>python 3.8</strong> version 64 bits) and for
+Linux (with <strong>python 3.6</strong> version 64 bits).</p>
+<p>myQLM is installed using the <em>Package Installer for Python</em> (or pip). If the pip
+command is not installed on your machine, you can
+<a class="reference external" href="https://pip.pypa.io/en/stable/installing/">download pip here</a></p>
+<p>myQLM comes with interactive tutorials (or notebooks). These tutorials require
+Jupyter, if you want to install Jupyter, please type the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">jupyter</span>
+</pre></div>
+</div>
+<p>Moreover, if you want to display myQLM quantum circuits inside Jupyter notebooks, please
+install <a class="reference external" href="http://docs.wand-py.org/en/0.4.1/guide/install.html">ImageMagick for wand.</a></p>
+</div>
+<div class="section" id="install">
+<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="download-myqlm">
+<h3>Download myQLM<a class="headerlink" href="#download-myqlm" title="Permalink to this headline">¶</a></h3>
+<p>myQLM works for Windows and Linux. Please download the version of you want to
+use:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://myqlm.github.io/distrib/myqlm-0.0.7_win64_py3.8.zip">myQLM for Windows 64 bits</a> (for <strong>python 3.8</strong>)</p></li>
+<li><p><a class="reference external" href="https://myqlm.github.io/distrib/myqlm-0.0.7_linux_py3.6.zip">myQLM for Linux</a> (for <strong>python 3.6</strong>)</p></li>
+<li><p><a class="reference external" href="https://myqlm.github.io/distrib/myqlm-0.0.7_tutorial.zip">Interactive notebooks and documentation</a></p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="install-myqlm-wheels">
+<h3>Install myQLM wheels<a class="headerlink" href="#install-myqlm-wheels" title="Permalink to this headline">¶</a></h3>
+<p>Please unzip myQLM archive file. Then, type the following command to install myQLM:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># For Windows</span>
+<span class="n">cd</span> <span class="o">&lt;</span><span class="n">UNZIPPED</span> <span class="n">FOLDER</span><span class="o">&gt;</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>\<span class="n">qat_comm</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span> <span class="o">.</span>\<span class="n">qat_core</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span> <span class="o">.</span>\<span class="n">qat_lang</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span> <span class="o">.</span>\<span class="n">qat_variational</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span> <span class="o">.</span>\<span class="n">myqlm_simulators</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="nb">any</span><span class="o">.</span><span class="n">whl</span>
+
+<span class="c1"># For Linux</span>
+<span class="n">cd</span> <span class="o">&lt;</span><span class="n">UNZIPPED</span> <span class="n">FOLDER</span><span class="o">&gt;</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">./</span><span class="n">qat_comm</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">linux_x86_64</span><span class="o">.</span><span class="n">whl</span> <span class="o">./</span><span class="n">qat_core</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">linux_x86_64</span><span class="o">.</span><span class="n">whl</span> <span class="o">./</span><span class="n">qat_lang</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">linux_x86_64</span><span class="o">.</span><span class="n">whl</span> <span class="o">./</span><span class="n">qat_variational</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">linux_x86_64</span><span class="o">.</span><span class="n">whl</span> <span class="o">./</span><span class="n">myqlm_simulators</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="nb">any</span><span class="o">.</span><span class="n">whl</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-myqlm-magics">
+<h3>Install myQLM magics<a class="headerlink" href="#install-myqlm-magics" title="Permalink to this headline">¶</a></h3>
+<p>myQLM provides tools to display quantum circuits inside Jupyter notebooks. These
+magics may be installed using the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">qat</span><span class="o">.</span><span class="n">magics</span><span class="o">.</span><span class="n">install</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="interoperability">
+<h3>Interoperability<a class="headerlink" href="#interoperability" title="Permalink to this headline">¶</a></h3>
+<p>This package enables access to other quantum programming environments such as
+Qiskit, projectQ, pyQuil, Cirq …
+This package will not automatically install dependency packages because someone who
+want to interface with Qiskit may not want to interface with Cirq… The desired
+quantum environment can be cherry picked using the pip command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># For Windows</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>\<span class="n">myqlm_interop</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span><span class="p">[</span><span class="o">&lt;</span><span class="n">PACKAGE</span><span class="o">&gt;</span><span class="n">_binder</span><span class="p">]</span>
+
+<span class="c1"># For Linux</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">./</span><span class="n">myqlm_interop</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">linux_x86_64</span><span class="o">.</span><span class="n">whl</span><span class="p">[</span><span class="o">&lt;</span><span class="n">PACKAGE</span><span class="o">&gt;</span><span class="n">_binder</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="for-qiskit">
+<h4>For Qiskit<a class="headerlink" href="#for-qiskit" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># For Windows</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>\<span class="n">myqlm_interop</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span><span class="p">[</span><span class="n">qiskit_binder</span><span class="p">]</span>
+
+<span class="c1"># For Linux</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">./</span><span class="n">myqlm_interop</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">linux_x86_64</span><span class="o">.</span><span class="n">whl</span><span class="p">[</span><span class="n">qiskit_binder</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="for-projectq">
+<h4>For ProjectQ<a class="headerlink" href="#for-projectq" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># For Windows</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>\<span class="n">myqlm_interop</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span><span class="p">[</span><span class="n">projectq_binder</span><span class="p">]</span>
+
+<span class="c1"># For Linux</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">./</span><span class="n">myqlm_interop</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">linux_x86_64</span><span class="o">.</span><span class="n">whl</span><span class="p">[</span><span class="n">projectq_binder</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="for-cirq">
+<h4>For Cirq<a class="headerlink" href="#for-cirq" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># For Windows</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>\<span class="n">myqlm_interop</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span><span class="p">[</span><span class="n">cirq_binder</span><span class="p">]</span>
+
+<span class="c1"># For Linux</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">./</span><span class="n">myqlm_interop</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">linux_x86_64</span><span class="o">.</span><span class="n">whl</span><span class="p">[</span><span class="n">cirq_binder</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="for-pyquil">
+<h4>For PyQuil<a class="headerlink" href="#for-pyquil" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># For Windows</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>\<span class="n">myqlm_interop</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span><span class="p">[</span><span class="n">pyquil_binder</span><span class="p">]</span>
+
+<span class="c1"># For Linux</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">./</span><span class="n">myqlm_interop</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">linux_x86_64</span><span class="o">.</span><span class="n">whl</span><span class="p">[</span><span class="n">pyquil_binder</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="for-all-of-them">
+<h4>For all of them<a class="headerlink" href="#for-all-of-them" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># For Windows</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>\<span class="n">myqlm_interop</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span><span class="p">[</span><span class="nb">all</span><span class="p">]</span>
+
+<span class="c1"># For Linux</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">./</span><span class="n">myqlm_interop</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">py3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">linux_x86_64</span><span class="o">.</span><span class="n">whl</span><span class="p">[</span><span class="nb">all</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../getting_started.html" class="btn btn-neutral float-right" title="Getting started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral float-left" title="Quantum Application Toolset" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Atos 2016-2020
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

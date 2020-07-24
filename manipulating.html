@@ -1,0 +1,601 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Building custom execution stacks &mdash; myQLM documentation myQLM-0.0.7.122 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/contentui.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Architecture and data structures" href="introduction.html" />
+    <link rel="prev" title="Executing quantum circuits" href="simulating.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> myQLM documentation
+          
+
+          
+            
+            <img src="_static/myqlm.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                myQLM-0.0.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/install.html">Installing myQLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programming.html">Writing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulating.html">Executing quantum circuits</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Building custom execution stacks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plugins-information-flow">Plugins &amp; information flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-your-own-plugin">Writing your own plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-expressive-stacks-using-junctions">Building expressive stacks using Junctions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#connecting-to-a-remote-plugin">Connecting to a remote Plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#server-mode">Server mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#client-mode">Client mode</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source_doc.html">Source code documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Command line tools</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">myQLM documentation</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Building custom execution stacks</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/manipulating.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="building-custom-execution-stacks">
+<span id="manipulating"></span><h1>Building custom execution stacks<a class="headerlink" href="#building-custom-execution-stacks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="plugins-information-flow">
+<h2>Plugins &amp; information flow<a class="headerlink" href="#plugins-information-flow" title="Permalink to this headline">¶</a></h2>
+<p>When dealing with low level objects such as quantum circuits or execution results (e.g samples), it becomes quickly necessary to have a fine control over how the information is processed and transformed.</p>
+<p>In order to simplify the design of applications, QLM comes with an additional API, called <code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code>.
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code> are object that can process a flow of quantum circuits (or jobs) on their way to a <code class="xref py py-class docutils literal notranslate"><span class="pre">QPU</span></code>, and/or process a flow of information (samples or values) on their way back from a <code class="xref py py-class docutils literal notranslate"><span class="pre">QPU</span></code>.</p>
+<p>Their API is composed of two methods:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>compile</strong> for the way in (i.e from the user to the <code class="xref py py-class docutils literal notranslate"><span class="pre">QPU</span></code>).
+This method will take a <a class="reference internal" href="qat-core.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a> together with some
+<a class="reference internal" href="qat-core.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a> and return a new
+<a class="reference internal" href="qat-core.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>.</p></li>
+<li><p><strong>post_process</strong> for the way out (i.e from the <code class="xref py py-class docutils literal notranslate"><span class="pre">QPU</span></code> to the user).
+This method will process a <a class="reference internal" href="qat-core.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a> and return
+either a <a class="reference internal" href="qat-core.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a> or a new
+<a class="reference internal" href="qat-core.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a> that should go back to the <code class="xref py py-class docutils literal notranslate"><span class="pre">QPU</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<p>This simple semantics allow to compose <code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code> to form expressive compilation stacks and extend the features provided by a <code class="xref py py-class docutils literal notranslate"><span class="pre">QPU</span></code>.</p>
+<p>Creating a stack using plugins is quite straightforward:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_stack</span> <span class="o">=</span> <span class="n">plugin1</span> <span class="o">|</span> <span class="n">plugin2</span> <span class="o">|</span> <span class="o">..</span> <span class="o">|</span> <span class="n">my_qpu</span>
+</pre></div>
+</div>
+<p>In this code, when a fresh batch or job is submitted, the batch will run through the <code class="xref py py-meth docutils literal notranslate"><span class="pre">compile()</span></code> of <cite>plugin1</cite>, the resulting batch will run through the <code class="xref py py-meth docutils literal notranslate"><span class="pre">compile()</span></code> of <cite>plugin2</cite>, etc.
+When reaching <cite>my_qpu</cite> the execution will start, and the results will be processed in reversed order on their way back.</p>
+<p>Overall the information flow can be summed up as follows:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/plugin_qpu.png"><img alt="_images/plugin_qpu.png" src="_images/plugin_qpu.png" style="width: 448.5px; height: 169.5px;" /></a>
+</div>
+<p>Plugins can be used to perform a wide range of transformations. Some of them are detailed in this section.</p>
+<p>See <a class="reference internal" href="source_doc.html#plugins"><span class="std std-ref">Plugins</span></a> for a list of all available plugins.</p>
+<p>But more importantly, it is quite simple to write your own QLM compatible plugin. You will find below all the details to define and run your own plugin.</p>
+</div>
+<div class="section" id="writing-your-own-plugin">
+<span id="own-plugin"></span><h2>Writing your own plugin<a class="headerlink" href="#writing-your-own-plugin" title="Permalink to this headline">¶</a></h2>
+<p>The basic API of the <code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code> service is described by the abstract class <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractPlugin</span></code>.</p>
+<p>In order to inherit from all the features of the <code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code> class, you should start by inheriting from <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractPlugin</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.plugins</span> <span class="kn">import</span> <span class="n">AbstractPlugin</span>
+
+<span class="k">class</span> <span class="nc">MyPlugin</span><span class="p">(</span><span class="n">AbstractPlugin</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">MyPlugin</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">6</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">TypeError</span><span class="p">:</span> <span class="n">Can</span><span class="s1">&#39;t instantiate abstract class MyPlugin with abstract methods compile, do_post_processing, post_process</span>
+</pre></div>
+</div>
+<p>Of course, we need to implement the basic Plugin API via the two methods <strong>compile</strong> (way in) and <strong>post_process</strong> (way out). As you can see, there is also a third method required: <strong>do_post_processing</strong>.
+We will discuss this method later.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.plugins</span> <span class="kn">import</span> <span class="n">AbstractPlugin</span>
+
+<span class="k">class</span> <span class="nc">MyPlugin</span><span class="p">(</span><span class="n">AbstractPlugin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">hardware_specs</span><span class="p">):</span>
+        <span class="c1"># do something with the batch of jobs `batch`, and, eventually, the specs</span>
+        <span class="k">return</span> <span class="n">batch</span>
+
+    <span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_result</span><span class="p">):</span>
+        <span class="c1"># do something with the execution results</span>
+        <span class="c1"># here, we could also return a batch of fresh jobs</span>
+        <span class="k">return</span> <span class="n">batch_result</span>
+
+    <span class="k">def</span> <span class="nf">do_post_processing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+<span class="n">MyPlugin</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As you can see, our plugin is now “valid” and can be instantiated.
+For now, it is not a very useful plugin.
+Since our plugin inherits from the  <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractPlugin</span></code> class, we can compose it with a QPU to build a stack:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.plugins</span> <span class="kn">import</span> <span class="n">AbstractPlugin</span>
+
+<span class="k">class</span> <span class="nc">MyPlugin</span><span class="p">(</span><span class="n">AbstractPlugin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">hardware_specs</span><span class="p">):</span>
+        <span class="c1"># do something with the batch of jobs `batch`, and, eventually, the specs</span>
+        <span class="k">return</span> <span class="n">batch</span>
+
+    <span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_result</span><span class="p">):</span>
+        <span class="c1"># do something with the execution results</span>
+        <span class="k">return</span> <span class="n">batch_result</span> <span class="c1"># you can also return a new batch of jobs here</span>
+
+    <span class="k">def</span> <span class="nf">do_post_processing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+<span class="n">MyPlugin</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">PyLinalg</span>
+
+<span class="n">my_stack</span> <span class="o">=</span> <span class="n">MyPlugin</span><span class="p">()</span> <span class="o">|</span> <span class="n">PyLinalg</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qb</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">my_stack</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span><span class="o">.</span><span class="n">to_job</span><span class="p">()):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">000</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">001</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">010</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">011</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">100</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">101</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">110</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">111</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let us change our code so that our plugin prints any incoming circuit:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.plugins</span> <span class="kn">import</span> <span class="n">AbstractPlugin</span>
+
+<span class="k">class</span> <span class="nc">MyPlugin</span><span class="p">(</span><span class="n">AbstractPlugin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">hardware_specs</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">job</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">jobs</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&gt;&gt; Job #</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">batch</span>
+
+    <span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_result</span><span class="p">):</span>
+        <span class="c1"># do something with the execution results</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">batch_result</span><span class="o">.</span><span class="n">results</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Result of size&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">raw_data</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">batch_result</span>
+
+    <span class="k">def</span> <span class="nf">do_post_processing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+<span class="n">MyPlugin</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">PyLinalg</span>
+
+<span class="n">my_stack</span> <span class="o">=</span> <span class="n">MyPlugin</span><span class="p">()</span> <span class="o">|</span> <span class="n">PyLinalg</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qb</span><span class="p">)</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+<span class="c1"># Let&#39;s submit 3 times our job in a single go</span>
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">my_stack</span><span class="o">.</span><span class="n">submit</span><span class="p">([</span><span class="n">job</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">Job</span> <span class="c1">#0</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="o">&gt;&gt;</span> <span class="n">Job</span> <span class="c1">#1</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="o">&gt;&gt;</span> <span class="n">Job</span> <span class="c1">#2</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">Result</span> <span class="n">of</span> <span class="n">size</span> <span class="mi">8</span>
+<span class="n">Result</span> <span class="n">of</span> <span class="n">size</span> <span class="mi">8</span>
+<span class="n">Result</span> <span class="n">of</span> <span class="n">size</span> <span class="mi">8</span>
+<span class="n">Result</span><span class="p">(</span><span class="n">need_flip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lsb_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nbqbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">has_statevector</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">statevector</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">=</span><span class="p">[</span><span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">000</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">001</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">010</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">011</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">100</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">101</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">110</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">111</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)],</span> <span class="n">error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">meta_data</span><span class="o">=</span><span class="p">{},</span> <span class="n">in_memory</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Result</span><span class="p">(</span><span class="n">need_flip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lsb_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nbqbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">has_statevector</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">statevector</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">=</span><span class="p">[</span><span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">000</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">001</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">010</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">011</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">100</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">101</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">110</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">111</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)],</span> <span class="n">error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">meta_data</span><span class="o">=</span><span class="p">{},</span> <span class="n">in_memory</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Result</span><span class="p">(</span><span class="n">need_flip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lsb_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nbqbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">has_statevector</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">statevector</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">=</span><span class="p">[</span><span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">000</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">001</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">010</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">011</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">100</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">101</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">110</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">111</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)],</span> <span class="n">error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">meta_data</span><span class="o">=</span><span class="p">{},</span> <span class="n">in_memory</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As you can see, the plugin saw the 3 jobs on their way in and the three results on their way out!</p>
+<p>Finally, let’s change the implementation of the <cite>do_post_processing</cite> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.plugins</span> <span class="kn">import</span> <span class="n">AbstractPlugin</span>
+
+<span class="k">class</span> <span class="nc">MyPlugin</span><span class="p">(</span><span class="n">AbstractPlugin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">hardware_specs</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">job</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">jobs</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&gt;&gt; Job #</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">batch</span>
+
+    <span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_result</span><span class="p">):</span>
+        <span class="c1"># do something with the execution results</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">batch_result</span><span class="o">.</span><span class="n">results</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Result of size&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">raw_data</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">batch_result</span>
+
+    <span class="k">def</span> <span class="nf">do_post_processing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<span class="n">MyPlugin</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">PyLinalg</span>
+
+<span class="n">my_stack</span> <span class="o">=</span> <span class="n">MyPlugin</span><span class="p">()</span> <span class="o">|</span> <span class="n">PyLinalg</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qb</span><span class="p">)</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+<span class="c1"># Let&#39;s submit 3 times our job in a single go</span>
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">my_stack</span><span class="o">.</span><span class="n">submit</span><span class="p">([</span><span class="n">job</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">Job</span> <span class="c1">#0</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="o">&gt;&gt;</span> <span class="n">Job</span> <span class="c1">#1</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="o">&gt;&gt;</span> <span class="n">Job</span> <span class="c1">#2</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">Result</span><span class="p">(</span><span class="n">need_flip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lsb_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nbqbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">has_statevector</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">statevector</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">=</span><span class="p">[</span><span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">000</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">001</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">010</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">011</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">100</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">101</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">110</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">111</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)],</span> <span class="n">error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">meta_data</span><span class="o">=</span><span class="p">{},</span> <span class="n">in_memory</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Result</span><span class="p">(</span><span class="n">need_flip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lsb_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nbqbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">has_statevector</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">statevector</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">=</span><span class="p">[</span><span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">000</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">001</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">010</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">011</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">100</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">101</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">110</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">111</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)],</span> <span class="n">error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">meta_data</span><span class="o">=</span><span class="p">{},</span> <span class="n">in_memory</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Result</span><span class="p">(</span><span class="n">need_flip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lsb_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nbqbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">has_statevector</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">statevector</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">=</span><span class="p">[</span><span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">000</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">001</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">010</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">011</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">100</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">101</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">110</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">111</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)],</span> <span class="n">error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">meta_data</span><span class="o">=</span><span class="p">{},</span> <span class="n">in_memory</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Since the method now returns <cite>False</cite>, the stack will skip the plugin <cite>post_process</cite> method. This is useful when a Plugin does not need to post process the outgoing results. In the case where the Plugin is delocalized (i.e is a distant service), this will save a lot of time.</p>
+</div>
+<div class="section" id="building-expressive-stacks-using-junctions">
+<h2>Building expressive stacks using Junctions<a class="headerlink" href="#building-expressive-stacks-using-junctions" title="Permalink to this headline">¶</a></h2>
+<p>If Plugins can be seen as two-way pipes that transform quantum programs on the way in and execution result on the way back, Junction can be seen as, well, junctions, in this piping system.
+More precisely, they provide a simple interface to embed repeated, adaptative, classical computations in the middle on the execution stack.</p>
+<p>The simpler, and most widely used example would the one of a variational optimizer dealing with a variational eigensolving procedure.
+In this setting, the incoming <a class="reference internal" href="qat-core.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> is an “abstract” job with open angles or variables. The optimizer would like to start and iteratively give these angles some value, evaluate the energy for this set of values and iterate until satfisfied.
+Of couse, it is completely possible to deal with this type of routines outside of the QLM stack, but this might prevent some optimized workflow where the job is first compiled and optimized for a given architecture and only then enters the variational solver.</p>
+<p>With junctions, it is rather trivial to embed any such adaptative treatment after the compilation and optimization stage of the stack.</p>
+<p>Lets see how this works!</p>
+<p>In the following example, we will construct a quite naive junction that will process a quantum circuit with a single parameter and iteratively try all the values for this parameter with some step width. After having explored the search space, it will return the best (i.e least) ecountered value.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.plugins</span> <span class="kn">import</span> <span class="n">Junction</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Result</span>
+
+<span class="k">class</span> <span class="nc">IterativeExploration</span><span class="p">(</span><span class="n">Junction</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nsteps</span><span class="o">=</span><span class="mi">23</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">IterativeExploration</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nsteps</span> <span class="o">=</span> <span class="n">nsteps</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_job</span><span class="p">):</span>
+        <span class="n">job</span> <span class="o">=</span> <span class="n">initial_job</span>
+        <span class="n">variable</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">()</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nsteps</span><span class="p">)</span>
+        <span class="n">all_values</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">angles</span><span class="p">:</span>
+            <span class="n">current_job</span> <span class="o">=</span> <span class="n">job</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">variable</span><span class="p">:</span> <span class="n">val</span><span class="p">})</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">current_job</span><span class="p">)</span>
+            <span class="n">all_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">min_val</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">all_values</span><span class="p">)</span>
+        <span class="n">best_index</span> <span class="o">=</span> <span class="n">all_values</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">min_val</span><span class="p">)</span>
+        <span class="n">best_param</span> <span class="o">=</span> <span class="n">angles</span><span class="p">[</span><span class="n">best_index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">Result</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">min_val</span><span class="p">,</span> <span class="n">meta_data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;best_param&quot;</span><span class="p">:</span> <span class="n">best_param</span><span class="p">})</span>
+
+
+<span class="c1"># Building a simple stack</span>
+<span class="n">qpu</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span>
+<span class="n">stack</span> <span class="o">=</span> <span class="n">IterativeExploration</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="o">|</span> <span class="n">qpu</span>
+
+
+<span class="c1"># and a simple job</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RY</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">RY</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\beta&quot;</span><span class="p">)),</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">Observable</span><span class="o">.</span><span class="n">sigma_z</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best value:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;for beta =&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">meta_data</span><span class="p">[</span><span class="s2">&quot;best_param&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Best</span> <span class="n">value</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.9979453927503363</span> <span class="k">for</span> <span class="n">beta</span> <span class="o">=</span> <span class="mf">3.077478517802246</span>
+</pre></div>
+</div>
+<p>So who does it work?
+The <cite>run</cite> method is the entry point of our repeated procedure. This method will be called by the junction upon reception of a new abstract job from the higher part of the stack.
+You can write anything you want inside this method. In addition, the junction interface gives you acces to another method: the <cite>execute</cite> method.
+This method can be seen as a <cite>submit</cite> method. It takes a qlm job and transmit it down to the rest of the stack and get back the result.</p>
+<p>Here, on our example, we simply iteratively bind the value of the parameter (using the overloaded __call__ operator of the Job object), execute this job and store the result in a list.</p>
+<p>Notice also that we need to return a proper QLM result object. This is so that the result can be, in turn, post processed by the upper part of the stack.</p>
+<p>If you don’t want to bother with the (quite low) administrative burden of binding the variables and extracting the value attribute, the <a class="reference internal" href="qat-core.html#qat.plugins.Optimizer" title="qat.plugins.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.Optimizer</span></code></a> class provides a slightly simpler API that particularizes the junction API to fit to the one required by most variational optimizers (see the source code documentation for more precisions).</p>
+</div>
+<div class="section" id="connecting-to-a-remote-plugin">
+<h2>Connecting to a remote Plugin<a class="headerlink" href="#connecting-to-a-remote-plugin" title="Permalink to this headline">¶</a></h2>
+<p>Any Plugin can be started in server mode. Instead of compiling a batch locally,
+a client could connect to the remote plugin to compile the batch. This section
+explains the creation of a server and how to a client could connect to this
+server</p>
+<div class="section" id="server-mode">
+<h3>Server mode<a class="headerlink" href="#server-mode" title="Permalink to this headline">¶</a></h3>
+<p>Any plugin has a method <a class="reference internal" href="qat-core.html#qat.plugins.AbstractPlugin.serve" title="qat.plugins.AbstractPlugin.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a> used to start
+the plugin in server mode</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.plugins</span> <span class="kn">import</span> <span class="n">ObservableSplitter</span>
+
+<span class="c1"># Define a PORT and an IP</span>
+<span class="n">PORT</span> <span class="o">=</span> <span class="mi">1234</span>
+<span class="n">IP</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
+
+<span class="c1"># Create a plugin and start it in server mode</span>
+<span class="n">plugin</span> <span class="o">=</span> <span class="n">ObservableSplitter</span><span class="p">()</span>
+<span class="n">plugin</span><span class="o">.</span><span class="n">serve</span><span class="p">(</span><span class="n">PORT</span><span class="p">,</span> <span class="n">IP</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Any plugin could be started in server mode.</p>
+</div>
+<div class="section" id="client-mode">
+<h3>Client mode<a class="headerlink" href="#client-mode" title="Permalink to this headline">¶</a></h3>
+<p>If a Plugin has been started in server mode, the class
+<code class="xref py py-class docutils literal notranslate"><span class="pre">RemotePlugin</span></code> can be used to connect to this
+remote plugin</p>
+<p>Assuming a server is listening to the port <code class="code docutils literal notranslate"><span class="pre">1234</span></code> and the IP of this
+server is <code class="code docutils literal notranslate"><span class="pre">127.0.0.1</span></code>, the following code can be used to connect to the
+server:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.plugins</span> <span class="kn">import</span> <span class="n">RemotePlugin</span>
+
+<span class="c1"># Define PORT and IP</span>
+<span class="n">PORT</span> <span class="o">=</span> <span class="mi">1234</span>
+<span class="n">IP</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
+
+<span class="c1"># Connect to the server</span>
+<span class="n">plugin</span> <span class="o">=</span> <span class="n">RemotePlugin</span><span class="p">(</span><span class="n">PORT</span><span class="p">,</span> <span class="n">IP</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="code docutils literal notranslate"><span class="pre">plugin</span></code> object is a plugin, this object could be piped to extra
+plugins and QPUs. The connection is synchronous, therefore, if the client is
+disconnected during the compilation or during the post processing step, results
+of the computation are lost.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="introduction.html" class="btn btn-neutral float-right" title="Architecture and data structures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="simulating.html" class="btn btn-neutral float-left" title="Executing quantum circuits" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Atos 2016-2020
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

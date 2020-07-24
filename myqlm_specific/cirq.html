@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Cirq interoperations &mdash; myQLM documentation myQLM-0.0.7.122 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/contentui.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Projectq interoperations" href="projectq.html" />
+    <link rel="prev" title="Pyquil interoperations" href="pyquil.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> myQLM documentation
+          
+
+          
+            
+            <img src="../_static/myqlm.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                myQLM-0.0.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing myQLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../programming.html">Writing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulating.html">Executing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Architecture and data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_programming.html">Advanced programming using pyAQASM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications.html">Applications</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="interoperability.html">Interoperability in the QLM</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="qiskit.html">Qiskit interoperations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyquil.html">Pyquil interoperations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Cirq interoperations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="projectq.html">Projectq interoperations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openqasm.html">Openqasm Compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../source_doc.html">Source code documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-core-library">The core library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-programming-library">The programming library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#plugins">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#qpus">QPUs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../source_doc.html#interoperations-with-other-frameworks">Interoperations with other frameworks</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="interoperability.html">Interoperability in the QLM</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="qiskit.html">Qiskit interoperations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyquil.html">Pyquil interoperations</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Cirq interoperations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projectq.html">Projectq interoperations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="openqasm.html">Openqasm Compiler</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#combinatorial-optimization-and-qaoa">Combinatorial optimization and QAOA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../aqasm.html">The AQASM format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands.html">Command line tools</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">myQLM documentation</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="interoperability.html">Interoperability in the QLM</a> &raquo;</li>
+        
+      <li>Cirq interoperations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/myqlm_specific/cirq.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-qat.interop.cirq.converters">
+<span id="cirq-interoperations"></span><h1>Cirq interoperations<a class="headerlink" href="#module-qat.interop.cirq.converters" title="Permalink to this headline">¶</a></h1>
+<p>Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+“License”); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at</p>
+<p><a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+“AS IS” BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.</p>
+<dl class="py function">
+<dt id="qat.interop.cirq.converters.cirq_to_qlm">
+<code class="sig-prename descclassname">qat.interop.cirq.converters.</code><code class="sig-name descname">cirq_to_qlm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cirq</span></em>, <em class="sig-param"><span class="n">sep_measures</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.cirq.converters.cirq_to_qlm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a google cirq circuit to a qlm circuit</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cirq</strong> – the cirq circuit to convert</p></li>
+<li><p><strong>sep_measures</strong> – if set to True measures won’t be included in the        resulting circuits, qubits to be measured will be put in a list,        the resulting measureless circuit and this list will be returned        in a tuple: (resulting_circuit, list_qubits).        If set to False, measures will be converted normally(Defaults to False)</p></li>
+<li><p><strong>kwargs</strong> – these are the options that you would use on a regular         to_circ function, to generate a QLM circuit from a PyAQASM program these are added for more flexibility, for advanced users</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>if sep_measures is True a tuple of two elements will be returned,
+first one is the QLM resulting circuit with no measures, and the
+second element of the returned tuple is a list of all qubits that
+should be measured.
+if sep_measures is False, the QLM resulting circuit is returned
+directly</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="qat.interop.cirq.converters.qlm_to_cirq">
+<code class="sig-prename descclassname">qat.interop.cirq.converters.</code><code class="sig-name descname">qlm_to_cirq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qlm_circuit</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.cirq.converters.qlm_to_cirq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a QLM circuit to a cirq circuit.
+:param qlm_circuit: the input QLM circuit to convert</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A cirq Circuit object resulting from the conversion</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="projectq.html" class="btn btn-neutral float-right" title="Projectq interoperations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pyquil.html" class="btn btn-neutral float-left" title="Pyquil interoperations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Atos 2016-2020
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

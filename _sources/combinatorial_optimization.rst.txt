@@ -1,0 +1,269 @@
+.. _combinatorial-optimization:
+
+Combinatorial optimization
+==========================
+
+.. only:: qlm
+
+    This section describes how to define and solve combinatorial problems using QLM tools.
+
+.. only:: myqlm
+
+    This section describes how to define and solve combinatorial problems using myQLM tools.
+
+
+Declaring and manipulating combinatorial problems
+----------------------------------------------------
+
+The most generic class used to describe combinatorial problems is the :class:`qat.opt.CombinatorialProblem` class.
+It provides a simple interface to declare boolean variables and clauses, and ways to turn abstract problems into :class:`~qat.core.Job` or objects that can be fed to solvers.
+
+In the (quite common case) where the problem's clauses only involve at most two variables at a time (QUBO), we also provide a couple of optimized classes to describe the problem
+directly in terms of Ising coupling matrix or QUBO :math:`Q` matrix (see below).
+Back-and-forth translations are avaible between the three problem classes using the :meth:`.to_XXX` methods.
+
+
+Generic combinatorial optimization
+_______________________________________________
+
+.. autoclass:: qat.opt.CombinatorialProblem
+    :members:
+
+Clauses (:class:`~qat.opt.boolexpr.Clause`) are declared by combining variables (:class:`~qat.opt.boolexpr.Var`). The cost Hamiltonian extraction is handled by the 
+(:class:`~qat.opt.boolexpr.Clause`) class. The final cost Hamiltonian constits of the weighted sum of the cost Hamiltonian of its clauses.
+
+.. autoclass:: qat.opt.boolexpr.Clause
+    :members: get_observable
+
+The variable class is quite simple and overloads logical operators to closely interact with the `Clause` class:
+
+.. autoclass:: qat.opt.boolexpr.Var
+    :members:
+
+
+Quadratic problems: QUBO and Ising
+_______________________________________________
+
+.. autoclass:: qat.opt.QUBO
+    :members:
+
+.. autoclass:: qat.opt.Ising
+    :members:
+
+
+Generate QAOA Ansatz
+-------------------------
+
+The Quantum Approximate Optimization Algorithms is a heuristics to design variational Ansätze for combinatorial optimization. It consists in a digitalization of an analog evolution using a linear ramp, starting from a simple initial Hamiltonian :math:`H_0 = - \sum_i \sigma_x^i` to a diagonal Hamiltonian whose ground state encodes the solution to our problem.
+This digitalization leads to a layered parametrized quantum circuit consisting of entangling layers sperated by collective :math:`R_X` rotations. 
+
+QAOA Ansätze are usually parametrized by a `depth` parameter specifying the number of alternating layers.
+
+It is possible to directly generate ready to run QAOA jobs (containing an Ansatz and the target Hamiltonian) from an instance 
+of :class:`qat.opt.CombinatorialProblem`/:class:`qat.opt.QUBO`/:class:`qat.opt.Ising` instance via the follwing interface: 
+
+.. autoclass:: qat.opt.circuit_generator.CircuitGenerator
+    :members: qaoa_ansatz
+
+
+The :class:`qat.vsolve.ansatz.AnsatzFactory` provides a recipe to produce such a variational circuits from a target Hamiltonian.
+
+.. autoclass:: qat.vsolve.ansatz.AnsatzFactory
+    :members: qaoa_circuit
+
+.. _problems:
+
+Encoding NP-hard Problems
+---------------------------
+
+.. only:: qlm
+
+    We present here classes for encoding some of the famous NP problems. An instrinsic feature of these problems is that they can be formulated as minimization or maximization problems, i.e. with a cost function. At the same time finding the lowest energy of a physical system, represented by a cost Hamiltonian, is also a minimization problem. Therefore, we can represent the cost function of an NP problem by a cost Hamiltonian. Such a Hamiltonian, given in an Ising form can then be annealed using Simulated Quantum Annealing (SQA). The QLM is equipped with tools for performing SQA, hence allowing one to solve the NP problems in this way.
+
+.. only:: myqlm
+
+    We present here classes for encoding some of the famous NP problems. An instrinsic feature of these problems is that they can be formulated as minimization or maximization problems, i.e. with a cost function. At the same time finding the lowest energy of a physical system, represented by a cost Hamiltonian, is also a minimization problem. Therefore, we can represent the cost function of an NP problem by a cost Hamiltonian. Such a Hamiltonian, given in an Ising form can then be annealed using Simulated Quantum Annealing (SQA).
+
+
+Furthermore, problems formulated as Quadratic Unconstrained Binany Optimisation (QUBO), can also be annealed, since we can translate them to Ising via our :func:`~qat.opt.QUBO.to_ising` method.
+
+.. only:: myqlm
+
+        .. note::
+        
+                The Simulated Quantum Annealing is not available in myQLM.
+                QUBO and Ising problems can still be used to construct QAOA
+                Ansätze using the `.qaoa_ansatz` method.
+
+Unconstrained Graph Problems
+____________________________
+
+These are problems concerning graphs, for which any outputted result is valid. In other words, any solution will obey the criteria for a right solution. However, this result may not be the most optimal.
+Some unconstraned problems along with classes for their encoding are described below - Max Cut and Graph Partitioning.
+
+.. _maxcut:
+
+Max cut
+~~~~~~~
+
+We are given an undirected graph with vertex set :math:`V` and edge set :math:`E`. The task is to partition the graph into two subgraphs connected by the maximum number of edges. To anneal the problem with the :class:`~qat.opt.max_cut.MaxCut` class we would need :math:`N` spins for each of the vertices in the graph.
+
+.. autoclass:: qat.opt.max_cut.MaxCut
+       :members:
+       
+.. autofunction:: qat.opt.max_cut.produce_j_h_and_offset
+
+.. _graph-partitioning:
+
+Graph Partitioning
+~~~~~~~~~~~~~~~~~~
+
+We start with an undirected graph with vertex set :math:`V` and edge set :math:`E`. The task is to partition the graph into two equally-sized subgraphs connected by the minimal number of edges. In order to anneal the problem with the :class:`~qat.opt.graph_partitioning.GraphPartitioning` class we will need :math:`N` spins for each individual vertex.
+
+.. autoclass:: qat.opt.graph_partitioning.GraphPartitioning
+       :members:
+
+.. autofunction:: qat.opt.graph_partitioning.produce_j_h_and_offset
+
+Constrained Graph Problems
+__________________________
+
+A graph problem is constrained when the output solution needs to obey some conditions in order to be valid. For example, Graph Colouring requires that every two nodes connected by an edge are coloured differently - so if the solution graph does not have this property, it is not valid. Therefore, we call constrained all problems with conditional correctness of their solutions.
+
+Some examples of constrained problems are described below - Graph Colouring, K-Clique and Vertex Cover, along with classes for their encoding. 
+
+.. _colouring:
+
+Graph Colouring
+~~~~~~~~~~~~~~~
+
+We are given an undirected graph with vertex set :math:`V` and edge set :math:`E` and a a set of :math:`n` colours. Our task is find whether we can colour every node of the graph in one of these :math:`n` colours such that no edge connects nodes of the same colour. We therefore need :math:`nN` spins to anneal the problem with our :class:`~qat.opt.graph_colouring.GraphColouring` class, where :math:`N` is the number of vertices of the graph. The classical complexity of the best known approximate algorithm for this problem is :math:`O(N(log log N)^2 (log N)^3)`.
+
+.. autoclass:: qat.opt.graph_colouring.GraphColouring
+          :members:
+
+.. autofunction:: qat.opt.graph_colouring.produce_q_and_offset
+
+.. _kclique:
+
+K-Clique
+~~~~~~~~
+
+We start from an undirected graph with vertex set :math:`V` and edge set :math:`E`. The task is to find out whether there exists a complete subgraph of size :math:`K`. Annealing the problem with the help of our :class:`~qat.opt.k_clique.KClique` class requires :math:`N` spins for each of the vertices. 
+
+.. autoclass:: qat.opt.k_clique.KClique
+          :members:
+
+.. autofunction:: qat.opt.k_clique.produce_q_and_offset
+
+.. _vertex-cover:
+
+Vertex Cover
+~~~~~~~~~~~~
+
+We are given an undirected graph with vertex set :math:`V` and edge set :math:`E`. Our task is to find the smallest number of nodes to be coloured, such that every edge has a coloured vertex. As an addition, we want to know which these vertices are. To anneal this problem we would need our :class:`~qat.opt.vertex_cover.VertexCover` class with :math:`N` spins for each individual vertex. 
+
+.. autoclass:: qat.opt.vertex_cover.VertexCover
+             :members:
+
+.. autofunction:: qat.opt.vertex_cover.produce_q_and_offset
+
+Other problems
+______________
+
+Here we present problems which are more numbers-oriented, for example Number Partitioning and Binary Integer Linear Programming, as described below. These also belong to the class of NP and can be solved via Simulated Quantum Annealing.
+
+.. _number-partitioning:
+
+Number Partitioning
+~~~~~~~~~~~~~~~~~~~
+
+We start from a set of real and potentially repeating numbers and our task is to partition them in two subsets, such that the sum of the numbers in both of them is equal (or as close as possible). To obtain an answer, we would need to use our :class:`~qat.opt.number_partitioning.NumberPartitioning` class and anneal :math:`N` spins, where :math:`N` is the size of the set of numbers. 
+
+.. autoclass:: qat.opt.number_partitioning.NumberPartitioning
+          :members:
+
+.. autofunction:: qat.opt.number_partitioning.produce_j_h_and_offset
+
+.. _bilp:
+
+Binary Integer Linear Programming
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We are given a vector :math:`c` of size :math:`N` and we want to find the vector :math:`x` of the same size, but with binary values (i.e. 0 and 1) such that their dot product :math:`c*x` is largest. However, there is a constraint for :math:`x`, namely :math:`S*x = b` for some specified :math:`m \times N` matrix :math:`S` and vector :math:`b` of size :math:`m`. In order to simulate quantum anneaing, we would need our :class:`~qat.opt.binary_linear_integer_programming.BILP` class and :math:`N` spins for encoding each of the binary values in :math:`x`. 
+
+.. autoclass:: qat.opt.binary_linear_integer_programming.BILP
+          :members:
+          
+.. autofunction:: qat.opt.binary_linear_integer_programming.produce_q_and_offset
+
+.. _benchmarking: 
+
+Simulated Quantum Annealing Benchmarking and Performance
+--------------------------------------------------------
+
+To solve each of the NP problems with Simulated Quantum Annealing (SQA) we need to feed the :func:`~qat.mc.sqa` with parameters tailored for the specific problem. We therefore implemented optimizers, which find such well-performing parameters for a given set of benchmark instances.
+
+Below, we present the benchmark sources and the performances we obtain with the parameters found. We also show the range of spins of these instances, together with the average execution times.
+
+Max Cut
+_______
+
+For this problem, the performance we optimized was defined by :math:`\frac {\text{number of Max Cut edges found}} {\text{best number of Max Cut edges}}`.
+
+    - **Problem instances**: 
+    
+        - **Benchmarks**: 9 planar and random graphs from the `Gset benchmark dataset <http://web.stanford.edu/~yyye/yyye/Gset/>`_
+        - **Others**: > 20 random trees
+    - **Spin count**: from 20 to 10 000
+    - **Performance**: > 98%
+    - **Execution time**: from instantly to around 10 seconds
+
+Graph Colouring
+_______________
+
+When optimizing this problem the performance was defined by :math:`\frac {\text{number of edges with vertices of different colours}} {\text{number of all edges}}`.
+
+    - **Problem instances**:
+
+        - **Benchmarks**: 6 - random graphs and a Leighton graph from `DIMACS Graphs <http://cedric.cnam.fr/~porumbed/graphs/index.html>`_
+        - **Others**: 13 random graphs
+    - **Spin count**: from 60 to 24 000
+    - **Performance**: 88% for best colouring, 95% - 99%  for a few more colours
+    - **Execution time**: from < 5 sec for 7000 spins to < 1 min for 20 000 spins
+
+K-Clique
+________
+
+In this case, the performance we optimized was defined by :math:`\frac {\text{number of edges in the subgraph found}} {\text{required number of edges for the subgraph to be complete}}`.
+
+    - **Problem instances**: 
+
+        - **Benchmarks**: 27 differently generated graphs from the `BHOSLIB <http://sites.nlsde.buaa.edu.cn/~kexu/benchmarks/graph-benchmarks.htm>`_, `DIMACS <https://mat.gsia.cmu.edu/COLOR02/clq.html>`_ and `Clique benchmark datasets <https://turing.cs.hbg.psu.edu/txn131/clique.html>`_
+        - **Others**: 5 random graphs
+    - **Spin count**: from 450 to 4000
+    - **Performance**: > 98%
+    - **Execution time**: from instantly for a few 100 spins, to ~20 sec for 1500, to > 1 min for 4000 spins
+
+Vertex Cover
+____________
+
+Here, we define the performance during optimization by :math:`\frac {\text{best number of coloured nodes}} {\text{found number of coloured nodes}}`.
+
+    - **Problem instances**: 
+
+        - **Benchmarks**: 21 random graphs from the `BHOSLIB <http://sites.nlsde.buaa.edu.cn/~kexu/benchmarks/graph-benchmarks.htm>`_ and `OEIS benchmark datasets <https://oeis.org/A265032/a265032.html>`_
+        - **Others**: 5 random graphs
+    - **Spin count**: from 450 to 4000
+    - **Performance**: > 99%
+    - **Execution time**: from 3-5 sec to > 1 min for 4000 spins
+
+Number Partitioning
+___________________
+
+The performance we optimized for this problem was defined by :math:`\frac {\text{sum of numbers in smaller sum subset}} {\text{sum of numbers in larger sum subset}}`.
+
+    - **Problem instances**: > 30 random number sets of integer or real, non-repeating or repeating numbers
+    - **Spin count**: from 20 to 40 000
+    - **Performance**: > 99%
+    - **Execution time**: from instantly to > 1 min for 40 000 spins

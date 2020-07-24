@@ -1,0 +1,127 @@
+Installing myQLM
+================
+
+Requirement
+-----------
+This version of myQLM works for Windows (with **python 3.8** version 64 bits) and for
+Linux (with **python 3.6** version 64 bits).
+
+myQLM is installed using the *Package Installer for Python* (or pip). If the pip
+command is not installed on your machine, you can
+`download pip here <https://pip.pypa.io/en/stable/installing/>`_
+
+myQLM comes with interactive tutorials (or notebooks). These tutorials require
+Jupyter, if you want to install Jupyter, please type the following command:
+
+.. code-block::
+
+    pip install jupyter
+
+Moreover, if you want to display myQLM quantum circuits inside Jupyter notebooks, please
+install `ImageMagick for wand. <http://docs.wand-py.org/en/0.4.1/guide/install.html>`_
+
+Install
+-------
+
+Download myQLM
+**************
+myQLM works for Windows and Linux. Please download the version of you want to
+use:
+
+ - `myQLM for Windows 64 bits <https://myqlm.github.io/distrib/myqlm-0.0.7_win64_py3.8.zip>`_ (for **python 3.8**)
+ - `myQLM for Linux <https://myqlm.github.io/distrib/myqlm-0.0.7_linux_py3.6.zip>`_ (for **python 3.6**)
+ - `Interactive notebooks and documentation <https://myqlm.github.io/distrib/myqlm-0.0.7_tutorial.zip>`_
+
+Install myQLM wheels
+********************
+Please unzip myQLM archive file. Then, type the following command to install myQLM:
+
+.. code-block::
+
+    # For Windows
+    cd <UNZIPPED FOLDER>
+    pip install .\qat_comm-0.0.7-py3.8-none-win_amd64.whl .\qat_core-0.0.7-py3.8-none-win_amd64.whl .\qat_lang-0.0.7-py3.8-none-win_amd64.whl .\qat_variational-0.0.7-py3.8-none-win_amd64.whl .\myqlm_simulators-0.0.7-py3-none-any.whl
+
+    # For Linux
+    cd <UNZIPPED FOLDER>
+    pip install ./qat_comm-0.0.7-py3.6-none-linux_x86_64.whl ./qat_core-0.0.7-py3.6-none-linux_x86_64.whl ./qat_lang-0.0.7-py3.6-none-linux_x86_64.whl ./qat_variational-0.0.7-py3.6-none-linux_x86_64.whl ./myqlm_simulators-0.0.7-py3-none-any.whl
+
+Install myQLM magics
+********************
+myQLM provides tools to display quantum circuits inside Jupyter notebooks. These
+magics may be installed using the following command:
+
+.. code-block::
+
+    python -m qat.magics.install
+
+Interoperability
+****************
+This package enables access to other quantum programming environments such as
+Qiskit, projectQ, pyQuil, Cirq ...
+This package will not automatically install dependency packages because someone who
+want to interface with Qiskit may not want to interface with Cirq... The desired
+quantum environment can be cherry picked using the pip command:
+
+.. code-block::
+
+    # For Windows
+    pip install .\myqlm_interop-0.0.7-py3.8-none-win_amd64.whl[<PACKAGE>_binder]
+
+    # For Linux
+    pip install ./myqlm_interop-0.0.7-py3.6-none-linux_x86_64.whl[<PACKAGE>_binder]
+
+For Qiskit
+^^^^^^^^^^
+
+.. code-block::
+
+    # For Windows
+    pip install .\myqlm_interop-0.0.7-py3.8-none-win_amd64.whl[qiskit_binder]
+
+    # For Linux
+    pip install ./myqlm_interop-0.0.7-py3.6-none-linux_x86_64.whl[qiskit_binder]
+
+For ProjectQ
+^^^^^^^^^^^^
+
+.. code-block::
+
+    # For Windows
+    pip install .\myqlm_interop-0.0.7-py3.8-none-win_amd64.whl[projectq_binder]
+
+    # For Linux
+    pip install ./myqlm_interop-0.0.7-py3.6-none-linux_x86_64.whl[projectq_binder]
+
+For Cirq
+^^^^^^^^
+
+.. code-block::
+
+    # For Windows
+    pip install .\myqlm_interop-0.0.7-py3.8-none-win_amd64.whl[cirq_binder]
+
+    # For Linux
+    pip install ./myqlm_interop-0.0.7-py3.6-none-linux_x86_64.whl[cirq_binder]
+
+For PyQuil
+^^^^^^^^^^
+
+.. code-block::
+
+    # For Windows
+    pip install .\myqlm_interop-0.0.7-py3.8-none-win_amd64.whl[pyquil_binder]
+
+    # For Linux
+    pip install ./myqlm_interop-0.0.7-py3.6-none-linux_x86_64.whl[pyquil_binder]
+
+For all of them
+^^^^^^^^^^^^^^^
+
+.. code-block::
+
+    # For Windows
+    pip install .\myqlm_interop-0.0.7-py3.8-none-win_amd64.whl[all]
+
+    # For Linux
+    pip install ./myqlm_interop-0.0.7-py3.6-none-linux_x86_64.whl[all]

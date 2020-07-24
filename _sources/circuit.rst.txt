@@ -1,0 +1,212 @@
+
+The high level wrapper
+__________________________
+
+Most of the standard manipulations can be handled via the high level interface of the circuit:
+
+* iterating over the instructions using the :meth:`qat.core.wrappers.Circuit.iterate_simple` method
+
+.. run-block::  python
+
+    from qat.lang.AQASM import *
+    from qat.lang.AQASM.qftarith import QFT
+
+    prog = Program()
+    qbits = prog.qalloc(4)
+    prog.apply(QFT(4), qbits)
+    prog.measure([qbits[0], qbits[3]])
+    prog.reset(qbits[2])
+    circuit = prog.to_circ()
+
+    for instruction in circuit.iterate_simple():
+        print(instruction)
+
+* iterating over raw instructions (for advanced usage):
+
+.. run-block:: python
+
+    from qat.lang.AQASM import *
+    from qat.lang.AQASM.qftarith import QFT
+
+    prog = Program()
+    qbits = prog.qalloc(4)
+    prog.apply(QFT(4), qbits)
+    prog.measure([qbits[0], qbits[3]])
+    prog.reset(qbits[2])
+    circuit = prog.to_circ()
+
+    for instruction in circuit:
+        print(instruction)
+
+
+* concatenation using the overloaded :meth:`~qat.core.wrappers.Circuit.__add__` operator
+
+* tensor product using the overloaded :meth:`~qat.core.wrappers.Circuit.__mult__` operator
+
+* serialization/deserialization using the :meth:`~qat.core.wrappers.Circuit.dump` and :meth:`~qat.core.wrappers.Circuit.load` methods
+
+* abstract variables binding using the :meth:`~qat.core.wrappers.Circuit.bind_variables` method
+
+* easy job generation using the :meth:`~qat.core.wrappers.Circuit.to_job` method
+
+Qubits and cbits
+___________________
+
+The number of qubits and classical bits declared in the circuit can be accessed like so:
+
+.. code-block:: python
+
+    circuit.nbqbits
+    circuit.nbcbits
+
+At circuit generation, the convention is to extend the number of classical bits to match the number of declared qubits. So it might be that your didn't declare any cbits in pyAQASM, and still end up with a non-zero number of classical bits.
+
+The field `nbqbits` might also be extended to match the total number of qbits used by the circuit (for instance if a sub-routine is using some ancillae that are dynamically allocated at inlining/emulation/execution).
+
+This extension requires to emulate the flow of the circuit.
+
+All quantum registers declared in pyAQASM can be found in the `.qregs` field.
+The type of these registers is also stored in the QReg structure:
+
+.. code-block:: python
+
+    for qreg in circuit.qregs:
+        print("Register of length {} starting at {} (type {})".format(qreg.length, qreg.start, qreg.type))
+
+
+Registers type is an enum type that can be found like so:
+
+.. code-block:: python
+
+    from qat.comm.datamodel.ttypes import RegType
+
+Possible values are `RegType.BITSTRING`, `RegType.INT`, and `RegType.FP`, for bitstrings, integers, and fixed point representation.
+These are used to display/cast execution results.
+
+
+
+Instruction list
+_____________________
+
+The main 'body' of a circuit is described as a list of operations (:class:`qat.comm.datamodel.ttypes.Op`).
+
+These `Op` can describe any operation that is accessible in AQASM/pyAQASM:
+
+ - quantum gate application (eventually classically controled)
+ - measures, resets, breaks, classical operations, classical remaps
+
+
+The field `.type` is used to distinguish between these cases.
+It contains an enum type:
+
+.. program-output:: python3 -c "from qat.comm.datamodel.ttypes import OpType;print(list(dir(OpType))[:7])"
+
+Once the type is set, various attributes of the `Op` object are used to store relevant pieces of information.
+
+
+- **GATETYPE** corresponds to quantum gate application (without classical control). In that case:
+
+    - `op.gate` will contain the name of the gate (see below the gate dictionary section for detailed use of this name)
+    - `op.qbits` will contain the list of the target qubits
+
+- **CLASSICCTRL** corresponds to quantum gate application with classical control. In addition to the fields used in the **GATETYPE** case:
+
+    - `op.cbits` will contain a list of size 1 with a single cbit to be used as control classical bit
+
+- **MEASURE** corresponds to a measure operation:
+
+ - `op.qbits` will contain a list of qubits to measure
+ - `op.cbits` will contain a list of cbits to store the results. The two lists will have the exact same size.
+
+- **BREAK** corresponds to a break operation:
+
+    - `op.formula` will contain a (prefix formated) string containing a boolean formula to evaluate over the current values of the cbits in order to determine if the computation should be aborted or not. :py:mod:`qat.core.formula_eval.evaluate` provides an implementation of this evaluation, if required.
+
+    .. run-block:: python
+
+        from qat.core.formula_eval import evaluate
+
+        formula = "AND 1 OR 0 2"
+        cbit_values = [True, False, True]
+        evaluate(formula, cbit_values) #should return False
+
+- **RESET** corresponds to reset operations.
+
+    - `op.qbits` will contain a list of qubits to reset
+    - `op.cbits` will contain a list of cbits to reset
+
+- **REMAP** corresponds to classical remaps/rewiring of the qubits. These can be seen as permutations of the index of the qubits. 
+
+    - `op.qbits` will contain a list of qubits that are to be rewired
+    - `op.remap` will contain a list of integer describing the way the qubits are remapped
+
+- **CLASSIC** corresponds to a classical operation between cbits.
+
+    - `op.cbits` will contain the cbit receiving a new value
+    - `op.formula` will contain a (prefix formated) string containing a boolean formula to evaluate over the current values of the cbits
+
+
+Quantum gates and gate dictionary
+__________________________________
+
+All quantum gates names (the `op.gate` field) are in fact keys of a dictionary stored in the `circuit.gateDic` field of the circuit.
+Entries in this dictionary are of the type :class:`~qat.comm.datamodel.ttypes.GateDefinition`.
+
+.. run-block:: python
+
+    from qat.lang.AQASM import *
+    prog = Program()
+    circuit = prog.to_circ()
+    circuit.gateDic["H"]
+
+
+Here we can see that the entry corresponding to a Hadamard gate consists in:
+
+ - a matrix (the `.matrix` field): the field of this object are pretty self explanatory
+ - a syntax with a name (H) and a list of parameters (empty)
+
+More generally, :class:`~qat.comm.datamodel.ttypes.GateDefinition` have the following fields:
+
+- :py:obj:`matrix` the matrix implementation of the gate:
+
+  - :py:obj:`nCols` and :py:obj:`nRow` indicates the number of columns and row of the matrix
+  - :py:obj:`data` contains a list of complex number describing the content of the matrix
+
+- :py:obj:`is_ctrl` (deprecated), :py:obj:`is_dag`, :py:obj:`is_conj`, :py:obj:`is_trans` indicates if the gate is, itself a controled, dagger, conjugate, transpose version of another gate. If one of these is set to true, then the field :py:obj:`subgate` will store the corresponding subgate (i.e a new gate name).
+
+- :py:obj:`nbctrls` indicates that the gate is multiple controled version of another gate. If set to a non zero number, :py:obj:`subgate` will store the corresponding subgate.
+
+- :py:obj:`arity` an integer representing the number of qubits on which this gate can be applied.
+
+- :py:obj:`syntax` the syntax of the gate (if any):
+
+  - :py:obj:`name` the name of the gate (e.g "H", or "RZ")
+ 
+  - :py:obj:`parameters` a list of parameters. :class:`~qat.comm.datamodel.ttypes.Parameter`  can store integers, floats, strings, or matrices.
+
+Syntaxes are generated using the signature of the corresponding :class:`~qat.lang.AQASM.AbstractGate` that was used to generate the gate.
+
+- :py:obj:`circuit_implementation` this field is described below.
+
+Circuit implementation of quantum gates
+__________________________________________
+
+Some gates are described via some subcircuit implementation. These correspond to a call to some subroutine.
+In that case, the corresponding entry of the gate dictionary will have a :py:obj:`circuit_implementation` field.
+
+This field contains:
+
+- :py:obj:`ops` a list of :py:obj:`Op` describing the list of instructions of the subcircuit
+
+- :py:obj:`nbqbits` the number of qubits used by the circuit. It can be used to compute the number of ancillae required to run the subroutine.
+
+
+.. run-block:: python
+
+    from qat.lang.AQASM import *
+    from qat.lang.AQASM.qftarith import QFT
+    prog = Program()
+    qbits = prog.qalloc(2)
+    prog.apply(QFT(2), qbits)
+    circ = prog.to_circ()
+    print(circ.gateDic["_0"])

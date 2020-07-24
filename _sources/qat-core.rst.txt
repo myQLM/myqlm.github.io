@@ -1,0 +1,171 @@
+.. _qat-core:
+
+qat-core: Core data structures and Abstract classes
+===================================================
+
+Abstract classes
+----------------
+
+Following classes may be used to define new Plugins
+or QPUs.
+
+.. autoclass:: qat.plugins.AbstractPlugin
+    :members:
+
+.. autoclass:: qat.core.qpu.QPUHandler
+    :members:
+
+
+Batch and Job
+-------------
+
+Following are used to send a circuit or a set of circuit
+to a plugin or to a QPU. The circuit is then compiled or
+executed.
+The :class:`~qat.core.Job` class is used to send
+a single :class:`~qat.core.Circuit` to a QPU whereas
+the :class:`~qat.core.Batch` class is used to send
+several :class:`~qat.core.Circuit` objects at the
+same time.
+
+.. autoclass:: qat.core.Job
+    :members:
+
+.. autoclass:: qat.core.Batch
+    :members:
+
+Observables
+------------
+
+.. automodule:: qat.core.wrappers.observable
+
+.. autoclass:: qat.core.Observable
+
+.. autoclass:: qat.core.Term
+
+Results
+-------
+
+A result is composed of several samples or, is an observable is measured,
+of a scalar. The result data structure is :class:`~qat.core.Result`
+
+.. autoclass:: qat.core.Result
+    :members:
+
+.. autoclass:: qat.core.wrappers.result.Sample
+    :members:
+
+.. autoclass:: qat.core.BatchResult
+    :members:
+
+Circuits
+--------
+
+Here is the basic interface of the circuit class.
+For more information on the various attributes the circuit object, please refer to :ref:`circuit_full_description`.
+For instance, one can easily concatenate two :class:`~qat.core.circuit.Circuit` objects (as long as they have the same number of qubits):
+
+.. code-block:: python
+
+    cat_circuit = circuit1 + circuit2
+    
+Tensorial composition is implemented via an overloading of the :code:`__mult__` operator:
+
+.. code-block:: python
+
+    kron_circuit = circuit1 * circuit2
+
+Among the other useful methods, we can find:
+
+* the direct generation of a :class:`~qat.core.Job` object from a circuit using various parameters:
+
+    .. code-block:: python
+
+        job = circuit.to_job(job_type="SAMPLE", nbshots=1024, qubits=[0, 3, 7])
+
+* (de)serialization of a circuit:
+
+    .. code-block:: python
+
+        circuit.dump("my_circuit.circ")
+        circuit = Circuit.load("my_circuit.circ")
+
+* binding of an abstract variable:
+
+    .. code-block:: python
+
+        new_circuit = circuit(theta=0.34)
+        # or, equivalently
+        new_circuit = circuit.bind_variables({theta: 0.34})
+
+
+.. autoclass:: qat.core.Circuit
+    :members:
+
+
+Displaying circuits
+----------------------
+
+Circuits could be displayed is a notebook or inside
+a terminal. To display a circuit in a terminal, you
+can use the function :func:`qat.core.console.display`
+
+.. autofunction:: qat.core.console.display
+
+.. warning::
+
+    Only `GATETYPE` operators can be visualized in a terminal.
+    An exception is raised if your circuit contains measures,
+    gates controlled classically, logic operators, ...
+
+To display a circuit in a notebook or in an IPython terminal,
+you can install qlm magics (use the bash command
+:code:`install_qlm_magics.sh`). Then, you can use
+:code:`%qatdisplay` magic to print a circuit
+
+.. code:: python
+
+    %qatdisplay circuit
+
+Hardware specifications
+-----------------------
+
+Hardware specifications are described by a the class
+:class:`~qat.core.HardwareSpecs`
+
+.. autoclass:: qat.core.HardwareSpecs
+    :members:
+
+.. autoclass:: qat.core.Topology
+    :members:
+
+Gate set and gate signatures
+----------------------------
+
+These classes are core classes hidden behind :class:`qat.lang.AQASM.gates.AbstractGate` class.
+
+.. autoclass:: qat.core.gate_set.GateSignature
+    :members: set_matrix_generator, set_circuit_generator, get_matrix, get_circuit 
+
+.. autoclass:: qat.core.gate_set.GateSet
+    :members: add_signature, union
+
+Various methods and tools
+----------------------------
+
+.. autofunction:: qat.core.formula_eval.evaluate
+
+.. autofunction:: qat.core.circuit_builder.matrix_util.get_predef_generator
+
+.. autofunction:: qat.core.circuit_builder.matrix_util.get_param_generator
+
+
+Plugins & Junctions
+----------------------
+
+.. autoclass:: qat.plugins.Junction
+    :members: run, execute
+
+
+.. autoclass:: qat.plugins.Optimizer
+    :members: optimize, evaluate

@@ -1,0 +1,111 @@
+qat.pylinalg: Python Linear-algebra simulator
+====================================================
+
+myQLM comes with one simulator which performs a unitary evolution of the
+initial quantum state using the operations described in a quantum circuit. This
+simulator is called "Python Linear-Algebra".
+
+It is entirely written in python, and is based in particular on the 
+`Numpy <http://www.numpy.org/>`_ library.
+
+The quantum state is stored as an `ndarray <https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html>`_ of shape
+:math:`\left(2,...,2\right)`, with one 2-valued index per qubit:
+
+.. math::
+
+    \vert\psi\rangle = \sum_{i_{1},\dots,i_{N}\in \{0,1\}^{N}}
+    a_{i_{1} \dots i_{N}}|i_{1} \dots i_{N}\rangle
+
+
+where :math:`|i_{1}\dots i_{N}\rangle` represents a computational basis state.
+
+Quantum gates are also manipulated as ndarrays, with :math:`2\times \text{arity}`
+2-valued indices. Half of the indices are **input indices** and the other half
+**output indices**. 
+
+Applying a gate consists in contracting the input indices with the indices 
+corresponding to the qubits on which the gate in applied:
+
+.. figure:: tensordot.png 
+
+The main point of using ndarrays is that this operation can be easily written
+with the `np.tensordot <https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.tensordot.html>`_ 
+function. See source code documentation for more details.
+
+
+**miscellanous remarks about the simulator**:
+
+ * it accepts any gate, of any arity.
+ * it works with the entire amplitude vector. Any information is available.
+ * it is memory and run-time exponential in the number of qubits. This implies a hard simulation limit at around 20-30 qubits, depending on your RAM.
+
+
+Within myQLM, this simulator is contained in the :mod:`qat.pylinalg` module.
+
+.. note::
+
+    The full QLM appliance also includes ''noisy'' simulators, which take into account
+    realistic, parametrable physical noise into the execution of a quantum circuit.
+
+
+
+The ``qat-pylinalg`` module contains a linear-algebra-based quantum simulator.
+This simulator encodes the quantum amplitudes in a vector with :math:`2^n`
+complex numbers, where :math:`n` is the number of qubits. This vector is modified
+by the application of quantum gates.
+
+Quantum Processing Unit
+-----------------------
+This is the high-level class wrapping the simulator. It follows the convention
+of the :class:`qat.core.qpu.QPUHandler` structure.
+
+.. autoclass:: qat.pylinalg.PyLinalg
+    :members: serve, submit_job, submit
+
+.. note:: The :func:`submit_job` method above basically consists of two 
+   imbricated if statements.
+
+   The first one looks at the :obj:`type` attribute of the job, which can take 
+   two values:
+    
+    - :obj:`qat.comm.shared.ttypes.ProcessingType.OBSERVABLE`: the job consists in evaluating an observable at the end of the circuit. This job type is not implemented (yet) in :mod:`qat.pylinalg` but could be, as the simulator contains all of the state vector.
+    - :obj:`qat.comm.shared.ttypes.ProcessingType.SAMPLING`: the job consists in sampling the output probability distribution of the quantum circuit. This is where the second if loop comes in, depending on the **number of shots** which is asked (:obj:`job.nbshots`): 
+          
+             :math:`\cdot` if **nbshots=0** then the simulator/quantum-processor returns *the best it can do*. In our case, of a linear-algebra-based simulator, this is the entire probability distribution.
+           
+             :math:`\cdot` else, the simulator samples the output probability distribution *nbshots* times.
+         
+
+Simulator Internal Functions
+----------------------------
+
+The actual numpy-based simulation code can be accessed in the :mod:`qat.pylinalg.simulator`
+module, whose source code is documented here.
+
+
+
+.. autofunction:: qat.pylinalg.simulator.simulate
+
+.. note:: :func:`qat.pylinalg.simulator.simulate` mainly consists in a for loop
+    over the :obj:`ops` attribute of the input :class:`qat.comm.datamodel.ttypes.Circuit`,
+    i.e the gates of the circuit. They are successively applied onto the quantum 
+    state, which starts in :math:`|0...0\rangle`. A gate can be of several types:
+
+     - :obj:`GATETYPE` (default)
+     - :obj:`MEASURE` (measure some qubits, store the result)
+     - :obj:`RESET` (measure a qubit, if result is 1, apply X onto it)
+     - :obj:`CLASSIC` (perform classical logical computation on classical bits)
+     - :obj:`CLASSICCTRL` (perform classically controlled quantum gate)
+     - :obj:`BREAK` (raise break exception if a clasical formula is evaluated to True)
+
+    :obj:`circuit.ops` is a list of :class:`qat.comm.datamodel.ttypes.Op`.
+
+.. autofunction:: qat.pylinalg.simulator.measure
+
+.. autofunction:: qat.pylinalg.simulator.project
+
+.. autofunction:: qat.pylinalg.simulator.reset
+
+.. autofunction:: qat.pylinalg.simulator.raise_break
+
+.. autofunction:: qat.pylinalg.simulator.mat2nparray

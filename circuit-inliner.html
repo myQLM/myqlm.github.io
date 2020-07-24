@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quantum Application Toolset &mdash; myQLM documentation myQLM-0.0.7.122 documentation</title>
+  <title>CircuitInliner : inlining circuit inside a stack &mdash; myQLM documentation myQLM-0.0.7.122 documentation</title>
   
 
   
@@ -43,7 +43,8 @@
   <link rel="stylesheet" href="_static/contentui.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installing myQLM" href="myqlm_specific/install.html" /> 
+    <link rel="next" title="Display : a console displayer plugin" href="display-plugin.html" />
+    <link rel="prev" title="ObservableSplitter : turning observable sampling into qubit sampling" href="observable-splitter.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -57,7 +58,7 @@
           
 
           
-            <a href="#" class="icon icon-home"> myQLM documentation
+            <a href="index.html" class="icon icon-home"> myQLM documentation
           
 
           
@@ -94,7 +95,7 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/install.html">Installing myQLM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="programming.html">Writing quantum circuits</a></li>
@@ -104,7 +105,23 @@
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="source_doc.html">Source code documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="source_doc.html">Source code documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-core-library">The core library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-programming-library">The programming library</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="source_doc.html#plugins">Plugins</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="variational-plugin.html">Plugins for variational algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="observable-splitter.html">ObservableSplitter : turning observable sampling into qubit sampling</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">CircuitInliner : inlining circuit inside a stack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="display-plugin.html">Display : a console displayer plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quameleon.html">QuameleonPlugin : emulating hardware constraints via a plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#qpus">QPUs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#interoperations-with-other-frameworks">Interoperations with other frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#combinatorial-optimization-and-qaoa">Combinatorial optimization and QAOA</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command line tools</a></li>
 </ul>
@@ -121,7 +138,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">myQLM documentation</a>
+          <a href="index.html">myQLM documentation</a>
         
       </nav>
 
@@ -150,15 +167,17 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#">Docs</a> &raquo;</li>
+      <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Quantum Application Toolset</li>
+          <li><a href="source_doc.html">Source code documentation</a> &raquo;</li>
+        
+      <li>CircuitInliner : inlining circuit inside a stack</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/circuit-inliner.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -195,25 +214,31 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="welcome-to-myqlm-documentation">
-<h1>Welcome to myQLM documentation<a class="headerlink" href="#welcome-to-myqlm-documentation" title="Permalink to this headline">¶</a></h1>
-</div>
-<a class="reference internal image-reference" href="_images/QLM.png"><img alt="Atos Quantum Learning Machine" class="align-center" src="_images/QLM.png" style="width: 269.0px; height: 151.5px;" /></a>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/install.html">Installing myQLM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="programming.html">Writing quantum circuits</a></li>
-<li class="toctree-l1"><a class="reference internal" href="simulating.html">Executing quantum circuits</a></li>
-<li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="source_doc.html">Source code documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
-<li class="toctree-l1"><a class="reference internal" href="commands.html">Command line tools</a></li>
-</ul>
+<div class="section" id="module-qat.lang.linking.plugin">
+<span id="circuitinliner-inlining-circuit-inside-a-stack"></span><h1>CircuitInliner : inlining circuit inside a stack<a class="headerlink" href="#module-qat.lang.linking.plugin" title="Permalink to this headline">¶</a></h1>
+<p>A simple Plugin that inline the instructions of all the quantum circuits passing by.</p>
+<p>Using this plugin allows to skip the inlining step in the <code class="xref py py-meth docutils literal notranslate"><span class="pre">to_circ()</span></code>
+(with <cite>inline</cite> set to False, which is the default behavior).</p>
+<p>This Plugin can be used to inline circuits before further optimization of simulation.</p>
+<p>PyLinalg is able to simulate non-inlined circuits. There is no need to use this Plugin for simulation purposes.isinstance</p>
+<dl class="py class">
+<dt id="qat.lang.linking.plugin.CircuitInliner">
+<em class="property">class </em><code class="sig-prename descclassname">qat.lang.linking.plugin.</code><code class="sig-name descname">CircuitInliner</code><a class="headerlink" href="#qat.lang.linking.plugin.CircuitInliner" title="Permalink to this definition">¶</a></dt>
+<dd><p>A plugin that inlines all calls to a subroutine in the main body of a circuit.</p>
+<p>This plugin should be attached to simulator that do not implement an execution stack management.</p>
+<p>Currently, all python based simulators make use the internal iterator of the python QAT_CIRC structure
+to emulate this inlining on the fly. Some c++ based simulators might not be able to perform this
+emulation and will thus require the circuit to be inlined beforehand.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>inplace</strong> (<em>optional</em><em>, </em><em>bool</em>) – if set to True, circuits are inlined in place.
+Setting this option to False will result in worst perfomances, but
+the circuits will be deepcopied before the inlining process.
+Defaults to True.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
@@ -224,8 +249,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="myqlm_specific/install.html" class="btn btn-neutral float-right" title="Installing myQLM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="display-plugin.html" class="btn btn-neutral float-right" title="Display : a console displayer plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
+      
+        <a href="observable-splitter.html" class="btn btn-neutral float-left" title="ObservableSplitter : turning observable sampling into qubit sampling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

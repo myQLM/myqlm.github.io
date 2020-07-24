@@ -1,0 +1,231 @@
+Command line tools
+==================
+
+.. only:: qlm
+
+    The QLM set of python libraries also comes with a set of command line
+    scripts to generate, execute and optimize circuits
+
+
+.. only:: myqlm
+
+    myQLM set of python libraries also comes with a set of command line
+    scripts to generate, execute and optimize circuits
+
+
+Compiler
+--------
+
+.. only:: qlm
+
+    The QLM comes with a compiler and a decompiler to convert
+    Atos Quantum Assembly Language (AQASM) files into useable Quantum
+    Circuit for our QPUs and vice-versa. Please refer to
+    :ref:`aqasm` to learn more about the AQASM format.
+
+.. only:: myqlm
+
+    myQLM comes with a compiler and a decompiler to convert
+    Atos Quantum Assembly Language (AQASM) files into useable Quantum
+    Circuit for our QPUs and vice-versa. Please refer to
+    :ref:`aqasm` to learn more about the AQASM format.
+
+
+aqasm2circ
+..........
+
+This command takes one or two arguments, an input file (i.e. AQASM file) and
+optionally an output file. If no output file is supplied, the output will be
+the input file appended with :code:`.circ`.
+
+For example, assuming the file :code:`my_prog.aqasm` contains the
+following code:
+
+.. code-block:: text
+
+    BEGIN
+    qubits 2
+    cbits 1
+    H q[0]
+    MEAS q[0] c[0]
+    ?c[0]: X q[1]
+    END
+
+The command :code:`aqasm2circ` can be used to compile this program into
+a useable Quantum Circuit:
+
+.. code-block:: bash
+
+    aqasm2circ my_prog.aqasm compiled.circ
+
+The file :code:`compiled.circ` is a binary file describing a quantum circuit.
+This circuit could be load using Python:
+
+.. code-block:: python
+
+    from qat.core import Circuit
+
+    # Load compiled circuit
+    compiled = Circuit.load("compiled.circ")
+
+circ2aqasm
+..........
+
+This is the main decompiler which will take a Quantum Circuit file and
+return the resulting Atos Quantum Assembly Language (AQASM) file used to
+generate the circuit. The command takes one or two arguments, an input file
+and optionally an output file. If no output file is supplied the output will
+be the input file appended with :code:`.aqasm`.
+
+For example, considering the file :code:`compiled.circ` of the previous
+section, the following command can be used to generate an AQASM file
+equivalent to :code:`my_prog.aqasm`
+
+.. code-block:: bash
+
+    circ2aqasm compiled.circ my_prog_2.aqasm
+
+
+Simulation / Execution commands
+--------------------------------
+
+.. only:: qlm
+
+    The QLM provides :code:`qat-jobrun` and :code:`qat-batchrun` to execute
+    any Job or Batch using any QPU. Moreover, plugins could be linked to this
+    QPU directly from the command line. Moreover, the QLM provides tools to
+    display results of a simulation / execution.
+
+
+.. only:: myqlm
+
+    myQLM provides :code:`qat-jobrun` and :code:`qat-batchrun` to execute any
+    Job or Batch using any QPU. Moreover, plugins coulb be linked to this QPU
+    direclty from the command line. Moreover, the QLM provides tools to
+    display results of a simulation / execution.
+
+qat-jobrun and qat-batchrun
+...........................
+
+This command will deserialize a job (or a batch) and run it via some execution
+stack.
+
+QPUs and Plugins are referred to using the :code:`namespace:class_name`
+convention.
+
+For instance, the following Python code generate a Batch and a Job using
+the circuit compiled with :code:`aqasm2circ`. This batch and job will be then
+simulated using :code:`qat-batchrun` and :code:`qat-jobrun`.
+
+.. code-block:: python
+
+    from qat.core import Circuit, Batch
+
+    # Generate a job
+    circuit = Circuit.load("compiled.circ")
+    job = circuit.to_job()
+    job.dump("compiled.job")
+
+    # Generate a batch
+    batch = Batch(jobs=[job, job, job])
+    batch.dump("compiled.batch")
+
+.. only:: qlm
+
+    The :code:`qat-batchrun` or :code:`qat-jobrun` commands can be used to
+    simulate this circuit.
+    The following command call linalg to simulate the batch and display
+    the output of the simulation in the stdout
+
+    .. code-block:: bash
+
+        qat-batchrun --qpu qat.linalg:LinAlg compiled.batch
+        qat-jobrun --qpu qat.linalg:LinAlg compiled.job
+
+    It is possible to dump the results in a binary file instead of having
+    to parse the stdout
+
+    .. code-block:: bash
+
+        qat-batchrun --qpu qat.linalg:LinAlg compiled.batch -o batchout.res
+        qat-jobrun --qpu qat.linalg:LinAlg compiled.job -o jobout.res
+
+.. only:: myqlm
+
+    The :code:`qat-batchrun` or :code:`qat-jobrun` commands can be used to
+    simulate this circuit.
+    The following command call PyLinalg to simulate the batch and display
+    the output of the simulation in the stdout.
+
+    .. code-block:: bash
+
+        qat-batchrun --qpu qat.pylinalg:PyLinalg compiled.batch
+        qat-jobrun --qpu qat.pylinalg:PyLinalg compiled.job
+
+    It is possible to dump the results in a binary file instead of having
+    to parse the stdout
+
+    .. code-block:: bash
+
+        qat-batchrun --qpu qat.pylinalg:PyLinalg compiled.batch -o batchout.res
+        qat-jobrun --qpu qat.pylinalg:PyLinalg compiled.batch -o jobout.res
+
+qat-resprint
+............
+Naturally, there is a command to display a dumped result in the stdout. This
+command can be used to display the result of :code:`qat-jobrun` or
+:code:`qat-batchrun`.
+
+For instance, to display the result of the previous simulation:
+
+.. code-block:: bash
+
+    qat-resprint jobout.res -N 2
+    qat-resprint -b batchres.res -N 2
+
+qat-circstat
+............
+This command displays some statistics about a serialized circuit. The output
+is straightforward to interpretate:
+
+.. code-block:: bash
+
+    qat-circstat compiled.circ
+
+
+
+.. only:: qlm
+
+    Resources Controller
+    --------------------
+    A simulation may use a lot of memory. If several simulations are
+    performed simultaneously, memory allocation issues may occur. To
+    prevent these issues, a QLM Resources Controller Daemon (qlmrcd) may
+    be used to queue the simulations to avoid conflicts between them.
+
+    .. warning::
+
+        The tool qlmrcd is not a scheduler, this tool only avoids memory
+        conflict between some simulators (and not other processes).
+        Please use a scheduler to avoid conflicts between processes.
+
+    The qlmrcd tool is a server. Some QPU like Feynman and LinAlg can connect
+    to this server to queue their execution.
+
+    The qlmrcd tool can be parametrized using the maximal number of qubits
+    that our QLM can simulate.
+
+    .. code-block:: bash
+
+        qlmrcd --nb-qubits N
+
+    This code start a qlmrcd server which will reserve a memory space
+    proportional to :math:`2 ^ N`. This memory is used by LinAlg and
+    Feynman if :code:`enable_qlmrc` is set to :code:`True` in
+    the construtor of the QPU.
+
+    .. code-block:: python
+
+        from qat.qpus import LinAlg
+
+        qpu = LinAlg(enable_qlmrc=True)

@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The high level wrapper &mdash; myQLM documentation myQLM-0.0.7.122 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/contentui.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> myQLM documentation
+          
+
+          
+            
+            <img src="_static/myqlm.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                myQLM-0.0.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/install.html">Installing myQLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programming.html">Writing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulating.html">Executing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source_doc.html">Source code documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Command line tools</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">myQLM documentation</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>The high level wrapper</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/circuit.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="the-high-level-wrapper">
+<h1>The high level wrapper<a class="headerlink" href="#the-high-level-wrapper" title="Permalink to this headline">¶</a></h1>
+<p>Most of the standard manipulations can be handled via the high level interface of the circuit:</p>
+<ul class="simple">
+<li><p>iterating over the instructions using the <code class="xref py py-meth docutils literal notranslate"><span class="pre">qat.core.wrappers.Circuit.iterate_simple()</span></code> method</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qftarith</span> <span class="kn">import</span> <span class="n">QFT</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">QFT</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">measure</span><span class="p">([</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">instruction</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">instruction</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-PH&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.5707963267948966</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-PH&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.7853981633974483</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-PH&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.39269908169872414</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-PH&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.5707963267948966</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-PH&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.7853981633974483</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-PH&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.5707963267948966</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;MEASURE&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RESET&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[])</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>iterating over raw instructions (for advanced usage):</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qftarith</span> <span class="kn">import</span> <span class="n">QFT</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">QFT</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">measure</span><span class="p">([</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">instruction</span> <span class="ow">in</span> <span class="n">circuit</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">instruction</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_2&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_4&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_6&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_2&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_4&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_2&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="p">[],</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>concatenation using the overloaded <code class="xref py py-meth docutils literal notranslate"><span class="pre">__add__()</span></code> operator</p></li>
+<li><p>tensor product using the overloaded <code class="xref py py-meth docutils literal notranslate"><span class="pre">__mult__()</span></code> operator</p></li>
+<li><p>serialization/deserialization using the <code class="xref py py-meth docutils literal notranslate"><span class="pre">dump()</span></code> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">load()</span></code> methods</p></li>
+<li><p>abstract variables binding using the <code class="xref py py-meth docutils literal notranslate"><span class="pre">bind_variables()</span></code> method</p></li>
+<li><p>easy job generation using the <code class="xref py py-meth docutils literal notranslate"><span class="pre">to_job()</span></code> method</p></li>
+</ul>
+</div>
+<div class="section" id="qubits-and-cbits">
+<h1>Qubits and cbits<a class="headerlink" href="#qubits-and-cbits" title="Permalink to this headline">¶</a></h1>
+<p>The number of qubits and classical bits declared in the circuit can be accessed like so:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">circuit</span><span class="o">.</span><span class="n">nbqbits</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">nbcbits</span>
+</pre></div>
+</div>
+<p>At circuit generation, the convention is to extend the number of classical bits to match the number of declared qubits. So it might be that your didn’t declare any cbits in pyAQASM, and still end up with a non-zero number of classical bits.</p>
+<p>The field <cite>nbqbits</cite> might also be extended to match the total number of qbits used by the circuit (for instance if a sub-routine is using some ancillae that are dynamically allocated at inlining/emulation/execution).</p>
+<p>This extension requires to emulate the flow of the circuit.</p>
+<p>All quantum registers declared in pyAQASM can be found in the <cite>.qregs</cite> field.
+The type of these registers is also stored in the QReg structure:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">qreg</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">qregs</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Register of length </span><span class="si">{}</span><span class="s2"> starting at </span><span class="si">{}</span><span class="s2"> (type </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">qreg</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="n">qreg</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">qreg</span><span class="o">.</span><span class="n">type</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Registers type is an enum type that can be found like so:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.comm.datamodel.ttypes</span> <span class="kn">import</span> <span class="n">RegType</span>
+</pre></div>
+</div>
+<p>Possible values are <cite>RegType.BITSTRING</cite>, <cite>RegType.INT</cite>, and <cite>RegType.FP</cite>, for bitstrings, integers, and fixed point representation.
+These are used to display/cast execution results.</p>
+</div>
+<div class="section" id="instruction-list">
+<h1>Instruction list<a class="headerlink" href="#instruction-list" title="Permalink to this headline">¶</a></h1>
+<p>The main ‘body’ of a circuit is described as a list of operations (<code class="xref py py-class docutils literal notranslate"><span class="pre">qat.comm.datamodel.ttypes.Op</span></code>).</p>
+<p>These <cite>Op</cite> can describe any operation that is accessible in AQASM/pyAQASM:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>quantum gate application (eventually classically controled)</p></li>
+<li><p>measures, resets, breaks, classical operations, classical remaps</p></li>
+</ul>
+</div></blockquote>
+<p>The field <cite>.type</cite> is used to distinguish between these cases.
+It contains an enum type:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[&#39;BREAK&#39;, &#39;CLASSIC&#39;, &#39;CLASSICCTRL&#39;, &#39;GATETYPE&#39;, &#39;MEASURE&#39;, &#39;REMAP&#39;, &#39;RESET&#39;]
+</pre></div>
+</div>
+<p>Once the type is set, various attributes of the <cite>Op</cite> object are used to store relevant pieces of information.</p>
+<ul>
+<li><p><strong>GATETYPE</strong> corresponds to quantum gate application (without classical control). In that case:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>op.gate</cite> will contain the name of the gate (see below the gate dictionary section for detailed use of this name)</p></li>
+<li><p><cite>op.qbits</cite> will contain the list of the target qubits</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>CLASSICCTRL</strong> corresponds to quantum gate application with classical control. In addition to the fields used in the <strong>GATETYPE</strong> case:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>op.cbits</cite> will contain a list of size 1 with a single cbit to be used as control classical bit</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>MEASURE</strong> corresponds to a measure operation:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>op.qbits</cite> will contain a list of qubits to measure</p></li>
+<li><p><cite>op.cbits</cite> will contain a list of cbits to store the results. The two lists will have the exact same size.</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p><strong>BREAK</strong> corresponds to a break operation:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>op.formula</cite> will contain a (prefix formated) string containing a boolean formula to evaluate over the current values of the cbits in order to determine if the computation should be aborted or not. <a class="reference internal" href="qat-core.html#qat.core.formula_eval.evaluate" title="qat.core.formula_eval.evaluate"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.core.formula_eval.evaluate</span></code></a> provides an implementation of this evaluation, if required.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.formula_eval</span> <span class="kn">import</span> <span class="n">evaluate</span>
+
+<span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;AND 1 OR 0 2&quot;</span>
+<span class="n">cbit_values</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+<span class="n">evaluate</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">cbit_values</span><span class="p">)</span> <span class="c1">#should return False</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>RESET</strong> corresponds to reset operations.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>op.qbits</cite> will contain a list of qubits to reset</p></li>
+<li><p><cite>op.cbits</cite> will contain a list of cbits to reset</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>REMAP</strong> corresponds to classical remaps/rewiring of the qubits. These can be seen as permutations of the index of the qubits.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>op.qbits</cite> will contain a list of qubits that are to be rewired</p></li>
+<li><p><cite>op.remap</cite> will contain a list of integer describing the way the qubits are remapped</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>CLASSIC</strong> corresponds to a classical operation between cbits.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>op.cbits</cite> will contain the cbit receiving a new value</p></li>
+<li><p><cite>op.formula</cite> will contain a (prefix formated) string containing a boolean formula to evaluate over the current values of the cbits</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="quantum-gates-and-gate-dictionary">
+<h1>Quantum gates and gate dictionary<a class="headerlink" href="#quantum-gates-and-gate-dictionary" title="Permalink to this headline">¶</a></h1>
+<p>All quantum gates names (the <cite>op.gate</cite> field) are in fact keys of a dictionary stored in the <cite>circuit.gateDic</cite> field of the circuit.
+Entries in this dictionary are of the type <code class="xref py py-class docutils literal notranslate"><span class="pre">GateDefinition</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">gateDic</span><span class="p">[</span><span class="s2">&quot;H&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Here we can see that the entry corresponding to a Hadamard gate consists in:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>a matrix (the <cite>.matrix</cite> field): the field of this object are pretty self explanatory</p></li>
+<li><p>a syntax with a name (H) and a list of parameters (empty)</p></li>
+</ul>
+</div></blockquote>
+<p>More generally, <code class="xref py py-class docutils literal notranslate"><span class="pre">GateDefinition</span></code> have the following fields:</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">matrix</span></code> the matrix implementation of the gate:</p>
+<ul>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">nCols</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">nRow</span></code> indicates the number of columns and row of the matrix</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code> contains a list of complex number describing the content of the matrix</p></li>
+</ul>
+</li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_ctrl</span></code> (deprecated), <code class="xref py py-obj docutils literal notranslate"><span class="pre">is_dag</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">is_conj</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">is_trans</span></code> indicates if the gate is, itself a controled, dagger, conjugate, transpose version of another gate. If one of these is set to true, then the field <code class="xref py py-obj docutils literal notranslate"><span class="pre">subgate</span></code> will store the corresponding subgate (i.e a new gate name).</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">nbctrls</span></code> indicates that the gate is multiple controled version of another gate. If set to a non zero number, <code class="xref py py-obj docutils literal notranslate"><span class="pre">subgate</span></code> will store the corresponding subgate.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">arity</span></code> an integer representing the number of qubits on which this gate can be applied.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">syntax</span></code> the syntax of the gate (if any):</p>
+<ul>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code> the name of the gate (e.g “H”, or “RZ”)</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">parameters</span></code> a list of parameters. <code class="xref py py-class docutils literal notranslate"><span class="pre">Parameter</span></code>  can store integers, floats, strings, or matrices.</p></li>
+</ul>
+</li>
+</ul>
+<p>Syntaxes are generated using the signature of the corresponding <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code> that was used to generate the gate.</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">circuit_implementation</span></code> this field is described below.</p></li>
+</ul>
+</div>
+<div class="section" id="circuit-implementation-of-quantum-gates">
+<h1>Circuit implementation of quantum gates<a class="headerlink" href="#circuit-implementation-of-quantum-gates" title="Permalink to this headline">¶</a></h1>
+<p>Some gates are described via some subcircuit implementation. These correspond to a call to some subroutine.
+In that case, the corresponding entry of the gate dictionary will have a <code class="xref py py-obj docutils literal notranslate"><span class="pre">circuit_implementation</span></code> field.</p>
+<p>This field contains:</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ops</span></code> a list of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Op</span></code> describing the list of instructions of the subcircuit</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">nbqbits</span></code> the number of qubits used by the circuit. It can be used to compute the number of ancillae required to run the subroutine.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qftarith</span> <span class="kn">import</span> <span class="n">QFT</span>
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">QFT</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">circ</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">circ</span><span class="o">.</span><span class="n">gateDic</span><span class="p">[</span><span class="s2">&quot;_0&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GateDefinition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;_0&#39;</span><span class="p">,</span> <span class="n">arity</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">matrix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_ctrl</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_dag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_trans</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_conj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subgate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">syntax</span><span class="o">=</span><span class="n">GSyntax</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;QFT&#39;</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="p">[</span><span class="n">Param</span><span class="p">(</span><span class="n">is_abstract</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">int_p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">double_p</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">string_p</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">matrix_p</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialized_p</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">complex_p</span><span class="o">=</span><span class="kc">None</span><span class="p">)]),</span> <span class="n">nbctrls</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">circuit_implementation</span><span class="o">=</span><span class="n">Subcircuit</span><span class="p">(</span><span class="n">ops</span><span class="o">=</span><span class="p">[</span><span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_2&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)],</span> <span class="n">ancillas</span><span class="o">=</span><span class="p">[],</span> <span class="n">nbqbits</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Atos 2016-2020
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

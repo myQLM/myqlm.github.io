@@ -1,0 +1,256 @@
+.. _advanced-prog:
+
+Advanced programming using pyAQASM
+====================================
+
+
+PyAQASM offers advanced functionalities that allow for very efficient synthesis of large circuits.
+
+
+AbstractGates, circuit and matrix implementation
+......................................................
+
+
+The :class:`~qat.lang.AQASM.gates.AbstractGate` class allows you to define any parametrized gate you can think of. This can be quite conveniant to describe, for instance, hardware dependent gate set
+or to wrap quantum routines inside a "black box".
+However, when comes the time of simulation or proper execution of the quantum circuits, one might need to provide additional information to these black boxes in order to either:
+
+    - be able to simulate it (e.g can we attach a matrix definition to the gate?)
+    - be able to link it using a sub-circuit librairie (e.g can we attach a sub-circuit implementation to the gate?)
+
+Matrix definition
+__________________
+
+To provide a matrix implementation for an :class:`~qat.lang.AQASM.gates.AbstractGate`, one first needs to define a python function that returns a matrix such that:
+
+    - the function returns a matrix (for simplicity a numpy array)
+    - the function has the same input signature as the gate
+
+.. code-block:: python
+
+    def phase_matrix(theta):
+        return np.diag([1, np.exp(1j * theta)])
+
+    phase_gate = AbstractGate("PHASE", [float], matrix_generator=phase_matrix, arity=1)
+    ## Or alternatively
+    phase_gate = AbstractGate("PHASE", [float], arity=1)
+    phase_gate.set_matrix_generator(phase_matrix)
+
+Subcircuit definition
+_______________________
+
+Similarly, to provide a subcircuit implementation, one attaches to the definition of the gate a function returning a :class:`~qat.lang.AQASM.QRoutine`.
+
+.. code-block:: python
+
+    def c_phase(theta):
+        routine = QRoutine()
+        wires = routine.new_wires(2)
+        routine.apply(CNOT, wires)
+        routine.apply(PH(-theta/2), wires[1])
+        routine.apply(CNOT, wires)
+        routine.apply(PH(theta/2), wires[0])
+        routine.apply(PH(theta/2), wires[1])
+        return routine
+
+
+    c_phase_gate = AbstractGate("C_PHASE", [float], arity=2, circuit_generator=c_phase)
+    ## Or alternatively
+    c_phase_gate = AbstractGate("C_PHASE", [float], arity=2)
+    c_phase_gate.set_circuit_generator(c_phase)
+
+
+Arity generator
+________________
+
+Finally, it is possible for abstract gates to have a variable arity that depends on its parameters.
+
+.. code-block:: python
+
+    # A QFT has arity equals to its sole parameter
+    qft = AbstractGate("QFT", [int], arity=lambda n : n)
+
+This way, pyAQASM is able to statically check that the gate is applied on the right number of qubits.
+
+
+Lifting python functions into quantum gates
+...............................................
+
+Even though the above mecanics are very expressive when designing a library of quantum routines, it might still seem a bit clunky to have
+to define circuit generators and abstract gates separatly.
+
+The :class:`~qat.lang.AQASM.misc.build_gate` decorator removes a lot of this clunkyness by allowing you to turn any python function returning a :class:`~qat.lang.AQASM.QRoutine` into an :class:`~qat.lang.AQASM.gates.AbstractGate`.
+
+.. code-block:: python
+
+    from qat.lang.AQASM import QRoutine, H 
+    from qat.lang.AQASM.misc import build_gate
+
+    @build_gate("WALSH_HADAMARD", [int], arity=lambda n: n)
+    def wht(nbqbits):
+        routine = QRoutine()
+        wires = routine.new_wires(nbqbits)
+        for wire in wires:
+            routine.apply(H, wire)
+        return routine
+
+    prog = Program()
+    qbits = prog.qalloc(4)
+    prog.apply(wht(4), qbits)
+    # This circuit will contain a gate containing a subcircuit 
+    # of length 4
+    circuit = prog.to_circ()
+
+Linking at circuit extraction
+..................................
+
+In pyAQASM, it is possible to construct a :class:`~qat.lang.AQASM.Program` object using :class:`~qat.lang.AQASM.AbstractGate` objects representing subroutines, without specifying any implementation of the underlying subcircuit.
+
+Consider for instance the following program:
+
+.. code-block:: python
+
+
+    from qat.lang.AQASM import Program, AbstractGate
+    
+    prog = Program()
+    qbits = prog.qalloc(2 * 10)
+    adder = AbstractGate("ADD", [int, int], arity=lambda n1, n2: n1 + n2)
+    prog.apply(adder(10, 10), qbits)
+
+This code will run without error. The generated circuit (the result of :meth:`~qat.lang.AQASM.Program.to_circ`) will contain a single gate without any subcircuit implementation.
+In particular, attempting to execute this circuit on most QPUs will fail.
+
+Now, lets imagine that we have our very own implementation of an adder, lying in some python namespace `foo`.
+Its definition will look like this:
+
+.. code-block:: python
+
+    from qat.lang.AQASM import QRoutine, H 
+    from qat.lang.AQASM.misc import build_gate
+
+    @build_gate("ADD", [int, int], arity=lambda n1, n2: n1 + n2)
+    def my_adder(length1, length2):
+        routine = QRoutine()
+        wires = routine.new_wires(length1 + length2)
+        
+        ## Here a proper addition is implemented
+
+        return routine
+
+What pyAQASM allows us to do is to use this definition of an adder and link it to the program above in order to attach to the `ADD` gate a proper subcircuit implementation.
+The linking is done inside the :meth:`~qat.lang.AQASM.Program.to_circ` method of the :class:`~qat.lang.AQASM.Program` via the `link` keyword.
+Lets update the first piece of code to link the implementation `foo.my_adder` to the `ADD` gate.
+
+.. code-block:: python
+
+
+    # This part stays the same
+    from qat.lang.AQASM import Program, AbstractGate
+
+    prog = Program()
+    qbits = prog.qalloc(2 * 10)
+    adder = AbstractGate("ADD", [int, int], arity=lambda n1, n2: n1 + n2)
+    prog.apply(adder(10, 10), qbits)
+
+    import foo
+    circuit = prog.to_circ(link=[foo.my_adder])
+
+Now the `circuit` variable contains a circuit that will probably be executable (depending on your implementation of `my_adder`).
+Equivalently one could have linked the full namespace `foo`, if we had for instance, many definitions of subcircuits inside it:
+
+.. code-block:: python
+
+
+    # This part stays the same
+    from qat.lang.AQASM import Program, AbstractGate
+
+    prog = Program()
+    qbits = prog.qalloc(2 * 10)
+    adder = AbstractGate("ADD", [int, int], arity=lambda n1, n2: n1 + n2)
+    prog.apply(adder(10, 10), qbits)
+
+    import foo
+    circuit = prog.to_circ(link=[foo])
+
+
+
+QRoutine's Compute/uncompute scopes
+.........................................
+
+A quite common programming scheme in reversible computation in general, and quantum computation in particular, is the *compute/uncompute* scheme.
+
+Usually, one has to compute some function, use the result of this computation, and then uncompute the first part of the circuit to free up some ancilla resources.
+
+This scheme is natively supported inside the :class:`~qat.lang.AQASM.routine.QRoutine` objects using a **with** statement:
+
+.. code-block:: python
+    
+    routine = QRoutine()
+    ## Allocating 2 wires to apply gates on
+    wires = routine.new_wires(2)
+    ## Opening a computation scope
+    with routine.compute():
+        routine.apply(CNOT, wires[0], wires[1])
+    ## The scope is now closed and stored internally
+    routine.apply(PH(1.), wires[1])
+    ## Here we 'pop' the last closed scope and apply its dagger
+    routine.uncompute()
+    ## The routine now contains 3 gates
+
+Of course computation scopes can be nested:
+
+.. code-block:: python
+
+    routine = QRoutine()
+    wires = routine.new_wires(3)
+    with routine.compute():
+        routine.apply(CNOT, wires[0], wires[1])
+        with routine.compute():
+            routine.apply(CNOT, wires[1], wires[2])
+        routine.apply(PH(1.), wires[2))
+        routine.uncompute()
+    routine.apply(PH(2.), wires[1])
+    routine.uncompute()
+    ## The routine now contains 9 gates
+
+Automated ancillae management
+...............................
+
+The :class:`~qat.lang.AQASM.QRoutine` object comes with a system of ancillae management.
+In practice, one can allocate fresh wires and declare them as ancillae:
+
+.. code-block:: python
+
+    routine = QRoutine()
+    wires = routine.new_wires(1)
+    ancilla = routine.new_wires(1)
+    routine.set_ancillae(ancilla)
+
+
+This routine will have arity 1, its second wire being declared as an ancilla.
+Upon calling the :meth:`~qat.lang.AQASM.Program..to_circ` method of a program containing this routine, additional qubits will
+be dynamically allocated and passed to the routine. Of course this allocation is made recursively accros
+the call tree.
+
+The only thing you have to ensure is that ancillae are freed before leaving the routine (i.e are in product :math:`|0\rangle` state).
+
+As a consequence, it is possible to link subcircuit implementations of a gate using different number of ancillae:
+
+.. code-block:: python
+
+    from qat.lang.AQASM.arithmetic import add
+    import qat.lang.AQASM.qftarith as qftarith
+    import qat.lang.AQASM.classarith as classarith
+
+    prog = Program()
+    qbits = prog.qalloc(20)
+    prog.apply(add(10, 10), qbits)
+
+    # No ancillae
+    circuit = prog.to_circ(link=[qftarith])
+
+    # 9 ancillae
+    circuit = prog.to_circ(link=[classarith])
+
+

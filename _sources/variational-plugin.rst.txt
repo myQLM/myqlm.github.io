@@ -1,0 +1,35 @@
+Plugins for variational algorithms
+====================================
+
+The following plugins inherits from the class :class:`~qat.plugins.Optimizer` and provide an easy way to include your favorite classical optimizer inside a QLM stack.
+These plugins do not provide particular interface for gradient based optimization.
+
+They require the input job to have abstract parameters (i.e the circuit and/or the observable should be parametrized).
+
+We can, for instance, build a very simple variational job as follows:
+
+.. run-block:: python
+
+        from qat.plugins import ScipyMinimizePlugin
+        from qat.qpus import get_default_qpu
+        from qat.lang.AQASM import Program, RY
+        from qat.core import Observable
+
+        prog = Program()
+        qbits = prog.qalloc(1)
+        RY(prog.new_var(float, "a"))(qbits)
+        job = prog.to_circ().to_job(observable=Observable.sigma_z(0, 1))
+
+        stack = ScipyMinimizePlugin(method="COBYLA") | get_default_qpu()
+        
+        result = stack.submit(job)
+
+        print("Final energy:", result.value)
+        print("Minimization trace:", result.meta_data["optimization_trace"])
+        print("Best parameters:", result.meta_data["parameters"])
+
+.. automodule:: qat.vsolve.optimize.scipy_binder
+    :members: ScipyMinimizePlugin
+
+.. automodule:: qat.vsolve.optimize.spsa
+    :members: SPSAMinimizePlugin, spsa_minimize

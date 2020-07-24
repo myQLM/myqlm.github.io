@@ -1,0 +1,1616 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Combinatorial optimization &mdash; myQLM documentation myQLM-0.0.7.122 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/contentui.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Interoperability in the QLM" href="myqlm_specific/interoperability.html" />
+    <link rel="prev" title="Applications" href="applications.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> myQLM documentation
+          
+
+          
+            
+            <img src="_static/myqlm.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                myQLM-0.0.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/install.html">Installing myQLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programming.html">Writing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulating.html">Executing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="source_doc.html">Source code documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-core-library">The core library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-programming-library">The programming library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#plugins">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#qpus">QPUs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#interoperations-with-other-frameworks">Interoperations with other frameworks</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="source_doc.html#combinatorial-optimization-and-qaoa">Combinatorial optimization and QAOA</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Combinatorial optimization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#declaring-and-manipulating-combinatorial-problems">Declaring and manipulating combinatorial problems</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generate-qaoa-ansatz">Generate QAOA Ansatz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#encoding-np-hard-problems">Encoding NP-hard Problems</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simulated-quantum-annealing-benchmarking-and-performance">Simulated Quantum Annealing Benchmarking and Performance</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Command line tools</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">myQLM documentation</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="applications.html">Applications</a> &raquo;</li>
+        
+      <li>Combinatorial optimization</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/combinatorial_optimization.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="combinatorial-optimization">
+<span id="id1"></span><h1>Combinatorial optimization<a class="headerlink" href="#combinatorial-optimization" title="Permalink to this headline">¶</a></h1>
+<p>This section describes how to define and solve combinatorial problems using myQLM tools.</p>
+<div class="section" id="declaring-and-manipulating-combinatorial-problems">
+<h2>Declaring and manipulating combinatorial problems<a class="headerlink" href="#declaring-and-manipulating-combinatorial-problems" title="Permalink to this headline">¶</a></h2>
+<p>The most generic class used to describe combinatorial problems is the <a class="reference internal" href="#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.CombinatorialProblem</span></code></a> class.
+It provides a simple interface to declare boolean variables and clauses, and ways to turn abstract problems into <a class="reference internal" href="qat-core.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> or objects that can be fed to solvers.</p>
+<p>In the (quite common case) where the problem’s clauses only involve at most two variables at a time (QUBO), we also provide a couple of optimized classes to describe the problem
+directly in terms of Ising coupling matrix or QUBO <span class="math notranslate nohighlight">\(Q\)</span> matrix (see below).
+Back-and-forth translations are avaible between the three problem classes using the <code class="xref py py-meth docutils literal notranslate"><span class="pre">to_XXX()</span></code> methods.</p>
+<div class="section" id="generic-combinatorial-optimization">
+<h3>Generic combinatorial optimization<a class="headerlink" href="#generic-combinatorial-optimization" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="qat.opt.CombinatorialProblem">
+<em class="property">class </em><code class="sig-prename descclassname">qat.opt.</code><code class="sig-name descname">CombinatorialProblem</code><a class="headerlink" href="#qat.opt.CombinatorialProblem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic interface to describe a combinatorial optimization problem.</p>
+<p>The problem declaration is done via methods <a class="reference internal" href="#qat.opt.CombinatorialProblem.new_var" title="qat.opt.CombinatorialProblem.new_var"><code class="xref py py-meth docutils literal notranslate"><span class="pre">new_var()</span></code></a>
+(or <a class="reference internal" href="#qat.opt.CombinatorialProblem.new_vars" title="qat.opt.CombinatorialProblem.new_vars"><code class="xref py py-meth docutils literal notranslate"><span class="pre">new_vars()</span></code></a> to declare arrays)
+and <a class="reference internal" href="#qat.opt.CombinatorialProblem.add_clause" title="qat.opt.CombinatorialProblem.add_clause"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_clause()</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">CombinatorialProblem</span>
+
+<span class="n">problem</span> <span class="o">=</span> <span class="n">CombinatorialProblem</span><span class="p">(</span><span class="s2">&quot;MyProblem&quot;</span><span class="p">)</span>
+<span class="c1"># Declare two fresh variables</span>
+<span class="n">var1</span><span class="p">,</span> <span class="n">var2</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">new_vars</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># Add a new clause consisting of the logical AND of the two variables</span>
+<span class="n">problem</span><span class="o">.</span><span class="n">add_clause</span><span class="p">(</span><span class="n">var1</span> <span class="o">&amp;</span> <span class="n">var2</span><span class="p">)</span>
+<span class="c1"># Add a new clause consisting of the XOR of the two variables</span>
+<span class="n">problem</span><span class="o">.</span><span class="n">add_clause</span><span class="p">(</span><span class="n">var1</span> <span class="o">^</span> <span class="n">var2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MyProblem</span><span class="p">:</span>
+ <span class="mi">2</span> <span class="n">variables</span><span class="p">,</span> <span class="mi">2</span> <span class="n">clauses</span>
+</pre></div>
+</div>
+<p>It is possible to add weights to the clauses:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">CombinatorialProblem</span>
+
+<span class="n">problem</span> <span class="o">=</span> <span class="n">CombinatorialProblem</span><span class="p">()</span>
+<span class="n">var1</span><span class="p">,</span> <span class="n">var2</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">new_vars</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">problem</span><span class="o">.</span><span class="n">add_clause</span><span class="p">(</span><span class="n">var1</span> <span class="o">&amp;</span> <span class="n">var2</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Problem</span><span class="p">:</span>
+ <span class="mi">2</span> <span class="n">variables</span><span class="p">,</span> <span class="mi">1</span> <span class="n">clauses</span>
+</pre></div>
+</div>
+<p>A diagonal Hamiltonian encoding the cost function of the problem can be extracted using the
+<a class="reference internal" href="#qat.opt.CombinatorialProblem.get_observable" title="qat.opt.CombinatorialProblem.get_observable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_observable()</span></code></a> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">CombinatorialProblem</span>
+
+<span class="n">problem</span> <span class="o">=</span> <span class="n">CombinatorialProblem</span><span class="p">()</span>
+<span class="n">var1</span><span class="p">,</span> <span class="n">var2</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">new_vars</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">problem</span><span class="o">.</span><span class="n">add_clause</span><span class="p">(</span><span class="n">var1</span> <span class="o">&amp;</span> <span class="n">var2</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">obs</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">get_observable</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.125</span> <span class="o">*</span> <span class="n">I</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span>
+<span class="o">-</span><span class="mf">0.125</span> <span class="o">*</span> <span class="p">(</span><span class="n">Z</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.125</span> <span class="o">*</span> <span class="p">(</span><span class="n">ZZ</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+<span class="o">-</span><span class="mf">0.125</span> <span class="o">*</span> <span class="p">(</span><span class="n">Z</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Finally, this class inherits from the <a class="reference internal" href="#qat.opt.circuit_generator.CircuitGenerator" title="qat.opt.circuit_generator.CircuitGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">CircuitGenerator</span></code></a>
+class, which provides
+a method to directly generate variational Ansätze
+to try and minimize the energy of the cost Hamiltonian.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>optional</em><em>, </em><em>str</em>) – a name to display when the problem is printed</p></li>
+<li><p><strong>maximization</strong> (<em>optional</em><em>, </em><em>bool</em>) – Used to specify that the problem is
+a maximization problem (i.e its cost function is the sum of its clauses).
+In practice, it will simply flip the sign of the generated cost
+Hamiltonian. Default to false.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="qat.opt.CombinatorialProblem.add_clause">
+<code class="sig-name descname">add_clause</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">clause</span></em>, <em class="sig-param"><span class="n">weight</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.CombinatorialProblem.add_clause" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new clause to the problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>clause</strong> (<a class="reference internal" href="#qat.opt.boolexpr.Clause" title="qat.opt.boolexpr.Clause"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clause</span></code></a>) – a clause object</p></li>
+<li><p><strong>weight</strong> (<em>optional</em><em>, </em><em>float</em>) – optionally a weight (default to 1)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the problem itself</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.opt.CombinatorialProblem.get_observable">
+<code class="sig-name descname">get_observable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.CombinatorialProblem.get_observable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a cost Hamiltonian for the problem.</p>
+<p>The cost Hamiltonian is diagonal and associate to each bitstring <span class="math notranslate nohighlight">\(|s\rangle\)</span> an
+energy <span class="math notranslate nohighlight">\(\sum_\alpha w_\alpha C_\alpha(s)\)</span> where <span class="math notranslate nohighlight">\(C_\alpha\)</span> are the clauses
+of the problem, seen as <span class="math notranslate nohighlight">\(\{0, 1\}\)</span> valued functions
+and <span class="math notranslate nohighlight">\(w_\alpha\)</span> their corresponding weights.</p>
+<p>This encoding is done recursively and is described in the documentation of the
+<a class="reference internal" href="#qat.opt.boolexpr.Clause" title="qat.opt.boolexpr.Clause"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clause</span></code></a> class.</p>
+<p>If the problem is specified as a maximization problem, the sign of the cost
+Hamiltonian if flipped.
+This means that the <code class="docutils literal notranslate"><span class="pre">best</span></code> solution is always encoded in the ground state of the returned
+Hamiltonian.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a cost Hamiltonian</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="qat-core.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.opt.CombinatorialProblem.new_var">
+<code class="sig-name descname">new_var</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.CombinatorialProblem.new_var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a fresh variable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a fresh variable</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#qat.opt.boolexpr.Var" title="qat.opt.boolexpr.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.opt.CombinatorialProblem.new_vars">
+<code class="sig-name descname">new_vars</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nbvars</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.CombinatorialProblem.new_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of fresh variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nbvars</strong> (<em>int</em>) – the number of fresh variables to declare</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of fresh variables of length <cite>nbvars</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>list</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.opt.CombinatorialProblem.to_ising">
+<code class="sig-name descname">to_ising</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.CombinatorialProblem.to_ising" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates the problem into an Ising problem. Might raise an exception
+if the problem is not quadratic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>an Ising object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.opt.CombinatorialProblem.to_qubo">
+<code class="sig-name descname">to_qubo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.CombinatorialProblem.to_qubo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates the problem into a QUBO problem. Might raise an exception
+if the problem is not quadratic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a QUBO object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>Clauses (<a class="reference internal" href="#qat.opt.boolexpr.Clause" title="qat.opt.boolexpr.Clause"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clause</span></code></a>) are declared by combining variables (<a class="reference internal" href="#qat.opt.boolexpr.Var" title="qat.opt.boolexpr.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a>). The cost Hamiltonian extraction is handled by the
+(<a class="reference internal" href="#qat.opt.boolexpr.Clause" title="qat.opt.boolexpr.Clause"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clause</span></code></a>) class. The final cost Hamiltonian constits of the weighted sum of the cost Hamiltonian of its clauses.</p>
+<dl class="py class">
+<dt id="qat.opt.boolexpr.Clause">
+<em class="property">class </em><code class="sig-prename descclassname">qat.opt.boolexpr.</code><code class="sig-name descname">Clause</code><a class="headerlink" href="#qat.opt.boolexpr.Clause" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class representing a boolean clause (boolean formula).</p>
+<p>Clauses are trees whose leaves are <a class="reference internal" href="#qat.opt.boolexpr.Var" title="qat.opt.boolexpr.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> objects and internal nodes
+are labelled by boolean operators (&amp;, |, ^, ~).</p>
+<p>Clauses are meant to be built either using the <cite>.and_clause</cite>, <cite>.or_clause</cite>,
+<cite>.xor_clause</cite>, <cite>neg_clause</cite> static methods, or via boolean operators
+overloading:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>str</em>) – the operator (in [“&amp;”, “|”, “^”, “~”])</p></li>
+<li><p><strong>arity</strong> (<em>int</em>) – the arity of the operator</p></li>
+<li><p><strong>*children</strong> (<a class="reference internal" href="#qat.opt.boolexpr.Clause" title="qat.opt.boolexpr.Clause"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clause</span></code></a>) – the subclauses</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="qat.opt.boolexpr.Clause.get_observable">
+<code class="sig-name descname">get_observable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.boolexpr.Clause.get_observable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a boolean valued diagonal cost observable matching the evaluation
+of the clause.</p>
+<p>The cost observable is built by induction:</p>
+<p><span class="math notranslate nohighlight">\(H(A \wedge B) = H(A) H(B)\)</span></p>
+<p><span class="math notranslate nohighlight">\(H(A \vee B) = H(A) + H(B) - H(A) H(B)\)</span></p>
+<p><span class="math notranslate nohighlight">\(H(A \oplus B) = H(A) + H(B) - 2 H(A) H(B)\)</span></p>
+<p><span class="math notranslate nohighlight">\(H(\neg A) = 1 - H(A)\)</span></p>
+<p><span class="math notranslate nohighlight">\(H(v) = (1 - \sigma_z^v)/2\)</span></p>
+<p>Consequently: the resulting Hamiltonian is {0, 1} valued and has
+as 1-eigenstates the states that satisfy the clause.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>The variable class is quite simple and overloads logical operators to closely interact with the <cite>Clause</cite> class:</p>
+<dl class="py class">
+<dt id="qat.opt.boolexpr.Var">
+<em class="property">class </em><code class="sig-prename descclassname">qat.opt.boolexpr.</code><code class="sig-name descname">Var</code><a class="headerlink" href="#qat.opt.boolexpr.Var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple class for boolean variables</p>
+<dl class="py attribute">
+<dt id="qat.opt.boolexpr.Var.index">
+<code class="sig-name descname">index</code><a class="headerlink" href="#qat.opt.boolexpr.Var.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>the variable index (unique identifier)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>) – the variable index</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="qat.opt.boolexpr.Var.get_observable">
+<code class="sig-name descname">get_observable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.boolexpr.Var.get_observable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a boolean valued diagonal cost observable matching the evaluation
+of the variable: <span class="math notranslate nohighlight">\((1 - \sigma_z^i) / 2\)</span> where <span class="math notranslate nohighlight">\(i\)</span> is the index of the
+variable.</p>
+<p>The observable will act upon self.index + 1 qubits.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.opt.boolexpr.Var.get_variables">
+<code class="sig-name descname">get_variables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.boolexpr.Var.get_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a singleton with the index of the variable</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="quadratic-problems-qubo-and-ising">
+<h3>Quadratic problems: QUBO and Ising<a class="headerlink" href="#quadratic-problems-qubo-and-ising" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="qat.opt.QUBO">
+<em class="property">class </em><code class="sig-prename descclassname">qat.opt.</code><code class="sig-name descname">QUBO</code><a class="headerlink" href="#qat.opt.QUBO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class representing Quadratic Unconstraned Binary Optimization problems.</p>
+<p>The class allows for the representation of a problem as QUBO - by providing
+with a <span class="math notranslate nohighlight">\(Q\)</span> matrix and a QUBO offset energy <span class="math notranslate nohighlight">\(E_Q\)</span>, both of which
+coming from the respective Hamiltonian encoding,</p>
+<div class="math notranslate nohighlight">
+\[H = - x^T Q x - E_Q\]</div>
+<p>where <span class="math notranslate nohighlight">\(x\)</span> is the vector of binary values <span class="math notranslate nohighlight">\(\{0,1\}\)</span> we look for,
+such that <span class="math notranslate nohighlight">\(H\)</span> is minimum.</p>
+<p>The class can also translate from a QUBO problem to an Ising problem via
+<a class="reference internal" href="#qat.opt.QUBO.to_ising" title="qat.opt.QUBO.to_ising"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_ising()</span></code></a> by returning an Ising object.</p>
+<p>QUBO problems can be translated to a <a class="reference internal" href="#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a>
+object via <a class="reference internal" href="#qat.opt.QUBO.to_combinatorial_problem" title="qat.opt.QUBO.to_combinatorial_problem"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_combinatorial_problem()</span></code></a>.</p>
+<p>This class also inherits from the <a class="reference internal" href="#qat.opt.circuit_generator.CircuitGenerator" title="qat.opt.circuit_generator.CircuitGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">CircuitGenerator</span></code></a>
+class which allows to construct QAOA-Ansätze.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Q</strong> (<em>2D numpy array</em>) – an array representing the <span class="math notranslate nohighlight">\(Q\)</span> matrix from the
+Hamiltonian of the problem</p></li>
+<li><p><strong>offset_q</strong> (<em>optional</em><em>, </em><em>double</em>) – the value of the QUBO offset energy in
+the Hamiltonian of the problem</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="qat.opt.QUBO.get_observable">
+<code class="sig-name descname">get_observable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.QUBO.get_observable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a cost Hamiltonian for the problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>an Ising Hamiltonian encoding the problem</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="qat-core.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.opt.QUBO.get_q_and_offset">
+<code class="sig-name descname">get_q_and_offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.QUBO.get_q_and_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns the <span class="math notranslate nohighlight">\(Q\)</span> matrix and QUBO energy offset,
+which define the QUBO object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p>2-element tuple containing</p>
+<ul class="simple">
+<li><p><strong>Q</strong> (<em>2D numpy array</em>) - an array representing the <span class="math notranslate nohighlight">\(Q\)</span> matrix from the
+Hamiltonian of the problem</p></li>
+<li><p><strong>offset_q</strong> (<em>double</em>) - the value of the QUBO offset energy in the
+Hamiltonian of the problem</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.opt.QUBO.to_combinatorial_problem">
+<code class="sig-name descname">to_combinatorial_problem</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.QUBO.to_combinatorial_problem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates the QUBO problem into a combinatorial problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a combinatorial problem instance</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.opt.QUBO.to_ising">
+<code class="sig-name descname">to_ising</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.QUBO.to_ising" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates the QUBO problem into an Ising problem over spins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>an Ising instance</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="qat.opt.Ising">
+<em class="property">class </em><code class="sig-prename descclassname">qat.opt.</code><code class="sig-name descname">Ising</code><a class="headerlink" href="#qat.opt.Ising" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class representing Ising problems.</p>
+<p>The class allows for the representation of a problem in the Ising framework - by providing
+with a coupling matrix <span class="math notranslate nohighlight">\(J\)</span>, magnetic field <span class="math notranslate nohighlight">\(h\)</span> and an Ising offset
+energy <span class="math notranslate nohighlight">\(E_I\)</span>, all of which coming from the respective Hamiltonian encoding,</p>
+<div class="math notranslate nohighlight">
+\[H = - s^T J s - h^T s - E_I\]</div>
+<p>where <span class="math notranslate nohighlight">\(s\)</span> is the spin vector we look for with values <span class="math notranslate nohighlight">\(\{-1,1\}\)</span>,
+such that <span class="math notranslate nohighlight">\(H\)</span> is minimum.</p>
+<p>The class can also translate from an Ising problem to a QUBO problem through
+<a class="reference internal" href="#qat.opt.Ising.to_qubo" title="qat.opt.Ising.to_qubo"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_qubo()</span></code></a> by returning a <a class="reference internal" href="#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> object.</p>
+<p>Ising problems can be translated to a <a class="reference internal" href="#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a>
+object via <a class="reference internal" href="#qat.opt.Ising.to_combinatorial_problem" title="qat.opt.Ising.to_combinatorial_problem"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_combinatorial_problem()</span></code></a>.</p>
+<p>Similarly to QUBO and CombinatorialProblem, this class inherits from the
+<a class="reference internal" href="#qat.opt.circuit_generator.CircuitGenerator" title="qat.opt.circuit_generator.CircuitGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">CircuitGenerator</span></code></a> class, thus is able to generate
+QAOA-Ansätze.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>J</strong> (<em>2D numpy array</em>) – an array with the coupling between each two spins - it represents
+the <span class="math notranslate nohighlight">\(J\)</span> matrix from the Hamiltonian of the problem</p></li>
+<li><p><strong>h</strong> (<em>1D numpy array</em>) – an array with the magnetic field acting on each of the spins,
+coming from the Hamiltonian of the problem</p></li>
+<li><p><strong>offset_i</strong> (<em>optional</em><em>, </em><em>double</em>) – the value of the Ising offset energy in the
+respective Hamiltonian</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="qat.opt.Ising.get_j_h_and_offset">
+<code class="sig-name descname">get_j_h_and_offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.Ising.get_j_h_and_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns the <span class="math notranslate nohighlight">\(J\)</span> coupling matrix, the magnetic field <span class="math notranslate nohighlight">\(h\)</span> and Ising
+energy offset, which define the Ising object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p>3-element tuple containing</p>
+<ul class="simple">
+<li><p><strong>J</strong> (<em>2D numpy array</em>) - an array with the coupling between each two spins - it
+represents the <span class="math notranslate nohighlight">\(J\)</span> matrix from the Hamiltonian of the problem</p></li>
+<li><p><strong>h</strong> (<em>1D numpy array</em>) - an array with the magnetic field acting on each of the
+spins, coming from the Hamiltonian of the problem</p></li>
+<li><p><strong>offset_i</strong> (<em>double</em>) - the value of the Ising offset energy in the respective
+Hamiltonian</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.opt.Ising.get_observable">
+<code class="sig-name descname">get_observable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.Ising.get_observable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a cost Hamiltonian for the problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>an Ising Hamiltonian encoding the problem</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="qat-core.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.opt.Ising.to_combinatorial_problem">
+<code class="sig-name descname">to_combinatorial_problem</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.Ising.to_combinatorial_problem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates the Ising problem into a combinatorial problem problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a combinatorial problem instance</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.opt.Ising.to_qubo">
+<code class="sig-name descname">to_qubo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.Ising.to_qubo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates the Ising problem into a QUBO problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a QUBO object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="generate-qaoa-ansatz">
+<h2>Generate QAOA Ansatz<a class="headerlink" href="#generate-qaoa-ansatz" title="Permalink to this headline">¶</a></h2>
+<p>The Quantum Approximate Optimization Algorithms is a heuristics to design variational Ansätze for combinatorial optimization. It consists in a digitalization of an analog evolution using a linear ramp, starting from a simple initial Hamiltonian <span class="math notranslate nohighlight">\(H_0 = - \sum_i \sigma_x^i\)</span> to a diagonal Hamiltonian whose ground state encodes the solution to our problem.
+This digitalization leads to a layered parametrized quantum circuit consisting of entangling layers sperated by collective <span class="math notranslate nohighlight">\(R_X\)</span> rotations.</p>
+<p>QAOA Ansätze are usually parametrized by a <cite>depth</cite> parameter specifying the number of alternating layers.</p>
+<p>It is possible to directly generate ready to run QAOA jobs (containing an Ansatz and the target Hamiltonian) from an instance
+of <a class="reference internal" href="#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.CombinatorialProblem</span></code></a>/<a class="reference internal" href="#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.QUBO</span></code></a>/<a class="reference internal" href="#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.Ising</span></code></a> instance via the follwing interface:</p>
+<dl class="py class">
+<dt id="qat.opt.circuit_generator.CircuitGenerator">
+<em class="property">class </em><code class="sig-prename descclassname">qat.opt.circuit_generator.</code><code class="sig-name descname">CircuitGenerator</code><a class="headerlink" href="#qat.opt.circuit_generator.CircuitGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for circuit generation interface from a diagonal observable.</p>
+<dl class="py method">
+<dt id="qat.opt.circuit_generator.CircuitGenerator.qaoa_ansatz">
+<code class="sig-name descname">qaoa_ansatz</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">depth</span></em>, <em class="sig-param"><span class="n">cnots</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">strategy</span><span class="o">=</span><span class="default_value">'coloring'</span></em>, <em class="sig-param"><span class="n">to_circ_args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.circuit_generator.CircuitGenerator.qaoa_ansatz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a QAOA Ansatz using the cost observable returned
+by the <code class="xref py py-meth docutils literal notranslate"><span class="pre">get_observable()</span></code> method.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When setting the <cite>cnots</cite> option to False, the circuit might make
+use of generalized many-qubits Z rotations. In that case,
+you might want to instantiate your variational plugins using
+a gate set that contains definition of these gates. If not,
+some matrices in the circuit structure
+will be missing and some QPUs may not be able to handle the circuit.</p>
+<p>The following piece of code should allow you to link the correct gate
+set to a variational plugin:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.plugins</span> <span class="kn">import</span> <span class="n">ScipyMinimizePlugin</span>
+<span class="kn">from</span> <span class="nn">qat.vsolve.ansatz</span> <span class="kn">import</span> <span class="n">get_qaoa_gate_set</span>
+
+<span class="c1"># This plugin will no be able to bind variables inside a</span>
+<span class="c1"># job generated with cnot set to False!</span>
+<span class="n">my_plugin</span> <span class="o">=</span> <span class="n">ScipyMinimizePlugin</span><span class="p">()</span>
+
+<span class="c1"># This plugin can now be used with job generated with the</span>
+<span class="c1"># cnots option sets to False!</span>
+<span class="n">my_plugin</span> <span class="o">=</span> <span class="n">ScipyMinimizePlugin</span><span class="p">(</span><span class="n">gate_set</span><span class="o">=</span><span class="n">get_qaoa_gate_set</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>depth</strong> (<em>int</em>) – the depth of the Ansatz</p></li>
+<li><p><strong>strategy</strong> (<em>str</em>) – the strategy to adopt to generate the circuit. Possible
+strategies are “default” or “coloring”. The “coloring” strategy uses
+a greedy coloring heuristics to try to optimize the overall depth of the
+Ansatz. Default is “default” which synthesize the circuit without optimizing
+the term ordering.</p></li>
+<li><p><strong>cnots</strong> (<em>optional</em><em>, </em><em>bool</em>) – If set to True the Ansatz will only use CNOT
+gates. If set to False, some abstract gates will be used to
+generate collective pauli rotations, resulting in a lower gate count.
+Defaults to True.</p></li>
+<li><p><strong>**kwargs</strong> – optional arguments that will be transfered to the
+job’s constructor (e.g nbshots, etc).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a qlm job, ready to run</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="qat-core.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>The <a class="reference internal" href="#qat.vsolve.ansatz.AnsatzFactory" title="qat.vsolve.ansatz.AnsatzFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.vsolve.ansatz.AnsatzFactory</span></code></a> provides a recipe to produce such a variational circuits from a target Hamiltonian.</p>
+<dl class="py class">
+<dt id="qat.vsolve.ansatz.AnsatzFactory">
+<em class="property">class </em><code class="sig-prename descclassname">qat.vsolve.ansatz.</code><code class="sig-name descname">AnsatzFactory</code><a class="headerlink" href="#qat.vsolve.ansatz.AnsatzFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class regroups the implementation all the different Ansätze available
+in the QLM.</p>
+<dl class="py method">
+<dt id="qat.vsolve.ansatz.AnsatzFactory.qaoa_circuit">
+<em class="property">static </em><code class="sig-name descname">qaoa_circuit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">observable</span></em>, <em class="sig-param"><span class="n">depth</span></em>, <em class="sig-param"><span class="n">strategy</span><span class="o">=</span><span class="default_value">'default'</span></em>, <em class="sig-param"><span class="n">cnots</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">to_circ_args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.vsolve.ansatz.AnsatzFactory.qaoa_circuit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a QAOA Ansatz from an observable and an Ansatz depth</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
+<span class="kn">from</span> <span class="nn">qat.vsolve.ansatz</span> <span class="kn">import</span> <span class="n">AnsatzFactory</span>
+
+<span class="n">line_obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+    <span class="n">line_obs</span><span class="o">.</span><span class="n">add_term</span><span class="p">(</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;ZZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">ansatz_with_cnots</span> <span class="o">=</span> <span class="n">AnsatzFactory</span><span class="o">.</span><span class="n">qaoa_circuit</span><span class="p">(</span><span class="n">line_obs</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The Ansatz has </span><span class="si">{}</span><span class="s2"> gates&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ansatz_with_cnots</span><span class="o">.</span><span class="n">ops</span><span class="p">)))</span>
+<span class="n">ansatz_with_rzz</span> <span class="o">=</span> <span class="n">AnsatzFactory</span><span class="o">.</span><span class="n">qaoa_circuit</span><span class="p">(</span><span class="n">line_obs</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">cnots</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The Ansatz has </span><span class="si">{}</span><span class="s2"> gates&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ansatz_with_rzz</span><span class="o">.</span><span class="n">ops</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">Ansatz</span> <span class="n">has</span> <span class="mi">121</span> <span class="n">gates</span>
+<span class="n">The</span> <span class="n">Ansatz</span> <span class="n">has</span> <span class="mi">67</span> <span class="n">gates</span>
+</pre></div>
+</div>
+<p>The synthesis strategy may influence the depth of the circuit:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">depth</span><span class="p">(</span><span class="n">circuit</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Computes the depth of a circuit &#39;&#39;&#39;</span>
+    <span class="n">slices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">set</span><span class="p">()]</span>
+    <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">circuit</span><span class="p">:</span>
+        <span class="n">qbits</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">qbits</span>
+        <span class="n">insert_in</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">slic</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">slices</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">qb</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">slic</span> <span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">insert_in</span> <span class="o">=</span> <span class="n">index</span>
+            <span class="k">break</span>
+        <span class="k">if</span> <span class="n">insert_in</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
+                <span class="n">slices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">qb</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">insert_in</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">slices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">qbits</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
+                <span class="n">slices</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">slices</span><span class="p">)</span> <span class="o">-</span> <span class="n">insert_in</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">qb</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">slices</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
+<span class="kn">from</span> <span class="nn">qat.vsolve.ansatz</span> <span class="kn">import</span> <span class="n">AnsatzFactory</span>
+
+<span class="n">line_obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+    <span class="n">line_obs</span><span class="o">.</span><span class="n">add_term</span><span class="p">(</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;ZZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">ansatz_default</span> <span class="o">=</span> <span class="n">AnsatzFactory</span><span class="o">.</span><span class="n">qaoa_circuit</span><span class="p">(</span><span class="n">line_obs</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The Ansatz has depth </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">depth</span><span class="p">(</span><span class="n">ansatz_default</span><span class="p">)))</span>
+<span class="n">ansatz_coloring</span> <span class="o">=</span> <span class="n">AnsatzFactory</span><span class="o">.</span><span class="n">qaoa_circuit</span><span class="p">(</span><span class="n">line_obs</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;coloring&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The Ansatz has depth </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">depth</span><span class="p">(</span><span class="n">ansatz_coloring</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">Ansatz</span> <span class="n">has</span> <span class="n">depth</span> <span class="mi">43</span>
+<span class="n">The</span> <span class="n">Ansatz</span> <span class="n">has</span> <span class="n">depth</span> <span class="mi">22</span>
+</pre></div>
+</div>
+<p>When considering QAOA instances with large Clauses (i.e clauses with more than 2 variables),
+the “gray_synth” strategy can often remove lots of CNOTS:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cnot_count</span><span class="p">(</span><span class="n">circuit</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; count cnots in a circuit &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;CNOT&quot;</span> <span class="k">else</span> <span class="mi">0</span>
+               <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">qbits</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">())</span>
+
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
+<span class="kn">from</span> <span class="nn">qat.vsolve.ansatz</span> <span class="kn">import</span> <span class="n">AnsatzFactory</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">line_obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="n">line_obs</span><span class="o">.</span><span class="n">add_term</span><span class="p">(</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;ZZZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">]))</span>
+
+<span class="n">ansatz_default</span> <span class="o">=</span> <span class="n">AnsatzFactory</span><span class="o">.</span><span class="n">qaoa_circuit</span><span class="p">(</span><span class="n">line_obs</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">)</span>
+<span class="n">ansatz_gray_synth</span> <span class="o">=</span> <span class="n">AnsatzFactory</span><span class="o">.</span><span class="n">qaoa_circuit</span><span class="p">(</span><span class="n">line_obs</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;gray_synth&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cnot count in default:&quot;</span><span class="p">,</span> <span class="n">cnot_count</span><span class="p">(</span><span class="n">ansatz_default</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cnot count in gray synth:&quot;</span><span class="p">,</span> <span class="n">cnot_count</span><span class="p">(</span><span class="n">ansatz_gray_synth</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Cnot</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">default</span><span class="p">:</span> <span class="mi">36</span>
+<span class="n">Cnot</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">gray</span> <span class="n">synth</span><span class="p">:</span> <span class="mi">30</span>
+</pre></div>
+</div>
+<p>Synthesis strategies:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>default: uses the default term ordering provided by the input observable</p></li>
+<li><p>coloring: orders terms using a graph coloring technique in order to
+reduce circuit depth</p></li>
+<li><p>gray_synth: uses Amy et al GraySynth algorithm to synthesize the entangling
+layer. This might help in reducing the overall CNOT count.</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>observable</strong> (<a class="reference internal" href="qat-core.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a>) – some diagonal observable</p></li>
+<li><p><strong>depth</strong> (<em>int</em>) – the depth of the Ansatz</p></li>
+<li><p><strong>strategy</strong> (<em>str</em>) – the strategy to adopt to generate the circuit.</p></li>
+<li><p><strong>cnots</strong> (<em>optional</em><em>, </em><em>bool</em>) – if set to True, the generator will onlt use CNOT gates
+as entangling gates. Default to True. This argument is ignored for some strategies.</p></li>
+<li><p><strong>**to_circ_args</strong> – arguments passed to the to_circ method</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="encoding-np-hard-problems">
+<span id="problems"></span><h2>Encoding NP-hard Problems<a class="headerlink" href="#encoding-np-hard-problems" title="Permalink to this headline">¶</a></h2>
+<p>We present here classes for encoding some of the famous NP problems. An instrinsic feature of these problems is that they can be formulated as minimization or maximization problems, i.e. with a cost function. At the same time finding the lowest energy of a physical system, represented by a cost Hamiltonian, is also a minimization problem. Therefore, we can represent the cost function of an NP problem by a cost Hamiltonian. Such a Hamiltonian, given in an Ising form can then be annealed using Simulated Quantum Annealing (SQA).</p>
+<p>Furthermore, problems formulated as Quadratic Unconstrained Binany Optimisation (QUBO), can also be annealed, since we can translate them to Ising via our <a class="reference internal" href="#qat.opt.QUBO.to_ising" title="qat.opt.QUBO.to_ising"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_ising()</span></code></a> method.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Simulated Quantum Annealing is not available in myQLM.
+QUBO and Ising problems can still be used to construct QAOA
+Ansätze using the <cite>.qaoa_ansatz</cite> method.</p>
+</div>
+<div class="section" id="unconstrained-graph-problems">
+<h3>Unconstrained Graph Problems<a class="headerlink" href="#unconstrained-graph-problems" title="Permalink to this headline">¶</a></h3>
+<p>These are problems concerning graphs, for which any outputted result is valid. In other words, any solution will obey the criteria for a right solution. However, this result may not be the most optimal.
+Some unconstraned problems along with classes for their encoding are described below - Max Cut and Graph Partitioning.</p>
+<div class="section" id="max-cut">
+<span id="maxcut"></span><h4>Max cut<a class="headerlink" href="#max-cut" title="Permalink to this headline">¶</a></h4>
+<p>We are given an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>. The task is to partition the graph into two subgraphs connected by the maximum number of edges. To anneal the problem with the <a class="reference internal" href="#qat.opt.max_cut.MaxCut" title="qat.opt.max_cut.MaxCut"><code class="xref py py-class docutils literal notranslate"><span class="pre">MaxCut</span></code></a> class we would need <span class="math notranslate nohighlight">\(N\)</span> spins for each of the vertices in the graph.</p>
+<dl class="py class">
+<dt id="qat.opt.max_cut.MaxCut">
+<em class="property">class </em><code class="sig-prename descclassname">qat.opt.max_cut.</code><code class="sig-name descname">MaxCut</code><a class="headerlink" href="#qat.opt.max_cut.MaxCut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specialization of the <a class="reference internal" href="#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> class for Max Cut.</p>
+<p>This class allows for the encoding of a Max Cut problem for a given graph.
+The method <a class="reference internal" href="#qat.opt.max_cut.produce_j_h_and_offset" title="qat.opt.max_cut.produce_j_h_and_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">produce_j_h_and_offset()</span></code></a> is automatically called. It calculates the coupling matrix <span class="math notranslate nohighlight">\(J\)</span>, magnetic field <span class="math notranslate nohighlight">\(h\)</span> and Ising energy offset corresponding to the Hamiltonian representation of the problem, as described in the reference. These are stored in the parent class <a class="reference internal" href="#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> and would be needed if one wishes to solve the problem through Simulated Quantum Annealing (SQA) via the method <code class="xref py py-func docutils literal notranslate"><span class="pre">sqa()</span></code> for instance.
+This method also requires a few additional parameters, the specification of which may vary the quality of the solution. We therefore provide the best parameters found thus far through the method <a class="reference internal" href="#qat.opt.max_cut.MaxCut.get_best_parameters" title="qat.opt.max_cut.MaxCut.get_best_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_best_parameters()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Reference</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://en.wikipedia.org/wiki/Maximum_cut#Theoretical_physics">Maximum cut, Theoretical physics, Wikipedia</a>.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">MaxCut</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">full_rary_tree</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="n">maxcut</span> <span class="o">=</span> <span class="n">MaxCut</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the SQA solver would need &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()))</span> <span class="o">+</span> <span class="s2">&quot; spins.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">SQA</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">256</span> <span class="n">spins</span><span class="o">.</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>graph</strong> (<em>networkx.Graph</em>) – a networkx graph</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="qat.opt.max_cut.MaxCut.get_best_parameters">
+<code class="sig-name descname">get_best_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.max_cut.MaxCut.get_best_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns a dictionary with the best annealing parameters found thus far
+after <a class="reference internal" href="#benchmarking"><span class="std std-ref">benchmarking</span></a>. The parameters enter <code class="xref py py-func docutils literal notranslate"><span class="pre">qat.mc.sqa()</span></code>
+used to solve a Max Cut problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p>7-key dictionary containing</p>
+<ul class="simple">
+<li><p><strong>n_steps</strong> (<em>int</em>) - the number of annealing steps between the highest
+and lowest temperature (and magnetic field)</p></li>
+<li><p><strong>nsteps_per_gamma</strong> (<em>int</em>) - the number of Monte Carlo updates per
+tuple of values (gamma, temperature)</p></li>
+<li><p><strong>n_trotters</strong> (<em>int</em>) - the number of “classical replicas” or “Trotter
+replicas”</p></li>
+<li><p><strong>gamma_max</strong> (<em>double</em>) - the starting magnetic field</p></li>
+<li><p><strong>gamma_min</strong> (<em>double</em>) - the final magnetic field</p></li>
+<li><p><strong>temp_max</strong> (<em>double</em>) - the starting temperature</p></li>
+<li><p><strong>temp_min</strong> (<em>double</em>) - the final temperature</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="qat.opt.max_cut.produce_j_h_and_offset">
+<code class="sig-prename descclassname">qat.opt.max_cut.</code><code class="sig-name descname">produce_j_h_and_offset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.max_cut.produce_j_h_and_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <span class="math notranslate nohighlight">\(J\)</span> coupling matrix of the problem, along with the magnetic field <span class="math notranslate nohighlight">\(h\)</span> and the Ising energy offset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>graph</strong> (<em>networkx.Graph</em>) – a networkx graph</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="graph-partitioning">
+<span id="id2"></span><h4>Graph Partitioning<a class="headerlink" href="#graph-partitioning" title="Permalink to this headline">¶</a></h4>
+<p>We start with an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>. The task is to partition the graph into two equally-sized subgraphs connected by the minimal number of edges. In order to anneal the problem with the <a class="reference internal" href="#qat.opt.graph_partitioning.GraphPartitioning" title="qat.opt.graph_partitioning.GraphPartitioning"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphPartitioning</span></code></a> class we will need <span class="math notranslate nohighlight">\(N\)</span> spins for each individual vertex.</p>
+<dl class="py class">
+<dt id="qat.opt.graph_partitioning.GraphPartitioning">
+<em class="property">class </em><code class="sig-prename descclassname">qat.opt.graph_partitioning.</code><code class="sig-name descname">GraphPartitioning</code><a class="headerlink" href="#qat.opt.graph_partitioning.GraphPartitioning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specialization of the <a class="reference internal" href="#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> class for Graph Partitioning.</p>
+<p>This class allows for the encoding of a Graph Partitioning problem for a given graph.
+The method <a class="reference internal" href="#qat.opt.graph_partitioning.produce_j_h_and_offset" title="qat.opt.graph_partitioning.produce_j_h_and_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">produce_j_h_and_offset()</span></code></a> is automatically called. It computes the coupling matrix <span class="math notranslate nohighlight">\(J\)</span>, magnetic field <span class="math notranslate nohighlight">\(h\)</span> and Ising energy offset corresponding to the Hamiltonian representation of the problem, as described in the reference. These are stored in the parent class <a class="reference internal" href="#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> and would be needed if one wishes to solve the problem through Simulated Quantum Annealing (SQA) via the method <code class="xref py py-func docutils literal notranslate"><span class="pre">sqa()</span></code> for instance.
+This method also requires a few additional parameters, the specification of which may vary the quality of the solution. We therefore provide the best parameters found thus far through the method <a class="reference internal" href="#qat.opt.graph_partitioning.GraphPartitioning.get_best_parameters" title="qat.opt.graph_partitioning.GraphPartitioning.get_best_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_best_parameters()</span></code></a>.</p>
+<p>For right encoding we need <span class="math notranslate nohighlight">\(\frac { A } { B } \geq \frac { min(2D, N) } { 8 }\)</span> with <span class="math notranslate nohighlight">\(D\)</span> - the maximal degree of a node in the graph and <span class="math notranslate nohighlight">\(N\)</span> - the number of nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Reference</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://arxiv.org/abs/1302.5843/">“Ising formulations of many NP problems”, A. Lucas, 2014 - Section 2.2</a>.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">GraphPartitioning</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">)])</span>
+
+<span class="n">B</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">A</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="n">graph_partitioning_problem</span> <span class="o">=</span> <span class="n">GraphPartitioning</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the SQA solver would need &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()))</span> <span class="o">+</span> <span class="s2">&quot; spins.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">SQA</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">10</span> <span class="n">spins</span><span class="o">.</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>networkx.Graph</em>) – a networkx graph</p></li>
+<li><p><strong>A</strong> (<em>double</em>) – a positive constant by which the terms inside <span class="math notranslate nohighlight">\(H_A\)</span> from <span class="math notranslate nohighlight">\(H = H_A + H_B\)</span> are multiplied. This equation comes from the Hamiltonian representation of the problem.</p></li>
+<li><p><strong>B</strong> (<em>optional</em><em>, </em><em>double</em>) – similar to <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span> is a positive factor for the <span class="math notranslate nohighlight">\(H_B\)</span> terms, default is 1</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="qat.opt.graph_partitioning.GraphPartitioning.get_best_parameters">
+<code class="sig-name descname">get_best_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.graph_partitioning.GraphPartitioning.get_best_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns a dictionary with the best annealing parameters found thus far
+after <a class="reference internal" href="#benchmarking"><span class="std std-ref">benchmarking</span></a>. The parameters enter <code class="xref py py-func docutils literal notranslate"><span class="pre">qat.mc.sqa()</span></code>
+used to solve a Graph Partitioning problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p>7-key dictionary containing</p>
+<ul class="simple">
+<li><p><strong>n_steps</strong> (<em>int</em>) - the number of annealing steps between the highest
+and lowest temperature (and magnetic field)</p></li>
+<li><p><strong>nsteps_per_gamma</strong> (<em>int</em>) - the number of Monte Carlo updates per
+tuple of values (gamma, temperature)</p></li>
+<li><p><strong>n_trotters</strong> (<em>int</em>) - the number of “classical replicas” or “Trotter
+replicas”</p></li>
+<li><p><strong>gamma_max</strong> (<em>double</em>) - the starting magnetic field</p></li>
+<li><p><strong>gamma_min</strong> (<em>double</em>) - the final magnetic field</p></li>
+<li><p><strong>temp_max</strong> (<em>double</em>) - the starting temperature</p></li>
+<li><p><strong>temp_min</strong> (<em>double</em>) - the final temperature</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="qat.opt.graph_partitioning.produce_j_h_and_offset">
+<code class="sig-prename descclassname">qat.opt.graph_partitioning.</code><code class="sig-name descname">produce_j_h_and_offset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em>, <em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.graph_partitioning.produce_j_h_and_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <span class="math notranslate nohighlight">\(J\)</span> coupling matrix of the problem, along with the magnetic field <span class="math notranslate nohighlight">\(h\)</span> and the Ising energy offset.
+For right encoding we need <span class="math notranslate nohighlight">\(\frac{A}{B} \geq \frac{min(2D, N)}{8}\)</span> with <span class="math notranslate nohighlight">\(D\)</span> - the maximal degree of a node in the graph and <span class="math notranslate nohighlight">\(N\)</span> - the number of nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>networkx.Graph</em>) – a networkx graph</p></li>
+<li><p><strong>A</strong> (<em>double</em>) – a positive constant by which the terms inside <span class="math notranslate nohighlight">\(H_A\)</span> from <span class="math notranslate nohighlight">\(H = H_A + H_B\)</span> are multiplied. This equation comes from the Hamiltonian representation of the problem.</p></li>
+<li><p><strong>B</strong> (<em>optional</em><em>, </em><em>double</em>) – similar to <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span> is a positive factor for the <span class="math notranslate nohighlight">\(H_B\)</span> terms, default is 1</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="constrained-graph-problems">
+<h3>Constrained Graph Problems<a class="headerlink" href="#constrained-graph-problems" title="Permalink to this headline">¶</a></h3>
+<p>A graph problem is constrained when the output solution needs to obey some conditions in order to be valid. For example, Graph Colouring requires that every two nodes connected by an edge are coloured differently - so if the solution graph does not have this property, it is not valid. Therefore, we call constrained all problems with conditional correctness of their solutions.</p>
+<p>Some examples of constrained problems are described below - Graph Colouring, K-Clique and Vertex Cover, along with classes for their encoding.</p>
+<div class="section" id="graph-colouring">
+<span id="colouring"></span><h4>Graph Colouring<a class="headerlink" href="#graph-colouring" title="Permalink to this headline">¶</a></h4>
+<p>We are given an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span> and a a set of <span class="math notranslate nohighlight">\(n\)</span> colours. Our task is find whether we can colour every node of the graph in one of these <span class="math notranslate nohighlight">\(n\)</span> colours such that no edge connects nodes of the same colour. We therefore need <span class="math notranslate nohighlight">\(nN\)</span> spins to anneal the problem with our <a class="reference internal" href="#qat.opt.graph_colouring.GraphColouring" title="qat.opt.graph_colouring.GraphColouring"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphColouring</span></code></a> class, where <span class="math notranslate nohighlight">\(N\)</span> is the number of vertices of the graph. The classical complexity of the best known approximate algorithm for this problem is <span class="math notranslate nohighlight">\(O(N(log log N)^2 (log N)^3)\)</span>.</p>
+<dl class="py class">
+<dt id="qat.opt.graph_colouring.GraphColouring">
+<em class="property">class </em><code class="sig-prename descclassname">qat.opt.graph_colouring.</code><code class="sig-name descname">GraphColouring</code><a class="headerlink" href="#qat.opt.graph_colouring.GraphColouring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specialization of the <a class="reference internal" href="#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> class for Graph Colouring.</p>
+<p>This class allows for the encoding of a Graph Colouring problem for a given graph and a number of colours.
+The method <a class="reference internal" href="#qat.opt.graph_colouring.produce_q_and_offset" title="qat.opt.graph_colouring.produce_q_and_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">produce_q_and_offset()</span></code></a> is automatically called. It computes the <span class="math notranslate nohighlight">\(Q\)</span> matrix and QUBO energy offset corresponding to the Hamiltonian representation of the problem, as described in the reference. These are stored in the parent class <a class="reference internal" href="#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> and would be needed if one wishes to solve the problem through Simulated Quantum Annealing (SQA) via the method <code class="xref py py-func docutils literal notranslate"><span class="pre">sqa()</span></code> for instance.
+This method also requires a few additional parameters, the specification of which may vary the quality of the solution. We therefore provide the best parameters found thus far through the method <a class="reference internal" href="#qat.opt.graph_colouring.GraphColouring.get_best_parameters" title="qat.opt.graph_colouring.GraphColouring.get_best_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_best_parameters()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Reference</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://arxiv.org/abs/1302.5843/">“Ising formulations of many NP problems”, A. Lucas, 2014 - Section 6.1</a>.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">GraphColouring</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)])</span>
+<span class="n">number_of_colours</span> <span class="o">=</span> <span class="mi">3</span>
+
+
+<span class="n">graph_colouring_problem</span> <span class="o">=</span> <span class="n">GraphColouring</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">number_of_colours</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the SQA solver would need &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">())</span> <span class="o">*</span> <span class="n">number_of_colours</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; spins.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">SQA</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">12</span> <span class="n">spins</span><span class="o">.</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>networkx.Graph</em>) – a networkx graph</p></li>
+<li><p><strong>number_of_colours</strong> (<em>int</em>) – the number of colours</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="qat.opt.graph_colouring.GraphColouring.get_best_parameters">
+<code class="sig-name descname">get_best_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.graph_colouring.GraphColouring.get_best_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns a dictionary with the best annealing parameters found thus far
+after <a class="reference internal" href="#benchmarking"><span class="std std-ref">benchmarking</span></a>. The parameters enter <code class="xref py py-func docutils literal notranslate"><span class="pre">qat.mc.sqa()</span></code>
+used to solve a Graph Colouring problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p>7-key dictionary containing</p>
+<ul class="simple">
+<li><p><strong>n_steps</strong> (<em>int</em>) - the number of annealing steps between the highest
+and lowest temperature (and magnetic field)</p></li>
+<li><p><strong>nsteps_per_gamma</strong> (<em>int</em>) - the number of Monte Carlo updates per
+tuple of values (gamma, temperature)</p></li>
+<li><p><strong>n_trotters</strong> (<em>int</em>) - the number of “classical replicas” or “Trotter
+replicas”</p></li>
+<li><p><strong>gamma_max</strong> (<em>double</em>) - the starting magnetic field</p></li>
+<li><p><strong>gamma_min</strong> (<em>double</em>) - the final magnetic field</p></li>
+<li><p><strong>temp_max</strong> (<em>double</em>) - the starting temperature</p></li>
+<li><p><strong>temp_min</strong> (<em>double</em>) - the final temperature</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="qat.opt.graph_colouring.produce_q_and_offset">
+<code class="sig-prename descclassname">qat.opt.graph_colouring.</code><code class="sig-name descname">produce_q_and_offset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em>, <em class="sig-param"><span class="n">number_of_colours</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.graph_colouring.produce_q_and_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <span class="math notranslate nohighlight">\(Q\)</span> matrix and the offset energy of the problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>networkx.Graph</em>) – a networkx graph</p></li>
+<li><p><strong>number_of_colours</strong> (<em>int</em>) – the number of colours</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="k-clique">
+<span id="kclique"></span><h4>K-Clique<a class="headerlink" href="#k-clique" title="Permalink to this headline">¶</a></h4>
+<p>We start from an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>. The task is to find out whether there exists a complete subgraph of size <span class="math notranslate nohighlight">\(K\)</span>. Annealing the problem with the help of our <a class="reference internal" href="#qat.opt.k_clique.KClique" title="qat.opt.k_clique.KClique"><code class="xref py py-class docutils literal notranslate"><span class="pre">KClique</span></code></a> class requires <span class="math notranslate nohighlight">\(N\)</span> spins for each of the vertices.</p>
+<dl class="py class">
+<dt id="qat.opt.k_clique.KClique">
+<em class="property">class </em><code class="sig-prename descclassname">qat.opt.k_clique.</code><code class="sig-name descname">KClique</code><a class="headerlink" href="#qat.opt.k_clique.KClique" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specialization of the <a class="reference internal" href="#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> class for K-Clique.</p>
+<p>This class allows for the encoding of a K-Clique problem for a given graph and positive factors <span class="math notranslate nohighlight">\(K, A, B\)</span>.
+The method <a class="reference internal" href="#qat.opt.k_clique.produce_q_and_offset" title="qat.opt.k_clique.produce_q_and_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">produce_q_and_offset()</span></code></a> is automatically called. It computes the <span class="math notranslate nohighlight">\(Q\)</span> matrix and QUBO energy offset corresponding to the Hamiltonian representation of the problem, as described in the reference. These are stored in the parent class <a class="reference internal" href="#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> and would be needed if one wishes to solve the problem through Simulated Quantum Annealing (SQA) via the method <code class="xref py py-func docutils literal notranslate"><span class="pre">sqa()</span></code> for instance.
+This method also requires a few additional parameters, the specification of which may vary the quality of the solution. We therefore provide the best parameters found thus far through the method <a class="reference internal" href="#qat.opt.k_clique.KClique.get_best_parameters" title="qat.opt.k_clique.KClique.get_best_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_best_parameters()</span></code></a>.</p>
+<p>For a right encoding, one should ensure that <span class="math notranslate nohighlight">\(A &gt; B * K\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Reference</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://arxiv.org/abs/1302.5843/">“Ising formulations of many NP problems”, A. Lucas, 2014 - Section 2.3</a>.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">KClique</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)])</span>
+
+<span class="n">B</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">K</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">B</span><span class="o">*</span><span class="n">K</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="n">k_clique_problem</span> <span class="o">=</span> <span class="n">KClique</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the SQA solver would need &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()))</span> <span class="o">+</span> <span class="s2">&quot; spins.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">SQA</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">6</span> <span class="n">spins</span><span class="o">.</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>networkx.Graph</em>) – a networkx graph</p></li>
+<li><p><strong>K</strong> (<em>int</em>) – the size of the clique</p></li>
+<li><p><strong>A</strong> (<em>double</em>) – a positive constant by which the terms inside <span class="math notranslate nohighlight">\(H_A\)</span> from <span class="math notranslate nohighlight">\(H = H_A + H_B\)</span> are multiplied. This equation comes from the Hamiltonian representation of the problem.</p></li>
+<li><p><strong>B</strong> (<em>optional</em><em>, </em><em>double</em>) – similar to <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span> is a positive factor for the <span class="math notranslate nohighlight">\(H_B\)</span> terms, default is 1</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="qat.opt.k_clique.KClique.get_best_parameters">
+<code class="sig-name descname">get_best_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.k_clique.KClique.get_best_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns a dictionary with the best annealing parameters found thus far
+after <a class="reference internal" href="#benchmarking"><span class="std std-ref">benchmarking</span></a>. The parameters enter <code class="xref py py-func docutils literal notranslate"><span class="pre">qat.mc.sqa()</span></code>
+used to solve a K-Clique problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p>7-key dictionary containing</p>
+<ul class="simple">
+<li><p><strong>n_steps</strong> (<em>int</em>) - the number of annealing steps between the highest
+and lowest temperature (and magnetic field)</p></li>
+<li><p><strong>nsteps_per_gamma</strong> (<em>int</em>) - the number of Monte Carlo updates per
+tuple of values (gamma, temperature)</p></li>
+<li><p><strong>n_trotters</strong> (<em>int</em>) - the number of “classical replicas” or “Trotter
+replicas”</p></li>
+<li><p><strong>gamma_max</strong> (<em>double</em>) - the starting magnetic field</p></li>
+<li><p><strong>gamma_min</strong> (<em>double</em>) - the final magnetic field</p></li>
+<li><p><strong>temp_max</strong> (<em>double</em>) - the starting temperature</p></li>
+<li><p><strong>temp_min</strong> (<em>double</em>) - the final temperature</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="qat.opt.k_clique.produce_q_and_offset">
+<code class="sig-prename descclassname">qat.opt.k_clique.</code><code class="sig-name descname">produce_q_and_offset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em>, <em class="sig-param"><span class="n">K</span></em>, <em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.k_clique.produce_q_and_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <span class="math notranslate nohighlight">\(Q\)</span> matrix and the offset energy of the problem.
+The constant <span class="math notranslate nohighlight">\(A\)</span> should be bigger than <span class="math notranslate nohighlight">\(K*B\)</span> for a right encoding. They are also all positive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>networkx.Graph</em>) – a networkx graph</p></li>
+<li><p><strong>K</strong> (<em>int</em>) – the size of the clique</p></li>
+<li><p><strong>A</strong> (<em>double</em>) – a positive constant by which the terms inside <span class="math notranslate nohighlight">\(H_A\)</span> from <span class="math notranslate nohighlight">\(H = H_A + H_B\)</span> are multiplied. This equation comes from the Hamiltonian representation of the problem.</p></li>
+<li><p><strong>B</strong> (<em>optional</em><em>, </em><em>double</em>) – similar to <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span> is a positive factor for the <span class="math notranslate nohighlight">\(H_B\)</span> terms, default is 1</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="vertex-cover">
+<span id="id3"></span><h4>Vertex Cover<a class="headerlink" href="#vertex-cover" title="Permalink to this headline">¶</a></h4>
+<p>We are given an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>. Our task is to find the smallest number of nodes to be coloured, such that every edge has a coloured vertex. As an addition, we want to know which these vertices are. To anneal this problem we would need our <a class="reference internal" href="#qat.opt.vertex_cover.VertexCover" title="qat.opt.vertex_cover.VertexCover"><code class="xref py py-class docutils literal notranslate"><span class="pre">VertexCover</span></code></a> class with <span class="math notranslate nohighlight">\(N\)</span> spins for each individual vertex.</p>
+<dl class="py class">
+<dt id="qat.opt.vertex_cover.VertexCover">
+<em class="property">class </em><code class="sig-prename descclassname">qat.opt.vertex_cover.</code><code class="sig-name descname">VertexCover</code><a class="headerlink" href="#qat.opt.vertex_cover.VertexCover" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specialization of the <a class="reference internal" href="#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> class for Vertex Cover.</p>
+<p>This class allows for the encoding of a Vertex Cover problem for a given graph and positive constants <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>.
+The method <a class="reference internal" href="#qat.opt.vertex_cover.produce_q_and_offset" title="qat.opt.vertex_cover.produce_q_and_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">produce_q_and_offset()</span></code></a> is automatically called. It computes the <span class="math notranslate nohighlight">\(Q\)</span> matrix and QUBO energy offset corresponding to the Hamiltonian representation of the problem, as described in the reference. These are stored in the parent class <a class="reference internal" href="#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> and would be needed if one wishes to solve the problem through Simulated Quantum Annealing (SQA) via the method <code class="xref py py-func docutils literal notranslate"><span class="pre">sqa()</span></code> for instance.
+This method also requires a few additional parameters, the specification of which may vary the quality of the solution. We therefore provide the best parameters found thus far through the method <a class="reference internal" href="#qat.opt.vertex_cover.VertexCover.get_best_parameters" title="qat.opt.vertex_cover.VertexCover.get_best_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_best_parameters()</span></code></a>.</p>
+<p>For a right encoding, one should ensure that <span class="math notranslate nohighlight">\(A &gt; B\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Reference</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://arxiv.org/abs/1302.5843/">“Ising formulations of many NP problems”, A. Lucas, 2014 - Section 4.3</a>.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">VertexCover</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">B</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">vertex_cover_problem</span> <span class="o">=</span> <span class="n">VertexCover</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the SQA solver would need &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()))</span> <span class="o">+</span> <span class="s2">&quot; spins.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">SQA</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">6</span> <span class="n">spins</span><span class="o">.</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>networkx.Graph</em>) – a networkx graph</p></li>
+<li><p><strong>A</strong> (<em>optional</em><em>, </em><em>double</em>) – a positive constant by which the terms inside <span class="math notranslate nohighlight">\(H_A\)</span> from <span class="math notranslate nohighlight">\(H = H_A + H_B\)</span> are multiplied, default is 2. This equation comes from the Hamiltonian representation of the problem.</p></li>
+<li><p><strong>B</strong> (<em>optional</em><em>, </em><em>double</em>) – similar to <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span> is a positive factor for the <span class="math notranslate nohighlight">\(H_B\)</span> terms, default is 1</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="qat.opt.vertex_cover.VertexCover.get_best_parameters">
+<code class="sig-name descname">get_best_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.vertex_cover.VertexCover.get_best_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns a dictionary with the best annealing parameters found thus far
+after <a class="reference internal" href="#benchmarking"><span class="std std-ref">benchmarking</span></a>. The parameters enter <code class="xref py py-func docutils literal notranslate"><span class="pre">qat.mc.sqa()</span></code>
+used to solve a Vertex Cover problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p>7-key dictionary containing</p>
+<ul class="simple">
+<li><p><strong>n_steps</strong> (<em>int</em>) - the number of annealing steps between the highest
+and lowest temperature (and magnetic field)</p></li>
+<li><p><strong>nsteps_per_gamma</strong> (<em>int</em>) - the number of Monte Carlo updates per
+tuple of values (gamma, temperature)</p></li>
+<li><p><strong>n_trotters</strong> (<em>int</em>) - the number of “classical replicas” or “Trotter
+replicas”</p></li>
+<li><p><strong>gamma_max</strong> (<em>double</em>) - the starting magnetic field</p></li>
+<li><p><strong>gamma_min</strong> (<em>double</em>) - the final magnetic field</p></li>
+<li><p><strong>temp_max</strong> (<em>double</em>) - the starting temperature</p></li>
+<li><p><strong>temp_min</strong> (<em>double</em>) - the final temperature</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="qat.opt.vertex_cover.produce_q_and_offset">
+<code class="sig-prename descclassname">qat.opt.vertex_cover.</code><code class="sig-name descname">produce_q_and_offset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em>, <em class="sig-param"><span class="n">A</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">B</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.vertex_cover.produce_q_and_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <span class="math notranslate nohighlight">\(Q\)</span> matrix and the offset energy of the problem.
+The constant <span class="math notranslate nohighlight">\(A\)</span> should be bigger than <span class="math notranslate nohighlight">\(B\)</span> for a right encoding. They are also both positive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>networkx.Graph</em>) – a networkx graph</p></li>
+<li><p><strong>A</strong> (<em>optional</em><em>, </em><em>double</em>) – a positive constant by which the terms inside <span class="math notranslate nohighlight">\(H_A\)</span> from <span class="math notranslate nohighlight">\(H = H_A + H_B\)</span> are multiplied, default is 2. This equation comes from the Hamiltonian representation of the problem.</p></li>
+<li><p><strong>B</strong> (<em>optional</em><em>, </em><em>double</em>) – similar to <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span> is a positive factor for the <span class="math notranslate nohighlight">\(H_B\)</span> terms, default is 1</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="other-problems">
+<h3>Other problems<a class="headerlink" href="#other-problems" title="Permalink to this headline">¶</a></h3>
+<p>Here we present problems which are more numbers-oriented, for example Number Partitioning and Binary Integer Linear Programming, as described below. These also belong to the class of NP and can be solved via Simulated Quantum Annealing.</p>
+<div class="section" id="number-partitioning">
+<span id="id4"></span><h4>Number Partitioning<a class="headerlink" href="#number-partitioning" title="Permalink to this headline">¶</a></h4>
+<p>We start from a set of real and potentially repeating numbers and our task is to partition them in two subsets, such that the sum of the numbers in both of them is equal (or as close as possible). To obtain an answer, we would need to use our <a class="reference internal" href="#qat.opt.number_partitioning.NumberPartitioning" title="qat.opt.number_partitioning.NumberPartitioning"><code class="xref py py-class docutils literal notranslate"><span class="pre">NumberPartitioning</span></code></a> class and anneal <span class="math notranslate nohighlight">\(N\)</span> spins, where <span class="math notranslate nohighlight">\(N\)</span> is the size of the set of numbers.</p>
+<dl class="py class">
+<dt id="qat.opt.number_partitioning.NumberPartitioning">
+<em class="property">class </em><code class="sig-prename descclassname">qat.opt.number_partitioning.</code><code class="sig-name descname">NumberPartitioning</code><a class="headerlink" href="#qat.opt.number_partitioning.NumberPartitioning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specialization of the <a class="reference internal" href="#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> class for Number Partitioning.</p>
+<p>This class allows for the encoding of a Number Partitioning problem for a given array of numbers.
+The method <a class="reference internal" href="#qat.opt.number_partitioning.produce_j_h_and_offset" title="qat.opt.number_partitioning.produce_j_h_and_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">produce_j_h_and_offset()</span></code></a> is automatically called. It computes the coupling matrix <span class="math notranslate nohighlight">\(J\)</span>, magnetic field <span class="math notranslate nohighlight">\(h\)</span> and Ising energy offset corresponding to the Hamiltonian representation of the problem, as described in the reference. These are stored in the parent class <a class="reference internal" href="#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> and would be needed if one wishes to solve the problem through Simulated Quantum Annealing (SQA) via the method <code class="xref py py-func docutils literal notranslate"><span class="pre">sqa()</span></code> for instance.
+This method also requires a few additional parameters, the specification of which may vary the quality of the solution. We therefore provide the best parameters found thus far through the method <a class="reference internal" href="#qat.opt.number_partitioning.NumberPartitioning.get_best_parameters" title="qat.opt.number_partitioning.NumberPartitioning.get_best_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_best_parameters()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Reference</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://arxiv.org/abs/1302.5843/">“Ising formulations of many NP problems”, A. Lucas, 2014 - Section 2.1</a>.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">NumberPartitioning</span>
+
+<span class="n">array_of_numbers_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">array_of_numbers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">array_of_numbers_size</span><span class="p">)</span>
+
+<span class="n">number_partitioning_problem</span> <span class="o">=</span> <span class="n">NumberPartitioning</span><span class="p">(</span><span class="n">array_of_numbers</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the SQA solver would need &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">array_of_numbers_size</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; spins.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">SQA</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">4792</span> <span class="n">spins</span><span class="o">.</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>numbers_array</strong> (<em>1D numpy array</em>) – an array with all the numbers we want to partition</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="qat.opt.number_partitioning.NumberPartitioning.get_best_parameters">
+<code class="sig-name descname">get_best_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.number_partitioning.NumberPartitioning.get_best_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns a dictionary with the best annealing parameters found thus far
+after <a class="reference internal" href="#benchmarking"><span class="std std-ref">benchmarking</span></a>. The parameters enter <code class="xref py py-func docutils literal notranslate"><span class="pre">qat.mc.sqa()</span></code>
+used to solve a Number Partitioning problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p>7-key dictionary containing</p>
+<ul class="simple">
+<li><p><strong>n_steps</strong> (<em>int</em>) - the number of annealing steps between the highest
+and lowest temperature (and magnetic field)</p></li>
+<li><p><strong>nsteps_per_gamma</strong> (<em>int</em>) - the number of Monte Carlo updates per
+tuple of values (gamma, temperature)</p></li>
+<li><p><strong>n_trotters</strong> (<em>int</em>) - the number of “classical replicas” or “Trotter
+replicas”</p></li>
+<li><p><strong>gamma_max</strong> (<em>double</em>) - the starting magnetic field</p></li>
+<li><p><strong>gamma_min</strong> (<em>double</em>) - the final magnetic field</p></li>
+<li><p><strong>temp_max</strong> (<em>double</em>) - the starting temperature</p></li>
+<li><p><strong>temp_min</strong> (<em>double</em>) - the final temperature</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="qat.opt.number_partitioning.produce_j_h_and_offset">
+<code class="sig-prename descclassname">qat.opt.number_partitioning.</code><code class="sig-name descname">produce_j_h_and_offset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array_of_numbers</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.number_partitioning.produce_j_h_and_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <span class="math notranslate nohighlight">\(J\)</span> coupling matrix of the problem, along with the magnetic field <span class="math notranslate nohighlight">\(h\)</span> and the Ising energy offset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>numbers_array</strong> (<em>1D numpy array</em>) – an array with all the numbers we want to partition</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="binary-integer-linear-programming">
+<span id="bilp"></span><h4>Binary Integer Linear Programming<a class="headerlink" href="#binary-integer-linear-programming" title="Permalink to this headline">¶</a></h4>
+<p>We are given a vector <span class="math notranslate nohighlight">\(c\)</span> of size <span class="math notranslate nohighlight">\(N\)</span> and we want to find the vector <span class="math notranslate nohighlight">\(x\)</span> of the same size, but with binary values (i.e. 0 and 1) such that their dot product <span class="math notranslate nohighlight">\(c*x\)</span> is largest. However, there is a constraint for <span class="math notranslate nohighlight">\(x\)</span>, namely <span class="math notranslate nohighlight">\(S*x = b\)</span> for some specified <span class="math notranslate nohighlight">\(m \times N\)</span> matrix <span class="math notranslate nohighlight">\(S\)</span> and vector <span class="math notranslate nohighlight">\(b\)</span> of size <span class="math notranslate nohighlight">\(m\)</span>. In order to simulate quantum anneaing, we would need our <a class="reference internal" href="#qat.opt.binary_linear_integer_programming.BILP" title="qat.opt.binary_linear_integer_programming.BILP"><code class="xref py py-class docutils literal notranslate"><span class="pre">BILP</span></code></a> class and <span class="math notranslate nohighlight">\(N\)</span> spins for encoding each of the binary values in <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<dl class="py class">
+<dt id="qat.opt.binary_linear_integer_programming.BILP">
+<em class="property">class </em><code class="sig-prename descclassname">qat.opt.binary_linear_integer_programming.</code><code class="sig-name descname">BILP</code><a class="headerlink" href="#qat.opt.binary_linear_integer_programming.BILP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specialization of the <a class="reference internal" href="#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> class for Binary Integer Linear Programming (BILP).</p>
+<p>This class allows for the encoding of a BILP problem from a given matrix <span class="math notranslate nohighlight">\(S\)</span>, vectors <span class="math notranslate nohighlight">\(b\)</span> and <span class="math notranslate nohighlight">\(c\)</span> and positive constants <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>. The aim is to maximise <span class="math notranslate nohighlight">\(c * x\)</span> subject to <span class="math notranslate nohighlight">\(x\)</span> obeying <span class="math notranslate nohighlight">\(S * x = b\)</span>.
+The method <a class="reference internal" href="#qat.opt.binary_linear_integer_programming.produce_q_and_offset" title="qat.opt.binary_linear_integer_programming.produce_q_and_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">produce_q_and_offset()</span></code></a> is automatically called. It computes the <span class="math notranslate nohighlight">\(Q\)</span> matrix and QUBO energy offset corresponding to the Hamiltonian representation of the problem, as described in the reference. These are stored in the parent class <a class="reference internal" href="#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> and would be needed if one wishes to solve the problem through Simulated Quantum Annealing (SQA) via the method <code class="xref py py-func docutils literal notranslate"><span class="pre">sqa()</span></code> for instance.
+This method also requires a few additional parameters, the specification of which may vary the quality of the solution. We therefore provide the best parameters found thus far through the method <a class="reference internal" href="#qat.opt.binary_linear_integer_programming.BILP.get_best_parameters" title="qat.opt.binary_linear_integer_programming.BILP.get_best_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_best_parameters()</span></code></a>.</p>
+<p>For a right encoding, one should ensure that <span class="math notranslate nohighlight">\(A \gg B\)</span> and <span class="math notranslate nohighlight">\(A &gt; 0, B &gt; 0\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Reference</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://arxiv.org/abs/1302.5843/">“Ising formulations of many NP problems”, A. Lucas, 2014 - Section 3</a>.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">BILP</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">B</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">A</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">B</span>
+
+<span class="n">bilp_problem</span> <span class="o">=</span> <span class="n">BILP</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the SQA solver would need &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; spins.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">SQA</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">4</span> <span class="n">spins</span><span class="o">.</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>c</strong> (<em>1D numpy array of size N</em>) – a specified vector <span class="math notranslate nohighlight">\(c\)</span>. We want to maximize <span class="math notranslate nohighlight">\(c * x\)</span>.</p></li>
+<li><p><strong>S</strong> (<em>2D numpy array of size m*N</em>) – the matrix, for which <span class="math notranslate nohighlight">\(S * x = b\)</span>. This equation is our constraint.</p></li>
+<li><p><strong>b</strong> (<em>1D numpy array of size m</em>) – a specified vector <span class="math notranslate nohighlight">\(b\)</span> obeying the constraint <span class="math notranslate nohighlight">\(S * x = b\)</span></p></li>
+<li><p><strong>A</strong> (<em>double</em>) – a positive constant by which the terms inside <span class="math notranslate nohighlight">\(H_A\)</span> from <span class="math notranslate nohighlight">\(H = H_A + H_B\)</span> are multiplied. This equation comes from the Hamiltonian representation of the problem.</p></li>
+<li><p><strong>B</strong> (<em>optional</em><em>, </em><em>double</em>) – similar to <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span> is a positive factor for the <span class="math notranslate nohighlight">\(H_B\)</span> terms, default is 1</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="qat.opt.binary_linear_integer_programming.BILP.get_best_parameters">
+<code class="sig-name descname">get_best_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.binary_linear_integer_programming.BILP.get_best_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns a dictionary with the best annealing parameters found thus far
+after <a class="reference internal" href="#benchmarking"><span class="std std-ref">benchmarking</span></a>. The parameters enter <code class="xref py py-func docutils literal notranslate"><span class="pre">qat.mc.sqa()</span></code>
+used to solve a BILP problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p>7-key dictionary containing</p>
+<ul class="simple">
+<li><p><strong>n_steps</strong> (<em>int</em>) - the number of annealing steps between the highest
+and lowest temperature (and magnetic field)</p></li>
+<li><p><strong>nsteps_per_gamma</strong> (<em>int</em>) - the number of Monte Carlo updates per
+tuple of values (gamma, temperature)</p></li>
+<li><p><strong>n_trotters</strong> (<em>int</em>) - the number of “classical replicas” or “Trotter
+replicas”</p></li>
+<li><p><strong>gamma_max</strong> (<em>double</em>) - the starting magnetic field</p></li>
+<li><p><strong>gamma_min</strong> (<em>double</em>) - the final magnetic field</p></li>
+<li><p><strong>temp_max</strong> (<em>double</em>) - the starting temperature</p></li>
+<li><p><strong>temp_min</strong> (<em>double</em>) - the final temperature</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="qat.opt.binary_linear_integer_programming.produce_q_and_offset">
+<code class="sig-prename descclassname">qat.opt.binary_linear_integer_programming.</code><code class="sig-name descname">produce_q_and_offset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">c</span></em>, <em class="sig-param"><span class="n">S</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.binary_linear_integer_programming.produce_q_and_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <span class="math notranslate nohighlight">\(Q\)</span> matrix and the offset energy of the problem.
+For right encoding <span class="math notranslate nohighlight">\(A \gg B\)</span> and <span class="math notranslate nohighlight">\(A &gt; 0, B &gt; 0\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>c</strong> (<em>1D numpy array of size N</em>) – a specified vector <span class="math notranslate nohighlight">\(c\)</span>. We want to maximize <span class="math notranslate nohighlight">\(c * x\)</span>.</p></li>
+<li><p><strong>S</strong> (<em>2D numpy array of size m*N</em>) – the matrix, for which <span class="math notranslate nohighlight">\(S * x = b\)</span>. This equation is our constraint.</p></li>
+<li><p><strong>b</strong> (<em>1D numpy array of size m</em>) – a specified vector <span class="math notranslate nohighlight">\(b\)</span> obeying the constraint <span class="math notranslate nohighlight">\(S * x = b\)</span></p></li>
+<li><p><strong>A</strong> (<em>double</em>) – a positive constant by which the terms inside <span class="math notranslate nohighlight">\(H_A\)</span> from <span class="math notranslate nohighlight">\(H = H_A + H_B\)</span> are multiplied. This equation comes from the Hamiltonian representation of the problem.</p></li>
+<li><p><strong>B</strong> (<em>optional</em><em>, </em><em>double</em>) – similar to <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span> is a positive factor for the <span class="math notranslate nohighlight">\(H_B\)</span> terms, default is 1</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
+<div class="section" id="simulated-quantum-annealing-benchmarking-and-performance">
+<span id="benchmarking"></span><h2>Simulated Quantum Annealing Benchmarking and Performance<a class="headerlink" href="#simulated-quantum-annealing-benchmarking-and-performance" title="Permalink to this headline">¶</a></h2>
+<p>To solve each of the NP problems with Simulated Quantum Annealing (SQA) we need to feed the <code class="xref py py-func docutils literal notranslate"><span class="pre">sqa()</span></code> with parameters tailored for the specific problem. We therefore implemented optimizers, which find such well-performing parameters for a given set of benchmark instances.</p>
+<p>Below, we present the benchmark sources and the performances we obtain with the parameters found. We also show the range of spins of these instances, together with the average execution times.</p>
+<div class="section" id="id5">
+<h3>Max Cut<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>For this problem, the performance we optimized was defined by <span class="math notranslate nohighlight">\(\frac {\text{number of Max Cut edges found}} {\text{best number of Max Cut edges}}\)</span>.</p>
+<blockquote>
+<div><ul>
+<li><p><strong>Problem instances</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Benchmarks</strong>: 9 planar and random graphs from the <a class="reference external" href="http://web.stanford.edu/~yyye/yyye/Gset/">Gset benchmark dataset</a></p></li>
+<li><p><strong>Others</strong>: &gt; 20 random trees</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Spin count</strong>: from 20 to 10 000</p></li>
+<li><p><strong>Performance</strong>: &gt; 98%</p></li>
+<li><p><strong>Execution time</strong>: from instantly to around 10 seconds</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id6">
+<h3>Graph Colouring<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>When optimizing this problem the performance was defined by <span class="math notranslate nohighlight">\(\frac {\text{number of edges with vertices of different colours}} {\text{number of all edges}}\)</span>.</p>
+<blockquote>
+<div><ul>
+<li><p><strong>Problem instances</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Benchmarks</strong>: 6 - random graphs and a Leighton graph from <a class="reference external" href="http://cedric.cnam.fr/~porumbed/graphs/index.html">DIMACS Graphs</a></p></li>
+<li><p><strong>Others</strong>: 13 random graphs</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Spin count</strong>: from 60 to 24 000</p></li>
+<li><p><strong>Performance</strong>: 88% for best colouring, 95% - 99%  for a few more colours</p></li>
+<li><p><strong>Execution time</strong>: from &lt; 5 sec for 7000 spins to &lt; 1 min for 20 000 spins</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id7">
+<h3>K-Clique<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>In this case, the performance we optimized was defined by <span class="math notranslate nohighlight">\(\frac {\text{number of edges in the subgraph found}} {\text{required number of edges for the subgraph to be complete}}\)</span>.</p>
+<blockquote>
+<div><ul>
+<li><p><strong>Problem instances</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Benchmarks</strong>: 27 differently generated graphs from the <a class="reference external" href="http://sites.nlsde.buaa.edu.cn/~kexu/benchmarks/graph-benchmarks.htm">BHOSLIB</a>, <a class="reference external" href="https://mat.gsia.cmu.edu/COLOR02/clq.html">DIMACS</a> and <a class="reference external" href="https://turing.cs.hbg.psu.edu/txn131/clique.html">Clique benchmark datasets</a></p></li>
+<li><p><strong>Others</strong>: 5 random graphs</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Spin count</strong>: from 450 to 4000</p></li>
+<li><p><strong>Performance</strong>: &gt; 98%</p></li>
+<li><p><strong>Execution time</strong>: from instantly for a few 100 spins, to ~20 sec for 1500, to &gt; 1 min for 4000 spins</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id8">
+<h3>Vertex Cover<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>Here, we define the performance during optimization by <span class="math notranslate nohighlight">\(\frac {\text{best number of coloured nodes}} {\text{found number of coloured nodes}}\)</span>.</p>
+<blockquote>
+<div><ul>
+<li><p><strong>Problem instances</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Benchmarks</strong>: 21 random graphs from the <a class="reference external" href="http://sites.nlsde.buaa.edu.cn/~kexu/benchmarks/graph-benchmarks.htm">BHOSLIB</a> and <a class="reference external" href="https://oeis.org/A265032/a265032.html">OEIS benchmark datasets</a></p></li>
+<li><p><strong>Others</strong>: 5 random graphs</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Spin count</strong>: from 450 to 4000</p></li>
+<li><p><strong>Performance</strong>: &gt; 99%</p></li>
+<li><p><strong>Execution time</strong>: from 3-5 sec to &gt; 1 min for 4000 spins</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id10">
+<h3>Number Partitioning<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>The performance we optimized for this problem was defined by <span class="math notranslate nohighlight">\(\frac {\text{sum of numbers in smaller sum subset}} {\text{sum of numbers in larger sum subset}}\)</span>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Problem instances</strong>: &gt; 30 random number sets of integer or real, non-repeating or repeating numbers</p></li>
+<li><p><strong>Spin count</strong>: from 20 to 40 000</p></li>
+<li><p><strong>Performance</strong>: &gt; 99%</p></li>
+<li><p><strong>Execution time</strong>: from instantly to &gt; 1 min for 40 000 spins</p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="myqlm_specific/interoperability.html" class="btn btn-neutral float-right" title="Interoperability in the QLM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="applications.html" class="btn btn-neutral float-left" title="Applications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Atos 2016-2020
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

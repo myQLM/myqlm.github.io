@@ -1,0 +1,85 @@
+qat.lang : Programming tools
+=================================
+
+The Program class
+-------------------
+
+.. autoclass:: qat.lang.AQASM.Program
+    :members:
+    :exclude-members: new_var
+
+Gate structures
+-----------------
+
+All classes describing unitary operators inherit from the :class:`~qat.lang.AQASM.gates.Gate` class.
+This parent class contains very little information. Its primary function is to store information about control, dagger and other high level gate operations. Since this class is not made to be used directly, we skip some part of its documentation.
+
+.. autoclass:: qat.lang.AQASM.gates.Gate
+    :members: 
+    :exclude-members: build_into, extract_signatures, build_ast
+
+The first class inheriting from it is the :class:`~qat.lang.AQASM.gates.CustomGate` class. The purpose of this class is to describe custom, constant (as in not parametrized) gates.
+
+.. autoclass:: qat.lang.AQASM.gates.CustomGate
+    :members:
+
+
+Another important class is the :class:`~qat.lang.AQASM.gates.AbstractGate` class. This class provides a way to define new parametrized gates. Basically, an abstract gate describes a family of gates parametrized by a list of values of various types. The current list of admissible types are: :obj:`int`, :obj:`float`, :obj:`str`
+
+For instance to declare a new :class:`~qat.lang.AQASM.gates.AbstractGate` that describes a :math:`R_z` rotation, we would write:
+
+.. code-block:: python
+
+    my_rz = AbstractGate("RZ", [float], arity=1)
+
+
+and use this new abstract gate as follows:
+
+.. code-block:: python
+
+    my_program.apply(my_rz(0.4), qbits_reg[0])  
+
+
+It is possible to attach a matrix generator to the abstract gate in order to generate and include a matrix in the final circuit (if you want to be able to simulate the circuit for instance).
+
+.. code-block:: python
+
+    def matrix_gen(theta):
+        return np.array([[1, 0], [0, np.exp(1j * theta)])
+
+    my_rz = AbstractGate("RZ", [float], arity=1,
+                         matrix_generator=matrix_gen)
+
+
+.. autoclass:: qat.lang.AQASM.gates.AbstractGate
+    :members: set_dag
+
+:class:`~qat.lang.AQASM.gates.ParamGate` are generated through :class:`~qat.lang.AQASM.gates.AbstractGate`. An abstract gate instantiated by a set of parameters (such as the my_rz(0.4) from above) returns a :class:`~qat.lang.AQASM.gates.ParamGate` carrying all the necessary information to build the correct abstract syntax tree of the gate. 
+
+.. autoclass:: qat.lang.AQASM.gates.ParamGate
+    :members:
+
+Finally, the notion of gate is also extended to subcircuits via the :class:`~qat.lang.AQASM.routines.QRoutine` class.
+
+.. autoclass:: qat.lang.AQASM.routines.QRoutine
+    :members: apply, new_wires, set_ancillae, compute, uncompute
+
+Utilities
+----------
+.. automodule:: qat.lang.AQASM.util
+    :members: suppr_ctrl, toffoli_fold
+
+
+Gate set management and generation
+------------------------------------
+
+
+.. automodule:: qat.lang.AQASM.misc
+    :members: generate_gate_set
+
+Quantum libraries
+--------------------
+
+.. toctree::
+
+    qat-lang-arith

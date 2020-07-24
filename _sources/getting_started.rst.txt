@@ -1,0 +1,92 @@
+Getting started
+===============
+
+.. only:: qlm
+
+    The Atos Quantum Learning Machine contains tools for **writing**, **compiling**,
+    **optimizing** and **simulating** **quantum circuits**.
+
+    It comes as a set of **Python libraries**, under the general namespace ``qat``,
+    for Quantum Applications Toolset.
+
+The following code snippet creates and simulates a simple Bell pair circuit.
+
+.. only:: qlm
+
+    .. run-block:: python
+
+        from qat.lang.AQASM import Program, H, CNOT
+
+        # Create a Program
+        qprog = Program()
+        # Number of qbits
+        nbqbits = 2
+        # Allocate some qbits
+        qbits = qprog.qalloc(nbqbits)
+
+        # Apply some quantum Gates
+        qprog.apply(H, qbits[0]) 
+        qprog.apply(CNOT, qbits[0], qbits[1])
+
+        # Export this program into a quantum circuit
+        circuit = qprog.to_circ()
+    
+        # import one Quantum Processor Unit Factory
+        from qat.qpus import LinAlg
+
+        # Create a Quantum Processor Unit
+        linalgqpu = LinAlg()
+
+        # Create a job
+        job = circuit.to_job()
+
+        # Submit the job to the QPU
+        result = linalgqpu.submit(job)
+
+        # Iterate over the final state vector to get all final components
+        for sample in result:
+            print("State %s amplitude %s" % (sample.state, sample.amplitude))
+
+.. only:: myqlm
+
+    .. run-block:: python
+
+        from qat.lang.AQASM import Program, H, CNOT
+
+        # Create a Program
+        qprog = Program()
+        # Number of qbits
+        nbqbits = 2
+        # Allocate some qbits
+        qbits = qprog.qalloc(nbqbits)
+
+        # Apply some quantum Gates
+        qprog.apply(H, qbits[0]) 
+        qprog.apply(CNOT, qbits[0], qbits[1])
+
+        # Export this program into a quantum circuit
+        circuit = qprog.to_circ()
+    
+        # import one Quantum Processor Unit Factory
+        from qat.qpus import PyLinalg
+
+        # Create a Quantum Processor Unit
+        linalgqpu = PyLinalg()
+
+        # Create a job
+        job = circuit.to_job()
+
+        # Submit the job to the QPU
+        result = linalgqpu.submit(job)
+
+        # Iterate over the final state vector to get all final components
+        for sample in result:
+            print("State %s amplitude %s" % (sample.state, sample.amplitude))
+
+
+The first few lines of code are dedicated to the generation of a quantum circuit and a job, an atomic computation task in QLM language. A detailed description of the quantum circuit generation tools can be found in :ref:`the programming section <programming>`.
+
+Then the remaining lines instantiate a simulator, submit the job, and prints the simulation results. More information about this process can be found in :ref:`the simulating section <simulating>`.
+
+QLM also comes with a collection of powerful tools, called Plugins, to manipulate quantum circuits and execution results. Information about these tools can be found in :ref:`the manipulating section <manipulating>`.
+
