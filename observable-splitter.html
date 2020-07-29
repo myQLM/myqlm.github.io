@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ObservableSplitter : turning observable sampling into qubit sampling &mdash; myQLM documentation myQLM-0.0.7.122 documentation</title>
+  <title>ObservableSplitter : turning observable sampling into qubit sampling &mdash; myQLM documentation myQLM-0.0.7.19 documentation</title>
   
 
   
@@ -234,9 +234,13 @@ appropriate basis:</p>
 <p>Hence, if a QPU does not natively support observable sampling, we can transform a pair <span class="math notranslate nohighlight">\((\mathcal{C},\mathcal{O})\)</span>
 into a collection of sampling jobs <span class="math notranslate nohighlight">\((\mathcal{C_i},\mathcal{Q_i})\)</span> where <span class="math notranslate nohighlight">\(\mathcal{Q_i}\)</span> is the
 support of term <span class="math notranslate nohighlight">\(i\)</span> of <span class="math notranslate nohighlight">\(\mathcal{O}\)</span>.</p>
-<p><code class="xref py py-class docutils literal notranslate"><span class="pre">ObservableSplitter</span></code> automatically splits jobs to perform this transformation, and automatically aggregate the sampling data of the various circuits
-in order to compute the final expected value of the observable.</p>
-<p>The following piece of code demonstrates how to use <code class="xref py py-class docutils literal notranslate"><span class="pre">ObservableSplitter</span></code> to sample observables using the <code class="xref py py-class docutils literal notranslate"><span class="pre">Bdd</span></code> simulator:</p>
+<p><code class="xref py py-class docutils literal notranslate"><span class="pre">ObservableSplitter</span></code> automatically splits
+jobs to perform this transformation, and automatically aggregate
+the sampling data of the various circuits in order to compute
+the final expected value of the observable.</p>
+<p>The following piece of code demonstrates how to use
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ObservableSplitter</span></code> to sample observables
+using the <code class="xref py py-class docutils literal notranslate"><span class="pre">Bdd</span></code> simulator:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
 
 <span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;XX&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>

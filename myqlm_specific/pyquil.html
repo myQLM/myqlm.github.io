@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pyquil interoperations &mdash; myQLM documentation myQLM-0.0.7.122 documentation</title>
+  <title>Pyquil interoperations &mdash; myQLM documentation myQLM-0.0.7.19 documentation</title>
   
 
   
@@ -236,20 +236,7 @@
 <h1>Pyquil interoperations<a class="headerlink" href="#pyquil-interoperations" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-qat.interop.pyquil.converters">
 <span id="converters"></span><h2>Converters<a class="headerlink" href="#module-qat.interop.pyquil.converters" title="Permalink to this headline">¶</a></h2>
-<p>Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-“License”); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at</p>
-<p><a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-<p>Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-“AS IS” BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.</p>
+<p>Circuit conversion functions for pyquil</p>
 <dl class="py function">
 <dt id="qat.interop.pyquil.converters.qlm_to_pyquil">
 <code class="sig-prename descclassname">qat.interop.pyquil.converters.</code><code class="sig-name descname">qlm_to_pyquil</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qlm_circuit</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.converters.qlm_to_pyquil" title="Permalink to this definition">¶</a></dt>
@@ -267,13 +254,29 @@ under the License.</p>
 <dl class="py function">
 <dt id="qat.interop.pyquil.converters.pyquil_to_qlm">
 <code class="sig-prename descclassname">qat.interop.pyquil.converters.</code><code class="sig-name descname">pyquil_to_qlm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pyquil_prog</span></em>, <em class="sig-param"><span class="n">sep_measures</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.converters.pyquil_to_qlm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts a pyquil circuit into a qlm circuit
-:param pyquil_prog: the pyquil circuit to convert
-:param sep_measures: if set to True measures won’t be included in the resulting circuits, qubits to be measured will be put in a list, the resulting measureless circuit and this list will be returned in a tuple : (resulting_circuit, list_qubits). If set to False, measures will be converted normally (Default set to False)
-:param kwargs: these are the options that you would use on a regular         to_circ function, to generate a QLM circuit from a PyAQASM program these are added for more flexibility, for advanced users</p>
+<dd><p>Converts a pyquil circuit into a qlm circuit</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>if sep_measures is True a tuple of two elements will be returned,
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pyquil_prog</strong> – the pyquil circuit to convert</p></li>
+<li><p><strong>sep_measures</strong> – <p>Separates measures from the
+circuit:</p>
+<blockquote>
+<div><ul>
+<li><p>if set to <code class="code docutils literal notranslate"><span class="pre">True</span></code> measures won’t be included in the resulting circuits,
+qubits to be measured will be put in a list, the resulting measureless
+circuit and this list will be returned in a tuple : (resulting_circuit, list_qubits)</p></li>
+<li><p>if set to <code class="code docutils literal notranslate"><span class="pre">False</span></code>, measures will be converted normally (Default set to False)</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+<li><p><strong>kwargs</strong> – these are the options that you would use on a regular
+to_circ function, to generate a QLM circuit from a PyAQASM program
+these are added for more flexibility, for advanced users</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>if sep_measures is True a tuple of two elements will be returned,
 first one is the QLM resulting circuit with no measures, and the
 second element of the returned tuple is a list of all qubits that
 should be measured.
@@ -353,20 +356,16 @@ compiled/optimized.</p>
 </div>
 <div class="section" id="module-qat.interop.pyquil.algorithms">
 <span id="algorithms"></span><h2>Algorithms<a class="headerlink" href="#module-qat.interop.pyquil.algorithms" title="Permalink to this headline">¶</a></h2>
-<p>Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-“License”); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at</p>
-<p><a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-<p>Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-“AS IS” BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.</p>
+<p>Some pyquil algorithms taken from rigetti’s grove repo</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Simon algorithm</p></li>
+<li><p>Deutsch-Jozsa algorithm</p></li>
+<li><p>3-qubits QFT</p></li>
+<li><p>meyer penny</p></li>
+<li><p>quantum dice</p></li>
+</ul>
+</div></blockquote>
 <dl class="py function">
 <dt id="qat.interop.pyquil.algorithms.run_simon">
 <code class="sig-prename descclassname">qat.interop.pyquil.algorithms.</code><code class="sig-name descname">run_simon</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qc</span></em>, <em class="sig-param"><span class="n">bitmap</span><span class="o">=</span><span class="default_value">{'000': '101', '001': '100', '010': '111', '011': '110', '100': '001', '101': '000', '110': '011', '111': '010'}</span></em>, <em class="sig-param"><span class="n">trials</span><span class="o">=</span><span class="default_value">30</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.algorithms.run_simon" title="Permalink to this definition">¶</a></dt>
@@ -388,7 +387,7 @@ the execution process’s stability.</p>
 
 <dl class="py function">
 <dt id="qat.interop.pyquil.algorithms.run_deutsch_josza">
-<code class="sig-prename descclassname">qat.interop.pyquil.algorithms.</code><code class="sig-name descname">run_deutsch_josza</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cxn</span></em>, <em class="sig-param"><span class="n">bitstring_map</span><span class="o">=</span><span class="default_value">{'00000': '1', '00001': '1', '00010': '0', '00011': '0', '00100': '1', '00101': '1', '00110': '1', '00111': '0', '01000': '1', '01001': '0', '01010': '0', '01011': '0', '01100': '1', '01101': '1', '01110': '0', '01111': '0', '10000': '1', '10001': '0', '10010': '0', '10011': '0', '10100': '1', '10101': '0', '10110': '1', '10111': '1', '11000': '0', '11001': '1', '11010': '0', '11011': '1', '11100': '0', '11101': '1', '11110': '1', '11111': '0'}</span></em>, <em class="sig-param"><span class="n">trials</span><span class="o">=</span><span class="default_value">10</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.algorithms.run_deutsch_josza" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">qat.interop.pyquil.algorithms.</code><code class="sig-name descname">run_deutsch_josza</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cxn</span></em>, <em class="sig-param"><span class="n">bitstring_map</span><span class="o">=</span><span class="default_value">{'00000': '0', '00001': '0', '00010': '1', '00011': '1', '00100': '0', '00101': '0', '00110': '1', '00111': '0', '01000': '0', '01001': '1', '01010': '1', '01011': '0', '01100': '0', '01101': '0', '01110': '1', '01111': '0', '10000': '1', '10001': '1', '10010': '0', '10011': '1', '10100': '0', '10101': '0', '10110': '1', '10111': '0', '11000': '1', '11001': '1', '11010': '0', '11011': '0', '11100': '1', '11101': '1', '11110': '1', '11111': '1'}</span></em>, <em class="sig-param"><span class="n">trials</span><span class="o">=</span><span class="default_value">10</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.algorithms.run_deutsch_josza" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes whether bitstring_map represents a constant function,
 given that it is constant or balanced.
 Constant means all inputs map to the same value,

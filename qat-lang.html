@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>qat.lang : Programming tools &mdash; myQLM documentation myQLM-0.0.7.122 documentation</title>
+  <title>qat.lang : Programming tools &mdash; myQLM documentation myQLM-0.0.7.19 documentation</title>
   
 
   
@@ -506,7 +506,8 @@ circuit. Default to False.</p>
 <p class="admonition-title">Warning</p>
 <p>Setting this argument to True will decrease (by a lot) the circuit generation time.
 For instance, using the default settings, a RZ rotation controlled 10 times will end up generating a matrix of
-size (<span class="math notranslate nohighlight">\(2^{11} \times 2^{11}\)</span>). By setting this argument to True, only a <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix will be generated.
+size (<span class="math notranslate nohighlight">\(2^{11} \times 2^{11}\)</span>). By setting this argument to True,
+only a <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix will be generated.
 However, not all simulators are able to infer a matrix from the structure of the gate.
 For now, only <code class="xref py py-class docutils literal notranslate"><span class="pre">LinAlg</span></code> is able to do so.
 In particular, this means that you should set this option to True to simulate circuits
@@ -835,6 +836,16 @@ The resulting qbits is always the last qbit (hence of index arity - 1).</p>
 </div>
 <div class="section" id="module-qat.lang.AQASM.misc">
 <span id="gate-set-management-and-generation"></span><h2>Gate set management and generation<a class="headerlink" href="#module-qat.lang.AQASM.misc" title="Permalink to this headline">¶</a></h2>
+<p>&#64;file qat/lang/AQASM/misc.py
+&#64;authors Simon Martiel &lt;<a class="reference external" href="mailto:simon&#46;martiel&#37;&#52;&#48;atos&#46;net">simon<span>&#46;</span>martiel<span>&#64;</span>atos<span>&#46;</span>net</a>&gt;
+&#64;internal
+&#64;copyright 2017  Bull S.A.S.  -  All rights reserved.</p>
+<blockquote>
+<div><p>This is not Free or Open Source software.
+Please contact Bull SAS for details about its license.
+Bull - Rue Jean Jaurès - B.P. 68 - 78340 Les Clayes-sous-Bois</p>
+</div></blockquote>
+<p>&#64;brief Some function decorator for simplified gate set generation</p>
 <dl class="py function">
 <dt id="qat.lang.AQASM.misc.generate_gate_set">
 <code class="sig-prename descclassname">qat.lang.AQASM.misc.</code><code class="sig-name descname">generate_gate_set</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="n">safe</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.misc.generate_gate_set" title="Permalink to this definition">¶</a></dt>
@@ -853,7 +864,10 @@ Arugments can be:
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="qat-lang-arith.html">Arithmetic routines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="qat-lang-arith.html#module-qat.lang.AQASM.qftarith">QFT-based arithmetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qat-lang-arith.html#module-qat.lang.AQASM.qftarith">QFT-based arithmetic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="qat-lang-arith.html#overview">Overview</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="qat-lang-arith.html#module-qat.lang.AQASM.classarith">Carry-based arithmetic</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qat-lang-arith.html#module-qat.lang.AQASM.arithmetic">Agnostic/High-level arithmetic</a></li>
 </ul>
