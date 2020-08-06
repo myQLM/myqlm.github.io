@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Writing quantum circuits &mdash; myQLM documentation myQLM-0.0.7.19 documentation</title>
+  <title>Writing quantum circuits &mdash; myQLM documentation myQLM-0.0.7.8 documentation</title>
   
 
   
@@ -118,6 +118,7 @@
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source_doc.html">Source code documentation</a></li>
@@ -211,7 +212,7 @@
     text-align: unset;
 }
 </style>
-<p>MyQLM provides different tools or approaches to design your own quantum circuits.</p>
+<p>MyQLM provides different tools and approaches to design your own quantum circuits.</p>
 <p>The main component is a python library for building quantum circuits, called PyAQASM (Python + Atos QASM).</p>
 <p>The following picture gives an overview of the circuit generation process from the PyAQASM library.</p>
 <div class="figure align-default">
@@ -220,19 +221,19 @@
 <p>Quantum circuits can be stored under two formats:</p>
 <ol class="arabic simple">
 <li><p>as .aqasm text files (human readable)</p></li>
-<li><p>in a serialized format (.circ), it is under this format that circuits are sent to simulation or optimization services, when command line tools are used</p></li>
+<li><p>in a serialized format (.circ) - it is under this format that circuits are sent to simulation or optimization services, when command line tools are used</p></li>
 </ol>
 <p>Therefore, there are two ways to generate a .circ file from a <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program" title="qat.lang.AQASM.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> instance by:</p>
 <ol class="arabic simple">
-<li><p>directly generating a <code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code> instance and serializing it (right path in the figure)</p></li>
+<li><p>directly generating a <a class="reference internal" href="qat-core.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> instance and serializing it (right path in the figure)</p></li>
 <li><p>exporting your program to an .aqasm text file (human readable text format), and compiling it using the command line tool <cite>aqasm2circ</cite> (left path in the figure)</p></li>
 </ol>
-<p>Since the core of the QLM is purely based on python, serialization is NOT a mandatory step, and is here only to facilitate advanced applications. Usually the <code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code> objects are directly fed to QPUs via a python interface (see <a class="reference internal" href="qat-core.html"><span class="doc">documentation of qat-core</span></a> for examples).</p>
+<p>Since the core of the QLM is purely based on python, serialization is NOT a mandatory step, and is here only to facilitate advanced applications. Usually the <a class="reference internal" href="qat-core.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> objects are directly fed to QPUs via a python interface (see <a class="reference internal" href="qat-core.html"><span class="doc">documentation of qat-core</span></a> for examples).</p>
 <p>If you still need a text format to describe your quantum circuits, please refer to the AQASM section : <a class="reference internal" href="aqasm.html#aqasm"><span class="std std-ref">The AQASM format</span></a>.</p>
 <div class="section" id="writing-quantum-circuits">
 <span id="programming"></span><h1>Writing quantum circuits<a class="headerlink" href="#writing-quantum-circuits" title="Permalink to this headline">¶</a></h1>
 <p>The pyAQASM library (<code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.lang.AQASM</span></code>) provides a high-level interface to design quantum circuits.</p>
-<p>The central class of this library is <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program" title="qat.lang.AQASM.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> . This class provides an interface to build and generate <code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code> object.</p>
+<p>The central class of this library is <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program" title="qat.lang.AQASM.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> . This class provides an interface to build and generate a <a class="reference internal" href="qat-core.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> object.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span>
 <span class="n">my_program</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 </pre></div>
@@ -252,17 +253,18 @@
 <span id="gates"></span><h2>Quantum gates<a class="headerlink" href="#quantum-gates" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="native-gates-controls-and-daggers">
 <h3>Native gates, controls and daggers<a class="headerlink" href="#native-gates-controls-and-daggers" title="Permalink to this headline">¶</a></h3>
-<p>The pyAQASM library provides a basic gate set to write your programs, the names are rather self explanatory:</p>
+<p>The pyAQASM library provides a basic gate set to write your programs. Their names are rather self explanatory:</p>
 <ul class="simple">
-<li><p>Constant gate: <strong>X</strong>, <strong>Y</strong>, <strong>Z</strong>, <strong>H</strong>, <strong>S</strong>, <strong>T</strong>, <strong>CNOT</strong>, <strong>CCNOT</strong>, <strong>CSIGN</strong>, <strong>SWAP</strong>, <strong>SQRTSWAP</strong>, <strong>ISWAP</strong></p></li>
+<li><p>Constant gates: <strong>X</strong>, <strong>Y</strong>, <strong>Z</strong>, <strong>H</strong>, <strong>S</strong>, <strong>T</strong>, <strong>CNOT</strong>, <strong>CCNOT</strong>, <strong>CSIGN</strong>, <strong>SWAP</strong>, <strong>SQRTSWAP</strong>, <strong>ISWAP</strong></p></li>
 <li><p>Parametrized gates: <strong>RX</strong>, <strong>RY</strong>, <strong>RZ</strong>, <strong>PH</strong> (phase shift)</p></li>
 </ul>
+<p>These gates can be applied to the qubits from the qubit registers:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">CNOT</span><span class="p">,</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">RZ</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">),</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>From this initial gate set, one can build new gates using control and dagger operations:</p>
+<p>From this initial gate set, one can also build new gates using control and dagger operations:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">PH</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(),</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">RX</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">dag</span><span class="p">(),</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
@@ -313,7 +315,7 @@ the next section).</p>
                  <span class="n">matrix_generator</span><span class="o">=</span><span class="n">c_matrix</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The resulting circuit contains the matrix and can be simulated on most of the available simulators in QLM.</p>
+<p>The resulting circuit contains the matrix and can be simulated on most of the available simulators in the QLM.</p>
 </div>
 <div class="section" id="quantum-routines">
 <h3>Quantum routines<a class="headerlink" href="#quantum-routines" title="Permalink to this headline">¶</a></h3>
@@ -339,7 +341,7 @@ Inside these routines, qubits are inexistant: a routine is just a gate, thus it 
 <ul class="simple">
 <li><p><a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.measure" title="qat.lang.AQASM.Program.measure"><code class="xref py py-func docutils literal notranslate"><span class="pre">measure()</span></code></a> : to measure a qubit during the computation</p></li>
 <li><p><a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.reset" title="qat.lang.AQASM.Program.reset"><code class="xref py py-func docutils literal notranslate"><span class="pre">reset()</span></code></a> : to reset a qubit or classical bit: it consists in measuring the qubit, and applying a bit flip (X gate) if the outcome is 1</p></li>
-<li><p><a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.cc_apply" title="qat.lang.AQASM.Program.cc_apply"><code class="xref py py-func docutils literal notranslate"><span class="pre">cc_apply()</span></code></a> : to apply a gate conditionnally, depending on the state of a classical bit</p></li>
+<li><p><a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.cc_apply" title="qat.lang.AQASM.Program.cc_apply"><code class="xref py py-func docutils literal notranslate"><span class="pre">cc_apply()</span></code></a> : to apply a gate conditionally, depending on the state of a classical bit</p></li>
 <li><p><a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.cbreak" title="qat.lang.AQASM.Program.cbreak"><code class="xref py py-func docutils literal notranslate"><span class="pre">cbreak()</span></code></a> : to interrupt the computation depending on a condition on a set of classical bits</p></li>
 </ul>
 </div>
@@ -347,19 +349,19 @@ Inside these routines, qubits are inexistant: a routine is just a gate, thus it 
 <h2>Quantum routine librairies<a class="headerlink" href="#quantum-routine-librairies" title="Permalink to this headline">¶</a></h2>
 <p>Some submodules of the pyAQASM library provide high-level routines or algorithms:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="qat-lang-arith.html#module-qat.lang.AQASM.qftarith" title="qat.lang.AQASM.qftarith"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qftarith</span></code></a> provides QFT-based implementation of various arithmetical operations (including QFT itself)</p></li>
-<li><p><a class="reference internal" href="qat-lang-arith.html#module-qat.lang.AQASM.classarith" title="qat.lang.AQASM.classarith"><code class="xref py py-mod docutils literal notranslate"><span class="pre">classarith</span></code></a> provides carry-arithmetical operations</p></li>
+<li><p><a class="reference internal" href="qat-lang-arith.html#module-qat.lang.AQASM.qftarith" title="qat.lang.AQASM.qftarith"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qftarith</span></code></a> provides QFT-based implementation of various arithmetic operations (including QFT itself)</p></li>
+<li><p><a class="reference internal" href="qat-lang-arith.html#module-qat.lang.AQASM.classarith" title="qat.lang.AQASM.classarith"><code class="xref py py-mod docutils literal notranslate"><span class="pre">classarith</span></code></a> provides carry-arithmetic operations</p></li>
 <li><p><a class="reference internal" href="qat-lang-arith.html#module-qat.lang.AQASM.arithmetic" title="qat.lang.AQASM.arithmetic"><code class="xref py py-mod docutils literal notranslate"><span class="pre">arithmetic</span></code></a> provides a unified interface for all arithmetic operations</p></li>
 </ul>
 </div>
 <div class="section" id="generating-the-circuit">
 <h2>Generating the circuit<a class="headerlink" href="#generating-the-circuit" title="Permalink to this headline">¶</a></h2>
 <p>Once you are satisfied with your <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program" title="qat.lang.AQASM.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a>, it can be exported to a circuit format that can be simulated. This is done using the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.to_circ" title="qat.lang.AQASM.Program.to_circ"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_circ()</span></code></a> method.
-This method has parameters and can be fine-tuned to meet your needs. Refer to the source code documentation for more information.</p>
+This method has parameters and can be fine-tuned to meet your needs. ¨Please refer to the <span class="xref std std-ref">source code documentation</span> for more information.</p>
 </div>
 <div class="section" id="exporting-the-circuit">
 <h2>Exporting the circuit<a class="headerlink" href="#exporting-the-circuit" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program" title="qat.lang.AQASM.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> object can also be exported into a human-readable AQASM format.
+<p>The <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program" title="qat.lang.AQASM.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> object can also be exported to a human-readable AQASM format.
 This is done using the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.export" title="qat.lang.AQASM.Program.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">export()</span></code></a> method.</p>
 </div>
 <div class="section" id="more-advanced-usage">

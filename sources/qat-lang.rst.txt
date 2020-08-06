@@ -24,9 +24,9 @@ The first class inheriting from it is the :class:`~qat.lang.AQASM.gates.CustomGa
     :members:
 
 
-Another important class is the :class:`~qat.lang.AQASM.gates.AbstractGate` class. This class provides a way to define new parametrized gates. Basically, an abstract gate describes a family of gates parametrized by a list of values of various types. The current list of admissible types are: :obj:`int`, :obj:`float`, :obj:`str`
+Another important class is the :class:`~qat.lang.AQASM.gates.AbstractGate` class. This class provides a way to define new parametrized gates. Basically, an abstract gate describes a family of gates parametrized by a list of values of various types. The current list of admissible types contains: :obj:`int`, :obj:`float`, :obj:`str`
 
-For instance to declare a new :class:`~qat.lang.AQASM.gates.AbstractGate` that describes a :math:`R_z` rotation, we would write:
+For instance, to declare a new :class:`~qat.lang.AQASM.gates.AbstractGate` that describes a :math:`R_z` rotation, we would write:
 
 .. code-block:: python
 
@@ -54,7 +54,7 @@ It is possible to attach a matrix generator to the abstract gate in order to gen
 .. autoclass:: qat.lang.AQASM.gates.AbstractGate
     :members: set_dag
 
-:class:`~qat.lang.AQASM.gates.ParamGate` are generated through :class:`~qat.lang.AQASM.gates.AbstractGate`. An abstract gate instantiated by a set of parameters (such as the my_rz(0.4) from above) returns a :class:`~qat.lang.AQASM.gates.ParamGate` carrying all the necessary information to build the correct abstract syntax tree of the gate. 
+:class:`~qat.lang.AQASM.gates.ParamGate` is generated through :class:`~qat.lang.AQASM.gates.AbstractGate`. An abstract gate instantiated by a set of parameters (such as the my_rz(0.4) from above) returns a :class:`~qat.lang.AQASM.gates.ParamGate` carrying all the necessary information to build the correct abstract syntax tree of the gate. 
 
 .. autoclass:: qat.lang.AQASM.gates.ParamGate
     :members:

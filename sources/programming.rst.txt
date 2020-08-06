@@ -2,11 +2,11 @@
 
 .. only:: qlm
 
-    QLM provides different tools or approaches to design your own quantum circuits.
+    QLM provides different tools and approaches to design your own quantum circuits.
 
 .. only:: myqlm
 
-    MyQLM provides different tools or approaches to design your own quantum circuits.
+    MyQLM provides different tools and approaches to design your own quantum circuits.
 
 The main component is a python library for building quantum circuits, called PyAQASM (Python + Atos QASM).
 
@@ -19,14 +19,14 @@ The following picture gives an overview of the circuit generation process from t
 Quantum circuits can be stored under two formats:
 
 #. as .aqasm text files (human readable)
-#. in a serialized format (.circ), it is under this format that circuits are sent to simulation or optimization services, when command line tools are used
+#. in a serialized format (.circ) - it is under this format that circuits are sent to simulation or optimization services, when command line tools are used
 
 Therefore, there are two ways to generate a .circ file from a :class:`~qat.lang.AQASM.Program` instance by:
 
-#. directly generating a :class:`~qat.core.wrappers.Circuit` instance and serializing it (right path in the figure)
+#. directly generating a :class:`~qat.core.Circuit` instance and serializing it (right path in the figure)
 #. exporting your program to an .aqasm text file (human readable text format), and compiling it using the command line tool `aqasm2circ` (left path in the figure)
 
-Since the core of the QLM is purely based on python, serialization is NOT a mandatory step, and is here only to facilitate advanced applications. Usually the :class:`~qat.core.wrappers.Circuit` objects are directly fed to QPUs via a python interface (see :doc:`documentation of qat-core <qat-core>` for examples).
+Since the core of the QLM is purely based on python, serialization is NOT a mandatory step, and is here only to facilitate advanced applications. Usually the :class:`~qat.core.Circuit` objects are directly fed to QPUs via a python interface (see :doc:`documentation of qat-core <qat-core>` for examples).
 
 If you still need a text format to describe your quantum circuits, please refer to the AQASM section : :ref:`aqasm`.
 
@@ -38,7 +38,7 @@ Writing quantum circuits
 
 The pyAQASM library (:py:mod:`qat.lang.AQASM`) provides a high-level interface to design quantum circuits.
 
-The central class of this library is :class:`~qat.lang.AQASM.Program` . This class provides an interface to build and generate :class:`~qat.core.wrappers.Circuit` object.
+The central class of this library is :class:`~qat.lang.AQASM.Program` . This class provides an interface to build and generate a :class:`~qat.core.Circuit` object.
 
 .. code-block:: python
 
@@ -71,11 +71,12 @@ Quantum gates
 Native gates, controls and daggers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The pyAQASM library provides a basic gate set to write your programs, the names are rather self explanatory:
+The pyAQASM library provides a basic gate set to write your programs. Their names are rather self explanatory:
 
-* Constant gate: **X**, **Y**, **Z**, **H**, **S**, **T**, **CNOT**, **CCNOT**, **CSIGN**, **SWAP**, **SQRTSWAP**, **ISWAP**
+* Constant gates: **X**, **Y**, **Z**, **H**, **S**, **T**, **CNOT**, **CCNOT**, **CSIGN**, **SWAP**, **SQRTSWAP**, **ISWAP**
 * Parametrized gates: **RX**, **RY**, **RZ**, **PH** (phase shift)
 
+These gates can be applied to the qubits from the qubit registers:
 
 .. code-block:: python
 
@@ -83,7 +84,7 @@ The pyAQASM library provides a basic gate set to write your programs, the names 
    my_program.apply(H, qbits_reg[2])
    my_program.apply(RZ(np.pi/2.), qbits_reg[0]
 
-From this initial gate set, one can build new gates using control and dagger operations:
+From this initial gate set, one can also build new gates using control and dagger operations:
 
 .. code-block:: python
 
@@ -154,7 +155,7 @@ Of course, you can also provide a way to generate the matrix corresponding to th
                      arity=1,
                      matrix_generator=c_matrix)
 
-The resulting circuit contains the matrix and can be simulated on most of the available simulators in QLM.
+The resulting circuit contains the matrix and can be simulated on most of the available simulators in the QLM.
 
 Quantum routines
 ^^^^^^^^^^^^^^^^
@@ -188,7 +189,7 @@ The :class:`~qat.lang.AQASM.Program` structure supports various instructions:
 
 * :func:`~qat.lang.AQASM.Program.reset` : to reset a qubit or classical bit: it consists in measuring the qubit, and applying a bit flip (X gate) if the outcome is 1
 
-* :func:`~qat.lang.AQASM.Program.cc_apply` : to apply a gate conditionnally, depending on the state of a classical bit
+* :func:`~qat.lang.AQASM.Program.cc_apply` : to apply a gate conditionally, depending on the state of a classical bit
 
 * :func:`~qat.lang.AQASM.Program.cbreak` : to interrupt the computation depending on a condition on a set of classical bits
 
@@ -198,9 +199,9 @@ Quantum routine librairies
 
 Some submodules of the pyAQASM library provide high-level routines or algorithms:
 
-* :mod:`~qat.lang.AQASM.qftarith` provides QFT-based implementation of various arithmetical operations (including QFT itself)
+* :mod:`~qat.lang.AQASM.qftarith` provides QFT-based implementation of various arithmetic operations (including QFT itself)
 
-* :mod:`~qat.lang.AQASM.classarith` provides carry-arithmetical operations
+* :mod:`~qat.lang.AQASM.classarith` provides carry-arithmetic operations
 
 * :mod:`~qat.lang.AQASM.arithmetic` provides a unified interface for all arithmetic operations
 
@@ -208,13 +209,13 @@ Generating the circuit
 ----------------------
 
 Once you are satisfied with your :class:`~qat.lang.AQASM.Program`, it can be exported to a circuit format that can be simulated. This is done using the :func:`~qat.lang.AQASM.Program.to_circ` method.
-This method has parameters and can be fine-tuned to meet your needs. Refer to the source code documentation for more information.
+This method has parameters and can be fine-tuned to meet your needs. ¨Please refer to the :ref:`source code documentation <source_doc>` for more information.
 
 
 Exporting the circuit
 ---------------------
 
-The :class:`~qat.lang.AQASM.Program` object can also be exported into a human-readable AQASM format.
+The :class:`~qat.lang.AQASM.Program` object can also be exported to a human-readable AQASM format.
 This is done using the :func:`~qat.lang.AQASM.Program.export` method.
 
 More advanced usage

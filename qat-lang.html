@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>qat.lang : Programming tools &mdash; myQLM documentation myQLM-0.0.7.19 documentation</title>
+  <title>qat.lang : Programming tools &mdash; myQLM documentation myQLM-0.0.7.8 documentation</title>
   
 
   
@@ -103,6 +103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="source_doc.html">Source code documentation</a><ul class="current">
@@ -229,8 +230,8 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>default_gate_set</strong> (<em>bool</em><em>, </em><em>optional</em>) – If set to False,
 the Program is initialized with an empty gate set.
-The gate set is updated dynamically when apply
-gates inside the Program via the <cite>apply</cite> method.
+The gate set is updated dynamically when one applies
+gates to the Program via the <cite>apply</cite> method.
 Default to True.</p>
 </dd>
 </dl>
@@ -272,7 +273,7 @@ Returns the register.</p>
 <code class="sig-name descname">cbreak</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">formula</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.Program.cbreak" title="Permalink to this definition">¶</a></dt>
 <dd><p>Conditional break.
 The program execution will stop if and only if
-the formula given as argument evaluate to 1.</p>
+the formula given as argument evaluates to 1.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>formula</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanFormula</span></code>) – a boolean
@@ -302,7 +303,7 @@ control classical bit given as first argument evaluates to 1.</p>
 <dt id="qat.lang.AQASM.Program.comment">
 <code class="sig-name descname">comment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.Program.comment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a comment inside the circuit.
-The comment will appear in the aqasm export of the circuit.</p>
+The comment will appear in the AQASM export of the circuit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>message</strong> (<em>str</em>) – a string containing the comment</p>
@@ -358,18 +359,18 @@ formula.</p></li>
 <dt id="qat.lang.AQASM.Program.measure">
 <code class="sig-name descname">measure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qbits</span></em>, <em class="sig-param"><span class="n">cbits</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.Program.measure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies a measurement operator.
-All measurement are <span class="math notranslate nohighlight">\(Z\)</span> measurements (i.e in the computational
+All measurements are <span class="math notranslate nohighlight">\(Z\)</span> measurements (i.e in the computational
 basis).
 Qbits are simply collapsed and not destroyed (i.e they are still usable
 afterward).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>qbits</strong> (<em>list&lt;Qbit&gt;</em>) – The qbits to measure specified as a
+<li><p><strong>qbits</strong> (<em>list&lt;Qbit&gt;</em>) – The qubits to measure specified as a
 list/register/array</p></li>
 <li><p><strong>cbits</strong> – (list&lt;Cbit&gt;, optional): The classical bits in which to store
 the result. Default to None. If defaulted/set to None, the
-results will be stored in classical bits with matching indexes.</p></li>
+results will be stored in classical bits with matching indices.</p></li>
 </ul>
 </dd>
 </dl>
@@ -400,7 +401,7 @@ This type is used to help structure execution results.</p>
 <span class="c1">## should display &quot;|2&gt;&quot; instead of &quot;|10&gt;&quot;</span>
 </pre></div>
 </div>
-<p>The type “FLOAT” correspond to fixed point numbers
+<p>The type “FLOAT” corresponds to fixed point numbers
 (the name float is just here to simplify the interface).
 In this format, the state <span class="math notranslate nohighlight">\(|100\rangle\)</span> will be displayed as
 <span class="math notranslate nohighlight">\(|0.5\rangle\)</span>.</p>
@@ -436,7 +437,7 @@ and/or a set of cbits to 0.</p>
 <code class="sig-name descname">to_circ</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">include_matrices</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">include_locks</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">inline</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">do_link</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">comparison_eps</span><span class="o">=</span><span class="default_value">1e-20</span></em>, <em class="sig-param"><span class="n">box_routines</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.Program.to_circ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a <a class="reference internal" href="qat-core.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> implementing the program.</p>
 <p>The circuit extraction consists
-in three stages:</p>
+of three stages:</p>
 <blockquote>
 <div><ul>
 <li><p><strong>Circuit generation</strong>: a simple circuit is extracted from the
@@ -540,7 +541,7 @@ This parent class contains very little information. Its primary function is to s
 <dl class="py class">
 <dt id="qat.lang.AQASM.gates.Gate">
 <em class="property">class </em><code class="sig-prename descclassname">qat.lang.AQASM.gates.</code><code class="sig-name descname">Gate</code><a class="headerlink" href="#qat.lang.AQASM.gates.Gate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mother class for all quantum gates/unitary operator.
+<dd><p>Mother class for all quantum gates/unitary operators.
 This class should never be instantiated directly.</p>
 <dl class="py method">
 <dt id="qat.lang.AQASM.gates.Gate.conj">
@@ -552,7 +553,7 @@ of the initial gate.</p>
 <dd class="field-odd"><p>The conjugate of the gate.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#qat.lang.AQASM.gates.Gate" title="qat.lang.AQASM.gates.Gate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -566,7 +567,7 @@ of the initial gate.</p>
 <dd class="field-odd"><p>The same gate, but controlled.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#qat.lang.AQASM.gates.Gate" title="qat.lang.AQASM.gates.Gate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -580,7 +581,7 @@ of the initial gate.</p>
 <dd class="field-odd"><p>The dagger of the gate.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#qat.lang.AQASM.gates.Gate" title="qat.lang.AQASM.gates.Gate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -595,7 +596,7 @@ of the initial gate.</p>
 <dd class="field-odd"><p>The transpose of the gate.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#qat.lang.AQASM.gates.Gate" title="qat.lang.AQASM.gates.Gate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -608,8 +609,8 @@ of the initial gate.</p>
 <code class="sig-prename descclassname">qat.lang.AQASM.gates.</code><code class="sig-name descname">CustomGate</code><a class="headerlink" href="#qat.lang.AQASM.gates.CustomGate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>Another important class is the <a class="reference internal" href="#qat.lang.AQASM.gates.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a> class. This class provides a way to define new parametrized gates. Basically, an abstract gate describes a family of gates parametrized by a list of values of various types. The current list of admissible types are: <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></p>
-<p>For instance to declare a new <a class="reference internal" href="#qat.lang.AQASM.gates.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a> that describes a <span class="math notranslate nohighlight">\(R_z\)</span> rotation, we would write:</p>
+<p>Another important class is the <a class="reference internal" href="#qat.lang.AQASM.gates.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a> class. This class provides a way to define new parametrized gates. Basically, an abstract gate describes a family of gates parametrized by a list of values of various types. The current list of admissible types contains: <code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></p>
+<p>For instance, to declare a new <a class="reference internal" href="#qat.lang.AQASM.gates.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a> that describes a <span class="math notranslate nohighlight">\(R_z\)</span> rotation, we would write:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_rz</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -660,7 +661,7 @@ be used.</p>
 
 </dd></dl>
 
-<p><a class="reference internal" href="#qat.lang.AQASM.gates.ParamGate" title="qat.lang.AQASM.gates.ParamGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParamGate</span></code></a> are generated through <a class="reference internal" href="#qat.lang.AQASM.gates.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a>. An abstract gate instantiated by a set of parameters (such as the my_rz(0.4) from above) returns a <a class="reference internal" href="#qat.lang.AQASM.gates.ParamGate" title="qat.lang.AQASM.gates.ParamGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParamGate</span></code></a> carrying all the necessary information to build the correct abstract syntax tree of the gate.</p>
+<p><a class="reference internal" href="#qat.lang.AQASM.gates.ParamGate" title="qat.lang.AQASM.gates.ParamGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParamGate</span></code></a> is generated through <a class="reference internal" href="#qat.lang.AQASM.gates.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a>. An abstract gate instantiated by a set of parameters (such as the my_rz(0.4) from above) returns a <a class="reference internal" href="#qat.lang.AQASM.gates.ParamGate" title="qat.lang.AQASM.gates.ParamGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParamGate</span></code></a> carrying all the necessary information to build the correct abstract syntax tree of the gate.</p>
 <dl class="py class">
 <dt id="qat.lang.AQASM.gates.ParamGate">
 <em class="property">class </em><code class="sig-prename descclassname">qat.lang.AQASM.gates.</code><code class="sig-name descname">ParamGate</code><a class="headerlink" href="#qat.lang.AQASM.gates.ParamGate" title="Permalink to this definition">¶</a></dt>
@@ -691,7 +692,7 @@ inside another routine is done through the
 <code class="xref py py-func docutils literal notranslate"><span class="pre">apply()</span></code> method. Since a
 <a class="reference internal" href="#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> can exist independently from any Program
 there are is no notion of qbit allocation in a
-<a class="reference internal" href="#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a>. Gates are thus applied on indexes refering the
+<a class="reference internal" href="#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a>. Gates are thus applied on indexes refering to
 the inbound wires of the routine.</p>
 <dl class="py method">
 <dt id="qat.lang.AQASM.routines.QRoutine.apply">
@@ -718,7 +719,7 @@ Wires are refered using integers.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This method is designed to be called inside a with statement in order
+<p>This method is designed to be called inside a ‘with’ statement in order
 for the scope to be cleanly closed.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">rout</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
     <span class="n">rout</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">CNOT</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -791,7 +792,7 @@ pops it from the scope stack.</p>
 <dl class="py function">
 <dt id="qat.lang.AQASM.util.suppr_ctrl">
 <code class="sig-prename descclassname">qat.lang.AQASM.util.</code><code class="sig-name descname">suppr_ctrl</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rout</span></em>, <em class="sig-param"><span class="n">depth</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.util.suppr_ctrl" title="Permalink to this definition">¶</a></dt>
-<dd><p>Builds a functionnaly equivalent quantum routine such
+<dd><p>Builds a functionally equivalent quantum routine such
 that no gate in this routine has more that “depth” control qbits.
 It uses an ancillary register to Toffoli-fold the control qbits.
 The number of ancillas to add is (in the worst case)
@@ -815,10 +816,10 @@ equal to (maximum number of ctrl to remove) -1.</p>
 <dl class="py function">
 <dt id="qat.lang.AQASM.util.toffoli_fold">
 <code class="sig-prename descclassname">qat.lang.AQASM.util.</code><code class="sig-name descname">toffoli_fold</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nb_qbits</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.util.toffoli_fold" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a quantum routine that, given a data register of length n and an ancilla register,
+<dd><p>Returns a quantum routine that, given a data register of length <span class="math notranslate nohighlight">\(n\)</span> and an ancilla register,
 applies Toffoli gates on the data register in order to compute
 a logical AND of all its qbits
-inside a single ancillary qbit. May use up to n-1 ancillary qbits (worst case scenario).
+inside a single ancillary qbit. May use up to <span class="math notranslate nohighlight">\(n-1\)</span> ancillary qbits (worst case scenario).
 The resulting qbits is always the last qbit (hence of index arity - 1).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -836,26 +837,20 @@ The resulting qbits is always the last qbit (hence of index arity - 1).</p>
 </div>
 <div class="section" id="module-qat.lang.AQASM.misc">
 <span id="gate-set-management-and-generation"></span><h2>Gate set management and generation<a class="headerlink" href="#module-qat.lang.AQASM.misc" title="Permalink to this headline">¶</a></h2>
-<p>&#64;file qat/lang/AQASM/misc.py
-&#64;authors Simon Martiel &lt;<a class="reference external" href="mailto:simon&#46;martiel&#37;&#52;&#48;atos&#46;net">simon<span>&#46;</span>martiel<span>&#64;</span>atos<span>&#46;</span>net</a>&gt;
-&#64;internal
-&#64;copyright 2017  Bull S.A.S.  -  All rights reserved.</p>
-<blockquote>
-<div><p>This is not Free or Open Source software.
-Please contact Bull SAS for details about its license.
-Bull - Rue Jean Jaurès - B.P. 68 - 78340 Les Clayes-sous-Bois</p>
-</div></blockquote>
-<p>&#64;brief Some function decorator for simplified gate set generation</p>
 <dl class="py function">
 <dt id="qat.lang.AQASM.misc.generate_gate_set">
 <code class="sig-prename descclassname">qat.lang.AQASM.misc.</code><code class="sig-name descname">generate_gate_set</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="n">safe</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.misc.generate_gate_set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a gate set from a list of various arguments.
-Arugments can be:
-- GateSignature/AbstractGates
-- build_gates wrappers
-- python modules
-(in which case it iterates through its scope and gather all the build_gate object)
-(i.e all the decorated functions)</p>
+Arguments can be:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>GateSignature/AbstractGates</p></li>
+<li><p>build_gates wrappers</p></li>
+<li><p>python modules</p></li>
+</ul>
+</div></blockquote>
+<p>In this case it iterates through its scope and gathers all the build_gate objects
+(i.e all the decorated functions).</p>
 </dd></dl>
 
 </div>

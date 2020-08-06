@@ -1,0 +1,447 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Running variational algorithms &mdash; myQLM documentation myQLM-0.0.7.8 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+        <script src="static/jquery.js"></script>
+        <script src="static/underscore.js"></script>
+        <script src="static/doctools.js"></script>
+        <script src="static/language_data.js"></script>
+        <script src="static/contentui.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Applications" href="applications.html" />
+    <link rel="prev" title="Advanced programming using pyAQASM" href="advanced_programming.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> myQLM documentation
+          
+
+          
+            
+            <img src="static/myqlm.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                myQLM-0.0.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/install.html">Installing myQLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programming.html">Writing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulating.html">Executing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Running variational algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#variational-jobs">Variational jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#binding-variables">Binding variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Running variational algorithms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source_doc.html">Source code documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Command line tools</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">myQLM documentation</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Running variational algorithms</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="sources/running_variational.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="running-variational-algorithms">
+<h1>Running variational algorithms<a class="headerlink" href="#running-variational-algorithms" title="Permalink to this headline">¶</a></h1>
+<p>QLM comes with a collection of tools to efficiently describe and run variational quantum algorithm.</p>
+<p>This page introduces the basic mechanics allowing you to write and run adaptative variational schemes.</p>
+<p>For a more advanced usage <a class="reference internal" href="combinatorial_optimization.html#combinatorial-optimization"><span class="std std-ref">Combinatorial optimization</span></a> describes a high level interface to described combinatorial optimization problems and automatically
+generate parametrized Ansätze.</p>
+<div class="section" id="variational-jobs">
+<h2>Variational jobs<a class="headerlink" href="#variational-jobs" title="Permalink to this headline">¶</a></h2>
+<p>When running a variational quantum algorithm, we are, most of the time, interested in minimizing the energy of some observable <span class="math notranslate nohighlight">\(H\)</span> over some
+parametrized quantum state <span class="math notranslate nohighlight">\(|\psi(\theta)\rangle\)</span>, i.e minimizing <span class="math notranslate nohighlight">\(\langle \psi(\theta)| H |\psi(\theta) \rangle\)</span>.</p>
+<p>In the QLM, it is possible to build a variational quantum circuit by introducing open parameters in a pyAQASM <cite>Program</cite>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">variable</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="n">RY</span><span class="p">(</span><span class="n">variable</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
+<span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">variable</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
+
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variables:&quot;</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Job variables:&quot;</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Variables</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">}</span>
+<span class="n">Job</span> <span class="n">variables</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Additionally, the sampled observable itself can have parametrized coefficients:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># Obs = \sum_i \sigma_x^i</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">obs</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Observable variables:&quot;</span><span class="p">,</span> <span class="n">obs</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">variable</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">qbit</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
+    <span class="n">RY</span><span class="p">(</span><span class="n">variable</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
+    <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">variable</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
+
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Circuit variables:&quot;</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Job variables:&quot;</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+<span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+<span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">Observable</span> <span class="n">variables</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;t&#39;</span><span class="p">}</span>
+<span class="n">Circuit</span> <span class="n">variables</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">}</span>
+<span class="n">Job</span> <span class="n">variables</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>This allows to have layered parametrized optimisation, or even compilation tradeoffs where some variational parameters end up in the sampled observable.</p>
+</div>
+<div class="section" id="binding-variables">
+<h2>Binding variables<a class="headerlink" href="#binding-variables" title="Permalink to this headline">¶</a></h2>
+<p>Once we’ve built a parametrized job, its variables can be instantiated using the overloaded <cite>__call__</cite> operator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">obs</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">variable</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">qbit</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
+    <span class="n">RY</span><span class="p">(</span><span class="n">variable</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
+    <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">variable</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">)</span>
+
+<span class="n">job_2</span> <span class="o">=</span> <span class="n">job</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">job_2</span><span class="o">.</span><span class="n">observable</span><span class="p">)</span>
+
+<span class="n">job_3</span> <span class="o">=</span> <span class="n">job</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">()})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">job_3</span><span class="o">.</span><span class="n">observable</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">job_3</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="mf">0.79885067891092</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.79885067891092</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.79885067891092</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.8328318006758884</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">3.3313272027035534</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.8328318006758884</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">3.3313272027035534</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.8328318006758884</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">3.3313272027035534</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When binding variables used inside a custom parametrized gate, a gate set containing the custom gate should be provided
+via the <cite>gate_set</cite> kwargs.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">XX</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;XX&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">XX</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;theta&quot;</span><span class="p">))(</span><span class="n">qbits</span><span class="p">)</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">circuit_2</span> <span class="o">=</span> <span class="n">circuit</span><span class="p">(</span><span class="n">theta</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Caught: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+<span class="n">circuit_2</span> <span class="o">=</span> <span class="n">circuit</span><span class="p">(</span><span class="n">theta</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">gate_set</span><span class="o">=</span><span class="n">prog</span><span class="o">.</span><span class="n">gate_set</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">circuit_2</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;XX&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>Running variational algorithms<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>The simplest way to run a variational algorithm is to use a dedicated Plugin that will take care of the enery minimization.</p>
+<p>The default one wraps the <cite>scipy.optimize.minimize</cite> function: <code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.ScipyMinimizePlugin</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">obs</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">variable</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">qbit</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
+    <span class="n">RY</span><span class="p">(</span><span class="n">variable</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
+    <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">variable</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">qat.plugins</span> <span class="kn">import</span> <span class="n">ScipyMinimizePlugin</span>
+
+<span class="n">optimize</span> <span class="o">=</span> <span class="n">ScipyMinimizePlugin</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;COBYLA&quot;</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;maxiter&quot;</span><span class="p">:</span> <span class="mi">150</span><span class="p">})</span>
+
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+
+<span class="n">stack</span> <span class="o">=</span> <span class="n">optimize</span> <span class="o">|</span> <span class="n">get_default_qpu</span><span class="p">()</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;final energy:&#39;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;best parameter:&#39;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">meta_data</span><span class="p">[</span><span class="s1">&#39;parameters&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;trace:&#39;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">meta_data</span><span class="p">[</span><span class="s1">&#39;optimization_trace&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">final</span> <span class="n">energy</span><span class="p">:</span> <span class="o">-</span><span class="mf">14.758696213395915</span>
+<span class="n">best</span> <span class="n">parameter</span><span class="p">:</span> <span class="p">[</span><span class="mf">5.919565404465737</span><span class="p">,</span> <span class="mf">1.5707964284635463</span><span class="p">]</span>
+<span class="n">trace</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1649900456233451</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.10580704837164255</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.610148616348327</span><span class="p">,</span> <span class="mf">1.7027867668758097</span><span class="p">,</span> <span class="mf">0.21254177189489293</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.400857804769165</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.17020981182988</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.8782366614609405</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.6562549136775147</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.344045647822036</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5332391372448586</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.698310389217113</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.69288190556915</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.85280339972325</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.9402009396053748</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.734780902563642</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.1467508200968597</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.298988188686087</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.49253405393678</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.6824199302196488</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.8698713374807094</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.057372865601607</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.240047479534383</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.429034176133063</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.6140812712435695</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.802342679890675</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.988875384628484</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.176403902987976</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.364017715224254</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.551674223689882</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.739229964714161</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.926722785791599</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.114123097770327</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.301470252454616</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.489011916425871</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.676537674229056</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.864040446007948</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.051529362736403</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.2390333070727255</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.426515620571401</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.61401493470866</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.801483777160584</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.988889964655221</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.176395065246922</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.363932120279369</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.551407399813979</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.738915740734878</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.926422299591213</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.113921522010171</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.301418732290822</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.488897128753223</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.676408639093111</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.863880329893265</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.051394455226486</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.238804329913485</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.42623538300609</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.613697354421271</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.801045882983644</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.981732703695823</span><span class="p">,</span> <span class="o">-</span><span class="mf">11.154496057042476</span><span class="p">,</span> <span class="o">-</span><span class="mf">11.342004682093153</span><span class="p">,</span> <span class="o">-</span><span class="mf">11.53797897745903</span><span class="p">,</span> <span class="o">-</span><span class="mf">11.711514641035768</span><span class="p">,</span> <span class="o">-</span><span class="mf">11.907217714299584</span><span class="p">,</span> <span class="o">-</span><span class="mf">12.06755539018075</span><span class="p">,</span> <span class="o">-</span><span class="mf">12.24844257199575</span><span class="p">,</span> <span class="o">-</span><span class="mf">12.363919074923636</span><span class="p">,</span> <span class="o">-</span><span class="mf">12.469059950827324</span><span class="p">,</span> <span class="o">-</span><span class="mf">12.499563112434348</span><span class="p">,</span> <span class="o">-</span><span class="mf">11.482426061480103</span><span class="p">,</span> <span class="o">-</span><span class="mf">12.723813421535638</span><span class="p">,</span> <span class="o">-</span><span class="mf">12.766039230359572</span><span class="p">,</span> <span class="o">-</span><span class="mf">12.859679824302368</span><span class="p">,</span> <span class="o">-</span><span class="mf">12.944324548542046</span><span class="p">,</span> <span class="o">-</span><span class="mf">12.995233141210424</span><span class="p">,</span> <span class="o">-</span><span class="mf">12.710267724480214</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.101916328288935</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.090089050539406</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.046844837480139</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.123572097804772</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.146646550200982</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.169454577720964</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.189141801957916</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.212645897300476</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.235851562982269</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.259241977083072</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.282572531987999</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.305646360389623</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.329121777523387</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.352489958064087</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.375927837229387</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.399341684376205</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.422785259233374</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.44622279391131</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.469659040737769</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.493096544393413</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.516533875523699</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.539964784353101</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.563403449927664</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.586841129218044</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.61027846125318</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.633715925808545</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.657153334332959</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.680590460052992</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.704025335849774</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.727462797624955</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.750900321007716</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.774337875914927</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.797775446148803</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.821213017163888</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.84465057660491</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.868088117876855</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.89152563939825</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.914963135813853</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.938400548629218</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.961817467187274</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.985257148142482</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.008696050644666</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.032133907078865</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.05557139129883</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.079008877103062</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.102446375821302</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.125883678383044</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.149321208743107</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.172758717260448</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.196196214752248</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.21963371339595</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.243071213565194</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.266508713638046</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.289946213642251</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.31338371364124</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.336821213639762</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.36025871342946</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.383696213465072</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.407133713473574</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.430571213468992</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.454008713467472</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.477446213462944</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.500883713431021</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.524321213437592</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.547758713434067</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.571196213433016</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.594633713429737</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.618071213406928</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.641508713411561</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.664946213408872</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.688383713408165</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.711821213406045</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.735258713393504</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.758696213395915</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="applications.html" class="btn btn-neutral float-right" title="Applications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="advanced_programming.html" class="btn btn-neutral float-left" title="Advanced programming using pyAQASM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Atos 2016-2020
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
