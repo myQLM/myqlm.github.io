@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Executing quantum circuits &mdash; myQLM documentation myQLM-0.0.7.8 documentation</title>
+  <title>Executing quantum circuits &mdash; myQLM documentation myQLM-X.X.X.12 documentation</title>
   
 
   
@@ -43,7 +43,7 @@
   <link rel="stylesheet" href="static/contentui.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Building custom execution stacks" href="manipulating.html" />
+    <link rel="next" title="Running variational algorithms" href="running_variational.html" />
     <link rel="prev" title="Writing quantum circuits" href="programming.html" /> 
 </head>
 
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-0.0.7
+                myQLM-X.X.X
               </div>
             
           
@@ -95,33 +95,40 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Basic usage</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/install.html">Installing myQLM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="programming.html">Writing quantum circuits</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Executing quantum circuits</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#circuit-execution-modes">Circuit execution modes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#sampling-directive">Sampling directive</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#the-sample-object">The Sample object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#describing-a-quantum-job">Describing a quantum job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-full-example-on-the-bell-state-circuit">A full example on the Bell state circuit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sample-mode">SAMPLE mode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#infinite-number-of-shots-all-qubits">Infinite number of shots, all qubits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#finite-number-of-shots-all-qubits">Finite number of shots, all qubits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#infinite-number-of-shots-only-one-qubit">Infinite number of shots, only one qubit</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#observable-evaluation">Observable evaluation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#specification-of-a-qpu">Specification of a QPU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#connecting-to-remote-qpu">Connecting to remote QPU</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#server-mode">Server mode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#client-mode">Client mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#observable-mode">OBSERVABLE mode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#infinite-number-of-shots">Infinite number of shots</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#finite-number-of-shots">Finite number of shots</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#further-information">Further information</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability with myQLM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced usage</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source_doc.html">Source code documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command line tools</a></li>
@@ -176,8 +183,6 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="sources/simulating.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -215,269 +220,219 @@
 </style>
 <div class="section" id="executing-quantum-circuits">
 <span id="simulating"></span><h1>Executing quantum circuits<a class="headerlink" href="#executing-quantum-circuits" title="Permalink to this headline">¶</a></h1>
-<p>Circuit execution from PyAQASM consists of the following lines:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="o">*</span><span class="n">options</span><span class="o">*</span><span class="p">)</span> <span class="c1"># creating job from circuit</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>       <span class="c1"># submitting job to QPU instance, getting results.</span>
-</pre></div>
+<p>The workflow of a quantum computer, henceforth called a <strong>“Quantum Processing Unit” (QPU)</strong>, is the following:
+its state (register of qubits) is initialized,
+a series of quantum gates (a quantum circuit <span class="math notranslate nohighlight">\(\mathcal{C}\)</span>) is operated on the register,
+and a measurement is made on the final state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> of the QPU.</p>
+<p>QLM provides classical emulators of QPUs that allow to simulate the execution of this workflow.</p>
+<p>In this page, you will learn how to use the various objects required to describe this workflow and to
+run a QLM QPU.</p>
+<div class="section" id="describing-a-quantum-job">
+<h2>Describing a quantum job<a class="headerlink" href="#describing-a-quantum-job" title="Permalink to this headline">¶</a></h2>
+<p>The computational jobs that are fed to a QPU primarily consist of two main components:</p>
+<ul class="simple">
+<li><p>the <strong>quantum circuit</strong> to be executed on the qubit register. You have learned how to create such a circuit <a class="reference internal" href="programming.html#programming"><span class="std std-ref">here</span></a>.</p></li>
+<li><p>the <strong>final measurement</strong> to be carried out on the final state of the register, i.e on the wavefunction <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> that has been prepared by the quantum circuit.</p></li>
+</ul>
+<p><strong>Two types</strong> of final measurements are commonly used in quantum algorithms:</p>
+<ul class="simple">
+<li><p>“<strong>Sample</strong>”: Measuring the projection of the wavefunction on the computational basis (formally speaking, this means measuring qubits “along the Z axis”). For instance, if the final state is <span class="math notranslate nohighlight">\(|\psi\rangle=(|00\rangle+|11\rangle)/\sqrt{2}\)</span>, measuring “in the computational basis” will yield the bitstring “00” in 50% (<span class="math notranslate nohighlight">\(1/\sqrt{2}^2\)</span>) of cases, and “11” the rest of the time. Because of the statistical nature of the measurement, many repeated measurements on the computational basis, yielding many different bitstrings or “<strong>samples</strong>”, are necessary to get an accurate estimate of the frequencies of each computational basis state (“00”: 50%, “01”: 0%, “10”: 0%, “11”: 50% in our case). We will call “<strong>nbshots</strong>” the number of such repetitions (with a classical emulator, one can in general emulate an infinite number of shots since one has access to the exact frequencies). Of course, one may decide to measure only a subset of qubits.</p></li>
+<li><p>“<strong>Observable</strong>”: Measuring the value of a quantum mechanical <strong>observable</strong> <span class="math notranslate nohighlight">\(O\)</span> in the final state. On average, such a value is given by the formula <span class="math notranslate nohighlight">\(\langle O \rangle = \langle \psi | O |\psi \rangle\)</span>. While this average value can directly be computed using a classical computer, on an actual QPU, only a limited set of observables can be measured. In practice, most QPUs provide only “Z-axis” measurements, i.e, as described above, the possibility to measure the projection of the wavefunction on computational basis states. One thus needs, to perform the estimation of the average value of an observable, to convert the computation of <span class="math notranslate nohighlight">\(\langle O \rangle\)</span> into a series of Z axis measurements (with possible modifications of the circuit), estimate bitstrings frequencies as described above (with a given number of shots or repetitions), and combine those subresults back into a estimate of <span class="math notranslate nohighlight">\(\langle O \rangle\)</span>.</p></li>
+</ul>
+<p>Let us emphasize the fact that while the first final processing type is native to most actual QPUs, the same does not necessarily holds
+for the “OBSERVABLE” processing type. In the absence of a native support, the <a class="reference internal" href="observable-splitter.html#obs-splitter"><span class="std std-ref">ObservableSplitter</span></a> plugin of the QLM canenhance the QPU with an observable-processing capacity.</p>
+<p>In QLM, quantum jobs describing these tasks are implemented by a <a class="reference internal" href="qat-core.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Job</span></code></a> object, that contains</p>
+<ul class="simple">
+<li><p>the circuit <span class="math notranslate nohighlight">\(\mathcal{C}\)</span> to be executed</p></li>
+<li><p>the type of the final processing (<code class="docutils literal notranslate"><span class="pre">SAMPLE</span></code> or <code class="docutils literal notranslate"><span class="pre">OBS</span></code>), with the necessary parameters (which qubits to be measured or which observable to evaluate, respectively)</p></li>
+<li><p>the number of allowed repetitions (shots)</p></li>
+</ul>
+<p>Note that by default, the processing type is <code class="docutils literal notranslate"><span class="pre">SAMPLE</span></code>, with all qubits being measured, and an infinite number of shots (i.e no statistical uncertainty).</p>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">qpu</span></code> can be an <strong>ideal simulator</strong>, a <strong>noisy simulator</strong>, or the implemented
-interface of an <strong>actual chip</strong>.</p>
-<p>For instance, the following script outputs the final wave function obtained after running an Hadamard wall:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span>
+<div class="section" id="a-full-example-on-the-bell-state-circuit">
+<h2>A full example on the Bell state circuit<a class="headerlink" href="#a-full-example-on-the-bell-state-circuit" title="Permalink to this headline">¶</a></h2>
+<p>Here, we exemplify the execution of a simple Bell circuit with the different modes described above.</p>
+<div class="section" id="sample-mode">
+<h3>SAMPLE mode<a class="headerlink" href="#sample-mode" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="infinite-number-of-shots-all-qubits">
+<h4>Infinite number of shots, all qubits<a class="headerlink" href="#infinite-number-of-shots-all-qubits" title="Permalink to this headline">¶</a></h4>
+<p>We take the same example as the one we examined in <a class="reference internal" href="getting_started.html#getting-started"><span class="std std-ref">the Getting Started page</span></a> for an illustration of this case:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">CNOT</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
 
-<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
-<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># Create a circuit</span>
+<span class="n">qprog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">H</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
 
-<span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
-    <span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qb</span><span class="p">)</span>
+<span class="c1"># Create a job</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span> <span class="c1"># no parameters, equivalent to &quot;nbshots=0&quot;</span>
 
-<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+<span class="c1"># Instantiate a QPU (simulator)</span>
+<span class="n">qpu</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span>
 
-<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">qubits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">PyLinalg</span>
-<span class="n">qpu</span> <span class="o">=</span> <span class="n">PyLinalg</span><span class="p">()</span>
-
+<span class="c1"># Execute</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;State </span><span class="si">%s</span><span class="s2">: probability </span><span class="si">%s</span><span class="s2">, amplitude </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">amplitude</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">000</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">001</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">010</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">011</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">100</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">101</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">110</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3535533905932737</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.12499999999999994</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">111</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">State</span> <span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.4999999999999999</span><span class="p">,</span> <span class="n">amplitude</span> <span class="p">(</span><span class="mf">0.7071067811865475</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">)</span>
+<span class="n">State</span> <span class="o">|</span><span class="mi">11</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.4999999999999999</span><span class="p">,</span> <span class="n">amplitude</span> <span class="p">(</span><span class="mf">0.7071067811865475</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">*options*</span></code> specified at job creation modify what <code class="docutils literal notranslate"><span class="pre">results</span></code> contain. See <a class="reference internal" href="#circuit-execution-modes">Circuit execution modes</a> for more details.</p>
-<p>myQLM comes with a simple quantum circuit simulator, called PyLinalg (for Python
-linear algebra). It can run on your laptop (for up to 24-25 qubits for a few
-GB of RAM), and is based on plain matrix-vector multiplications, implemented
-with numpy.
-It is an instance of a QPU (Quantum Processing Unit) that takes quantum circuits
-as inputs and returns simulation results (samples, probabilities…). It is important
-to note that the same interfacing tools that come with myQLM, could be used to
-interface with an actual quantum computer (see Hybrid Programming Workflow section).</p>
-<p>All QPUs share the same interface to make it easy to adapt your code and to change the QPU on which
-your circuit is executed. We are now going to describe the interface, including the options related to
-circuit execution (e.g. specifying whether you want an observable or the full distribution…).</p>
-<div class="section" id="circuit-execution-modes">
-<h2>Circuit execution modes<a class="headerlink" href="#circuit-execution-modes" title="Permalink to this headline">¶</a></h2>
-<p>Given a circuit, options specified at job creation allow to:</p>
-<blockquote>
-<div><ul>
-<li><div class="line-block">
-<div class="line"><strong>(default case)</strong> Obtain the <strong>full distribution</strong> in the form of a list of <strong>states with non-zero probability</strong>.</div>
+<p>You can notice that a <code class="docutils literal notranslate"><span class="pre">Job</span></code> is created from a circuit using the circuit’s <code class="docutils literal notranslate"><span class="pre">to_job()</span></code> method.
+This job is then fed to the QPU’s <code class="docutils literal notranslate"><span class="pre">submit</span></code> method, which returns a <code class="docutils literal notranslate"><span class="pre">result</span></code> object.
+In SAMPLE mode, this result can be iterated on, yielding the various “samples”, with each sample
+corresponding to a given bitstring (<code class="docutils literal notranslate"><span class="pre">state</span></code>) and its frequency of appearance (<code class="docutils literal notranslate"><span class="pre">probability</span></code>) upon
+conducting a Z measurement over the final state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>. States with zero probability
+are not listed (one can set a threshold <code class="docutils literal notranslate"><span class="pre">amp_threshold</span></code> to filter out states below a certain probability amplitude).
+Here, we also print the probability <em>amplitude</em> (<code class="docutils literal notranslate"><span class="pre">amplitude</span></code>) corresponding to each computational basis state.
+Let us stress that this piece of information is in general not available from an actual QPU, but merely
+from some classical simulators.</p>
 </div>
-</li>
-<li><div class="line-block">
-<div class="line"><strong>Strictly emulate</strong> the behavior of an actual quantum computer by returning a <strong>list of measurement results</strong>. An option called <code class="docutils literal notranslate"><span class="pre">aggregate_data</span></code> allows you to group the results by value and empirically estimate their probabilities.</div>
-</div>
-</li>
-<li><div class="line-block">
-<div class="line"><strong>Directly compute observable averages</strong>: especially useful when dealing with <strong>hybrid variational algorithms</strong>.</div>
-</div>
-</li>
-</ul>
-</div></blockquote>
-<p>All of these options can work on all or a <strong>subset of the qubits</strong>.</p>
-<p>The arguments controling these execution modes are <code class="docutils literal notranslate"><span class="pre">job_type</span></code>, <code class="docutils literal notranslate"><span class="pre">nbshots</span></code> and <code class="docutils literal notranslate"><span class="pre">aggregate_data</span></code>. See the sourcecode documentation of the to_job method of circuit object for more details: <a class="reference internal" href="qat-core.html"><span class="doc">qat-core: Core data structures and Abstract classes</span></a></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>With respect to <code class="docutils literal notranslate"><span class="pre">nbshots</span></code>, we work with the following convention:</p>
-<p><code class="docutils literal notranslate"><span class="pre">nbshots</span> <span class="pre">=</span> <span class="pre">0</span></code> (default value) means asking the QPU <strong>the best it can give</strong>. In the case of an ideal classical simulator, this is just the entire distribution. In the case of an actual QPU, it will be some finite (hopefully large) number of shots.</p>
-</div>
-<div class="section" id="sampling-directive">
-<h3>Sampling directive<a class="headerlink" href="#sampling-directive" title="Permalink to this headline">¶</a></h3>
-<p>The first job type tells the QPU to sample the final state vector in the computational basis. This is the default setting when creating a job.
-In that setting, the job is constructed using the following parameters:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><strong>nbshots</strong>: the number of shots to use. Default is infinite (=0)</p></li>
-<li><p><strong>qubits</strong>: the subset of qubits to sample. Default is all qubits.</p></li>
-<li><p><strong>amp_threshold</strong>: a treshold to truncate probabilities/amplitude</p></li>
-</ul>
-</div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
-<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
-    <span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qb</span><span class="p">)</span>
-<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
-
-<span class="c1"># A job that samples all the qubits with infinite number of shots</span>
-<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
-
-<span class="c1"># Measurement only qubits 1 and 3, with 1024 shots</span>
-<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">qubits</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">nbshots</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="section" id="the-sample-object">
-<h4>The Sample object<a class="headerlink" href="#the-sample-object" title="Permalink to this headline">¶</a></h4>
-<p>Once the job is specified it can be submitted to a QPU. The standard way of analyzing the result is to simply traverse it via a for loop:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
-<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
-    <span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qb</span><span class="p">)</span>
-<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
-
-<span class="c1"># A job that samples all the qubits with infinite number of shots</span>
-<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
-
+<div class="section" id="finite-number-of-shots-all-qubits">
+<h4>Finite number of shots, all qubits<a class="headerlink" href="#finite-number-of-shots-all-qubits" title="Permalink to this headline">¶</a></h4>
+<p>Let us switch to a finite <code class="docutils literal notranslate"><span class="pre">nbshots</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">CNOT</span>
 <span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+
+<span class="c1"># Create a circuit</span>
+<span class="n">qprog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">H</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="c1"># Create a job</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">nbshots</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Execute</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;State </span><span class="si">%s</span><span class="s2">: probability </span><span class="si">%s</span><span class="s2"> +/- </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">err</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.4999999999999999</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.2499999999999999</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">00</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.4999999999999999</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.2499999999999999</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">01</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.4999999999999999</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.2499999999999999</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">10</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">Sample</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.4999999999999999</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">),</span> <span class="n">probability</span><span class="o">=</span><span class="mf">0.2499999999999999</span><span class="p">,</span> <span class="n">state</span><span class="o">=|</span><span class="mi">11</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">intermediate_measurements</span><span class="o">=</span><span class="p">[],</span> <span class="n">err</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">State</span> <span class="o">|</span><span class="mi">11</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.56</span> <span class="o">+/-</span> <span class="mf">0.049888765156985884</span>
+<span class="n">State</span> <span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.44</span> <span class="o">+/-</span> <span class="mf">0.04988876515698589</span>
 </pre></div>
 </div>
-<p>As you can see, iterating over results outputs a sequence of <cite>Sample</cite> objects that carry all the information.
-It contains the following fields:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><strong>state</strong>: a <code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code> object that describe a classical state (i.e a classical index).
-The index value of the state can be obtained via the <cite>.int</cite> property. Indexes are always represented via integers by reading
-the qubits states with qubit 0 on the left. E.g a two qubits classical state indexed by 2 corresponds to qubit 0 in state 1 and qubit
-1 in state 0. If a typed pyAQASM register was given at the job construction, the classical state can be cast into the proper python type
-(or a tuple of types) via the <cite>.value</cite> property.</p></li>
-<li><p><strong>probability</strong>: the probability of the sample, if the information is available</p></li>
-<li><p><strong>amplitude</strong>: the amplitude of the sample, if the information is well defined and available (i.e if all the qubits are measured with nbshots=0
-one a perfect simulator)</p></li>
-<li><p><strong>err</strong>: the error on the <cite>.probability</cite> field in the case of finite number of shots, if the information is available</p></li>
-</ul>
-</div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
-<span class="n">reg1</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
-<span class="n">reg2</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="n">reg1</span><span class="p">:</span>
-    <span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qb</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="n">reg2</span><span class="p">:</span>
-    <span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">qb</span><span class="p">)</span>
-<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
-
-<span class="c1"># A job that samples all the qubits with infinite number of shots</span>
-<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">qubits</span><span class="o">=</span><span class="p">[</span><span class="n">reg1</span><span class="p">,</span> <span class="n">reg2</span><span class="p">])</span>
-
+<p>Notice how the estimated probability of the states differs from the ideal one due to “shot noise”. The <code class="docutils literal notranslate"><span class="pre">err</span></code>
+field of the <code class="docutils literal notranslate"><span class="pre">sample</span></code> object contains the standard error of the mean on the frequency of appearance.
+It decreases as <span class="math notranslate nohighlight">\(1/\sqrt{n_\mathrm{shots}}\)</span>.</p>
+</div>
+<div class="section" id="infinite-number-of-shots-only-one-qubit">
+<h4>Infinite number of shots, only one qubit<a class="headerlink" href="#infinite-number-of-shots-only-one-qubit" title="Permalink to this headline">¶</a></h4>
+<p>Here, we decide to measure only the second qubit:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">CNOT</span>
 <span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+
+<span class="c1"># Create a circuit</span>
+<span class="n">qprog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">H</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="c1"># Create a job</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">nbshots</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">qubits</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Execute</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;State </span><span class="si">%s</span><span class="s2">: probability </span><span class="si">%s</span><span class="s2"> +/- </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">err</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span><span class="mi">0</span><span class="o">&gt;|</span><span class="mi">11</span><span class="o">&gt;</span> <span class="mi">3</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;11&#39;</span><span class="p">)</span>
-<span class="o">|</span><span class="mi">1</span><span class="o">&gt;|</span><span class="mi">11</span><span class="o">&gt;</span> <span class="mi">7</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;11&#39;</span><span class="p">)</span>
-<span class="o">|</span><span class="mi">2</span><span class="o">&gt;|</span><span class="mi">11</span><span class="o">&gt;</span> <span class="mi">11</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;11&#39;</span><span class="p">)</span>
-<span class="o">|</span><span class="mi">3</span><span class="o">&gt;|</span><span class="mi">11</span><span class="o">&gt;</span> <span class="mi">15</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;11&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">State</span> <span class="o">|</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.4999999999999999</span> <span class="o">+/-</span> <span class="kc">None</span>
+<span class="n">State</span> <span class="o">|</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.4999999999999999</span> <span class="o">+/-</span> <span class="kc">None</span>
 </pre></div>
 </div>
+<p>As expected, the probability of measuring “0” on the second qubit is the same as the
+probability of measuring “1”. Here, <code class="docutils literal notranslate"><span class="pre">err</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code> because we took an infinite number
+of shots.</p>
 </div>
 </div>
-<div class="section" id="observable-evaluation">
-<h3>Observable evaluation<a class="headerlink" href="#observable-evaluation" title="Permalink to this headline">¶</a></h3>
-<p>Another way of building a job is to provide some hermitian operator and, eventually, some number of shots.
-<a class="reference internal" href="qat-core.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a> are rather straigthforward to contruct as collection of ponderated Pauli operators.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
-<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
-    <span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qb</span><span class="p">)</span>
-<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+<div class="section" id="observable-mode">
+<h3>OBSERVABLE mode<a class="headerlink" href="#observable-mode" title="Permalink to this headline">¶</a></h3>
+<p>Let us now turn to the second type of final processing, namely the “OBSERVABLE” mode.
+Our goal is to compute the average value of the following observable:</p>
+<div class="math notranslate nohighlight">
+\[O = X_0 \otimes Z_1\]</div>
+<p>for the Bell state <span class="math notranslate nohighlight">\(|\psi\rangle=(|00\rangle+|11\rangle)/\sqrt{2}\)</span>.
+A straightforward computation yields <span class="math notranslate nohighlight">\(\langle O \rangle = 0\)</span>. Let us now perform
+this computation with QLM.</p>
+<div class="section" id="infinite-number-of-shots">
+<h4>Infinite number of shots<a class="headerlink" href="#infinite-number-of-shots" title="Permalink to this headline">¶</a></h4>
+<p>Let us start with a computation devoid of any shot noise. It directly yields the expectation value <span class="math notranslate nohighlight">\(\langle O \rangle\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">CNOT</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
 
+<span class="c1"># Create a circuit</span>
+<span class="n">qprog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">H</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="c1"># Create an observable</span>
 <span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
-<span class="n">observable</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="c1"># 2 qubits</span>
-                        <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="c1"># coefficient</span>
-                                          <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="c1"># operator</span>
-                                          <span class="p">[</span><span class="mi">0</span><span class="p">])])</span> <span class="c1"># qubit(s)</span>
-<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">observable</span><span class="p">)</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;XZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
 
-<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+<span class="c1"># Create a job</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s1">&#39;OBS&#39;</span><span class="p">,</span> <span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">)</span>
+
+<span class="c1"># Execute</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&lt;O&gt; = &quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="o">=</span>  <span class="mf">0.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="finite-number-of-shots">
+<h4>Finite number of shots<a class="headerlink" href="#finite-number-of-shots" title="Permalink to this headline">¶</a></h4>
+<p>We now look at the effect of shot noise, i.e the fact that in practice one can only
+repeat the measurement a finite number of times:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">CNOT</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Measured energy:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="c1"># Create a circuit</span>
+<span class="n">qprog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">H</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="c1"># Create an observable</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;XZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
+
+<span class="c1"># Create a job</span>
+<span class="k">for</span> <span class="n">nbshots</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">]:</span>
+    <span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s1">&#39;OBS&#39;</span><span class="p">,</span> <span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">nbshots</span><span class="o">=</span><span class="n">nbshots</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;O&gt; (</span><span class="si">{</span><span class="n">nbshots</span><span class="si">}</span><span class="s2"> shots) = </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Measured</span> <span class="n">energy</span><span class="p">:</span> <span class="mf">0.9999999999999996</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">100</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="o">+/-</span> <span class="kc">None</span>
+<span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">1000</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="o">+/-</span> <span class="kc">None</span>
+<span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">10000</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="o">+/-</span> <span class="kc">None</span>
 </pre></div>
 </div>
-<p>Here we can see that the field <cite>.value</cite> of the <cite>Result</cite> object carries a complex value corresponding to
-the expected value of our observable over the final state vector. Since our observable is Hermitian, the value has
-not imaginary part (complexes are here to provide a broader API than Hermitian operator sampling).</p>
 </div>
 </div>
-<div class="section" id="specification-of-a-qpu">
-<h2>Specification of a QPU<a class="headerlink" href="#specification-of-a-qpu" title="Permalink to this headline">¶</a></h2>
-<p>Each QPU has a <code class="xref py py-func docutils literal notranslate"><span class="pre">get_specs()</span></code> method which defines
-specification of a QPU. A QPU can have a limited number of qubits, the hardware can
-have a limited gate set (only few types of gates could be applied)
-or this QPU can have connectivity constraints.</p>
-<p>The method <code class="xref py py-func docutils literal notranslate"><span class="pre">get_specs()</span></code> returns a <a class="reference internal" href="qat-core.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a>
-object which describes the specification of this QPU. This object has three attributes to describe
-the specifications:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><strong>nbqbits</strong>: number of qubits of the QPU</p></li>
-<li><p><strong>topology</strong>: connectivity constraints of the QPU. If there are no constraints,
-the topology is of type “All to All”</p></li>
-<li><p><strong>gateset</strong>: gates the QPU can apply (equal to <code class="code docutils literal notranslate"><span class="pre">None</span></code> is there are no
-constraints)</p></li>
+</div>
+<div class="section" id="further-information">
+<h2>Further information<a class="headerlink" href="#further-information" title="Permalink to this headline">¶</a></h2>
+<p>You will find a complete documentation of the objects mentioned above in the <a class="reference internal" href="source_doc.html#source-doc"><span class="std std-ref">source code documentation</span></a>:</p>
+<ul class="simple">
+<li><p>job: <a class="reference internal" href="qat-core.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Job</span></code></a>. See also: <a class="reference internal" href="qat-core.html#qat.core.Circuit.to_job" title="qat.core.Circuit.to_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qat.core.Circuit.to_job()</span></code></a>.</p></li>
+<li><p>observable: <a class="reference internal" href="qat-core.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Observable</span></code></a> and <a class="reference internal" href="qat-core.html#qat.core.Term" title="qat.core.Term"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Term</span></code></a>.</p></li>
+<li><p>results and samples: <a class="reference internal" href="qat-core.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Result</span></code></a> and <a class="reference internal" href="qat-core.html#qat.core.wrappers.result.Sample" title="qat.core.wrappers.result.Sample"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.wrappers.result.Sample</span></code></a>.</p></li>
 </ul>
-</div></blockquote>
-</div>
-<div class="section" id="connecting-to-remote-qpu">
-<h2>Connecting to remote QPU<a class="headerlink" href="#connecting-to-remote-qpu" title="Permalink to this headline">¶</a></h2>
-<p>myQLM can be used as client of a connection. Instead of executing a circuit
-on a computer, myQLM can send circuit to a remote QPU. Moreover, myQLM can
-be used to define a custom QPU which can be launched in server mode. This
-section explains the creation of a server and also how to connect to a remote
-QPU.</p>
-<div class="section" id="server-mode">
-<h3>Server mode<a class="headerlink" href="#server-mode" title="Permalink to this headline">¶</a></h3>
-<p>Any QPU has a method <code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code> to start this QPU in
-server mode. This method takes the PORT and the IP as arguments. For instance:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.pylinalg</span> <span class="kn">import</span> <span class="n">PyLinalg</span>
-
-<span class="c1"># Define a PORT and a IP</span>
-<span class="n">PORT</span> <span class="o">=</span> <span class="mi">1234</span>
-<span class="n">IP</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
-
-<span class="c1"># Define a QPU</span>
-<span class="n">qpu</span> <span class="o">=</span> <span class="n">PyLinalg</span><span class="p">()</span>
-<span class="n">qpu</span><span class="o">.</span><span class="n">serve</span><span class="p">(</span><span class="n">PORT</span><span class="p">,</span> <span class="n">IP</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This code should work for any QPU.</p>
-</div>
-<div class="section" id="client-mode">
-<h3>Client mode<a class="headerlink" href="#client-mode" title="Permalink to this headline">¶</a></h3>
-<p>If a distant QPU is started in server mode, myQLM can be used as client of
-a connection.</p>
-<p>Assuming the server is listening to the port <code class="code docutils literal notranslate"><span class="pre">1234</span></code> and the ip of the server is
-<code class="code docutils literal notranslate"><span class="pre">127.0.0.1</span></code>, the following code can be used to connect to the server:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.qpu</span> <span class="kn">import</span> <span class="n">RemoteQPU</span>
-
-<span class="c1"># Define PORT and IP</span>
-<span class="n">PORT</span> <span class="o">=</span> <span class="mi">1234</span>
-<span class="n">IP</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
-
-<span class="c1"># Define a client</span>
-<span class="n">qpu</span> <span class="o">=</span> <span class="n">RemoteQPU</span><span class="p">(</span><span class="n">PORT</span><span class="p">,</span> <span class="n">IP</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The <code class="code docutils literal notranslate"><span class="pre">qpu</span></code> object works like a QPU so plugins could be linked to it. Each
-batch passed to this client are sent to the server, the results are then retrieved. The connection is synchronous, therefore, if the client is disconnected during the execution
-of a Batch/Job, results of the execution are lost.</p>
-</div>
 </div>
 </div>
 
@@ -489,7 +444,7 @@ of a Batch/Job, results of the execution are lost.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="manipulating.html" class="btn btn-neutral float-right" title="Building custom execution stacks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="running_variational.html" class="btn btn-neutral float-right" title="Running variational algorithms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="programming.html" class="btn btn-neutral float-left" title="Writing quantum circuits" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cirq interoperations &mdash; myQLM documentation myQLM-0.0.7.8 documentation</title>
+  <title>Cirq interoperability &mdash; myQLM documentation myQLM-X.X.X.12 documentation</title>
   
 
   
@@ -43,8 +43,8 @@
   <link rel="stylesheet" href="../static/contentui.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Projectq interoperations" href="projectq.html" />
-    <link rel="prev" title="Pyquil interoperations" href="pyquil.html" /> 
+    <link rel="next" title="ProjectQ interoperability" href="projectq.html" />
+    <link rel="prev" title="PyQuil interoperability" href="pyquil.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-0.0.7
+                myQLM-X.X.X
               </div>
             
           
@@ -95,37 +95,49 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Basic usage</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing myQLM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../programming.html">Writing quantum circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../simulating.html">Executing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_variational.html">Running variational algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="interoperability.html">Interoperability with myQLM</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="qiskit.html">Qiskit interoperability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyquil.html">PyQuil interoperability</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Cirq interoperability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-qat.interop.cirq.converters">Translating quantum circuits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#source-code-documentation">Source code documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#circuit-translation">Circuit translation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="projectq.html">ProjectQ interoperability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openqasm.html">OpenQASM Compiler</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced usage</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Architecture and data structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_programming.html">Advanced programming using pyAQASM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../running_variational.html">Running variational algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../applications.html">Applications</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="interoperability.html">Interoperability in the QLM</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="qiskit.html">Qiskit interoperations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyquil.html">Pyquil interoperations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Cirq interoperations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="projectq.html">Projectq interoperations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="openqasm.html">Openqasm Compiler</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../source_doc.html">Source code documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-core-library">The core library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-programming-library">The programming library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#plugins">Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#qpus">QPUs</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../source_doc.html#interoperations-with-other-frameworks">Interoperations with other frameworks</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="interoperability.html">Interoperability in the QLM</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="qiskit.html">Qiskit interoperations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pyquil.html">Pyquil interoperations</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Cirq interoperations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="projectq.html">Projectq interoperations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="openqasm.html">Openqasm Compiler</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="interoperability.html">Interoperability with myQLM</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="qiskit.html">Qiskit interoperability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyquil.html">PyQuil interoperability</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Cirq interoperability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projectq.html">ProjectQ interoperability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="openqasm.html">OpenQASM Compiler</a></li>
 </ul>
 </li>
 </ul>
@@ -180,16 +192,14 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="interoperability.html">Interoperability in the QLM</a> &raquo;</li>
+          <li><a href="interoperability.html">Interoperability with myQLM</a> &raquo;</li>
         
-      <li>Cirq interoperations</li>
+      <li>Cirq interoperability</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../sources/myqlm_specific/cirq.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -225,56 +235,94 @@
     text-align: unset;
 }
 </style>
+<div class="section" id="cirq-interoperability">
+<h1>Cirq interoperability<a class="headerlink" href="#cirq-interoperability" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-qat.interop.cirq.converters">
-<span id="cirq-interoperations"></span><h1>Cirq interoperations<a class="headerlink" href="#module-qat.interop.cirq.converters" title="Permalink to this headline">¶</a></h1>
-<p>Converts a Google cirq circuit object into a qlm circuit
-object, you can directly use :</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">qlm_circ</span> <span class="o">=</span> <span class="n">cirq_to_qlm</span><span class="p">(</span><span class="n">your_google_circ</span><span class="p">)</span>
+<span id="translating-quantum-circuits"></span><h2>Translating quantum circuits<a class="headerlink" href="#module-qat.interop.cirq.converters" title="Permalink to this headline">¶</a></h2>
+<p>myQLM provides binders to translate quantum circuit from Google Cirq
+to myQLM and vice-versa throught functions <a class="reference internal" href="#qat.interop.cirq.cirq_to_qlm" title="qat.interop.cirq.cirq_to_qlm"><code class="xref py py-func docutils literal notranslate"><span class="pre">cirq_to_qlm()</span></code></a>
+and <a class="reference internal" href="#qat.interop.cirq.qlm_to_cirq" title="qat.interop.cirq.qlm_to_cirq"><code class="xref py py-func docutils literal notranslate"><span class="pre">qlm_to_cirq()</span></code></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.interop.cirq</span> <span class="kn">import</span> <span class="n">cirq_to_qlm</span>
+
+<span class="n">qlm_circ</span> <span class="o">=</span> <span class="n">cirq_to_qlm</span><span class="p">(</span><span class="n">your_google_circ</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Or</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">google_circ</span> <span class="o">=</span> <span class="n">qlm_to_cirq</span><span class="p">(</span><span class="n">your_qlm_circ</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.interop.cirq</span> <span class="kn">import</span> <span class="n">qlm_to_cirq</span>
+
+<span class="n">google_circ</span> <span class="o">=</span> <span class="n">qlm_to_cirq</span><span class="p">(</span><span class="n">your_qlm_circ</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>when mixing LineQubit and GridQubit, all grid    qubits will be allocated first, then all line qubits.    The order will follow coordinates.</p>
+<p>when mixing LineQubit and GridQubit, all grid
+qubits will be allocated first, then all line qubits.
+The order will follow coordinates.</p>
 </div>
+</div>
+<div class="section" id="source-code-documentation">
+<h2>Source code documentation<a class="headerlink" href="#source-code-documentation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="circuit-translation">
+<h3>Circuit translation<a class="headerlink" href="#circuit-translation" title="Permalink to this headline">¶</a></h3>
 <dl class="py function">
-<dt id="qat.interop.cirq.converters.cirq_to_qlm">
-<code class="sig-prename descclassname">qat.interop.cirq.converters.</code><code class="sig-name descname">cirq_to_qlm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cirq</span></em>, <em class="sig-param"><span class="n">sep_measures</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.cirq.converters.cirq_to_qlm" title="Permalink to this definition">¶</a></dt>
+<dt id="qat.interop.cirq.cirq_to_qlm">
+<code class="sig-prename descclassname">qat.interop.cirq.</code><code class="sig-name descname">cirq_to_qlm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">circ</span></em>, <em class="sig-param"><span class="n">sep_measures</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.cirq.cirq_to_qlm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts a google cirq circuit to a qlm circuit</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cirq</strong> – the cirq circuit to convert</p></li>
-<li><p><strong>sep_measures</strong> – if set to True measures won’t be included in the        resulting circuits, qubits to be measured will be put in a list,        the resulting measureless circuit and this list will be returned        in a tuple: (resulting_circuit, list_qubits).        If set to False, measures will be converted normally(Defaults to False)</p></li>
-<li><p><strong>kwargs</strong> – these are the options that you would use on a regular         to_circ function, to generate a QLM circuit from a PyAQASM program these are added for more flexibility, for advanced users</p></li>
+<li><p><strong>sep_measures</strong> – <p>Separates measures from the
+circuit:</p>
+<blockquote>
+<div><ul>
+<li><p>if set to <code class="code docutils literal notranslate"><span class="pre">True</span></code> measures won’t be included in the resulting circuits,
+qubits to be measured will be put in a list, the resulting measureless
+circuit and this list will be returned in a tuple : (resulting_circuit, list_qubits)</p></li>
+<li><p>if set to <code class="code docutils literal notranslate"><span class="pre">False</span></code>, measures will be converted normally (Default set to False)</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+<li><p><strong>kwargs</strong> – these are the options that you would use on a regular
+to_circ function, to generate a QLM circuit from a PyAQASM program
+these are added for more flexibility, for advanced users</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>if sep_measures is True a tuple of two elements will be returned,
-first one is the QLM resulting circuit with no measures, and the
-second element of the returned tuple is a list of all qubits that
-should be measured.
-if sep_measures is False, the QLM resulting circuit is returned
-directly</p>
+<dd class="field-even"><p><p>If <code class="code docutils literal notranslate"><span class="pre">sep_measures</span></code> is set
+to:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">True</span></code>: the result is a tuple composed of a
+<a class="reference internal" href="../qat-core.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> and a list of qubits that should be
+measured</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">False</span></code>: the result is a <a class="reference internal" href="../qat-core.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a></p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="code docutils literal notranslate"><span class="pre">tuple</span></code> or <a class="reference internal" href="../qat-core.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt id="qat.interop.cirq.converters.qlm_to_cirq">
-<code class="sig-prename descclassname">qat.interop.cirq.converters.</code><code class="sig-name descname">qlm_to_cirq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qlm_circuit</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.cirq.converters.qlm_to_cirq" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts a QLM circuit to a cirq circuit.
-:param qlm_circuit: the input QLM circuit to convert</p>
+<dt id="qat.interop.cirq.qlm_to_cirq">
+<code class="sig-prename descclassname">qat.interop.cirq.</code><code class="sig-name descname">qlm_to_cirq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qlm_circuit</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.cirq.qlm_to_cirq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a QLM circuit to a cirq circuit.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A cirq Circuit object resulting from the conversion</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>qlm_circuit</strong> – the input QLM circuit to convert</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A cirq Circuit object resulting from the conversion</p>
 </dd>
 </dl>
 </dd></dl>
 
+</div>
+</div>
 </div>
 
 
@@ -285,10 +333,10 @@ directly</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="projectq.html" class="btn btn-neutral float-right" title="Projectq interoperations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="projectq.html" class="btn btn-neutral float-right" title="ProjectQ interoperability" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="pyquil.html" class="btn btn-neutral float-left" title="Pyquil interoperations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pyquil.html" class="btn btn-neutral float-left" title="PyQuil interoperability" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

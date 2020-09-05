@@ -1,11 +1,13 @@
+.. _variational:
+
 Running variational algorithms
 =================================
 
 QLM comes with a collection of tools to efficiently describe and run variational quantum algorithm.
 
-This page introduces the basic mechanics allowing you to write and run adaptative variational schemes.
+This page introduces the basic mechanics allowing you to write and run adaptive variational schemes.
 
-For a more advanced usage :ref:`combinatorial-optimization` describes a high level interface to described combinatorial optimization problems and automatically
+For a more advanced usage :ref:`combinatorial_optimization` describes a high-level interface to described combinatorial optimization problems and automatically
 generate parametrized Ansätze. 
 
 
@@ -71,7 +73,7 @@ Additionally, the sampled observable itself can have parametrized coefficients:
     print("Job variables:", job.get_variables())
 
 
-This allows to have layered parametrized optimisation, or even compilation tradeoffs where some variational parameters end up in the sampled observable.
+This allows to have layered parametrized optimization, or even compilation tradeoffs where some variational parameters end up in the sampled observable.
 
 
 Binding variables
@@ -105,7 +107,7 @@ Once we've built a parametrized job, its variables can be instantiated using the
 
     print(job_2.observable)
 
-    job_3 = job(**{v: np.random.random() for v in job.get_variables()})
+    job_3 = job(** {v: np.random.random() for v in job.get_variables()})
 
     print(job_3.observable)
     for op in job_3.circuit.iterate_simple():
@@ -140,11 +142,12 @@ Once we've built a parametrized job, its variables can be instantiated using the
 Running variational algorithms
 ___________________________________
 
-The simplest way to run a variational algorithm is to use a dedicated Plugin that will take care of the enery minimization.
+The simplest way to run a variational algorithm is to use a dedicated Plugin that will take care of the energy minimization.
 
-The default one wraps the `scipy.optimize.minimize` function: :class:`qat.plugins.ScipyMinimizePlugin`
+The default variational Plugin wraps the `scipy.optimize.minimize` function: :class:`qat.plugins.ScipyMinimizePlugin`
 
 .. run-block:: python
+
 
     import numpy as np
     from qat.lang.AQASM import *
@@ -176,8 +179,54 @@ The default one wraps the `scipy.optimize.minimize` function: :class:`qat.plugin
     result = stack.submit(job)
 
     print('final energy:', result.value)
-    print('best parameter:', result.meta_data['parameters'])
+    print('best parameters:', result.meta_data['parameters'])
     print('trace:', result.meta_data['optimization_trace'])
 
+
+
+This plugin also supports a nice feature: it can read optimization parameters directly from the job's meta data. This allows you to build a stack with no particular choice of optimization parameters and attach these parameters directly to the job when submitting it. In this setting, the previous example becomes:
+
+
+.. run-block:: python
+
+    import numpy as np
+    import json
+    from qat.lang.AQASM import *
+    from qat.core import Observable, Term, Variable
+    t = Variable("t")
+
+    obs = Observable(3)
+    for i in range(3):
+        obs += (1 - t) * Observable.sigma_x(i, 3)
+
+    prog = Program()
+    qbits = prog.qalloc(3)
+
+    variable = prog.new_var(float, "a")
+    for qbit in qbits:
+        RY(variable)(qbit)
+        RZ(4 * variable)(qbit)
+    job = prog.to_circ().to_job(observable=obs)
+
+    from qat.plugins import ScipyMinimizePlugin
+
+    optimize = ScipyMinimizePlugin()
+    
+
+
+    from qat.qpus import get_default_qpu
+
+    stack = optimize | get_default_qpu()
+    
+    optimizer_args = {
+        "method": "COBYLA", 
+        "tol": 1e-3, 
+        "options": {"maxiter": 150}
+    }
+    result = stack.submit(job, meta_data={"ScipyMinimizePlugin": json.dumps(optimizer_args)})
+
+    print('final energy:', result.value)
+    print('best parameters:', result.meta_data['parameters'])
+    print('trace:', result.meta_data['optimization_trace'])
 
 

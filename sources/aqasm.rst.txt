@@ -4,7 +4,7 @@
 The AQASM format
 ================
 
-AQASM is a simple and non procedural circuit description language. It comes with a command line compiler allowing to directly generate circuit description and compile them into a :class:`Circuit` structure.
+AQASM is a simple and non procedural circuit description language. It comes with a command-line compiler allowing to directly generate a circuit description and compile it into a :class:`Circuit` structure.
 
 .. note::
 
@@ -146,7 +146,7 @@ the body is constitued of a sequence of instructions:
 
   measures qbits 0 and 1 and store the results in cbits 0 and 2.
 
-  If no cbits are specified, the cbits with index correspond to the qbits indexes will be used
+  If no cbits are specified, the cbits with index correspond to the qbits indices will be used
 
   .. code-block:: text
     
@@ -160,13 +160,13 @@ the body is constitued of a sequence of instructions:
 
   .. code-block:: text
 
-    <cbit> ? <gate> <qbit list>
+    ? <cbit> : <gate> <qbit list>
 
   For instance:
 
   .. code-block:: text
 
-    c[0] ? X q[0]
+    ? c[0] : X q[0]
 
   will apply gate X on qbit 0 if and only if cbit 0 is set to 1
 
@@ -248,7 +248,7 @@ will compile an AQASM text file into a binary file containing a serialized versi
 Compilation time linking
 ------------------------
 
-It is possible to link some python namespace to the **aqasm2circ** compiler in order to link some implementation to the abstract gates used in the AQASM source.
+It is possible to link some Python namespace to the **aqasm2circ** compiler in order to link some implementation to the abstract gates used in the AQASM source.
 
 For instance consider the following AQASM source:
 
@@ -265,7 +265,7 @@ For instance consider the following AQASM source:
 
 This circuit will contain a single gate called QFT with parameter 3. However, we did not specify any implementation for this gate. This implementation can be linked at compilation time.
 
-Let us imagine that we wrote a python file **my_lib.py** containing the following code:
+Let us imagine that we wrote a Python file **my_lib.py** containing the following code:
 
 .. code-block:: python
 

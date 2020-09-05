@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>The AQASM format &mdash; myQLM documentation myQLM-0.0.7.8 documentation</title>
+  <title>The AQASM format &mdash; myQLM documentation myQLM-X.X.X.12 documentation</title>
   
 
   
@@ -44,7 +44,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Command line tools" href="commands.html" />
-    <link rel="prev" title="qat.pylinalg: Python Linear-algebra simulator" href="myqlm_specific/qat-pylinalg.html" /> 
+    <link rel="prev" title="qat-opt: representation and encoding of combinatorial problems, QAOA" href="qat-opt.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-0.0.7
+                myQLM-X.X.X
               </div>
             
           
@@ -95,17 +95,22 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Basic usage</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/install.html">Installing myQLM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="programming.html">Writing quantum circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simulating.html">Executing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability with myQLM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced usage</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source_doc.html">Source code documentation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">The AQASM format</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#the-text-format">The text format</a><ul>
@@ -170,8 +175,6 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="sources/aqasm.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -209,7 +212,7 @@
 </style>
 <div class="section" id="the-aqasm-format">
 <span id="aqasm"></span><h1>The AQASM format<a class="headerlink" href="#the-aqasm-format" title="Permalink to this headline">¶</a></h1>
-<p>AQASM is a simple and non procedural circuit description language. It comes with a command line compiler allowing to directly generate circuit description and compile them into a <code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code> structure.</p>
+<p>AQASM is a simple and non procedural circuit description language. It comes with a command-line compiler allowing to directly generate a circuit description and compile it into a <code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code> structure.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The purpose of this format is not to efficiently serialize or store quantum circuits. We
@@ -325,18 +328,18 @@ MY_RXRZ[PI/2, PI/4] q[0]
 </pre></div>
 </div>
 <p>measures qbits 0 and 1 and store the results in cbits 0 and 2.</p>
-<p>If no cbits are specified, the cbits with index correspond to the qbits indexes will be used</p>
+<p>If no cbits are specified, the cbits with index correspond to the qbits indices will be used</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>MEAS q[0], q[1]
 </pre></div>
 </div>
 <p>measures qbits 0 and 1 and store the results in cbits 0 and 1.</p>
 </li>
 <li><p><strong>Conditional gate application</strong>. The syntax for gate application depending on a cbit value is the following:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;cbit&gt; ? &lt;gate&gt; &lt;qbit list&gt;
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>? &lt;cbit&gt; : &lt;gate&gt; &lt;qbit list&gt;
 </pre></div>
 </div>
 <p>For instance:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>c[0] ? X q[0]
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>? c[0] : X q[0]
 </pre></div>
 </div>
 <p>will apply gate X on qbit 0 if and only if cbit 0 is set to 1</p>
@@ -484,7 +487,7 @@ MY_RXRZ[PI/2, PI/4] q[0]
 </div>
 <div class="section" id="compilation-time-linking">
 <h2>Compilation time linking<a class="headerlink" href="#compilation-time-linking" title="Permalink to this headline">¶</a></h2>
-<p>It is possible to link some python namespace to the <strong>aqasm2circ</strong> compiler in order to link some implementation to the abstract gates used in the AQASM source.</p>
+<p>It is possible to link some Python namespace to the <strong>aqasm2circ</strong> compiler in order to link some implementation to the abstract gates used in the AQASM source.</p>
 <p>For instance consider the following AQASM source:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>DEFINE PARAM QFT int : None
 BEGIN
@@ -496,7 +499,7 @@ END
 </pre></div>
 </div>
 <p>This circuit will contain a single gate called QFT with parameter 3. However, we did not specify any implementation for this gate. This implementation can be linked at compilation time.</p>
-<p>Let us imagine that we wrote a python file <strong>my_lib.py</strong> containing the following code:</p>
+<p>Let us imagine that we wrote a Python file <strong>my_lib.py</strong> containing the following code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">qat.lang.AQASM.misc</span> <span class="kn">import</span> <span class="n">build_gate</span>
 
@@ -529,7 +532,7 @@ END
         <a href="commands.html" class="btn btn-neutral float-right" title="Command line tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="myqlm_specific/qat-pylinalg.html" class="btn btn-neutral float-left" title="qat.pylinalg: Python Linear-algebra simulator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="qat-opt.html" class="btn btn-neutral float-left" title="qat-opt: representation and encoding of combinatorial problems, QAOA" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

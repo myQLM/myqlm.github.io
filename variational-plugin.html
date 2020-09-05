@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Plugins for variational algorithms &mdash; myQLM documentation myQLM-0.0.7.8 documentation</title>
+  <title>Plugins for variational algorithms &mdash; myQLM documentation myQLM-X.X.X.12 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-0.0.7
+                myQLM-X.X.X
               </div>
             
           
@@ -95,17 +95,22 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Basic usage</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/install.html">Installing myQLM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="programming.html">Writing quantum circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simulating.html">Executing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability with myQLM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced usage</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="source_doc.html">Source code documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-core-library">The core library</a></li>
@@ -123,7 +128,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#qpus">QPUs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source_doc.html#interoperations-with-other-frameworks">Interoperations with other frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#combinatorial-optimization-and-qaoa">Combinatorial optimization and QAOA</a></li>
 </ul>
 </li>
@@ -182,8 +187,6 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="sources/variational-plugin.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -220,7 +223,7 @@
 }
 </style>
 <div class="section" id="plugins-for-variational-algorithms">
-<h1>Plugins for variational algorithms<a class="headerlink" href="#plugins-for-variational-algorithms" title="Permalink to this headline">¶</a></h1>
+<span id="variational-programs"></span><h1>Plugins for variational algorithms<a class="headerlink" href="#plugins-for-variational-algorithms" title="Permalink to this headline">¶</a></h1>
 <p>The following plugins inherits from the class <a class="reference internal" href="qat-core.html#qat.plugins.Optimizer" title="qat.plugins.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> and provide an easy way to include your favorite classical optimizer inside a QLM stack.
 These plugins do not provide particular interface for gradient based optimization.</p>
 <p>They require the input job to have abstract parameters (i.e the circuit and/or the observable should be parametrized).</p>
@@ -244,9 +247,9 @@ These plugins do not provide particular interface for gradient based optimizatio
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best parameters:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">meta_data</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Final</span> <span class="n">energy</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.9999999954092519</span>
-<span class="n">Minimization</span> <span class="n">trace</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.9862697099353832</span><span class="p">,</span> <span class="mf">0.3939211408170948</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5605967085080144</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9997045293550337</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5196886162866815</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8656696313386396</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9746399053752807</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9888739723226795</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9992708460955403</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9984569467203451</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999622866439556</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999759174820657</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9998911821138915</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999953978279025</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999996194743028</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999885823568495</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999960082559891</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999945732768</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999994159980151</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999998244949121</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999902054943</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999791552892</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999999912643</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999954092519</span><span class="p">]</span>
-<span class="n">Best</span> <span class="n">parameters</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.1416884737138013</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Final</span> <span class="n">energy</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.999999992653295</span>
+<span class="n">Minimization</span> <span class="n">trace</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.9950261792896284</span><span class="p">,</span> <span class="mf">0.4537928446526781</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5046555385850195</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9991259469859061</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.575004567433328</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8968560809984928</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9577237533629898</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9965419899248539</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.994564288529654</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999442077680686</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9997860400006715</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999871901496928</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9997860400006715</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999171299691073</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999993325877423</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999962162663159</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999996817744485</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999984258567519</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999521056097</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999840182081</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999997775122358</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999105675418</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999968965705</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999997749326</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.999999992653295</span><span class="p">]</span>
+<span class="n">Best</span> <span class="n">parameters</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.141471437212759</span><span class="p">]</span>
 </pre></div>
 </div>
 <span class="target" id="module-qat.vsolve.optimize.scipy_binder"></span><div class="section" id="scipy-minimize-binders">

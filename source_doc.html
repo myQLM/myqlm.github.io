@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Source code documentation &mdash; myQLM documentation myQLM-0.0.7.8 documentation</title>
+  <title>Source code documentation &mdash; myQLM documentation myQLM-X.X.X.12 documentation</title>
   
 
   
@@ -44,7 +44,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="qat-core: Core data structures and Abstract classes" href="qat-core.html" />
-    <link rel="prev" title="Openqasm Compiler" href="myqlm_specific/openqasm.html" /> 
+    <link rel="prev" title="Advanced combinatorial optimization" href="advanced_combinatorial_optimization.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-0.0.7
+                myQLM-X.X.X
               </div>
             
           
@@ -95,17 +95,22 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Basic usage</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/install.html">Installing myQLM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="programming.html">Writing quantum circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simulating.html">Executing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability with myQLM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced usage</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Source code documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-core-library">The core library</a><ul>
@@ -128,12 +133,12 @@
 <li class="toctree-l3"><a class="reference internal" href="myqlm_specific/qat-pylinalg.html">qat.pylinalg: Python Linear-algebra simulator</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#interoperations-with-other-frameworks">Interoperations with other frameworks</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interoperability-with-other-frameworks">Interoperability with other frameworks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability with myQLM</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#combinatorial-optimization-and-qaoa">Combinatorial optimization and QAOA</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="combinatorial_optimization.html">Combinatorial optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="qat-opt.html">qat-opt: representation and encoding of combinatorial problems, QAOA</a></li>
 </ul>
 </li>
 </ul>
@@ -191,8 +196,6 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="sources/source_doc.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -229,7 +232,7 @@
 }
 </style>
 <div class="section" id="module-qat">
-<span id="source-code-documentation"></span><h1>Source code documentation<a class="headerlink" href="#module-qat" title="Permalink to this headline">¶</a></h1>
+<span id="source-code-documentation"></span><span id="source-doc"></span><h1>Source code documentation<a class="headerlink" href="#module-qat" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="quantum-application-toolchain-qat-python-libraries">
 <h2>Quantum Application ToolChain (QAT) Python libraries<a class="headerlink" href="#quantum-application-toolchain-qat-python-libraries" title="Permalink to this headline">¶</a></h2>
 <p>This software provides a full software stack to develop, analyze,
@@ -277,11 +280,11 @@ on hybrid quantum platform.</p>
 </ul>
 </div>
 </div>
-<div class="section" id="interoperations-with-other-frameworks">
-<h2>Interoperations with other frameworks<a class="headerlink" href="#interoperations-with-other-frameworks" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="interoperability-with-other-frameworks">
+<h2>Interoperability with other frameworks<a class="headerlink" href="#interoperability-with-other-frameworks" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability with myQLM</a></li>
 </ul>
 </div>
 </div>
@@ -289,7 +292,7 @@ on hybrid quantum platform.</p>
 <h2>Combinatorial optimization and QAOA<a class="headerlink" href="#combinatorial-optimization-and-qaoa" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="combinatorial_optimization.html">Combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qat-opt.html">qat-opt: representation and encoding of combinatorial problems, QAOA</a></li>
 </ul>
 </div>
 </div>
@@ -306,7 +309,7 @@ on hybrid quantum platform.</p>
         <a href="qat-core.html" class="btn btn-neutral float-right" title="qat-core: Core data structures and Abstract classes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="myqlm_specific/openqasm.html" class="btn btn-neutral float-left" title="Openqasm Compiler" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="advanced_combinatorial_optimization.html" class="btn btn-neutral float-left" title="Advanced combinatorial optimization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>qat-core: Core data structures and Abstract classes &mdash; myQLM documentation myQLM-0.0.7.8 documentation</title>
+  <title>qat-core: Core data structures and Abstract classes &mdash; myQLM documentation myQLM-X.X.X.12 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-0.0.7
+                myQLM-X.X.X
               </div>
             
           
@@ -95,17 +95,22 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Basic usage</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/install.html">Installing myQLM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="programming.html">Writing quantum circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simulating.html">Executing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability with myQLM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced usage</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="source_doc.html">Source code documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="source_doc.html#the-core-library">The core library</a><ul class="current">
@@ -127,7 +132,7 @@
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-programming-library">The programming library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#plugins">Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#qpus">QPUs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source_doc.html#interoperations-with-other-frameworks">Interoperations with other frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#combinatorial-optimization-and-qaoa">Combinatorial optimization and QAOA</a></li>
 </ul>
 </li>
@@ -186,8 +191,6 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="sources/qat-core.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -257,7 +260,7 @@ transformation of the task via the compile method.</p>
 
 <dl class="py method">
 <dt id="qat.plugins.AbstractPlugin.serve">
-<code class="sig-name descname">serve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">host_ip</span><span class="o">=</span><span class="default_value">'localhost'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.AbstractPlugin.serve" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">serve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">host_ip</span><span class="o">=</span><span class="default_value">'localhost'</span></em>, <em class="sig-param"><span class="n">server_type</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.AbstractPlugin.serve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs the plugin inside a server</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -265,6 +268,21 @@ transformation of the task via the compile method.</p>
 <li><p><strong>port</strong> (<em>int</em>) – the port on which to listen</p></li>
 <li><p><strong>host_ip</strong> (<em>str</em>) – the url on which to publish the API. Optional.
 Defaults to ‘localhost’.</p></li>
+<li><p><strong>server_type</strong> (<em>str</em><em>, </em><em>optional</em>) – <p>type of server. The different
+types of server are:</p>
+<blockquote>
+<div><ul>
+<li><p>”simple”: single-thread server, accepts one connection
+at a time (default server type)</p></li>
+<li><p>”threaded”: multi-thread server, each connection
+starts a new thread</p></li>
+<li><p>”pool”: multi-thread server, each connection runs
+in a thread, with a maximum of 10 running threads</p></li>
+<li><p>”fork”: multi-process server, each connection runs
+in a new process</p></li>
+</ul>
+</div></blockquote>
+</p></li>
 </ul>
 </dd>
 </dl>
@@ -683,22 +701,35 @@ Also serializes the underlying statevector object, if any</p>
 </ul>
 </dd>
 </dl>
-<dl class="simple">
-<dt>Instance attributes:</dt><dd><ul class="simple">
-<li><p><strong>state</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code>): the measured state</p></li>
+<dl>
+<dt>Instance attributes:</dt><dd><ul>
 <li><dl class="simple">
-<dt><strong>probability</strong> (float, optional): the probability of the state (infinite</dt><dd><p>number of shots/samples, for simulators only), or frequency of the
+<dt><strong>state</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code>):</dt><dd><p>the measured state</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>probability</strong> (float, optional):</dt><dd><p>the probability of the state (infinite
+number of shots/samples, for simulators only), or frequency of the
 state (finite number of shots)</p>
 </dd>
 </dl>
 </li>
 <li><p><strong>amplitude</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ComplexNumber</span></code>,
-optional): optionally (for simulators), the amplitude of the state</p></li>
+optional):</p>
+<blockquote>
+<div><p>optionally (for simulators), the amplitude of the state</p>
+</div></blockquote>
+</li>
 <li><p><strong>intermediate_measurements</strong>
-(<code class="xref py py-class docutils literal notranslate"><span class="pre">IntermediateMeasurement</span></code>): list of
-intermediate measures</p></li>
+(<code class="xref py py-class docutils literal notranslate"><span class="pre">IntermediateMeasurement</span></code>):</p>
+<blockquote>
+<div><p>list of intermediate measurements</p>
+</div></blockquote>
+</li>
 <li><dl class="simple">
-<dt><strong>err</strong> (float, optional): optionally, the sampling error:</dt><dd><p>if the number of samples is finite, it is the estimate of
+<dt><strong>err</strong> (float, optional):</dt><dd><p>optionally, the sampling error:
+if the number of samples is finite, it is the estimate of
 the standard error on the mean
 <span class="math notranslate nohighlight">\(\varepsilon_{k}\equiv\sqrt{\langle\left(p_{k}-f_{k}\right)^{2}\rangle}\)</span>,
 where <span class="math notranslate nohighlight">\(p_k\)</span> is the true probability of obtaining state
@@ -871,7 +902,7 @@ instructions:</p>
 <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;C-C-C-RX&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14e42ac0c128</span><span class="o">&gt;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-C-C-RX&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14d682f8e320</span><span class="o">&gt;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;MEASURE&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;RESET&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
@@ -1514,7 +1545,7 @@ corresponding to the transmitted Job or Batch</p>
 
 <dl class="py method">
 <dt id="qat.plugins.Junction.run">
-<em class="property">abstract </em><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">initial_object</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.Junction.run" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">initial_object</span></em>, <em class="sig-param"><span class="n">meta_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.Junction.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will be called upon the reception of a fresh
 abstract QLM object (e.g a Job or a Batch depending the Junction
 configuration)</p>
@@ -1526,9 +1557,13 @@ and implementing your own <cite>.run</cite> method.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>qlm_object</strong> (<a class="reference internal" href="#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> or <a class="reference internal" href="#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) – the
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qlm_object</strong> (<a class="reference internal" href="#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> or <a class="reference internal" href="#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) – the
 initial abstract QLM object. The type depends on the constructor parameter
-<cite>collective</cite>: if set to True, a Batch will be provided. If False, a Job.</p>
+<cite>collective</cite>: if set to True, a Batch will be provided. If False, a Job.</p></li>
+<li><p><strong>meta_data</strong> (<em>dict</em>) – the meta data of the initial batch. This is helpful to
+transmit arguments from the client to the Junction</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>this method should return a Result or

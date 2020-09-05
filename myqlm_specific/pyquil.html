@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pyquil interoperations &mdash; myQLM documentation myQLM-0.0.7.8 documentation</title>
+  <title>PyQuil interoperability &mdash; myQLM documentation myQLM-X.X.X.12 documentation</title>
   
 
   
@@ -43,8 +43,8 @@
   <link rel="stylesheet" href="../static/contentui.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Cirq interoperations" href="cirq.html" />
-    <link rel="prev" title="Qiskit interoperations" href="qiskit.html" /> 
+    <link rel="next" title="Cirq interoperability" href="cirq.html" />
+    <link rel="prev" title="Qiskit interoperability" href="qiskit.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-0.0.7
+                myQLM-X.X.X
               </div>
             
           
@@ -95,45 +95,51 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Basic usage</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing myQLM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../programming.html">Writing quantum circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../simulating.html">Executing quantum circuits</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../manipulating.html">Building custom execution stacks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Architecture and data structures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../running_variational.html">Running variational algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../applications.html">Applications</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="interoperability.html">Interoperability in the QLM</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="qiskit.html">Qiskit interoperations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Pyquil interoperations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-qat.interop.pyquil.converters">Converters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#providers">Providers</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="interoperability.html">Interoperability with myQLM</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="qiskit.html">Qiskit interoperability</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PyQuil interoperability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-qat.interop.pyquil.converters">Translating quantum circuits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-qat.interop.pyquil.providers">Connecting to a QPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#source-code-documentation">Source code documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#circuit-translation">Circuit translation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pyquilqpu">PyquilQPU</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#module-qat.interop.pyquil.algorithms">Algorithms</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="cirq.html">Cirq interoperations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="projectq.html">Projectq interoperations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="openqasm.html">Openqasm Compiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cirq.html">Cirq interoperability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="projectq.html">ProjectQ interoperability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openqasm.html">OpenQASM Compiler</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced usage</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Architecture and data structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_programming.html">Advanced programming using pyAQASM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../source_doc.html">Source code documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-core-library">The core library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-programming-library">The programming library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#plugins">Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#qpus">QPUs</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../source_doc.html#interoperations-with-other-frameworks">Interoperations with other frameworks</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="interoperability.html">Interoperability in the QLM</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="qiskit.html">Qiskit interoperations</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Pyquil interoperations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cirq.html">Cirq interoperations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="projectq.html">Projectq interoperations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="openqasm.html">Openqasm Compiler</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="interoperability.html">Interoperability with myQLM</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="qiskit.html">Qiskit interoperability</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">PyQuil interoperability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cirq.html">Cirq interoperability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projectq.html">ProjectQ interoperability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="openqasm.html">OpenQASM Compiler</a></li>
 </ul>
 </li>
 </ul>
@@ -188,16 +194,14 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="interoperability.html">Interoperability in the QLM</a> &raquo;</li>
+          <li><a href="interoperability.html">Interoperability with myQLM</a> &raquo;</li>
         
-      <li>Pyquil interoperations</li>
+      <li>PyQuil interoperability</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../sources/myqlm_specific/pyquil.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -233,28 +237,54 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="pyquil-interoperations">
-<h1>Pyquil interoperations<a class="headerlink" href="#pyquil-interoperations" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pyquil-interoperability">
+<h1>PyQuil interoperability<a class="headerlink" href="#pyquil-interoperability" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-qat.interop.pyquil.converters">
-<span id="converters"></span><h2>Converters<a class="headerlink" href="#module-qat.interop.pyquil.converters" title="Permalink to this headline">¶</a></h2>
-<p>Circuit conversion functions for pyquil</p>
-<dl class="py function">
-<dt id="qat.interop.pyquil.converters.qlm_to_pyquil">
-<code class="sig-prename descclassname">qat.interop.pyquil.converters.</code><code class="sig-name descname">qlm_to_pyquil</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qlm_circuit</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.converters.qlm_to_pyquil" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts a QLM circuit to a pyquil circuit</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>qlm_circuit</strong> – QLM circuit to convert</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Pyquil circuit</p>
-</dd>
-</dl>
-</dd></dl>
+<span id="translating-quantum-circuits"></span><h2>Translating quantum circuits<a class="headerlink" href="#module-qat.interop.pyquil.converters" title="Permalink to this headline">¶</a></h2>
+<p>myQLM provides binders to translate quantum circuit from PyQuil to myQLM
+and vice-verse throught functions <a class="reference internal" href="#qat.interop.pyquil.pyquil_to_qlm" title="qat.interop.pyquil.pyquil_to_qlm"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyquil_to_qlm()</span></code></a>
+and <a class="reference internal" href="#qat.interop.pyquil.qlm_to_pyquil" title="qat.interop.pyquil.qlm_to_pyquil"><code class="xref py py-func docutils literal notranslate"><span class="pre">qlm_to_pyquil()</span></code></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.interop.pyquil</span> <span class="kn">import</span> <span class="n">pyquil_to_qlm</span>
 
+<span class="n">qlm_circuit</span> <span class="o">=</span> <span class="n">pyquil_to_qlm</span><span class="p">(</span><span class="n">your_pyquil_circuit</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.interop.pyquil</span> <span class="kn">import</span> <span class="n">qlm_to_pyquil</span>
+
+<span class="n">pyquil_circuit</span> <span class="o">=</span> <span class="n">qlm_to_pyquil</span><span class="p">(</span><span class="n">your_qlm_circuit</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-qat.interop.pyquil.providers">
+<span id="connecting-to-a-qpu"></span><h2>Connecting to a QPU<a class="headerlink" href="#module-qat.interop.pyquil.providers" title="Permalink to this headline">¶</a></h2>
+<p>myQLM can be used to connect to a PyQuil QVM. This module is composed of a main
+class <a class="reference internal" href="#qat.interop.pyquil.PyquilQPU" title="qat.interop.pyquil.PyquilQPU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyquilQPU</span></code></a> used to wrap a QVM into a myQLM QPU.</p>
+<p>In this section, we assume a QVM is running locally and that this QVM is listenning
+to the port 15011. The following code defines a myQLM QPU wrapping the PyQuil QVM:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyquil.api</span> <span class="kn">import</span> <span class="n">QVMConnection</span>
+<span class="kn">from</span> <span class="nn">qat.interop.pyquil</span> <span class="kn">import</span> <span class="n">PyquilQPU</span>
+
+<span class="c1"># Define port and ip</span>
+<span class="n">IP</span>   <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
+<span class="n">PORT</span> <span class="o">=</span> <span class="s2">&quot;15011&quot;</span>
+
+<span class="c1"># Define a QPU</span>
+<span class="n">qvm</span> <span class="o">=</span> <span class="n">QVMConnection</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;http://</span><span class="si">{ip}</span><span class="s2">:</span><span class="si">{port}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">IP</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">PORT</span><span class="p">))</span>
+<span class="n">qpu</span> <span class="o">=</span> <span class="n">PyquilQPU</span><span class="p">(</span><span class="n">qvm</span><span class="p">)</span>
+
+<span class="c1"># Submit a job to the QVM</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">qlm_job</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="source-code-documentation">
+<h2>Source code documentation<a class="headerlink" href="#source-code-documentation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="circuit-translation">
+<h3>Circuit translation<a class="headerlink" href="#circuit-translation" title="Permalink to this headline">¶</a></h3>
 <dl class="py function">
-<dt id="qat.interop.pyquil.converters.pyquil_to_qlm">
-<code class="sig-prename descclassname">qat.interop.pyquil.converters.</code><code class="sig-name descname">pyquil_to_qlm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pyquil_prog</span></em>, <em class="sig-param"><span class="n">sep_measures</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.converters.pyquil_to_qlm" title="Permalink to this definition">¶</a></dt>
+<dt id="qat.interop.pyquil.pyquil_to_qlm">
+<code class="sig-prename descclassname">qat.interop.pyquil.</code><code class="sig-name descname">pyquil_to_qlm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pyquil_prog</span></em>, <em class="sig-param"><span class="n">sep_measures</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.pyquil_to_qlm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts a pyquil circuit into a qlm circuit</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -277,28 +307,46 @@ these are added for more flexibility, for advanced users</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>if sep_measures is True a tuple of two elements will be returned,
-first one is the QLM resulting circuit with no measures, and the
-second element of the returned tuple is a list of all qubits that
-should be measured.
-if sep_measures is False, the QLM resulting circuit is returned
-directly</p>
+<dd class="field-even"><p><p>If <code class="code docutils literal notranslate"><span class="pre">sep_measures</span></code> is set
+to:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">True</span></code>: the result is a tuple composed of a
+<a class="reference internal" href="../qat-core.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> and a list of qubits that should be
+measured</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">False</span></code>: the result is a <a class="reference internal" href="../qat-core.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a></p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="code docutils literal notranslate"><span class="pre">tuple</span></code> or <a class="reference internal" href="../qat-core.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="qat.interop.pyquil.qlm_to_pyquil">
+<code class="sig-prename descclassname">qat.interop.pyquil.</code><code class="sig-name descname">qlm_to_pyquil</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qlm_circuit</span></em>, <em class="sig-param"><span class="n">program_pragma</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.qlm_to_pyquil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a QLM circuit to a pyquil circuit</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>qlm_circuit</strong> – QLM circuit to convert</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Pyquil circuit</p>
 </dd>
 </dl>
 </dd></dl>
 
 </div>
-<div class="section" id="providers">
-<h2>Providers<a class="headerlink" href="#providers" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="pyquilqpu">
 <h3>PyquilQPU<a class="headerlink" href="#pyquilqpu" title="Permalink to this headline">¶</a></h3>
 <dl class="py class">
-<dt id="qat.interop.pyquil.providers.PyquilQPU">
-<em class="property">class </em><code class="sig-prename descclassname">qat.interop.pyquil.providers.</code><code class="sig-name descname">PyquilQPU</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qpu</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">plugins</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compiler</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.providers.PyquilQPU" title="Permalink to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>QPU wrapper over pyquil, to run a QLM circuit on a pyquil
+<dt id="qat.interop.pyquil.PyquilQPU">
+<em class="property">class </em><code class="sig-prename descclassname">qat.interop.pyquil.</code><code class="sig-name descname">PyquilQPU</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qpu</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">plugins</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compiler</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.PyquilQPU" title="Permalink to this definition">¶</a></dt>
+<dd><p>QPU wrapper over pyquil, to run a QLM circuit on a pyquil
 simulator or rigetti’s quantum chip</p>
-</div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -313,8 +361,8 @@ skip compilation</p></li>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="qat.interop.pyquil.providers.PyquilQPU.submit">
-<code class="sig-name descname">submit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch</span><span class="p">:</span> <span class="n">qat.core.wrappers.batch.Batch</span></em><span class="sig-paren">)</span> &#x2192; qat.core.wrappers.result.BatchResult<a class="headerlink" href="#qat.interop.pyquil.providers.PyquilQPU.submit" title="Permalink to this definition">¶</a></dt>
+<dt id="qat.interop.pyquil.PyquilQPU.submit">
+<code class="sig-name descname">submit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch</span><span class="p">:</span> <span class="n">qat.core.wrappers.batch.Batch</span></em>, <em class="sig-param"><span class="n">meta_data</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; qat.core.wrappers.result.BatchResult<a class="headerlink" href="#qat.interop.pyquil.PyquilQPU.submit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes a batch of jobs and returns the corresponding list of Results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -329,8 +377,8 @@ is returned.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="qat.interop.pyquil.providers.PyquilQPU.submit_job">
-<code class="sig-name descname">submit_job</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qlm_job</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.providers.PyquilQPU.submit_job" title="Permalink to this definition">¶</a></dt>
+<dt id="qat.interop.pyquil.PyquilQPU.submit_job">
+<code class="sig-name descname">submit_job</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qlm_job</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.PyquilQPU.submit_job" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a Result structure corresponding to the execution of a Job.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -355,75 +403,6 @@ compiled/optimized.</p>
 
 </div>
 </div>
-<div class="section" id="module-qat.interop.pyquil.algorithms">
-<span id="algorithms"></span><h2>Algorithms<a class="headerlink" href="#module-qat.interop.pyquil.algorithms" title="Permalink to this headline">¶</a></h2>
-<p>Some pyquil algorithms taken from rigetti’s grove repo</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Simon algorithm</p></li>
-<li><p>Deutsch-Jozsa algorithm</p></li>
-<li><p>3-qubits QFT</p></li>
-<li><p>meyer penny</p></li>
-<li><p>quantum dice</p></li>
-</ul>
-</div></blockquote>
-<dl class="py function">
-<dt id="qat.interop.pyquil.algorithms.run_simon">
-<code class="sig-prename descclassname">qat.interop.pyquil.algorithms.</code><code class="sig-name descname">run_simon</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qc</span></em>, <em class="sig-param"><span class="n">bitmap</span><span class="o">=</span><span class="default_value">{'000': '101', '001': '100', '010': '111', '011': '110', '100': '001', '101': '000', '110': '011', '111': '010'}</span></em>, <em class="sig-param"><span class="n">trials</span><span class="o">=</span><span class="default_value">30</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.algorithms.run_simon" title="Permalink to this definition">¶</a></dt>
-<dd><p>Runs simon’s algorithm with preset parameters, mostly for testing
-the execution process’s stability.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>qc</strong> – The instance of rigetti’s simulator/connection to use</p></li>
-<li><p><strong>bitmap</strong> – The bitmap to use for this algorithm</p></li>
-<li><p><strong>trials</strong> – number of samples</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>pyquil result object with measures.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="qat.interop.pyquil.algorithms.run_deutsch_josza">
-<code class="sig-prename descclassname">qat.interop.pyquil.algorithms.</code><code class="sig-name descname">run_deutsch_josza</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cxn</span></em>, <em class="sig-param"><span class="n">bitstring_map</span><span class="o">=</span><span class="default_value">{'00000': '0', '00001': '0', '00010': '1', '00011': '0', '00100': '1', '00101': '1', '00110': '1', '00111': '1', '01000': '1', '01001': '1', '01010': '1', '01011': '1', '01100': '1', '01101': '1', '01110': '1', '01111': '1', '10000': '1', '10001': '1', '10010': '0', '10011': '0', '10100': '1', '10101': '0', '10110': '0', '10111': '0', '11000': '0', '11001': '0', '11010': '0', '11011': '0', '11100': '0', '11101': '0', '11110': '0', '11111': '0'}</span></em>, <em class="sig-param"><span class="n">trials</span><span class="o">=</span><span class="default_value">10</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.algorithms.run_deutsch_josza" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes whether bitstring_map represents a constant function,
-given that it is constant or balanced.
-Constant means all inputs map to the same value,
-balanced means half of the inputs maps to one value,
-and half to the other.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>cxn</strong> – The connection object to a pyquil qpu running pyquil programs.</p></li>
-<li><p><strong>bitstring_map</strong> – A dictionary whose keys are bitstrings, and whose values are bits represented as strings.</p></li>
-<li><p><strong>trials</strong> – number of samples</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>True if the bitstring_map represented a constant function,
-false otherwise.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="qat.interop.pyquil.algorithms.run_meyer_penny">
-<code class="sig-prename descclassname">qat.interop.pyquil.algorithms.</code><code class="sig-name descname">run_meyer_penny</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qc</span></em>, <em class="sig-param"><span class="n">trials</span><span class="o">=</span><span class="default_value">30</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.algorithms.run_meyer_penny" title="Permalink to this definition">¶</a></dt>
-<dd><p>Executes the program that simulates the Meyer-Penny Game
-and returns measures in pyquil result format</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="qat.interop.pyquil.algorithms.run_quantum_dice">
-<code class="sig-prename descclassname">qat.interop.pyquil.algorithms.</code><code class="sig-name descname">run_quantum_dice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qc</span></em>, <em class="sig-param"><span class="n">trials</span><span class="o">=</span><span class="default_value">30</span></em>, <em class="sig-param"><span class="n">number_of_sides</span><span class="o">=</span><span class="default_value">6</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.algorithms.run_quantum_dice" title="Permalink to this definition">¶</a></dt>
-<dd><p>Executes the program that simulates a quantum die roll
-and returns measures in pyquil result format</p>
-</dd></dl>
-
-</div>
 </div>
 
 
@@ -434,10 +413,10 @@ and returns measures in pyquil result format</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cirq.html" class="btn btn-neutral float-right" title="Cirq interoperations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cirq.html" class="btn btn-neutral float-right" title="Cirq interoperability" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="qiskit.html" class="btn btn-neutral float-left" title="Qiskit interoperations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="qiskit.html" class="btn btn-neutral float-left" title="Qiskit interoperability" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

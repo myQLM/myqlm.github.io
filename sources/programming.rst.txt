@@ -1,4 +1,4 @@
-
+.. _programming:
 
 .. only:: qlm
 
@@ -8,7 +8,7 @@
 
     MyQLM provides different tools and approaches to design your own quantum circuits.
 
-The main component is a python library for building quantum circuits, called PyAQASM (Python + Atos QASM).
+The main component is a Python library for building quantum circuits, called PyAQASM (Python + Atos QASM).
 
 The following picture gives an overview of the circuit generation process from the PyAQASM library.
 
@@ -18,20 +18,19 @@ The following picture gives an overview of the circuit generation process from t
 
 Quantum circuits can be stored under two formats:
 
+#. in a serialized format (.circ) - it is under this format that circuits are sent to simulation or optimization services, when command-line tools are used
 #. as .aqasm text files (human readable)
-#. in a serialized format (.circ) - it is under this format that circuits are sent to simulation or optimization services, when command line tools are used
 
 Therefore, there are two ways to generate a .circ file from a :class:`~qat.lang.AQASM.Program` instance by:
 
 #. directly generating a :class:`~qat.core.Circuit` instance and serializing it (right path in the figure)
-#. exporting your program to an .aqasm text file (human readable text format), and compiling it using the command line tool `aqasm2circ` (left path in the figure)
+#. exporting your program to an .aqasm text file (human readable text format), and compiling it using the command-line tool `aqasm2circ` (left path in the figure)
 
-Since the core of the QLM is purely based on python, serialization is NOT a mandatory step, and is here only to facilitate advanced applications. Usually the :class:`~qat.core.Circuit` objects are directly fed to QPUs via a python interface (see :doc:`documentation of qat-core <qat-core>` for examples).
+Since the core of the QLM is purely based on Python, serialization is NOT a mandatory step, and is here only to facilitate advanced applications. Usually the :class:`~qat.core.Circuit` objects are directly fed to QPUs via a Python interface (see :doc:`documentation of qat-core <qat-core>` for examples).
 
 If you still need a text format to describe your quantum circuits, please refer to the AQASM section : :ref:`aqasm`.
 
 
-.. _programming:
 
 Writing quantum circuits 
 =========================
@@ -56,7 +55,7 @@ Qubit registers are allocated by the Program using the :func:`~qat.lang.AQASM.Pr
 
     qbits_reg = my_program.qalloc(10)
 
-similarly, registers that hold classical bits can be allocated using the :func:`~qat.lang.AQASM.Program.calloc` method.
+Similarly, registers that hold classical bits can be allocated using the :func:`~qat.lang.AQASM.Program.calloc` method.
 
 .. code-block:: python
 
@@ -71,12 +70,14 @@ Quantum gates
 Native gates, controls and daggers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The pyAQASM library provides a basic gate set to write your programs. Their names are rather self explanatory:
+The pyAQASM library provides a basic gate set to write your programs. Their names are rather self-explanatory:
 
 * Constant gates: **X**, **Y**, **Z**, **H**, **S**, **T**, **CNOT**, **CCNOT**, **CSIGN**, **SWAP**, **SQRTSWAP**, **ISWAP**
 * Parametrized gates: **RX**, **RY**, **RZ**, **PH** (phase shift)
 
-These gates can be applied to the qubits from the qubit registers:
+(The mathematical definition of these gates is given in :ref:`aqasm`.)
+
+These gates can be applied to the qubits from the qubit register:
 
 .. code-block:: python
 
@@ -110,27 +111,10 @@ By convention, the outermost control qubit is always the first argument in the :
 
 
 
-Custom gates
-^^^^^^^^^^^^
-
-.. warning::
-
-    Custom gates are deprecated. Consider using constant valued
-    :class:`~qat.lang.AQASM.gates.AbstractGate` instead (defined in
-    the next section).
-
-PyAQASM offers the possibility to define your own gates from a matrix. This is done via the :class:`~qat.lang.AQASM.gates.CustomGate` class.
 
 
-.. code-block:: python
-
-    mat = np.array([[-1, 0], [0, 1]])
-    my_minus_z = CustomGate(mat)
-    my_program.apply(my_minus_z, qbits_reg[0])
-
-
-Defining new parametrized gates
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Defining new parametrized gates: Abstract Gates
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 One might want to define new family of gates parametrized by some angle, or even by some vector (think about state preparation for instance). This can be done through the :class:`~qat.lang.AQASM.gates.AbstractGate` class.
 
@@ -157,12 +141,31 @@ Of course, you can also provide a way to generate the matrix corresponding to th
 
 The resulting circuit contains the matrix and can be simulated on most of the available simulators in the QLM.
 
+Custom gates
+^^^^^^^^^^^^
+
+.. warning::
+
+    Custom gates are deprecated. Consider using constant valued
+    :class:`~qat.lang.AQASM.gates.AbstractGate` instead (defined in
+    the next section).
+
+PyAQASM offers the possibility to define your own gates from a matrix. This is done via the :class:`~qat.lang.AQASM.gates.CustomGate` class.
+
+
+.. code-block:: python
+
+    mat = np.array([[-1, 0], [0, 1]])
+    my_minus_z = CustomGate(mat)
+    my_program.apply(my_minus_z, qbits_reg[0])
+
+
 Quantum routines
 ^^^^^^^^^^^^^^^^
 
-PyAQASM provides a structure to describe subcircuits that can be then used as quantum gates.
-This interface is provided by the :class:`~qat.lang.AQASM.routines.QRoutine`.
-Inside these routines, qubits are inexistant: a routine is just a gate, thus it only knows about the incoming/outgoing wires. Wires are referred using integers. The arity of the routine is updated dynamically depending on the used wires.
+PyAQASM provides a structure to describe subcircuits that can then be used as quantum gates.
+This interface is provided by the :class:`~qat.lang.AQASM.routines.QRoutine` object.
+Inside these routines, qubits are inexistant: a routine is just a gate, thus it only knows about the incoming/outgoing wires. Wires are referred to using integers. The arity of the routine is updated dynamically depending on the used wires.
 
 
 .. code-block:: python
@@ -185,13 +188,13 @@ Other operations
 
 The :class:`~qat.lang.AQASM.Program` structure supports various instructions:
 
-* :func:`~qat.lang.AQASM.Program.measure` : to measure a qubit during the computation
+* :func:`~qat.lang.AQASM.Program.measure`: measure a qubit during the computation (not to be used for final measurements)
 
-* :func:`~qat.lang.AQASM.Program.reset` : to reset a qubit or classical bit: it consists in measuring the qubit, and applying a bit flip (X gate) if the outcome is 1
+* :func:`~qat.lang.AQASM.Program.reset`: reset a qubit or classical bit: it consists in measuring the qubit, and applying a bit flip (X gate) if the outcome is 1
 
-* :func:`~qat.lang.AQASM.Program.cc_apply` : to apply a gate conditionally, depending on the state of a classical bit
+* :func:`~qat.lang.AQASM.Program.cc_apply`: apply a gate conditionally, depending on the state of a classical bit
 
-* :func:`~qat.lang.AQASM.Program.cbreak` : to interrupt the computation depending on a condition on a set of classical bits
+* :func:`~qat.lang.AQASM.Program.cbreak`: interrupt the computation depending on a condition on a set of classical bits
 
 
 Quantum routine librairies
@@ -209,7 +212,7 @@ Generating the circuit
 ----------------------
 
 Once you are satisfied with your :class:`~qat.lang.AQASM.Program`, it can be exported to a circuit format that can be simulated. This is done using the :func:`~qat.lang.AQASM.Program.to_circ` method.
-This method has parameters and can be fine-tuned to meet your needs. ¨Please refer to the :ref:`source code documentation <source_doc>` for more information.
+This method has parameters and can be fine-tuned to meet your needs. Please refer to the :ref:`source code documentation <source_doc>` for more information.
 
 
 Exporting the circuit

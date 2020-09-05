@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>qat.pylinalg: Python Linear-algebra simulator &mdash; myQLM documentation myQLM-0.0.7.8 documentation</title>
+  <title>qat.pylinalg: Python Linear-algebra simulator &mdash; myQLM documentation myQLM-X.X.X.12 documentation</title>
   
 
   
@@ -43,7 +43,7 @@
   <link rel="stylesheet" href="../static/contentui.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="The AQASM format" href="../aqasm.html" />
+    <link rel="next" title="qat-opt: representation and encoding of combinatorial problems, QAOA" href="../qat-opt.html" />
     <link rel="prev" title="QuameleonPlugin : emulating hardware constraints via a plugin" href="../quameleon.html" /> 
 </head>
 
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-0.0.7
+                myQLM-X.X.X
               </div>
             
           
@@ -95,17 +95,22 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Basic usage</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing myQLM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../programming.html">Writing quantum circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../simulating.html">Executing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_variational.html">Running variational algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability with myQLM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced usage</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Architecture and data structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_programming.html">Advanced programming using pyAQASM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../running_variational.html">Running variational algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../applications.html">Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability in the QLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../source_doc.html">Source code documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-core-library">The core library</a></li>
@@ -119,7 +124,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#interoperations-with-other-frameworks">Interoperations with other frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#combinatorial-optimization-and-qaoa">Combinatorial optimization and QAOA</a></li>
 </ul>
 </li>
@@ -178,8 +183,6 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../sources/myqlm_specific/qat-pylinalg.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -220,7 +223,7 @@
 <p>myQLM comes with one simulator which performs a unitary evolution of the
 initial quantum state using the operations described in a quantum circuit. This
 simulator is called “Python Linear-Algebra”.</p>
-<p>It is entirely written in python, and is based in particular on the
+<p>It is entirely written in Python, and is based in particular on the
 <a class="reference external" href="http://www.numpy.org/">Numpy</a> library.</p>
 <p>The quantum state is stored as an <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">ndarray</a> of shape
 <span class="math notranslate nohighlight">\(\left(2,...,2\right)\)</span>, with one 2-valued index per qubit:</p>
@@ -269,7 +272,7 @@ of the <a class="reference internal" href="../qat-core.html#qat.core.qpu.QPUHand
 Only the <a class="reference internal" href="#qat.pylinalg.PyLinalg.submit_job" title="qat.pylinalg.PyLinalg.submit_job"><code class="xref py py-func docutils literal notranslate"><span class="pre">submit_job()</span></code></a> method is simulator-specific and defined here.</p>
 <dl class="py method">
 <dt id="qat.pylinalg.PyLinalg.serve">
-<code class="sig-name descname">serve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">host_ip</span><span class="o">=</span><span class="default_value">'localhost'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.pylinalg.PyLinalg.serve" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">serve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">host_ip</span><span class="o">=</span><span class="default_value">'localhost'</span></em>, <em class="sig-param"><span class="n">server_type</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.pylinalg.PyLinalg.serve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs the QPU inside a server</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -277,6 +280,21 @@ Only the <a class="reference internal" href="#qat.pylinalg.PyLinalg.submit_job" 
 <li><p><strong>port</strong> (<em>int</em>) – the port on which to listen</p></li>
 <li><p><strong>host_ip</strong> (<em>str</em>) – the url on which to publish the API. Optional.
 Defaults to ‘localhost’.</p></li>
+<li><p><strong>server_type</strong> (<em>str</em><em>, </em><em>optional</em>) – <p>type of server. The different
+types of server are:</p>
+<blockquote>
+<div><ul>
+<li><p>”simple”: single-thread server, accepts one connection
+at a time (default server type)</p></li>
+<li><p>”threaded”: multi-thread server, each connection
+starts a new thread</p></li>
+<li><p>”pool”: multi-thread server, each connection runs
+in a thread, with a maximum of 10 running threads</p></li>
+<li><p>”fork”: multi-process server, each connection runs
+in a new process</p></li>
+</ul>
+</div></blockquote>
+</p></li>
 </ul>
 </dd>
 </dl>
@@ -284,7 +302,7 @@ Defaults to ‘localhost’.</p></li>
 
 <dl class="py method">
 <dt id="qat.pylinalg.PyLinalg.submit">
-<code class="sig-name descname">submit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch</span><span class="p">:</span> <span class="n">qat.core.wrappers.batch.Batch</span></em><span class="sig-paren">)</span> &#x2192; qat.core.wrappers.result.BatchResult<a class="headerlink" href="#qat.pylinalg.PyLinalg.submit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">submit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch</span><span class="p">:</span> <span class="n">qat.core.wrappers.batch.Batch</span></em>, <em class="sig-param"><span class="n">meta_data</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; qat.core.wrappers.result.BatchResult<a class="headerlink" href="#qat.pylinalg.PyLinalg.submit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes a batch of jobs and returns the corresponding list of Results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -530,7 +548,7 @@ represented as matrices, we kept this step.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../aqasm.html" class="btn btn-neutral float-right" title="The AQASM format" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../qat-opt.html" class="btn btn-neutral float-right" title="qat-opt: representation and encoding of combinatorial problems, QAOA" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../quameleon.html" class="btn btn-neutral float-left" title="QuameleonPlugin : emulating hardware constraints via a plugin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -1,390 +1,236 @@
-.. qatlinalgdm documentation master file, created by
-   sphinx-quickstart on Thu Apr 19 18:34:55 2018.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
 
 .. _simulating:
 
 Executing quantum circuits
 ==============================
 
-Circuit execution from PyAQASM consists of the following lines:
 
-.. code-block:: python
+The workflow of a quantum computer, henceforth called a **"Quantum Processing Unit" (QPU)**, is the following:
+its state (register of qubits) is initialized,
+a series of quantum gates (a quantum circuit :math:`\mathcal{C}`) is operated on the register,
+and a measurement is made on the final state :math:`|\psi\rangle` of the QPU.
 
-    job = circuit.to_job(*options*) # creating job from circuit
-    results = qpu.submit(job)       # submitting job to QPU instance, getting results.
+QLM provides classical emulators of QPUs that allow to simulate the execution of this workflow.
 
-The ``qpu`` can be an **ideal simulator**, a **noisy simulator**, or the implemented
-interface of an **actual chip**.
+In this page, you will learn how to use the various objects required to describe this workflow and to
+run a QLM QPU.
 
-For instance, the following script outputs the final wave function obtained after running an Hadamard wall:
-
-.. only:: qlm
-   
-    .. run-block:: python
-
-        from qat.lang.AQASM import Program, H
-
-        prog = Program()
-        qbits = prog.qalloc(3)
-
-        for qb in qbits:
-            prog.apply(H, qb)
-
-        circuit = prog.to_circ()
-
-        job = circuit.to_job(qubits=[0, 1, 2])
-        from qat.qpus import LinAlg
-        qpu = LinAlg()
-
-        result = qpu.submit(job)
-        for sample in result:
-            print(sample)
-
-
-.. only:: myqlm
-   
-    .. run-block:: python
-
-        from qat.lang.AQASM import Program, H
-
-        prog = Program()
-        qbits = prog.qalloc(3)
-
-        for qb in qbits:
-            prog.apply(H, qb)
-
-        circuit = prog.to_circ()
-
-        job = circuit.to_job(qubits=[0, 1, 2])
-        from qat.qpus import PyLinalg
-        qpu = PyLinalg()
-
-        result = qpu.submit(job)
-        for sample in result:
-            print(sample)
-
-
-.. only:: qlm
-
-    See `Circuit simulators`_ for a list of **QLM simulators**, both **noisy** and **ideal**, and the documentation page on :doc:`qlm_specific/noisy_simulation`.
-
-``*options*`` specified at job creation modify what ``results`` contain. See `Circuit execution modes`_ for more details.
-
-.. only:: myqlm
-
-    myQLM comes with a simple quantum circuit simulator, called PyLinalg (for Python
-    linear algebra). It can run on your laptop (for up to 24-25 qubits for a few
-    GB of RAM), and is based on plain matrix-vector multiplications, implemented
-    with numpy.
-    It is an instance of a QPU (Quantum Processing Unit) that takes quantum circuits
-    as inputs and returns simulation results (samples, probabilities...). It is important
-    to note that the same interfacing tools that come with myQLM, could be used to
-    interface with an actual quantum computer (see Hybrid Programming Workflow section).
-
-
-.. only:: qlm
-
-    Circuit simulators
-    ------------------
-
-        QLM comes with various quantum circuit simulators:
-
-        - | **LinAlg**: Plain linear-algebra simulator. It allocates a state vector  equal to :math:`|0...0\rangle` and applies gates on it through optimized matrix-vector multiplications. Our implementation also includes special routines to work with **state preparations**, **oracles** and **QRAMs**, easing their manipulation through **emulation**.
-          | See source code documentation for more details: :doc:`qlm_specific/qat-linalg`.
-        - | **MPS**: circuit simulator based on a **Matrix Product State** representation of quantum states. It allows for **compression** of the state vector through **factorization** in **low-entanglement** situations.
-          | See source code documentation for more details: :doc:`qlm_specific/qat-mps`.
-        - | **Stabs**: simulator for **Clifford circuits**, based on the **stabilizer formalism**. Clifford circuits are a very particular kind of quantum circuits, arising in **quantum error correction** with gates restricted to the so-called Clifford group (:math:`H`, :math:`S` and :math:`CNOT`). Their simulation is fully **polynomial**, and tractable up to **thousands** of qubits.
-          | See source code documentation for more details: :doc:`qlm_specific/qat-stabs`.
-        - | **Feynman**: simulator based on a **path integral formulation** of quantum evolution. It computes an amplitude by summing over all possible paths from :math:`|0...0\rangle` to the amplitude index. The simulator is good for circuits containing **few dense gates**. For instance, the Hadamard gate is dense, whereas :math:`CNOT` is not.
-          | See source code documentation for more details: :doc:`qlm_specific/qat-feynman`.
-        - | **BDD**: for **Binary Decision Diagrams**. Simulator using **QMDD** (Quantum Multi-Valued Decision Diagrams) to represent quantum states and gates. Like other simulators (MPS, Feynman and Stabs), it can compress information in some contexts, which can allow to push simulation to more than 40 qubits, or to gain performance.
-          | See source code documentation for more details: :doc:`qlm_specific/qat-bdd`.
-        - | **Noisy simulators**: QLM also comes with a complete set of tools for simulating quantum processors under **realistic noise conditions**. See the dedicated part in the documentation: :doc:`qlm_specific/noisy_simulation`.
-
-All QPUs share the same interface to make it easy to adapt your code and to change the QPU on which
-your circuit is executed. We are now going to describe the interface, including the options related to
-circuit execution (e.g. specifying whether you want an observable or the full distribution...).
-
-Circuit execution modes
------------------------
-
-Given a circuit, options specified at job creation allow to:
-
-    - | **(default case)** Obtain the **full distribution** in the form of a list of **states with non-zero probability**.
-    - | **Strictly emulate** the behavior of an actual quantum computer by returning a **list of measurement results**. An option called ``aggregate_data`` allows you to group the results by value and empirically estimate their probabilities.
-    - | **Directly compute observable averages**: especially useful when dealing with **hybrid variational algorithms**.
-
-All of these options can work on all or a **subset of the qubits**.
-
-The arguments controling these execution modes are ``job_type``, ``nbshots`` and ``aggregate_data``. See the sourcecode documentation of the to_job method of circuit object for more details: :doc:`qat-core` 
-
-.. note::
-
-    With respect to ``nbshots``, we work with the following convention:
-
-    ``nbshots = 0`` (default value) means asking the QPU **the best it can give**. In the case of an ideal classical simulator, this is just the entire distribution. In the case of an actual QPU, it will be some finite (hopefully large) number of shots.
-
-
-Sampling directive
-___________________
-
-The first job type tells the QPU to sample the final state vector in the computational basis. This is the default setting when creating a job.
-In that setting, the job is constructed using the following parameters:
-
- - **nbshots**: the number of shots to use. Default is infinite (=0)
- - **qubits**: the subset of qubits to sample. Default is all qubits.
- - **amp_threshold**: a treshold to truncate probabilities/amplitude
-
-.. run-block:: python
-
-    from qat.lang.AQASM import *
-    prog = Program()
-    qbits = prog.qalloc(5)
-    for qb in qbits:
-        prog.apply(H, qb)
-    circuit = prog.to_circ()
-
-    # A job that samples all the qubits with infinite number of shots
-    job = circuit.to_job()
-
-    # Measurement only qubits 1 and 3, with 1024 shots
-    job = circuit.to_job(qubits=[1, 3], nbshots=1024)
-
-The Sample object
-*******************
-
-Once the job is specified it can be submitted to a QPU. The standard way of analyzing the result is to simply traverse it via a for loop:
-
-.. run-block:: python
-
-    from qat.lang.AQASM import *
-    prog = Program()
-    qbits = prog.qalloc(2)
-    for qb in qbits:
-        prog.apply(H, qb)
-    circuit = prog.to_circ()
-
-    # A job that samples all the qubits with infinite number of shots
-    job = circuit.to_job()
-    
-    from qat.qpus import get_default_qpu
-    result = get_default_qpu().submit(job)
-    for sample in result:
-        print(sample)
-
-As you can see, iterating over results outputs a sequence of `Sample` objects that carry all the information.
-It contains the following fields:
-
-  - **state**: a :class:`~qat.core.wrappers.result.State` object that describe a classical state (i.e a classical index).
-    The index value of the state can be obtained via the `.int` property. Indexes are always represented via integers by reading
-    the qubits states with qubit 0 on the left. E.g a two qubits classical state indexed by 2 corresponds to qubit 0 in state 1 and qubit
-    1 in state 0. If a typed pyAQASM register was given at the job construction, the classical state can be cast into the proper python type
-    (or a tuple of types) via the `.value` property.
-  - **probability**: the probability of the sample, if the information is available
-  - **amplitude**: the amplitude of the sample, if the information is well defined and available (i.e if all the qubits are measured with nbshots=0
-    one a perfect simulator)
-  - **err**: the error on the `.probability` field in the case of finite number of shots, if the information is available
-
-.. run-block:: python
-
-    from qat.lang.AQASM import *
-    prog = Program()
-    reg1 = prog.qalloc(2, int)
-    reg2 = prog.qalloc(2)
-    for qb in reg1:
-        prog.apply(H, qb)
-    for qb in reg2:
-        prog.apply(X, qb)
-    circuit = prog.to_circ()
-
-    # A job that samples all the qubits with infinite number of shots
-    job = circuit.to_job(qubits=[reg1, reg2])
-    
-    from qat.qpus import get_default_qpu
-    result = get_default_qpu().submit(job)
-    for sample in result:
-        print(sample.state, sample.state.int, sample.state.value)
-
-
-.. only:: qlm
-
-        Underlying structures and in memory transfer
-        *********************************************
-
-        In some cases, QPUs are able to return the execution results via a c++ vector (wrapped in a numpy array or a map).
-        If this is the case, it might be simpler to directly access this field of the `Result` object.
-        To detect if this feature is accessible in a `Result` object, the attribute `.has_statevector` is set to true
-        and the proper array/map is stored in the `.statevector` attribute:
-
-        .. run-block:: python
-            
-            import numpy as np
-            from qat.lang.AQASM import *
-            prog = Program()
-            qbits = prog.qalloc(2)
-            for qb in qbits:
-                prog.apply(H, qb)
-            circuit = prog.to_circ()
-
-            # A job that samples all the qubits with infinite number of shots
-            job = circuit.to_job()
-            
-            from qat.qpus import get_default_qpu
-            result = get_default_qpu().submit(job)
-            
-            assert result.has_statevector
-            print("The statevector is a", type(result.statevector))
-            print("with shape", result.statevector.shape)
-            print("State vector norm:", np.linalg.norm(result.statevector))
-
-        Using the same convention as above, the state vector is indexed with the state of the first qubit as left most bit.
-
-        .. warning::
-                
-            The type of the `.statevector` field will not necessarily be a numpy array.
-            In some case, the QPU might return a map (to optimize memory usage) representing
-            a sparse vector. In that case entries follow the same indexing rule.
-
-Observable evaluation
-_________________________
-
-Another way of building a job is to provide some hermitian operator and, eventually, some number of shots.
-:class:`~qat.core.Observable` are rather straigthforward to contruct as collection of ponderated Pauli operators.
-
-.. run-block:: python
-    
-    import numpy as np
-    from qat.lang.AQASM import *
-    prog = Program()
-    qbits = prog.qalloc(2)
-    for qb in qbits:
-        prog.apply(H, qb)
-    circuit = prog.to_circ()
-
-    from qat.core import Observable, Term
-    observable = Observable(2, # 2 qubits
-                            pauli_terms=[Term(1, # coefficient
-                                              "X", # operator
-                                              [0])]) # qubit(s)
-    job = circuit.to_job(observable=observable)
-    
-    from qat.qpus import get_default_qpu
-    result = get_default_qpu().submit(job)
-    
-    print("Measured energy:", result.value)
-
-Here we can see that the field `.value` of the `Result` object carries a complex value corresponding to
-the expected value of our observable over the final state vector. Since our observable is Hermitian, the value has 
-not imaginary part (complexes are here to provide a broader API than Hermitian operator sampling).
-
-
-Specification of a QPU
------------------------
-Each QPU has a :func:`~qat.core.qpu.QPUHandler.get_specs` method which defines
-specification of a QPU. A QPU can have a limited number of qubits, the hardware can
-have a limited gate set (only few types of gates could be applied)
-or this QPU can have connectivity constraints.
-
-.. only:: qlm
-
-    For instance, the **Stabs** simulator can only apply gates from the Clifford group. This
-    simulator has a limited gate set.
-    Moreover, the **MPS** simulator can only apply two qubit gates between qubits of index
-    :math:`q` and :math:`q \pm 1` (for all values of :math:`q`). This simulator has connectivity
-    constraints.
-
-The method :func:`~qat.core.qpu.QPUHandler.get_specs` returns a :class:`~qat.core.HardwareSpecs`
-object which describes the specification of this QPU. This object has three attributes to describe
-the specifications:
-
- - **nbqbits**: number of qubits of the QPU
- - **topology**: connectivity constraints of the QPU. If there are no constraints,
-   the topology is of type "All to All"
- - **gateset**: gates the QPU can apply (equal to :code:`None` is there are no
-   constraints)
-
-
-Connecting to remote QPU
+Describing a quantum job
 ------------------------
 
+The computational jobs that are fed to a QPU primarily consist of two main components:
+
+- the **quantum circuit** to be executed on the qubit register. You have learned how to create such a circuit :ref:`here <programming>`.
+- the **final measurement** to be carried out on the final state of the register, i.e on the wavefunction :math:`|\psi\rangle` that has been prepared by the quantum circuit. 
+
+**Two types** of final measurements are commonly used in quantum algorithms:
+
+- "**Sample**": Measuring the projection of the wavefunction on the computational basis (formally speaking, this means measuring qubits "along the Z axis"). For instance, if the final state is :math:`|\psi\rangle=(|00\rangle+|11\rangle)/\sqrt{2}`, measuring "in the computational basis" will yield the bitstring "00" in 50% (:math:`1/\sqrt{2}^2`) of cases, and "11" the rest of the time. Because of the statistical nature of the measurement, many repeated measurements on the computational basis, yielding many different bitstrings or "**samples**", are necessary to get an accurate estimate of the frequencies of each computational basis state ("00": 50%, "01": 0%, "10": 0%, "11": 50% in our case). We will call "**nbshots**" the number of such repetitions (with a classical emulator, one can in general emulate an infinite number of shots since one has access to the exact frequencies). Of course, one may decide to measure only a subset of qubits.
+
+- "**Observable**": Measuring the value of a quantum mechanical **observable** :math:`O` in the final state. On average, such a value is given by the formula :math:`\langle O \rangle = \langle \psi | O |\psi \rangle`. While this average value can directly be computed using a classical computer, on an actual QPU, only a limited set of observables can be measured. In practice, most QPUs provide only "Z-axis" measurements, i.e, as described above, the possibility to measure the projection of the wavefunction on computational basis states. One thus needs, to perform the estimation of the average value of an observable, to convert the computation of :math:`\langle O \rangle` into a series of Z axis measurements (with possible modifications of the circuit), estimate bitstrings frequencies as described above (with a given number of shots or repetitions), and combine those subresults back into a estimate of :math:`\langle O \rangle`.
+
+Let us emphasize the fact that while the first final processing type is native to most actual QPUs, the same does not necessarily holds
+for the "OBSERVABLE" processing type. In the absence of a native support, the :ref:`ObservableSplitter <obs_splitter>` plugin of the QLM canenhance the QPU with an observable-processing capacity.
+
+In QLM, quantum jobs describing these tasks are implemented by a :py:class:`qat.core.Job` object, that contains
+
+- the circuit :math:`\mathcal{C}` to be executed
+
+- the type of the final processing (``SAMPLE`` or ``OBS``), with the necessary parameters (which qubits to be measured or which observable to evaluate, respectively)
+
+- the number of allowed repetitions (shots)
+
+Note that by default, the processing type is ``SAMPLE``, with all qubits being measured, and an infinite number of shots (i.e no statistical uncertainty).
+
+
+A full example on the Bell state circuit
+----------------------------------------
+Here, we exemplify the execution of a simple Bell circuit with the different modes described above.
+
+SAMPLE mode
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Infinite number of shots, all qubits
+....................................
+
+We take the same example as the one we examined in :ref:`the Getting Started page <getting_started>` for an illustration of this case:
+
+.. run-block:: python
+
+    from qat.lang.AQASM import Program, H, CNOT
+    from qat.qpus import get_default_qpu
+
+    # Create a circuit
+    qprog = Program()
+    qbits = qprog.qalloc(2)
+    H(qbits[0])
+    CNOT(qbits[0], qbits[1])
+    circuit = qprog.to_circ()
+
+    # Create a job
+    job = circuit.to_job() # no parameters, equivalent to "nbshots=0"
+
+    # Instantiate a QPU (simulator)
+    qpu = get_default_qpu()
+
+    # Execute
+    result = qpu.submit(job)
+    for sample in result:
+        print("State %s: probability %s, amplitude %s" % (sample.state, sample.probability, sample.amplitude))
+
+You can notice that a ``Job`` is created from a circuit using the circuit's ``to_job()`` method.
+This job is then fed to the QPU's ``submit`` method, which returns a ``result`` object.
+In SAMPLE mode, this result can be iterated on, yielding the various "samples", with each sample
+corresponding to a given bitstring (``state``) and its frequency of appearance (``probability``) upon
+conducting a Z measurement over the final state :math:`|\psi\rangle`. States with zero probability
+are not listed (one can set a threshold ``amp_threshold`` to filter out states below a certain probability amplitude).
+Here, we also print the probability *amplitude* (``amplitude``) corresponding to each computational basis state.
+Let us stress that this piece of information is in general not available from an actual QPU, but merely
+from some classical simulators. 
+
+Finite number of shots, all qubits
+..................................
+
+Let us switch to a finite ``nbshots``:
+
+.. run-block:: python
+
+    from qat.lang.AQASM import Program, H, CNOT
+    from qat.qpus import get_default_qpu
+
+    # Create a circuit
+    qprog = Program()
+    qbits = qprog.qalloc(2)
+    H(qbits[0])
+    CNOT(qbits[0], qbits[1])
+    circuit = qprog.to_circ()
+
+    # Create a job
+    job = circuit.to_job(nbshots=100)
+
+    # Execute
+    result = get_default_qpu().submit(job)
+    for sample in result:
+        print("State %s: probability %s +/- %s" % (sample.state, sample.probability, sample.err))
+
+Notice how the estimated probability of the states differs from the ideal one due to "shot noise". The ``err``
+field of the ``sample`` object contains the standard error of the mean on the frequency of appearance.
+It decreases as :math:`1/\sqrt{n_\mathrm{shots}}`.
+
+Infinite number of shots, only one qubit
+........................................
+
+
+Here, we decide to measure only the second qubit:
+
+.. run-block:: python
+
+    from qat.lang.AQASM import Program, H, CNOT
+    from qat.qpus import get_default_qpu
+
+    # Create a circuit
+    qprog = Program()
+    qbits = qprog.qalloc(2)
+    H(qbits[0])
+    CNOT(qbits[0], qbits[1])
+    circuit = qprog.to_circ()
+
+    # Create a job
+    job = circuit.to_job(nbshots=0, qubits=[1])
+
+    # Execute
+    result = get_default_qpu().submit(job)
+    for sample in result:
+        print("State %s: probability %s +/- %s" % (sample.state, sample.probability, sample.err))
+
+As expected, the probability of measuring "0" on the second qubit is the same as the 
+probability of measuring "1". Here, ``err`` is ``None`` because we took an infinite number
+of shots.
+
+OBSERVABLE mode
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Let us now turn to the second type of final processing, namely the "OBSERVABLE" mode. 
+Our goal is to compute the average value of the following observable:
+
+.. math::
+    O = X_0 \otimes Z_1
+
+for the Bell state :math:`|\psi\rangle=(|00\rangle+|11\rangle)/\sqrt{2}`.
+A straightforward computation yields :math:`\langle O \rangle = 0`. Let us now perform
+this computation with QLM.
+
+Infinite number of shots
+.........................
+
+Let us start with a computation devoid of any shot noise. It directly yields the expectation value :math:`\langle O \rangle`:
+
+.. run-block:: python
+
+    from qat.lang.AQASM import Program, H, CNOT
+    from qat.qpus import get_default_qpu
+
+    # Create a circuit
+    qprog = Program()
+    qbits = qprog.qalloc(2)
+    H(qbits[0])
+    CNOT(qbits[0], qbits[1])
+    circuit = qprog.to_circ()
+
+    # Create an observable
+    from qat.core import Observable, Term
+    obs = Observable(2, pauli_terms=[Term(1, "XZ", [0, 1])])
+
+    # Create a job
+    job = circuit.to_job(job_type='OBS', observable=obs)
+
+    # Execute
+    result = get_default_qpu().submit(job)
+    print("<O> = ", result.value)
+
+
+Finite number of shots
+.........................
+
+We now look at the effect of shot noise, i.e the fact that in practice one can only 
+repeat the measurement a finite number of times:
+
+.. run-block:: python
+
+    from qat.lang.AQASM import Program, H, CNOT
+    from qat.qpus import get_default_qpu
+
+    # Create a circuit
+    qprog = Program()
+    qbits = qprog.qalloc(2)
+    H(qbits[0])
+    CNOT(qbits[0], qbits[1])
+    circuit = qprog.to_circ()
+
+    # Create an observable
+    from qat.core import Observable, Term
+    obs = Observable(2, pauli_terms=[Term(1, "XZ", [0, 1])])
+
+    # Create a job
+    for nbshots in [100, 1000, 10000]:
+        job = circuit.to_job(job_type='OBS', observable=obs, nbshots=nbshots)
+        result = get_default_qpu().submit(job)
+        print(f"<O> ({nbshots} shots) = {result.value} +/- {result.error}")
+
+
 .. only:: qlm
 
-    Any QPU of QLM can be launched in server mode. You can connect to this server
-    using myQLM or from an other QLM. This section explains the creation of a
-    server and also how to connect to a remote QPU.
-
-.. only:: myqlm
-
-    myQLM can be used as client of a connection. Instead of executing a circuit
-    on a computer, myQLM can send circuit to a remote QPU. Moreover, myQLM can
-    be used to define a custom QPU which can be launched in server mode. This
-    section explains the creation of a server and also how to connect to a remote
-    QPU.
+    Notice how the statistical error due to shot noise decreases with an increased number of repetitions.
 
 
-Server mode
-___________
-Any QPU has a method :func:`~qat.core.qpu.QPUHandler.serve` to start this QPU in
-server mode. This method takes the PORT and the IP as arguments. For instance:
+Further information
+-------------------
 
-.. only:: qlm
+You will find a complete documentation of the objects mentioned above in the :ref:`source code documentation <source_doc>`:
 
-    .. code-block:: python
+- job: :py:class:`qat.core.Job`. See also: :py:meth:`qat.core.Circuit.to_job`.
 
-        from qat.qpus import LinAlg
+- observable: :py:class:`qat.core.Observable` and :py:class:`qat.core.Term`.
 
-        # Define a PORT and a IP
-        PORT = 1234
-        IP = "*"
+- results and samples: :py:class:`qat.core.Result` and :py:class:`qat.core.wrappers.result.Sample`.
 
-        # Define a QPU
-        qpu = LinAlg()
-        qpu.serve(PORT, IP)
 
-.. only:: myqlm
-
-    .. code-block:: python
-
-        from qat.pylinalg import PyLinalg
-
-        # Define a PORT and a IP
-        PORT = 1234
-        IP = "*"
-
-        # Define a QPU
-        qpu = PyLinalg()
-        qpu.serve(PORT, IP)
-
-This code should work for any QPU.
-
-Client mode
-___________
-.. only:: qlm
-
-    If a distant QPU is started in server mode, QLM can be used as client of
-    a connection.
-
-.. only:: myqlm
-
-    If a distant QPU is started in server mode, myQLM can be used as client of
-    a connection.
-
-Assuming the server is listening to the port :code:`1234` and the ip of the server is
-:code:`127.0.0.1`, the following code can be used to connect to the server:
-
-.. code-block:: python
-
-    from qat.core.qpu import RemoteQPU
-
-    # Define PORT and IP
-    PORT = 1234
-    IP = "127.0.0.1"
-
-    # Define a client
-    qpu = RemoteQPU(PORT, IP)
-
-The :code:`qpu` object works like a QPU so plugins could be linked to it. Each
-batch passed to this client are sent to the server, the results are then retrieved. The connection is synchronous, therefore, if the client is disconnected during the execution
-of a Batch/Job, results of the execution are lost.

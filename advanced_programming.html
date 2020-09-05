@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Advanced programming using pyAQASM &mdash; myQLM documentation myQLM-0.0.7.8 documentation</title>
+  <title>Advanced programming using pyAQASM &mdash; myQLM documentation myQLM-X.X.X.12 documentation</title>
   
 
   
@@ -43,7 +43,7 @@
   <link rel="stylesheet" href="static/contentui.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Running variational algorithms" href="running_variational.html" />
+    <link rel="next" title="Advanced combinatorial optimization" href="advanced_combinatorial_optimization.html" />
     <link rel="prev" title="Architecture and data structures" href="introduction.html" /> 
 </head>
 
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-0.0.7
+                myQLM-X.X.X
               </div>
             
           
@@ -95,11 +95,18 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Basic usage</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/install.html">Installing myQLM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="programming.html">Writing quantum circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simulating.html">Executing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability with myQLM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced usage</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced programming using pyAQASM</a><ul>
@@ -109,15 +116,13 @@
 <li class="toctree-l3"><a class="reference internal" href="#arity-generator">Arity generator</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#lifting-python-functions-into-quantum-gates">Lifting python functions into quantum gates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lifting-python-functions-into-quantum-gates">Lifting Python functions into quantum gates</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linking-at-circuit-extraction">Linking at circuit extraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#qroutine-s-compute-uncompute-scopes">QRoutine’s Compute/uncompute scopes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#automated-ancillae-management">Automated ancillae management</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability in the QLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source_doc.html">Source code documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command line tools</a></li>
@@ -172,8 +177,6 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="sources/advanced_programming.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -225,7 +228,7 @@ However, when comes the time of simulation or proper execution of the quantum ci
 </div></blockquote>
 <div class="section" id="matrix-definition">
 <h3>Matrix definition<a class="headerlink" href="#matrix-definition" title="Permalink to this headline">¶</a></h3>
-<p>To provide a matrix implementation for an <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.gates.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a>, one first needs to define a python function that returns a matrix such that:</p>
+<p>To provide a matrix implementation for an <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.gates.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a>, one first needs to define a Python function that returns a matrix such that:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>the function returns a matrix (for simplicity a numpy array)</p></li>
@@ -274,10 +277,10 @@ However, when comes the time of simulation or proper execution of the quantum ci
 </div>
 </div>
 <div class="section" id="lifting-python-functions-into-quantum-gates">
-<h2>Lifting python functions into quantum gates<a class="headerlink" href="#lifting-python-functions-into-quantum-gates" title="Permalink to this headline">¶</a></h2>
+<h2>Lifting Python functions into quantum gates<a class="headerlink" href="#lifting-python-functions-into-quantum-gates" title="Permalink to this headline">¶</a></h2>
 <p>Even though the above mecanics are very expressive when designing a library of quantum routines, it might still seem a bit clunky to have
 to define circuit generators and abstract gates separatly.</p>
-<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">build_gate</span></code> decorator removes a lot of this clunkyness by allowing you to turn any python function returning a <code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code> into an <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.gates.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a>.</p>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">build_gate</span></code> decorator removes a lot of this clunkyness by allowing you to turn any Python function returning a <code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code> into an <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.gates.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">H</span>
 <span class="kn">from</span> <span class="nn">qat.lang.AQASM.misc</span> <span class="kn">import</span> <span class="n">build_gate</span>
 
@@ -312,7 +315,7 @@ to define circuit generators and abstract gates separatly.</p>
 </div>
 <p>This code will run without error. The generated circuit (the result of <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.to_circ" title="qat.lang.AQASM.Program.to_circ"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_circ()</span></code></a>) will contain a single gate without any subcircuit implementation.
 In particular, attempting to execute this circuit on most QPUs will fail.</p>
-<p>Now, lets imagine that we have our very own implementation of an adder, lying in some python namespace <cite>foo</cite>.
+<p>Now, lets imagine that we have our very own implementation of an adder, lying in some Python namespace <cite>foo</cite>.
 Its definition will look like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">H</span>
 <span class="kn">from</span> <span class="nn">qat.lang.AQASM.misc</span> <span class="kn">import</span> <span class="n">build_gate</span>
@@ -432,7 +435,7 @@ the call tree.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="running_variational.html" class="btn btn-neutral float-right" title="Running variational algorithms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="advanced_combinatorial_optimization.html" class="btn btn-neutral float-right" title="Advanced combinatorial optimization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="introduction.html" class="btn btn-neutral float-left" title="Architecture and data structures" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

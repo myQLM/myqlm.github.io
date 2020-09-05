@@ -21,7 +21,7 @@ However, when comes the time of simulation or proper execution of the quantum ci
 Matrix definition
 __________________
 
-To provide a matrix implementation for an :class:`~qat.lang.AQASM.gates.AbstractGate`, one first needs to define a python function that returns a matrix such that:
+To provide a matrix implementation for an :class:`~qat.lang.AQASM.gates.AbstractGate`, one first needs to define a Python function that returns a matrix such that:
 
     - the function returns a matrix (for simplicity a numpy array)
     - the function has the same input signature as the gate
@@ -73,13 +73,13 @@ Finally, it is possible for abstract gates to have a variable arity that depends
 This way, pyAQASM is able to statically check that the gate is applied on the right number of qubits.
 
 
-Lifting python functions into quantum gates
+Lifting Python functions into quantum gates
 ...............................................
 
 Even though the above mecanics are very expressive when designing a library of quantum routines, it might still seem a bit clunky to have
 to define circuit generators and abstract gates separatly.
 
-The :class:`~qat.lang.AQASM.misc.build_gate` decorator removes a lot of this clunkyness by allowing you to turn any python function returning a :class:`~qat.lang.AQASM.QRoutine` into an :class:`~qat.lang.AQASM.gates.AbstractGate`.
+The :class:`~qat.lang.AQASM.misc.build_gate` decorator removes a lot of this clunkyness by allowing you to turn any Python function returning a :class:`~qat.lang.AQASM.QRoutine` into an :class:`~qat.lang.AQASM.gates.AbstractGate`.
 
 .. code-block:: python
 
@@ -121,7 +121,7 @@ Consider for instance the following program:
 This code will run without error. The generated circuit (the result of :meth:`~qat.lang.AQASM.Program.to_circ`) will contain a single gate without any subcircuit implementation.
 In particular, attempting to execute this circuit on most QPUs will fail.
 
-Now, lets imagine that we have our very own implementation of an adder, lying in some python namespace `foo`.
+Now, lets imagine that we have our very own implementation of an adder, lying in some Python namespace `foo`.
 Its definition will look like this:
 
 .. code-block:: python

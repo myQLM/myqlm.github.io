@@ -10,33 +10,56 @@
     Welcome to the myQLM documentation
     ==================================
 
+    myQLM is a quantum software stack for writing, simulating, optimizing, and executing quantum
+    programs. Through a Python interface, it provides
+
+    - **powerful semantics** for :ref:`manipulating <programming>` quantum circuits,
+      with support for universal as well as custom gate sets,
+      abstract parameters, advanced linking options, etc.;
+
+    - **a versatile execution stack** for :ref:`running quantum jobs <simulating>`, including an easy handling
+      of observables, special plugins for carrying out NISQ-oriented :ref:`variational methods <variational>`
+      (such as VQE, QAOA), and easy API for :ref:`writing customized plugins <manipulating>` (e.g for compilation or error mitigation),
+      as well as for connecting to any Quantum Processing Unit (QPU);
+
+    - **a seamless interface** to :ref:`available quantum processors and major quantum programming frameworks <interop>`.
+
+
 .. only:: qlm
 
     Welcome to the QLM documentation
     ================================
 
 
-.. image:: QLM.png
-    :scale: 50%
-    :align: center
-    :alt: Atos Quantum Learning Machine
+    .. image:: QLM.png
+        :scale: 50%
+        :align: center
+        :alt: Atos Quantum Learning Machine
 
 
 .. toctree-filt::
-    :maxdepth: 1 
+    :maxdepth: 1
+    :caption: Basic usage
 
     :myqlm_specific:myqlm_specific/install
     getting_started
     programming
     simulating
+    running_variational
+    :myqlm_specific:combinatorial_optimization_intro
+    :qlm_specific:applications
+    :myqlm_specific:myqlm_specific/interoperability
+
+
+.. toctree-filt::
+    :maxdepth: 1
+    :caption: Advanced usage
+
     manipulating
     introduction
     advanced_programming
-    running_variational
-    :qlm_specific:qlm_specific/annealing_and_optim
+    advanced_combinatorial_optimization
     :qlm_specific:qlm_specific/noisy_simulation
-    applications
-    :myqlm_specific:myqlm_specific/interoperability
     source_doc
     aqasm
     commands

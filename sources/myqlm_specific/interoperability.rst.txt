@@ -1,36 +1,47 @@
-Interoperability in the QLM
-===============================
+.. _interop:
 
+Interoperability with myQLM
+===========================
 
-MyQLM comes with bindings towards various python based frameworks:
+myQLM provides binders to connect myQLM to extra Python based quantum framework. By default,
+these binders are not installed with myQLM, please refer to the :ref:`installation page <install-interop>`
+to install the desired binder.
 
-.. figure:: recap.png
-    :scale: 90%
+.. figure:: interoperability.png
+    :width: 50%
     :align: center
+
+These binders may be used, depending on the framework,
+to:
+
+ - translate myQLM circuits into a format defined in another quantum framework
+   and vice-versa
+ - execute a job using a QPU defined in another quantum framework directly
+   in myQLM and vice-versa
+
++---------------+-------------------------+-----------------------+
+| **Framework** | **Circuit translation** |   **QPU connection**  |
+|               +-----------+-------------+----------+------------+
+|               |  *to QLM* | *From QLM*  | *to QLM* | *From QLM* |
++---------------+-----------+-------------+----------+------------+
+| **Qiskit**    |   Yes     |    Yes      |   Yes    |    Yes     |
++---------------+-----------+-------------+----------+------------+
+| **OpenQASM**  |   Yes     |    No       |          NA           |
++---------------+-----------+-------------+----------+------------+
+| **PyQuil**    |   Yes     |    Yes      |   Yes    |    No      |
++---------------+-----------+-------------+----------+------------+
+| **ProjectQ**  |   Yes     |    No       |   No     |    No      |
++---------------+-----------+-------------+----------+------------+
+| **Cirq**      |   Yes     |    Yes      |   No     |    No      |
++---------------+-----------+-------------+----------+------------+
+
 
 .. toctree::
    :maxdepth: 2
+   :caption: Available binders
 
    qiskit
    pyquil
    cirq
    projectq
    openqasm
-
-+-----------+---------+-----------+
-| Language  | to QLM  | From QLM  |
-+-----------+---------+-----------+
-|  Qiskit   |   Yes   |    Yes    |
-+-----------+---------+-----------+
-|  openqasm |   Yes   |     No    |
-+-----------+---------+-----------+
-|  pyquil   |   Yes   |    Yes    |
-+-----------+---------+-----------+
-|  projectq |   Yes   |     No    |
-+-----------+---------+-----------+
-|  cirq     |   Yes   |    Yes    |
-+-----------+---------+-----------+
-
-
-This document presents some examples and explanations, for further information about
-usage, refer to the linked tutorials.

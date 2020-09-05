@@ -1,42 +1,49 @@
+Qiskit interoperability
+=======================
 
-Qiskit interoperations
-=================================
-
-Converters
-------------------------
+Translating quantum circuits
+----------------------------
 .. automodule:: qat.interop.qiskit.converters
-    :members: qiskit_to_qlm, qlm_to_qiskit
-    
-
-    
 
 
-Providers
--------------------
+Connecting to a QPU/Backend
+---------------------------
+.. automodule:: qat.interop.qiskit.providers
+
+
+Source code documentation
+-------------------------
+
+Circuit translation
+*******************
+
+.. autofunction:: qat.interop.qiskit.qiskit_to_qlm
+
+.. autofunction:: qat.interop.qiskit.qlm_to_qiskit
 
 BackendToQPU
 ************
 
-.. autoclass:: qat.interop.qiskit.providers.BackendToQPU
+.. autoclass:: qat.interop.qiskit.BackendToQPU
     :members: submit_job, submit, set_backend
     
 
 AsyncBackendToQPU
 *****************
 
-.. autoclass:: qat.interop.qiskit.providers.AsyncBackendToQPU
+.. autoclass:: qat.interop.qiskit.AsyncBackendToQPU
     :members: submit_job, set_backend, submit, retrieve_job
 
 
 QiskitJob
 *********
 
-.. autoclass:: qat.interop.qiskit.providers.QiskitJob
+.. autoclass:: qat.interop.qiskit.QiskitJob
     :members: job_id, status, cancel, result, dump
     
 
 QPUToBackend
 ************
 
-.. autoclass:: qat.interop.qiskit.providers.QPUToBackend
+.. autoclass:: qat.interop.qiskit.QPUToBackend
     :members: set_qpu
