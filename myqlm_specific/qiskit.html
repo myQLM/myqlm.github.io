@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Qiskit interoperability &mdash; myQLM documentation myQLM-1.1.5.20 documentation</title>
+  <title>Qiskit interoperability &mdash; myQLM documentation myQLM-1.1.6.25 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-1.1.5
+                myQLM-1.1.6
               </div>
             
           
@@ -152,6 +152,12 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../commands.html">Command line tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contrib.html">Contributing to myQLM</a></li>
 </ul>
 
             
@@ -244,9 +250,9 @@
 <h1>Qiskit interoperability<a class="headerlink" href="#qiskit-interoperability" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-qat.interop.qiskit.converters">
 <span id="translating-quantum-circuits"></span><h2>Translating quantum circuits<a class="headerlink" href="#module-qat.interop.qiskit.converters" title="Permalink to this headline">¶</a></h2>
-<p>myQLM provides binders to translate quantum circuit from Qiskit to
-myQLM and vice-versa throught functions <a class="reference internal" href="#qat.interop.qiskit.qiskit_to_qlm" title="qat.interop.qiskit.qiskit_to_qlm"><code class="xref py py-func docutils literal notranslate"><span class="pre">qiskit_to_qlm()</span></code></a>
-and <a class="reference internal" href="#qat.interop.qiskit.qlm_to_qiskit" title="qat.interop.qiskit.qlm_to_qiskit"><code class="xref py py-func docutils literal notranslate"><span class="pre">qlm_to_qiskit()</span></code></a></p>
+<p>myQLM provides binders to translate quantum circuits from Qiskit to
+myQLM and vice-versa through the <a class="reference internal" href="#qat.interop.qiskit.qiskit_to_qlm" title="qat.interop.qiskit.qiskit_to_qlm"><code class="xref py py-func docutils literal notranslate"><span class="pre">qiskit_to_qlm()</span></code></a>
+and <a class="reference internal" href="#qat.interop.qiskit.qlm_to_qiskit" title="qat.interop.qiskit.qlm_to_qiskit"><code class="xref py py-func docutils literal notranslate"><span class="pre">qlm_to_qiskit()</span></code></a> functions:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.interop.qiskit</span> <span class="kn">import</span> <span class="n">qiskit_to_qlm</span>
 
 <span class="n">qlm_circuit</span> <span class="o">=</span> <span class="n">qiskit_to_qlm</span><span class="p">(</span><span class="n">your_qiskit_circuit</span><span class="p">)</span>
@@ -261,7 +267,7 @@ and <a class="reference internal" href="#qat.interop.qiskit.qlm_to_qiskit" title
 </div>
 <div class="section" id="module-qat.interop.qiskit.providers">
 <span id="connecting-to-a-qpu-backend"></span><h2>Connecting to a QPU/Backend<a class="headerlink" href="#module-qat.interop.qiskit.providers" title="Permalink to this headline">¶</a></h2>
-<p>myQLM can be used to connect to Qiskit Backend. This module is composed of
+<p>myQLM can be used to connect to a Qiskit Backend. This module is composed of
 three main classes:</p>
 <blockquote>
 <div><ul>
@@ -405,12 +411,12 @@ measured</p></li>
 <dd><p>Wrapper around any Qiskit simulator / quantum chip connection.
 Despite the asynchronous nature of Qiskit’s backends, this class
 defines a synchronous QPU. If you need an asynchronous, please use
-<a class="reference internal" href="#qat.interop.qiskit.AsyncBackendToQPU" title="qat.interop.qiskit.AsyncBackendToQPU"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncBackendToQPU</span></code></a></p>
+<a class="reference internal" href="#qat.interop.qiskit.AsyncBackendToQPU" title="qat.interop.qiskit.AsyncBackendToQPU"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncBackendToQPU</span></code></a>.</p>
 <p>This QPU can be instantiated
 using:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>a Qiskit backend: please use the keywork argument <code class="code docutils literal notranslate"><span class="pre">backend</span></code></p></li>
+<li><p>a Qiskit backend: please use the keyword argument <code class="code docutils literal notranslate"><span class="pre">backend</span></code></p></li>
 <li><p>an IBM token and the name of the backend: please the keyword arguments
 <code class="code docutils literal notranslate"><span class="pre">token</span></code> and <code class="code docutils literal notranslate"><span class="pre">ibmq_backend</span></code> (the default backend is
 <code class="code docutils literal notranslate"><span class="pre">&quot;ibmq_qasm_simulator&quot;</span></code>)</p></li>
@@ -425,14 +431,14 @@ the circuit.</p></li>
 <li><p><strong>plugins</strong> (<em>list</em>) – linked plugins</p></li>
 <li><p><strong>token</strong> (<em>str</em>) – Qiskit IBMQ login token. If not supplied, loaded from the environment
 variable <code class="code docutils literal notranslate"><span class="pre">QISKIT_TOKEN</span></code></p></li>
-<li><p><strong>ibmq_backend</strong> (<em>str</em>) – name of the backend</p></li>
+<li><p><strong>ibmq_backend</strong> (<em>str</em><em>, </em><em>optional</em>) – name of the backend. Defaults to ‘ibmq_qasm_simulator’.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt id="qat.interop.qiskit.BackendToQPU.set_backend">
 <code class="sig-name descname">set_backend</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">backend</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">token</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ibmq_backend</span><span class="o">=</span><span class="default_value">'ibmq_qasm_simulator'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.qiskit.BackendToQPU.set_backend" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the backend that will execute circuits</p>
+<dd><p>Sets the backend that will execute circuits.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -486,13 +492,12 @@ is returned.</p>
 <dt id="qat.interop.qiskit.AsyncBackendToQPU">
 <em class="property">class </em><code class="sig-prename descclassname">qat.interop.qiskit.</code><code class="sig-name descname">AsyncBackendToQPU</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">backend</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">token</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ibmq_backend</span><span class="o">=</span><span class="default_value">'ibmq_qasm_simulator'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.qiskit.AsyncBackendToQPU" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper around any Qiskit simulator / quantum chip connection.
-This class defines an asynchronous QPU. If you need an synchronous, please use
-<a class="reference internal" href="#qat.interop.qiskit.BackendToQPU" title="qat.interop.qiskit.BackendToQPU"><code class="xref py py-class docutils literal notranslate"><span class="pre">BackendToQPU</span></code></a></p>
-<p>This asynchronous QPU can be instantiated
-using:</p>
+This class defines an asynchronous QPU. If you need a synchronous QPU, please use
+<a class="reference internal" href="#qat.interop.qiskit.BackendToQPU" title="qat.interop.qiskit.BackendToQPU"><code class="xref py py-class docutils literal notranslate"><span class="pre">BackendToQPU</span></code></a>.</p>
+<p>This asynchronous QPU can be instantiated using:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>a Qiskit backend: please use the keywork argument <code class="code docutils literal notranslate"><span class="pre">backend</span></code></p></li>
+<li><p>a Qiskit backend: please use the keyword argument <code class="code docutils literal notranslate"><span class="pre">backend</span></code></p></li>
 <li><p>an IBM token and the name of the backend: please the keyword arguments
 <code class="code docutils literal notranslate"><span class="pre">token</span></code> and <code class="code docutils literal notranslate"><span class="pre">ibmq_backend</span></code> (the default backend is
 <code class="code docutils literal notranslate"><span class="pre">&quot;ibmq_qasm_simulator&quot;</span></code>)</p></li>
@@ -510,7 +515,7 @@ using:</p>
 the circuit.</p></li>
 <li><p><strong>token</strong> (<em>str</em>) – Qiskit IBMQ login token. If not supplied, loaded from the environment
 variable <code class="code docutils literal notranslate"><span class="pre">QISKIT_TOKEN</span></code></p></li>
-<li><p><strong>ibmq_backend</strong> (<em>str</em>) – name of the backend</p></li>
+<li><p><strong>ibmq_backend</strong> (<em>str</em>) – name of the backend. Defaults to ‘ibmq_qasm_simulator’.</p></li>
 </ul>
 </dd>
 </dl>

@@ -9,7 +9,7 @@ Many real life problems are combinatorial and solving them has actual practical 
 
     The QLM provides :ref:`helper classes <qubo_and_ising_code>` for both of these formulations, and also the more generic :ref:`Combinatorial Problem <combinatorial_problem_description>`, in which one can describe problems with clauses and variables.
 
-    Once the problems are encoded, one can solve them by either a Quantum Approximate Optimization Algorithm (:ref:`QAOA  <qaoa_description>`), Simulated Annealing (:ref:`SA  <sa_description>`) or Simulated Quantum Annealing (:ref:`SQA <sqa_description>`) as described in the :ref:`Solving combinatorial problems <solving_comb>` section.
+    Once the problems are encoded, one can solve them by either a Quantum Approximate Optimization Algorithm (:ref:`QAOA  <qaoa_description>`) or Simulated Quantum Annealing (:ref:`SQA <sqa_description>`) as described in the :ref:`Solving combinatorial problems <solving_comb>` section.
     
     Among the many different combinatorial problems, some of the most interesting and challenging ones are the NP-hard problems. A lot of effort has been put over the last 10-15 years into formulating such optimization problems as QUBO/Ising instances. See :cite:`lucas2014ising` for an extensive reference. A direct encoding of some of these problems, described in the :ref:`NP Hard problems <np_problems_formulation>` section, has also been :ref:`implemented <np_hard_problems_code>` on the QLM.
 
@@ -17,7 +17,7 @@ Many real life problems are combinatorial and solving them has actual practical 
 
     myQLM provides :ref:`helper classes <qubo_and_ising_code>` for both of these formulations, and also the more generic :ref:`Combinatorial Problem <combinatorial_problem_description>`, in which one can describe problems with clauses and variables - see the :ref:`Formulating combinatorial problems <formulating_comb>` section below.
     
-    Once the problems are encoded, one could solve them using a Quantum Approximate Optimization Algorithm (:ref:`QAOA  <qaoa_description>`). There are also tools to solve the problems via Simulated Annealing (SA) and Simulated Quantum Annealing (SQA), but they come in the full QLM version.
+    Once the problems are encoded, one could solve them using a Quantum Approximate Optimization Algorithm (:ref:`QAOA  <qaoa_description>`). There are also tools to solve the problems via Simulated Quantum Annealing (SQA), but they come in the full QLM version.
 
     Among the many different combinatorial problems, some of the most interesting and challenging ones are the NP-hard problems. A lot of effort has been put over the last 10-15 years into formulating such optimization problems as QUBO/Ising instances. See :cite:`lucas2014ising`  for an extensive reference. A direct encoding of some of these problems, described in the :ref:`NP Hard problems <np_problems_formulation>` section, has also been :ref:`implemented <np_hard_problems_code>` on myQLM.
 
@@ -80,11 +80,11 @@ See for instance :cite:`albash2018adiabatic` for a general reference on adiabati
 
 .. only:: qlm
 
-    Our **classical annealing codes** (see :ref:`Simulated Annealing (SA) <sa_description>` and :ref:`Simulated Quantum Annealing (SQA) <sqa_description>`) try and do the same thing: Given :math:`h` and :math:`J` as input, they will, starting from a random configuration,  try to apply **updates**, as part of **Markov chain over the configuration space**, in order to look for **low energy states**, where "energy" is defined by the formulas above.
+    Our **classical annealing codes** (see :ref:`Simulated Quantum Annealing (SQA) <sqa_description>`) try and do the same thing: Given :math:`h` and :math:`J` as input, they will, starting from a random configuration,  try to apply **updates**, as part of **Markov chain over the configuration space**, in order to look for **low energy states**, where "energy" is defined by the formulas above.
 
 .. only:: myqlm
 
-    **Classical annealing codes** like Simulated Annealing (SA) and Simulated Quantum Annealing (SQA) try and do the same thing: Given :math:`h` and :math:`J` as input, they will, starting from a random configuration, try to apply **updates**, as part of **Markov chain over the configuration space**, in order to look for **low energy states**, where "energy" is defined by the formulas above.
+    **Classical annealing codes** like Simulated Quantum Annealing (SQA) try and do the same thing: Given :math:`h` and :math:`J` as input, they will, starting from a random configuration, try to apply **updates**, as part of **Markov chain over the configuration space**, in order to look for **low energy states**, where "energy" is defined by the formulas above.
 
 .. note::
    A coupling value :math:`J > 0` between two spins :math:`\sigma_{i}` and 
@@ -94,7 +94,7 @@ See for instance :cite:`albash2018adiabatic` for a general reference on adiabati
 
 .. only:: qlm
 
-    In other words, **quantum annealing machines** and, consequently, our **classical annealing codes**, :ref:`SA <sa_description>` and :ref:`SQA <sqa_description>`, aim at tackling the following optimization problem:
+    In other words, **quantum annealing machines** and, consequently, our **classical annealing codes**, :ref:`SQA <sqa_description>`, aim at tackling the following optimization problem:
 
 .. only:: myqlm
 
@@ -180,8 +180,7 @@ Solving combinatorial problems
     This section describes how to define and solve combinatorial problems using QLM tools. Here is the outline:
 
     1. `Quantum Approximate Optimization Algorithm (QAOA)`_
-    2. `Simulated Annealing (SA)`_
-    3. `Simulated Quantum Annealing (SQA)`_
+    2. `Simulated Quantum Annealing (SQA)`_
 
 .. _qaoa_description:
 
@@ -211,59 +210,13 @@ If you need a lower level interface, the :class:`qat.vsolve.ansatz.AnsatzFactory
 
 .. only:: qlm
 
-    .. _sa_description:
-
-    Simulated Annealing (SA)
-    ************************
-
-    **Simulated annealing** is a well-known, historical heuristic for
-    combinatorial optimization. It aims at finding low energy-states
-    of a classical Ising system with a **Markov Chain** over
-    **spin configurations**, with **decreasing stochasticity**.
-
-    Stochasticity is specified by a **temperature**. In practice, a 
-    **decreasing temperature schedule** is given to the algorithm. 
-    At the beginning of the execution, large temperature values allow
-    to **jump over energy barriers** to escape **local optima**. When
-    temperature settles to lower values, the **Markov chain** will
-    hopefully settle to the global optimum of the cost function.
-
-    Mathematically speaking, simulated annealing tries to find, given :math:`H` and :math:`J`, the global minimum configuration of: 
-
-    .. math::
-
-        H(s_{1},...,s_{n}) = -\sum_{i,j=1}^{n} J_{ij}s_{i}s_{j}-\sum_{i=1} h_{i}s_{i}
-
-    It does so by first choosing a **random configuration**, which then
-    evolves by applying **updates**. In the case of simulated annealing, 
-    an update consists in **flipping the value** :math:`s_{l}` **of a single spin**.
-
-    An update is **accepted** with probability:
-
-    .. math::
-
-        P_{flip} = min(1, e^{-\Delta H / T}) = min(1, e^{-\Delta H \cdot \beta}) 
-
-    with :math:`\beta=1/T`, and :math:`\Delta H` is the energy change incurred by switching from :math:`s_{l}` to :math:`-s_{l}`. A change decreasing the energy of the system is always accepted, whereas a change which increases it needs a temperature high enough to have a non-negligible probability of being accepted.
-
-    The following picture explains in pseudo-code how simulated annealing works.
-
-    .. image:: simulated_annealing.png
-        :width: 600px
-        :align: center
-
-
     .. _sqa_description:
 
     Simulated Quantum Annealing (SQA)
     *********************************
 
-    We present **simulated quantum annealing** in second because of its 
-    more involved nature. 
-
-    Just like simulated annealing aims at finding a configuration
-    minimizing a classical Ising Hamiltonian, simulated quantum annealing
-    provides a heuristic for aiming at minimizing **quantum Ising Hamiltonians**.
+    Simulated quantum annealing provides a heuristic which aims to
+    minimize **quantum Ising Hamiltonians**.
 
     The questions of whether SQA performs such minimizations more efficiently
     than **physical quantum annealing machines**, and whether SQA
@@ -281,7 +234,7 @@ If you need a lower level interface, the :class:`qat.vsolve.ansatz.AnsatzFactory
 
     .. math::
 
-        H = -\sum_{i,j} J_{i,j}\sigma_{z}^{i}\sigma_{z}^{j}-\sum_{i} h_{i}\sigma_{z}^{i} + \Gamma\sum_{i}\sigma_{x}^{i}
+        H = -\sum_{i,j} J_{i,j}\sigma_{z}^{i}\sigma_{z}^{j}-\sum_{i} h_{i}\sigma_{z}^{i} - \Gamma\sum_{i}\sigma_{x}^{i}
 
     one samples from the equivalent classical Ising Hamiltonian:
 

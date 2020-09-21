@@ -27,10 +27,10 @@ The computational jobs that are fed to a QPU primarily consist of two main compo
 
 - "**Sample**": Measuring the projection of the wavefunction on the computational basis (formally speaking, this means measuring qubits "along the Z axis"). For instance, if the final state is :math:`|\psi\rangle=(|00\rangle+|11\rangle)/\sqrt{2}`, measuring "in the computational basis" will yield the bitstring "00" in 50% (:math:`1/\sqrt{2}^2`) of cases, and "11" the rest of the time. Because of the statistical nature of the measurement, many repeated measurements on the computational basis, yielding many different bitstrings or "**samples**", are necessary to get an accurate estimate of the frequencies of each computational basis state ("00": 50%, "01": 0%, "10": 0%, "11": 50% in our case). We will call "**nbshots**" the number of such repetitions (with a classical emulator, one can in general emulate an infinite number of shots since one has access to the exact frequencies). Of course, one may decide to measure only a subset of qubits.
 
-- "**Observable**": Measuring the value of a quantum mechanical **observable** :math:`O` in the final state. On average, such a value is given by the formula :math:`\langle O \rangle = \langle \psi | O |\psi \rangle`. While this average value can directly be computed using a classical computer, on an actual QPU, only a limited set of observables can be measured. In practice, most QPUs provide only "Z-axis" measurements, i.e, as described above, the possibility to measure the projection of the wavefunction on computational basis states. One thus needs, to perform the estimation of the average value of an observable, to convert the computation of :math:`\langle O \rangle` into a series of Z axis measurements (with possible modifications of the circuit), estimate bitstrings frequencies as described above (with a given number of shots or repetitions), and combine those subresults back into a estimate of :math:`\langle O \rangle`.
+- "**Observable**": Measuring the value of a quantum mechanical **observable** :math:`O` in the final state. On average, such a value is given by the formula :math:`\langle O \rangle = \langle \psi | O |\psi \rangle`. While this average value can directly be computed using a classical computer, on an actual QPU, only a limited set of observables can be measured. In practice, most QPUs provide only "Z-axis" measurements, i.e, as described above, the possibility to measure the projection of the wavefunction on computational basis states. In order to perform the estimation of the average value of an observable, one thus needs to convert the computation of :math:`\langle O \rangle` into a series of Z axis measurements (with possible modifications of the circuit), estimate bitstrings frequencies as described above (with a given number of shots or repetitions), and combine those subresults back into an estimate of :math:`\langle O \rangle`.
 
 Let us emphasize the fact that while the first final processing type is native to most actual QPUs, the same does not necessarily holds
-for the "OBSERVABLE" processing type. In the absence of a native support, the :ref:`ObservableSplitter <obs_splitter>` plugin of the QLM canenhance the QPU with an observable-processing capacity.
+for the "OBSERVABLE" processing type. In the absence of a native support, the :ref:`ObservableSplitter <obs_splitter>` plugin of the QLM can enhance the QPU with an observable-processing capacity.
 
 In QLM, quantum jobs describing these tasks are implemented by a :py:class:`qat.core.Job` object, that contains
 
@@ -181,7 +181,7 @@ Let us start with a computation devoid of any shot noise. It directly yields the
     obs = Observable(2, pauli_terms=[Term(1, "XZ", [0, 1])])
 
     # Create a job
-    job = circuit.to_job(job_type='OBS', observable=obs)
+    job = circuit.to_job(observable=obs)
 
     # Execute
     result = get_default_qpu().submit(job)
@@ -212,7 +212,7 @@ repeat the measurement a finite number of times:
 
     # Create a job
     for nbshots in [100, 1000, 10000]:
-        job = circuit.to_job(job_type='OBS', observable=obs, nbshots=nbshots)
+        job = circuit.to_job(observable=obs, nbshots=nbshots)
         result = get_default_qpu().submit(job)
         print(f"<O> ({nbshots} shots) = {result.value} +/- {result.error}")
 
@@ -232,5 +232,3 @@ You will find a complete documentation of the objects mentioned above in the :re
 - observable: :py:class:`qat.core.Observable` and :py:class:`qat.core.Term`.
 
 - results and samples: :py:class:`qat.core.Result` and :py:class:`qat.core.wrappers.result.Sample`.
-
-

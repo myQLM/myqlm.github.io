@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Executing quantum circuits &mdash; myQLM documentation myQLM-1.1.5.20 documentation</title>
+  <title>Executing quantum circuits &mdash; myQLM documentation myQLM-1.1.6.25 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-1.1.5
+                myQLM-1.1.6
               </div>
             
           
@@ -132,6 +132,12 @@
 <li class="toctree-l1"><a class="reference internal" href="source_doc.html">Source code documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command line tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/notebooks.html">Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/contrib.html">Contributing to myQLM</a></li>
 </ul>
 
             
@@ -237,10 +243,10 @@ run a QLM QPU.</p>
 <p><strong>Two types</strong> of final measurements are commonly used in quantum algorithms:</p>
 <ul class="simple">
 <li><p>“<strong>Sample</strong>”: Measuring the projection of the wavefunction on the computational basis (formally speaking, this means measuring qubits “along the Z axis”). For instance, if the final state is <span class="math notranslate nohighlight">\(|\psi\rangle=(|00\rangle+|11\rangle)/\sqrt{2}\)</span>, measuring “in the computational basis” will yield the bitstring “00” in 50% (<span class="math notranslate nohighlight">\(1/\sqrt{2}^2\)</span>) of cases, and “11” the rest of the time. Because of the statistical nature of the measurement, many repeated measurements on the computational basis, yielding many different bitstrings or “<strong>samples</strong>”, are necessary to get an accurate estimate of the frequencies of each computational basis state (“00”: 50%, “01”: 0%, “10”: 0%, “11”: 50% in our case). We will call “<strong>nbshots</strong>” the number of such repetitions (with a classical emulator, one can in general emulate an infinite number of shots since one has access to the exact frequencies). Of course, one may decide to measure only a subset of qubits.</p></li>
-<li><p>“<strong>Observable</strong>”: Measuring the value of a quantum mechanical <strong>observable</strong> <span class="math notranslate nohighlight">\(O\)</span> in the final state. On average, such a value is given by the formula <span class="math notranslate nohighlight">\(\langle O \rangle = \langle \psi | O |\psi \rangle\)</span>. While this average value can directly be computed using a classical computer, on an actual QPU, only a limited set of observables can be measured. In practice, most QPUs provide only “Z-axis” measurements, i.e, as described above, the possibility to measure the projection of the wavefunction on computational basis states. One thus needs, to perform the estimation of the average value of an observable, to convert the computation of <span class="math notranslate nohighlight">\(\langle O \rangle\)</span> into a series of Z axis measurements (with possible modifications of the circuit), estimate bitstrings frequencies as described above (with a given number of shots or repetitions), and combine those subresults back into a estimate of <span class="math notranslate nohighlight">\(\langle O \rangle\)</span>.</p></li>
+<li><p>“<strong>Observable</strong>”: Measuring the value of a quantum mechanical <strong>observable</strong> <span class="math notranslate nohighlight">\(O\)</span> in the final state. On average, such a value is given by the formula <span class="math notranslate nohighlight">\(\langle O \rangle = \langle \psi | O |\psi \rangle\)</span>. While this average value can directly be computed using a classical computer, on an actual QPU, only a limited set of observables can be measured. In practice, most QPUs provide only “Z-axis” measurements, i.e, as described above, the possibility to measure the projection of the wavefunction on computational basis states. In order to perform the estimation of the average value of an observable, one thus needs to convert the computation of <span class="math notranslate nohighlight">\(\langle O \rangle\)</span> into a series of Z axis measurements (with possible modifications of the circuit), estimate bitstrings frequencies as described above (with a given number of shots or repetitions), and combine those subresults back into an estimate of <span class="math notranslate nohighlight">\(\langle O \rangle\)</span>.</p></li>
 </ul>
 <p>Let us emphasize the fact that while the first final processing type is native to most actual QPUs, the same does not necessarily holds
-for the “OBSERVABLE” processing type. In the absence of a native support, the <a class="reference internal" href="observable-splitter.html#obs-splitter"><span class="std std-ref">ObservableSplitter</span></a> plugin of the QLM canenhance the QPU with an observable-processing capacity.</p>
+for the “OBSERVABLE” processing type. In the absence of a native support, the <a class="reference internal" href="observable-splitter.html#obs-splitter"><span class="std std-ref">ObservableSplitter</span></a> plugin of the QLM can enhance the QPU with an observable-processing capacity.</p>
 <p>In QLM, quantum jobs describing these tasks are implemented by a <a class="reference internal" href="qat-core.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Job</span></code></a> object, that contains</p>
 <ul class="simple">
 <li><p>the circuit <span class="math notranslate nohighlight">\(\mathcal{C}\)</span> to be executed</p></li>
@@ -315,8 +321,8 @@ from some classical simulators.</p>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;State </span><span class="si">%s</span><span class="s2">: probability </span><span class="si">%s</span><span class="s2"> +/- </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">err</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">State</span> <span class="o">|</span><span class="mi">11</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.62</span> <span class="o">+/-</span> <span class="mf">0.04878317312145633</span>
-<span class="n">State</span> <span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.38</span> <span class="o">+/-</span> <span class="mf">0.04878317312145633</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">State</span> <span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.53</span> <span class="o">+/-</span> <span class="mf">0.050161355804659184</span>
+<span class="n">State</span> <span class="o">|</span><span class="mi">11</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.47</span> <span class="o">+/-</span> <span class="mf">0.050161355804659184</span>
 </pre></div>
 </div>
 <p>Notice how the estimated probability of the states differs from the ideal one due to “shot noise”. The <code class="docutils literal notranslate"><span class="pre">err</span></code>
@@ -381,7 +387,7 @@ this computation with QLM.</p>
 <span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;XZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
 
 <span class="c1"># Create a job</span>
-<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s1">&#39;OBS&#39;</span><span class="p">,</span> <span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">)</span>
 
 <span class="c1"># Execute</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
@@ -412,7 +418,7 @@ repeat the measurement a finite number of times:</p>
 
 <span class="c1"># Create a job</span>
 <span class="k">for</span> <span class="n">nbshots</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">]:</span>
-    <span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s1">&#39;OBS&#39;</span><span class="p">,</span> <span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">nbshots</span><span class="o">=</span><span class="n">nbshots</span><span class="p">)</span>
+    <span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">nbshots</span><span class="o">=</span><span class="n">nbshots</span><span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;O&gt; (</span><span class="si">{</span><span class="n">nbshots</span><span class="si">}</span><span class="s2"> shots) = </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>

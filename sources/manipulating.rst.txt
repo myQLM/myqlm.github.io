@@ -69,7 +69,7 @@ In order to inherit from all the features of the :class:`Plugin` class, you shou
 
     MyPlugin()
 
-Of course, we need to implement the basic Plugin API via the two methods **compile** (way in) and **post_process** (way out). As you can see, there is also a third method required: **do_post_processing**.
+Of course, we need to implement the basic Plugin API via the two methods **compile** (way in) and **post_process** (way out, optional). There is also a third method required: **do_post_processing**.
 We will discuss this method later.
 
 .. run-block:: python
@@ -82,19 +82,11 @@ We will discuss this method later.
             # do something with the batch of jobs `batch`, and, optionally, the specs
             return batch
 
-        def post_process(self, batch_result):
-            # do something with the execution results
-            # here, we could also return a batch of fresh jobs
-            return batch_result
-
-        def do_post_processing(self):
-            return True
-
     MyPlugin()
 
 As you can see, our plugin is now "valid" and can be instantiated. 
 For now, it is not a very useful plugin.
-Since our plugin inherits from the  :class:`~qat.core.plugins.AbstractPlugin` class, we can compose it with a QPU to build a stack:
+Since our plugin inherits from the :class:`~qat.core.plugins.AbstractPlugin` class, we can compose it with a QPU to build a stack:
 
 .. only:: qlm
 
@@ -106,13 +98,6 @@ Since our plugin inherits from the  :class:`~qat.core.plugins.AbstractPlugin` cl
             def compile(self, batch, hardware_specs):
                 # do something with the batch of jobs `batch`, and, optionally, the specs
                 return batch
-
-            def post_process(self, batch_result):
-                # do something with the execution results
-                return batch_result # you can also return a new batch of jobs here
-
-            def do_post_processing(self):
-                return True
 
         MyPlugin()
 
@@ -141,13 +126,6 @@ Since our plugin inherits from the  :class:`~qat.core.plugins.AbstractPlugin` cl
                 # do something with the batch of jobs `batch`, and, optionally, the specs
                 return batch
 
-            def post_process(self, batch_result):
-                # do something with the execution results
-                return batch_result # you can also return a new batch of jobs here
-
-            def do_post_processing(self):
-                return True
-
         MyPlugin()
 
         from qat.qpus import PyLinalg
@@ -164,9 +142,7 @@ Since our plugin inherits from the  :class:`~qat.core.plugins.AbstractPlugin` cl
             print(sample)
 
 
-
-
-Let us change our code so that our plugin prints any incoming circuit:
+Let us change our code so that our plugin prints any incoming circuit and the size of each result returned by the QPU:
 
 .. only:: qlm
 
@@ -188,9 +164,6 @@ Let us change our code so that our plugin prints any incoming circuit:
                 for result in batch_result.results:
                     print('Result of size', len(result))
                 return batch_result
-
-            def do_post_processing(self):
-                return True
 
         MyPlugin()
 
@@ -229,9 +202,6 @@ Let us change our code so that our plugin prints any incoming circuit:
                 for result in batch_result.results:
                     print('Result of size', len(result.raw_data))
                 return batch_result
-
-            def do_post_processing(self):
-                return True
 
         MyPlugin()
 
@@ -337,6 +307,10 @@ Finally, let's change the implementation of the `do_post_processing` method:
 
 
 Since the method now returns `False`, the stack will skip the plugin `post_process` method. This is useful when a Plugin does not need to post process the outgoing results. In the case where the Plugin is delocalized (i.e is a distant service), this will save a lot of time.
+
+The default implementation of `do_post_processing` checks if the plugin has a method `post_process`. If a `post_process` method exists, the method `do_post_processing` will return `True`, otherwise `False`.
+
+Please note that the `post_process` can return as well :class:`~qat.core.BatchResult` objects as :class:`~qat.core.Batch` objects. If the output of this function is a :class:`~qat.core.Batch` object, the :class:`~qat.core.Batch` will be sent back to the QPU (and compiled by the plugins present between the current plugin and the QPU).
 
 
 Building expressive stacks using Junctions

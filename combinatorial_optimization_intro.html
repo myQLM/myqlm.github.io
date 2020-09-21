@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Combinatorial optimization &mdash; myQLM documentation myQLM-1.1.5.20 documentation</title>
+  <title>Combinatorial optimization &mdash; myQLM documentation myQLM-1.1.6.25 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-1.1.5
+                myQLM-1.1.6
               </div>
             
           
@@ -127,6 +127,12 @@
 <li class="toctree-l1"><a class="reference internal" href="source_doc.html">Source code documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command line tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/notebooks.html">Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/contrib.html">Contributing to myQLM</a></li>
 </ul>
 
             
@@ -217,7 +223,7 @@
 <span id="id1"></span><h1>Combinatorial optimization<a class="headerlink" href="#combinatorial-optimization" title="Permalink to this headline">¶</a></h1>
 <p>Many real life problems are combinatorial and solving them has actual practical applications. An intrinsic feature of these problems is that they can be formulated as minimization or maximization problems, i.e. with a cost function. At the same time finding the lowest energy of a physical system, represented by a cost Hamiltonian, is also a minimization problem. Due to this intimate relation, problems described with a cost function (<a class="reference internal" href="#qubo-description"><span class="std std-ref">QUBO</span></a>) or a cost Hamiltonian (<a class="reference internal" href="#ising-description"><span class="std std-ref">Ising</span></a>) could be solved by simulating the process of finding their minimum energy. This lowest energy should encode the solution to our problem.</p>
 <p>myQLM provides <a class="reference internal" href="qat-opt.html#qubo-and-ising-code"><span class="std std-ref">helper classes</span></a> for both of these formulations, and also the more generic <a class="reference internal" href="#combinatorial-problem-description"><span class="std std-ref">Combinatorial Problem</span></a>, in which one can describe problems with clauses and variables - see the <a class="reference internal" href="#formulating-comb"><span class="std std-ref">Formulating combinatorial problems</span></a> section below.</p>
-<p>Once the problems are encoded, one could solve them using a Quantum Approximate Optimization Algorithm (<a class="reference internal" href="#qaoa-description"><span class="std std-ref">QAOA</span></a>). There are also tools to solve the problems via Simulated Annealing (SA) and Simulated Quantum Annealing (SQA), but they come in the full QLM version.</p>
+<p>Once the problems are encoded, one could solve them using a Quantum Approximate Optimization Algorithm (<a class="reference internal" href="#qaoa-description"><span class="std std-ref">QAOA</span></a>). There are also tools to solve the problems via Simulated Quantum Annealing (SQA), but they come in the full QLM version.</p>
 <p>Among the many different combinatorial problems, some of the most interesting and challenging ones are the NP-hard problems. A lot of effort has been put over the last 10-15 years into formulating such optimization problems as QUBO/Ising instances. See <a class="bibtex reference internal" href="#lucas2014ising" id="id3">[Luc14]</a>  for an extensive reference. A direct encoding of some of these problems, described in the <a class="reference internal" href="advanced_combinatorial_optimization.html#np-problems-formulation"><span class="std std-ref">NP Hard problems</span></a> section, has also been <a class="reference internal" href="qat-opt.html#np-hard-problems-code"><span class="std std-ref">implemented</span></a> on myQLM.</p>
 <div class="section" id="formulating-combinatorial-problems">
 <span id="formulating-comb"></span><h2>Formulating combinatorial problems<a class="headerlink" href="#formulating-combinatorial-problems" title="Permalink to this headline">¶</a></h2>
@@ -266,7 +272,7 @@ QUBO instances and vice versa</strong>. See below for more details: <a class="re
 <p>Quantum annealing machines are typically designed to try and reach the <strong>minimum energy state
 of Ising Hamiltonians</strong>, also called <strong>ground state</strong>, relying on the <strong>Adiabatic Theorem</strong>.
 See for instance <a class="bibtex reference internal" href="#albash2018adiabatic" id="id4">[AL18]</a> for a general reference on adiabatic quantum computation.</p>
-<p><strong>Classical annealing codes</strong> like Simulated Annealing (SA) and Simulated Quantum Annealing (SQA) try and do the same thing: Given <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(J\)</span> as input, they will, starting from a random configuration, try to apply <strong>updates</strong>, as part of <strong>Markov chain over the configuration space</strong>, in order to look for <strong>low energy states</strong>, where “energy” is defined by the formulas above.</p>
+<p><strong>Classical annealing codes</strong> like Simulated Quantum Annealing (SQA) try and do the same thing: Given <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(J\)</span> as input, they will, starting from a random configuration, try to apply <strong>updates</strong>, as part of <strong>Markov chain over the configuration space</strong>, in order to look for <strong>low energy states</strong>, where “energy” is defined by the formulas above.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>A coupling value <span class="math notranslate nohighlight">\(J &gt; 0\)</span> between two spins <span class="math notranslate nohighlight">\(\sigma_{i}\)</span> and

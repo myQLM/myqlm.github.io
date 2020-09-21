@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>qat-core: Core data structures and Abstract classes &mdash; myQLM documentation myQLM-1.1.5.20 documentation</title>
+  <title>qat-core: Core data structures and Abstract classes &mdash; myQLM documentation myQLM-1.1.6.25 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-1.1.5
+                myQLM-1.1.6
               </div>
             
           
@@ -138,6 +138,12 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command line tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/notebooks.html">Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/contrib.html">Contributing to myQLM</a></li>
 </ul>
 
             
@@ -245,17 +251,9 @@ some hardware specs</p>
 
 <dl class="py method">
 <dt id="qat.plugins.AbstractPlugin.do_post_processing">
-<em class="property">abstract </em><code class="sig-name descname">do_post_processing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.AbstractPlugin.do_post_processing" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">do_post_processing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.AbstractPlugin.do_post_processing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns True iff the results need to be aggregated/post processed
 via the plugin.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="qat.plugins.AbstractPlugin.post_process">
-<em class="property">abstract </em><code class="sig-name descname">post_process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">results</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.AbstractPlugin.post_process" title="Permalink to this definition">¶</a></dt>
-<dd><p>Post process some results. The batch meta_data can be used
-to store a key to retain some information on the initial
-transformation of the task via the compile method.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -695,10 +693,7 @@ Also serializes the underlying statevector object, if any</p>
 <dd><p>Simple higher-level wrapper for the serializable Sample class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>qregs</strong> (<em>'QRegister'</em>) – quantum register</p></li>
-<li><p><strong>sample</strong> (<em>ThriftSample</em><em>, </em><em>optional</em>) – sample</p></li>
-</ul>
+<dd class="field-odd"><p><strong>qregs</strong> (<em>'QRegister'</em>) – quantum register</p>
 </dd>
 </dl>
 <dl>
@@ -744,6 +739,13 @@ simulators)</p>
 </dd>
 </dl>
 <dl class="py method">
+<dt id="qat.core.wrappers.result.Sample.amplitude">
+<em class="property">property </em><code class="sig-name descname">amplitude</code><a class="headerlink" href="#qat.core.wrappers.result.Sample.amplitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the amplitude of the Sample (wrapped in a Python
+complex number)</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="qat.core.wrappers.result.Sample.from_thrift">
 <em class="property">classmethod </em><code class="sig-name descname">from_thrift</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tobject</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.wrappers.result.Sample.from_thrift" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds a Sample object from a thrift object</p>
@@ -752,7 +754,15 @@ simulators)</p>
 <dl class="py method">
 <dt id="qat.core.wrappers.result.Sample.set_qreg">
 <code class="sig-name descname">set_qreg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qregs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.wrappers.result.Sample.set_qreg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the quantum register information for pretty display and cast of states</p>
+<dd><p>Sets the quantum register information for pretty display and cast of
+states</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.core.wrappers.result.Sample.state">
+<em class="property">property </em><code class="sig-name descname">state</code><a class="headerlink" href="#qat.core.wrappers.result.Sample.state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the state of the sample.
+The state may be wrapped in a State object</p>
 </dd></dl>
 
 </dd></dl>
@@ -902,7 +912,7 @@ instructions:</p>
 <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;C-C-C-RX&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14e6561702e8</span><span class="o">&gt;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-C-C-RX&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x151dd99ebe80</span><span class="o">&gt;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;MEASURE&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;RESET&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
