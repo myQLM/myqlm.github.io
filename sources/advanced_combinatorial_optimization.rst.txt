@@ -6,35 +6,35 @@ Advanced combinatorial optimization
 
 .. _np_problems_formulation:
 
-NP-hard problems on the QLM
----------------------------
+NP-hard problems
+----------------
 
 .. only:: qlm
 
-    Of all the combinatorial problems, the ones of highest practical importance and repeated appearance are the NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (see :ref:`combinatorial_optimization`). Some of them, like constrained and unconstrained graph problems, number partitioning, etc. have therefore been implemented in the QLM. Their description can be found below and the respective helper classes for each problem are given in the :ref:`Source code <np_hard_problems_code>`.
+    Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (see :ref:`combinatorial_optimization`). Some of them, like max cut, graph colouring, number partitioning, etc. could be easily reprensented in an Ising or QUBO form using the QLM tools. A description of these problems can be found below and the respective helper classes for each problem are given in the :ref:`Source code <np_hard_problems_code>`.
     
 .. only:: myqlm
 
-    Of all the combinatorial problems, the ones of highest practical importance and repeated appearance are the NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (see :ref:`combinatorial_optimization`). Some of them, like constrained and unconstrained graph problems, number partitioning, etc. have therefore been implemented in myQLM. Their description can be found below and the respective helper classes for each problem are given in the :ref:`Source code <np_hard_problems_code>`.
+    Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (see :ref:`combinatorial_optimization`). Some of them, like max cut, graph colouring, number partitioning, etc. could be easily represented in an Ising or QUBO form using myQLM tools. A description of these problems can be found below and the respective helper classes for each problem are given in the :ref:`Source code <np_hard_problems_code>`.
 
 Unconstrained Graph Problems
 ____________________________
 
-These are problems concerning graphs, for which any output result is valid. In other words, any solution will obey the criteria for a right solution. However, this result may not be the most optimal.
+These problems concern graphs for which any output result is valid. In other words, any solution will obey the criteria for a right solution. However, this result may not be the most optimal.
 
 .. _maxcut_description:
 
 Max cut
 ~~~~~~~
 
-We are given an undirected graph with vertex set :math:`V` and edge set :math:`E`. The task is to partition the graph into two subgraphs connected by the maximum number of edges. To anneal the problem with the :class:`~qat.opt.max_cut.MaxCut` class we would need :math:`N` spins for each of the vertices in the graph.
+Given an undirected graph with vertex set :math:`V` and edge set :math:`E`, the problem consists in partitioning the graph into two subgraphs connected by the maximum number of edges. Annealing the problem with the :class:`~qat.opt.max_cut.MaxCut` class needs :math:`\#V` spins (one spin per vertex of the graph).
 
 .. _graph_partitioning_description:
 
 Graph Partitioning
 ~~~~~~~~~~~~~~~~~~
 
-We start with an undirected graph with vertex set :math:`V` and edge set :math:`E`. The task is to partition the graph into two equally-sized subgraphs connected by the minimal number of edges. In order to anneal the problem with the :class:`~qat.opt.graph_partitioning.GraphPartitioning` class we will need :math:`N` spins for each individual vertex.
+Given an undirected graph with vertex set :math:`V` and edge set :math:`E`, the problem consists in partitioning the graph into two equally-sized subgraphs connected by the minimal number of edges. Annealing the problem with the :class:`~qat.opt.graph_partitioning.GraphPartitioning` class needs :math:`\#V` spins (one spin for each individual vertex).
 
 Constrained Graph Problems
 __________________________
@@ -46,142 +46,126 @@ A graph problem is constrained when the output solution needs to obey some condi
 Graph Colouring
 ~~~~~~~~~~~~~~~
 
-We are given an undirected graph with vertex set :math:`V` and edge set :math:`E` and a a set of :math:`n` colours. Our task is find whether we can colour every node of the graph in one of these :math:`n` colours such that no edge connects nodes of the same colour. We therefore need :math:`nN` spins to anneal the problem with our :class:`~qat.opt.graph_colouring.GraphColouring` class, where :math:`N` is the number of vertices of the graph. The classical complexity of the best known approximate algorithm for this problem is :math:`O(N(log log N)^2 (log N)^3)`.
+Given an undirected graph with vertex set :math:`V` and edge set :math:`E` and a a set of :math:`n` colours, the problem consists in finding whether we can colour every node of the graph in one of these :math:`n` colours such that no edge connects nodes of the same colour. We therefore need :math:`nN` spins to anneal the problem with our :class:`~qat.opt.graph_colouring.GraphColouring` class, where :math:`N` is the number of vertices of the graph. The classical complexity of the best known approximate algorithm for this problem is :math:`O(N(log log N)^2 (log N)^3)`.
 
 .. _kclique_description:
 
 K-Clique
 ~~~~~~~~
 
-We start from an undirected graph with vertex set :math:`V` and edge set :math:`E`. The task is to find out whether there exists a complete subgraph of size :math:`K`. Annealing the problem with the help of our :class:`~qat.opt.k_clique.KClique` class requires :math:`N` spins for each of the vertices. 
+Given an undirected graph with vertex set :math:`V` and edge set :math:`E`, the problem consists in finding out whether there exists a complete subgraph of size :math:`K`. Annealing the problem with the help of our :class:`~qat.opt.k_clique.KClique` class requires :math:`\#V` spins (one spin per vertex).
 
 .. _vertex_cover_description:
 
 Vertex Cover
 ~~~~~~~~~~~~
 
-We are given an undirected graph with vertex set :math:`V` and edge set :math:`E`. Our task is to find the smallest number of nodes to be coloured, such that every edge has a coloured vertex. As an addition, we want to know which these vertices are. To anneal this problem we would need our :class:`~qat.opt.vertex_cover.VertexCover` class with :math:`N` spins for each individual vertex. 
+Given an undirected graph with vertex set :math:`V` and edge set :math:`E`, the problem consists in finding the smallest number of nodes to be coloured, such that every edge has a coloured vertex. As an addition, we want to know which these vertices are. To anneal this problem we would need our :class:`~qat.opt.vertex_cover.VertexCover` class with :math:`\#V` spins (one spin per vertex).
 
 Other problems
 ______________
 
 .. only:: qlm
 
-    Here we present problems which are more numbers-oriented, for example Number Partitioning and Binary Integer Linear Programming, as described below. These also belong to the class of NP and can be solved via Simulated Quantum Annealing (:ref:`SQA <sqa_description>`).
+    Some problems are more numbers-oriented, like Number Partitioning and Binary Integer Linear Programming. These also belong to the class of NP and can be solved via Simulated Quantum Annealing (:ref:`SQA <sqa_description>`).
     
 .. only:: myqlm
 
-    Here we present problems which are more numbers-oriented, for example Number Partitioning and Binary Integer Linear Programming, as described below.
+    Some problems are more numbers-oriented, like Number Partitioning and Binary Integer Linear Programming. Both of them also belong to the class of NP and the first one can be well solved via Simulated Annealing (:ref:`SA <sa_description>`).
 
 .. _number_partitioning_description:
 
 Number Partitioning
 ~~~~~~~~~~~~~~~~~~~
 
-We start from a set of real and potentially repeating numbers and our task is to partition them in two subsets, such that the sum of the numbers in both of them is equal (or as close as possible). To obtain an answer, we would need to use our :class:`~qat.opt.number_partitioning.NumberPartitioning` class and anneal :math:`N` spins, where :math:`N` is the size of the set of numbers. 
+Given a set of real and potentially repeating numbers, the problem consists in partitioning them in two subsets, such that the sum of the numbers in both of them is equal (or as close as possible). To obtain an answer, we would need to use our :class:`~qat.opt.number_partitioning.NumberPartitioning` class and anneal :math:`N` spins, where :math:`N` is the size of the set of numbers.
 
 .. _bilp_description:
 
 Binary Integer Linear Programming
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We are given a vector :math:`c` of size :math:`N` and we want to find the vector :math:`x` of the same size, but with binary values (i.e. 0 and 1) such that their dot product :math:`c*x` is largest. However, there is a constraint for :math:`x`, namely :math:`S*x = b` for some specified :math:`m \times N` matrix :math:`S` and vector :math:`b` of size :math:`m`. In order to simulate quantum anneaing, we would need our :class:`~qat.opt.binary_linear_integer_programming.BILP` class and :math:`N` spins for encoding each of the binary values in :math:`x`. 
+Given a vector :math:`c` of size :math:`N`, a vector :math:`b` of size :math:`m` and a matrix :math:`S` of size :math:`m \times N`, the problem consists in finding a binary vector :math:`x` (i.e. vector composed of 0 and 1) of size :math:`N` that maximizes the dot product :math:`c*x`, such as :math:`S * x = b`.
 
+Solving this problem using a simulated quantum annealing method requires our :class:`~qat.opt.binary_linear_integer_programming.BILP` class and :math:`N` spins (one spin per binary value of :math:`x`).
+
+
+.. _benchmarking: 
+
+Simulated Quantum Annealing Benchmarking and Performance
+--------------------------------------------------------
 
 .. only:: qlm
 
-    .. _tracer_section:
-
-    To help tuning parameters: running with Tracer
-    ----------------------------------------------
-
-    Tracking the evolution of the energy or the acceptance rate of updates might be useful when tuning the execution parameters of SQA. 
-
-    For this purpose, one can run SQA with the :class:`qat.mc.Tracer` class. Its fields - `min_energy`, `acceptance_ratio` or `acceptance_events` will then allow to make informative plots such as:
-
-    .. image:: energy_trace.png
-        :width: 400px
-        :align: center
-
-    .. image:: acceptance_events.png
-        :width: 400px
-        :align: center
-
-    .. warning::
-
-        Running SQA with a Tracer incurs an overhead on performance, of 
-        about :math:`10-20\%`
-
-    .. _benchmarking: 
-
-    Simulated Quantum Annealing Benchmarking and Performance
-    --------------------------------------------------------
-
-    To solve each of the NP problems with Simulated Quantum Annealing (SQA) we need to feed the :func:`~qat.mc.sqa` with parameters tailored for the specific problem. We therefore implemented optimizers, which find such well-performing parameters for a given set of benchmark instances.
+    To solve each of the NP problems with Simulated Quantum Annealing (SQA) we need to feed the :func:`~qat.mc.sqa` with parameters tailored for the specific problem. We provide such fine tuned parameters for a given set of instances for each problem class. They can be accessed from the ``get_best_parameters`` method of the respective problem class.
 
     Below, we present the benchmark sources and the performances we obtain with the parameters found. We also show the range of spins of these instances, together with the average execution times.
 
-    Max Cut
-    _______
+.. only:: myqlm
 
-    For this problem, the performance we optimized was defined by :math:`\frac {\text{number of Max Cut edges found}} {\text{best number of Max Cut edges}}`.
+    Although Simulated Quantum Annealing (:ref:`SQA <sqa_description>`) is only provided in the QLM, we present here its performance for some of the different NP problems to hint on its capabilities. Below are shown the benchmark sources, the range of spins for the problem instances, together with the average execution times.
 
-        - **Problem instances**: 
+Max Cut
+_______
 
-            - **Benchmarks**: 9 planar and random graphs from the `Gset benchmark dataset <http://web.stanford.edu/~yyye/yyye/Gset/>`_
-            - **Others**: > 20 random trees
-        - **Spin count**: from 20 to 10 000
-        - **Performance**: > 98%
-        - **Execution time**: from instantly to around 10 seconds
+For this problem, the performance we optimized was defined by :math:`\frac {\text{number of Max Cut edges found}} {\text{best number of Max Cut edges}}`.
 
-    Graph Colouring
-    _______________
+    - **Problem instances**: 
 
-    When optimizing this problem the performance was defined by :math:`\frac {\text{number of edges with vertices of different colours}} {\text{number of all edges}}`.
+        - **Benchmarks**: 9 planar and random graphs from the `Gset benchmark dataset <http://web.stanford.edu/~yyye/yyye/Gset/>`_
+        - **Others**: > 20 random trees
+    - **Spin count**: from 20 to 10 000
+    - **Performance**: > 98%
+    - **Execution time**: mostly < 1 sec and up to 5 seconds for 10 000 spins
 
-        - **Problem instances**:
+Graph Colouring
+_______________
 
-            - **Benchmarks**: 6 - random graphs and a Leighton graph from `DIMACS Graphs <http://cedric.cnam.fr/~porumbed/graphs/index.html>`_
-            - **Others**: 13 random graphs
-        - **Spin count**: from 60 to 24 000
-        - **Performance**: 88% for best colouring, 95% - 99%  for a few more colours
-        - **Execution time**: from < 5 sec for 7000 spins to < 1 min for 20 000 spins
+When optimizing this problem the performance was defined by :math:`\frac {\text{number of edges with vertices of different colours}} {\text{number of all edges}}`.
 
-    K-Clique
-    ________
+    - **Problem instances**:
 
-    In this case, the performance we optimized was defined by :math:`\frac {\text{number of edges in the subgraph found}} {\text{required number of edges for the subgraph to be complete}}`.
+        - **Benchmarks**: 6 - random graphs and a Leighton graph from `DIMACS Graphs <http://cedric.cnam.fr/~porumbed/graphs/index.html>`_
+        - **Others**: 13 random graphs
+    - **Spin count**: from 60 to 24 000
+    - **Performance**: 88% for best colouring, 95% - 99%  for a few more colours
+    - **Execution time**: < 10 sec for up to 24 000 spins
 
-        - **Problem instances**: 
+K-Clique
+________
 
-            - **Benchmarks**: 27 differently generated graphs from the `BHOSLIB <http://sites.nlsde.buaa.edu.cn/~kexu/benchmarks/graph-benchmarks.htm>`_, `DIMACS <https://mat.gsia.cmu.edu/COLOR02/clq.html>`_ and `Clique benchmark datasets <https://turing.cs.hbg.psu.edu/txn131/clique.html>`_
-            - **Others**: 5 random graphs
-        - **Spin count**: from 450 to 4000
-        - **Performance**: > 98%
-        - **Execution time**: from instantly for a few 100 spins, to ~20 sec for 1500, to > 1 min for 4000 spins
+In this case, the performance we optimized was defined by :math:`\frac {\text{number of edges in the subgraph found}} {\text{required number of edges for the subgraph to be complete}}`.
 
-    Vertex Cover
-    ____________
+    - **Problem instances**: 
 
-    Here, we define the performance during optimization by :math:`\frac {\text{best number of coloured nodes}} {\text{found number of coloured nodes}}`.
+        - **Benchmarks**: 27 differently generated graphs from the `BHOSLIB <http://sites.nlsde.buaa.edu.cn/~kexu/benchmarks/graph-benchmarks.htm>`_, `DIMACS <https://mat.gsia.cmu.edu/COLOR02/clq.html>`_ and `Clique benchmark datasets <https://turing.cs.hbg.psu.edu/txn131/clique.html>`_
+        - **Others**: 5 random graphs
+    - **Spin count**: from 450 to 4000
+    - **Performance**: > 98%
+    - **Execution time**: mostly < 1 sec when below 4000 spins
 
-        - **Problem instances**: 
+Vertex Cover
+____________
 
-            - **Benchmarks**: 21 random graphs from the `BHOSLIB <http://sites.nlsde.buaa.edu.cn/~kexu/benchmarks/graph-benchmarks.htm>`_ and `OEIS benchmark datasets <https://oeis.org/A265032/a265032.html>`_
-            - **Others**: 5 random graphs
-        - **Spin count**: from 450 to 4000
-        - **Performance**: > 99%
-        - **Execution time**: from 3-5 sec to > 1 min for 4000 spins
+Here, we define the performance during optimization by :math:`\frac {\text{best number of coloured nodes}} {\text{found number of coloured nodes}}`.
 
-    Number Partitioning
-    ___________________
+    - **Problem instances**: 
 
-    The performance we optimized for this problem was defined by :math:`\frac {\text{sum of numbers in smaller sum subset}} {\text{sum of numbers in larger sum subset}}`.
+        - **Benchmarks**: 21 random graphs from the `BHOSLIB <http://sites.nlsde.buaa.edu.cn/~kexu/benchmarks/graph-benchmarks.htm>`_ and `OEIS benchmark datasets <https://oeis.org/A265032/a265032.html>`_
+        - **Others**: 5 random graphs
+    - **Spin count**: from 450 to 4000
+    - **Performance**: > 98%
+    - **Execution time**: mostly < 1 sec and up to 10 seconds for 4000 spins
 
-        - **Problem instances**: > 30 random number sets of integer or real, non-repeating or repeating numbers
-        - **Spin count**: from 20 to 40 000
-        - **Performance**: > 99%
-        - **Execution time**: from instantly to > 1 min for 40 000 spins
+Number Partitioning
+___________________
+
+The performance we optimized for this problem was defined by :math:`\frac {\text{sum of numbers in smaller sum subset}} {\text{sum of numbers in larger sum subset}}`.
+
+    - **Problem instances**: > 30 random number sets of integer or real, non-repeating or repeating numbers
+    - **Spin count**: from 20 to 40 000
+    - **Performance**: > 99%
+    - **Execution time**: from instantly to 15 sec for 40 000 spins
 
 
 Interfacing with DWAVE
@@ -199,19 +183,22 @@ code snippet:
     # import required libraries
     import numpy as np
     import networkx as nx
-    from qat.opt import GraphColouring
+    from qat.opt import VertexCover
 
     # Specify the problem
     graph = nx.Graph()
-    graph.add_nodes_from(np.arange(4))
-    graph.add_edges_from([(0,1), (0,2), (1,2), (1,3), (2,3)])
-    number_of_colours = 3
+    graph.add_nodes_from(np.arange(6))
+    graph.add_edges_from([(0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (1, 5)])
+
+    # Impose constraints for the right encoding
+    B = 1
+    A = B + 0.01
 
     # Create problem
-    graph_colouring_problem = GraphColouring(graph, number_of_colours)
+    vertex_cover_problem = VertexCover(graph, A=A, B=B)
 
     # Extract Q and the offset
-    Q, o = graph_colouring_problem.get_q_and_offset()
+    Q, o = vertex_cover_problem.get_q_and_offset()
 
     from dimod import BinaryQuadraticModel as BQM #  pip install dimod --user
     bqm = BQM.from_numpy_matrix(Q)

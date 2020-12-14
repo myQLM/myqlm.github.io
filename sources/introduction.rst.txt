@@ -188,19 +188,92 @@ Exceptions
 
 All exceptions raised by QPUs and Plugins are thrift exceptions. This is particularly usefull when using a remote QPU/Plugin, since it allows the server to cleanly catch the exception and transmit it to the client. Upon receiving the exception, the client will raise it, thus emulating a 'local' behavior.
 
-QPUs will raise exceptions called :class:`QPUExceptions`, while Plugins will raise :class:`PluginExceptions`.
+.. toggle-header::
+   :header: *Toggle to get the documentation of exceptions classes*
+
+    .. class:: qat.comm.exceptions.ttypes.QPUException
+
+        A QPU is supposed to raise an exception of type
+        :class:`~qat.comm.exceptions.ttypes.QPUException`
+
+        Parameters:
+         * **code** (*int*): error code
+         * **modulename** (*str, optional*): module in which the exception is
+           raised
+         * **message** (*str, optional*): error message
+         * **file** (*str, optional*): file in which the exception is raised
+         * **line** (*int, optional*): line index
+
+    .. class:: qat.comm.exceptions.ttypes.PluginException
+
+        A Plugin is supposed to raise an exception of type
+        :class:`~qat.comm.exceptions.ttypes.PluginException`
+
+        Parameters:
+         * **code** (*int*): error code
+         * **modulename** (*str, optional*): module in which the exception is
+           raised
+         * **message** (*str, optional*): error message
+         * **file** (*str, optional*): file in which the exception is raised
+         * **line** (*int, optional*): line index
+
+QPUs will raise exceptions called :class:`~qat.comm.exceptions.ttypes.QPUException`,
+while Plugins will raise :class:`~qat.comm.exceptions.ttypes.PluginException`.
 Usually, the exception will contain a message that should be clear enough for you to understand what went wrong.
 
-Some additional information are packed inside the exception, taking the form of a file name and a line number.
+Some additional information is packed inside the exception, taking the form of a file name and a line number.
 
-Additionaly, exceptions come with an error code that characterize the type of error that appeared inside the Plugin/QPU:
+.. toggle-header::
+   :header: *Toggle to get the list of error codes*
 
+    Each error code is defined in the enumeration
+    :class:`~qat.comm.exceptions.ttypes.ErrorType`. This enumeration is composed
+    of the following items:
+
+     * Error **ABORT** (code :math:`1`) raised when the execution is
+       stopped
+     * Error **INVALID_ARGS** (code :math:`2`) raised when arguments
+       are invalid
+     * Error **NONRESULT** (code :math:`5`) raised when the result is not
+       available
+     * Error **BREAK** (code :math:`10`) raised by a *BREAK* gate in the circuit
+     * Error **ILLEGAL_GATES** (code :math:`11`) raised when the circuit contains
+       a gate unknown for the QPU
+     * Error **NBQBITS** (code :math:`12`) raised when the number of qubits
+       composing the circuit is not compatible with the QPU
+     * Error **NBCBITS** (code :math:`13`) raised when the number of cbits
+       composing the circuit is not compatible with the QPU
+     * Error **NOT_SIMULATABLE** (code :math:`14`) raised when a job is
+       not simulatable
+
+    .. class:: qat.comm.exceptions.ttypes.ErrorType
+
+        Enumeration containing all the defined error code
+
+        .. run-block:: python
+
+            from qat.comm.exceptions.ttypes import ErrorType
+
+            abort_code = ErrorType.ABORT
+
+        The error codes are:
+
+         * **ABORT** = 1
+         * **INVALID_ARGS** = 3
+         * **NONRESULT** = 5
+         * **BREAK** = 10
+         * **ILLEGAL_GATES** = 11
+         * **NBQBITS** = 12
+         * **NBCBITS** = 13
+         * **NOT_SIMULATABLE** = 14
+
+Additionally, exceptions come with an error code that characterizes the type of error that appeared inside the Plugin/QPU:
 
 .. only:: qlm
 
     .. run-block:: python
 
-        from qat.lang.AQASM import *
+        from qat.lang.AQASM import Program, RZ
         from qat.qpus import LinAlg
         from qat.comm.exceptions.ttypes import QPUException
 
@@ -219,7 +292,7 @@ Additionaly, exceptions come with an error code that characterize the type of er
 
     .. run-block:: python
 
-        from qat.lang.AQASM import *
+        from qat.lang.AQASM import Program, RZ
         from qat.qpus import PyLinalg
         from qat.comm.exceptions.ttypes import QPUException
 
@@ -233,6 +306,7 @@ Additionaly, exceptions come with an error code that characterize the type of er
             result = PyLinalg().submit(job)
         except QPUException as excp:
             print(excp)
+
 
 Here code :math:`14` means that the simulator encountered a non supported gate (here a gate with no matrix).
 
@@ -242,7 +316,7 @@ Another useful code is the one raised when a break instruction is triggered:
 
     .. run-block:: python
 
-        from qat.lang.AQASM import *
+        from qat.lang.AQASM import Program
         from qat.qpus import LinAlg
         from qat.comm.exceptions.ttypes import QPUException
 
@@ -263,7 +337,7 @@ Another useful code is the one raised when a break instruction is triggered:
 
     .. run-block:: python
 
-        from qat.lang.AQASM import *
+        from qat.lang.AQASM import Program
         from qat.qpus import PyLinalg
         from qat.comm.exceptions.ttypes import QPUException
 
@@ -280,7 +354,7 @@ Another useful code is the one raised when a break instruction is triggered:
         except QPUException as excp:
             print(excp)
 
-Code 10 will always refer to a triggered break instruction.
+Code :math:`10` will always refer to a triggered break instruction.
 
 
 Circuits

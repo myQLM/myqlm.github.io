@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>qat-core: Core data structures and Abstract classes &mdash; myQLM documentation myQLM-1.1.6.25 documentation</title>
+  <title>qat-core: Core data structures and Abstract classes &mdash; myQLM documentation  documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-1.1.6
+                myQLM-1.2.2
               </div>
             
           
@@ -116,6 +116,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="source_doc.html#the-core-library">The core library</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">qat-core: Core data structures and Abstract classes</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#abstract-classes">Abstract classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#remote-interfaces">Remote interfaces</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#batch-and-job">Batch and Job</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-qat.core.wrappers.observable">Observables</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#results">Results</a></li>
@@ -123,6 +124,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#displaying-circuits">Displaying circuits</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#hardware-specifications">Hardware specifications</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gate-set-and-gate-signatures">Gate set and gate signatures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#variables-and-expressions">Variables and expressions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#various-methods-and-tools">Various methods and tools</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#plugins-junctions">Plugins &amp; Junctions</a></li>
 </ul>
@@ -130,6 +132,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-programming-library">The programming library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-device-library">The device library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#plugins">Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#qpus">QPUs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a></li>
@@ -232,7 +235,7 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="qat-core-core-data-structures-and-abstract-classes">
+<span class="target" id="module-qat.core"></span><div class="section" id="qat-core-core-data-structures-and-abstract-classes">
 <span id="qat-core"></span><h1>qat-core: Core data structures and Abstract classes<a class="headerlink" href="#qat-core-core-data-structures-and-abstract-classes" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="abstract-classes">
 <h2>Abstract classes<a class="headerlink" href="#abstract-classes" title="Permalink to this headline">¶</a></h2>
@@ -302,7 +305,55 @@ PostProcessResult object</p>
 <p>The minimal interface is the implementation of the <cite>submit_job</cite> method:</p>
 <p>This method should return a Result structure corresponding to the execution
 of a Job.</p>
-<p>This class inherits from <code class="xref py py-class docutils literal notranslate"><span class="pre">CommonQPU</span></code>.</p>
+<dl class="py method">
+<dt id="qat.core.qpu.QPUHandler.serve">
+<code class="sig-name descname">serve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">host_ip</span><span class="o">=</span><span class="default_value">'localhost'</span></em>, <em class="sig-param"><span class="n">server_type</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.qpu.QPUHandler.serve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the QPU inside a server</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> (<em>int</em>) – the port on which to listen</p></li>
+<li><p><strong>host_ip</strong> (<em>str</em>) – the url on which to publish the API. Optional.
+Defaults to ‘localhost’.</p></li>
+<li><p><strong>server_type</strong> (<em>str</em><em>, </em><em>optional</em>) – <p>type of server. The different
+types of server are:</p>
+<blockquote>
+<div><ul>
+<li><p>”simple”: single-thread server, accepts one connection
+at a time (default server type)</p></li>
+<li><p>”threaded”: multi-thread server, each connection
+starts a new thread</p></li>
+<li><p>”pool”: multi-thread server, each connection runs
+in a thread, with a maximum of 10 running threads</p></li>
+<li><p>”fork”: multi-process server, each connection runs
+in a new process</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.core.qpu.QPUHandler.submit">
+<code class="sig-name descname">submit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch</span><span class="p">:</span> <span class="n">qat.core.wrappers.batch.Batch</span></em>, <em class="sig-param"><span class="n">meta_data</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; qat.core.wrappers.result.BatchResult<a class="headerlink" href="#qat.core.qpu.QPUHandler.submit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes a batch of jobs and returns the corresponding list of Results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>batch</strong> (<a class="reference internal" href="#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) – a batch of jobs. If a single job is provided, the
+job is embedded into a Batch, executed, and the first result
+is returned.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a batch result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt id="qat.core.qpu.QPUHandler.submit_job">
 <em class="property">abstract </em><code class="sig-name descname">submit_job</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">job</span><span class="p">:</span> <span class="n">qat.core.wrappers.job.Job</span></em><span class="sig-paren">)</span> &#x2192; qat.core.wrappers.result.Result<a class="headerlink" href="#qat.core.qpu.QPUHandler.submit_job" title="Permalink to this definition">¶</a></dt>
@@ -315,17 +366,70 @@ compiled/optimized.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>job</strong> (<a class="reference internal" href="#qat.core.Job" title="qat.core.Job"><em>Job</em></a>) – the job to execute</p>
+<dd class="field-odd"><p><strong>job</strong> (<a class="reference internal" href="#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a>) – the job to execute</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>a result</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(<a class="reference internal" href="#qat.core.Result" title="qat.core.Result">Result</a>)</p>
+<dd class="field-odd"><p>(<a class="reference internal" href="#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a>)</p>
 </dd>
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+</div>
+<div class="section" id="remote-interfaces">
+<h2>Remote interfaces<a class="headerlink" href="#remote-interfaces" title="Permalink to this headline">¶</a></h2>
+<p>QPUs and Plugins can be used in client/server mode. Any Plugin or QPU, once constructed, can be published via their <em>serve</em> method (see right above).</p>
+<p>Once published, a client can connect and interact with them via one of the two following classes:</p>
+<dl class="py class">
+<dt id="qat.core.qpu.RemoteQPU">
+<em class="property">class </em><code class="sig-prename descclassname">qat.core.qpu.</code><code class="sig-name descname">RemoteQPU</code><a class="headerlink" href="#qat.core.qpu.RemoteQPU" title="Permalink to this definition">¶</a></dt>
+<dd><p>RemoteQPUs are built from a port and an ip address.
+They behave similarly to a local QPU Handler but also allow adjunction of
+local Plugins. The information flow inside a RemoteQPU is
+comparable to the information flow inside a QPUHandler:</p>
+<blockquote>
+<div><ul>
+<li><p>when compiling a batch the batch goes through all the local plugins
+and is sent to the connection. The resulting batch is then returned
+to the user</p></li>
+<li><p>when submitting, the batch is compiled using the local plugins and
+then forwarded through the connection. The results are then post</p>
+<blockquote>
+<div><p>processed by the local Plugins.</p>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> (<em>optional</em><em>, </em><em>int</em>) – the port to connect to</p></li>
+<li><p><strong>ip</strong> (<em>optional</em><em>, </em><em>str</em>) – the IP address to connect to</p></li>
+<li><p><strong>plugins</strong> (<em>list&lt;qat.plugins.AbstractPlugins&gt;</em>) – a list of plugins. Optional. Defaults to None.</p></li>
+<li><p><strong>connection</strong> (<em>optional Thrift connection</em>) – for internal use</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="qat.core.plugins.RemotePlugin">
+<em class="property">class </em><code class="sig-prename descclassname">qat.core.plugins.</code><code class="sig-name descname">RemotePlugin</code><a class="headerlink" href="#qat.core.plugins.RemotePlugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>RemotePlugins are built from a port and
+an ip address.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> (<em>optional</em><em>, </em><em>int</em>) – a port to connect to</p></li>
+<li><p><strong>ip</strong> (<em>optional</em><em>, </em><em>str</em>) – the IP address to connect to</p></li>
+<li><p><strong>connection</strong> (<em>optional</em><em>,  </em><em>Thrift connection</em>) – for internal use</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -345,13 +449,13 @@ same time.</p>
 <dd><p>A high level wrapper for the Job thrift class.</p>
 <dl class="simple">
 <dt>Instance attributes:</dt><dd><ul class="simple">
-<li><p><strong>circuit</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code>): circuit to execute</p></li>
-<li><p><strong>schedule</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code>): schedule to execute</p></li>
-<li><p><strong>type</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessingType</span></code>): type of
+<li><p><strong>circuit</strong> (<a class="reference internal" href="#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a>): circuit to execute</p></li>
+<li><p><strong>schedule</strong> (Schedule): schedule to execute</p></li>
+<li><p><strong>type</strong> (<a class="reference internal" href="#qat.comm.shared.ttypes.ProcessingType" title="qat.comm.shared.ttypes.ProcessingType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessingType</span></code></a>): type of
 Job</p></li>
-<li><p><strong>observable</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code>,
+<li><p><strong>observable</strong> (<a class="reference internal" href="#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a>,
 optional): the observable (required if job type is
-<code class="xref py py-attr docutils literal notranslate"><span class="pre">qat.comm.shared.ttypes.ProcessingType.OBSERVABLE</span></code>)</p></li>
+of type 1, i.e observable sampling)</p></li>
 <li><p><strong>qubits</strong> (list&lt;int&gt;, optional): measured qubits</p></li>
 <li><p><strong>nbshots</strong> (int): number of required shots: if 0, do maximal number
 of shots</p></li>
@@ -393,7 +497,7 @@ threshold are considered null</p></li>
 <dd class="field-odd"><p><strong>fname</strong> (<em>str</em>) – the file name</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -406,13 +510,27 @@ threshold are considered null</p></li>
 
 </dd></dl>
 
+<p>Processing types for jobs are defined via an enum class:</p>
+<dl class="py class">
+<dt id="qat.comm.shared.ttypes.ProcessingType">
+<em class="property">class </em><code class="sig-prename descclassname">qat.comm.shared.ttypes.</code><code class="sig-name descname">ProcessingType</code><a class="headerlink" href="#qat.comm.shared.ttypes.ProcessingType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Different types of processings of the final quantum state.</p>
+<dl class="simple">
+<dt>Possible values:</dt><dd><ul class="simple">
+<li><p>SAMPLE=0: sampling in the computational basis</p></li>
+<li><p>OBSERVABLE=1: observable sampling</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py class">
 <dt id="qat.core.Batch">
 <em class="property">class </em><code class="sig-prename descclassname">qat.core.</code><code class="sig-name descname">Batch</code><a class="headerlink" href="#qat.core.Batch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simple higher level wrapper for the serializable Batch class.</p>
 <dl class="simple">
 <dt>Instance attributes:</dt><dd><ul class="simple">
-<li><p><strong>jobs</strong> (list&lt;<code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code>&gt;): jobs composing the
+<li><p><strong>jobs</strong> (list&lt;<a class="reference internal" href="#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a>&gt;): jobs composing the
 batch</p></li>
 <li><p><strong>meta_data</strong> (dict&lt;str, str&gt;): meta data</p></li>
 </ul>
@@ -450,7 +568,7 @@ batch</p></li>
 <dd class="field-odd"><p><strong>fname</strong> (<em>str</em>) – the file name</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -460,9 +578,6 @@ batch</p></li>
 </div>
 <div class="section" id="module-qat.core.wrappers.observable">
 <span id="observables"></span><h2>Observables<a class="headerlink" href="#module-qat.core.wrappers.observable" title="Permalink to this headline">¶</a></h2>
-<p>Observables are a key concept in quantum mechanics and deserve their own class in the QLM stack.</p>
-<p>The following classes, <a class="reference internal" href="#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a> and <a class="reference internal" href="#qat.core.Term" title="qat.core.Term"><code class="xref py py-class docutils literal notranslate"><span class="pre">Term</span></code></a> provide a user
-friendly interface to construct observables and Pauli terms.</p>
 <dl class="py class">
 <dt id="qat.core.Observable">
 <em class="property">class </em><code class="sig-prename descclassname">qat.core.</code><code class="sig-name descname">Observable</code><a class="headerlink" href="#qat.core.Observable" title="Permalink to this definition">¶</a></dt>
@@ -667,7 +782,7 @@ intermediate measures</p></li>
 <dd class="field-odd"><p><strong>fname</strong> (<em>str</em>) – the file name</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -675,6 +790,12 @@ intermediate measures</p></li>
 <dl class="py method">
 <dt id="qat.core.Result.value">
 <em class="property">property </em><code class="sig-name descname">value</code><a class="headerlink" href="#qat.core.Result.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scalar output - complex number</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.core.Result.values">
+<em class="property">property </em><code class="sig-name descname">values</code><a class="headerlink" href="#qat.core.Result.values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Scalar output - complex number</p>
 </dd></dl>
 
@@ -693,48 +814,33 @@ Also serializes the underlying statevector object, if any</p>
 <dd><p>Simple higher-level wrapper for the serializable Sample class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>qregs</strong> (<em>'QRegister'</em>) – quantum register</p>
+<dd class="field-odd"><p><strong>qregs</strong> (<a class="reference internal" href="qat-lang.html#qat.lang.AQASM.bits.QRegister" title="qat.lang.AQASM.bits.QRegister"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRegister</span></code></a>) – quantum register</p>
 </dd>
 </dl>
-<dl>
-<dt>Instance attributes:</dt><dd><ul>
-<li><dl class="simple">
-<dt><strong>state</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code>):</dt><dd><p>the measured state</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><strong>probability</strong> (float, optional):</dt><dd><p>the probability of the state (infinite
+<dl class="simple">
+<dt>Instance attributes:</dt><dd><ul class="simple">
+<li><p><strong>state</strong> (<a class="reference internal" href="#qat.core.wrappers.result.State" title="qat.core.wrappers.result.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>):
+the measured state</p></li>
+<li><p><strong>probability</strong> (float, optional):
+the probability of the state (infinite
 number of shots/samples, for simulators only), or frequency of the
-state (finite number of shots)</p>
-</dd>
-</dl>
-</li>
-<li><p><strong>amplitude</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ComplexNumber</span></code>,
-optional):</p>
-<blockquote>
-<div><p>optionally (for simulators), the amplitude of the state</p>
-</div></blockquote>
-</li>
+state (finite number of shots)</p></li>
+<li><p><strong>amplitude</strong> (complex,
+optional):
+optionally (for simulators), the amplitude of the state</p></li>
 <li><p><strong>intermediate_measurements</strong>
-(<code class="xref py py-class docutils literal notranslate"><span class="pre">IntermediateMeasurement</span></code>):</p>
-<blockquote>
-<div><p>list of intermediate measurements</p>
-</div></blockquote>
-</li>
-<li><dl class="simple">
-<dt><strong>err</strong> (float, optional):</dt><dd><p>optionally, the sampling error:
+(<a class="reference internal" href="#qat.comm.shared.ttypes.IntermediateMeasurement" title="qat.comm.shared.ttypes.IntermediateMeasurement"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntermediateMeasurement</span></code></a>):
+list of intermediate measurements</p></li>
+<li><p><strong>err</strong> (float, optional):
+optionally, the sampling error:
 if the number of samples is finite, it is the estimate of
 the standard error on the mean
 <span class="math notranslate nohighlight">\(\varepsilon_{k}\equiv\sqrt{\langle\left(p_{k}-f_{k}\right)^{2}\rangle}\)</span>,
 where <span class="math notranslate nohighlight">\(p_k\)</span> is the true probability of obtaining state
-<span class="math notranslate nohighlight">\(|k\rangle\)</span> and :math`f_k` its estimate.
+<span class="math notranslate nohighlight">\(|k\rangle\)</span> and <span class="math notranslate nohighlight">\(f_k\)</span> its estimate.
 if the number samples is infinite (simulator only), it is the error bar
 on the computed probability (for approximate simulators only, like stochastic
-simulators)</p>
-</dd>
-</dl>
-</li>
+simulators)</p></li>
 </ul>
 </dd>
 </dl>
@@ -768,17 +874,85 @@ The state may be wrapped in a State object</p>
 </dd></dl>
 
 <dl class="py class">
+<dt id="qat.core.wrappers.result.State">
+<em class="property">class </em><code class="sig-prename descclassname">qat.core.wrappers.result.</code><code class="sig-name descname">State</code><a class="headerlink" href="#qat.core.wrappers.result.State" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class representing a ‘classical’ state</p>
+<p>Its __str__ method is overloaded to possibly take a QRegister type as
+format argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>int_msb_value</strong> (<em>int</em>) – the state (integer, msb format)</p></li>
+<li><p><strong>qregs</strong> (<em>list&lt;QRegister&gt;</em><em>, </em><em>optional</em>) – a list of QRegister
+to use for formatting purposes.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="qat.core.wrappers.result.State.bitstring">
+<em class="property">property </em><code class="sig-name descname">bitstring</code><a class="headerlink" href="#qat.core.wrappers.result.State.bitstring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a bitstring representation of the state</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.core.wrappers.result.State.int">
+<em class="property">property </em><code class="sig-name descname">int</code><a class="headerlink" href="#qat.core.wrappers.result.State.int" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a msb representation of the state</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.core.wrappers.result.State.lsb_int">
+<em class="property">property </em><code class="sig-name descname">lsb_int</code><a class="headerlink" href="#qat.core.wrappers.result.State.lsb_int" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a lsb reprensentation of the state</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.core.wrappers.result.State.value">
+<em class="property">property </em><code class="sig-name descname">value</code><a class="headerlink" href="#qat.core.wrappers.result.State.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Casts the state into a classical value using the information
+from the quantum registers</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="qat.comm.shared.ttypes.IntermediateMeasurement">
+<em class="property">class </em><code class="sig-prename descclassname">qat.comm.shared.ttypes.</code><code class="sig-name descname">IntermediateMeasurement</code><a class="headerlink" href="#qat.comm.shared.ttypes.IntermediateMeasurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data structure representing outcome of an intermediate measurement.</p>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">- cbits</code></dt>
+<dd><p>list&lt;bool&gt; the list of classical bits resulting from the measurement</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">- gate_pos</code></dt>
+<dd><p>int the position of the measurement in the circuit</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">- probability</code></dt>
+<dd><p>optional, float, the probability of this precise measurement outcome</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="qat.core.BatchResult">
 <em class="property">class </em><code class="sig-prename descclassname">qat.core.</code><code class="sig-name descname">BatchResult</code><a class="headerlink" href="#qat.core.BatchResult" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simple higher level wrapper for the serializable BatchResult class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>batch_result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">qat.comm.shared.ttypes.BatchResult</span></code>, optinal) – unwrapped batch result</p>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>keyword arguments</em>) – accepted arguments are <strong>results</strong>
+(a list of <a class="reference internal" href="#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a> objects) and
+<strong>meta_data</strong> (a (str, str) map).</p>
 </dd>
 </dl>
 <dl class="simple">
 <dt>Instance attributes:</dt><dd><ul class="simple">
-<li><p><strong>results</strong> (list&lt;<code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code>&gt;):
+<li><p><strong>results</strong> (list&lt;<a class="reference internal" href="#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a>&gt;):
 list of results</p></li>
 <li><p><strong>meta_data</strong> (dict&lt;str, str&gt;): meta data</p></li>
 </ul>
@@ -790,7 +964,7 @@ list of results</p></li>
 <dd><p>Add a result in the list of results</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>value</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code>) – </p>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference internal" href="#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -812,7 +986,7 @@ list of results</p></li>
 <dd><p>Add several results in the list of results</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>values</strong> (list&lt;<code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code>&gt;) – </p>
+<dd class="field-odd"><p><strong>values</strong> (list&lt;<a class="reference internal" href="#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a>&gt;) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -832,7 +1006,7 @@ list of results</p></li>
 <dd class="field-odd"><p><strong>fname</strong> (<em>str</em>) – the file name</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -844,7 +1018,7 @@ list of results</p></li>
 <h2>Circuits<a class="headerlink" href="#circuits" title="Permalink to this headline">¶</a></h2>
 <p>Here is the basic interface of the circuit class.
 For more information on the various attributes the circuit object, please refer to <a class="reference internal" href="introduction.html#circuit-full-description"><span class="std std-ref">Exceptions</span></a>.
-For instance, one can easily concatenate two <code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code> objects (as long as they have the same number of qubits):</p>
+For instance, one can easily concatenate two <a class="reference internal" href="#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> objects (as long as they have the same number of qubits):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_circuit</span> <span class="o">=</span> <span class="n">circuit1</span> <span class="o">+</span> <span class="n">circuit2</span>
 </pre></div>
 </div>
@@ -886,7 +1060,7 @@ For instance, one can easily concatenate two <code class="xref py py-class docut
 <p>This wrapper provides high-level manipulation routines such as variable
 binding or iteration.</p>
 <p>Circuits are usually built using the <cite>.to_circ</cite> method of the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code> class, and are not designed to
+<a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program" title="qat.lang.AQASM.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> class, and are not designed to
 be built by hand.</p>
 <p>The simplest way to explore the content of a circuit is to use the
 <cite>.iterate_simple</cite> method that provides a user friendly sequence of
@@ -912,7 +1086,7 @@ instructions:</p>
 <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;C-C-C-RX&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x151dd99ebe80</span><span class="o">&gt;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-C-C-RX&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x1473fdf4c5c0</span><span class="o">&gt;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;MEASURE&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;RESET&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
@@ -1014,10 +1188,9 @@ set specifying the matrix generators of the gates present
 in the circuit. Note that if some gate has no corresponding
 entry in the gate set or its signature has no matrix generator,
 no matrix will be attached to its definition.</p></li>
-<li><p><strong>submatrices_only</strong> (<em>bool</em>) – If set to True, only subgate will receive
-matrices. This is enough for some simulators (such as
-<code class="xref py py-class docutils literal notranslate"><span class="pre">qat.linalg.LinAlg</span></code>).
-Default to True.</p></li>
+<li><p><strong>submatrices_only</strong> (<em>bool</em>) – <p>If set to True, only subgate will receive
+matrices. Default to True.</p>
+</p></li>
 <li><p><strong>include_default_gate_set</strong> (<em>bool</em>) – if set to True, the native gate
 set of pyAQASM will be included.
 Default to False.</p></li>
@@ -1052,7 +1225,7 @@ Default to False.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>position</strong> (<em>int</em>) – index where to insert the gate</p></li>
-<li><p><strong>gate</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">gate</span></code>) – a pyAQASM gate (or routine)</p></li>
+<li><p><strong>gate</strong> (<a class="reference internal" href="qat-lang.html#qat.lang.AQASM.gates.Gate" title="qat.lang.AQASM.gates.Gate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></a>) – a pyAQASM gate (or routine)</p></li>
 <li><p><strong>qbits</strong> (<em>list&lt;int&gt;</em>) – a list of integers</p></li>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – all the keyword arguments are fed to the linker</p></li>
 </ul>
@@ -1062,7 +1235,7 @@ Default to False.</p></li>
 
 <dl class="py method">
 <dt id="qat.core.Circuit.iterate_simple">
-<code class="sig-name descname">iterate_simple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.iterate_simple" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">iterate_simple</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">depth</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.iterate_simple" title="Permalink to this definition">¶</a></dt>
 <dd><p>Iterates over the instructions of the circuit in a user friendly way.</p>
 <p>The iterator yields tuples with explicit content.
 Each tuples starts with a keyword or a gate name, followed
@@ -1106,7 +1279,7 @@ processing information.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>job_type</strong> (<em>str</em>) – possible values are “SAMPLE” for computational basis sampling
 of some qubits, or “OBS” for observable evaluation
-(see <code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.application.observables</span></code>
+(see <a class="reference internal" href="#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.core.Observable</span></code></a>
 for more information about this mode).</p></li>
 <li><p><strong>qubits</strong> (<em>optional</em><em>, </em><em>list&lt;int&gt;</em><em>, </em><em>list&lt;QRegister&gt;</em>) – the list of qubits to measure
 (in “SAMPLE” mode).
@@ -1135,18 +1308,11 @@ returned samples. Defaults to 1/2^40.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments</dt>
-<dd class="field-even"><p><strong>observable</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code>) – see
-<code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code>. Used for the
+<dd class="field-even"><p><strong>observable</strong> (<a class="reference internal" href="#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a>) – see
+<a class="reference internal" href="#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a>. Used for the
 “OBS” mode only).</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="qat.core.Circuit.to_task">
-<code class="sig-name descname">to_task</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qpu</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.to_task" title="Permalink to this definition">¶</a></dt>
-<dd><p>Turns the circuit into a <code class="xref py py-class docutils literal notranslate"><span class="pre">Task</span></code>.
-This method is deprecated and will be removed.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1188,11 +1354,11 @@ maximal depth of inlining.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>circuit</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code>) – displayed circuit</p></li>
-<li><p><strong>max_depth</strong> (<em>optional</em><em>, </em><em>int</em>) – maximal depth of inlining
+<li><p><strong>circuit</strong> (<a class="reference internal" href="#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a>) – displayed circuit</p></li>
+<li><p><strong>max_depth</strong> (<em>int</em><em>, </em><em>optional</em>) – maximal depth of inlining
 (None is maximal)</p></li>
-<li><p><strong>circuit_name</strong> (<em>optional</em><em>, </em><em>str</em>) – name of the circuit</p></li>
-<li><p><strong>batchmode</strong> (<em>optional</em><em>, </em><em>bool</em>) – if this variable is set
+<li><p><strong>circuit_name</strong> (<em>str</em><em>, </em><em>optional</em>) – name of the circuit</p></li>
+<li><p><strong>batchmode</strong> (<em>bool</em><em>, </em><em>optional</em>) – if this variable is set
 to <code class="code docutils literal notranslate"><span class="pre">True</span></code>, this function will not wait
 for user input</p></li>
 </ul>
@@ -1206,10 +1372,11 @@ for user input</p></li>
 An exception is raised if your circuit contains measures,
 gates controlled classically, logic operators, …</p>
 </div>
-<p>To display a circuit in a notebook or in an IPython terminal,
-you can install qlm magics (use the bash command
-<code class="code docutils literal notranslate"><span class="pre">install_qlm_magics.sh</span></code>). Then, you can use
-<code class="code docutils literal notranslate"><span class="pre">%qatdisplay</span></code> magic to print a circuit</p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">%qatdisplay</span></code> magic can be used to display a circuit in
+a notebook or in an IPython terminal.</p>
+<p>If myQLM Python magics has not been installed, please refer to
+<a class="reference internal" href="myqlm_specific/install.html#install-magics"><span class="std std-ref">the magic installation page</span></a> to install
+this magic command</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">qatdisplay</span> <span class="n">circuit</span>
 </pre></div>
 </div>
@@ -1225,11 +1392,63 @@ you can install qlm magics (use the bash command
 <dl class="simple">
 <dt>Instance attributes:</dt><dd><ul class="simple">
 <li><p><strong>nbqbits</strong> (int): number of qubits</p></li>
-<li><p><strong>topology</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Topology</span></code>):
+<li><p><strong>topology</strong> (<a class="reference internal" href="#qat.core.Topology" title="qat.core.Topology"><code class="xref py py-class docutils literal notranslate"><span class="pre">Topology</span></code></a>):
 topology</p></li>
+<li><p><strong>gateset</strong> (<a class="reference internal" href="#qat.core.gate_set.GateSet" title="qat.core.gate_set.GateSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateSet</span></code></a>): the gate set of the
+hardware</p></li>
+<li><p><strong>description</strong> (str): description of the hardware</p></li>
 </ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt id="qat.core.HardwareSpecs.as_graph">
+<code class="sig-name descname">as_graph</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.HardwareSpecs.as_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <code class="code docutils literal notranslate"><span class="pre">networkx.Graph</span></code> object corresponding to the topology.
+This function calls the method <a class="reference internal" href="#qat.core.Topology.to_nx" title="qat.core.Topology.to_nx"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_nx()</span></code></a>
+of the class <a class="reference internal" href="#qat.core.Topology" title="qat.core.Topology"><code class="xref py py-class docutils literal notranslate"><span class="pre">Topology</span></code></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.devices</span> <span class="kn">import</span> <span class="n">RIGETTI_ASPEN</span>
+
+<span class="c1"># Cast the device into a networkx graph</span>
+<span class="n">nx_graph</span> <span class="o">=</span> <span class="n">RIGETTI_ASPEN</span><span class="o">.</span><span class="n">as_graph</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>graph describing the topology
+of this hardware specs</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>networkx.Graph</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.core.HardwareSpecs.as_quameleon">
+<code class="sig-name descname">as_quameleon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.HardwareSpecs.as_quameleon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="quameleon.html#qat.core.quameleon.QuameleonPlugin" title="qat.core.quameleon.QuameleonPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuameleonPlugin</span></code></a> instance enforcing
+the device’s connectivity for easy inclusion in a QLM stack</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.devices</span> <span class="kn">import</span> <span class="n">RIGETTI_ASPEN</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+
+<span class="c1"># Create a stack</span>
+<span class="n">stack</span> <span class="o">=</span> <span class="n">RIGETTI_ASPEN</span><span class="o">.</span><span class="n">as_quameleon</span><span class="p">()</span> <span class="o">|</span> <span class="n">get_default_qpu</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QuameleonPlugin</span> <span class="o">|</span> <span class="n">PyLinalg</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Quameleon plugin</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="quameleon.html#qat.core.quameleon.QuameleonPlugin" title="qat.core.quameleon.QuameleonPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuameleonPlugin</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt id="qat.core.HardwareSpecs.dump">
 <code class="sig-name descname">dump</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fname</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.HardwareSpecs.dump" title="Permalink to this definition">¶</a></dt>
@@ -1256,7 +1475,7 @@ topology</p></li>
 <dd class="field-odd"><p><strong>fname</strong> (<em>str</em>) – the file name</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1289,7 +1508,7 @@ topology</p></li>
 any qubit of a pair is either a control or a target qubit,
 otherwise, only one qubit of the pair is the control qubit. The
 topology is, by default, undirected</p></li>
-<li><p><strong>type</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">TopologyType</span></code>, optional) – type
+<li><p><strong>type</strong> (<a class="reference internal" href="#qat.core.TopologyType" title="qat.core.TopologyType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TopologyType</span></code></a>, optional) – type
 of the topology (All to All, LNN or Custom)</p></li>
 <li><p><strong>graph</strong> (<em>dict&lt;int</em><em>, </em><em>list&lt;int&gt;&gt;</em><em>, </em><em>optional</em>) – graph describing the topology
 (required iff the topology is Custom). Any key of this dictionary
@@ -1362,11 +1581,82 @@ with a map that maps graph nodes to qubit indexes</p></li>
 <dd class="field-odd"><p><strong>fname</strong> (<em>str</em>) – the file name</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Topology</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#qat.core.Topology" title="qat.core.Topology"><code class="xref py py-class docutils literal notranslate"><span class="pre">Topology</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt id="qat.core.Topology.to_nx">
+<code class="sig-name descname">to_nx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology.to_nx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast the Topology object into a networkx graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a networkx graph</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>nx.Graph</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="qat.core.TopologyType">
+<em class="property">class </em><code class="sig-prename descclassname">qat.core.</code><code class="sig-name descname">TopologyType</code><a class="headerlink" href="#qat.core.TopologyType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is a enumeration describing the type of a
+<a class="reference internal" href="#qat.core.Topology" title="qat.core.Topology"><code class="xref py py-class docutils literal notranslate"><span class="pre">Topology</span></code></a>. Currently, there are
+three types of topologies:</p>
+<div class="toggle-header docutils container">
+<p><strong>All To All</strong> (ALL_TO_ALL)</p>
+</div>
+<div class="toggle-content docutils container">
+<blockquote>
+<div><p>This type describes topologies for which two-qubit
+gates can be applied on any pair of qubits</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Topology</span><span class="p">,</span> <span class="n">TopologyType</span>
+
+<span class="n">all_to_all</span> <span class="o">=</span> <span class="n">Topology</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">TopologyType</span><span class="o">.</span><span class="n">ALL_TO_ALL</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="toggle-header docutils container">
+<p><strong>Linear</strong> (LNN)</p>
+</div>
+<div class="toggle-content docutils container">
+<blockquote>
+<div><p>This type describes topologies for which two-qubit gates can only be
+applied on qubits having consecutive indexes (i.e. a two-qubit gate can
+only be applied on the qubits of indexes <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(i \pm 1\)</span>)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Topology</span><span class="p">,</span> <span class="n">TopologyType</span>
+
+<span class="n">lnn</span> <span class="o">=</span> <span class="n">Topology</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">TopologyType</span><span class="o">.</span><span class="n">LNN</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="toggle-header docutils container">
+<p><strong>Custom</strong> (CUSTOM)</p>
+</div>
+<div class="toggle-content docutils container">
+<blockquote>
+<div><p>This type describes a custom topology. Objects of type
+<a class="reference internal" href="#qat.core.Topology" title="qat.core.Topology"><code class="xref py py-class docutils literal notranslate"><span class="pre">Topology</span></code></a> having a custom topology type must have
+a graph</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Topology</span><span class="p">,</span> <span class="n">TopologyType</span>
+
+<span class="c1"># Init topology</span>
+<span class="n">custom</span> <span class="o">=</span> <span class="n">Topology</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">TopologyType</span><span class="o">.</span><span class="n">CUSTOM</span><span class="p">)</span>
+
+<span class="c1"># Graph definition</span>
+<span class="n">custom</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">custom</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
 </dd></dl>
 
 </div>
@@ -1388,7 +1678,7 @@ Supported types are: int, float, str, np.matrix, np.ndarray, list.</p></li>
 <li><p><strong>matrix_generator</strong> (<em>func</em><em>, </em><em>optional</em>) – a function that generates the gates matrix when
 provided with a set of parameters</p></li>
 <li><p><strong>circuit_generator</strong> (<em>func</em><em>, </em><em>optional</em>) – a function that generates a
-<code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code> implementing
+<a class="reference internal" href="#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> implementing
 the gate when provided with a set of parameters</p></li>
 </ul>
 </dd>
@@ -1421,7 +1711,7 @@ the gate when provided with a set of parameters</p></li>
 <dd><p>Sets the circuit generator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>gen</strong> (<em>fun</em>) – a function that generates a <code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code> given the
+<dd class="field-odd"><p><strong>gen</strong> (<em>fun</em>) – a function that generates a <a class="reference internal" href="#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> given the
 appropriate parameters</p>
 </dd>
 </dl>
@@ -1454,7 +1744,7 @@ appropriate parameters</p>
 <dt id="qat.core.gate_set.GateSet.add_signature">
 <code class="sig-name descname">add_signature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signa</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.gate_set.GateSet.add_signature" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a new <a class="reference internal" href="#qat.core.gate_set.GateSignature" title="qat.core.gate_set.GateSignature"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateSignature</span></code></a> in the <a class="reference internal" href="#qat.core.gate_set.GateSet" title="qat.core.gate_set.GateSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateSet</span></code></a>.
-If the signature redefines a gate, a <code class="xref py py-class docutils literal notranslate"><span class="pre">GateSyntaxRedefinition</span></code>
+If the signature redefines a gate, a <a class="reference internal" href="#qat.core.gate_set.GateSyntaxRedefinition" title="qat.core.gate_set.GateSyntaxRedefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateSyntaxRedefinition</span></code></a>
 is raised.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1483,6 +1773,250 @@ with another gate set</p>
 
 </dd></dl>
 
+<dl class="py class">
+<dt id="qat.core.gate_set.GateSyntaxRedefinition">
+<em class="property">class </em><code class="sig-prename descclassname">qat.core.gate_set.</code><code class="sig-name descname">GateSyntaxRedefinition</code><a class="headerlink" href="#qat.core.gate_set.GateSyntaxRedefinition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised when a GateSyntax is redefined in a GateSet</p>
+</dd></dl>
+
+</div>
+<div class="section" id="variables-and-expressions">
+<h2>Variables and expressions<a class="headerlink" href="#variables-and-expressions" title="Permalink to this headline">¶</a></h2>
+<p>When defining variational circuit, pyAQASM provides its own way to declare variables (via the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.new_var" title="qat.lang.AQASM.Program.new_var"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qat.lang.AQASM.Program.new_var()</span></code></a> method).
+However, it is possible to turn most parts of a Job into a parametrized quantity using <a class="reference internal" href="#qat.core.Variable" title="qat.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Variable</span></code></a> objects.</p>
+<dl class="py class">
+<dt id="qat.core.Variable">
+<em class="property">class </em><code class="sig-prename descclassname">qat.core.</code><code class="sig-name descname">Variable</code><a class="headerlink" href="#qat.core.Variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for typed variables.
+Variables can be used in any python arithmetic expression to build an
+<a class="reference internal" href="#qat.core.variables.ArithExpression" title="qat.core.variables.ArithExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithExpression</span></code></a> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – the variable name</p></li>
+<li><p><strong>var_type</strong> (<em>type</em>) – the variable type. Default to float.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For now, the var_type argument is simply ignored.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Variable with names that can be cast to numerical values are forbidden:</p>
+</div>
+<dl class="py method">
+<dt id="qat.core.Variable.get_variables">
+<code class="sig-name descname">get_variables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Variable.get_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a singleton containing the name of the variable .</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.core.Variable.to_thrift">
+<code class="sig-name descname">to_thrift</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Variable.to_thrift" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a thrift RPN version of the expression.
+This is used to store the expression in a serializable format.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Variable</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">),</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
+<span class="n">expr</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">to_thrift</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+<span class="o">+</span> <span class="n">a</span> <span class="n">b</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="qat.core.variables.ArithExpression">
+<em class="property">class </em><code class="sig-prename descclassname">qat.core.variables.</code><code class="sig-name descname">ArithExpression</code><a class="headerlink" href="#qat.core.variables.ArithExpression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to represent arbitrary arithmetic expressions.</p>
+<p>This class is not designed to be instantiated by hand.
+Expressions are constructed by calling a <a class="reference internal" href="#qat.core.variables.Symbol" title="qat.core.variables.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">Symbol</span></code></a> object
+on one or several variables.</p>
+<p>Additionally, expressions (and variables) have their numeric operator
+overloaded (i.e +, -, etc).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.variables</span> <span class="kn">import</span> <span class="n">cos</span><span class="p">,</span> <span class="n">Variable</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">cos</span><span class="p">))</span>
+<span class="n">expr</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;qat.core.variables.Symbol&#39;&gt;
+&lt;class &#39;qat.core.variables.ArithExpression&#39;&gt;
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> (<a class="reference internal" href="#qat.core.variables.Symbol" title="qat.core.variables.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">Symbol</span></code></a>) – the symbol labeling the node</p></li>
+<li><p><strong>children</strong> (<em>list</em>) – the list of children of the node. These could be
+variables, expressions, or constants</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="qat.core.variables.ArithExpression.from_string">
+<em class="property">static </em><code class="sig-name descname">from_string</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">thrift_string</span></em>, <em class="sig-param"><span class="n">var_dic</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.variables.ArithExpression.from_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds an arithmetic expression out of a RPN string.</p>
+<p>Effectively the inverse of the <cite>to_thrift</cite> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.variables</span> <span class="kn">import</span> <span class="n">ArithExpression</span>
+
+<span class="n">expr</span> <span class="o">=</span> <span class="n">ArithExpression</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="s2">&quot;+ a b&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>thrift_string</strong> (<em>str</em>) – a RPN string</p></li>
+<li><p><strong>var_dic</strong> (<em>optional</em><em>, </em><em>dict</em>) – a dictionary of variables as found in a
+<a class="reference internal" href="#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.core.variables.ArithExpression.get_variables">
+<code class="sig-name descname">get_variables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.variables.ArithExpression.get_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the set of variables appearing inside the expression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a set of variable indexes</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>set&lt;int&gt;</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.core.variables.ArithExpression.pretty_print">
+<code class="sig-name descname">pretty_print</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">depth</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.variables.ArithExpression.pretty_print" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pretty prints the expression for debugging (mostly)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.core.variables.ArithExpression.to_thrift">
+<code class="sig-name descname">to_thrift</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.variables.ArithExpression.to_thrift" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a thrift RPN version of the expression.</p>
+<p>See <a class="reference internal" href="#qat.core.Variable" title="qat.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> method with the same name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a string representation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>It is possible to extend the set of symbols supported by this abstract expression mecanics by extending the
+list of a symbols with a new <a class="reference internal" href="#qat.core.variables.Symbol" title="qat.core.variables.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.variables.Symbol</span></code></a>. The only constraint is that the new symbols should have a fixed arity that is known in advance.</p>
+<dl class="py class">
+<dt id="qat.core.variables.Symbol">
+<em class="property">class </em><code class="sig-prename descclassname">qat.core.variables.</code><code class="sig-name descname">Symbol</code><a class="headerlink" href="#qat.core.variables.Symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple structure to describe labels in the AST of an arithmetic
+expression.</p>
+<dl class="simple">
+<dt>A symbol requires:</dt><dd><ul class="simple">
+<li><p>a token representing the symbo</p></li>
+<li><p>a proper python function that implements the symbol for numerical values</p></li>
+<li><p>an arity (i.e a number of arguments)</p></li>
+</ul>
+</dd>
+</dl>
+<p>For instance, the <cite>cos</cite> symbol of this module is declared as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.variables</span> <span class="kn">import</span> <span class="n">Symbol</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">cos</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;cos&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cos</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">cos</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cos
+&lt;class &#39;qat.core.variables.Symbol&#39;&gt;
+-1.0
+</pre></div>
+</div>
+<p>Its <cite>__call__</cite> operator is overloaded in order to behave as the underlying
+function for numeric values and to build an <a class="reference internal" href="#qat.core.variables.ArithExpression" title="qat.core.variables.ArithExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithExpression</span></code></a> when called
+on abstract expressions or variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>token</strong> (<em>str</em>) – the token corresponding to the symbol</p></li>
+<li><p><strong>evaluator</strong> (<em>callable</em>) – the proper function underlying the symbol
+(i.e the semantic)</p></li>
+<li><p><strong>arity</strong> (<em>int</em>) – the expected arguments of the symbol</p></li>
+<li><p><strong>infix</strong> (<em>bool</em>) – If set to True, the symbol will be displayed in
+infix format (only allowed when arity=2). Defaults to False.</p></li>
+<li><p><strong>pretty_token</strong> (<em>optional</em><em>, </em><em>str</em>) – If set, the pretty token will be used
+when displaying the symbol.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Defined symbols can be accessed via the <cite>ALL_SYMBOLS</cite> module variable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.variables</span> <span class="kn">import</span> <span class="n">ALL_SYMBOLS</span>
+
+<span class="k">for</span> <span class="n">token</span><span class="p">,</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">ALL_SYMBOLS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">symbol</span><span class="o">.</span><span class="n">evaluator</span><span class="p">,</span> <span class="n">symbol</span><span class="o">.</span><span class="n">arity</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x14989d942430</span><span class="o">&gt;</span> <span class="mi">2</span>
+<span class="o">*</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x14989d9424f8</span><span class="o">&gt;</span> <span class="mi">2</span>
+<span class="o">-</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x14989d9425c0</span><span class="o">&gt;</span> <span class="mi">2</span>
+<span class="n">UMINUS</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x14989d942688</span><span class="o">&gt;</span> <span class="mi">1</span>
+<span class="o">/</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x14989d942750</span><span class="o">&gt;</span> <span class="mi">2</span>
+<span class="o">**</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x14989d942818</span><span class="o">&gt;</span> <span class="mi">2</span>
+<span class="n">cos</span> <span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">&#39;cos&#39;</span><span class="o">&gt;</span> <span class="mi">1</span>
+<span class="n">sin</span> <span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">&#39;sin&#39;</span><span class="o">&gt;</span> <span class="mi">1</span>
+<span class="n">exp</span> <span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">&#39;exp&#39;</span><span class="o">&gt;</span> <span class="mi">1</span>
+<span class="n">sqrt</span> <span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">&#39;sqrt&#39;</span><span class="o">&gt;</span> <span class="mi">1</span>
+<span class="n">heaviside</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x14989d9428e0</span><span class="o">&gt;</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>For instance, the following piece of code adds a new symbol that represents the min between two numeric values.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.variables</span> <span class="kn">import</span> <span class="n">Variable</span><span class="p">,</span> <span class="n">Symbol</span><span class="p">,</span> <span class="n">ALL_SYMBOLS</span>
+
+<span class="c1"># token will &quot;min&quot;</span>
+<span class="c1"># underlying function is the standard `min`</span>
+<span class="c1"># it has arity 2</span>
+<span class="c1"># it is not an infix operator</span>
+<span class="n">my_min</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="nb">min</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">infix</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># This step is necessary if we want to be able to bind variables in expressions containing min</span>
+<span class="n">ALL_SYMBOLS</span><span class="p">[</span><span class="s2">&quot;min&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">my_min</span>
+
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">),</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
+
+<span class="n">expr</span> <span class="o">=</span> <span class="n">my_min</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">expr</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">expr</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">min</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">min</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="mi">3</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="various-methods-and-tools">
 <h2>Various methods and tools<a class="headerlink" href="#various-methods-and-tools" title="Permalink to this headline">¶</a></h2>
@@ -1516,23 +2050,29 @@ in the default gate set</p>
 <dd><p>Returns a map containing the 4 default parametrized gates generators</p>
 </dd></dl>
 
+<dl class="py function">
+<dt id="qat.core.circuit_builder.matrix_util.default_gate_set">
+<code class="sig-prename descclassname">qat.core.circuit_builder.matrix_util.</code><code class="sig-name descname">default_gate_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.circuit_builder.matrix_util.default_gate_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a fresh default gate set</p>
+</dd></dl>
+
 </div>
 <div class="section" id="plugins-junctions">
 <h2>Plugins &amp; Junctions<a class="headerlink" href="#plugins-junctions" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="qat.plugins.Junction">
 <em class="property">class </em><code class="sig-prename descclassname">qat.plugins.</code><code class="sig-name descname">Junction</code><a class="headerlink" href="#qat.plugins.Junction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Junctions are element of a stack that allow for iterations inside a QLM stack.
+<dd><p>Junctions are elements of a stack that allow for iterations inside a QLM stack.
 They implement the standard QPU interface (submit, submit_job, etc), but can
 be seen as some kind of iterative plugin that delegates execution of jobs to the
-lower part of the stack.
-Junctions can be composed via the pipe operator to be included seemlessly into
+lower part of the stack.</p>
+<p>Junctions can be composed via the pipe operator to be included saemlessly into
 QLM stacks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>collective</strong> (<em>bool</em><em>, </em><em>optional</em>) – if set to True, the <cite>.run</cite> method will receive
 the full batch. If set to False, <cite>.run</cite> will receive the jobs
-one by one. Default to False.</p>
+one by one. Defaults to False.</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -1580,7 +2120,7 @@ transmit arguments from the client to the Junction</p></li>
 BatchResult depending on the <cite>collective</cite> constructor parameter</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></p>
+<dd class="field-odd"><p><a class="reference internal" href="#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a>, <a class="reference internal" href="#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>

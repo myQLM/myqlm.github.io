@@ -9,21 +9,21 @@ ___________________________
 
 When dealing with low-level objects such as quantum circuits or execution results (e.g samples), it becomes quickly necessary to have a fine control over how the information is processed and transformed.
 
-In order to simplify the design of applications, QLM comes with an additional API, called :class:`Plugin`.
-:class:`Plugin` are objects that can process a flow of quantum circuits (or jobs) on their way to a :class:`QPU`, and/or process a flow of information (samples or values) on their way back from a :class:`QPU`.
+In order to simplify the design of applications, QLM comes with an additional API, called **Plugin**.
+**Plugins** are objects that can process a flow of quantum circuits (or jobs) on their way to a **QPU**, and/or process a flow of information (samples or values) on their way back from a **QPU**.
 
 Their API is composed of two methods:
 
-    * **compile** for the way in (i.e from the user to the :class:`QPU`).
+    * **compile** for the way in (i.e from the user to the **QPU**).
       This method will take a :class:`~qat.core.Batch` together with some
       :class:`~qat.core.HardwareSpecs` and return a new
       :class:`~qat.core.Batch`.
-    * **post_process** for the way out (i.e from the :class:`QPU` to the user).
+    * **post_process** for the way out (i.e from the **QPU** to the user).
       This method will process a :class:`~qat.core.BatchResult` and return
       either a :class:`~qat.core.BatchResult` or a new
-      :class:`~qat.core.Batch` that should go back to the :class:`QPU`.
+      :class:`~qat.core.Batch` that should go back to the **QPU**.
 
-This simple semantics allow to compose :class:`Plugin` to form expressive compilation stacks and extend the features provided by a :class:`QPU`.
+This simple semantics allow to compose **Plugin** to form expressive compilation stacks and extend the features provided by a **QPU**.
 
 Creating a stack using plugins is quite straightforward:
 
@@ -31,7 +31,7 @@ Creating a stack using plugins is quite straightforward:
 
     my_stack = plugin1 | plugin2 | .. | my_qpu
 
-In this code, when a fresh batch or job is submitted, the batch will run through the :meth:`compile` of `plugin1`, the resulting batch will run through the :meth:`compile` of `plugin2`, etc. 
+In this code, when a fresh batch or job is submitted, the batch will run through the *compile* of `plugin1`, the resulting batch will run through the *compile* of `plugin2`, etc. 
 When reaching `my_qpu` the execution will start, and the results will be processed in reversed order on their way back.
 
 Overall the information flow can be summed up as follows:
@@ -56,11 +56,11 @@ Writing your own plugin
 _________________________
 
 
-The basic API of the :class:`Plugin` service is described by the abstract class :class:`~qat.core.plugins.AbstractPlugin`.
+The basic API of the **Plugin** service is described by the abstract class :class:`~qat.plugins.AbstractPlugin`.
 
-In order to inherit from all the features of the :class:`Plugin` class, you should start by inheriting from :class:`~qat.core.plugins.AbstractPlugin`.
+In order to inherit from all the features of the **Plugin** class, you should start by inheriting from :class:`~qat.plugins.AbstractPlugin`.
 
-.. run-block:: python
+.. run-block:: python!fails
 
     from qat.core.plugins import AbstractPlugin
 
@@ -86,7 +86,7 @@ We will discuss this method later.
 
 As you can see, our plugin is now "valid" and can be instantiated. 
 For now, it is not a very useful plugin.
-Since our plugin inherits from the :class:`~qat.core.plugins.AbstractPlugin` class, we can compose it with a QPU to build a stack:
+Since our plugin inherits from the :class:`~qat.plugins.AbstractPlugin` class, we can compose it with a QPU to build a stack:
 
 .. only:: qlm
 

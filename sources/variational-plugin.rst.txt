@@ -3,10 +3,10 @@
 Plugins for variational algorithms
 ====================================
 
-The following plugins inherits from the class :class:`~qat.plugins.Optimizer` and provide an easy way to include your favorite classical optimizer inside a QLM stack.
-These plugins do not provide particular interface for gradient based optimization.
+The following plugins inherit from the :class:`~qat.plugins.Optimizer` class and provide an easy way
+to include your favorite classical optimizer inside a QLM stack.
 
-They require the input job to have abstract parameters (i.e the circuit and/or the observable should be parametrized).
+These plugins require the input job to have abstract parameters (i.e the circuit and/or the observable should be parametrized).
 
 We can, for instance, build a very simple variational job as follows:
 
@@ -30,8 +30,21 @@ We can, for instance, build a very simple variational job as follows:
         print("Minimization trace:", result.meta_data["optimization_trace"])
         print("Best parameters:", result.meta_data["parameters"])
 
-.. automodule:: qat.vsolve.optimize.scipy_binder
-    :members: ScipyMinimizePlugin
+Below is the detailed documentation of the available plugins:
 
-.. automodule:: qat.vsolve.optimize.spsa
-    :members: SPSAMinimizePlugin, spsa_minimize
+.. toggle-header::
+    :header: **Scipy Minimizers**
+
+    .. autoclass:: qat.plugins.ScipyMinimizePlugin
+       :members: set_options
+
+.. toggle-header::
+    :header: **Simultaneous Perturbation Stochastic Approximation**
+
+    .. autoclass:: qat.plugins.SPSAMinimizePlugin
+
+.. toggle-header::
+    :header: **Particle Swarm Optimization**
+
+    .. autoclass:: qat.plugins.PSOMinimizePlugin
+

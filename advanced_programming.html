@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Advanced programming using pyAQASM &mdash; myQLM documentation myQLM-1.1.6.25 documentation</title>
+  <title>Advanced programming using pyAQASM &mdash; myQLM documentation  documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-1.1.6
+                myQLM-1.2.2
               </div>
             
           
@@ -118,8 +118,27 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#lifting-python-functions-into-quantum-gates">Lifting Python functions into quantum gates</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linking-at-circuit-extraction">Linking at circuit extraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#qroutine-s-compute-uncompute-scopes">QRoutine’s Compute/uncompute scopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compute-uncompute-scopes">Compute/uncompute scopes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#automated-ancillae-management">Automated ancillae management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oracles-and-quantum-types">Oracles and quantum types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#quantum-booleans-quantum-conditionals-and-quantum-oracles">Quantum booleans, quantum conditionals, and quantum oracles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#allocation">Allocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#logical-expressions">Logical expressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#evaluating-expressions">Evaluating expressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#quantum-conditionals-and-with-statements">Quantum conditionals and <strong>with</strong> statements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#building-phase-oracles">Building phase oracles</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#quantum-integers">Quantum integers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Allocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setting-a-classical-value">Setting a classical value</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#arithmetic-expressions">Arithmetic expressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conditionals-on-quantum-integers">Conditionals on quantum integers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#example-grover-oracle-for-graph-coloring">Example: Grover oracle for graph coloring</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
@@ -228,8 +247,8 @@ or to wrap quantum routines inside a “black box”.
 However, when the time comes to simulate or properly execute the quantum circuits, one might need to provide additional information to these black boxes in order to either:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>be able to simulate it (e.g can we attach a matrix definition to the gate?)</p></li>
-<li><p>be able to link it using a sub-circuit librairie (e.g can we attach a sub-circuit implementation to the gate?)</p></li>
+<li><p>be able to simulate it (e.g. can we attach a matrix definition to the gate?) or</p></li>
+<li><p>be able to link it using a sub-circuit library (e.g. can we attach a sub-circuit implementation to the gate?)</p></li>
 </ul>
 </div></blockquote>
 <div class="section" id="matrix-definition">
@@ -241,11 +260,13 @@ However, when the time comes to simulate or properly execute the quantum circuit
 <li><p>the function has the same input signature as the gate</p></li>
 </ul>
 </div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">phase_matrix</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">AbstractGate</span>
+<span class="k">def</span> <span class="nf">phase_matrix</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)])</span>
 
 <span class="n">phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;PHASE&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">matrix_generator</span><span class="o">=</span><span class="n">phase_matrix</span><span class="p">,</span> <span class="n">arity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="c1">## Or alternatively</span>
+<span class="c1"># Or alternatively</span>
 <span class="n">phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;PHASE&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">phase_gate</span><span class="o">.</span><span class="n">set_matrix_generator</span><span class="p">(</span><span class="n">phase_matrix</span><span class="p">)</span>
 </pre></div>
@@ -253,8 +274,10 @@ However, when the time comes to simulate or properly execute the quantum circuit
 </div>
 <div class="section" id="subcircuit-definition">
 <h3>Subcircuit definition<a class="headerlink" href="#subcircuit-definition" title="Permalink to this headline">¶</a></h3>
-<p>Similarly, to provide a subcircuit implementation, one attaches to the definition of the gate a function returning a <code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">c_phase</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+<p>Similarly, to provide a subcircuit implementation, one attaches to the definition of the gate a function returning a <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">CNOT</span><span class="p">,</span> <span class="n">PH</span><span class="p">,</span> <span class="n">AbstractGate</span>
+
+<span class="k">def</span> <span class="nf">c_phase</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
     <span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
     <span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">CNOT</span><span class="p">,</span> <span class="n">wires</span><span class="p">)</span>
@@ -266,7 +289,7 @@ However, when the time comes to simulate or properly execute the quantum circuit
 
 
 <span class="n">c_phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;C_PHASE&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">circuit_generator</span><span class="o">=</span><span class="n">c_phase</span><span class="p">)</span>
-<span class="c1">## Or alternatively</span>
+<span class="c1"># Or alternatively</span>
 <span class="n">c_phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;C_PHASE&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">c_phase_gate</span><span class="o">.</span><span class="n">set_circuit_generator</span><span class="p">(</span><span class="n">c_phase</span><span class="p">)</span>
 </pre></div>
@@ -275,7 +298,8 @@ However, when the time comes to simulate or properly execute the quantum circuit
 <div class="section" id="arity-generator">
 <h3>Arity generator<a class="headerlink" href="#arity-generator" title="Permalink to this headline">¶</a></h3>
 <p>Finally, it is possible for abstract gates to have a variable arity that depends on its parameters.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># A QFT has arity equals to its sole parameter</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">AbstractGate</span>
+<span class="c1"># A QFT has arity equals to its sole parameter</span>
 <span class="n">qft</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;QFT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n</span> <span class="p">:</span> <span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -284,11 +308,10 @@ However, when the time comes to simulate or properly execute the quantum circuit
 </div>
 <div class="section" id="lifting-python-functions-into-quantum-gates">
 <h2>Lifting Python functions into quantum gates<a class="headerlink" href="#lifting-python-functions-into-quantum-gates" title="Permalink to this headline">¶</a></h2>
-<p>Even though the above mecanics are very expressive when designing a library of quantum routines, it might still seem a bit clunky to have
-to define circuit generators and abstract gates separatly.</p>
-<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">build_gate</span></code> decorator removes a lot of this clunkyness by allowing you to turn any Python function returning a <code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code> into an <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.gates.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">H</span>
-<span class="kn">from</span> <span class="nn">qat.lang.AQASM.misc</span> <span class="kn">import</span> <span class="n">build_gate</span>
+<p>Even though the above mechanics are very expressive when designing a library of quantum routines, it might still seem a bit clunky to have
+to define circuit generators and abstract gates separately.</p>
+<p>The <cite>build_gate</cite> decorator removes a lot of this clunkyness by allowing you to turn any Python function returning a <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> into an <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.gates.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">build_gate</span><span class="p">,</span> <span class="n">Program</span>
 
 <span class="nd">@build_gate</span><span class="p">(</span><span class="s2">&quot;WALSH_HADAMARD&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">wht</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">):</span>
@@ -309,7 +332,7 @@ to define circuit generators and abstract gates separatly.</p>
 </div>
 <div class="section" id="linking-at-circuit-extraction">
 <h2>Linking at circuit extraction<a class="headerlink" href="#linking-at-circuit-extraction" title="Permalink to this headline">¶</a></h2>
-<p>In pyAQASM, it is possible to construct a <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program" title="qat.lang.AQASM.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> object using <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code> objects representing subroutines, without specifying any implementation of the underlying subcircuit.</p>
+<p>In pyAQASM, it is possible to construct a <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program" title="qat.lang.AQASM.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> object using <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.gates.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a> objects representing subroutines, without specifying any implementation of the underlying subcircuit.</p>
 <p>Consider for instance the following program:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">AbstractGate</span>
 
@@ -319,12 +342,10 @@ to define circuit generators and abstract gates separatly.</p>
 <span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">adder</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">qbits</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This code will run without error. The generated circuit (the result of <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.to_circ" title="qat.lang.AQASM.Program.to_circ"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_circ()</span></code></a>) will contain a single gate without any subcircuit implementation.
-In particular, attempting to execute this circuit on most QPUs will fail.</p>
-<p>Now, lets imagine that we have our very own implementation of an adder, lying in some Python namespace <cite>foo</cite>.
+<p>This code will run without error. The generated circuit (the result of <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.to_circ" title="qat.lang.AQASM.Program.to_circ"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_circ()</span></code></a>) will contain a single gate without any subcircuit implementation. Therefore, attempting to execute this circuit on most QPUs will fail.</p>
+<p>Now, let’s imagine that we have our very own implementation of an adder, lying in some Python namespace <cite>foo</cite>.
 Its definition will look like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">H</span>
-<span class="kn">from</span> <span class="nn">qat.lang.AQASM.misc</span> <span class="kn">import</span> <span class="n">build_gate</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">build_gate</span>
 
 <span class="nd">@build_gate</span><span class="p">(</span><span class="s2">&quot;ADD&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">:</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">my_adder</span><span class="p">(</span><span class="n">length1</span><span class="p">,</span> <span class="n">length2</span><span class="p">):</span>
@@ -336,7 +357,7 @@ Its definition will look like this:</p>
     <span class="k">return</span> <span class="n">routine</span>
 </pre></div>
 </div>
-<p>What pyAQASM allows us to do is to use this definition of an adder and link it to the program above in order to attach to the <cite>ADD</cite> gate a proper subcircuit implementation.
+<p>What pyAQASM allows us to do is to use this definition of an adder and link it to the program above in order to attach a proper subcircuit implementation to the <cite>ADD</cite> gate.
 The linking is done inside the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.to_circ" title="qat.lang.AQASM.Program.to_circ"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_circ()</span></code></a> method of the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program" title="qat.lang.AQASM.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> via the <cite>link</cite> keyword.
 Lets update the first piece of code to link the implementation <cite>foo.my_adder</cite> to the <cite>ADD</cite> gate.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This part stays the same</span>
@@ -366,56 +387,86 @@ Equivalently one could have linked the full namespace <cite>foo</cite>, if we ha
 </pre></div>
 </div>
 </div>
-<div class="section" id="qroutine-s-compute-uncompute-scopes">
-<h2>QRoutine’s Compute/uncompute scopes<a class="headerlink" href="#qroutine-s-compute-uncompute-scopes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="compute-uncompute-scopes">
+<h2>Compute/uncompute scopes<a class="headerlink" href="#compute-uncompute-scopes" title="Permalink to this headline">¶</a></h2>
 <p>A quite common programming scheme in reversible computation in general, and quantum computation in particular, is the <em>compute/uncompute</em> scheme.</p>
 <p>Usually, one has to compute some function, use the result of this computation, and then uncompute the first part of the circuit to free up some ancilla resources.</p>
-<p>This scheme is natively supported inside the <code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code> objects using a <strong>with</strong> statement:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
-<span class="c1">## Allocating 2 wires to apply gates on</span>
+<p>This scheme is natively supported inside the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> and <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program" title="qat.lang.AQASM.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> objects using a <strong>with</strong> statement:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">CNOT</span><span class="p">,</span> <span class="n">PH</span>
+
+<span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+
+<span class="c1"># Allocating 2 wires to apply gates on</span>
 <span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="c1">## Opening a computation scope</span>
+
+<span class="c1"># Opening a computation scope</span>
 <span class="k">with</span> <span class="n">routine</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
     <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">CNOT</span><span class="p">,</span> <span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="c1">## The scope is now closed and stored internally</span>
+<span class="c1"># The scope is now closed and stored internally</span>
+
 <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">PH</span><span class="p">(</span><span class="mf">1.</span><span class="p">),</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="c1">## Here we &#39;pop&#39; the last closed scope and apply its dagger</span>
+
+<span class="c1"># Here we &#39;pop&#39; the last closed scope and apply its dagger</span>
 <span class="n">routine</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
-<span class="c1">## The routine now contains 3 gates</span>
+<span class="c1"># The routine now contains 3 gates</span>
+</pre></div>
+</div>
+<p>or, using programs:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">CNOT</span><span class="p">,</span> <span class="n">PH</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+
+<span class="c1"># Allocating 2 wires to apply gates on</span>
+<span class="n">wires</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Opening a computation scope</span>
+<span class="k">with</span> <span class="n">prog</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="c1"># The scope is now closed and stored internally</span>
+
+<span class="n">PH</span><span class="p">(</span><span class="mf">1.</span><span class="p">)(</span><span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Here we &#39;pop&#39; the last closed scope and apply its dagger</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
+<span class="c1"># The routine now contains 3 gates</span>
 </pre></div>
 </div>
 <p>Of course computation scopes can be nested:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">CNOT</span><span class="p">,</span> <span class="n">PH</span>
+
+<span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
 <span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="k">with</span> <span class="n">routine</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
     <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">CNOT</span><span class="p">,</span> <span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
     <span class="k">with</span> <span class="n">routine</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
         <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">CNOT</span><span class="p">,</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">wires</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-    <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">PH</span><span class="p">(</span><span class="mf">1.</span><span class="p">),</span> <span class="n">wires</span><span class="p">[</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">PH</span><span class="p">(</span><span class="mf">1.</span><span class="p">),</span> <span class="n">wires</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
     <span class="n">routine</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
 <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">PH</span><span class="p">(</span><span class="mf">2.</span><span class="p">),</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">routine</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
-<span class="c1">## The routine now contains 9 gates</span>
+<span class="c1"># The routine now contains 9 gates</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="automated-ancillae-management">
 <h2>Automated ancillae management<a class="headerlink" href="#automated-ancillae-management" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code> object comes with a system of ancillae management.
+<p>The <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> object comes with a system of ancillae management.
 In practice, one can allocate fresh wires and declare them as ancillae:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span>
+<span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
 <span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">ancilla</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">routine</span><span class="o">.</span><span class="n">set_ancillae</span><span class="p">(</span><span class="n">ancilla</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This routine will have arity 1, its second wire being declared as an ancilla.
-Upon calling the <code class="xref py py-meth docutils literal notranslate"><span class="pre">to_circ()</span></code> method of a program containing this routine, additional qubits will
+Upon calling the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.to_circ" title="qat.lang.AQASM.Program.to_circ"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_circ()</span></code></a> method of a program containing this routine, additional qubits will
 be dynamically allocated and passed to the routine. Of course this allocation is made recursively accros
 the call tree.</p>
 <p>The only thing you have to ensure is that ancillae are freed before leaving the routine (i.e are in product <span class="math notranslate nohighlight">\(|0\rangle\)</span> state).</p>
 <p>As a consequence, it is possible to link subcircuit implementations of a gate using different number of ancillae:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM.arithmetic</span> <span class="kn">import</span> <span class="n">add</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.arithmetic</span> <span class="kn">import</span> <span class="n">add</span>
 <span class="kn">import</span> <span class="nn">qat.lang.AQASM.qftarith</span> <span class="k">as</span> <span class="nn">qftarith</span>
 <span class="kn">import</span> <span class="nn">qat.lang.AQASM.classarith</span> <span class="k">as</span> <span class="nn">classarith</span>
 
@@ -429,6 +480,494 @@ the call tree.</p>
 <span class="c1"># 9 ancillae</span>
 <span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">(</span><span class="n">link</span><span class="o">=</span><span class="p">[</span><span class="n">classarith</span><span class="p">])</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="oracles-and-quantum-types">
+<h2>Oracles and quantum types<a class="headerlink" href="#oracles-and-quantum-types" title="Permalink to this headline">¶</a></h2>
+<p>When writing an oracle based quantum algorithm, such as Grover’s aglorithm, it is sometimes hard to translate a classical function implementing the oracle into a proper quantum circuit.
+Usually, this translation requires management of temporary resources and intermediate computations that can quickly become overwhelming (and, to be fair, not necessarily interesting).</p>
+<p>PyAQASM comes with a nice feature that can help you efficiently describe complicated quantum oracles: high(er)-level quantum types.</p>
+<p>It is possible, for instance, to declare a quantum register as a <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.qint.QInt" title="qat.lang.AQASM.qint.QInt"><code class="xref py py-class docutils literal notranslate"><span class="pre">QInt</span></code></a>. Quantum integers can then be used to directly perform arithmetic operations, or comparisons.</p>
+<p>For instance, the following piece of code allocates two quantum integers and adds them:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qint</span> <span class="kn">import</span> <span class="n">QInt</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qint1</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+<span class="n">qint2</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+<span class="n">qint1</span> <span class="o">+=</span> <span class="n">qint2</span>
+<span class="c1"># Abstract circuit with some unimplemented adder</span>
+<span class="n">circuit_abs</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="kn">import</span> <span class="nn">qat.lang.AQASM.qftarith</span> <span class="k">as</span> <span class="nn">qftarith</span>
+<span class="kn">import</span> <span class="nn">qat.lang.AQASM.classarith</span> <span class="k">as</span> <span class="nn">classarith</span>
+<span class="c1"># Using QFT based adder</span>
+<span class="n">circuit_qft</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">(</span><span class="n">link</span><span class="o">=</span><span class="p">[</span><span class="n">qftarith</span><span class="p">])</span>
+
+<span class="c1"># Using carry based adder</span>
+<span class="n">circuit_class</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">(</span><span class="n">link</span><span class="o">=</span><span class="p">[</span><span class="n">classarith</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>In the following subsections, we detail the two quantum types implemented in pyAQASM: <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.qbool.QBool" title="qat.lang.AQASM.qbool.QBool"><code class="xref py py-class docutils literal notranslate"><span class="pre">QBool</span></code></a> and <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.qint.QInt" title="qat.lang.AQASM.qint.QInt"><code class="xref py py-class docutils literal notranslate"><span class="pre">QInt</span></code></a>.</p>
+<div class="section" id="quantum-booleans-quantum-conditionals-and-quantum-oracles">
+<h3>Quantum booleans, quantum conditionals, and quantum oracles<a class="headerlink" href="#quantum-booleans-quantum-conditionals-and-quantum-oracles" title="Permalink to this headline">¶</a></h3>
+<p>The simplest quantum type is the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.qbool.QBool" title="qat.lang.AQASM.qbool.QBool"><code class="xref py py-class docutils literal notranslate"><span class="pre">QBool</span></code></a> type (or <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.qbool.QBoolArray" title="qat.lang.AQASM.qbool.QBoolArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">QBoolArray</span></code></a> for registers).</p>
+<div class="section" id="allocation">
+<h4>Allocation<a class="headerlink" href="#allocation" title="Permalink to this headline">¶</a></h4>
+<p>Allocation can be done, as for any other type, by adding the corresponding type to the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.qalloc" title="qat.lang.AQASM.Program.qalloc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qalloc()</span></code></a> or <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.routines.QRoutine.new_wires" title="qat.lang.AQASM.routines.QRoutine.new_wires"><code class="xref py py-meth docutils literal notranslate"><span class="pre">new_wires()</span></code></a> method. Since registers are arrays of qubits, they can only be typed using the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.qbool.QBoolArray" title="qat.lang.AQASM.qbool.QBoolArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">QBoolArray</span></code></a> class.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">QRoutine</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qbool</span> <span class="kn">import</span> <span class="n">QBoolArray</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbools</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">QBoolArray</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">qbools</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">qbools</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="c1"># or</span>
+
+<span class="n">rout</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+<span class="n">qbools</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">QBoolArray</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">qbools</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">qbools</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;qat.lang.AQASM.qbool.QBoolArray&#39;&gt;
+&lt;class &#39;qat.lang.AQASM.qbool.QBool&#39;&gt;
+&lt;class &#39;qat.lang.AQASM.qbool.QBoolArray&#39;&gt;
+&lt;class &#39;qat.lang.AQASM.qbool.QBool&#39;&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="logical-expressions">
+<h4>Logical expressions<a class="headerlink" href="#logical-expressions" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="qat-lang.html#qat.lang.AQASM.qbool.QBool" title="qat.lang.AQASM.qbool.QBool"><code class="xref py py-class docutils literal notranslate"><span class="pre">QBool</span></code></a> can be composed using Python’s logical operators (and, or, not, xor) to form boolean expressions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qbool</span> <span class="kn">import</span> <span class="n">QBoolArray</span>
+
+<span class="n">rout</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+<span class="n">qbools</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">QBoolArray</span><span class="p">)</span>
+
+<span class="n">and_expr</span> <span class="o">=</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">and_expr</span><span class="p">)</span>
+
+<span class="n">expr1</span> <span class="o">=</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">|</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">expr1</span><span class="p">)</span>
+
+<span class="n">expr2</span> <span class="o">=</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">|</span> <span class="o">~</span><span class="n">qbools</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">expr2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&amp;</span><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">&amp;</span><span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">((</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&amp;</span><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">|</span><span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">((</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">^</span><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">|</span><span class="p">(</span><span class="o">~</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="evaluating-expressions">
+<h4>Evaluating expressions<a class="headerlink" href="#evaluating-expressions" title="Permalink to this headline">¶</a></h4>
+<p>How good is it to be able to construct expressions if we can’t use them?
+Boolean expressions can be evaluated. Evaluating an expression will append a sequence of gates to the current scope (i.e the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program" title="qat.lang.AQASM.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> or the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> in which the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.qbool.QBool" title="qat.lang.AQASM.qbool.QBool"><code class="xref py py-class docutils literal notranslate"><span class="pre">QBool</span></code></a> were declared). This sequence of gates will evaluate the expression and output the result in a temporary qubit.</p>
+<p>For instance the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qbool</span> <span class="kn">import</span> <span class="n">QBoolArray</span>
+
+<span class="n">rout</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+<span class="n">qbools</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">QBoolArray</span><span class="p">)</span>
+
+<span class="n">expr2</span> <span class="o">=</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">|</span> <span class="o">~</span><span class="n">qbools</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">expr2</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">rout</span><span class="o">.</span><span class="n">arity</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span>
+</pre></div>
+</div>
+<p>will produce the following circuit:</p>
+<blockquote>
+<div><div class="figure align-default">
+<a class="reference internal image-reference" href="images/pyaqasm_boolean_expr_1.png"><img alt="images/pyaqasm_boolean_expr_1.png" src="images/pyaqasm_boolean_expr_1.png" style="width: 288.8px; height: 144.8px;" /></a>
+</div>
+</div></blockquote>
+<p>In this circuit, we have:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>two CNOTs to compute the XOR of the first two qubits in some ancilla <span class="math notranslate nohighlight">\(q_4\)</span>, (corresponding to the <cite>qbools[0] ^ qbools[1]</cite> term)</p></li>
+<li><p>a CNOT and a X gate to compute the <cite>~qbools[2]</cite> term in another ancilla <span class="math notranslate nohighlight">\(q_5\)</span></p></li>
+<li><p>5 X gates and a Toffoli gate to compute the final <strong>OR</strong> operator in <span class="math notranslate nohighlight">\(q_3\)</span>, the output qubit. Here we use the de Morgan law to turn our <strong>OR</strong> into <strong>NOTS</strong> and a <strong>AND</strong> operator.</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notice that, in this example, the produced routine has arity 3. Indeed, the qubit used in the <cite>.evaluate</cite> method are automatically flagged as <em>ancillae</em>. Keep that in mind when using the <cite>.evaluate</cite> method.</p>
+</div>
+<p>It is also possible to specify an output qubit for the evaluation procedure:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qbool</span> <span class="kn">import</span> <span class="n">QBoolArray</span>
+
+<span class="n">rout</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+<span class="n">qbools</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">QBoolArray</span><span class="p">)</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">expr2</span> <span class="o">=</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">|</span> <span class="o">~</span><span class="n">qbools</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">expr2</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">rout</span><span class="o">.</span><span class="n">arity</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">4</span>
+</pre></div>
+</div>
+<p>will produce the same circuit, but this time the routine will have arity 4 since <cite>output</cite> was declared as a proper input of the routine.</p>
+</div>
+<div class="section" id="quantum-conditionals-and-with-statements">
+<h4>Quantum conditionals and <strong>with</strong> statements<a class="headerlink" href="#quantum-conditionals-and-with-statements" title="Permalink to this headline">¶</a></h4>
+<p>Expressions can also be combined with a <strong>with</strong> statement to produce a context in which the expression is evaluated.
+For instance, the following piece of code evaluates an expression in a <strong>with</strong> statement and copies the result of the evaluation in an output qubit.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">CNOT</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qbool</span> <span class="kn">import</span> <span class="n">QBoolArray</span>
+
+<span class="n">rout</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+<span class="n">qbools</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">QBoolArray</span><span class="p">)</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">expr2</span> <span class="o">=</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">|</span> <span class="o">~</span><span class="n">qbools</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="k">with</span> <span class="n">expr2</span> <span class="k">as</span> <span class="n">condition</span><span class="p">:</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="n">condition</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">condition</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">q</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This will produce the following circuit:</p>
+<blockquote>
+<div><div class="figure align-default">
+<a class="reference internal image-reference" href="images/pyaqasm_boolean_expr_2.png"><img alt="images/pyaqasm_boolean_expr_2.png" src="images/pyaqasm_boolean_expr_2.png" style="width: 564.8000000000001px; height: 168.8px;" /></a>
+</div>
+</div></blockquote>
+<p>Notice that the boolean expression was first evaluated in a temporary qubit (qubit 4), then we copied the result in an output qubit (qubit 3), finally, the expression was uncomputed upon exiting the <strong>with</strong> block.</p>
+<p>The <strong>with</strong> statement is in fact just a syntactic sugar for the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">CNOT</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qbool</span> <span class="kn">import</span> <span class="n">QBoolArray</span>
+
+<span class="n">rout</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+<span class="n">qbools</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">QBoolArray</span><span class="p">)</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">expr2</span> <span class="o">=</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">|</span> <span class="o">~</span><span class="n">qbools</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c1"># starting a compute scope</span>
+<span class="k">with</span> <span class="n">rout</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
+    <span class="c1"># evaluating the expression</span>
+    <span class="n">condition</span> <span class="o">=</span> <span class="n">expr2</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span>
+
+<span class="c1"># copying the result</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">condition</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+
+<span class="c1"># uncomputing the evaluation</span>
+<span class="n">rout</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
+
+<span class="c1"># releasing the ancilla `condition` for later use</span>
+<span class="n">rout</span><span class="o">.</span><span class="n">free_ancillae</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Quantum conditionals cannot be called on an expression whose underlying qubits were allocated in a Program class.
+Therefore, it should only be used inside a <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> first.</p>
+</div>
+</div>
+<div class="section" id="building-phase-oracles">
+<h4>Building phase oracles<a class="headerlink" href="#building-phase-oracles" title="Permalink to this headline">¶</a></h4>
+<p>Last but not least, it is possible to use a boolean expression to automatically generate a quantum circuit that will flip the phase of basis states that verify the expression.
+This is done by calling the method <cite>phase</cite> on an expression.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">CNOT</span><span class="p">,</span> <span class="n">H</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qbool</span> <span class="kn">import</span> <span class="n">QBoolArray</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbools</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">QBoolArray</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">qbit</span> <span class="ow">in</span> <span class="n">qbools</span><span class="p">:</span>
+    <span class="n">H</span><span class="p">(</span><span class="n">qbit</span><span class="p">)</span>
+<span class="n">expr</span> <span class="o">=</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">qbools</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">expr</span><span class="o">.</span><span class="n">phase</span><span class="p">()</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">amplitude</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span><span class="o">&gt;</span> <span class="p">(</span><span class="mf">0.4999999999999999</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">)</span>
+<span class="o">|</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span><span class="o">&gt;</span> <span class="p">(</span><span class="mf">0.4999999999999999</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">)</span>
+<span class="o">|</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span><span class="o">&gt;</span> <span class="p">(</span><span class="mf">0.4999999999999999</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">)</span>
+<span class="o">|</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.4999999999999999</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Since our expression evaluates at <cite>True</cite> if and only if the two qubits are set to <cite>True</cite> only state <span class="math notranslate nohighlight">\(|11\rangle\)</span> had its phase flipped.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <cite>phase</cite> method cannot be called on an expression whose underlying qubits were allocated in a Program class.
+Therefore, it should only be used inside a <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> first.</p>
+</div>
+</div>
+</div>
+<div class="section" id="quantum-integers">
+<h3>Quantum integers<a class="headerlink" href="#quantum-integers" title="Permalink to this headline">¶</a></h3>
+<p>The second type allows to type registers as integers.</p>
+<div class="section" id="id1">
+<h4>Allocation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>Similarly to <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.qbool.QBool" title="qat.lang.AQASM.qbool.QBool"><code class="xref py py-class docutils literal notranslate"><span class="pre">QBool</span></code></a>, <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.qint.QInt" title="qat.lang.AQASM.qint.QInt"><code class="xref py py-class docutils literal notranslate"><span class="pre">QInt</span></code></a> is allocated using the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.qalloc" title="qat.lang.AQASM.Program.qalloc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qalloc()</span></code></a> or <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.routines.QRoutine.new_wires" title="qat.lang.AQASM.routines.QRoutine.new_wires"><code class="xref py py-meth docutils literal notranslate"><span class="pre">new_wires()</span></code></a> methods.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">QRoutine</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qint</span> <span class="kn">import</span> <span class="n">QInt</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qint</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qint</span><span class="p">)</span>
+
+<span class="n">rout</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+<span class="n">qint</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qint</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QInt</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">..</span><span class="n">q</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">QInt</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">..</span><span class="n">q</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-a-classical-value">
+<h4>Setting a classical value<a class="headerlink" href="#setting-a-classical-value" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="qat-lang.html#qat.lang.AQASM.qint.QInt" title="qat.lang.AQASM.qint.QInt"><code class="xref py py-class docutils literal notranslate"><span class="pre">QInt</span></code></a> have a method called <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.qint.QInt.set_value" title="qat.lang.AQASM.qint.QInt.set_value"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_value()</span></code></a> that xors the content of the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.qint.QInt" title="qat.lang.AQASM.qint.QInt"><code class="xref py py-class docutils literal notranslate"><span class="pre">QInt</span></code></a> with a classical value.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qint</span> <span class="kn">import</span> <span class="n">QInt</span>
+
+<span class="n">rout</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+<span class="n">qint</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+<span class="n">qint</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>produces:</p>
+<blockquote>
+<div><div class="figure align-default">
+<a class="reference internal image-reference" href="images/pyaqasm_qint_1.png"><img alt="images/pyaqasm_qint_1.png" src="images/pyaqasm_qint_1.png" style="width: 92.80000000000001px; height: 68.0px;" /></a>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="arithmetic-expressions">
+<h4>Arithmetic expressions<a class="headerlink" href="#arithmetic-expressions" title="Permalink to this headline">¶</a></h4>
+<p>Instances of <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.qint.QInt" title="qat.lang.AQASM.qint.QInt"><code class="xref py py-class docutils literal notranslate"><span class="pre">QInt</span></code></a> can be combined via addition and multiplication. Combining them forms an arithmetic expression without adding any gate to the underlying circuit.</p>
+<p>The only operation that triggers a circuit generation is the <cite>+=</cite> operator.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">QRoutine</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qint</span> <span class="kn">import</span> <span class="n">QInt</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qint1</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+<span class="n">qint2</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+
+<span class="n">qint1</span> <span class="o">+</span> <span class="n">qint2</span>
+<span class="n">circuit1</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="n">qint1</span> <span class="o">+=</span> <span class="n">qint2</span>
+<span class="n">circuit2</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First circuit&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">circuit1</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Second circuit&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">circuit2</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">First</span> <span class="n">circuit</span>
+<span class="n">Second</span> <span class="n">circuit</span>
+<span class="p">(</span><span class="s1">&#39;ADD&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Notice that the first circuit is empty: the statement <cite>qint1 + qint2</cite> did not produce any gate. The second statement, <cite>qint1 += qint2</cite> did produce an adder.</p>
+<p>The same holds for multiplication:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">QRoutine</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qint</span> <span class="kn">import</span> <span class="n">QInt</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qint1</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+<span class="n">qint2</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+<span class="n">qint3</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+
+<span class="n">qint1</span> <span class="o">*</span> <span class="n">qint2</span>
+<span class="n">circuit1</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="n">qint3</span> <span class="o">+=</span> <span class="n">qint1</span> <span class="o">*</span> <span class="n">qint2</span>
+<span class="n">circuit2</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First circuit&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">circuit1</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Second circuit&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">circuit2</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">(</span><span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">First</span> <span class="n">circuit</span>
+<span class="n">Second</span> <span class="n">circuit</span>
+<span class="p">(</span><span class="s1">&#39;MULT&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="conditionals-on-quantum-integers">
+<h4>Conditionals on quantum integers<a class="headerlink" href="#conditionals-on-quantum-integers" title="Permalink to this headline">¶</a></h4>
+<p>It is possible to compare quantum integers with one another or to some classical values. These comparisons produce <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.qbool.QBool" title="qat.lang.AQASM.qbool.QBool"><code class="xref py py-class docutils literal notranslate"><span class="pre">QBool</span></code></a> objects and can thus be used to produce oracles or conditional statements.</p>
+<p>For instance, one can write a program that:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>compares two quantum integers</p></li>
+<li><p>and increments a quantum integer if and only if the comparison fails</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qint</span> <span class="kn">import</span> <span class="n">QInt</span>
+
+<span class="n">rout</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+<span class="n">qint1</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+<span class="n">qint2</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+<span class="n">qint3</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">qint1</span> <span class="o">!=</span> <span class="n">qint2</span> <span class="k">as</span> <span class="n">condition</span><span class="p">:</span>
+    <span class="n">qint3</span> <span class="o">+=</span> <span class="n">condition</span><span class="o">.</span><span class="n">cast_to</span><span class="p">(</span><span class="n">QInt</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Notice the usage of the <cite>cast_to</cite> method that allows us to cast any type to a new type (by re-wrapping the quantum register).</p>
+<p>Of course, one can also use the <cite>.evaluate</cite> and <cite>.phase</cite> methods. For instance, the following piece of code flips the phase of all classical states that represent integers below some constant, say 5:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">H</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qint</span> <span class="kn">import</span> <span class="n">QInt</span>
+<span class="kn">import</span> <span class="nn">qat.lang.AQASM.qftarith</span> <span class="k">as</span> <span class="nn">qftarith</span>
+
+<span class="n">rout</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+<span class="n">qint</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">qbit</span> <span class="ow">in</span> <span class="n">qint</span><span class="p">:</span>
+    <span class="n">H</span><span class="p">(</span><span class="n">qbit</span><span class="p">)</span>
+<span class="p">(</span><span class="n">qint</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">phase</span><span class="p">()</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+
+<span class="n">rout</span><span class="p">(</span><span class="n">qbits</span><span class="p">)</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">(</span><span class="n">link</span><span class="o">=</span><span class="p">[</span><span class="n">qftarith</span><span class="p">])</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">amplitude</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span><span class="mi">0</span><span class="o">&gt;|</span><span class="n">Anc</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.35355339059327323</span><span class="o">+</span><span class="mf">3.560838358596747e-17</span><span class="n">j</span><span class="p">)</span>
+<span class="o">|</span><span class="mi">1</span><span class="o">&gt;|</span><span class="n">Anc</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.35355339059327323</span><span class="o">+</span><span class="mf">3.284126769102014e-17</span><span class="n">j</span><span class="p">)</span>
+<span class="o">|</span><span class="mi">2</span><span class="o">&gt;|</span><span class="n">Anc</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.3535533905932733</span><span class="o">+</span><span class="mf">3.392966268662476e-17</span><span class="n">j</span><span class="p">)</span>
+<span class="o">|</span><span class="mi">3</span><span class="o">&gt;|</span><span class="n">Anc</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.35355339059327323</span><span class="o">-</span><span class="mf">1.0610875721556842e-17</span><span class="n">j</span><span class="p">)</span>
+<span class="o">|</span><span class="mi">4</span><span class="o">&gt;|</span><span class="n">Anc</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.3535533905932733</span><span class="o">-</span><span class="mf">1.0679583853003736e-18</span><span class="n">j</span><span class="p">)</span>
+<span class="o">|</span><span class="mi">5</span><span class="o">&gt;|</span><span class="n">Anc</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="p">(</span><span class="mf">0.3535533905932731</span><span class="o">-</span><span class="mf">1.0016313363825637e-16</span><span class="n">j</span><span class="p">)</span>
+<span class="o">|</span><span class="mi">6</span><span class="o">&gt;|</span><span class="n">Anc</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="p">(</span><span class="mf">0.3535533905932731</span><span class="o">-</span><span class="mf">6.539164195928566e-17</span><span class="n">j</span><span class="p">)</span>
+<span class="o">|</span><span class="mi">7</span><span class="o">&gt;|</span><span class="n">Anc</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="p">(</span><span class="mf">0.3535533905932732</span><span class="o">-</span><span class="mf">1.7389835079820265e-17</span><span class="n">j</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="example-grover-oracle-for-graph-coloring">
+<h3>Example: Grover oracle for graph coloring<a class="headerlink" href="#example-grover-oracle-for-graph-coloring" title="Permalink to this headline">¶</a></h3>
+<p>Using these tools, it is quite straightforward to write simple phase oracles for Grover-like applications.</p>
+<p>For instance, one can write in a few lines of code a routine that will act as an oracle for a graph coloring problem.</p>
+<p>We will construct a Python function that will take a graph (<a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/graph.html">networkx.Graph</a>) and a number of bits to use to store each color. It will return a <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> that flips the phase of a basis state if and only if it describes a clean coloration.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qint</span> <span class="kn">import</span> <span class="n">QInt</span>
+
+<span class="k">def</span> <span class="nf">coloring_oracle</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">bitlength</span><span class="p">):</span>
+    <span class="n">rout</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="n">bitlength</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()]</span>
+    <span class="n">reduce</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">,</span>
+        <span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">!=</span> <span class="n">colors</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">())</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">phase</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">rout</span>
+
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">path_graph</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">bitlength</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># looking for 2 colorings, so colors are stored on a single bit</span>
+
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">coloring_oracle</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">bitlength</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Oracle has arity:&quot;</span><span class="p">,</span> <span class="n">oracle</span><span class="o">.</span><span class="n">arity</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Oracle uses </span><span class="si">{}</span><span class="s2"> ancillae&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">oracle</span><span class="o">.</span><span class="n">ancillae</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Oracle</span> <span class="n">has</span> <span class="n">arity</span><span class="p">:</span> <span class="mi">20</span>
+<span class="n">Oracle</span> <span class="n">uses</span> <span class="mi">19</span> <span class="n">ancillae</span>
+</pre></div>
+</div>
+<p>In this function, we:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>declare an array of quantum integers, one for each vertex of our graph</p></li>
+<li><p>build a formula that computeс the logical <cite>and</cite> of <span class="math notranslate nohighlight">\(c_i \neq c_j\)</span> for each edge <span class="math notranslate nohighlight">\(i\)</span> <span class="math notranslate nohighlight">\(j\)</span> of our graph</p></li>
+<li><p>use this formula to perform a phase flip</p></li>
+</ul>
+</div></blockquote>
+<p>This implementation uses a lot of qubits. For each <span class="math notranslate nohighlight">\(c_i \neq c_j\)</span>  in our <cite>for</cite> loop, pyAQASM allocates a temporary qubit. Then a generalized controlled <span class="math notranslate nohighlight">\(Z\)</span> is used to flip the phase of the states that have all these ancillae set to 1. Finally, all the temporary qubits are freed by uncomputing the <span class="math notranslate nohighlight">\(c_i \neq c_j\)</span> statements.</p>
+<p>Asymptotically, this oracle uses <span class="math notranslate nohighlight">\(b|V| + |E|\)</span> qubits, without considering the fact that the implementation of the generalized controlled <span class="math notranslate nohighlight">\(Z\)</span> might require additional qubits.</p>
+<p>It is possible to save up some qubits, at the cost of an increased number of gates. The following code snippet implements the same oracle, but a bit differently:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>it allocates a counter large enough to count up to <span class="math notranslate nohighlight">\(|E|\)</span></p></li>
+<li><p>for each edge, if <span class="math notranslate nohighlight">\(c_i \neq c_j\)</span>, it increments the counter by 1</p></li>
+<li><p>it flips the phase of the basis state if and only if the counter contains exactly <span class="math notranslate nohighlight">\(|E|\)</span></p></li>
+<li><p>finally, it uncomputes all the counter increments</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">QRoutine</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qint</span> <span class="kn">import</span> <span class="n">QInt</span>
+
+<span class="k">def</span> <span class="nf">coloring_oracle</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">bitlength</span><span class="p">):</span>
+    <span class="n">rout</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="n">bitlength</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()]</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span><span class="o">.</span><span class="n">bit_length</span><span class="p">(),</span> <span class="n">QInt</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">rout</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">():</span>
+            <span class="k">with</span> <span class="n">colors</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">!=</span> <span class="n">colors</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="k">as</span> <span class="n">condition</span><span class="p">:</span>
+                <span class="n">counter</span> <span class="o">+=</span> <span class="n">condition</span><span class="o">.</span><span class="n">cast_to</span><span class="p">(</span><span class="n">QInt</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="n">graph</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">())</span><span class="o">.</span><span class="n">phase</span><span class="p">()</span>
+    <span class="n">rout</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
+    <span class="n">rout</span><span class="o">.</span><span class="n">set_ancillae</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rout</span>
+
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">path_graph</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">bitlength</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># looking for 2 colorings, so colors are stored on a single bit</span>
+
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">coloring_oracle</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">bitlength</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Oracle has arity:&quot;</span><span class="p">,</span> <span class="n">oracle</span><span class="o">.</span><span class="n">arity</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Oracle uses </span><span class="si">{}</span><span class="s2"> ancillae&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">oracle</span><span class="o">.</span><span class="n">ancillae</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Oracle</span> <span class="n">has</span> <span class="n">arity</span><span class="p">:</span> <span class="mi">20</span>
+<span class="n">Oracle</span> <span class="n">uses</span> <span class="mi">6</span> <span class="n">ancillae</span>
+</pre></div>
+</div>
+<p>Asymptotically, this oracle is far more frugal since it uses only <span class="math notranslate nohighlight">\(b|V| + log(|E|)\)</span> qubits.</p>
+<p>Notice that in both examples, we didn’t have to directly mention any quantum gate. Everything is handled by the quantum types.</p>
 </div>
 </div>
 </div>

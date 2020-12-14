@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Combinatorial optimization &mdash; myQLM documentation myQLM-1.1.6.25 documentation</title>
+  <title>Combinatorial optimization &mdash; myQLM documentation  documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-1.1.6
+                myQLM-1.2.2
               </div>
             
           
@@ -111,6 +111,8 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#solving-combinatorial-problems">Solving combinatorial problems</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#quantum-approximate-optimization-algorithm-qaoa">Quantum Approximate Optimization Algorithm (QAOA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simulated-annealing-sa">Simulated Annealing (SA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simulated-quantum-annealing-sqa">Simulated Quantum Annealing (SQA)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#bibliography">Bibliography</a></li>
@@ -223,7 +225,7 @@
 <span id="id1"></span><h1>Combinatorial optimization<a class="headerlink" href="#combinatorial-optimization" title="Permalink to this headline">¶</a></h1>
 <p>Many real life problems are combinatorial and solving them has actual practical applications. An intrinsic feature of these problems is that they can be formulated as minimization or maximization problems, i.e. with a cost function. At the same time finding the lowest energy of a physical system, represented by a cost Hamiltonian, is also a minimization problem. Due to this intimate relation, problems described with a cost function (<a class="reference internal" href="#qubo-description"><span class="std std-ref">QUBO</span></a>) or a cost Hamiltonian (<a class="reference internal" href="#ising-description"><span class="std std-ref">Ising</span></a>) could be solved by simulating the process of finding their minimum energy. This lowest energy should encode the solution to our problem.</p>
 <p>myQLM provides <a class="reference internal" href="qat-opt.html#qubo-and-ising-code"><span class="std std-ref">helper classes</span></a> for both of these formulations, and also the more generic <a class="reference internal" href="#combinatorial-problem-description"><span class="std std-ref">Combinatorial Problem</span></a>, in which one can describe problems with clauses and variables - see the <a class="reference internal" href="#formulating-comb"><span class="std std-ref">Formulating combinatorial problems</span></a> section below.</p>
-<p>Once the problems are encoded, one could solve them using a Quantum Approximate Optimization Algorithm (<a class="reference internal" href="#qaoa-description"><span class="std std-ref">QAOA</span></a>). There are also tools to solve the problems via Simulated Quantum Annealing (SQA), but they come in the full QLM version.</p>
+<p>Once the problems are encoded, one could solve them using a Quantum Approximate Optimization Algorithm (<a class="reference internal" href="#qaoa-description"><span class="std std-ref">QAOA</span></a>) or Simulated Annealing (<a class="reference internal" href="#sa-description"><span class="std std-ref">SA</span></a>). There are also tools to solve the problems via Simulated Quantum Annealing (<a class="reference internal" href="#sqa-description"><span class="std std-ref">SQA</span></a>), but they come in the full QLM version.</p>
 <p>Among the many different combinatorial problems, some of the most interesting and challenging ones are the NP-hard problems. A lot of effort has been put over the last 10-15 years into formulating such optimization problems as QUBO/Ising instances. See <a class="bibtex reference internal" href="#lucas2014ising" id="id3">[Luc14]</a>  for an extensive reference. A direct encoding of some of these problems, described in the <a class="reference internal" href="advanced_combinatorial_optimization.html#np-problems-formulation"><span class="std std-ref">NP Hard problems</span></a> section, has also been <a class="reference internal" href="qat-opt.html#np-hard-problems-code"><span class="std std-ref">implemented</span></a> on myQLM.</p>
 <div class="section" id="formulating-combinatorial-problems">
 <span id="formulating-comb"></span><h2>Formulating combinatorial problems<a class="headerlink" href="#formulating-combinatorial-problems" title="Permalink to this headline">¶</a></h2>
@@ -272,7 +274,7 @@ QUBO instances and vice versa</strong>. See below for more details: <a class="re
 <p>Quantum annealing machines are typically designed to try and reach the <strong>minimum energy state
 of Ising Hamiltonians</strong>, also called <strong>ground state</strong>, relying on the <strong>Adiabatic Theorem</strong>.
 See for instance <a class="bibtex reference internal" href="#albash2018adiabatic" id="id4">[AL18]</a> for a general reference on adiabatic quantum computation.</p>
-<p><strong>Classical annealing codes</strong> like Simulated Quantum Annealing (SQA) try and do the same thing: Given <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(J\)</span> as input, they will, starting from a random configuration, try to apply <strong>updates</strong>, as part of <strong>Markov chain over the configuration space</strong>, in order to look for <strong>low energy states</strong>, where “energy” is defined by the formulas above.</p>
+<p><strong>Classical annealing codes</strong> like Simulated Quantum Annealing (<a class="reference internal" href="#sqa-description"><span class="std std-ref">SQA</span></a>) try and do the same thing: Given <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(J\)</span> as input, they will, starting from a random configuration, try to apply <strong>updates</strong>, as part of <strong>Markov chain over the configuration space</strong>, in order to look for <strong>low energy states</strong>, where “energy” is defined by the formulas above.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>A coupling value <span class="math notranslate nohighlight">\(J &gt; 0\)</span> between two spins <span class="math notranslate nohighlight">\(\sigma_{i}\)</span> and
@@ -280,7 +282,7 @@ See for instance <a class="bibtex reference internal" href="#albash2018adiabatic
 as the alignment of the two spins onto a same value will tend to <strong>lower the energy</strong> of the system
 making it closer to its <strong>ground state</strong>.</p>
 </div>
-<p>In other words, <strong>quantum annealing machines</strong> and, consequently, <strong>classical annealing codes</strong> (SA and SQA) aim at tackling the following optimization problem:</p>
+<p>In other words, <strong>quantum annealing machines</strong> and, consequently, <strong>classical annealing codes</strong>, <a class="reference internal" href="#sa-description"><span class="std std-ref">SA</span></a>, aim at tackling the following optimization problem:</p>
 <div class="math notranslate nohighlight">
 \[\min_{s_{1}...s_{n}\in \{-1,1\}} \left(- \sum_{i=1}^{n} h_{i}s_{i} - \sum_{i,j=1}^{n} J_{ij}s_{i}s_{j}\right)\]</div>
 <p>given <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(J\)</span> as input.</p>
@@ -291,12 +293,12 @@ making it closer to its <strong>ground state</strong>.</p>
 <p>Quadratic Unconstrained Binary Optimization consists in, given a <strong>real symmetric matrix</strong>
 <span class="math notranslate nohighlight">\(Q\)</span>, <strong>minimizing</strong> the following cost function <span class="math notranslate nohighlight">\(q\)</span>:</p>
 <div class="math notranslate nohighlight">
-\[q(x_{1},...,x_{n}) = \sum_{i,j=1}^{n} Q_{ij}x_{i}x_{j}\]</div>
+\[q(x_{1},...,x_{n}) = \sum_{i,j=1}^{n} - Q_{ij}x_{i}x_{j}\]</div>
 <p>where <span class="math notranslate nohighlight">\(x_{1},...,x_{n}\in \{0,1\}\)</span> are <strong>binary variables</strong>.</p>
 <p>Written differently, by <strong>solving a QUBO problem</strong>, we mean solving,
 given <span class="math notranslate nohighlight">\(Q\)</span>:</p>
 <div class="math notranslate nohighlight">
-\[\min_{x_{1}...x_{n}\in \{0,1\}} \sum_{i,j=1}^{n} Q_{ij}x_{i}x_{j}\]</div>
+\[\min_{x_{1}...x_{n}\in \{0,1\}} \sum_{i,j=1}^{n} - Q_{ij}x_{i}x_{j}\]</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <strong>diagonal</strong> of <span class="math notranslate nohighlight">\(Q\)</span> is allowed to contain <strong>non-zero elements</strong>.
@@ -311,40 +313,120 @@ and defining <span class="math notranslate nohighlight">\(s_{i}=2x_{i}-1\)</span
 i.e <span class="math notranslate nohighlight">\(x_{i}=\frac{s_{i}+1}{2}\)</span>,
 one can indeed write:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}q(x_{1},...x_{n}) &amp;= \sum_{i,j=1}^{n} Q_{i,j} x_{i}x_{j} \\~\\
-                  &amp;= \sum_{i,j=1}^{n} Q_{i,j} \left(\frac{s_{i}+1}{2}\right)\left(\frac{s_{j}+1}{2}\right) \\~\\
-                  &amp;= \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4}\left(1+s_{i}+s_{j}+s_{i}s_{j}\right) \\~\\
-                  &amp;= \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} + \sum_{i}\left(\sum_{j}\frac{Q_{i,j}}{4}\right) s_{i} + \sum_{j}\left(\sum_{i}\frac{Q_{i,j}}{4}\right) s_{j} + \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} s_{i}s_{j} \\~\\
-                  &amp;= \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} + \sum_{i=1}^{n} \frac{Q_{i,i}}{4} + \sum_{i}\left(\sum_{j}\frac{Q_{i,j}}{2}\right) s_{i}  + \sum_{i,j | i\neq j}^{n} \frac{Q_{i,j}}{4} s_{i}s_{j} \\~\\
+\[\begin{split}q(x_{1},...x_{n}) &amp;= \sum_{i,j=1}^{n} - Q_{i,j} x_{i}x_{j} \\~\\
+                  &amp;= - \sum_{i,j=1}^{n} Q_{i,j} \left(\frac{s_{i}+1}{2}\right)\left(\frac{s_{j}+1}{2}\right) \\~\\
+                  &amp;= - \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4}\left(1+s_{i}+s_{j}+s_{i}s_{j}\right) \\~\\
+                  &amp;= - \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} - \sum_{i}\left(\sum_{j}\frac{Q_{i,j}}{4}\right) s_{i} - \sum_{j}\left(\sum_{i}\frac{Q_{i,j}}{4}\right) s_{j} - \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} s_{i}s_{j} \\~\\
+                  &amp;= - \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} - \sum_{i=1}^{n} \frac{Q_{i,i}}{4} - \sum_{i}\left(\sum_{j}\frac{Q_{i,j}}{2}\right) s_{i}  - \sum_{i,j | i\neq j}^{n} \frac{Q_{i,j}}{4} s_{i}s_{j} \\~\\
                   &amp;= - \sum_{i=1}^{n} h_{i}s_{i} - \sum_{i,j=1}^{n} J_{ij}s_{i}s_{j} + o\end{split}\]</div>
-<p>with <span class="math notranslate nohighlight">\(h_{i}=-\sum_{j}\frac{Q_{i,j}}{2}\)</span>, <span class="math notranslate nohighlight">\(J_{ij}=-\frac{Q_{i,j}}{4}\)</span>
-and an <strong>offset term</strong> <span class="math notranslate nohighlight">\(o=\sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} + \sum_{i=1}^{n} \frac{Q_{i,i}}{4}\)</span>.</p>
+<p>with <span class="math notranslate nohighlight">\(h_{i}=\sum_{j}\frac{Q_{i,j}}{2}\)</span>, <span class="math notranslate nohighlight">\(J_{ij}=\frac{Q_{i,j}}{4}\)</span>
+and an <strong>offset term</strong> <span class="math notranslate nohighlight">\(o=- \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} - \sum_{i=1}^{n} \frac{Q_{i,i}}{4}\)</span>.</p>
 <p>In this case, <a class="reference internal" href="qat-opt.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> is the representative class and it can be translated to <a class="reference internal" href="qat-opt.html#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> and <a class="reference internal" href="qat-opt.html#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a> via the <a class="reference internal" href="qat-opt.html#qat.opt.QUBO.to_ising" title="qat.opt.QUBO.to_ising"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_ising()</span></code></a> and <a class="reference internal" href="qat-opt.html#qat.opt.QUBO.to_combinatorial_problem" title="qat.opt.QUBO.to_combinatorial_problem"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_combinatorial_problem()</span></code></a>, respectively.</p>
 </div>
 <div class="section" id="general-combinatorial-problems">
 <span id="combinatorial-problem-description"></span><h3>General combinatorial problems<a class="headerlink" href="#general-combinatorial-problems" title="Permalink to this headline">¶</a></h3>
 <p>The most general way to specify a combinatorial problem is by explicitly declaring boolean variables (<a class="reference internal" href="qat-opt.html#qat.opt.boolexpr.Var" title="qat.opt.boolexpr.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a>) and  clauses (<a class="reference internal" href="qat-opt.html#qat.opt.boolexpr.Clause" title="qat.opt.boolexpr.Clause"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clause</span></code></a>) combining these variables. This is achieved via the <a class="reference internal" href="qat-opt.html#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.CombinatorialProblem</span></code></a> class.</p>
 <p>While <a class="reference internal" href="#ising-description"><span class="std std-ref">Ising</span></a> and <a class="reference internal" href="#qubo-description"><span class="std std-ref">QUBO</span></a> only accept up to two-variable terms, one can define clauses in <a class="reference internal" href="qat-opt.html#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a> with as many variables as desired. However, for the case of no more than two variables, a translation to the Ising and QUBO formulations is available using the <a class="reference internal" href="qat-opt.html#qat.opt.CombinatorialProblem.to_ising" title="qat.opt.CombinatorialProblem.to_ising"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_ising()</span></code></a> and <a class="reference internal" href="qat-opt.html#qat.opt.CombinatorialProblem.to_qubo" title="qat.opt.CombinatorialProblem.to_qubo"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_qubo()</span></code></a> methods.</p>
-<p>The cost Hamiltonian extraction is handled by the <a class="reference internal" href="qat-opt.html#qat.opt.boolexpr.Clause" title="qat.opt.boolexpr.Clause"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clause</span></code></a> class such that the final cost Hamiltonian constits of the weighted sum of the cost Hamiltonian of its clauses.</p>
+<p>The cost Hamiltonian extraction is handled by the <a class="reference internal" href="qat-opt.html#qat.opt.boolexpr.Clause" title="qat.opt.boolexpr.Clause"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clause</span></code></a> class such that the final cost Hamiltonian consists of the weighted sum of the cost Hamiltonian of its clauses.</p>
 </div>
 </div>
 <div class="section" id="solving-combinatorial-problems">
 <span id="solving-comb"></span><h2>Solving combinatorial problems<a class="headerlink" href="#solving-combinatorial-problems" title="Permalink to this headline">¶</a></h2>
+<p>This section describes how to define and solve combinatorial problems using QLM tools. Here is the outline:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#quantum-approximate-optimization-algorithm-qaoa">Quantum Approximate Optimization Algorithm (QAOA)</a></p></li>
+<li><p><a class="reference internal" href="#simulated-annealing-sa">Simulated Annealing (SA)</a></p></li>
+<li><p><a class="reference internal" href="#simulated-quantum-annealing-sqa">Simulated Quantum Annealing (SQA)</a></p></li>
+</ol>
 <div class="section" id="quantum-approximate-optimization-algorithm-qaoa">
 <span id="qaoa-description"></span><h3>Quantum Approximate Optimization Algorithm (QAOA)<a class="headerlink" href="#quantum-approximate-optimization-algorithm-qaoa" title="Permalink to this headline">¶</a></h3>
 <p>The Quantum Approximate Optimization Algorithm is a heuristic to design variational Ansätze for combinatorial optimization. It is inspired from the digitalization of an analog evolution using a linear ramp, starting from a simple initial Hamiltonian <span class="math notranslate nohighlight">\(H_0 = - \sum_i \sigma_x^i\)</span> to a diagonal Hamiltonian whose ground state encodes the solution to our problem.</p>
-<p>The circuits produced by this method have shape:</p>
+<p>The circuits produced by this method have the following shape:</p>
 <div class="figure align-default">
 <img alt="images/qaoa_circuit.PNG" src="images/qaoa_circuit.PNG" />
 </div>
 <p>where <span class="math notranslate nohighlight">\(H_0 = - \sum_i \sigma_x^i\)</span>, and <span class="math notranslate nohighlight">\(H_C\)</span> is an (efficiently generated) classical cost Hamiltonian that encodes the cost function to optimize. The propagator <span class="math notranslate nohighlight">\(e^{i\gamma H_C}\)</span> is usually simple to implement from a problem specification. <span class="math notranslate nohighlight">\(e^{i\beta H_0}\)</span> simply corresponds to a collection of <span class="math notranslate nohighlight">\(R_X\)</span> rotations of angle <span class="math notranslate nohighlight">\(2\beta\)</span>.</p>
-<p>Once such a circuit is produced, one can use a QPU to minimize and a classical optimizer to minimize the quantity:
+<p>Once such a circuit is produced, one can use a QPU, along with a classical optimizer, to minimize the quantity:
 <span class="math notranslate nohighlight">\(\langle 0|C(\gamma, \beta)^\dagger H_C C(\gamma, \beta)|0 \rangle\)</span>
-in order to produce a quantum state with the lowest possible energy (i.e that overlaps well the proper ground state of <span class="math notranslate nohighlight">\(H_C\)</span>, which, by construction, corresponds to the optimal solution of our problem). This can be handled via a variational plugin in the QLM, see <a class="reference internal" href="variational-plugin.html#variational-programs"><span class="std std-ref">this section</span></a> for more details.</p>
+in order to produce a quantum state with the lowest possible energy (i.e that overlaps well with the proper ground state of <span class="math notranslate nohighlight">\(H_C\)</span>, which, by construction, corresponds to the optimal solution of our problem). This can be handled via a variational plugin in the QLM, see <a class="reference internal" href="variational-plugin.html#variational-programs"><span class="std std-ref">this section</span></a> for more details.</p>
 <p>As you can see, the circuit is also parametrized by a depth <span class="math notranslate nohighlight">\(d\)</span> corresponding to the number of alternating variational layers. The larger the depth, the better the approximation of the solution (at least in theory). In practice, increasing this parameter yields a larger circuit with greater number of parameters to optimize, which can slow down the convergence of the algorithm.</p>
 <p>The algorithm is fully described in <a class="bibtex reference internal" href="#farhi2014quantum" id="id5">[FGG14]</a>.</p>
 <p>It is possible to directly generate ready to run QAOA jobs (containing an Ansatz and the target Hamiltonian) from an instance of <a class="reference internal" href="qat-opt.html#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a>/<a class="reference internal" href="qat-opt.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a>/<a class="reference internal" href="qat-opt.html#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> via the <a class="reference internal" href="qat-opt.html#qat.opt.circuit_generator.CircuitGenerator" title="qat.opt.circuit_generator.CircuitGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">CircuitGenerator</span></code></a> class. In that case the qlm will take care of generating a cost Hamiltonian for the problem (depending on how you specified it).</p>
 <p>If you need a lower level interface, the <a class="reference internal" href="qat-opt.html#qat.vsolve.ansatz.AnsatzFactory" title="qat.vsolve.ansatz.AnsatzFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.vsolve.ansatz.AnsatzFactory</span></code></a> provides a recipe to produce such a variational circuit from a target Hamiltonian. In both cases, the Ansatz factory allows you to pick between (at least) three different circuit synthesis strategies, yielding functionally equivalent circuits with different shapes.</p>
+</div>
+<div class="section" id="simulated-annealing-sa">
+<span id="sa-description"></span><h3>Simulated Annealing (SA)<a class="headerlink" href="#simulated-annealing-sa" title="Permalink to this headline">¶</a></h3>
+<p><strong>Simulated annealing</strong> is a well-known, historical heuristic for
+combinatorial optimization. It aims at finding low energy-states
+of a classical Ising system with a <strong>Markov Chain</strong> over
+<strong>spin configurations</strong>, with <strong>decreasing stochasticity</strong>.</p>
+<p>Stochasticity is specified by a <strong>temperature</strong>. In practice, a
+<strong>decreasing temperature schedule</strong> is given to the algorithm.
+At the beginning of the execution, large temperature values allow
+to <strong>jump over energy barriers</strong> to escape <strong>local optima</strong>. When
+temperature settles to lower values, the <strong>Markov chain</strong> will
+hopefully settle to the global optimum of the cost function.</p>
+<p>Mathematically, simulated annealing tries to find, given <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(J\)</span>, the global minimum configuration of:</p>
+<div class="math notranslate nohighlight">
+\[H(s_{1},...,s_{n}) = -\sum_{i,j=1}^{n} J_{ij}s_{i}s_{j}-\sum_{i=1} h_{i}s_{i}\]</div>
+<p>It does so by first choosing a <strong>random configuration</strong>, which then
+evolves by applying <strong>updates</strong>. In the case of simulated annealing,
+an update consists in <strong>flipping the value</strong> <span class="math notranslate nohighlight">\(s_{i}\)</span> <strong>of a single spin</strong>.</p>
+<p>An update is <strong>accepted</strong> with probability:</p>
+<div class="math notranslate nohighlight">
+\[P_{flip} = min(1, e^{-\Delta H / T})\]</div>
+<p>with <span class="math notranslate nohighlight">\(\Delta H\)</span> is the energy change incurred by switching from <span class="math notranslate nohighlight">\(s_{i}\)</span> to <span class="math notranslate nohighlight">\(-s_{i}\)</span>. A change decreasing the energy of the system is always accepted, whereas a change which increases it needs a temperature high enough to have a non-negligible probability of being accepted.</p>
+<p>The following picture explains in pseudo-code how simulated annealing works.</p>
+<a class="reference internal image-reference" href="images/simulated_annealing_algoritm_latex.png"><img alt="images/simulated_annealing_algoritm_latex.png" class="align-center" src="images/simulated_annealing_algoritm_latex.png" style="width: 600px;" /></a>
+</div>
+<div class="section" id="simulated-quantum-annealing-sqa">
+<h3>Simulated Quantum Annealing (SQA)<a class="headerlink" href="#simulated-quantum-annealing-sqa" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Simulated Quantum Annealing is not available in myQLM.
+QUBO and Ising problems can still be used to construct QAOA
+Ansätze using the <cite>.qaoa_ansatz</cite> method or solved via
+Simulated Annealing.</p>
+</div>
+<p>Simulated quantum annealing provides a heuristic which aims to
+minimize <strong>quantum Ising Hamiltonians</strong>.</p>
+<p>The questions of whether SQA performs such minimizations more efficiently
+than <strong>physical quantum annealing machines</strong>, and whether SQA
+can be called ‘emulation’ of those machines is a matter of hot scientific debate.</p>
+<p>Settling these questions is of course beyond the scope of this
+documentation. The interested reader may look at: <a class="bibtex reference internal" href="#ronnow2014defining" id="id6">[RonnowWJ+14]</a>,
+<a class="bibtex reference internal" href="#denchev2016computational" id="id7">[DBI+16]</a>, <a class="bibtex reference internal" href="#hen2015probing" id="id8">[HJA+15]</a> or <a class="bibtex reference internal" href="#andriyash2017can" id="id9">[AA17]</a>, for instance.</p>
+<p>Formally, our SQA implementation is based on a <strong>discrete-time
+path integral Monte Carlo</strong> formulation of quantum annealing, as derivedF
+in <a class="bibtex reference internal" href="#martovnak2002quantum" id="id10">[MartovnakST02]</a>.</p>
+<p>In short, instead of sampling the equilibrium distribution, at finite temperature of the quantum Ising Hamiltonian:</p>
+<div class="math notranslate nohighlight">
+\[H = -\sum_{i,j} J_{i,j}\sigma_{z}^{i}\sigma_{z}^{j}-\sum_{i} h_{i}\sigma_{z}^{i} - \Gamma\sum_{i}\sigma_{x}^{i}\]</div>
+<p>one samples from the equivalent classical Ising Hamiltonian:</p>
+<div class="math notranslate nohighlight">
+\[H = -\sum_{k=1}^{n_{trotters}}\left( \sum_{i,j} J_{i,j} s_{i}^{k}s_{j}^{k} + \sum_{i} h_{i} s_{i}^{k} + J^{\perp}s_{l}^{k}s_{l}^{k+1} \right)\]</div>
+<p>with <span class="math notranslate nohighlight">\(J^{\perp} = - n_{trotters}\cdot \log\left(\tanh(\frac{\Gamma}{n_{trotters}T})\right)\)</span> and <span class="math notranslate nohighlight">\(n\)</span> quantum spins are replaced with <span class="math notranslate nohighlight">\(n_{trotters}\times n\)</span> classical spins.</p>
+<p>In quantum annealing, <span class="math notranslate nohighlight">\(\Gamma\)</span> is typically gradually decreased
+from a high value to <span class="math notranslate nohighlight">\(0\)</span>, such that, if the system is prepared in the
+ground state of <span class="math notranslate nohighlight">\(\sum_{i}\Gamma\sigma_{x}^{i}\)</span>, it ends up
+in the ground state of the Ising Hamiltonian at the end of the transition.</p>
+<p>The idea of simulated quantum annealing is to sample from the equilibrium
+distribution of the equivalent classical Hamiltonian at several
+points <span class="math notranslate nohighlight">\(\{\Gamma_{l}\}\)</span> along that transition.
+The configuration resulting from sampling at <span class="math notranslate nohighlight">\(\Gamma_{l}\)</span>
+is kept at the starting configuration for <span class="math notranslate nohighlight">\(\Gamma_{l+1}\)</span>.</p>
+<p>The following picture describes in pseudo-code how the simulated
+quantum annealing works.</p>
+<a class="reference internal image-reference" href="images/simulated_quantum_annealing_algoritm_latex.png"><img alt="images/simulated_quantum_annealing_algoritm_latex.png" class="align-center" src="images/simulated_quantum_annealing_algoritm_latex.png" style="width: 600px;" /></a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <strong>memory requirements</strong> of <strong>simulated quantum
+annealing</strong> are <strong>polynomial in the number of spins</strong>.
+There is <strong>no hard memory
+limit</strong> as to how many spins can be represented and manipulated with
+this technique.</p>
+</div>
+<p>This SQA algorithm is implemented via the method <code class="docutils literal notranslate"><span class="pre">qat.mc.sqa</span></code>. The quality of the solutions returned will depend on the parameters given to the algorithm (minimum and maximum <cite>gamma</cite> and temperature, number of Monte Carlo steps, etc). We provide a set of fine tuned parameters for common problem classes. The <code class="docutils literal notranslate"><span class="pre">sqa</span></code> solver was tested on the <a class="reference internal" href="advanced_combinatorial_optimization.html#np-problems-formulation"><span class="std std-ref">encoded NP-hard problems</span></a> with various benchmarks and the respective performances were recorded. Along with the problem size and annealing times, the results are presented in the <a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">SQA Benchmarking and Performance</span></a> section.</p>
 </div>
 </div>
 <div class="section" id="bibliography">

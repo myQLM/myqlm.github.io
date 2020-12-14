@@ -1,3 +1,5 @@
+.. module:: qat.core
+
 .. _qat-core:
 
 qat-core: Core data structures and Abstract classes
@@ -13,7 +15,19 @@ or QPUs.
     :members:
 
 .. autoclass:: qat.core.qpu.QPUHandler
-    :members:
+    :members: submit, submit_job, serve
+
+
+Remote interfaces
+----------------------
+
+QPUs and Plugins can be used in client/server mode. Any Plugin or QPU, once constructed, can be published via their *serve* method (see right above).
+
+Once published, a client can connect and interact with them via one of the two following classes:
+
+.. autoclass:: qat.core.qpu.RemoteQPU
+
+.. autoclass:: qat.core.plugins.RemotePlugin
 
 
 Batch and Job
@@ -31,13 +45,18 @@ same time.
 .. autoclass:: qat.core.Job
     :members:
 
+Processing types for jobs are defined via an enum class:
+
+.. autoclass:: qat.comm.shared.ttypes.ProcessingType
+
+
 .. autoclass:: qat.core.Batch
     :members:
 
 Observables
 ------------
 
-.. automodule:: qat.core.wrappers.observable
+.. module:: qat.core.wrappers.observable
 
 .. autoclass:: qat.core.Observable
 
@@ -55,6 +74,11 @@ of a scalar. The result data structure is :class:`~qat.core.Result`
 .. autoclass:: qat.core.wrappers.result.Sample
     :members:
 
+.. autoclass:: qat.core.wrappers.result.State
+    :members:
+
+.. autoclass:: qat.comm.shared.ttypes.IntermediateMeasurement
+
 .. autoclass:: qat.core.BatchResult
     :members:
 
@@ -63,7 +87,7 @@ Circuits
 
 Here is the basic interface of the circuit class.
 For more information on the various attributes the circuit object, please refer to :ref:`circuit_full_description`.
-For instance, one can easily concatenate two :class:`~qat.core.circuit.Circuit` objects (as long as they have the same number of qubits):
+For instance, one can easily concatenate two :class:`~qat.core.Circuit` objects (as long as they have the same number of qubits):
 
 .. code-block:: python
 
@@ -118,10 +142,14 @@ can use the function :func:`qat.core.console.display`
     An exception is raised if your circuit contains measures,
     gates controlled classically, logic operators, ...
 
-To display a circuit in a notebook or in an IPython terminal,
-you can install qlm magics (use the bash command
-:code:`install_qlm_magics.sh`). Then, you can use
-:code:`%qatdisplay` magic to print a circuit
+The :code:`%qatdisplay` magic can be used to display a circuit in
+a notebook or in an IPython terminal.
+
+.. only:: myqlm
+
+    If myQLM Python magics has not been installed, please refer to
+    :ref:`the magic installation page <install-magics>` to install
+    this magic command
 
 .. code:: python
 
@@ -139,6 +167,55 @@ Hardware specifications are described by a the class
 .. autoclass:: qat.core.Topology
     :members:
 
+.. autoclass:: qat.core.TopologyType
+
+    This class is a enumeration describing the type of a
+    :class:`~qat.core.Topology`. Currently, there are
+    three types of topologies:
+
+    .. toggle-header::
+       :header: **All To All** (ALL_TO_ALL)
+
+        This type describes topologies for which two-qubit
+        gates can be applied on any pair of qubits
+
+        .. run-block:: python
+
+            from qat.core import Topology, TopologyType
+
+            all_to_all = Topology(type=TopologyType.ALL_TO_ALL)
+
+    .. toggle-header::
+       :header: **Linear** (LNN)
+
+        This type describes topologies for which two-qubit gates can only be
+        applied on qubits having consecutive indexes (i.e. a two-qubit gate can
+        only be applied on the qubits of indexes :math:`i` and :math:`i \pm 1`)
+
+        .. run-block:: python
+
+            from qat.core import Topology, TopologyType
+
+            lnn = Topology(type=TopologyType.LNN)
+
+    .. toggle-header::
+       :header: **Custom** (CUSTOM)
+
+        This type describes a custom topology. Objects of type
+        :class:`~qat.core.Topology` having a custom topology type must have
+        a graph
+
+        .. run-block:: python
+
+            from qat.core import Topology, TopologyType
+
+            # Init topology
+            custom = Topology(type=TopologyType.CUSTOM)
+
+            # Graph definition
+            custom.add_edge(0, 1)
+            custom.add_edge(0, 2)
+
 Gate set and gate signatures
 ----------------------------
 
@@ -150,6 +227,61 @@ These classes are core classes hidden behind :class:`qat.lang.AQASM.gates.Abstra
 .. autoclass:: qat.core.gate_set.GateSet
     :members: add_signature, union
 
+.. autoclass:: qat.core.gate_set.GateSyntaxRedefinition
+
+Variables and expressions
+----------------------------
+
+When defining variational circuit, pyAQASM provides its own way to declare variables (via the :meth:`qat.lang.AQASM.Program.new_var` method).
+However, it is possible to turn most parts of a Job into a parametrized quantity using :class:`qat.core.Variable` objects. 
+
+.. autoclass:: qat.core.Variable
+    :members:
+
+
+.. autoclass:: qat.core.variables.ArithExpression
+    :members:
+
+
+It is possible to extend the set of symbols supported by this abstract expression mecanics by extending the
+list of a symbols with a new :class:`qat.core.variables.Symbol`. The only constraint is that the new symbols should have a fixed arity that is known in advance. 
+
+.. autoclass:: qat.core.variables.Symbol
+
+Defined symbols can be accessed via the `ALL_SYMBOLS` module variable:
+
+.. run-block:: python
+
+    from qat.core.variables import ALL_SYMBOLS
+
+    for token, symbol in ALL_SYMBOLS.items():
+        print(token, symbol.evaluator, symbol.arity)
+
+
+For instance, the following piece of code adds a new symbol that represents the min between two numeric values.
+
+.. run-block:: python
+
+    from qat.core.variables import Variable, Symbol, ALL_SYMBOLS
+
+    # token will "min"
+    # underlying function is the standard `min`
+    # it has arity 2
+    # it is not an infix operator
+    my_min = Symbol("min", min, 2, infix=False)
+
+    # This step is necessary if we want to be able to bind variables in expressions containing min
+    ALL_SYMBOLS["min"] = my_min
+
+    a, b = Variable("a"), Variable("b")
+    
+    expr = my_min(a, b)
+    print(expr)
+    print(expr(a=3))
+    print(expr(a=3, b=4))
+
+
+
 Various methods and tools
 ----------------------------
 
@@ -158,6 +290,8 @@ Various methods and tools
 .. autofunction:: qat.core.circuit_builder.matrix_util.get_predef_generator
 
 .. autofunction:: qat.core.circuit_builder.matrix_util.get_param_generator
+
+.. autofunction:: qat.core.circuit_builder.matrix_util.default_gate_set
 
 
 Plugins & Junctions

@@ -54,7 +54,7 @@ Additionally, the sampled observable itself can have parametrized coefficients:
     print(obs)
     print("Observable variables:", obs.get_variables())
 
-    from qat.lang.AQASM import *
+    from qat.lang.AQASM import Program, RY, RZ
 
     prog = Program()
     qbits = prog.qalloc(3)
@@ -84,7 +84,7 @@ Once we've built a parametrized job, its variables can be instantiated using the
 .. run-block:: python
 
     import numpy as np
-    from qat.lang.AQASM import *
+    from qat.lang.AQASM import Program, RY, RZ
     from qat.core import Observable, Term, Variable
 
     t = Variable("t")
@@ -120,7 +120,7 @@ Once we've built a parametrized job, its variables can be instantiated using the
 
     .. run-block:: python
 
-        from qat.lang.AQASM import *
+        from qat.lang.AQASM import Program, AbstractGate
 
         XX = AbstractGate("XX", [float], arity=2)
 
@@ -149,7 +149,7 @@ The default variational Plugin wraps the `scipy.optimize.minimize` function: :cl
 
 
     import numpy as np
-    from qat.lang.AQASM import *
+    from qat.lang.AQASM import Program, RY, RZ
     from qat.core import Observable, Term, Variable
 
     t = Variable("t")
@@ -190,7 +190,7 @@ This plugin also supports a nice feature: it can read optimization parameters di
 
     import numpy as np
     import json
-    from qat.lang.AQASM import *
+    from qat.lang.AQASM import Program, RY, RZ
     from qat.core import Observable, Term, Variable
     t = Variable("t")
 

@@ -1,3 +1,5 @@
+.. module:: qat.pylinalg
+
 qat.pylinalg: Python Linear-algebra simulator
 ====================================================
 
@@ -49,7 +51,7 @@ Within myQLM, this simulator is contained in the :mod:`qat.pylinalg` module.
 
 
 
-The ``qat-pylinalg`` module contains a linear-algebra-based quantum simulator.
+The :mod:`qat.pylinalg` module contains a linear-algebra-based quantum simulator.
 This simulator encodes the quantum amplitudes in a vector with :math:`2^n`
 complex numbers, where :math:`n` is the number of qubits. This vector is modified
 by the application of quantum gates.
@@ -62,19 +64,23 @@ of the :class:`qat.core.qpu.QPUHandler` structure.
 .. autoclass:: qat.pylinalg.PyLinalg
     :members: serve, submit_job, submit
 
-.. note:: The :func:`submit_job` method above basically consists of two 
+.. note:: The :func:`~qat.pylinalg.PyLinalg.submit_job` method above basically consists of two
    imbricated if statements.
 
-   The first one looks at the :obj:`type` attribute of the job, which can take 
+   The first one looks at the :code:`type` attribute of the job, which can take
    two values:
     
-    - :obj:`qat.comm.shared.ttypes.ProcessingType.OBSERVABLE`: the job consists in evaluating an observable at the end of the circuit. This job type is not implemented (yet) in :mod:`qat.pylinalg` but could be, as the simulator contains all of the state vector.
-    - :obj:`qat.comm.shared.ttypes.ProcessingType.SAMPLING`: the job consists in sampling the output probability distribution of the quantum circuit. This is where the second if loop comes in, depending on the **number of shots** which is asked (:obj:`job.nbshots`): 
+    - :code:`OBSERVABLE` (cf. :class:`~qat.comm.shared.ttypes.ProcessingType`): the job consists in evaluating an observable at
+      the end of the circuit. Currently, the attribute **nbshots** has no effect if the **type** is :code:`OBSERVABLE`
+    - :code:`SAMPLING` (cf. :class:`~qat.comm.shared.ttypes.ProcessingType`): the job consists in sampling the output probability
+      distribution of the quantum circuit. This is where the second if loop comes in, depending on the **number of shots** which is asked (:code:`job.nbshots`):
           
-             :math:`\cdot` if **nbshots=0** then the simulator/quantum-processor returns *the best it can do*. In our case, of a linear-algebra-based simulator, this is the entire probability distribution.
+        - if **nbshots=0** then the simulator/quantum-processor returns *the best it can do*. In our case, of a linear-algebra-based simulator, this is the entire probability distribution.
            
-             :math:`\cdot` else, the simulator samples the output probability distribution *nbshots* times.
+        - else, the simulator samples the output probability distribution *nbshots* times.
          
+
+.. module:: qat.pylinalg.simulator
 
 Simulator Internal Functions
 ----------------------------
@@ -87,18 +93,18 @@ module, whose source code is documented here.
 .. autofunction:: qat.pylinalg.simulator.simulate
 
 .. note:: :func:`qat.pylinalg.simulator.simulate` mainly consists in a for loop
-    over the :obj:`ops` attribute of the input :class:`qat.comm.datamodel.ttypes.Circuit`,
+    over the :code:`ops` attribute of the input :class:`~qat.core.Circuit`,
     i.e the gates of the circuit. They are successively applied onto the quantum 
     state, which starts in :math:`|0...0\rangle`. A gate can be of several types:
 
-     - :obj:`GATETYPE` (default)
-     - :obj:`MEASURE` (measure some qubits, store the result)
-     - :obj:`RESET` (measure a qubit, if result is 1, apply X onto it)
-     - :obj:`CLASSIC` (perform classical logical computation on classical bits)
-     - :obj:`CLASSICCTRL` (perform classically controlled quantum gate)
-     - :obj:`BREAK` (raise break exception if a clasical formula is evaluated to True)
+     - **GATETYPE** (default)
+     - **MEASURE** (measure some qubits, store the result)
+     - **RESET** (measure a qubit, if result is 1, apply X onto it)
+     - **CLASSIC** (perform classical logical computation on classical bits)
+     - **CLASSICCTRL** (perform classically controlled quantum gate)
+     - **BREAK** (raise break exception if a clasical formula is evaluated to True)
 
-    :obj:`circuit.ops` is a list of :class:`qat.comm.datamodel.ttypes.Op`.
+    :code:`circuit.ops` is a list of :class:`qat.comm.datamodel.ttypes.Op`.
 
 .. autofunction:: qat.pylinalg.simulator.measure
 

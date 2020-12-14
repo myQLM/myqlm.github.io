@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>qat.pylinalg: Python Linear-algebra simulator &mdash; myQLM documentation myQLM-1.1.6.25 documentation</title>
+  <title>qat.pylinalg: Python Linear-algebra simulator &mdash; myQLM documentation  documentation</title>
   
 
   
@@ -43,7 +43,7 @@
   <link rel="stylesheet" href="../static/contentui.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="qat-opt: representation and encoding of combinatorial problems, QAOA" href="../qat-opt.html" />
+    <link rel="next" title="qat.simulated_annealing: Simulated Annealing" href="qat-simulated_annealing.html" />
     <link rel="prev" title="QuameleonPlugin : emulating hardware constraints via a plugin" href="../quameleon.html" /> 
 </head>
 
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-1.1.6
+                myQLM-1.2.2
               </div>
             
           
@@ -115,6 +115,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-core-library">The core library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-programming-library">The programming library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-device-library">The device library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#plugins">Plugins</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../source_doc.html#qpus">QPUs</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">qat.pylinalg: Python Linear-algebra simulator</a><ul>
@@ -122,6 +123,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#simulator-internal-functions">Simulator Internal Functions</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="qat-simulated_annealing.html">qat.simulated_annealing: Simulated Annealing</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a></li>
@@ -224,7 +226,7 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="qat-pylinalg-python-linear-algebra-simulator">
+<span class="target" id="module-qat.pylinalg"></span><div class="section" id="qat-pylinalg-python-linear-algebra-simulator">
 <h1>qat.pylinalg: Python Linear-algebra simulator<a class="headerlink" href="#qat-pylinalg-python-linear-algebra-simulator" title="Permalink to this headline">¶</a></h1>
 <p>myQLM comes with one simulator which performs a unitary evolution of the
 initial quantum state using the operations described in a quantum circuit. This
@@ -256,13 +258,13 @@ function. See source code documentation for more details.</p>
 <li><p>it is memory and run-time exponential in the number of qubits. This implies a hard simulation limit at around 20-30 qubits, depending on your RAM.</p></li>
 </ul>
 </div></blockquote>
-<p>Within myQLM, this simulator is contained in the <code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.pylinalg</span></code> module.</p>
+<p>Within myQLM, this simulator is contained in the <a class="reference internal" href="#module-qat.pylinalg" title="qat.pylinalg"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.pylinalg</span></code></a> module.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The full QLM appliance also includes ‘’noisy’’ simulators, which take into account
 realistic, parametrable physical noise into the execution of a quantum circuit.</p>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">qat-pylinalg</span></code> module contains a linear-algebra-based quantum simulator.
+<p>The <a class="reference internal" href="#module-qat.pylinalg" title="qat.pylinalg"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.pylinalg</span></code></a> module contains a linear-algebra-based quantum simulator.
 This simulator encodes the quantum amplitudes in a vector with <span class="math notranslate nohighlight">\(2^n\)</span>
 complex numbers, where <span class="math notranslate nohighlight">\(n\)</span> is the number of qubits. This vector is modified
 by the application of quantum gates.</p>
@@ -312,12 +314,15 @@ in a new process</p></li>
 <dd><p>Executes a batch of jobs and returns the corresponding list of Results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>batch</strong> (<a class="reference internal" href="../qat-core.html#qat.core.Batch" title="qat.core.Batch"><em>Batch</em></a>) – a batch of jobs. If a single job is provided, the
+<dd class="field-odd"><p><strong>batch</strong> (<a class="reference internal" href="../qat-core.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) – a batch of jobs. If a single job is provided, the
 job is embedded into a Batch, executed, and the first result
 is returned.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>BatchResult</p>
+<dd class="field-even"><p>a batch result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="../qat-core.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -329,13 +334,13 @@ is returned.</p>
 of a Job</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>job</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code>) – the job to execute</p>
+<dd class="field-odd"><p><strong>job</strong> (<a class="reference internal" href="../qat-core.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a>) – the job to execute</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>the result</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></p>
+<dd class="field-odd"><p><a class="reference internal" href="../qat-core.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -344,52 +349,57 @@ of a Job</p>
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code class="xref py py-func docutils literal notranslate"><span class="pre">submit_job()</span></code> method above basically consists of two
+<p>The <a class="reference internal" href="#qat.pylinalg.PyLinalg.submit_job" title="qat.pylinalg.PyLinalg.submit_job"><code class="xref py py-func docutils literal notranslate"><span class="pre">submit_job()</span></code></a> method above basically consists of two
 imbricated if statements.</p>
-<p>The first one looks at the <code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code> attribute of the job, which can take
+<p>The first one looks at the <code class="code docutils literal notranslate"><span class="pre">type</span></code> attribute of the job, which can take
 two values:</p>
 <blockquote>
 <div><ul>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">qat.comm.shared.ttypes.ProcessingType.OBSERVABLE</span></code>: the job consists in evaluating an observable at the end of the circuit. This job type is not implemented (yet) in <code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.pylinalg</span></code> but could be, as the simulator contains all of the state vector.</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">qat.comm.shared.ttypes.ProcessingType.SAMPLING</span></code>: the job consists in sampling the output probability distribution of the quantum circuit. This is where the second if loop comes in, depending on the <strong>number of shots</strong> which is asked (<code class="xref py py-obj docutils literal notranslate"><span class="pre">job.nbshots</span></code>):</p>
+<li><p><code class="code docutils literal notranslate"><span class="pre">OBSERVABLE</span></code> (cf. <a class="reference internal" href="../qat-core.html#qat.comm.shared.ttypes.ProcessingType" title="qat.comm.shared.ttypes.ProcessingType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessingType</span></code></a>): the job consists in evaluating an observable at
+the end of the circuit. Currently, the attribute <strong>nbshots</strong> has no effect if the <strong>type</strong> is <code class="code docutils literal notranslate"><span class="pre">OBSERVABLE</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">SAMPLING</span></code> (cf. <a class="reference internal" href="../qat-core.html#qat.comm.shared.ttypes.ProcessingType" title="qat.comm.shared.ttypes.ProcessingType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessingType</span></code></a>): the job consists in sampling the output probability
+distribution of the quantum circuit. This is where the second if loop comes in, depending on the <strong>number of shots</strong> which is asked (<code class="code docutils literal notranslate"><span class="pre">job.nbshots</span></code>):</p>
 <blockquote>
-<div><p><span class="math notranslate nohighlight">\(\cdot\)</span> if <strong>nbshots=0</strong> then the simulator/quantum-processor returns <em>the best it can do</em>. In our case, of a linear-algebra-based simulator, this is the entire probability distribution.</p>
-<p><span class="math notranslate nohighlight">\(\cdot\)</span> else, the simulator samples the output probability distribution <em>nbshots</em> times.</p>
+<div><ul class="simple">
+<li><p>if <strong>nbshots=0</strong> then the simulator/quantum-processor returns <em>the best it can do</em>. In our case, of a linear-algebra-based simulator, this is the entire probability distribution.</p></li>
+<li><p>else, the simulator samples the output probability distribution <em>nbshots</em> times.</p></li>
+</ul>
 </div></blockquote>
 </li>
 </ul>
 </div></blockquote>
 </div>
-</div>
+<span class="target" id="module-qat.pylinalg.simulator"></span></div>
 <div class="section" id="simulator-internal-functions">
 <h2>Simulator Internal Functions<a class="headerlink" href="#simulator-internal-functions" title="Permalink to this headline">¶</a></h2>
-<p>The actual numpy-based simulation code can be accessed in the <code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.pylinalg.simulator</span></code>
+<p>The actual numpy-based simulation code can be accessed in the <a class="reference internal" href="#module-qat.pylinalg.simulator" title="qat.pylinalg.simulator"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.pylinalg.simulator</span></code></a>
 module, whose source code is documented here.</p>
 <dl class="py function">
 <dt id="qat.pylinalg.simulator.simulate">
 <code class="sig-prename descclassname">qat.pylinalg.simulator.</code><code class="sig-name descname">simulate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">circuit</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.pylinalg.simulator.simulate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes state vector at the output of provided circuit.</p>
-<p>State vector is stored as a <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+<p>State vector is stored as a <code class="code docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
 It is initialized at <span class="math notranslate nohighlight">\(|0^n\rangle\)</span>.
 Then, loop over gates, updating the state vector using <cite>np.tensordot</cite></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>circuit</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">qat.comm.datamodel.ttypes.Circuit</span></code>) – Input circuit. The
+<dd class="field-odd"><p><strong>circuit</strong> (<a class="reference internal" href="../qat-core.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a>) – Input circuit. The
 circuit to simulate.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>a tuple: state_vec, interm_measurements.</dt><dd><ul class="simple">
-<li><p>state_vec: <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> containing the final
+<dd class="field-even"><p><p>a tuple composed of a state vector and
+intermediate measurements:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>state vector: <code class="code docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> containing the final
 state vector. It has one 2-valued index per qubits.</p></li>
-<li><p>interm_measurements: <code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-class docutils literal notranslate"><span class="pre">qat.comm.shared_types.IntermediateMeasurement</span></code>. List containing descriptors of the intermediate measurements that occurred within the circuit, so that the classical branching is known to the user.</p></li>
+<li><p>intermediate measurements: <code class="code docutils literal notranslate"><span class="pre">list</span></code> of <a class="reference internal" href="../qat-core.html#qat.comm.shared.ttypes.IntermediateMeasurement" title="qat.comm.shared.ttypes.IntermediateMeasurement"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.comm.shared.ttypes.IntermediateMeasurement</span></code></a>. List containing descriptors of the intermediate measurements that occurred within the circuit, so that the classical branching is known to the user.</p></li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 </p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
 </dd></dl>
@@ -397,20 +407,20 @@ state vector. It has one 2-valued index per qubits.</p></li>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><a class="reference internal" href="#qat.pylinalg.simulator.simulate" title="qat.pylinalg.simulator.simulate"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.pylinalg.simulator.simulate()</span></code></a> mainly consists in a for loop
-over the <code class="xref py py-obj docutils literal notranslate"><span class="pre">ops</span></code> attribute of the input <code class="xref py py-class docutils literal notranslate"><span class="pre">qat.comm.datamodel.ttypes.Circuit</span></code>,
+over the <code class="code docutils literal notranslate"><span class="pre">ops</span></code> attribute of the input <a class="reference internal" href="../qat-core.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a>,
 i.e the gates of the circuit. They are successively applied onto the quantum
 state, which starts in <span class="math notranslate nohighlight">\(|0...0\rangle\)</span>. A gate can be of several types:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">GATETYPE</span></code> (default)</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">MEASURE</span></code> (measure some qubits, store the result)</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">RESET</span></code> (measure a qubit, if result is 1, apply X onto it)</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">CLASSIC</span></code> (perform classical logical computation on classical bits)</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">CLASSICCTRL</span></code> (perform classically controlled quantum gate)</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">BREAK</span></code> (raise break exception if a clasical formula is evaluated to True)</p></li>
+<li><p><strong>GATETYPE</strong> (default)</p></li>
+<li><p><strong>MEASURE</strong> (measure some qubits, store the result)</p></li>
+<li><p><strong>RESET</strong> (measure a qubit, if result is 1, apply X onto it)</p></li>
+<li><p><strong>CLASSIC</strong> (perform classical logical computation on classical bits)</p></li>
+<li><p><strong>CLASSICCTRL</strong> (perform classically controlled quantum gate)</p></li>
+<li><p><strong>BREAK</strong> (raise break exception if a clasical formula is evaluated to True)</p></li>
 </ul>
 </div></blockquote>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">circuit.ops</span></code> is a list of <code class="xref py py-class docutils literal notranslate"><span class="pre">qat.comm.datamodel.ttypes.Op</span></code>.</p>
+<p><code class="code docutils literal notranslate"><span class="pre">circuit.ops</span></code> is a list of <a class="reference internal" href="../introduction.html#qat.comm.datamodel.ttypes.Op" title="qat.comm.datamodel.ttypes.Op"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.comm.datamodel.ttypes.Op</span></code></a>.</p>
 </div>
 <dl class="py function">
 <dt id="qat.pylinalg.simulator.measure">
@@ -421,11 +431,11 @@ Thanks to the absence of projection, several samples can be asked.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>state_vec</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>) – the <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+<li><p><strong>state_vec</strong> (<em>numpy.ndarray</em>) – the <code class="code docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
 containing full state vector.</p></li>
-<li><p><strong>qubits</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code>) – list of integers specifying the subset
+<li><p><strong>qubits</strong> (<em>list</em>) – list of integers specifying the subset
 of qubits to measure.</p></li>
-<li><p><strong>nb_samples</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>, optional) – the number of samples to return. Set to 1
+<li><p><strong>nb_samples</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of samples to return. Set to 1
 by default.</p></li>
 </ul>
 </dd>
@@ -434,7 +444,7 @@ by default.</p></li>
 In short: it is a list of samples. One sample is a (int, prob) tuple.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></p>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -451,12 +461,12 @@ this function does. In practice, it is used for intermediary measurements.
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>state_vec</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>) – The state vector to project, i.e the
+<li><p><strong>state_vec</strong> (<em>numpy.ndarray</em>) – The state vector to project, i.e the
 one from which the results were sampled.</p></li>
-<li><p><strong>qubits</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code>) – The qubits that were measured, presented as a list
+<li><p><strong>qubits</strong> (<em>list</em>) – The qubits that were measured, presented as a list
 of integers. Without this info, we don’t know to what axes the result
 corresponds.</p></li>
-<li><p><strong>intprob</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code>) – a tuple of the form (integer, probability). The
+<li><p><strong>intprob</strong> (<em>tuple</em>) – a tuple of the form (integer, probability). The
 integer codes for the value that was measured on the qubits in the list
 “qubits”. The probability that the measurement had to occur. It is
 useful for renormalizing without having to recompute a norm.</p></li>
@@ -466,7 +476,7 @@ useful for renormalizing without having to recompute a norm.</p></li>
 <dd class="field-even"><p>The projected state vector. The values of the qubits in the “qubits” list have been assigned to the measured values.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -478,21 +488,23 @@ useful for renormalizing without having to recompute a norm.</p></li>
 <p>It works by measuring each
 qubit, and then applying an X gate if the result is 1.</p>
 <p>for one qubit, entirely equivalent to, in AQASM:</p>
-<div class="line-block">
-<div class="line">MEAS q[k] c[k]</div>
-<div class="line">?c[k] : X q[k]</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>MEAS q[k] c[k]
+?c[k] : X q[k]
+</pre></div>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>state_vec</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>) – nd-array containing the full state
+<li><p><strong>state_vec</strong> (<em>numpy.ndarray</em>) – nd-array containing the full state
 vector.</p></li>
-<li><p><strong>qubits</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code>) – list of integers, containing the qubits to reset.</p></li>
+<li><p><strong>qubits</strong> (<em>list</em>) – list of integers, containing the qubits to reset.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>a tuple composed of:</dt><dd><ul class="simple">
+<dd class="field-even"><p><p>a tuple composed
+of:</p>
+<blockquote>
+<div><ul class="simple">
 <li><p>state_vec(<cite>numpy.ndarray</cite>) the full state vector. the specified qubits
 have been reset.</p></li>
 <li><p>an integer: result of the measurement on the subset of qubits (when
@@ -500,8 +512,7 @@ converted to binary representation, it needs to have a width of
 len(qubits)).</p></li>
 <li><p>a float: probability the measurement had to occur.</p></li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 </p>
 </dd>
 <dt class="field-odd">Return type</dt>
@@ -523,24 +534,20 @@ evaluated to True.</p>
 <dd><p>Converts serialized matrix format into numpy array.</p>
 <p>When extracted from the quantum circuit, gate matrices are not
 directly numpy arrays. They are instances of
-<code class="xref py py-class docutils literal notranslate"><span class="pre">qat.comm.datamodel.Matrix</span></code>, an internally-defined structure.</p>
+<code class="code docutils literal notranslate"><span class="pre">Matrix</span></code>, an internally-defined structure.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>matrix</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">qat.comm.datamodel.Matrix</span></code>) – The matrix, as extracted
-rom circuit operation, to convert to <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></p>
+<dd class="field-odd"><p><strong>matrix</strong> (<code class="code docutils literal notranslate"><span class="pre">qat.comm.datamodel.ttypes.Matrix</span></code>) – The matrix, as extracted
+from circuit operation, to convert to <code class="code docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> of shape (2*arity,2*arity) containing
+<dd class="field-even"><p>a <code class="code docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> of shape (2*arity,2*arity) containing
 the matrix data.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
-<p>It could directly return a <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> of the shape we
-use in <code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.tensordot()</span></code>, but as quantum gates are typically
-represented as matrices, we kept this step.</p>
 </dd></dl>
 
 </div>
@@ -554,7 +561,7 @@ represented as matrices, we kept this step.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../qat-opt.html" class="btn btn-neutral float-right" title="qat-opt: representation and encoding of combinatorial problems, QAOA" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="qat-simulated_annealing.html" class="btn btn-neutral float-right" title="qat.simulated_annealing: Simulated Annealing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../quameleon.html" class="btn btn-neutral float-left" title="QuameleonPlugin : emulating hardware constraints via a plugin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

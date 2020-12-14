@@ -4,11 +4,11 @@ __________________________
 
 Most of the standard manipulations can be handled via the high-level interface of the circuit:
 
-* iterating over the instructions using the :meth:`qat.core.wrappers.Circuit.iterate_simple` method
+* iterating over the instructions using the :meth:`qat.core.Circuit.iterate_simple` method
 
 .. run-block::  python
 
-    from qat.lang.AQASM import *
+    from qat.lang.AQASM import Program
     from qat.lang.AQASM.qftarith import QFT
 
     prog = Program()
@@ -25,7 +25,7 @@ Most of the standard manipulations can be handled via the high-level interface o
 
 .. run-block:: python
 
-    from qat.lang.AQASM import *
+    from qat.lang.AQASM import Program
     from qat.lang.AQASM.qftarith import QFT
 
     prog = Program()
@@ -39,15 +39,15 @@ Most of the standard manipulations can be handled via the high-level interface o
         print(instruction)
 
 
-* concatenation using the overloaded :meth:`~qat.core.wrappers.Circuit.__add__` operator
+* concatenation using the overloaded :code:`__add__` operator
 
-* tensor product using the overloaded :meth:`~qat.core.wrappers.Circuit.__mult__` operator
+* tensor product using the overloaded :code:`__mult__` operator
 
-* serialization/deserialization using the :meth:`~qat.core.wrappers.Circuit.dump` and :meth:`~qat.core.wrappers.Circuit.load` methods
+* serialization/deserialization using the :meth:`~qat.core.Circuit.dump` and :meth:`~qat.core.Circuit.load` methods
 
-* abstract variables binding using the :meth:`~qat.core.wrappers.Circuit.bind_variables` method
+* abstract variables binding using the :meth:`~qat.core.Circuit.bind_variables` method
 
-* easy job generation using the :meth:`~qat.core.wrappers.Circuit.to_job` method
+* easy job generation using the :meth:`~qat.core.Circuit.to_job` method
 
 Qubits and cbits
 ___________________
@@ -71,45 +71,35 @@ The type of these registers is also stored in the QReg structure:
 .. code-block:: python
 
     for qreg in circuit.qregs:
-        print("Register of length {} starting at {} (type {})".format(qreg.length, qreg.start, qreg.type))
+        print("Register of length {} starting at {}".format(qreg.length, qreg.start))
 
 
-Registers type is an enum type that can be found like so:
-
-.. code-block:: python
-
-    from qat.comm.datamodel.ttypes import RegType
-
-Possible values are `RegType.BITSTRING`, `RegType.INT`, and `RegType.FP`, for bitstrings, integers, and fixed point representation.
-These are used to display/cast execution results.
-
+Please refer to the section :ref:`Quantum types <quantum-types>` to get more information on
+registers.
 
 
 Instruction list
 _____________________
 
-The main 'body' of a circuit is described as a list of operations (:class:`qat.comm.datamodel.ttypes.Op`).
+The main 'body' of a :class:`~qat.core.Circuit` is described as a list of operations - :class:`~qat.comm.datamodel.ttypes.Op`.
 
-These `Op` can describe any operation that is accessible in AQASM/pyAQASM:
+Here is the formal documentation of these `Op` objects:
 
- - quantum gate application (optionally classically controled)
- - measures, resets, breaks, classical operations, classical remaps
+.. autoclass:: qat.comm.datamodel.ttypes.Op
 
 
-The field `.type` is used to distinguish between these cases.
-It contains an enum type:
+More precisely the field `.type` in :class:`~qat.comm.datamodel.ttypes.Op` can be:
 
 .. program-output:: python3 -c "from qat.comm.datamodel.ttypes import OpType;print(list(dir(OpType))[:7])"
 
-Once the type is set, various attributes of the `Op` object are used to store relevant pieces of information.
+Once the type is set, various attributes of the :class:`~qat.comm.datamodel.ttypes.Op` object are used to store relevant pieces of information.
 
-
-- **GATETYPE** corresponds to quantum gate application (without classical control). In that case:
+- **GATETYPE** corresponds to a quantum gate application (without classical control). In that case:
 
     - `op.gate` will contain the name of the gate (see below the gate dictionary section for detailed use of this name)
     - `op.qbits` will contain the list of the target qubits
 
-- **CLASSICCTRL** corresponds to quantum gate application with classical control. In addition to the fields used in the **GATETYPE** case:
+- **CLASSICCTRL** corresponds to a quantum gate application with classical control. In addition to the fields used in the **GATETYPE** case, here we also have:
 
     - `op.cbits` will contain a list of size 1 with a single cbit to be used as control classical bit
 
@@ -120,7 +110,7 @@ Once the type is set, various attributes of the `Op` object are used to store re
 
 - **BREAK** corresponds to a break operation:
 
-    - `op.formula` will contain a (prefix formated) string containing a boolean formula to evaluate over the current values of the cbits in order to determine if the computation should be aborted or not. :py:mod:`qat.core.formula_eval.evaluate` provides an implementation of this evaluation, if required.
+    - `op.formula` will contain a (prefix formatted) string containing a boolean formula to evaluate over the current values of the cbits in order to determine if the computation should be aborted or not. :py:mod:`qat.core.formula_eval.evaluate` provides an implementation of this evaluation, if required.
 
     .. run-block:: python
 
@@ -138,12 +128,12 @@ Once the type is set, various attributes of the `Op` object are used to store re
 - **REMAP** corresponds to classical remaps/rewiring of the qubits. These can be seen as permutations of the index of the qubits. 
 
     - `op.qbits` will contain a list of qubits that are to be rewired
-    - `op.remap` will contain a list of integer describing the way the qubits are remapped
+    - `op.remap` will contain a list of integers describing the way the qubits are remapped
 
 - **CLASSIC** corresponds to a classical operation between cbits.
 
     - `op.cbits` will contain the cbit receiving a new value
-    - `op.formula` will contain a (prefix formated) string containing a boolean formula to evaluate over the current values of the cbits
+    - `op.formula` will contain a (prefix formatted) string containing a boolean formula to evaluate over the current values of the cbits
 
 
 Quantum gates and gate dictionary
@@ -154,59 +144,122 @@ Entries in this dictionary are of the type :class:`~qat.comm.datamodel.ttypes.Ga
 
 .. run-block:: python
 
-    from qat.lang.AQASM import *
+    from qat.lang.AQASM import Program
     prog = Program()
     circuit = prog.to_circ()
-    circuit.gateDic["H"]
+    print(circuit.gateDic["H"])
+    
+.. toggle-header::
+   :header: *Toggle to get the documentation of* :class:`~qat.comm.datamodel.ttypes.GateDefinition`
 
+    .. note::
 
-Here we can see that the entry corresponding to a Hadamard gate consists in:
+        Class :class:`~qat.comm.datamodel.ttypes.GateDefinition` is not designed to be instantiated manually.
+        Please refer to the :ref:`Writting quantum circuits <programming>` section or the
+        :mod:`qat.lang` module to create your own circuits
 
- - a matrix (the `.matrix` field): the field of this object are pretty self explanatory
- - a syntax with a name (H) and a list of parameters (empty)
+    .. class:: qat.comm.datamodel.ttypes.GateDefinition
 
-More generally, :class:`~qat.comm.datamodel.ttypes.GateDefinition` have the following fields:
+        A gate definition describes the implementation of a quantum gate. A quantum gate can be defined
+        by:
 
-- :py:obj:`matrix` the matrix implementation of the gate:
+         * a unitary matrix
+         * a function of another gate (i.e. control of a subgate, dagger of a subgate, ...)
+         * a subcircuit
 
-  - :py:obj:`nCols` and :py:obj:`nRow` indicates the number of columns and row of the matrix
-  - :py:obj:`data` contains a list of complex number describing the content of the matrix
+        Instance attributes:
+         * **matrix** (*optional*): the matrix implementation of the gate. A matrix
+           is defined with the following attributes:
 
-- :py:obj:`is_ctrl` (deprecated), :py:obj:`is_dag`, :py:obj:`is_conj`, :py:obj:`is_trans` indicates if the gate is, itself a controled, dagger, conjugate, transpose version of another gate. If one of these is set to true, then the field :py:obj:`subgate` will store the corresponding subgate (i.e a new gate name).
+            * **nCols** (*int*): the number of columns in the matrix
+            * **nRows** (*int*): the number of rows in the matrix
+            * **data** (*list*): list of complex numbers describing the content of this matrix
+         * **is_ctrl** (*bool, optional*, **deprecated**): indicates if the gate is a controled version of another gate
+         * **is_dag** (*bool, optional*): indicates if the gate is a dagger version of another gate
+         * **is_conj** (*bool, optional*): indicates if the gate is a conjugate version of another gate
+         * **is_trans** (*bool, optional*): indicates if the gate is a transpose version of another gate
+         * **nbctrls** (*int, optional*): signifies that the gate is a multiple controled version of another gate. If set to a non-zero number, `subgate` will store the corresponding subgate.
+         * **subgate** (*str, optional*): will store the name of the subgate if any one of the `.is_ctrl`, `.is_dag`, `.is_conj`, `.is_trans` is true, or
+           if `.nbctrls` is a strict positive integer.
+         * **arity** (*int*): an integer representing the number of qubits on which this gate can be applied
+         * **syntax** (*optional*): the syntax of the gate (if any). A syntax is defined
+           with the following attributes:
 
-- :py:obj:`nbctrls` indicates that the gate is multiple controled version of another gate. If set to a non zero number, :py:obj:`subgate` will store the corresponding subgate.
+            * **name** (*str*): name of the gate (e.g. "H", "RZ", etc.)
+            * **parameters** (*list*): parameters used to build the gate
+         * **circuit_implementation** (*optional*): if the gate has an implementation in the form of a subroutine, this
+           attribute contains the subcircuit corresponding to the gate. Definitions of gates generated with an
+           :class:`~qat.lang.AQASM.gates.AbstractGate` may have this attribute defined. A circuit implementation is defined
+           by the following attributes:
 
-- :py:obj:`arity` an integer representing the number of qubits on which this gate can be applied.
+            * **ops** (*list*): list of :class:`~qat.comm.datamodel.ttypes.Op`
+            * **ancillas** (*int*): number of ancillas
+            * **nbqbits** (*int*): number of qubits used by the subroutine
 
-- :py:obj:`syntax` the syntax of the gate (if any):
+There are three different ways to define the implementation of
+a gate:
 
-  - :py:obj:`name` the name of the gate (e.g "H", or "RZ")
- 
-  - :py:obj:`parameters` a list of parameters. :class:`~qat.comm.datamodel.ttypes.Parameter`  can store integers, floats, strings, or matrices.
+.. toggle-header::
+   :header: **Using a matrix**
 
-Syntaxes are generated using the signature of the corresponding :class:`~qat.lang.AQASM.AbstractGate` that was used to generate the gate.
+    The definition of a gate is given by a matrix. The attribute :code:`matrix`
+    of :class:`~qat.comm.datamodel.ttypes.GateDefinition` will contain the matrix.
 
-- :py:obj:`circuit_implementation` this field is described below.
+    .. run-block:: python
 
-Circuit implementation of quantum gates
-__________________________________________
+        from qat.lang.AQASM import Program, H
 
-Some gates are described via some subcircuit implementation. These correspond to a call to some subroutine.
-In that case, the corresponding entry of the gate dictionary will have a :py:obj:`circuit_implementation` field.
+        # Create a circuit
+        prog = Program()
+        qbit = prog.qalloc(1)
+        prog.apply(H, qbit)
+        circ = prog.to_circ()
 
-This field contains:
+        # Extract the definition of the gate H
+        print(f"The ID of the first gate is {circ.ops[0].gate}")
+        print(circ.gateDic["H"].matrix)
 
-- :py:obj:`ops` a list of :py:obj:`Op` describing the list of instructions of the subcircuit
+.. toggle-header::
+   :header: **Using a subgate**
 
-- :py:obj:`nbqbits` the number of qubits used by the circuit. It can be used to compute the number of ancillae required to run the subroutine.
+    The definition of a gate is given by a subgate and a transformation. The attribute
+    :code:`subgate` of :class:`~qat.comm.datamodel.ttypes.GateDefinition` will contain
+    the name of the subgate.
 
+    .. run-block:: python
 
-.. run-block:: python
+       from qat.lang.AQASM import Program, H
 
-    from qat.lang.AQASM import *
-    from qat.lang.AQASM.qftarith import QFT
-    prog = Program()
-    qbits = prog.qalloc(2)
-    prog.apply(QFT(2), qbits)
-    circ = prog.to_circ()
-    print(circ.gateDic["_0"])
+       # Create a circuit
+       prog = Program()
+       qbits = prog.qalloc(2)
+       prog.apply(H.ctrl(), qbits)
+       circ = prog.to_circ()
+
+       # Extract the definition of the gate C-H
+       print(f"The ID of the first gate is {circ.ops[0].gate}")
+       definition = circ.gateDic["_0"]
+       print(f"This gate '_0' controls {definition.nbctrls} time the gate {definition.subgate}")
+
+.. toggle-header::
+   :header: **Using a circuit implementation**
+
+    The definition of a gate is given by a circuit implementation. The attribute
+    :code:`circuit_implementation` of :class:`~qat.comm.datamodel.ttypes.GateDefinition`
+    contains the definition of the gate.
+
+    .. run-block:: python
+
+        from qat.lang.AQASM import Program
+        from qat.lang.AQASM.qftarith import QFT
+
+        # Create a circuit
+        prog = Program()
+        qbits = prog.qalloc(2)
+        prog.apply(QFT(2), qbits)
+        circ = prog.to_circ()
+
+        # Extract the definition of QFT(2)
+        print(f"The circuit is composed of {len(circ.ops)} gate")
+        print("The definition of the gate is given by the subcircuit:")
+        print(circ.gateDic["_0"].circuit_implementation.ops)

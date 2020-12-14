@@ -1,3 +1,5 @@
+.. module:: qat.lang
+
 qat.lang : Programming tools
 =================================
 
@@ -6,7 +8,6 @@ The Program class
 
 .. autoclass:: qat.lang.AQASM.Program
     :members:
-    :exclude-members: new_var
 
 Gate structures
 -----------------
@@ -18,13 +19,8 @@ This parent class contains very little information. Its primary function is to s
     :members: 
     :exclude-members: build_into, extract_signatures, build_ast
 
-The first class inheriting from it is the :class:`~qat.lang.AQASM.gates.CustomGate` class. The purpose of this class is to describe custom, constant (as in not parametrized) gates.
 
-.. autoclass:: qat.lang.AQASM.gates.CustomGate
-    :members:
-
-
-Another important class is the :class:`~qat.lang.AQASM.gates.AbstractGate` class. This class provides a way to define new parametrized gates. Basically, an abstract gate describes a family of gates parametrized by a list of values of various types. The current list of admissible types contains: :obj:`int`, :obj:`float`, :obj:`str`
+Another important class is the :class:`~qat.lang.AQASM.gates.AbstractGate` class. This class provides a way to define new parametrized gates. Basically, an abstract gate describes a family of gates parametrized by a list of values of various types. The current list of admissible types contains: :code:`int`, :code:`float`, :code:`str`
 
 For instance, to declare a new :class:`~qat.lang.AQASM.gates.AbstractGate` that describes a :math:`R_z` rotation, we would write:
 
@@ -62,7 +58,66 @@ It is possible to attach a matrix generator to the abstract gate in order to gen
 Finally, the notion of gate is also extended to subcircuits via the :class:`~qat.lang.AQASM.routines.QRoutine` class.
 
 .. autoclass:: qat.lang.AQASM.routines.QRoutine
-    :members: apply, new_wires, set_ancillae, compute, uncompute
+    :members: apply, new_wires, set_ancillae, compute, uncompute, get_free_ancillae, free_ancillae
+
+.. _quantum-types:
+
+Quantum Types
+----------------
+
+
+Quantum boolean and expressions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. autoclass:: qat.lang.AQASM.qbool.QBool
+    :members:
+
+.. autoclass:: qat.lang.AQASM.qbool.QBoolArray
+    :members:
+
+.. autoclass:: qat.lang.AQASM.qbool.QClause
+    :members:
+
+
+Quantum integers
+~~~~~~~~~~~~~~~~~~~~~
+
+.. autoclass:: qat.lang.AQASM.qint.QInt
+    :members:
+
+.. autoclass:: qat.lang.AQASM.qint.QArithExp
+    :members:
+
+.. autoclass:: qat.lang.AQASM.qint.QCompExp
+    :members:
+
+
+Other structures
+---------------------
+
+.. autoclass:: qat.lang.AQASM.bits.Qbit
+
+.. autoclass:: qat.lang.AQASM.bits.QRegister
+
+.. autoclass:: qat.lang.AQASM.bits.CRegister
+
+Classical bits and Boolean formulae
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. autoclass:: qat.lang.AQASM.bits.Cbit
+
+.. autoclass:: qat.lang.AQASM.bits.BoolFormula
+   :members:
+
+Exceptions
+~~~~~~~~~~~~
+
+This exception is defined in `qat.core` but related to `qat.lang`:
+
+.. autoclass:: qat.core.circuit_builder.builder.VariableNameNotAvailable
+
+
+
 
 Utilities
 ----------
@@ -75,7 +130,7 @@ Gate set management and generation
 
 
 .. automodule:: qat.lang.AQASM.misc
-    :members: generate_gate_set
+    :members: generate_gate_set, build_gate
 
 Quantum libraries
 --------------------

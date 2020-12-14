@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>CircuitInliner : inlining circuit inside a stack &mdash; myQLM documentation myQLM-1.1.6.25 documentation</title>
+  <title>CircuitInliner : inlining circuit inside a stack &mdash; myQLM documentation  documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-1.1.6
+                myQLM-1.2.2
               </div>
             
           
@@ -115,6 +115,7 @@
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-core-library">The core library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-programming-library">The programming library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-device-library">The device library</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="source_doc.html#plugins">Plugins</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="variational-plugin.html">Plugins for variational algorithms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="observable-splitter.html">ObservableSplitter : turning observable sampling into qubit sampling</a></li>
@@ -227,16 +228,18 @@
 <div class="section" id="module-qat.lang.linking.plugin">
 <span id="circuitinliner-inlining-circuit-inside-a-stack"></span><h1>CircuitInliner : inlining circuit inside a stack<a class="headerlink" href="#module-qat.lang.linking.plugin" title="Permalink to this headline">¶</a></h1>
 <p>A simple Plugin that inline the instructions of all the quantum circuits passing by.</p>
-<p>Using this plugin allows to skip the inlining step in the <code class="xref py py-meth docutils literal notranslate"><span class="pre">to_circ()</span></code>
+<p>Using this plugin allows to skip the inlining step in the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.to_circ" title="qat.lang.AQASM.Program.to_circ"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_circ()</span></code></a>
 (with <cite>inline</cite> set to False, which is the default behavior).</p>
 <p>This Plugin can be used to inline circuits before further optimization of simulation.</p>
-<p>PyLinalg is able to simulate non-inlined circuits. There is no need to use this Plugin for simulation purposes.isinstance</p>
+<p>PyLinalg is able to simulate non-inlined circuits. There is no need to use this Plugin for
+simulation purposes.isinstance</p>
 <dl class="py class">
 <dt id="qat.lang.linking.plugin.CircuitInliner">
 <em class="property">class </em><code class="sig-prename descclassname">qat.lang.linking.plugin.</code><code class="sig-name descname">CircuitInliner</code><a class="headerlink" href="#qat.lang.linking.plugin.CircuitInliner" title="Permalink to this definition">¶</a></dt>
 <dd><p>A plugin that inlines all calls to a subroutine in the main body of a circuit.</p>
 <p>This plugin should be attached to simulator that do not implement an execution stack management.</p>
-<p>Currently, all python based simulators make use the internal iterator of the python QAT_CIRC structure
+<p>Currently, all python based simulators make use the internal iterator of the python
+QAT_CIRC structure
 to emulate this inlining on the fly. Some c++ based simulators might not be able to perform this
 emulation and will thus require the circuit to be inlined beforehand.</p>
 <dl class="field-list simple">
@@ -247,6 +250,30 @@ the circuits will be deepcopied before the inlining process.
 Defaults to True.</p>
 </dd>
 </dl>
+<dl class="py method">
+<dt id="qat.lang.linking.plugin.CircuitInliner.addargs">
+<em class="property">classmethod </em><code class="sig-name descname">addargs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.linking.plugin.CircuitInliner.addargs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds arguments in a parser</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.lang.linking.plugin.CircuitInliner.compile">
+<code class="sig-name descname">compile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch</span></em>, <em class="sig-param"><span class="n">_specs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.linking.plugin.CircuitInliner.compile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compiles a batch</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.lang.linking.plugin.CircuitInliner.do_post_processing">
+<code class="sig-name descname">do_post_processing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.linking.plugin.CircuitInliner.do_post_processing" title="Permalink to this definition">¶</a></dt>
+<dd><p>We need post processing</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.lang.linking.plugin.CircuitInliner.post_process">
+<code class="sig-name descname">post_process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">results</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.linking.plugin.CircuitInliner.post_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post processed results</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>

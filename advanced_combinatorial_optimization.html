@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Advanced combinatorial optimization &mdash; myQLM documentation myQLM-1.1.6.25 documentation</title>
+  <title>Advanced combinatorial optimization &mdash; myQLM documentation  documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-1.1.6
+                myQLM-1.2.2
               </div>
             
           
@@ -111,7 +111,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced combinatorial optimization</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#np-hard-problems-on-the-qlm">NP-hard problems on the QLM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#np-hard-problems">NP-hard problems</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#unconstrained-graph-problems">Unconstrained Graph Problems</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#max-cut">Max cut</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#graph-partitioning">Graph Partitioning</a></li>
@@ -128,6 +128,14 @@
 <li class="toctree-l4"><a class="reference internal" href="#binary-integer-linear-programming">Binary Integer Linear Programming</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#simulated-quantum-annealing-benchmarking-and-performance">Simulated Quantum Annealing Benchmarking and Performance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Max Cut</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Graph Colouring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">K-Clique</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Vertex Cover</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Number Partitioning</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#interfacing-with-dwave">Interfacing with DWAVE</a></li>
@@ -230,19 +238,19 @@
 </style>
 <div class="section" id="advanced-combinatorial-optimization">
 <span id="id1"></span><h1>Advanced combinatorial optimization<a class="headerlink" href="#advanced-combinatorial-optimization" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="np-hard-problems-on-the-qlm">
-<span id="np-problems-formulation"></span><h2>NP-hard problems on the QLM<a class="headerlink" href="#np-hard-problems-on-the-qlm" title="Permalink to this headline">¶</a></h2>
-<p>Of all the combinatorial problems, the ones of highest practical importance and repeated appearance are the NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (see <a class="reference internal" href="combinatorial_optimization_intro.html#combinatorial-optimization"><span class="std std-ref">Combinatorial optimization</span></a>). Some of them, like constrained and unconstrained graph problems, number partitioning, etc. have therefore been implemented in myQLM. Their description can be found below and the respective helper classes for each problem are given in the <a class="reference internal" href="qat-opt.html#np-hard-problems-code"><span class="std std-ref">Source code</span></a>.</p>
+<div class="section" id="np-hard-problems">
+<span id="np-problems-formulation"></span><h2>NP-hard problems<a class="headerlink" href="#np-hard-problems" title="Permalink to this headline">¶</a></h2>
+<p>Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (see <a class="reference internal" href="combinatorial_optimization_intro.html#combinatorial-optimization"><span class="std std-ref">Combinatorial optimization</span></a>). Some of them, like max cut, graph colouring, number partitioning, etc. could be easily represented in an Ising or QUBO form using myQLM tools. A description of these problems can be found below and the respective helper classes for each problem are given in the <a class="reference internal" href="qat-opt.html#np-hard-problems-code"><span class="std std-ref">Source code</span></a>.</p>
 <div class="section" id="unconstrained-graph-problems">
 <h3>Unconstrained Graph Problems<a class="headerlink" href="#unconstrained-graph-problems" title="Permalink to this headline">¶</a></h3>
-<p>These are problems concerning graphs, for which any output result is valid. In other words, any solution will obey the criteria for a right solution. However, this result may not be the most optimal.</p>
+<p>These problems concern graphs for which any output result is valid. In other words, any solution will obey the criteria for a right solution. However, this result may not be the most optimal.</p>
 <div class="section" id="max-cut">
 <span id="maxcut-description"></span><h4>Max cut<a class="headerlink" href="#max-cut" title="Permalink to this headline">¶</a></h4>
-<p>We are given an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>. The task is to partition the graph into two subgraphs connected by the maximum number of edges. To anneal the problem with the <a class="reference internal" href="qat-opt.html#qat.opt.max_cut.MaxCut" title="qat.opt.max_cut.MaxCut"><code class="xref py py-class docutils literal notranslate"><span class="pre">MaxCut</span></code></a> class we would need <span class="math notranslate nohighlight">\(N\)</span> spins for each of the vertices in the graph.</p>
+<p>Given an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>, the problem consists in partitioning the graph into two subgraphs connected by the maximum number of edges. Annealing the problem with the <a class="reference internal" href="qat-opt.html#qat.opt.max_cut.MaxCut" title="qat.opt.max_cut.MaxCut"><code class="xref py py-class docutils literal notranslate"><span class="pre">MaxCut</span></code></a> class needs <span class="math notranslate nohighlight">\(\#V\)</span> spins (one spin per vertex of the graph).</p>
 </div>
 <div class="section" id="graph-partitioning">
 <span id="graph-partitioning-description"></span><h4>Graph Partitioning<a class="headerlink" href="#graph-partitioning" title="Permalink to this headline">¶</a></h4>
-<p>We start with an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>. The task is to partition the graph into two equally-sized subgraphs connected by the minimal number of edges. In order to anneal the problem with the <a class="reference internal" href="qat-opt.html#qat.opt.graph_partitioning.GraphPartitioning" title="qat.opt.graph_partitioning.GraphPartitioning"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphPartitioning</span></code></a> class we will need <span class="math notranslate nohighlight">\(N\)</span> spins for each individual vertex.</p>
+<p>Given an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>, the problem consists in partitioning the graph into two equally-sized subgraphs connected by the minimal number of edges. Annealing the problem with the <a class="reference internal" href="qat-opt.html#qat.opt.graph_partitioning.GraphPartitioning" title="qat.opt.graph_partitioning.GraphPartitioning"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphPartitioning</span></code></a> class needs <span class="math notranslate nohighlight">\(\#V\)</span> spins (one spin for each individual vertex).</p>
 </div>
 </div>
 <div class="section" id="constrained-graph-problems">
@@ -250,28 +258,121 @@
 <p>A graph problem is constrained when the output solution needs to obey some conditions in order to be valid. For example, Graph Colouring requires that every two nodes connected by an edge are coloured differently - so if the solution graph does not have this property, it is not valid. Therefore, we call constrained all problems with conditional correctness of their solutions.</p>
 <div class="section" id="graph-colouring">
 <span id="graph-colouring-description"></span><h4>Graph Colouring<a class="headerlink" href="#graph-colouring" title="Permalink to this headline">¶</a></h4>
-<p>We are given an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span> and a a set of <span class="math notranslate nohighlight">\(n\)</span> colours. Our task is find whether we can colour every node of the graph in one of these <span class="math notranslate nohighlight">\(n\)</span> colours such that no edge connects nodes of the same colour. We therefore need <span class="math notranslate nohighlight">\(nN\)</span> spins to anneal the problem with our <a class="reference internal" href="qat-opt.html#qat.opt.graph_colouring.GraphColouring" title="qat.opt.graph_colouring.GraphColouring"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphColouring</span></code></a> class, where <span class="math notranslate nohighlight">\(N\)</span> is the number of vertices of the graph. The classical complexity of the best known approximate algorithm for this problem is <span class="math notranslate nohighlight">\(O(N(log log N)^2 (log N)^3)\)</span>.</p>
+<p>Given an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span> and a a set of <span class="math notranslate nohighlight">\(n\)</span> colours, the problem consists in finding whether we can colour every node of the graph in one of these <span class="math notranslate nohighlight">\(n\)</span> colours such that no edge connects nodes of the same colour. We therefore need <span class="math notranslate nohighlight">\(nN\)</span> spins to anneal the problem with our <a class="reference internal" href="qat-opt.html#qat.opt.graph_colouring.GraphColouring" title="qat.opt.graph_colouring.GraphColouring"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphColouring</span></code></a> class, where <span class="math notranslate nohighlight">\(N\)</span> is the number of vertices of the graph. The classical complexity of the best known approximate algorithm for this problem is <span class="math notranslate nohighlight">\(O(N(log log N)^2 (log N)^3)\)</span>.</p>
 </div>
 <div class="section" id="k-clique">
 <span id="kclique-description"></span><h4>K-Clique<a class="headerlink" href="#k-clique" title="Permalink to this headline">¶</a></h4>
-<p>We start from an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>. The task is to find out whether there exists a complete subgraph of size <span class="math notranslate nohighlight">\(K\)</span>. Annealing the problem with the help of our <a class="reference internal" href="qat-opt.html#qat.opt.k_clique.KClique" title="qat.opt.k_clique.KClique"><code class="xref py py-class docutils literal notranslate"><span class="pre">KClique</span></code></a> class requires <span class="math notranslate nohighlight">\(N\)</span> spins for each of the vertices.</p>
+<p>Given an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>, the problem consists in finding out whether there exists a complete subgraph of size <span class="math notranslate nohighlight">\(K\)</span>. Annealing the problem with the help of our <a class="reference internal" href="qat-opt.html#qat.opt.k_clique.KClique" title="qat.opt.k_clique.KClique"><code class="xref py py-class docutils literal notranslate"><span class="pre">KClique</span></code></a> class requires <span class="math notranslate nohighlight">\(\#V\)</span> spins (one spin per vertex).</p>
 </div>
 <div class="section" id="vertex-cover">
 <span id="vertex-cover-description"></span><h4>Vertex Cover<a class="headerlink" href="#vertex-cover" title="Permalink to this headline">¶</a></h4>
-<p>We are given an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>. Our task is to find the smallest number of nodes to be coloured, such that every edge has a coloured vertex. As an addition, we want to know which these vertices are. To anneal this problem we would need our <a class="reference internal" href="qat-opt.html#qat.opt.vertex_cover.VertexCover" title="qat.opt.vertex_cover.VertexCover"><code class="xref py py-class docutils literal notranslate"><span class="pre">VertexCover</span></code></a> class with <span class="math notranslate nohighlight">\(N\)</span> spins for each individual vertex.</p>
+<p>Given an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>, the problem consists in finding the smallest number of nodes to be coloured, such that every edge has a coloured vertex. As an addition, we want to know which these vertices are. To anneal this problem we would need our <a class="reference internal" href="qat-opt.html#qat.opt.vertex_cover.VertexCover" title="qat.opt.vertex_cover.VertexCover"><code class="xref py py-class docutils literal notranslate"><span class="pre">VertexCover</span></code></a> class with <span class="math notranslate nohighlight">\(\#V\)</span> spins (one spin per vertex).</p>
 </div>
 </div>
 <div class="section" id="other-problems">
 <h3>Other problems<a class="headerlink" href="#other-problems" title="Permalink to this headline">¶</a></h3>
-<p>Here we present problems which are more numbers-oriented, for example Number Partitioning and Binary Integer Linear Programming, as described below.</p>
+<p>Some problems are more numbers-oriented, like Number Partitioning and Binary Integer Linear Programming. Both of them also belong to the class of NP and the first one can be well solved via Simulated Annealing (<a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>).</p>
 <div class="section" id="number-partitioning">
 <span id="number-partitioning-description"></span><h4>Number Partitioning<a class="headerlink" href="#number-partitioning" title="Permalink to this headline">¶</a></h4>
-<p>We start from a set of real and potentially repeating numbers and our task is to partition them in two subsets, such that the sum of the numbers in both of them is equal (or as close as possible). To obtain an answer, we would need to use our <a class="reference internal" href="qat-opt.html#qat.opt.number_partitioning.NumberPartitioning" title="qat.opt.number_partitioning.NumberPartitioning"><code class="xref py py-class docutils literal notranslate"><span class="pre">NumberPartitioning</span></code></a> class and anneal <span class="math notranslate nohighlight">\(N\)</span> spins, where <span class="math notranslate nohighlight">\(N\)</span> is the size of the set of numbers.</p>
+<p>Given a set of real and potentially repeating numbers, the problem consists in partitioning them in two subsets, such that the sum of the numbers in both of them is equal (or as close as possible). To obtain an answer, we would need to use our <a class="reference internal" href="qat-opt.html#qat.opt.number_partitioning.NumberPartitioning" title="qat.opt.number_partitioning.NumberPartitioning"><code class="xref py py-class docutils literal notranslate"><span class="pre">NumberPartitioning</span></code></a> class and anneal <span class="math notranslate nohighlight">\(N\)</span> spins, where <span class="math notranslate nohighlight">\(N\)</span> is the size of the set of numbers.</p>
 </div>
 <div class="section" id="binary-integer-linear-programming">
 <span id="bilp-description"></span><h4>Binary Integer Linear Programming<a class="headerlink" href="#binary-integer-linear-programming" title="Permalink to this headline">¶</a></h4>
-<p>We are given a vector <span class="math notranslate nohighlight">\(c\)</span> of size <span class="math notranslate nohighlight">\(N\)</span> and we want to find the vector <span class="math notranslate nohighlight">\(x\)</span> of the same size, but with binary values (i.e. 0 and 1) such that their dot product <span class="math notranslate nohighlight">\(c*x\)</span> is largest. However, there is a constraint for <span class="math notranslate nohighlight">\(x\)</span>, namely <span class="math notranslate nohighlight">\(S*x = b\)</span> for some specified <span class="math notranslate nohighlight">\(m \times N\)</span> matrix <span class="math notranslate nohighlight">\(S\)</span> and vector <span class="math notranslate nohighlight">\(b\)</span> of size <span class="math notranslate nohighlight">\(m\)</span>. In order to simulate quantum anneaing, we would need our <a class="reference internal" href="qat-opt.html#qat.opt.binary_linear_integer_programming.BILP" title="qat.opt.binary_linear_integer_programming.BILP"><code class="xref py py-class docutils literal notranslate"><span class="pre">BILP</span></code></a> class and <span class="math notranslate nohighlight">\(N\)</span> spins for encoding each of the binary values in <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<p>Given a vector <span class="math notranslate nohighlight">\(c\)</span> of size <span class="math notranslate nohighlight">\(N\)</span>, a vector <span class="math notranslate nohighlight">\(b\)</span> of size <span class="math notranslate nohighlight">\(m\)</span> and a matrix <span class="math notranslate nohighlight">\(S\)</span> of size <span class="math notranslate nohighlight">\(m \times N\)</span>, the problem consists in finding a binary vector <span class="math notranslate nohighlight">\(x\)</span> (i.e. vector composed of 0 and 1) of size <span class="math notranslate nohighlight">\(N\)</span> that maximizes the dot product <span class="math notranslate nohighlight">\(c*x\)</span>, such as <span class="math notranslate nohighlight">\(S * x = b\)</span>.</p>
+<p>Solving this problem using a simulated quantum annealing method requires our <a class="reference internal" href="qat-opt.html#qat.opt.binary_linear_integer_programming.BILP" title="qat.opt.binary_linear_integer_programming.BILP"><code class="xref py py-class docutils literal notranslate"><span class="pre">BILP</span></code></a> class and <span class="math notranslate nohighlight">\(N\)</span> spins (one spin per binary value of <span class="math notranslate nohighlight">\(x\)</span>).</p>
 </div>
+</div>
+</div>
+<div class="section" id="simulated-quantum-annealing-benchmarking-and-performance">
+<span id="benchmarking"></span><h2>Simulated Quantum Annealing Benchmarking and Performance<a class="headerlink" href="#simulated-quantum-annealing-benchmarking-and-performance" title="Permalink to this headline">¶</a></h2>
+<p>Although Simulated Quantum Annealing (<a class="reference internal" href="combinatorial_optimization_intro.html#sqa-description"><span class="std std-ref">SQA</span></a>) is only provided in the QLM, we present here its performance for some of the different NP problems to hint on its capabilities. Below are shown the benchmark sources, the range of spins for the problem instances, together with the average execution times.</p>
+<div class="section" id="id2">
+<h3>Max Cut<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>For this problem, the performance we optimized was defined by <span class="math notranslate nohighlight">\(\frac {\text{number of Max Cut edges found}} {\text{best number of Max Cut edges}}\)</span>.</p>
+<blockquote>
+<div><ul>
+<li><p><strong>Problem instances</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Benchmarks</strong>: 9 planar and random graphs from the <a class="reference external" href="http://web.stanford.edu/~yyye/yyye/Gset/">Gset benchmark dataset</a></p></li>
+<li><p><strong>Others</strong>: &gt; 20 random trees</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Spin count</strong>: from 20 to 10 000</p></li>
+<li><p><strong>Performance</strong>: &gt; 98%</p></li>
+<li><p><strong>Execution time</strong>: mostly &lt; 1 sec and up to 5 seconds for 10 000 spins</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h3>Graph Colouring<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>When optimizing this problem the performance was defined by <span class="math notranslate nohighlight">\(\frac {\text{number of edges with vertices of different colours}} {\text{number of all edges}}\)</span>.</p>
+<blockquote>
+<div><ul>
+<li><p><strong>Problem instances</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Benchmarks</strong>: 6 - random graphs and a Leighton graph from <a class="reference external" href="http://cedric.cnam.fr/~porumbed/graphs/index.html">DIMACS Graphs</a></p></li>
+<li><p><strong>Others</strong>: 13 random graphs</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Spin count</strong>: from 60 to 24 000</p></li>
+<li><p><strong>Performance</strong>: 88% for best colouring, 95% - 99%  for a few more colours</p></li>
+<li><p><strong>Execution time</strong>: &lt; 10 sec for up to 24 000 spins</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id4">
+<h3>K-Clique<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>In this case, the performance we optimized was defined by <span class="math notranslate nohighlight">\(\frac {\text{number of edges in the subgraph found}} {\text{required number of edges for the subgraph to be complete}}\)</span>.</p>
+<blockquote>
+<div><ul>
+<li><p><strong>Problem instances</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Benchmarks</strong>: 27 differently generated graphs from the <a class="reference external" href="http://sites.nlsde.buaa.edu.cn/~kexu/benchmarks/graph-benchmarks.htm">BHOSLIB</a>, <a class="reference external" href="https://mat.gsia.cmu.edu/COLOR02/clq.html">DIMACS</a> and <a class="reference external" href="https://turing.cs.hbg.psu.edu/txn131/clique.html">Clique benchmark datasets</a></p></li>
+<li><p><strong>Others</strong>: 5 random graphs</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Spin count</strong>: from 450 to 4000</p></li>
+<li><p><strong>Performance</strong>: &gt; 98%</p></li>
+<li><p><strong>Execution time</strong>: mostly &lt; 1 sec when below 4000 spins</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id5">
+<h3>Vertex Cover<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>Here, we define the performance during optimization by <span class="math notranslate nohighlight">\(\frac {\text{best number of coloured nodes}} {\text{found number of coloured nodes}}\)</span>.</p>
+<blockquote>
+<div><ul>
+<li><p><strong>Problem instances</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Benchmarks</strong>: 21 random graphs from the <a class="reference external" href="http://sites.nlsde.buaa.edu.cn/~kexu/benchmarks/graph-benchmarks.htm">BHOSLIB</a> and <a class="reference external" href="https://oeis.org/A265032/a265032.html">OEIS benchmark datasets</a></p></li>
+<li><p><strong>Others</strong>: 5 random graphs</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Spin count</strong>: from 450 to 4000</p></li>
+<li><p><strong>Performance</strong>: &gt; 98%</p></li>
+<li><p><strong>Execution time</strong>: mostly &lt; 1 sec and up to 10 seconds for 4000 spins</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id7">
+<h3>Number Partitioning<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>The performance we optimized for this problem was defined by <span class="math notranslate nohighlight">\(\frac {\text{sum of numbers in smaller sum subset}} {\text{sum of numbers in larger sum subset}}\)</span>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Problem instances</strong>: &gt; 30 random number sets of integer or real, non-repeating or repeating numbers</p></li>
+<li><p><strong>Spin count</strong>: from 20 to 40 000</p></li>
+<li><p><strong>Performance</strong>: &gt; 99%</p></li>
+<li><p><strong>Execution time</strong>: from instantly to 15 sec for 40 000 spins</p></li>
+</ul>
+</div></blockquote>
 </div>
 </div>
 <div class="section" id="interfacing-with-dwave">
@@ -283,19 +384,22 @@ code snippet:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># import required libraries</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
-<span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">GraphColouring</span>
+<span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">VertexCover</span>
 
 <span class="c1"># Specify the problem</span>
 <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
-<span class="n">graph</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-<span class="n">graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)])</span>
-<span class="n">number_of_colours</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)])</span>
+
+<span class="c1"># Impose constraints for the right encoding</span>
+<span class="n">B</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">B</span> <span class="o">+</span> <span class="mf">0.01</span>
 
 <span class="c1"># Create problem</span>
-<span class="n">graph_colouring_problem</span> <span class="o">=</span> <span class="n">GraphColouring</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">number_of_colours</span><span class="p">)</span>
+<span class="n">vertex_cover_problem</span> <span class="o">=</span> <span class="n">VertexCover</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">)</span>
 
 <span class="c1"># Extract Q and the offset</span>
-<span class="n">Q</span><span class="p">,</span> <span class="n">o</span> <span class="o">=</span> <span class="n">graph_colouring_problem</span><span class="o">.</span><span class="n">get_q_and_offset</span><span class="p">()</span>
+<span class="n">Q</span><span class="p">,</span> <span class="n">o</span> <span class="o">=</span> <span class="n">vertex_cover_problem</span><span class="o">.</span><span class="n">get_q_and_offset</span><span class="p">()</span>
 
 <span class="kn">from</span> <span class="nn">dimod</span> <span class="kn">import</span> <span class="n">BinaryQuadraticModel</span> <span class="k">as</span> <span class="n">BQM</span> <span class="c1">#  pip install dimod --user</span>
 <span class="n">bqm</span> <span class="o">=</span> <span class="n">BQM</span><span class="o">.</span><span class="n">from_numpy_matrix</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>

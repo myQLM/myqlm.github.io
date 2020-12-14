@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Qiskit interoperability &mdash; myQLM documentation myQLM-1.1.6.25 documentation</title>
+  <title>Qiskit interoperability &mdash; myQLM documentation  documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-1.1.6
+                myQLM-1.2.2
               </div>
             
           
@@ -134,6 +134,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-core-library">The core library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-programming-library">The programming library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-device-library">The device library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#plugins">Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#qpus">QPUs</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a><ul class="current">
@@ -407,7 +408,7 @@ measured</p></li>
 <h3>BackendToQPU<a class="headerlink" href="#backendtoqpu" title="Permalink to this headline">¶</a></h3>
 <dl class="py class">
 <dt id="qat.interop.qiskit.BackendToQPU">
-<em class="property">class </em><code class="sig-prename descclassname">qat.interop.qiskit.</code><code class="sig-name descname">BackendToQPU</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">backend</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">plugins</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">token</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ibmq_backend</span><span class="o">=</span><span class="default_value">'ibmq_qasm_simulator'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.qiskit.BackendToQPU" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">qat.interop.qiskit.</code><code class="sig-name descname">BackendToQPU</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">backend</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">plugins</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">token</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ibmq_backend</span><span class="o">=</span><span class="default_value">'ibmq_qasm_simulator'</span></em>, <em class="sig-param"><span class="n">optimization_level</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.qiskit.BackendToQPU" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper around any Qiskit simulator / quantum chip connection.
 Despite the asynchronous nature of Qiskit’s backends, this class
 defines a synchronous QPU. If you need an asynchronous, please use
@@ -432,6 +433,8 @@ the circuit.</p></li>
 <li><p><strong>token</strong> (<em>str</em>) – Qiskit IBMQ login token. If not supplied, loaded from the environment
 variable <code class="code docutils literal notranslate"><span class="pre">QISKIT_TOKEN</span></code></p></li>
 <li><p><strong>ibmq_backend</strong> (<em>str</em><em>, </em><em>optional</em>) – name of the backend. Defaults to ‘ibmq_qasm_simulator’.</p></li>
+<li><p><strong>optimization_level</strong> (<em>int</em><em>, </em><em>optional</em>) – 0: No optimization (Default).
+1: Light optimization. 2: Heavy optimization. 3: Highest optimization.</p></li>
 </ul>
 </dd>
 </dl>
@@ -459,12 +462,15 @@ value is ‘ibmq_qasm_simulator’, which goes up to 32qubits</p></li>
 <dd><p>Executes a batch of jobs and returns the corresponding list of Results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>batch</strong> (<a class="reference internal" href="../qat-core.html#qat.core.Batch" title="qat.core.Batch"><em>Batch</em></a>) – a batch of jobs. If a single job is provided, the
+<dd class="field-odd"><p><strong>batch</strong> (<a class="reference internal" href="../qat-core.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) – a batch of jobs. If a single job is provided, the
 job is embedded into a Batch, executed, and the first result
 is returned.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>BatchResult</p>
+<dd class="field-even"><p>a batch result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="../qat-core.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -595,7 +601,7 @@ information on their job execution</p>
 <h3>QiskitJob<a class="headerlink" href="#qiskitjob" title="Permalink to this headline">¶</a></h3>
 <dl class="py class">
 <dt id="qat.interop.qiskit.QiskitJob">
-<em class="property">class </em><code class="sig-prename descclassname">qat.interop.qiskit.</code><code class="sig-name descname">QiskitJob</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qlm_batch</span></em>, <em class="sig-param"><span class="n">async_job</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.qiskit.QiskitJob" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">qat.interop.qiskit.</code><code class="sig-name descname">QiskitJob</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qlm_batch</span></em>, <em class="sig-param"><span class="n">async_job</span></em>, <em class="sig-param"><span class="n">max_shots</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.qiskit.QiskitJob" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper around Qiskit’s asynchronous jobs.</p>
 <dl class="py method">
 <dt id="qat.interop.qiskit.QiskitJob.cancel">

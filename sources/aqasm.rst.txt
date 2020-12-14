@@ -4,13 +4,13 @@
 The AQASM format
 ================
 
-AQASM is a simple and non procedural circuit description language. It comes with a command-line compiler allowing to directly generate a circuit description and compile it into a :class:`Circuit` structure.
+AQASM is a simple and non procedural circuit description language. It comes with a command-line compiler allowing to directly generate a circuit description and compile it into a :class:`~qat.core.Circuit` structure.
 
 .. note::
 
     The purpose of this format is not to efficiently serialize or store quantum circuits. We 
-    strongly advise to use binary serialization of the :class:`~qat.core.wrappers.circuit.Circuit` 
-    objects (using the :meth:`~qat.core.wrappers.Circuit.dump` method) for efficient serialization.
+    strongly advise to use binary serialization of the :class:`~qat.core.Circuit` 
+    objects (using the :meth:`~qat.core.Circuit.dump` method) for efficient serialization.
 
 The text format
 ---------------
@@ -269,7 +269,7 @@ Let us imagine that we wrote a Python file **my_lib.py** containing the followin
 
 .. code-block:: python
 
-    from qat.lang.AQASM import *
+    from qat.lang.AQASM import QRoutine, H
     from qat.lang.AQASM.misc import build_gate
     
     # Notice the use of the function decorator 

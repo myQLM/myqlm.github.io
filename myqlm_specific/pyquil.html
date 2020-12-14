@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>PyQuil interoperability &mdash; myQLM documentation myQLM-1.1.6.25 documentation</title>
+  <title>PyQuil interoperability &mdash; myQLM documentation  documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-1.1.6
+                myQLM-1.2.2
               </div>
             
           
@@ -131,6 +131,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-core-library">The core library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-programming-library">The programming library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-device-library">The device library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#plugins">Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../source_doc.html#qpus">QPUs</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a><ul class="current">
@@ -367,17 +368,31 @@ skip compilation</p></li>
 </dd>
 </dl>
 <dl class="py method">
+<dt id="qat.interop.pyquil.PyquilQPU.set_qpu">
+<code class="sig-name descname">set_qpu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qpu</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.PyquilQPU.set_qpu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the pyquil QPU.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>qpu</strong> – Pyquil QPU</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="qat.interop.pyquil.PyquilQPU.submit">
 <code class="sig-name descname">submit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch</span><span class="p">:</span> <span class="n">qat.core.wrappers.batch.Batch</span></em>, <em class="sig-param"><span class="n">meta_data</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; qat.core.wrappers.result.BatchResult<a class="headerlink" href="#qat.interop.pyquil.PyquilQPU.submit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes a batch of jobs and returns the corresponding list of Results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>batch</strong> (<a class="reference internal" href="../qat-core.html#qat.core.Batch" title="qat.core.Batch"><em>Batch</em></a>) – a batch of jobs. If a single job is provided, the
+<dd class="field-odd"><p><strong>batch</strong> (<a class="reference internal" href="../qat-core.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) – a batch of jobs. If a single job is provided, the
 job is embedded into a Batch, executed, and the first result
 is returned.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>BatchResult</p>
+<dd class="field-even"><p>a batch result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="../qat-core.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -385,22 +400,16 @@ is returned.</p>
 <dl class="py method">
 <dt id="qat.interop.pyquil.PyquilQPU.submit_job">
 <code class="sig-name descname">submit_job</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qlm_job</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.PyquilQPU.submit_job" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a Result structure corresponding to the execution of a Job.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Notice that the job can be assumed to be already
-compiled/optimized.</p>
-<p>This is the end of the pipe!</p>
-</div>
+<dd><p>Execute a myQLM jobs</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>job</strong> (<a class="reference internal" href="../qat-core.html#qat.core.Job" title="qat.core.Job"><em>Job</em></a>) – the job to execute</p>
+<dd class="field-odd"><p><strong>qlm_job</strong> (<a class="reference internal" href="../qat-core.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a>) – job to execute</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a result</p>
+<dd class="field-even"><p>result of the execution</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(<a class="reference internal" href="../qat-core.html#qat.core.Result" title="qat.core.Result">Result</a>)</p>
+<dd class="field-odd"><p><a class="reference internal" href="../qat-core.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>

@@ -20,7 +20,7 @@ It provides a simple interface to declare boolean variables and clauses, and way
 
 In the (quite common case) where the problem's clauses only involve at most two variables at a time (QUBO), we also provide a couple of optimized classes to describe the problem
 directly in terms of Ising coupling matrix or QUBO :math:`Q` matrix (see below).
-Back-and-forth translations are avaible between the three problem classes using the :meth:`.to_XXX` methods.
+Back-and-forth translations are avaible between the three problem classes using the :code:`to_XXX` methods.
 
 
 Generic combinatorial optimization
@@ -30,7 +30,7 @@ _______________________________________________
     :members:
 
 Clauses (:class:`~qat.opt.boolexpr.Clause`) are declared by combining variables (:class:`~qat.opt.boolexpr.Var`). The cost Hamiltonian extraction is handled by the 
-(:class:`~qat.opt.boolexpr.Clause`) class. The final cost Hamiltonian constits of the weighted sum of the cost Hamiltonian of its clauses.
+(:class:`~qat.opt.boolexpr.Clause`) class. The final cost Hamiltonian consists of the weighted sum of the cost Hamiltonian of its clauses.
 
 .. autoclass:: qat.opt.boolexpr.Clause
     :members: get_observable
@@ -46,11 +46,10 @@ Quadratic problems: QUBO and Ising
 _______________________________________________
 
 .. autoclass:: qat.opt.QUBO
-    :members:
+    :members: get_q_and_offset, to_ising, to_combinatorial_problem, get_best_parameters, get_observable, to_job
 
 .. autoclass:: qat.opt.Ising
-    :members:
-
+    :members: get_j_h_and_offset, to_qubo, to_combinatorial_problem, get_best_parameters, get_observable, to_job
 
 Generating the QAOA Ansatz
 --------------------------
@@ -66,7 +65,6 @@ of :class:`qat.opt.CombinatorialProblem`/:class:`qat.opt.QUBO`/:class:`qat.opt.I
 .. autoclass:: qat.opt.circuit_generator.CircuitGenerator
     :members: qaoa_ansatz
 
-
 The :class:`qat.vsolve.ansatz.AnsatzFactory` provides a recipe to produce such a variational circuits from a target Hamiltonian.
 
 .. autoclass:: qat.vsolve.ansatz.AnsatzFactory
@@ -79,11 +77,11 @@ Encoding NP-hard Problems
 
 .. only:: qlm
 
-    We present here classes for encoding some of the famous NP problems. An instrinsic feature of these problems is that they can be formulated as minimization or maximization problems, i.e. with a cost function. At the same time finding the lowest energy of a physical system, represented by a cost Hamiltonian, is also a minimization problem. Therefore, we can represent the cost function of an NP problem by a cost Hamiltonian. Such a Hamiltonian, given in an Ising form can then be annealed using Simulated Quantum Annealing (:ref:`SQA <sqa_code>`). The QLM is equipped with tools for performing SA and SQA, hence allowing one to solve the NP problems in this way.
+    We present here classes for encoding some of the famous NP problems. An instrinsic feature of these problems is that they can be formulated as minimization or maximization problems, i.e. with a cost function. At the same time finding the lowest energy of a physical system, represented by a cost Hamiltonian, is also a minimization problem. Therefore, we can represent the cost function of an NP problem by a cost Hamiltonian. Such a Hamiltonian, given in an Ising form can then be annealed using Simulated Quantum Annealing (:ref:`SQA <sqa_code>`). The QLM is equipped with tools for performing SQA, hence allowing one to solve the NP problems in this way.
 
 .. only:: myqlm
 
-    We present here classes for encoding some of the famous NP problems. An instrinsic feature of these problems is that they can be formulated as minimization or maximization problems, i.e. with a cost function. At the same time finding the lowest energy of a physical system, represented by a cost Hamiltonian, is also a minimization problem. Therefore, we can represent the cost function of an NP problem by a cost Hamiltonian. Such a Hamiltonian, given in an Ising form can then be annealed using or Simulated Quantum Annealing (SQA).
+    We present here classes for encoding some of the famous NP problems. An instrinsic feature of these problems is that they can be formulated as minimization or maximization problems, i.e. with a cost function. At the same time finding the lowest energy of a physical system, represented by a cost Hamiltonian, is also a minimization problem. Therefore, we can represent the cost function of an NP problem by a cost Hamiltonian. Such a Hamiltonian, given in an Ising form can then be annealed using Simulated Annealing (SA).
 
 
 Furthermore, problems formulated as Quadratic Unconstrained Binary Optimisation (QUBO), can also be annealed, since we can translate them to Ising via our :func:`~qat.opt.QUBO.to_ising` method.
@@ -91,10 +89,11 @@ Furthermore, problems formulated as Quadratic Unconstrained Binary Optimisation 
 .. only:: myqlm
 
         .. note::
-        
+
                 The Simulated Quantum Annealing is not available in myQLM.
                 QUBO and Ising problems can still be used to construct QAOA
-                Ansätze using the `.qaoa_ansatz` method.
+                Ansätze using the `.qaoa_ansatz` method or solved via
+                Simulated Annealing.
 
 Unconstrained Graph Problems
 ____________________________
@@ -105,9 +104,9 @@ Max cut
 ~~~~~~~
 
 .. autoclass:: qat.opt.max_cut.MaxCut
-       :members:
+        :members:
 
-.. autofunction:: qat.opt.max_cut.produce_j_h_and_offset       
+.. autofunction:: qat.opt.max_cut.produce_j_h_and_offset
 
 .. _graph-partitioning:
 
@@ -115,7 +114,7 @@ Graph Partitioning
 ~~~~~~~~~~~~~~~~~~
 
 .. autoclass:: qat.opt.graph_partitioning.GraphPartitioning
-       :members:
+        :members:
 
 .. autofunction:: qat.opt.graph_partitioning.produce_j_h_and_offset
 
@@ -128,7 +127,7 @@ Graph Colouring
 ~~~~~~~~~~~~~~~
 
 .. autoclass:: qat.opt.graph_colouring.GraphColouring
-          :members:
+        :members:
 
 .. autofunction:: qat.opt.graph_colouring.produce_q_and_offset
 
@@ -138,7 +137,7 @@ K-Clique
 ~~~~~~~~
 
 .. autoclass:: qat.opt.k_clique.KClique
-          :members:
+        :members:
 
 .. autofunction:: qat.opt.k_clique.produce_q_and_offset
 
@@ -148,7 +147,7 @@ Vertex Cover
 ~~~~~~~~~~~~
 
 .. autoclass:: qat.opt.vertex_cover.VertexCover
-             :members:
+        :members:
 
 .. autofunction:: qat.opt.vertex_cover.produce_q_and_offset
 
@@ -161,7 +160,7 @@ Number Partitioning
 ~~~~~~~~~~~~~~~~~~~
 
 .. autoclass:: qat.opt.number_partitioning.NumberPartitioning
-          :members:
+        :members:
 
 .. autofunction:: qat.opt.number_partitioning.produce_j_h_and_offset
 
@@ -171,6 +170,6 @@ Binary Integer Linear Programming
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autoclass:: qat.opt.binary_linear_integer_programming.BILP
-          :members:
-          
+        :members:
+
 .. autofunction:: qat.opt.binary_linear_integer_programming.produce_q_and_offset

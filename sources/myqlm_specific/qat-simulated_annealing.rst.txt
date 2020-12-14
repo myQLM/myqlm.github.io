@@ -1,0 +1,36 @@
+.. module:: qat.simulated_annealing
+
+qat.simulated_annealing: Simulated Annealing 
+====================================================
+
+myQLM is equipped with a simulated annealer (:ref:`SA <sa_description>`), which can solve
+combinatorial problems encoded in an :ref:`Ising <ising_description>` or Quadratic
+Unconstrained Binary Optimization (:ref:`QUBO <qubo_description>`) formalism.
+
+.. note::
+
+    The full QLM appliance includes the even more powerful Simulated Quantum Annealing solver
+    which has been tested on a variety of benchmarks for the
+    :ref:`NP problems <np_problems_formulation>` supported. The quality
+    of the solutions is :math:`> 98 \%` - see
+    :ref:`SQA benchmarking and performance <benchmarking>` for more details.
+
+Below we present the class :class:`~qat.simulated_annealing.SimulatedAnnealing` along with some
+helper functions. Albeit not quantum, the simulated annealing solver is wrapped with a Quantum
+Processing Unit (QPU) interface which is made to resemble the rest of the QPUs in the QLM.
+It therefore consists of an implementation of the
+:func:`~qat.simulated_annealing.SimulatedAnnealing.submit_job` method, which receives a
+:class:`~qat.core.Job` and returns a :class:`~qat.core.Result`.
+The way a job is produced is by creating a schedule for the annealing - this is temperature and
+time steps during the simulation. The classes :class:`~qat.opt.Ising` and :class:`~qat.opt.QUBO`,
+along with classes for the supported NP problems in :ref:`qat-opt <np_hard_problems_code>` have
+implemented the :func:`~qat.opt.Ising.to_job()` method, which makes this possible.
+
+.. autoclass:: qat.simulated_annealing.SimulatedAnnealing
+    :members:
+
+.. autofunction:: qat.simulated_annealing.service.extract_j_and_h_from_obs
+
+.. autofunction:: qat.simulated_annealing.service.integer_to_spins
+
+.. autofunction:: qat.simulated_annealing.service.spins_to_integer

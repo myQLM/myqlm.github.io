@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>qat-opt: representation and encoding of combinatorial problems, QAOA &mdash; myQLM documentation myQLM-1.1.6.25 documentation</title>
+  <title>qat-opt: representation and encoding of combinatorial problems, QAOA &mdash; myQLM documentation  documentation</title>
   
 
   
@@ -44,7 +44,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="The AQASM format" href="aqasm.html" />
-    <link rel="prev" title="qat.pylinalg: Python Linear-algebra simulator" href="myqlm_specific/qat-pylinalg.html" /> 
+    <link rel="prev" title="qat.simulated_annealing: Simulated Annealing" href="myqlm_specific/qat-simulated_annealing.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                myQLM-1.1.6
+                myQLM-1.2.2
               </div>
             
           
@@ -115,6 +115,7 @@
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-core-library">The core library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-programming-library">The programming library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-device-library">The device library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#plugins">Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#qpus">QPUs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a></li>
@@ -234,7 +235,7 @@
 It provides a simple interface to declare boolean variables and clauses, and ways to turn abstract problems into <a class="reference internal" href="qat-core.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> or objects that can be fed to solvers.</p>
 <p>In the (quite common case) where the problem’s clauses only involve at most two variables at a time (QUBO), we also provide a couple of optimized classes to describe the problem
 directly in terms of Ising coupling matrix or QUBO <span class="math notranslate nohighlight">\(Q\)</span> matrix (see below).
-Back-and-forth translations are avaible between the three problem classes using the <code class="xref py py-meth docutils literal notranslate"><span class="pre">to_XXX()</span></code> methods.</p>
+Back-and-forth translations are avaible between the three problem classes using the <code class="code docutils literal notranslate"><span class="pre">to_XXX</span></code> methods.</p>
 <div class="section" id="generic-combinatorial-optimization">
 <h3>Generic combinatorial optimization<a class="headerlink" href="#generic-combinatorial-optimization" title="Permalink to this headline">¶</a></h3>
 <dl class="py class">
@@ -338,7 +339,7 @@ and <span class="math notranslate nohighlight">\(w_\alpha\)</span> their corresp
 <a class="reference internal" href="#qat.opt.boolexpr.Clause" title="qat.opt.boolexpr.Clause"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clause</span></code></a> class.</p>
 <p>If the problem is specified as a maximization problem, the sign of the cost
 Hamiltonian if flipped.
-This means that the <code class="docutils literal notranslate"><span class="pre">best</span></code> solution is always encoded in the ground state of the returned
+This means that the “best” solution is always encoded in the ground state of the returned
 Hamiltonian.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -414,7 +415,7 @@ if the problem is not quadratic.</p>
 </dd></dl>
 
 <p>Clauses (<a class="reference internal" href="#qat.opt.boolexpr.Clause" title="qat.opt.boolexpr.Clause"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clause</span></code></a>) are declared by combining variables (<a class="reference internal" href="#qat.opt.boolexpr.Var" title="qat.opt.boolexpr.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a>). The cost Hamiltonian extraction is handled by the
-(<a class="reference internal" href="#qat.opt.boolexpr.Clause" title="qat.opt.boolexpr.Clause"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clause</span></code></a>) class. The final cost Hamiltonian constits of the weighted sum of the cost Hamiltonian of its clauses.</p>
+(<a class="reference internal" href="#qat.opt.boolexpr.Clause" title="qat.opt.boolexpr.Clause"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clause</span></code></a>) class. The final cost Hamiltonian consists of the weighted sum of the cost Hamiltonian of its clauses.</p>
 <dl class="py class">
 <dt id="qat.opt.boolexpr.Clause">
 <em class="property">class </em><code class="sig-prename descclassname">qat.opt.boolexpr.</code><code class="sig-name descname">Clause</code><a class="headerlink" href="#qat.opt.boolexpr.Clause" title="Permalink to this definition">¶</a></dt>
@@ -494,7 +495,7 @@ variable.</p>
 <dl class="py class">
 <dt id="qat.opt.QUBO">
 <em class="property">class </em><code class="sig-prename descclassname">qat.opt.</code><code class="sig-name descname">QUBO</code><a class="headerlink" href="#qat.opt.QUBO" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class representing Quadratic Unconstraned Binary Optimization problems.</p>
+<dd><p>Class representing Quadratic Unconstrained Binary Optimization problems.</p>
 <p>The class allows for the representation of a problem as QUBO - by providing
 with a <span class="math notranslate nohighlight">\(Q\)</span> matrix and a QUBO offset energy <span class="math notranslate nohighlight">\(E_Q\)</span>, both of which
 coming from the respective Hamiltonian encoding,</p>
@@ -518,6 +519,19 @@ the Hamiltonian of the problem</p></li>
 </ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt id="qat.opt.QUBO.get_best_parameters">
+<code class="sig-name descname">get_best_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.QUBO.get_best_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns a dictionary with the best found parameters (after
+<a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">benchmarking</span></a>) for simulated <strong>quantum</strong> annealing (SQA) of the
+respective QUBO problem. SQA is available in QLM, but the temperature parameters
+<em>temp_max</em> and <em>temp_min</em> could also be used for simulated annealing
+(<a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>), available in myQLM.</p>
+<p>The method should be called from one of the child problem classes
+(e.g. GraphColouring, VertexCover, etc.) and not directly from the parent
+QUBO class as this will raise an exception.</p>
+</dd></dl>
+
 <dl class="py method">
 <dt id="qat.opt.QUBO.get_observable">
 <code class="sig-name descname">get_observable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.QUBO.get_observable" title="Permalink to this definition">¶</a></dt>
@@ -579,6 +593,30 @@ Hamiltonian of the problem</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt id="qat.opt.QUBO.to_job">
+<code class="sig-name descname">to_job</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gamma_t</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tmax</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.QUBO.to_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a Job for the problem - ready to run on a QPU for simulated annealing (<a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>)
+or simulated quantum anealing (SQA). The second one comes in the QLM.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>tmax</strong> (<em>float, optional</em>) - time duration of the annealing. Default is 1.</p></li>
+<li><p><strong>gamma_t</strong> (<a class="reference internal" href="qat-core.html#qat.core.variables.ArithExpression" title="qat.core.variables.ArithExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithExpression</span></code></a>, <em>SQA only</em>) - a function specifying
+the time dependence of Gamma. It should be produced using the variable ‘t’ created by
+the class <a class="reference internal" href="qat-core.html#qat.core.Variable" title="qat.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a ready to run Job for the problem</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="qat-core.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -611,6 +649,19 @@ respective Hamiltonian</p></li>
 </ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt id="qat.opt.Ising.get_best_parameters">
+<code class="sig-name descname">get_best_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.Ising.get_best_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns a dictionary with the best found parameters (after
+<a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">benchmarking</span></a>) for simulated <strong>quantum</strong> annealing (SQA) of the
+respective Ising problem. SQA is available in QLM, but the temperature parameters
+<em>temp_max</em> and <em>temp_min</em> could also be used for simulated annealing
+(<a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>), available in myQLM.</p>
+<p>The method should be called from one of the child problem classes (e.g. MaxCut,
+NumberPartitioning, etc.) and not directly from the parent Ising class as this
+will raise an exception.</p>
+</dd></dl>
+
 <dl class="py method">
 <dt id="qat.opt.Ising.get_j_h_and_offset">
 <code class="sig-name descname">get_j_h_and_offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.Ising.get_j_h_and_offset" title="Permalink to this definition">¶</a></dt>
@@ -649,13 +700,37 @@ Hamiltonian</p></li>
 <dl class="py method">
 <dt id="qat.opt.Ising.to_combinatorial_problem">
 <code class="sig-name descname">to_combinatorial_problem</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.Ising.to_combinatorial_problem" title="Permalink to this definition">¶</a></dt>
-<dd><p>Translates the Ising problem into a combinatorial problem problem.</p>
+<dd><p>Translates the Ising problem into a CombinatorialProblem.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>a combinatorial problem instance</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="qat.opt.Ising.to_job">
+<code class="sig-name descname">to_job</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gamma_t</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tmax</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.Ising.to_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a Job for the problem - ready to run on a QPU for simulated annealing (<a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>)
+or simulated quantum anealing (SQA). The second one comes in the QLM.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>tmax</strong> (<em>float, optional</em>) - time duration of the annealing. Default is 1.</p></li>
+<li><p><strong>gamma_t</strong> (<a class="reference internal" href="qat-core.html#qat.core.variables.ArithExpression" title="qat.core.variables.ArithExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithExpression</span></code></a>, <em>SQA only</em>) - a function specifying
+the time dependence of Gamma. It should be produced using the variable ‘t’ created by
+the class <a class="reference internal" href="qat-core.html#qat.core.Variable" title="qat.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a ready to run Job for the problem</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="qat-core.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -693,7 +768,7 @@ of <a class="reference internal" href="#qat.opt.CombinatorialProblem" title="qat
 <dt id="qat.opt.circuit_generator.CircuitGenerator.qaoa_ansatz">
 <code class="sig-name descname">qaoa_ansatz</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">depth</span></em>, <em class="sig-param"><span class="n">cnots</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">strategy</span><span class="o">=</span><span class="default_value">'coloring'</span></em>, <em class="sig-param"><span class="n">to_circ_args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.circuit_generator.CircuitGenerator.qaoa_ansatz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a QAOA Ansatz using the cost observable returned
-by the <code class="xref py py-meth docutils literal notranslate"><span class="pre">get_observable()</span></code> method.</p>
+by the abstract method <code class="code docutils literal notranslate"><span class="pre">get_observable</span></code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>When setting the <cite>cnots</cite> option to False, the circuit might make
@@ -832,7 +907,7 @@ the “gray_synth” strategy can often remove lots of CNOTS:</p>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Cnot</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">default</span><span class="p">:</span> <span class="mi">36</span>
-<span class="n">Cnot</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">gray</span> <span class="n">synth</span><span class="p">:</span> <span class="mi">30</span>
+<span class="n">Cnot</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">gray</span> <span class="n">synth</span><span class="p">:</span> <span class="mi">24</span>
 </pre></div>
 </div>
 <p>Synthesis strategies:</p>
@@ -864,13 +939,14 @@ as entangling gates. Default to True. This argument is ignored for some strategi
 </div>
 <div class="section" id="encoding-np-hard-problems">
 <span id="np-hard-problems-code"></span><h2>Encoding NP-hard Problems<a class="headerlink" href="#encoding-np-hard-problems" title="Permalink to this headline">¶</a></h2>
-<p>We present here classes for encoding some of the famous NP problems. An instrinsic feature of these problems is that they can be formulated as minimization or maximization problems, i.e. with a cost function. At the same time finding the lowest energy of a physical system, represented by a cost Hamiltonian, is also a minimization problem. Therefore, we can represent the cost function of an NP problem by a cost Hamiltonian. Such a Hamiltonian, given in an Ising form can then be annealed using or Simulated Quantum Annealing (SQA).</p>
+<p>We present here classes for encoding some of the famous NP problems. An instrinsic feature of these problems is that they can be formulated as minimization or maximization problems, i.e. with a cost function. At the same time finding the lowest energy of a physical system, represented by a cost Hamiltonian, is also a minimization problem. Therefore, we can represent the cost function of an NP problem by a cost Hamiltonian. Such a Hamiltonian, given in an Ising form can then be annealed using Simulated Annealing (SA).</p>
 <p>Furthermore, problems formulated as Quadratic Unconstrained Binary Optimisation (QUBO), can also be annealed, since we can translate them to Ising via our <a class="reference internal" href="#qat.opt.QUBO.to_ising" title="qat.opt.QUBO.to_ising"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_ising()</span></code></a> method.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The Simulated Quantum Annealing is not available in myQLM.
 QUBO and Ising problems can still be used to construct QAOA
-Ansätze using the <cite>.qaoa_ansatz</cite> method.</p>
+Ansätze using the <cite>.qaoa_ansatz</cite> method or solved via
+Simulated Annealing.</p>
 </div>
 <div class="section" id="unconstrained-graph-problems">
 <h3>Unconstrained Graph Problems<a class="headerlink" href="#unconstrained-graph-problems" title="Permalink to this headline">¶</a></h3>
@@ -886,12 +962,7 @@ called. It calculates the coupling matrix <span class="math notranslate nohighli
 and Ising energy offset corresponding to the Hamiltonian representation of
 the problem, as described in the reference. These are stored in the parent
 class <a class="reference internal" href="#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> and would be needed if one wishes to solve
-the problem through Simulated Quantum Annealing (SQA) via the method
-<code class="xref py py-func docutils literal notranslate"><span class="pre">sqa()</span></code> for instance.
-This method also requires a few additional parameters, the specification of
-which may vary the quality of the solution. We therefore provide the best
-parameters found thus far through the method
-<a class="reference internal" href="#qat.opt.max_cut.MaxCut.get_best_parameters" title="qat.opt.max_cut.MaxCut.get_best_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_best_parameters()</span></code></a>.</p>
+the problem through Simulated Annealing (SA), for instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Reference</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://en.wikipedia.org/wiki/Maximum_cut#Theoretical_physics">Maximum cut, Theoretical physics, Wikipedia</a>.</p>
@@ -904,11 +975,11 @@ parameters found thus far through the method
 
 <span class="n">maxcut</span> <span class="o">=</span> <span class="n">MaxCut</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the SQA solver would need &quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the solver would need &quot;</span>
       <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()))</span> <span class="o">+</span> <span class="s2">&quot; spins.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">SQA</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">256</span> <span class="n">spins</span><span class="o">.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">256</span> <span class="n">spins</span><span class="o">.</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -919,17 +990,15 @@ parameters found thus far through the method
 <dl class="py method">
 <dt id="qat.opt.max_cut.MaxCut.get_best_parameters">
 <code class="sig-name descname">get_best_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.max_cut.MaxCut.get_best_parameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method returns a dictionary with the best annealing parameters found thus far
-after <a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">benchmarking</span></a>. The parameters enter <code class="xref py py-func docutils literal notranslate"><span class="pre">qat.mc.sqa()</span></code>
-used to solve a Max Cut problem.</p>
+<dd><p>This method returns a dictionary with the best found parameters (after
+<a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">benchmarking</span></a>) for simulated <em>quantum</em> annealing (SQA), available
+in the QLM. However, the temperature parameters could also be used for simulated annealing
+(<a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><p>7-key dictionary containing</p>
+<dd class="field-odd"><p><p>6-key dictionary containing</p>
 <ul class="simple">
-<li><p><strong>n_steps</strong> (<em>int</em>) - the number of annealing steps between the highest
-and lowest temperature (and magnetic field)</p></li>
-<li><p><strong>nsteps_per_gamma</strong> (<em>int</em>) - the number of Monte Carlo updates per
-tuple of values (gamma, temperature)</p></li>
+<li><p><strong>n_monte_carlo_updates</strong> (<em>int</em>) - the number of Monte Carlo updates</p></li>
 <li><p><strong>n_trotters</strong> (<em>int</em>) - the number of “classical replicas” or “Trotter
 replicas”</p></li>
 <li><p><strong>gamma_max</strong> (<em>double</em>) - the starting magnetic field</p></li>
@@ -967,11 +1036,7 @@ The method <a class="reference internal" href="#qat.opt.graph_partitioning.produ
 called. It computes the coupling matrix <span class="math notranslate nohighlight">\(J\)</span>, magnetic field <span class="math notranslate nohighlight">\(h\)</span> and Ising
 energy offset corresponding to the Hamiltonian representation of the problem, as described
 in the reference. These are stored in the parent class <a class="reference internal" href="#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> and would
-be needed if one wishes to solve the problem through Simulated Quantum Annealing (SQA) via
-the method <code class="xref py py-func docutils literal notranslate"><span class="pre">sqa()</span></code> for instance.
-This method also requires a few additional parameters, the specification of which may vary
-the quality of the solution. We therefore provide the best parameters found thus far through
-the method <a class="reference internal" href="#qat.opt.graph_partitioning.GraphPartitioning.get_best_parameters" title="qat.opt.graph_partitioning.GraphPartitioning.get_best_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_best_parameters()</span></code></a>.</p>
+be needed if one wishes to solve the problem through Simulated Annealing (SA), for instance.</p>
 <p>For right encoding we need <span class="math notranslate nohighlight">\(\frac { A } { B } \geq \frac { min(2D, N) } { 8 }\)</span> with
 <span class="math notranslate nohighlight">\(D\)</span> - the maximal degree of a node in the graph and <span class="math notranslate nohighlight">\(N\)</span> - the number of nodes.</p>
 <dl class="field-list simple">
@@ -993,11 +1058,11 @@ the method <a class="reference internal" href="#qat.opt.graph_partitioning.Graph
 
 <span class="n">graph_partitioning_problem</span> <span class="o">=</span> <span class="n">GraphPartitioning</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the SQA solver would need &quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the solver would need &quot;</span>
       <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()))</span> <span class="o">+</span> <span class="s2">&quot; spins.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">SQA</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">10</span> <span class="n">spins</span><span class="o">.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">10</span> <span class="n">spins</span><span class="o">.</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -1013,17 +1078,15 @@ are multiplied. This equation comes from the Hamiltonian representation of the p
 <dl class="py method">
 <dt id="qat.opt.graph_partitioning.GraphPartitioning.get_best_parameters">
 <code class="sig-name descname">get_best_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.graph_partitioning.GraphPartitioning.get_best_parameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method returns a dictionary with the best annealing parameters found thus far
-after <a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">benchmarking</span></a>. The parameters enter <code class="xref py py-func docutils literal notranslate"><span class="pre">qat.mc.sqa()</span></code>
-used to solve a Graph Partitioning problem.</p>
+<dd><p>This method returns a dictionary with the best found parameters (after
+<a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">benchmarking</span></a>) for simulated <em>quantum</em> annealing (SQA), available
+in the QLM. However, the temperature parameters could also be used for simulated annealing
+(<a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><p>7-key dictionary containing</p>
+<dd class="field-odd"><p><p>6-key dictionary containing</p>
 <ul class="simple">
-<li><p><strong>n_steps</strong> (<em>int</em>) - the number of annealing steps between the highest
-and lowest temperature (and magnetic field)</p></li>
-<li><p><strong>nsteps_per_gamma</strong> (<em>int</em>) - the number of Monte Carlo updates per
-tuple of values (gamma, temperature)</p></li>
+<li><p><strong>n_monte_carlo_updates</strong> (<em>int</em>) - the number of Monte Carlo updates</p></li>
 <li><p><strong>n_trotters</strong> (<em>int</em>) - the number of “classical replicas” or “Trotter
 replicas”</p></li>
 <li><p><strong>gamma_max</strong> (<em>double</em>) - the starting magnetic field</p></li>
@@ -1073,12 +1136,7 @@ The method <a class="reference internal" href="#qat.opt.graph_colouring.produce_
 called. It computes the <span class="math notranslate nohighlight">\(Q\)</span> matrix and QUBO energy offset corresponding to
 the Hamiltonian representation of the problem, as described in the reference.
 These are stored in the parent class <a class="reference internal" href="#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> and would be needed
-if one wishes to solve the problem through Simulated Quantum Annealing (SQA) via
-the method <code class="xref py py-func docutils literal notranslate"><span class="pre">sqa()</span></code> for instance.
-This method also requires a few additional parameters, the specification of which
-may vary the quality of the solution. We therefore provide the best parameters
-found thus far through the method
-<a class="reference internal" href="#qat.opt.graph_colouring.GraphColouring.get_best_parameters" title="qat.opt.graph_colouring.GraphColouring.get_best_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_best_parameters()</span></code></a>.</p>
+if one wishes to solve the problem through Simulated Annealing (SA), for instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Reference</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://arxiv.org/abs/1302.5843/">“Ising formulations of many NP problems”, A. Lucas, 2014 - Section 6.1</a>.</p>
@@ -1095,11 +1153,11 @@ found thus far through the method
 
 <span class="n">graph_colouring_problem</span> <span class="o">=</span> <span class="n">GraphColouring</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">number_of_colours</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the SQA solver would need &quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the solver would need &quot;</span>
       <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">())</span> <span class="o">*</span> <span class="n">number_of_colours</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; spins.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">SQA</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">12</span> <span class="n">spins</span><span class="o">.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">12</span> <span class="n">spins</span><span class="o">.</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -1113,17 +1171,15 @@ found thus far through the method
 <dl class="py method">
 <dt id="qat.opt.graph_colouring.GraphColouring.get_best_parameters">
 <code class="sig-name descname">get_best_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.graph_colouring.GraphColouring.get_best_parameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method returns a dictionary with the best annealing parameters found thus far
-after <a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">benchmarking</span></a>. The parameters enter <code class="xref py py-func docutils literal notranslate"><span class="pre">qat.mc.sqa()</span></code>
-used to solve a Graph Colouring problem.</p>
+<dd><p>This method returns a dictionary with the best found parameters (after
+<a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">benchmarking</span></a>) for simulated <em>quantum</em> annealing (SQA), available
+in the QLM. However, the temperature parameters could also be used for simulated annealing
+(<a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><p>7-key dictionary containing</p>
+<dd class="field-odd"><p><p>6-key dictionary containing</p>
 <ul class="simple">
-<li><p><strong>n_steps</strong> (<em>int</em>) - the number of annealing steps between the highest
-and lowest temperature (and magnetic field)</p></li>
-<li><p><strong>nsteps_per_gamma</strong> (<em>int</em>) - the number of Monte Carlo updates per
-tuple of values (gamma, temperature)</p></li>
+<li><p><strong>n_monte_carlo_updates</strong> (<em>int</em>) - the number of Monte Carlo updates</p></li>
 <li><p><strong>n_trotters</strong> (<em>int</em>) - the number of “classical replicas” or “Trotter
 replicas”</p></li>
 <li><p><strong>gamma_max</strong> (<em>double</em>) - the starting magnetic field</p></li>
@@ -1165,11 +1221,7 @@ The method <a class="reference internal" href="#qat.opt.k_clique.produce_q_and_o
 called. It computes the <span class="math notranslate nohighlight">\(Q\)</span> matrix and QUBO energy offset corresponding
 to the Hamiltonian representation of the problem, as described in the reference.
 These are stored in the parent class <a class="reference internal" href="#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> and would be needed
-if one wishes to solve the problem through Simulated Quantum Annealing (SQA) via
-the method <code class="xref py py-func docutils literal notranslate"><span class="pre">sqa()</span></code> for instance.
-This method also requires a few additional parameters, the specification of which
-may vary the quality of the solution. We therefore provide the best parameters
-found thus far through the method <a class="reference internal" href="#qat.opt.k_clique.KClique.get_best_parameters" title="qat.opt.k_clique.KClique.get_best_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_best_parameters()</span></code></a>.</p>
+if one wishes to solve the problem through Simulated Annealing (SA), for instance.</p>
 <p>For a right encoding, one should ensure that <span class="math notranslate nohighlight">\(A &gt; B * K\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Reference</dt>
@@ -1190,11 +1242,11 @@ found thus far through the method <a class="reference internal" href="#qat.opt.k
 
 <span class="n">k_clique_problem</span> <span class="o">=</span> <span class="n">KClique</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the SQA solver would need &quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the solver would need &quot;</span>
       <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()))</span> <span class="o">+</span> <span class="s2">&quot; spins.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">SQA</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">6</span> <span class="n">spins</span><span class="o">.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">6</span> <span class="n">spins</span><span class="o">.</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -1211,17 +1263,15 @@ are multiplied. This equation comes from the Hamiltonian representation of the p
 <dl class="py method">
 <dt id="qat.opt.k_clique.KClique.get_best_parameters">
 <code class="sig-name descname">get_best_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.k_clique.KClique.get_best_parameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method returns a dictionary with the best annealing parameters found thus far
-after <a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">benchmarking</span></a>. The parameters enter <code class="xref py py-func docutils literal notranslate"><span class="pre">qat.mc.sqa()</span></code>
-used to solve a K-Clique problem.</p>
+<dd><p>This method returns a dictionary with the best found parameters (after
+<a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">benchmarking</span></a>) for simulated <em>quantum</em> annealing (SQA), available
+in the QLM. However, the temperature parameters could also be used for simulated annealing
+(<a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><p>7-key dictionary containing</p>
+<dd class="field-odd"><p><p>6-key dictionary containing</p>
 <ul class="simple">
-<li><p><strong>n_steps</strong> (<em>int</em>) - the number of annealing steps between the highest
-and lowest temperature (and magnetic field)</p></li>
-<li><p><strong>nsteps_per_gamma</strong> (<em>int</em>) - the number of Monte Carlo updates per
-tuple of values (gamma, temperature)</p></li>
+<li><p><strong>n_monte_carlo_updates</strong> (<em>int</em>) - the number of Monte Carlo updates</p></li>
 <li><p><strong>n_trotters</strong> (<em>int</em>) - the number of “classical replicas” or “Trotter
 replicas”</p></li>
 <li><p><strong>gamma_max</strong> (<em>double</em>) - the starting magnetic field</p></li>
@@ -1268,12 +1318,7 @@ called. It computes the <span class="math notranslate nohighlight">\(Q\)</span> 
 to the Hamiltonian representation of the problem, as described in the
 reference. These are stored in the parent class <a class="reference internal" href="#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a>
 and would be needed if one wishes to solve the problem through Simulated
-Quantum Annealing (SQA) via the method <code class="xref py py-func docutils literal notranslate"><span class="pre">sqa()</span></code> for
-instance.
-This method also requires a few additional parameters, the specification
-of which may vary the quality of the solution. We therefore provide the best
-parameters found thus far through the method
-<a class="reference internal" href="#qat.opt.vertex_cover.VertexCover.get_best_parameters" title="qat.opt.vertex_cover.VertexCover.get_best_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_best_parameters()</span></code></a>.</p>
+Annealing (SA), for instance.</p>
 <p>For a right encoding, one should ensure that <span class="math notranslate nohighlight">\(A &gt; B\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Reference</dt>
@@ -1292,11 +1337,11 @@ parameters found thus far through the method
 
 <span class="n">vertex_cover_problem</span> <span class="o">=</span> <span class="n">VertexCover</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the SQA solver would need &quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the solver would need &quot;</span>
        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()))</span> <span class="o">+</span> <span class="s2">&quot; spins.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">SQA</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">6</span> <span class="n">spins</span><span class="o">.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">6</span> <span class="n">spins</span><span class="o">.</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -1313,17 +1358,15 @@ from the Hamiltonian representation of the problem.</p></li>
 <dl class="py method">
 <dt id="qat.opt.vertex_cover.VertexCover.get_best_parameters">
 <code class="sig-name descname">get_best_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.vertex_cover.VertexCover.get_best_parameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method returns a dictionary with the best annealing parameters found thus far
-after <a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">benchmarking</span></a>. The parameters enter <code class="xref py py-func docutils literal notranslate"><span class="pre">qat.mc.sqa()</span></code>
-used to solve a Vertex Cover problem.</p>
+<dd><p>This method returns a dictionary with the best found parameters (after
+<a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">benchmarking</span></a>) for simulated <em>quantum</em> annealing (SQA), available
+in the QLM. However, the temperature parameters could also be used for simulated annealing
+(<a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><p>7-key dictionary containing</p>
+<dd class="field-odd"><p><p>6-key dictionary containing</p>
 <ul class="simple">
-<li><p><strong>n_steps</strong> (<em>int</em>) - the number of annealing steps between the highest
-and lowest temperature (and magnetic field)</p></li>
-<li><p><strong>nsteps_per_gamma</strong> (<em>int</em>) - the number of Monte Carlo updates per
-tuple of values (gamma, temperature)</p></li>
+<li><p><strong>n_monte_carlo_updates</strong> (<em>int</em>) - the number of Monte Carlo updates</p></li>
 <li><p><strong>n_trotters</strong> (<em>int</em>) - the number of “classical replicas” or “Trotter
 replicas”</p></li>
 <li><p><strong>gamma_max</strong> (<em>double</em>) - the starting magnetic field</p></li>
@@ -1373,12 +1416,8 @@ is automatically called. It computes the coupling matrix <span class="math notra
 magnetic field <span class="math notranslate nohighlight">\(h\)</span> and Ising energy offset corresponding to the
 Hamiltonian representation of the problem, as described in the reference.
 These are stored in the parent class <a class="reference internal" href="#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> and would
-be needed if one wishes to solve the problem through Simulated Quantum
-Annealing (SQA) via the method <code class="xref py py-func docutils literal notranslate"><span class="pre">sqa()</span></code> for instance.
-This method also requires a few additional parameters, the specification
-of which may vary the quality of the solution. We therefore provide the
-best parameters found thus far through the method
-<a class="reference internal" href="#qat.opt.number_partitioning.NumberPartitioning.get_best_parameters" title="qat.opt.number_partitioning.NumberPartitioning.get_best_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_best_parameters()</span></code></a>.</p>
+be needed if one wishes to solve the problem through Simulated Annealing
+(SA), for instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Reference</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://arxiv.org/abs/1302.5843/">“Ising formulations of many NP problems”, A. Lucas, 2014 - Section 2.1</a>.</p>
@@ -1392,11 +1431,11 @@ best parameters found thus far through the method
 
 <span class="n">number_partitioning_problem</span> <span class="o">=</span> <span class="n">NumberPartitioning</span><span class="p">(</span><span class="n">array_of_numbers</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the SQA solver would need &quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the solver would need &quot;</span>
       <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">array_of_numbers_size</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; spins.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">SQA</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">8198</span> <span class="n">spins</span><span class="o">.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">4131</span> <span class="n">spins</span><span class="o">.</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -1407,17 +1446,15 @@ best parameters found thus far through the method
 <dl class="py method">
 <dt id="qat.opt.number_partitioning.NumberPartitioning.get_best_parameters">
 <code class="sig-name descname">get_best_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.number_partitioning.NumberPartitioning.get_best_parameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method returns a dictionary with the best annealing parameters found thus far
-after <a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">benchmarking</span></a>. The parameters enter <code class="xref py py-func docutils literal notranslate"><span class="pre">qat.mc.sqa()</span></code>
-used to solve a Number Partitioning problem.</p>
+<dd><p>This method returns a dictionary with the best found parameters (after
+<a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">benchmarking</span></a>) for simulated <em>quantum</em> annealing (SQA), available
+in the QLM. However, the temperature parameters could also be used for simulated annealing
+(<a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><p>7-key dictionary containing</p>
+<dd class="field-odd"><p><p>6-key dictionary containing</p>
 <ul class="simple">
-<li><p><strong>n_steps</strong> (<em>int</em>) - the number of annealing steps between the highest
-and lowest temperature (and magnetic field)</p></li>
-<li><p><strong>nsteps_per_gamma</strong> (<em>int</em>) - the number of Monte Carlo updates per
-tuple of values (gamma, temperature)</p></li>
+<li><p><strong>n_monte_carlo_updates</strong> (<em>int</em>) - the number of Monte Carlo updates</p></li>
 <li><p><strong>n_trotters</strong> (<em>int</em>) - the number of “classical replicas” or “Trotter
 replicas”</p></li>
 <li><p><strong>gamma_max</strong> (<em>double</em>) - the starting magnetic field</p></li>
@@ -1461,12 +1498,7 @@ is automatically called. It computes the <span class="math notranslate nohighlig
 offset corresponding to the Hamiltonian representation of the problem, as
 described in the reference. These are stored in the parent class
 <a class="reference internal" href="#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> and would be needed if one wishes to solve the problem
-through Simulated Quantum Annealing (SQA) via the method
-<code class="xref py py-func docutils literal notranslate"><span class="pre">sqa()</span></code> for instance. This method also requires a few
-additional parameters, the specification of which may vary the quality of the
-solution. We therefore provide the best parameters found thus far through
-the method
-<a class="reference internal" href="#qat.opt.binary_linear_integer_programming.BILP.get_best_parameters" title="qat.opt.binary_linear_integer_programming.BILP.get_best_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_best_parameters()</span></code></a>.</p>
+through Simulated Annealing (SA), for instance.</p>
 <p>For a right encoding, one should ensure that <span class="math notranslate nohighlight">\(A \gg B\)</span> and
 <span class="math notranslate nohighlight">\(A &gt; 0, B &gt; 0\)</span>.</p>
 <dl class="field-list simple">
@@ -1486,10 +1518,10 @@ the method
 
 <span class="n">bilp_problem</span> <span class="o">=</span> <span class="n">BILP</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the SQA solver would need &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; spins.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To anneal the problem, the solver would need &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; spins.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">SQA</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">4</span> <span class="n">spins</span><span class="o">.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">To</span> <span class="n">anneal</span> <span class="n">the</span> <span class="n">problem</span><span class="p">,</span> <span class="n">the</span> <span class="n">solver</span> <span class="n">would</span> <span class="n">need</span> <span class="mi">4</span> <span class="n">spins</span><span class="o">.</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -1507,17 +1539,15 @@ are multiplied. This equation comes from the Hamiltonian representation of the p
 <dl class="py method">
 <dt id="qat.opt.binary_linear_integer_programming.BILP.get_best_parameters">
 <code class="sig-name descname">get_best_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.binary_linear_integer_programming.BILP.get_best_parameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method returns a dictionary with the best annealing parameters found thus far
-after <a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">benchmarking</span></a>. The parameters enter <code class="xref py py-func docutils literal notranslate"><span class="pre">qat.mc.sqa()</span></code>
-used to solve a BILP problem.</p>
+<dd><p>This method returns a dictionary with the best found parameters (after
+<a class="reference internal" href="advanced_combinatorial_optimization.html#benchmarking"><span class="std std-ref">benchmarking</span></a>) for simulated <em>quantum</em> annealing (SQA), available
+in the QLM. However, the temperature parameters could also be used for simulated annealing
+(<a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><p>7-key dictionary containing</p>
+<dd class="field-odd"><p><p>6-key dictionary containing</p>
 <ul class="simple">
-<li><p><strong>n_steps</strong> (<em>int</em>) - the number of annealing steps between the highest
-and lowest temperature (and magnetic field)</p></li>
-<li><p><strong>nsteps_per_gamma</strong> (<em>int</em>) - the number of Monte Carlo updates per
-tuple of values (gamma, temperature)</p></li>
+<li><p><strong>n_monte_carlo_updates</strong> (<em>int</em>) - the number of Monte Carlo updates</p></li>
 <li><p><strong>n_trotters</strong> (<em>int</em>) - the number of “classical replicas” or “Trotter
 replicas”</p></li>
 <li><p><strong>gamma_max</strong> (<em>double</em>) - the starting magnetic field</p></li>
@@ -1567,7 +1597,7 @@ are multiplied. This equation comes from the Hamiltonian representation of the p
         <a href="aqasm.html" class="btn btn-neutral float-right" title="The AQASM format" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="myqlm_specific/qat-pylinalg.html" class="btn btn-neutral float-left" title="qat.pylinalg: Python Linear-algebra simulator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="myqlm_specific/qat-simulated_annealing.html" class="btn btn-neutral float-left" title="qat.simulated_annealing: Simulated Annealing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
