@@ -11,11 +11,11 @@ NP-hard problems
 
 .. only:: qlm
 
-    Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (see :ref:`combinatorial_optimization`). Some of them, like max cut, graph colouring, number partitioning, etc. could be easily reprensented in an Ising or QUBO form using the QLM tools. A description of these problems can be found below and the respective helper classes for each problem are given in the :ref:`Source code <np_hard_problems_code>`.
+    Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are the NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (see the Combinatorial Optimization :ref:`section <combinatorial_optimization>` and :notebook:`(notebook)[introduction_combinatorial_optimization.ipynb]`). Some of them, like max cut, graph colouring, number partitioning, etc. could be easily formulated in these ways using the QLM tools. A description of these problems can be found below and the respective helper classes for each problem are given in the :ref:`Source code <np_hard_problems_code>`. An example notebook for each problem could be found in the :notebook:`(overview)[overview_combinatorial_optimization.ipynb]`.
     
 .. only:: myqlm
 
-    Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (see :ref:`combinatorial_optimization`). Some of them, like max cut, graph colouring, number partitioning, etc. could be easily represented in an Ising or QUBO form using myQLM tools. A description of these problems can be found below and the respective helper classes for each problem are given in the :ref:`Source code <np_hard_problems_code>`.
+    Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are the NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (see the Combinatorial Optimization :ref:`section <combinatorial_optimization>` and :notebook:`(notebook)[introduction_combinatorial_optimization_myqlm.ipynb]`). Some of them, like max cut, graph colouring, number partitioning, etc. could be easily formulated in these ways using myQLM tools. A description of these problems can be found below and the respective helper classes for each problem are given in the :ref:`Source code <np_hard_problems_code>`. An example notebook for each problem could be found in the :notebook:`(overview)[overview_combinatorial_optimization_myqlm.ipynb]`.
 
 Unconstrained Graph Problems
 ____________________________
@@ -29,12 +29,28 @@ Max cut
 
 Given an undirected graph with vertex set :math:`V` and edge set :math:`E`, the problem consists in partitioning the graph into two subgraphs connected by the maximum number of edges. Annealing the problem with the :class:`~qat.opt.max_cut.MaxCut` class needs :math:`\#V` spins (one spin per vertex of the graph).
 
+.. only:: qlm
+
+    Take a look at a notebook on solving :notebook:`(Max Cut)[max_cut.ipynb]` problems with :ref:`SQA <sqa_description>`.
+
+.. only:: myqlm
+
+    Take a look at a notebook on solving :notebook:`(Max Cut)[max_cut_myqlm.ipynb]` problems with :ref:`SA <sa_description>`.
+
 .. _graph_partitioning_description:
 
 Graph Partitioning
 ~~~~~~~~~~~~~~~~~~
 
 Given an undirected graph with vertex set :math:`V` and edge set :math:`E`, the problem consists in partitioning the graph into two equally-sized subgraphs connected by the minimal number of edges. Annealing the problem with the :class:`~qat.opt.graph_partitioning.GraphPartitioning` class needs :math:`\#V` spins (one spin for each individual vertex).
+
+.. only:: qlm
+
+    See a notebook on solving :notebook:`(Graph Partitioning)[graph_partitioning.ipynb]` problems with :ref:`SQA <sqa_description>`.
+
+.. only:: myqlm
+
+    See a notebook on solving :notebook:`(Graph Partitioning)[graph_partitioning_myqlm.ipynb]` problems with :ref:`SA <sa_description>`.
 
 Constrained Graph Problems
 __________________________
@@ -48,6 +64,10 @@ Graph Colouring
 
 Given an undirected graph with vertex set :math:`V` and edge set :math:`E` and a a set of :math:`n` colours, the problem consists in finding whether we can colour every node of the graph in one of these :math:`n` colours such that no edge connects nodes of the same colour. We therefore need :math:`nN` spins to anneal the problem with our :class:`~qat.opt.graph_colouring.GraphColouring` class, where :math:`N` is the number of vertices of the graph. The classical complexity of the best known approximate algorithm for this problem is :math:`O(N(log log N)^2 (log N)^3)`.
 
+.. only:: qlm
+
+    Here is a notebook on solving :notebook:`(Graph Colouring)[graph_colouring.ipynb]` problems with :ref:`SQA <sqa_description>`.
+
 .. _kclique_description:
 
 K-Clique
@@ -55,12 +75,28 @@ K-Clique
 
 Given an undirected graph with vertex set :math:`V` and edge set :math:`E`, the problem consists in finding out whether there exists a complete subgraph of size :math:`K`. Annealing the problem with the help of our :class:`~qat.opt.k_clique.KClique` class requires :math:`\#V` spins (one spin per vertex).
 
+.. only:: qlm
+
+    See a notebook on solving :notebook:`(K-Clique)[k_clique.ipynb]` problems with :ref:`SQA <sqa_description>`.
+
+.. only:: myqlm
+
+    See a notebook on solving :notebook:`(K-Clique)[k_clique_myqlm.ipynb]` problems with :ref:`SA <sa_description>`.
+
 .. _vertex_cover_description:
 
 Vertex Cover
 ~~~~~~~~~~~~
 
 Given an undirected graph with vertex set :math:`V` and edge set :math:`E`, the problem consists in finding the smallest number of nodes to be coloured, such that every edge has a coloured vertex. As an addition, we want to know which these vertices are. To anneal this problem we would need our :class:`~qat.opt.vertex_cover.VertexCover` class with :math:`\#V` spins (one spin per vertex).
+
+.. only:: qlm
+
+    Here is a notebook on solving :notebook:`(Vertex Cover)[vertex_cover.ipynb]` problems with :ref:`SQA <sqa_description>`.
+
+.. only:: myqlm
+
+    Here is a notebook on solving :notebook:`(Vertex Cover)[vertex_cover_myqlm.ipynb]` problems with :ref:`SA <sa_description>`.
 
 Other problems
 ______________
@@ -80,6 +116,14 @@ Number Partitioning
 
 Given a set of real and potentially repeating numbers, the problem consists in partitioning them in two subsets, such that the sum of the numbers in both of them is equal (or as close as possible). To obtain an answer, we would need to use our :class:`~qat.opt.number_partitioning.NumberPartitioning` class and anneal :math:`N` spins, where :math:`N` is the size of the set of numbers.
 
+.. only:: qlm
+
+    Take a look at a notebook on solving :notebook:`(Number Partitioning)[number_partitioning.ipynb]` problems with :ref:`SQA <sqa_description>`.
+
+.. only:: myqlm
+
+    Take a look at a notebook on solving :notebook:`(Number Partitioning)[number_partitioning_myqlm.ipynb]` problems with :ref:`SA <sa_description>`.
+
 .. _bilp_description:
 
 Binary Integer Linear Programming
@@ -89,6 +133,9 @@ Given a vector :math:`c` of size :math:`N`, a vector :math:`b` of size :math:`m`
 
 Solving this problem using a simulated quantum annealing method requires our :class:`~qat.opt.binary_linear_integer_programming.BILP` class and :math:`N` spins (one spin per binary value of :math:`x`).
 
+.. only:: qlm
+
+    See a notebook on solving :notebook:`(BILP)[binary_integer_linear_programming.ipynb]` problems with :ref:`SQA <sqa_description>`.
 
 .. _benchmarking: 
 
@@ -97,7 +144,7 @@ Simulated Quantum Annealing Benchmarking and Performance
 
 .. only:: qlm
 
-    To solve each of the NP problems with Simulated Quantum Annealing (SQA) we need to feed the :func:`~qat.mc.sqa` with parameters tailored for the specific problem. We provide such fine tuned parameters for a given set of instances for each problem class. They can be accessed from the ``get_best_parameters`` method of the respective problem class.
+    To solve each of the NP problems with Simulated Quantum Annealing (:ref:`SQA <sqa_description>`) we need to feed the solver in :class:`~qat.sqa.SQAQPU` with parameters tailored for the specific problem. We provide such fine tuned parameters for a given set of instances for each problem class. They can be accessed from the ``get_best_parameters`` method of the respective problem class.
 
     Below, we present the benchmark sources and the performances we obtain with the parameters found. We also show the range of spins of these instances, together with the average execution times.
 

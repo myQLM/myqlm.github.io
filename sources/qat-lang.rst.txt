@@ -117,8 +117,6 @@ This exception is defined in `qat.core` but related to `qat.lang`:
 .. autoclass:: qat.core.circuit_builder.builder.VariableNameNotAvailable
 
 
-
-
 Utilities
 ----------
 .. automodule:: qat.lang.AQASM.util
@@ -138,3 +136,21 @@ Quantum libraries
 .. toctree::
 
     qat-lang-arith
+
+    qat-lang-other
+
+Linker and low level circuit manipulation
+---------------------------------------------
+
+In pyAQASM, gates can be specified using various representations.
+They can be purely abstract (a name and a set of parameter values, such as `RZ`, `[PI/2]`). To this abstract syntax, one can attach a matrix, or even a subcircuit that implements this gate (this is the case of adders of the arithmetic library for instance).
+
+Circuits are generated in two steps:
+- first a skeleton of the circuit is generated (for instance adders will be gates called `ADD` in this skeletton)
+- then a subcircuit is generated and attached to this abtract gate.
+
+This second step is handled by a class called `Linker`. It can be useful in some settings to manipulate this `Linker` object in order to replace gates by subcircuits, or to generate matrices in order to simulate the circuit.
+
+
+.. autoclass:: qat.lang.linking.linker.Linker
+   :members:

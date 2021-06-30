@@ -1,50 +1,56 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Architecture and data structures &mdash; myQLM documentation  documentation</title>
+  <title>Main objects: Jobs, Observables, Circuits… &mdash; myQLM documentation  documentation</title>
   
+
+  
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="static/contentui.css" type="text/css" />
 
   
   
     <link rel="shortcut icon" href="static/favicon.ico"/>
   
+
   
   
 
   
-  <script type="text/javascript" src="static/js/modernizr.min.js"></script>
+
+  
+  <!--[if lt IE 9]>
+    <script src="static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
         <script src="static/jquery.js"></script>
         <script src="static/underscore.js"></script>
         <script src="static/doctools.js"></script>
-        <script src="static/language_data.js"></script>
         <script src="static/contentui.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="static/js/require.min.js"></script>
+        <script async="async" src="static/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML,local/local"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "document", "processHtmlClass": "math|output_area"}}</script>
     
     <script type="text/javascript" src="static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="static/contentui.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Advanced programming using pyAQASM" href="advanced_programming.html" />
-    <link rel="prev" title="Building custom execution stacks" href="manipulating.html" /> 
+    <link rel="next" title="Building custom execution stacks" href="manipulating.html" />
+    <link rel="prev" title="OpenQASM Compiler" href="myqlm_specific/openqasm.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -71,7 +77,7 @@
             
             
               <div class="version">
-                myQLM-1.2.2
+                myQLM-1.4.0
               </div>
             
           
@@ -88,6 +94,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -107,12 +114,10 @@
 </ul>
 <p class="caption"><span class="caption-text">Advanced usage</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Architecture and data structures</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Main objects: Jobs, Observables, Circuits…</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#job-and-batch">Job and Batch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#observables">Observables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#returned-value">Returned Value</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#results">Results</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#circuits">Circuits</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#the-high-level-wrapper">The high-level wrapper</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#qubits-and-cbits">Qubits and cbits</a></li>
@@ -120,24 +125,28 @@
 <li class="toctree-l3"><a class="reference internal" href="#quantum-gates-and-gate-dictionary">Quantum gates and gate dictionary</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#exceptions">Exceptions</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source_doc.html">Source code documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
-<li class="toctree-l1"><a class="reference internal" href="commands.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Command-line tools</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Additional information</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/notebooks.html">Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/contrib.html">Contributing to myQLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/release-note.html">Release notes</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -172,18 +181,20 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Architecture and data structures</li>
+      <li>Main objects: Jobs, Observables, Circuits…</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -219,8 +230,8 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="architecture-and-data-structures">
-<h1>Architecture and data structures<a class="headerlink" href="#architecture-and-data-structures" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="main-objects-jobs-observables-circuits">
+<span id="introduction"></span><h1>Main objects: Jobs, Observables, Circuits…<a class="headerlink" href="#main-objects-jobs-observables-circuits" title="Permalink to this headline">¶</a></h1>
 <p>MyQLM comes in the shape of a series of Python libraries. These libraries
 are all articulated around a common set of classes, data structures,
 and services. This page describes the main classes of myQLM as well as their
@@ -271,7 +282,7 @@ The batch is defined by <a class="reference internal" href="qat-core.html#qat.co
 </div>
 <div class="section" id="observables">
 <h2>Observables<a class="headerlink" href="#observables" title="Permalink to this headline">¶</a></h2>
-<p>As mentioned above, it is possible to construct a <a class="reference internal" href="qat-core.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> requiering the sampling of some observable on the final state produced by a quantum circuit. The <a class="reference internal" href="qat-core.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a> class provides a basic interface to declare observables.</p>
+<p>As mentioned above, it is possible to construct a <a class="reference internal" href="qat-core.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> requiring the sampling of some observable on the final state produced by a quantum circuit. The <a class="reference internal" href="qat-core.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a> class provides a basic interface to declare observables.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
 
 <span class="n">my_observable</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="c1"># A 4 qubits observable</span>
@@ -345,8 +356,8 @@ The batch is defined by <a class="reference internal" href="qat-core.html#qat.co
 </pre></div>
 </div>
 </div>
-<div class="section" id="returned-value">
-<h2>Returned Value<a class="headerlink" href="#returned-value" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
 <p>After sending a Job on a QPU, the returned results are
 encapsulated in an object <a class="reference internal" href="qat-core.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Result</span></code></a>.</p>
 <p>Attributes of <a class="reference internal" href="qat-core.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a>:</p>
@@ -368,156 +379,8 @@ encapsulated in an object <a class="reference internal" href="qat-core.html#qat.
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="exceptions">
-<span id="circuit-full-description"></span><h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
-<p>All exceptions raised by QPUs and Plugins are thrift exceptions. This is particularly usefull when using a remote QPU/Plugin, since it allows the server to cleanly catch the exception and transmit it to the client. Upon receiving the exception, the client will raise it, thus emulating a ‘local’ behavior.</p>
-<div class="toggle-header docutils container">
-<p><em>Toggle to get the documentation of exceptions classes</em></p>
-</div>
-<div class="toggle-content docutils container">
-<blockquote>
-<div><dl class="py class">
-<dt id="qat.comm.exceptions.ttypes.QPUException">
-<em class="property">class </em><code class="sig-prename descclassname">qat.comm.exceptions.ttypes.</code><code class="sig-name descname">QPUException</code><a class="headerlink" href="#qat.comm.exceptions.ttypes.QPUException" title="Permalink to this definition">¶</a></dt>
-<dd><p>A QPU is supposed to raise an exception of type
-<a class="reference internal" href="#qat.comm.exceptions.ttypes.QPUException" title="qat.comm.exceptions.ttypes.QPUException"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUException</span></code></a></p>
-<dl class="simple">
-<dt>Parameters:</dt><dd><ul class="simple">
-<li><p><strong>code</strong> (<em>int</em>): error code</p></li>
-<li><p><strong>modulename</strong> (<em>str, optional</em>): module in which the exception is
-raised</p></li>
-<li><p><strong>message</strong> (<em>str, optional</em>): error message</p></li>
-<li><p><strong>file</strong> (<em>str, optional</em>): file in which the exception is raised</p></li>
-<li><p><strong>line</strong> (<em>int, optional</em>): line index</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py class">
-<dt id="qat.comm.exceptions.ttypes.PluginException">
-<em class="property">class </em><code class="sig-prename descclassname">qat.comm.exceptions.ttypes.</code><code class="sig-name descname">PluginException</code><a class="headerlink" href="#qat.comm.exceptions.ttypes.PluginException" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Plugin is supposed to raise an exception of type
-<a class="reference internal" href="#qat.comm.exceptions.ttypes.PluginException" title="qat.comm.exceptions.ttypes.PluginException"><code class="xref py py-class docutils literal notranslate"><span class="pre">PluginException</span></code></a></p>
-<dl class="simple">
-<dt>Parameters:</dt><dd><ul class="simple">
-<li><p><strong>code</strong> (<em>int</em>): error code</p></li>
-<li><p><strong>modulename</strong> (<em>str, optional</em>): module in which the exception is
-raised</p></li>
-<li><p><strong>message</strong> (<em>str, optional</em>): error message</p></li>
-<li><p><strong>file</strong> (<em>str, optional</em>): file in which the exception is raised</p></li>
-<li><p><strong>line</strong> (<em>int, optional</em>): line index</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</div></blockquote>
-</div>
-<p>QPUs will raise exceptions called <a class="reference internal" href="#qat.comm.exceptions.ttypes.QPUException" title="qat.comm.exceptions.ttypes.QPUException"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUException</span></code></a>,
-while Plugins will raise <a class="reference internal" href="#qat.comm.exceptions.ttypes.PluginException" title="qat.comm.exceptions.ttypes.PluginException"><code class="xref py py-class docutils literal notranslate"><span class="pre">PluginException</span></code></a>.
-Usually, the exception will contain a message that should be clear enough for you to understand what went wrong.</p>
-<p>Some additional information is packed inside the exception, taking the form of a file name and a line number.</p>
-<div class="toggle-header docutils container">
-<p><em>Toggle to get the list of error codes</em></p>
-</div>
-<div class="toggle-content docutils container">
-<blockquote>
-<div><p>Each error code is defined in the enumeration
-<a class="reference internal" href="#qat.comm.exceptions.ttypes.ErrorType" title="qat.comm.exceptions.ttypes.ErrorType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ErrorType</span></code></a>. This enumeration is composed
-of the following items:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Error <strong>ABORT</strong> (code <span class="math notranslate nohighlight">\(1\)</span>) raised when the execution is
-stopped</p></li>
-<li><p>Error <strong>INVALID_ARGS</strong> (code <span class="math notranslate nohighlight">\(2\)</span>) raised when arguments
-are invalid</p></li>
-<li><p>Error <strong>NONRESULT</strong> (code <span class="math notranslate nohighlight">\(5\)</span>) raised when the result is not
-available</p></li>
-<li><p>Error <strong>BREAK</strong> (code <span class="math notranslate nohighlight">\(10\)</span>) raised by a <em>BREAK</em> gate in the circuit</p></li>
-<li><p>Error <strong>ILLEGAL_GATES</strong> (code <span class="math notranslate nohighlight">\(11\)</span>) raised when the circuit contains
-a gate unknown for the QPU</p></li>
-<li><p>Error <strong>NBQBITS</strong> (code <span class="math notranslate nohighlight">\(12\)</span>) raised when the number of qubits
-composing the circuit is not compatible with the QPU</p></li>
-<li><p>Error <strong>NBCBITS</strong> (code <span class="math notranslate nohighlight">\(13\)</span>) raised when the number of cbits
-composing the circuit is not compatible with the QPU</p></li>
-<li><p>Error <strong>NOT_SIMULATABLE</strong> (code <span class="math notranslate nohighlight">\(14\)</span>) raised when a job is
-not simulatable</p></li>
-</ul>
-</div></blockquote>
-<dl class="py class">
-<dt id="qat.comm.exceptions.ttypes.ErrorType">
-<em class="property">class </em><code class="sig-prename descclassname">qat.comm.exceptions.ttypes.</code><code class="sig-name descname">ErrorType</code><a class="headerlink" href="#qat.comm.exceptions.ttypes.ErrorType" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enumeration containing all the defined error code</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.comm.exceptions.ttypes</span> <span class="kn">import</span> <span class="n">ErrorType</span>
-
-<span class="n">abort_code</span> <span class="o">=</span> <span class="n">ErrorType</span><span class="o">.</span><span class="n">ABORT</span>
-</pre></div>
-</div>
-<p>The error codes are:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><strong>ABORT</strong> = 1</p></li>
-<li><p><strong>INVALID_ARGS</strong> = 3</p></li>
-<li><p><strong>NONRESULT</strong> = 5</p></li>
-<li><p><strong>BREAK</strong> = 10</p></li>
-<li><p><strong>ILLEGAL_GATES</strong> = 11</p></li>
-<li><p><strong>NBQBITS</strong> = 12</p></li>
-<li><p><strong>NBCBITS</strong> = 13</p></li>
-<li><p><strong>NOT_SIMULATABLE</strong> = 14</p></li>
-</ul>
-</div></blockquote>
-</dd></dl>
-
-</div></blockquote>
-</div>
-<p>Additionally, exceptions come with an error code that characterizes the type of error that appeared inside the Plugin/QPU:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RZ</span>
-<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">PyLinalg</span>
-<span class="kn">from</span> <span class="nn">qat.comm.exceptions.ttypes</span> <span class="kn">import</span> <span class="n">QPUException</span>
-
-<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
-<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">RZ</span><span class="p">(</span><span class="mf">0.4</span><span class="p">),</span> <span class="n">qbits</span><span class="p">)</span>
-<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">(</span><span class="n">include_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">PyLinalg</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
-<span class="k">except</span> <span class="n">QPUException</span> <span class="k">as</span> <span class="n">excp</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">excp</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QPUException</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">modulename</span><span class="o">=</span><span class="s1">&#39;qat.pylinalg&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Gate RZ has no matrix!&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s1">&#39;qat/pylinalg/simulator.py&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="mi">103</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Here code <span class="math notranslate nohighlight">\(14\)</span> means that the simulator encountered a non supported gate (here a gate with no matrix).</p>
-<p>Another useful code is the one raised when a break instruction is triggered:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span>
-<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">PyLinalg</span>
-<span class="kn">from</span> <span class="nn">qat.comm.exceptions.ttypes</span> <span class="kn">import</span> <span class="n">QPUException</span>
-
-<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
-<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">cbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">prog</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">prog</span><span class="o">.</span><span class="n">cbreak</span><span class="p">(</span><span class="o">~</span><span class="n">cbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
-<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">PyLinalg</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
-<span class="k">except</span> <span class="n">QPUException</span> <span class="k">as</span> <span class="n">excp</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">excp</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QPUException</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">modulename</span><span class="o">=</span><span class="s1">&#39;qat.pylinalg&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;BREAK at gate #1 : formula : NOT 0, cbits : [(0, False)]&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Code <span class="math notranslate nohighlight">\(10\)</span> will always refer to a triggered break instruction.</p>
-</div>
 <div class="section" id="circuits">
-<h2>Circuits<a class="headerlink" href="#circuits" title="Permalink to this headline">¶</a></h2>
+<span id="circuit-full-description"></span><h2>Circuits<a class="headerlink" href="#circuits" title="Permalink to this headline">¶</a></h2>
 <p>Inside the environment of Python libraries offered by the QLM, quantum circuits are described using the <a class="reference internal" href="qat-core.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> class. This class is in fact a wrapper of a serializable object. This wrapper provides and overloads various methods for an active manipulation of these objects.</p>
 <div class="section" id="the-high-level-wrapper">
 <h3>The high-level wrapper<a class="headerlink" href="#the-high-level-wrapper" title="Permalink to this headline">¶</a></h3>
@@ -616,8 +479,8 @@ registers.</p>
 <p>The main ‘body’ of a <a class="reference internal" href="qat-core.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> is described as a list of operations - <a class="reference internal" href="#qat.comm.datamodel.ttypes.Op" title="qat.comm.datamodel.ttypes.Op"><code class="xref py py-class docutils literal notranslate"><span class="pre">Op</span></code></a>.</p>
 <p>Here is the formal documentation of these <cite>Op</cite> objects:</p>
 <dl class="py class">
-<dt id="qat.comm.datamodel.ttypes.Op">
-<em class="property">class </em><code class="sig-prename descclassname">qat.comm.datamodel.ttypes.</code><code class="sig-name descname">Op</code><a class="headerlink" href="#qat.comm.datamodel.ttypes.Op" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="qat.comm.datamodel.ttypes.Op">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.comm.datamodel.ttypes.</span></span><span class="sig-name descname"><span class="pre">Op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.comm.datamodel.ttypes.Op" title="Permalink to this definition">¶</a></dt>
 <dd><p>Operator structure. This structure describes any operation that
 is accessible in AQASM/pyAQASM like quantum gate applications
 (optionally classically controled) or measures, resets, breaks,
@@ -625,13 +488,13 @@ classical operations and classical remaps. The field <em>.type</em> is
 used to distinguish between these cases.</p>
 <dl class="simple">
 <dt>Instance attributes:</dt><dd><ul class="simple">
-<li><p><strong>gate</strong> (<em>int</em>): unique identifyer of the gate (if operator is a gate)</p></li>
+<li><p><strong>gate</strong> (<em>str</em>): unique identifyer of the gate (if operator is a gate)</p></li>
 <li><p><strong>qbits</strong> (<em>list</em>): indices of qubits on which the operator acts</p></li>
-<li><p><strong>OpType</strong> (<em>enum type</em>): type of operator (gate, measure…)</p></li>
-<li><p><strong>cbits</strong> (<em>list</em>): indices of classical bits in which to store output (if applicable)</p></li>
-<li><p><strong>formula</strong> (<em>str</em>): a string in RPF representing a boolean formula whose leaves
+<li><p><strong>type</strong> (<em>OpType</em>, optional): type of operator (gate, measure…)</p></li>
+<li><p><strong>cbits</strong> (<em>list</em>, optional): indices of classical bits in which to store output (if applicable)</p></li>
+<li><p><strong>formula</strong> (<em>str</em>, optional): a string in RPF representing a boolean formula whose leaves
 are cbit indexes (for resets, etc.)</p></li>
-<li><p><strong>remap</strong> (<em>list</em>): a list of qubit describing a permutation (if the gate is REMAP type)</p></li>
+<li><p><strong>remap</strong> (<em>list</em>, optional): a list of qubit describing a permutation (if the gate is REMAP type)</p></li>
 </ul>
 </dd>
 </dl>
@@ -732,8 +595,8 @@ Please refer to the <a class="reference internal" href="programming.html#program
 <a class="reference internal" href="qat-lang.html#module-qat.lang" title="qat.lang"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.lang</span></code></a> module to create your own circuits</p>
 </div>
 <dl class="py class">
-<dt id="qat.comm.datamodel.ttypes.GateDefinition">
-<em class="property">class </em><code class="sig-prename descclassname">qat.comm.datamodel.ttypes.</code><code class="sig-name descname">GateDefinition</code><a class="headerlink" href="#qat.comm.datamodel.ttypes.GateDefinition" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="qat.comm.datamodel.ttypes.GateDefinition">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.comm.datamodel.ttypes.</span></span><span class="sig-name descname"><span class="pre">GateDefinition</span></span><a class="headerlink" href="#qat.comm.datamodel.ttypes.GateDefinition" title="Permalink to this definition">¶</a></dt>
 <dd><p>A gate definition describes the implementation of a quantum gate. A quantum gate can be defined
 by:</p>
 <blockquote>
@@ -879,6 +742,154 @@ contains the definition of the gate.</p>
 </div>
 </div>
 </div>
+<div class="section" id="exceptions">
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
+<p>All exceptions raised by QPUs and Plugins are Thrift exceptions. This is particularly usefull when using a remote QPU/Plugin, since it allows the server to cleanly catch the exception and transmit it to the client. Upon receiving the exception, the client will raise it, thus emulating a ‘local’ behavior.</p>
+<div class="toggle-header docutils container">
+<p><em>Toggle to get the documentation of exceptions classes</em></p>
+</div>
+<div class="toggle-content docutils container">
+<blockquote>
+<div><dl class="py class">
+<dt class="sig sig-object py" id="qat.comm.exceptions.ttypes.QPUException">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.comm.exceptions.ttypes.</span></span><span class="sig-name descname"><span class="pre">QPUException</span></span><a class="headerlink" href="#qat.comm.exceptions.ttypes.QPUException" title="Permalink to this definition">¶</a></dt>
+<dd><p>A QPU is supposed to raise an exception of type
+<a class="reference internal" href="#qat.comm.exceptions.ttypes.QPUException" title="qat.comm.exceptions.ttypes.QPUException"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUException</span></code></a></p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>code</strong> (<em>int</em>): error code</p></li>
+<li><p><strong>modulename</strong> (<em>str, optional</em>): module in which the exception is
+raised</p></li>
+<li><p><strong>message</strong> (<em>str, optional</em>): error message</p></li>
+<li><p><strong>file</strong> (<em>str, optional</em>): file in which the exception is raised</p></li>
+<li><p><strong>line</strong> (<em>int, optional</em>): line index</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.comm.exceptions.ttypes.PluginException">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.comm.exceptions.ttypes.</span></span><span class="sig-name descname"><span class="pre">PluginException</span></span><a class="headerlink" href="#qat.comm.exceptions.ttypes.PluginException" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Plugin is supposed to raise an exception of type
+<a class="reference internal" href="#qat.comm.exceptions.ttypes.PluginException" title="qat.comm.exceptions.ttypes.PluginException"><code class="xref py py-class docutils literal notranslate"><span class="pre">PluginException</span></code></a></p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>code</strong> (<em>int</em>): error code</p></li>
+<li><p><strong>modulename</strong> (<em>str, optional</em>): module in which the exception is
+raised</p></li>
+<li><p><strong>message</strong> (<em>str, optional</em>): error message</p></li>
+<li><p><strong>file</strong> (<em>str, optional</em>): file in which the exception is raised</p></li>
+<li><p><strong>line</strong> (<em>int, optional</em>): line index</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div></blockquote>
+</div>
+<p>QPUs will raise exceptions called <a class="reference internal" href="#qat.comm.exceptions.ttypes.QPUException" title="qat.comm.exceptions.ttypes.QPUException"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUException</span></code></a>,
+while Plugins will raise <a class="reference internal" href="#qat.comm.exceptions.ttypes.PluginException" title="qat.comm.exceptions.ttypes.PluginException"><code class="xref py py-class docutils literal notranslate"><span class="pre">PluginException</span></code></a>.
+Usually, the exception will contain a message that should be clear enough for you to understand what went wrong.</p>
+<p>Some additional information is packed inside the exception, taking the form of a file name and a line number.</p>
+<div class="toggle-header docutils container">
+<p><em>Toggle to get the list of error codes</em></p>
+</div>
+<div class="toggle-content docutils container">
+<blockquote>
+<div><p>Each error code is defined in the enumeration
+<a class="reference internal" href="#qat.comm.exceptions.ttypes.ErrorType" title="qat.comm.exceptions.ttypes.ErrorType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ErrorType</span></code></a>. This enumeration is composed
+of the following items:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Error <strong>ABORT</strong> (code <span class="math notranslate nohighlight">\(1\)</span>) raised when the execution is
+stopped</p></li>
+<li><p>Error <strong>INVALID_ARGS</strong> (code <span class="math notranslate nohighlight">\(2\)</span>) raised when arguments
+are invalid</p></li>
+<li><p>Error <strong>NONRESULT</strong> (code <span class="math notranslate nohighlight">\(5\)</span>) raised when the result is not
+available</p></li>
+<li><p>Error <strong>BREAK</strong> (code <span class="math notranslate nohighlight">\(10\)</span>) raised by a <em>BREAK</em> gate in the circuit</p></li>
+<li><p>Error <strong>ILLEGAL_GATES</strong> (code <span class="math notranslate nohighlight">\(11\)</span>) raised when the circuit contains
+a gate unknown for the QPU</p></li>
+<li><p>Error <strong>NBQBITS</strong> (code <span class="math notranslate nohighlight">\(12\)</span>) raised when the number of qubits
+composing the circuit is not compatible with the QPU</p></li>
+<li><p>Error <strong>NBCBITS</strong> (code <span class="math notranslate nohighlight">\(13\)</span>) raised when the number of cbits
+composing the circuit is not compatible with the QPU</p></li>
+<li><p>Error <strong>NOT_SIMULATABLE</strong> (code <span class="math notranslate nohighlight">\(14\)</span>) raised when a job is
+not simulatable</p></li>
+</ul>
+</div></blockquote>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.comm.exceptions.ttypes.ErrorType">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.comm.exceptions.ttypes.</span></span><span class="sig-name descname"><span class="pre">ErrorType</span></span><a class="headerlink" href="#qat.comm.exceptions.ttypes.ErrorType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enumeration containing all the defined error code</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.comm.exceptions.ttypes</span> <span class="kn">import</span> <span class="n">ErrorType</span>
+
+<span class="n">abort_code</span> <span class="o">=</span> <span class="n">ErrorType</span><span class="o">.</span><span class="n">ABORT</span>
+</pre></div>
+</div>
+<p>The error codes are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>ABORT</strong> = 1</p></li>
+<li><p><strong>INVALID_ARGS</strong> = 3</p></li>
+<li><p><strong>NONRESULT</strong> = 5</p></li>
+<li><p><strong>BREAK</strong> = 10</p></li>
+<li><p><strong>ILLEGAL_GATES</strong> = 11</p></li>
+<li><p><strong>NBQBITS</strong> = 12</p></li>
+<li><p><strong>NBCBITS</strong> = 13</p></li>
+<li><p><strong>NOT_SIMULATABLE</strong> = 14</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+</div></blockquote>
+</div>
+<p>Additionally, exceptions come with an error code that characterizes the type of error that appeared inside the Plugin/QPU:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RZ</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">PyLinalg</span>
+<span class="kn">from</span> <span class="nn">qat.comm.exceptions.ttypes</span> <span class="kn">import</span> <span class="n">QPUException</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">RZ</span><span class="p">(</span><span class="mf">0.4</span><span class="p">),</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">(</span><span class="n">include_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">PyLinalg</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">QPUException</span> <span class="k">as</span> <span class="n">excp</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">excp</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QPUException</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">modulename</span><span class="o">=</span><span class="s1">&#39;qat.pylinalg&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Gate RZ has no matrix!&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s1">&#39;qat/pylinalg/simulator.py&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="mi">103</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here code <span class="math notranslate nohighlight">\(14\)</span> means that the simulator encountered a non supported gate (here a gate with no matrix).</p>
+<p>Another useful code is the one raised when a break instruction is triggered:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">PyLinalg</span>
+<span class="kn">from</span> <span class="nn">qat.comm.exceptions.ttypes</span> <span class="kn">import</span> <span class="n">QPUException</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">cbreak</span><span class="p">(</span><span class="o">~</span><span class="n">cbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">PyLinalg</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">QPUException</span> <span class="k">as</span> <span class="n">excp</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">excp</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QPUException</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">modulename</span><span class="o">=</span><span class="s1">&#39;qat.pylinalg&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;BREAK at gate #1 : formula : NOT 0, cbits : [(0, False)]&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Code <span class="math notranslate nohighlight">\(10\)</span> will always refer to a triggered break instruction.</p>
+</div>
 </div>
 
 
@@ -886,28 +897,21 @@ contains the definition of the gate.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="advanced_programming.html" class="btn btn-neutral float-right" title="Advanced programming using pyAQASM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="manipulating.html" class="btn btn-neutral float-left" title="Building custom execution stacks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="manipulating.html" class="btn btn-neutral float-right" title="Building custom execution stacks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="myqlm_specific/openqasm.html" class="btn btn-neutral float-left" title="OpenQASM Compiler" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Atos 2016-2020
+        &#169; Copyright Atos 2016-2021.
 
     </p>
   </div> 
 
 </footer>
-
         </div>
       </div>
 
@@ -915,7 +919,6 @@ contains the definition of the gate.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

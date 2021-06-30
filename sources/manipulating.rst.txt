@@ -46,9 +46,72 @@ Plugins can be used to perform a wide range of transformations. Some of them are
 See :ref:`plugins` for a list of all available plugins.
 
 
-But more importantly, it is quite simple to write your own QLM compatible plugin. You will find below all the details to define and run your own plugin.
+But more importantly, it is quite simple to write your own QLM compatible QPUs and plugins. You will find below all the details to define and run your own QPUs and plugins.
 
+.. _own_qpu:
 
+Writing your own QPU
+_________________________
+
+The example below shows how to construct your own QPU. The QPU below is very rudimentary: it merely displays the gates contained in the circuit and then returns random uniform states as an output.
+
+The QPU merely has to inherit from the :class:`~qat.core.qpu.QPUHandler` class and implement a ``submit_job`` method that takes a :class:`~qat.core.Job` as an input and returns a :class:`~qat.core.Result`:
+
+.. run-block-mem:: python own_qpu
+
+    import numpy as np
+    from qat.core.qpu import QPUHandler
+    from qat.core import Result
+    from qat.core.wrappers.result import aggregate_data
+
+    class MyQPU(QPUHandler):
+        def submit_job(self, job):
+            circuit = job.circuit
+           
+            # printing the circuit gates
+            for gate_name, params, qubits in circuit.iterate_simple():
+                print("%s gate on %s %s"%(gate_name, qubits, "(%s)"%params if len(params)>0 else ""))
+            
+            # now outputting random states (that do not have anything to do with the circuit!!)
+            nqbits = job.circuit.nbqbits
+            result = Result()
+            for _ in range(job.nbshots):
+                state = np.random.randint(0, 2**nqbits)
+                result.add_sample(state=state)
+               
+            if job.aggregate_data:
+                result = aggregate_data(result)
+            return result
+
+Let us execute a quantum circuit on this QPU:
+
+.. run-block-mem:: python own_qpu
+
+    from qat.lang.AQASM import Program, H, CNOT, RX
+    prog = Program()
+    reg = prog.qalloc(3)
+    prog.apply(H, reg[0])
+    prog.apply(CNOT, reg[0], reg[1])
+    prog.apply(RX(np.pi/2), reg[0])
+    prog.apply(CNOT, reg[1], reg[2])
+    circ = prog.to_circ()
+    job = circ.to_job(nbshots=5, aggregate_data=False)
+    qpu = MyQPU()
+
+    res = qpu.submit(job)
+    for sample in res:
+        print(sample.state)
+
+We can also "aggregate" the samples, i.e compute the histograms of the returned states:
+
+.. run-block-mem:: python own_qpu
+
+    job = circ.to_job(nbshots=500, aggregate_data=True)
+    res = qpu.submit(job)
+    for sample in res:
+        print(sample.state, sample.probability)
+
+You can check that the observed frequency of each state should close in on :math:`1/n_\mathrm{qbits}` as the number of shots increases.
 
 .. _own_plugin:
 

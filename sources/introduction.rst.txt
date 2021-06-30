@@ -1,5 +1,9 @@
-Architecture and data structures
-===================================
+
+.. _introduction:
+
+
+Main objects: Jobs, Observables, Circuits...
+=============================================
 
 .. only:: myqlm
 
@@ -76,6 +80,7 @@ An example using a batch to simulate a circuit:
             print(sample)
 
 
+
 .. warning::
     The state vector could be large, saving it into an array may lead to
     memory issues.
@@ -88,7 +93,7 @@ An example using a batch to simulate a circuit:
 Observables
 .............
 
-As mentioned above, it is possible to construct a :class:`~qat.core.Job` requiering the sampling of some observable on the final state produced by a quantum circuit. The :class:`~qat.core.Observable` class provides a basic interface to declare observables.
+As mentioned above, it is possible to construct a :class:`~qat.core.Job` requiring the sampling of some observable on the final state produced by a quantum circuit. The :class:`~qat.core.Observable` class provides a basic interface to declare observables.
 
 .. run-block:: python
 
@@ -160,7 +165,7 @@ And last but not least, observables can be attached to a circuit to form an obse
     job = circuit.to_job(observable=obs, nbshots=2048)
 
 
-Returned Value
+Results
 ................
 
 After sending a Job on a QPU, the returned results are
@@ -183,10 +188,21 @@ Attributes of :class:`~qat.core.wrappers.result.Sample`:
 .. _circuit_full_description:
 
 
+
+
+Circuits
+.......................
+
+Inside the environment of Python libraries offered by the QLM, quantum circuits are described using the :class:`~qat.core.Circuit` class. This class is in fact a wrapper of a serializable object. This wrapper provides and overloads various methods for an active manipulation of these objects.
+
+
+.. include:: circuit.rst
+
+
 Exceptions
 .............
 
-All exceptions raised by QPUs and Plugins are thrift exceptions. This is particularly usefull when using a remote QPU/Plugin, since it allows the server to cleanly catch the exception and transmit it to the client. Upon receiving the exception, the client will raise it, thus emulating a 'local' behavior.
+All exceptions raised by QPUs and Plugins are Thrift exceptions. This is particularly usefull when using a remote QPU/Plugin, since it allows the server to cleanly catch the exception and transmit it to the client. Upon receiving the exception, the client will raise it, thus emulating a 'local' behavior.
 
 .. toggle-header::
    :header: *Toggle to get the documentation of exceptions classes*
@@ -355,12 +371,3 @@ Another useful code is the one raised when a break instruction is triggered:
             print(excp)
 
 Code :math:`10` will always refer to a triggered break instruction.
-
-
-Circuits
-.......................
-
-Inside the environment of Python libraries offered by the QLM, quantum circuits are described using the :class:`~qat.core.Circuit` class. This class is in fact a wrapper of a serializable object. This wrapper provides and overloads various methods for an active manipulation of these objects.
-
-
-.. include:: circuit.rst

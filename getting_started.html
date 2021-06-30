@@ -1,46 +1,52 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Getting started &mdash; myQLM documentation  documentation</title>
   
 
   
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="static/contentui.css" type="text/css" />
+
+  
   
     <link rel="shortcut icon" href="static/favicon.ico"/>
   
+
   
   
 
   
-  <script type="text/javascript" src="static/js/modernizr.min.js"></script>
+
+  
+  <!--[if lt IE 9]>
+    <script src="static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
         <script src="static/jquery.js"></script>
         <script src="static/underscore.js"></script>
         <script src="static/doctools.js"></script>
-        <script src="static/language_data.js"></script>
         <script src="static/contentui.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="static/js/require.min.js"></script>
+        <script async="async" src="static/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML,local/local"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "document", "processHtmlClass": "math|output_area"}}</script>
     
     <script type="text/javascript" src="static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="static/contentui.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Writing quantum circuits" href="programming.html" />
@@ -71,7 +77,7 @@
             
             
               <div class="version">
-                myQLM-1.2.2
+                myQLM-1.4.0
               </div>
             
           
@@ -88,6 +94,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -98,7 +105,15 @@
               <p class="caption"><span class="caption-text">Basic usage</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/install.html">Installing myQLM</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#a-simple-grover">A simple Grover</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-diffusion">The diffusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-oracle">The oracle</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#a-simple-variational-algorithm">A simple variational algorithm</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="programming.html">Writing quantum circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simulating.html">Executing quantum circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
@@ -107,24 +122,26 @@
 </ul>
 <p class="caption"><span class="caption-text">Advanced usage</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Main objects: Jobs, Observables, Circuits…</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source_doc.html">Source code documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
-<li class="toctree-l1"><a class="reference internal" href="commands.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Command-line tools</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Additional information</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/notebooks.html">Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/contrib.html">Contributing to myQLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/release-note.html">Release notes</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -159,18 +176,20 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Getting started</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -212,46 +231,185 @@
 <div class="figure align-default">
 <a class="reference internal image-reference" href="images/bell_pair.png"><img alt="images/bell_pair.png" src="images/bell_pair.png" style="width: 153.0px; height: 76.0px;" /></a>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">CNOT</span>
-
-<span class="c1"># Create a Program</span>
-<span class="n">qprog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
-<span class="c1"># Number of qbits</span>
-<span class="n">nbqbits</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="c1"># Allocate some qbits</span>
-<span class="n">qbits</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">)</span>
-
-<span class="c1"># Apply some quantum Gates</span>
-<span class="n">qprog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">qprog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">CNOT</span><span class="p">,</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-
-<span class="c1"># Export this program into a quantum circuit</span>
-<span class="n">circuit</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
-
-<span class="c1"># import one Quantum Processor Unit Factory</span>
-<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">PyLinalg</span>
-
-<span class="c1"># Create a Quantum Processor Unit</span>
-<span class="n">linalgqpu</span> <span class="o">=</span> <span class="n">PyLinalg</span><span class="p">()</span>
-
-<span class="c1"># Create a job</span>
-<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
-
-<span class="c1"># Submit the job to the QPU</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">linalgqpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
-
-<span class="c1"># Iterate over the final state vector to get all final components</span>
-<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;State </span><span class="si">%s</span><span class="s2"> amplitude </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">amplitude</span><span class="p">))</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">State</span> <span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span> <span class="n">amplitude</span> <span class="p">(</span><span class="mf">0.7071067811865475</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">)</span>
-<span class="n">State</span> <span class="o">|</span><span class="mi">11</span><span class="o">&gt;</span> <span class="n">amplitude</span> <span class="p">(</span><span class="mf">0.7071067811865475</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">)</span>
-</pre></div>
-</div>
 <p>The first few lines of code are dedicated to the generation of a quantum circuit and a job, an atomic computation task in the QLM language. A detailed description of the quantum circuit generation tools can be found in the <a class="reference internal" href="programming.html#programming"><span class="std std-ref">programming section</span></a>.</p>
 <p>Then the remaining lines instantiate a simulator, submit the job, and print the simulation results. More information about this process can be found in the <a class="reference internal" href="simulating.html#simulating"><span class="std std-ref">simulating section</span></a>.</p>
 <p>QLM also comes with a collection of powerful tools, called Plugins, to manipulate quantum circuits and execution results. Information about these tools can be found in the <a class="reference internal" href="manipulating.html#manipulating"><span class="std std-ref">manipulating section</span></a>.</p>
+<p>The rest of this section is dedicated to some basic examples of quantum algorithms from the standard literature (such as Grover and a variational algorithm).</p>
+<div class="section" id="a-simple-grover">
+<h2>A simple Grover<a class="headerlink" href="#a-simple-grover" title="Permalink to this headline">¶</a></h2>
+<p>Let’s write a simple Grover algorithm. Grover is a quantum search algorithm that can find an element in an unstructured search space quadratically faster than a randomized classical algorithm. In this search model, the problem is specified by an <strong>oracle</strong>, i.e a function <span class="math notranslate nohighlight">\(\mathcal{X}\rightarrow \{0, 1\}\)</span>, and we are looking for an element <span class="math notranslate nohighlight">\(x \in \mathcal{X}\)</span> such that <span class="math notranslate nohighlight">\(f(x) = 1\)</span>.</p>
+<p>The algorithm consists in alternating two operations <span class="math notranslate nohighlight">\(\pi \sqrt{\frac{1}{a}}/4\)</span> times where <span class="math notranslate nohighlight">\(a = \frac{|f^{-1}(\{1\})|}{|\mathcal{X}|}\)</span> is the probability of finding the searched element in the uniform distribution.</p>
+<p>These operations are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>an oracle <span class="math notranslate nohighlight">\(U_f: |x \rangle \mapsto (-1)^{f(x)}|x\rangle\)</span></p></li>
+<li><p>a diffusion <span class="math notranslate nohighlight">\(U_D = I - 2|s\rangle\langle s|\)</span> where <span class="math notranslate nohighlight">\(|s\rangle = \frac{1}{\sqrt{|\mathcal{X}|}} \sum_{x\in\mathcal{X}} |x\rangle\)</span></p></li>
+</ul>
+</div></blockquote>
+<p>Let’s dive in the details of their implementation for a simple search!</p>
+<div class="section" id="the-diffusion">
+<h3>The diffusion<a class="headerlink" href="#the-diffusion" title="Permalink to this headline">¶</a></h3>
+<p>To keep things simple we will consider the following search space: <span class="math notranslate nohighlight">\(\mathcal{X} = \{0, 1\}^{2k}\)</span>.
+In this setting, a diffusion can be implemented as follows:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>First, we will put all qubits in the diagonal basis by applying a wall of H gates.</p></li>
+<li><p>We can then flip the amplitude of the <span class="math notranslate nohighlight">\(|0..0\rangle\)</span> state by flipping all qubits using a wall of <span class="math notranslate nohighlight">\(X\)</span> gates and applying a controlled <span class="math notranslate nohighlight">\(Z\)</span> gate on all qubits.</p></li>
+<li><p>Finally, we can undo our basis changes by applying a wall of <span class="math notranslate nohighlight">\(X\)</span> followed by a wall of <span class="math notranslate nohighlight">\(H\)</span></p></li>
+</ul>
+<p>We will write a python function that given a number <span class="math notranslate nohighlight">\(k\)</span> returns a diffusion routine over <span class="math notranslate nohighlight">\(2k\)</span> qubits:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># everything we need to write a quantum circuit</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># a default qpu (here a simulator)</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+
+<span class="c1"># This is a standard implementation of Grover&#39;s diffusion</span>
+<span class="k">def</span> <span class="nf">diffusion</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+     <span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+     <span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span><span class="p">)</span>
+     <span class="k">for</span> <span class="n">wire</span> <span class="ow">in</span> <span class="n">wires</span><span class="p">:</span>
+         <span class="n">H</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+         <span class="n">X</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+     <span class="n">Z</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)(</span><span class="n">wires</span><span class="p">)</span>
+     <span class="k">for</span> <span class="n">wire</span> <span class="ow">in</span> <span class="n">wires</span><span class="p">:</span>
+         <span class="n">X</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+         <span class="n">H</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+     <span class="k">return</span> <span class="n">routine</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>As you can see, we repeat a lot of code to do basis change and revert them. We can simplify a bit the code by using a compute/uncompute:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">diffusion</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+     <span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+     <span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span><span class="p">)</span>
+     <span class="k">with</span> <span class="n">routine</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
+         <span class="k">for</span> <span class="n">wire</span> <span class="ow">in</span> <span class="n">wires</span><span class="p">:</span>
+             <span class="n">H</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+             <span class="n">X</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+     <span class="n">Z</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)(</span><span class="n">wires</span><span class="p">)</span>
+     <span class="n">routine</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
+     <span class="k">return</span> <span class="n">routine</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>This is a bit clearer now: We have our walls of <span class="math notranslate nohighlight">\(H\)</span> and <span class="math notranslate nohighlight">\(X\)</span> gates, our controlled <span class="math notranslate nohighlight">\(Z\)</span> gate, and we undo our walls using the uncomputation.</p>
+</div>
+<div class="section" id="the-oracle">
+<h3>The oracle<a class="headerlink" href="#the-oracle" title="Permalink to this headline">¶</a></h3>
+<p>In this space, we will look for palindromes: bit strings that are their own mirrors.
+We will implement our oracle as follows (remember that we need to flip the sign of the amplitude of all palindromes):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>First we will compute the xor of <span class="math notranslate nohighlight">\(b_1\)</span> and <span class="math notranslate nohighlight">\(b_{2k}\)</span>, <span class="math notranslate nohighlight">\(b_2\)</span> and <span class="math notranslate nohighlight">\(b_{2k-1}\)</span>, etc. We will do these operations in place in the second half of the bit string.</p></li>
+<li><p>Then we will flip the amplitude of our state if and only if its second half is <span class="math notranslate nohighlight">\(0...0\)</span>. To do so, we will flip all bits in the second half (using <span class="math notranslate nohighlight">\(X\)</span> gates) and perform a controlled <span class="math notranslate nohighlight">\(Z\)</span> gate on the second half, thus flipping the amplitude if and only if all qubits are set to <span class="math notranslate nohighlight">\(1\)</span>.</p></li>
+<li><p>Finally, we can revert to the original state by uncomputing the bit flips and xors (once again we will use a compute/uncompute block)</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_palindrome</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+    <span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+    <span class="n">first_half</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="n">second_half</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">routine</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">w1</span><span class="p">,</span> <span class="n">w2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">first_half</span><span class="p">,</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">second_half</span><span class="p">)):</span>
+            <span class="n">CNOT</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">w2</span> <span class="ow">in</span> <span class="n">second_half</span><span class="p">:</span>
+            <span class="n">X</span><span class="p">(</span><span class="n">w2</span><span class="p">)</span>
+    <span class="n">Z</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)(</span><span class="n">second_half</span><span class="p">)</span>
+    <span class="n">routine</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">routine</span>
+</pre></div>
+</div>
+<p>And this is it. We can now run a Grover algorithm to find palindromes!
+There are exactly <span class="math notranslate nohighlight">\(2^k\)</span> palindromes over <span class="math notranslate nohighlight">\(2k\)</span> bits, hence we will need to perform <span class="math notranslate nohighlight">\(\approx \pi\sqrt{2^k}/4\)</span> iterations to find a palindrome with good probability.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">grover</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">grover</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span><span class="p">)</span>
+<span class="n">diff</span> <span class="o">=</span> <span class="n">diffusion</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">is_palindrome</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+<span class="c1"># We start by a uniform superposition of bit strings:</span>
+<span class="k">for</span> <span class="n">qbit</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
+    <span class="n">H</span><span class="p">(</span><span class="n">qbit</span><span class="p">)</span>
+
+<span class="n">nsteps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">k</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsteps</span><span class="p">):</span>
+    <span class="n">oracle</span><span class="p">(</span><span class="n">qbits</span><span class="p">)</span>
+    <span class="n">diff</span><span class="p">(</span><span class="n">qbits</span><span class="p">)</span>
+
+<span class="c1"># Build a circuit</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">grover</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="c1"># Build a job</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+
+<span class="c1"># Evaluate the job and print the output probabilities</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span><span class="mi">0000</span><span class="o">&gt;</span> <span class="mf">0.24999999999999956</span>
+<span class="o">|</span><span class="mi">0110</span><span class="o">&gt;</span> <span class="mf">0.2499999999999995</span>
+<span class="o">|</span><span class="mi">1001</span><span class="o">&gt;</span> <span class="mf">0.2499999999999995</span>
+<span class="o">|</span><span class="mi">1111</span><span class="o">&gt;</span> <span class="mf">0.2499999999999995</span>
+</pre></div>
+</div>
+<p>As you can see, all the bit strings we can sample (with decently high  probability) are palindromes!</p>
+<p>Of course, this example is not particularly helpful to solve practical problems, but the QLM comes with high
+level constructs that can help you write more advanced oracles.
+If you are curious, you can have a look at <span class="xref std std-ref">this section</span> of the documentation to see how to write complicated oracles relying on custom data structures.</p>
+</div>
+</div>
+<div class="section" id="a-simple-variational-algorithm">
+<h2>A simple variational algorithm<a class="headerlink" href="#a-simple-variational-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>Variational algorithms are believed to be well suited to Noisy, Intermediate-Scale Quantum (NISQ) processors as they do not necessarily require long circuits to nevertheless
+prepare powerful ansatz states.</p>
+<p>In the code snippet below, we illustrate how the QLM can be used to write such variational algorithms in a few lines of code: we first define the Hamiltonian
+<span class="math notranslate nohighlight">\(H\)</span> (here the antiferromagnetic Heisenberg Hamiltonian) whose ground-state energy we want to approximate. We then define the ansatz circuit,
+i.e a parametric circuit with parameters <span class="math notranslate nohighlight">\(\theta_i\)</span> to be optimized. Finally, our quantum stack is composed of a QPU (here a simulator) and a
+so-called “plugin” that is going to perform the iterative optimization of the parameters given the ansatz circuit and the observable to be minimized.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">CNOT</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+<span class="kn">from</span> <span class="nn">qat.plugins</span> <span class="kn">import</span> <span class="n">ScipyMinimizePlugin</span>
+
+<span class="c1"># we instantiate the Hamiltonian we want to approximate the ground state energy of</span>
+<span class="n">hamiltonian</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="n">nqbits</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;XX&quot;</span><span class="p">,</span> <span class="s2">&quot;YY&quot;</span><span class="p">,</span> <span class="s2">&quot;ZZ&quot;</span><span class="p">]])</span>
+
+<span class="c1"># we construct the variational circuit (ansatz)</span>
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">reg</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="p">[</span><span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">theta_</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+<span class="n">RY</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">])(</span><span class="n">reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">RY</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">])(</span><span class="n">reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">circ</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="c1"># construct a (variational) job with the variational circuit and the observable</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circ</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">hamiltonian</span><span class="p">,</span>
+                  <span class="n">nbshots</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># we now build a stack that can handle variational jobs</span>
+<span class="n">qpu</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span>
+<span class="n">optimizer_scipy</span> <span class="o">=</span> <span class="n">ScipyMinimizePlugin</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;COBYLA&quot;</span><span class="p">,</span>
+                                      <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span>
+                                      <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;maxiter&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">},</span>
+                                      <span class="n">x0</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">stack</span> <span class="o">=</span> <span class="n">optimizer_scipy</span> <span class="o">|</span> <span class="n">qpu</span>
+
+<span class="c1"># we submit the job and print the optimized variational energy (the exact GS energy is -3)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Minimum VQE energy =</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Minimum</span> <span class="n">VQE</span> <span class="n">energy</span> <span class="o">=-</span><span class="mf">2.999999999998138</span>
+</pre></div>
+</div>
+<p>You can learn more about QLM jobs, observables, circuits <a class="reference internal" href="simulating.html#simulating"><span class="std std-ref">here</span></a> and <a class="reference internal" href="introduction.html#introduction"><span class="std std-ref">there</span></a>.
+You can learn more about parametric circuits and variational plugins <a class="reference internal" href="running_variational.html#variational"><span class="std std-ref">here</span></a>.</p>
+</div>
 </div>
 
 
@@ -259,28 +417,21 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="programming.html" class="btn btn-neutral float-right" title="Writing quantum circuits" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="myqlm_specific/license.html" class="btn btn-neutral float-left" title="myQLM license" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="programming.html" class="btn btn-neutral float-right" title="Writing quantum circuits" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="myqlm_specific/license.html" class="btn btn-neutral float-left" title="myQLM license" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Atos 2016-2020
+        &#169; Copyright Atos 2016-2021.
 
     </p>
   </div> 
 
 </footer>
-
         </div>
       </div>
 
@@ -288,7 +439,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -5,13 +5,14 @@ qat.simulated_annealing: Simulated Annealing
 
 myQLM is equipped with a simulated annealer (:ref:`SA <sa_description>`), which can solve
 combinatorial problems encoded in an :ref:`Ising <ising_description>` or Quadratic
-Unconstrained Binary Optimization (:ref:`QUBO <qubo_description>`) formalism.
+Unconstrained Binary Optimization (:ref:`QUBO <qubo_description>`) formalism - see also an 
+:notebook:`(Introductory notebook)[introduction_combinatorial_optimization_myqlm.ipynb]`.
 
 .. note::
 
-    The full QLM appliance includes the even more powerful Simulated Quantum Annealing solver
-    which has been tested on a variety of benchmarks for the
-    :ref:`NP problems <np_problems_formulation>` supported. The quality
+    The full QLM appliance includes the even more powerful Simulated Quantum Annealing
+    (:ref:`SQA <sqa_description>`) solver which has been tested on a variety of benchmarks
+    for the :ref:`NP problems <np_problems_formulation>` supported. The quality
     of the solutions is :math:`> 98 \%` - see
     :ref:`SQA benchmarking and performance <benchmarking>` for more details.
 
@@ -24,7 +25,9 @@ It therefore consists of an implementation of the
 The way a job is produced is by creating a schedule for the annealing - this is temperature and
 time steps during the simulation. The classes :class:`~qat.opt.Ising` and :class:`~qat.opt.QUBO`,
 along with classes for the supported NP problems in :ref:`qat-opt <np_hard_problems_code>` have
-implemented the :func:`~qat.opt.Ising.to_job()` method, which makes this possible.
+implemented the :func:`~qat.opt.Ising.to_job()` method, which makes this possible. Solving some of
+these NP problems has been shown in the example
+:notebook:`(notebooks)[overview_combinatorial_optimization_myqlm.ipynb]`.
 
 .. autoclass:: qat.simulated_annealing.SimulatedAnnealing
     :members:

@@ -1,46 +1,50 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Installing myQLM &mdash; myQLM documentation  documentation</title>
   
 
   
+  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../static/contentui.css" type="text/css" />
+
+  
   
     <link rel="shortcut icon" href="../static/favicon.ico"/>
   
+
   
   
 
   
-  <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+
+  
+  <!--[if lt IE 9]>
+    <script src="../static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../static/documentation_options.js"></script>
         <script src="../static/jquery.js"></script>
         <script src="../static/underscore.js"></script>
         <script src="../static/doctools.js"></script>
-        <script src="../static/language_data.js"></script>
         <script src="../static/contentui.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="static/js/require.min.js"></script>
     
     <script type="text/javascript" src="../static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../static/contentui.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="myQLM license" href="license.html" />
@@ -71,7 +75,7 @@
             
             
               <div class="version">
-                myQLM-1.2.2
+                myQLM-1.4.0
               </div>
             
           
@@ -88,6 +92,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -99,7 +104,13 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installing myQLM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="license.html">myQLM license</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#windows">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#macos">MacOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linux">Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-jupyter">Install Jupyter</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#install">Install</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#install-myqlm-wheels">Install myQLM wheels</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#install-myqlm-magics">Install myQLM magics</a></li>
@@ -125,24 +136,26 @@
 </ul>
 <p class="caption"><span class="caption-text">Advanced usage</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Main objects: Jobs, Observables, Circuits…</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../manipulating.html">Building custom execution stacks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Architecture and data structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../source_doc.html">Source code documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../aqasm.html">The AQASM format</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../commands.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands.html">Command-line tools</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Additional information</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contrib.html">Contributing to myQLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-note.html">Release notes</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -177,18 +190,20 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Installing myQLM</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -238,11 +253,22 @@ not agree with the terms, do not download, install, copy or otherwise use myQLM.
 If you have downloaded or installed myQLM and do not agree to the terms, promptly delete myQLM.</p>
 <div class="section" id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
-<p>This version of myQLM works for Windows (with <strong>Python 3.6</strong>, <strong>Python 3.7</strong> or
-<strong>Python 3.8</strong> 64-bit version), for MacOS (with <strong>Python 3.6</strong>, <strong>Python 3.7</strong> or
-<strong>Python 3.8</strong> 64-bit version) and for Linux (with <strong>Python 3.6</strong> or
-<strong>Python 3.8</strong> 64-bit version).</p>
-<p>It’s recommended to use the official Python distribution (without virtual environment or without anaconda) on MacOS.</p>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<p><strong>Python 3.6</strong>, <strong>Python 3.7</strong> or <strong>Python 3.8</strong> 64-bit version</p>
+</div>
+<div class="section" id="macos">
+<h3>MacOS<a class="headerlink" href="#macos" title="Permalink to this headline">¶</a></h3>
+<p><strong>Python 3.6</strong>, <strong>Python 3.7</strong> or <strong>Python 3.8</strong> 64-bit version</p>
+<p>If Python was installed using brew, create the following link prior installing myQLM. Using python3.8 as an example:</p>
+<p># ln -s /usr/local/opt/python&#64;3.8/Framework/Python.framework/Versions /Library/Framework/Python.framework/Versions</p>
+</div>
+<div class="section" id="linux">
+<h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
+<p><strong>Python 3.6</strong> or <strong>Python 3.8</strong> 64-bit version</p>
+</div>
+<div class="section" id="install-jupyter">
+<h3>Install Jupyter<a class="headerlink" href="#install-jupyter" title="Permalink to this headline">¶</a></h3>
 <p>myQLM is installed using the <em>Package Installer for Python</em> (or pip). If the pip
 command is not installed on your machine, you can
 <a class="reference external" href="https://pip.pypa.io/en/stable/installing/">download pip here</a>.</p>
@@ -252,13 +278,14 @@ Jupyter. In order to install Jupyter, please type the following command:</p>
 </pre></div>
 </div>
 <p>Moreover, if you want to display myQLM quantum circuits inside Jupyter notebooks, please
-install <a class="reference external" href="http://docs.wand-py.org/en/0.4.1/guide/install.html">ImageMagick for wand.</a></p>
+install <a class="reference external" href="http://docs.wand-py.org/en/0.6.6/guide/install.html">ImageMagick for wand.</a></p>
+</div>
 </div>
 <div class="section" id="install">
 <h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="install-myqlm-wheels">
 <h3>Install myQLM wheels<a class="headerlink" href="#install-myqlm-wheels" title="Permalink to this headline">¶</a></h3>
-<p>Please install myQLM by typing the following command in a Windows or Linux prompt:</p>
+<p>Please install myQLM by typing the following command in a Windows, MacOS or Linux prompt:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">myqlm</span>
 </pre></div>
 </div>
@@ -270,7 +297,6 @@ magics can be installed using the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">qat</span><span class="o">.</span><span class="n">magics</span><span class="o">.</span><span class="n">install</span>
 </pre></div>
 </div>
-<p>The wand module requires extra tools to work (like the ImageMagick library) on Windows, please go to the Install ImageMagick on Windows page to download this library.</p>
 </div>
 <div class="section" id="download-jupyter-notebooks">
 <h3>Download Jupyter notebooks<a class="headerlink" href="#download-jupyter-notebooks" title="Permalink to this headline">¶</a></h3>
@@ -328,28 +354,21 @@ quantum environment can be cherry-picked using the pip command:</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="license.html" class="btn btn-neutral float-right" title="myQLM license" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../index.html" class="btn btn-neutral float-left" title="Quantum Application Toolset" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="license.html" class="btn btn-neutral float-right" title="myQLM license" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../index.html" class="btn btn-neutral float-left" title="Quantum Application Toolset" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Atos 2016-2020
+        &#169; Copyright Atos 2016-2021.
 
     </p>
   </div> 
 
 </footer>
-
         </div>
       </div>
 
@@ -357,7 +376,6 @@ quantum environment can be cherry-picked using the pip command:</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

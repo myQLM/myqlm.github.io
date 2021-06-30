@@ -1,49 +1,55 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Arithmetic routines &mdash; myQLM documentation  documentation</title>
   
 
   
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="static/contentui.css" type="text/css" />
+
+  
   
     <link rel="shortcut icon" href="static/favicon.ico"/>
   
+
   
   
 
   
-  <script type="text/javascript" src="static/js/modernizr.min.js"></script>
+
+  
+  <!--[if lt IE 9]>
+    <script src="static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
         <script src="static/jquery.js"></script>
         <script src="static/underscore.js"></script>
         <script src="static/doctools.js"></script>
-        <script src="static/language_data.js"></script>
         <script src="static/contentui.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="static/js/require.min.js"></script>
+        <script async="async" src="static/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML,local/local"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "document", "processHtmlClass": "math|output_area"}}</script>
     
     <script type="text/javascript" src="static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="static/contentui.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="qat.devices: The device library" href="qat-devices.html" />
+    <link rel="next" title="State preparation and QRAM circuits" href="qat-lang-other.html" />
     <link rel="prev" title="qat.lang : Programming tools" href="qat-lang.html" /> 
 </head>
 
@@ -71,7 +77,7 @@
             
             
               <div class="version">
-                myQLM-1.2.2
+                myQLM-1.4.0
               </div>
             
           
@@ -88,6 +94,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -107,8 +114,8 @@
 </ul>
 <p class="caption"><span class="caption-text">Advanced usage</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Main objects: Jobs, Observables, Circuits…</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Architecture and data structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="source_doc.html">Source code documentation</a><ul class="current">
@@ -123,6 +130,7 @@
 <li class="toctree-l4"><a class="reference internal" href="qat-lang.html#module-qat.lang.AQASM.util">Utilities</a></li>
 <li class="toctree-l4"><a class="reference internal" href="qat-lang.html#module-qat.lang.AQASM.misc">Gate set management and generation</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="qat-lang.html#quantum-libraries">Quantum libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qat-lang.html#linker-and-low-level-circuit-manipulation">Linker and low level circuit manipulation</a></li>
 </ul>
 </li>
 </ul>
@@ -135,18 +143,20 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
-<li class="toctree-l1"><a class="reference internal" href="commands.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Command-line tools</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Additional information</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/notebooks.html">Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/contrib.html">Contributing to myQLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/release-note.html">Release notes</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -181,11 +191,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="source_doc.html">Source code documentation</a> &raquo;</li>
         
@@ -196,7 +208,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -278,8 +290,8 @@ arithmetical operations.
 The adder and the multiplication are inspired of arXiv:1411.5949.</p>
 </div>
 <dl class="py function">
-<dt id="qat.lang.AQASM.qftarith.QFT">
-<code class="sig-prename descclassname">qat.lang.AQASM.qftarith.</code><code class="sig-name descname">QFT</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reg_size</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qftarith.QFT" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="qat.lang.AQASM.qftarith.QFT">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qftarith.</span></span><span class="sig-name descname"><span class="pre">QFT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qftarith.QFT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds a circuit performing a full Quantum Fourier
 Transform on a given number of qbits.</p>
 <p>Let us consider the input state</p>
@@ -297,11 +309,11 @@ on the left). The QFT routine transforms this state to the state</p>
 |b_{n-1}^{(x)},\dots,b_{0}^{(x)}\rangle\)</span>. The input and output
 amplitudes are related by the expression:</p>
 <div class="math notranslate nohighlight">
-\[\tilde{a}_{x}=\frac{1}{\sqrt{2^{n}}}\sum_{k=0}^{2^{n}}
+\[\tilde{a}_{x}=\frac{1}{\sqrt{2^{n}}}\sum_{k=0}^{2^{n}-1}
 \left(e^{\frac{2i\pi}{2^{n}}}\right)^{xk}a_{k}\]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>reg_size</strong> – the number of qbits to apply the QFT on</p>
+<dd class="field-odd"><p><strong>reg_size</strong> (<em>int</em>) – the number of qbits to apply the QFT on</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><a class="reference internal" href="qat-lang.html#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a></p>
@@ -310,8 +322,8 @@ amplitudes are related by the expression:</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="qat.lang.AQASM.qftarith.add">
-<code class="sig-prename descclassname">qat.lang.AQASM.qftarith.</code><code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reg_size</span></em>, <em class="sig-param"><span class="n">reg_size_2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qftarith.add" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="qat.lang.AQASM.qftarith.add">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qftarith.</span></span><span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_size_2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qftarith.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds a circuit performing an addition using two qbits registers.
 The addition is done ‘in place’.
 Only the content of the first register is changed:</p>
@@ -322,16 +334,16 @@ where n is the size of the register holding the result.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>reg_size</strong> – the number of qbits on which to perform the addition</p></li>
-<li><p><strong>reg_size_2</strong> – the number of qbits holding the value of the number to add</p></li>
+<li><p><strong>reg_size</strong> (<em>int</em>) – the number of qbits on which to perform the addition</p></li>
+<li><p><strong>reg_size_2</strong> (<em>int</em>) – the number of qbits holding the value of the number to add</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt id="qat.lang.AQASM.qftarith.add_const">
-<code class="sig-prename descclassname">qat.lang.AQASM.qftarith.</code><code class="sig-name descname">add_const</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reg_size</span></em>, <em class="sig-param"><span class="n">constant</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qftarith.add_const" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="qat.lang.AQASM.qftarith.add_const">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qftarith.</span></span><span class="sig-name descname"><span class="pre">add_const</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qftarith.add_const" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds a circuit performing an addition by a constant:</p>
 <div class="math notranslate nohighlight">
 \[|a\rangle \mapsto |a + C\rangle\]</div>
@@ -348,8 +360,8 @@ where n is the size of the register holding the result.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="qat.lang.AQASM.qftarith.mult">
-<code class="sig-prename descclassname">qat.lang.AQASM.qftarith.</code><code class="sig-name descname">mult</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reg_size</span></em>, <em class="sig-param"><span class="n">reg_size_2</span></em>, <em class="sig-param"><span class="n">res_reg_size</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qftarith.mult" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="qat.lang.AQASM.qftarith.mult">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qftarith.</span></span><span class="sig-name descname"><span class="pre">mult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_size_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_reg_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qftarith.mult" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds a circuit performing a multiplication using
 two qbits registers and storing the result in a third. .
 Only the content of the third register is changed:</p>
@@ -361,17 +373,17 @@ where n is the size of the register holding the result.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>reg_size</strong> – the number of qbits of the first register</p></li>
-<li><p><strong>reg_size_2</strong> – the number of qbits holding the value of the number to multiply (</p></li>
-<li><p><strong>res_reg_size</strong> – the number of qbits holding the final result</p></li>
+<li><p><strong>reg_size</strong> (<em>int</em>) – the number of qbits of the first register</p></li>
+<li><p><strong>reg_size_2</strong> (<em>int</em>) – the number of qbits holding the value of the number to multiply</p></li>
+<li><p><strong>res_reg_size</strong> (<em>int</em>) – the number of qbits holding the final result</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt id="qat.lang.AQASM.qftarith.mult_const">
-<code class="sig-prename descclassname">qat.lang.AQASM.qftarith.</code><code class="sig-name descname">mult_const</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reg_size</span></em>, <em class="sig-param"><span class="n">reg_size_2</span></em>, <em class="sig-param"><span class="n">constant</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qftarith.mult_const" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="qat.lang.AQASM.qftarith.mult_const">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qftarith.</span></span><span class="sig-name descname"><span class="pre">mult_const</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_size_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qftarith.mult_const" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds a circuit performing a multiplication by a constant c.
 Only the content of the second register is changed:</p>
 <div class="math notranslate nohighlight">
@@ -382,9 +394,9 @@ where n is the size of the register holding the result.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>reg_size</strong> – the number of qbits of the first register</p></li>
-<li><p><strong>reg_size_2</strong> – the number of qbits holding the final result (second register)</p></li>
-<li><p><strong>constant</strong> – the constant number to multiply</p></li>
+<li><p><strong>reg_size</strong> (<em>int</em>) – the number of qbits of the first register</p></li>
+<li><p><strong>reg_size_2</strong> (<em>int</em>) – the number of qbits holding the final result (second register)</p></li>
+<li><p><strong>constant</strong> (<em>int</em>) – the constant number to multiply</p></li>
 </ul>
 </dd>
 </dl>
@@ -398,8 +410,8 @@ where n is the size of the register holding the result.</p>
 <a class="reference external" href="https://arxiv.org/pdf/quant-ph/0410184.pdf">arXiv:quant-ph/0410184</a> and
 <a class="reference external" href="https://arxiv.org/pdf/0910.2530.pdf">arXiv:0910.2530v1</a>.</p>
 <dl class="py function">
-<dt id="qat.lang.AQASM.classarith.cuccaro_add">
-<code class="sig-prename descclassname">qat.lang.AQASM.classarith.</code><code class="sig-name descname">cuccaro_add</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reg_size</span></em>, <em class="sig-param"><span class="n">reg_size_2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.classarith.cuccaro_add" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="qat.lang.AQASM.classarith.cuccaro_add">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.classarith.</span></span><span class="sig-name descname"><span class="pre">cuccaro_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_size_2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.classarith.cuccaro_add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implementation based on <a class="reference external" href="https://arxiv.org/pdf/quant-ph/0410184.pdf">arXiv:quant-ph/0410184</a>.
 Builds a circuit performing an addition using two qbits registers.
 The addition is done ‘in place’.
@@ -426,8 +438,8 @@ generation time, in the <a class="reference internal" href="qat-lang.html#qat.la
 </dd></dl>
 
 <dl class="py function">
-<dt id="qat.lang.AQASM.classarith.add">
-<code class="sig-prename descclassname">qat.lang.AQASM.classarith.</code><code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reg_size</span></em>, <em class="sig-param"><span class="n">reg_size_2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.classarith.add" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="qat.lang.AQASM.classarith.add">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.classarith.</span></span><span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_size_2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.classarith.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implementation based on <a class="reference external" href="https://arxiv.org/pdf/0910.2530.pdf">arXiv:0910.2530v1</a>.
 Builds a circuit performing an addition using two qbits registers.
 The addition is done ‘in place’.
@@ -458,8 +470,8 @@ the adder should linked individually.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="qat.lang.AQASM.classarith.add_const">
-<code class="sig-prename descclassname">qat.lang.AQASM.classarith.</code><code class="sig-name descname">add_const</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reg_size</span></em>, <em class="sig-param"><span class="n">constant</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.classarith.add_const" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="qat.lang.AQASM.classarith.add_const">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.classarith.</span></span><span class="sig-name descname"><span class="pre">add_const</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.classarith.add_const" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implementation based on <a class="reference external" href="https://arxiv.org/pdf/quant-ph/9511018.pdf">arXiv:quant-ph/9511018</a>.
 Builds a circuit performing an addition by a constant:</p>
 <div class="math notranslate nohighlight">
@@ -511,8 +523,8 @@ during the circuit extraction.</p>
 </div>
 </div>
 <dl class="py function">
-<dt id="qat.lang.AQASM.arithmetic.modular_exp">
-<code class="sig-prename descclassname">qat.lang.AQASM.arithmetic.</code><code class="sig-name descname">modular_exp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reg_size</span></em>, <em class="sig-param"><span class="n">acc_size</span></em>, <em class="sig-param"><span class="n">constant</span></em>, <em class="sig-param"><span class="n">modulus</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.arithmetic.modular_exp" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="qat.lang.AQASM.arithmetic.modular_exp">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.arithmetic.</span></span><span class="sig-name descname"><span class="pre">modular_exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modulus</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.arithmetic.modular_exp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> performing the following operation:</p>
 <div class="math notranslate nohighlight">
 \[|a\rangle |0 \rangle \mapsto |a\rangle | \textrm{base}^a
@@ -544,7 +556,7 @@ during the circuit extraction.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">statistics</span><span class="p">(</span><span class="n">circuit</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;nbqbits&#39;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;gates&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;custom gate&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">:</span> <span class="mi">3720</span><span class="p">,</span> <span class="s1">&#39;C-PH&#39;</span><span class="p">:</span> <span class="mi">8988</span><span class="p">,</span> <span class="s1">&#39;C-C-PH&#39;</span><span class="p">:</span> <span class="mi">1857</span><span class="p">,</span> <span class="s1">&#39;C-C-CNOT&#39;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span> <span class="s1">&#39;C-C-C-PH&#39;</span><span class="p">:</span> <span class="mi">1152</span><span class="p">,</span> <span class="s1">&#39;C-C-X&#39;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span> <span class="s1">&#39;C-SWAP&#39;</span><span class="p">:</span> <span class="mi">32</span><span class="p">},</span> <span class="s1">&#39;measure&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;reset&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;logic&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;break&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;remap&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;gate_size&#39;</span><span class="p">:</span> <span class="mi">16006</span><span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;nbqbits&#39;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;gates&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;custom gate&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">:</span> <span class="mi">3720</span><span class="p">,</span> <span class="s1">&#39;C-PH&#39;</span><span class="p">:</span> <span class="mi">8988</span><span class="p">,</span> <span class="s1">&#39;C-C-PH&#39;</span><span class="p">:</span> <span class="mi">1952</span><span class="p">,</span> <span class="s1">&#39;C-C-CNOT&#39;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span> <span class="s1">&#39;C-C-C-PH&#39;</span><span class="p">:</span> <span class="mi">1152</span><span class="p">,</span> <span class="s1">&#39;C-C-X&#39;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span> <span class="s1">&#39;C-SWAP&#39;</span><span class="p">:</span> <span class="mi">32</span><span class="p">},</span> <span class="s1">&#39;measurements&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;resets&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;logic&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;breaks&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;remaps&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;gate_size&#39;</span><span class="p">:</span> <span class="mi">16101</span><span class="p">}</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -582,8 +594,8 @@ inside this routine</strong></p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="qat.lang.AQASM.arithmetic.mult_const_mod">
-<code class="sig-prename descclassname">qat.lang.AQASM.arithmetic.</code><code class="sig-name descname">mult_const_mod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reg_size</span></em>, <em class="sig-param"><span class="n">acc_size</span></em>, <em class="sig-param"><span class="n">constant</span></em>, <em class="sig-param"><span class="n">modulus</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.arithmetic.mult_const_mod" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="qat.lang.AQASM.arithmetic.mult_const_mod">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.arithmetic.</span></span><span class="sig-name descname"><span class="pre">mult_const_mod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modulus</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.arithmetic.mult_const_mod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> performing the following operation:</p>
 <div class="math notranslate nohighlight">
 \[| a \rangle | b \rangle  \mapsto |a \rangle | b + a \times \textrm{constant}
@@ -613,8 +625,8 @@ inside this routine</strong></p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="qat.lang.AQASM.arithmetic.add_const_mod">
-<code class="sig-prename descclassname">qat.lang.AQASM.arithmetic.</code><code class="sig-name descname">add_const_mod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reg_size</span></em>, <em class="sig-param"><span class="n">constant</span></em>, <em class="sig-param"><span class="n">modulus</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.arithmetic.add_const_mod" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="qat.lang.AQASM.arithmetic.add_const_mod">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.arithmetic.</span></span><span class="sig-name descname"><span class="pre">add_const_mod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modulus</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.arithmetic.add_const_mod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> performing the following operation:</p>
 <div class="math notranslate nohighlight">
 \[|a\rangle \mapsto |a + \textrm{constant} \mod \textrm{modulus}\rangle\]</div>
@@ -647,8 +659,8 @@ with arguments (<cite>reg_size</cite>) and (<cite>reg_size</cite> + 1)</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="qat.lang.AQASM.arithmetic.mult_const">
-<code class="sig-prename descclassname">qat.lang.AQASM.arithmetic.</code><code class="sig-name descname">mult_const</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reg_size</span></em>, <em class="sig-param"><span class="n">acc_size</span></em>, <em class="sig-param"><span class="n">constant</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.arithmetic.mult_const" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="qat.lang.AQASM.arithmetic.mult_const">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.arithmetic.</span></span><span class="sig-name descname"><span class="pre">mult_const</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.arithmetic.mult_const" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> performing a multiplication between
 a register of size reg_size and a constant, accumulating the result
 in a register of size acc_size .
@@ -678,8 +690,8 @@ with arguments (<cite>acc_size</cite> )</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="qat.lang.AQASM.arithmetic.add_mod">
-<code class="sig-prename descclassname">qat.lang.AQASM.arithmetic.</code><code class="sig-name descname">add_mod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reg_size</span></em>, <em class="sig-param"><span class="n">modulus</span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.arithmetic.add_mod" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="qat.lang.AQASM.arithmetic.add_mod">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.arithmetic.</span></span><span class="sig-name descname"><span class="pre">add_mod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modulus</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.arithmetic.add_mod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds a circuit performing an addition between two numbers modulo a constant <cite>modulus</cite>.
 Only the first register is updated during the addition:</p>
 <div class="math notranslate nohighlight">
@@ -722,28 +734,21 @@ with arguments (<cite>reg_size`+ 1, `reg_size</cite> )</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="qat-devices.html" class="btn btn-neutral float-right" title="qat.devices: The device library" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="qat-lang.html" class="btn btn-neutral float-left" title="qat.lang : Programming tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="qat-lang-other.html" class="btn btn-neutral float-right" title="State preparation and QRAM circuits" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="qat-lang.html" class="btn btn-neutral float-left" title="qat.lang : Programming tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Atos 2016-2020
+        &#169; Copyright Atos 2016-2021.
 
     </p>
   </div> 
 
 </footer>
-
         </div>
       </div>
 
@@ -751,7 +756,6 @@ with arguments (<cite>reg_size`+ 1, `reg_size</cite> )</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

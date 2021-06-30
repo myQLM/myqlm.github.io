@@ -7,3 +7,72 @@
 .wy-menu > p > .caption-text {
     color: white;
 }
+
+
+/**
+ * Style of 'autonotebook' boxes
+ *
+ * The box is defined by the following pattern:
+ *
+ *     details.related-notebooks
+ *       summary
+ *       div
+ *         a
+ *           i
+ *           p
+ */
+
+details.related-notebooks {
+    display: block;
+    margin: 20px 0 20px 0;
+    padding: 5px;
+    border-radius: 2px;
+    color: white;
+    background: rgba(63, 128, 186, 0.75);
+}
+
+details.related-notebooks > div {
+    display: grid;
+    overflow: auto;
+}
+
+details.related-notebooks > div > a {
+    display: block;
+    margin: 10px 20px;
+    color: white;
+}
+
+details.related-notebooks > div > a:hover {
+    color: lightgray;
+}
+
+details.related-notebooks > div > a > p {
+    margin: 0;
+    font-size: 20px;
+    display: inline;
+}
+
+details.related-notebooks > div > a > i {
+    display: inline !important;
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+/* Notebook links present in the QLMaaS documentation */
+.qlmaas-link {
+    position: relative;
+}
+
+.qlmaas-link:hover::after {
+    content: "This QLMaaS documentation does not support notebooks for now.\AIt can however be opened from the QLM documentation if you have access to it.";
+    white-space: break-spaces;
+    display: block;
+    position: absolute;
+    box-shadow: 1px 1px 4px black;
+    background: bisque;
+    color: black;
+    padding: 10px;
+    border-left: 5px solid salmon;
+    box-shadow: 1px 1px 4px black;
+    z-index: 2;
+}

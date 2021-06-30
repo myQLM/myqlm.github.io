@@ -11,7 +11,7 @@ Many real life problems are combinatorial and solving them has actual practical 
 
     Once the problems are encoded, one can solve them by either a Quantum Approximate Optimization Algorithm (:ref:`QAOA  <qaoa_description>`) or Simulated Quantum Annealing (:ref:`SQA <sqa_description>`) as described in the :ref:`Solving combinatorial problems <solving_comb>` section.
     
-    Among the many different combinatorial problems, some of the most interesting and challenging ones are the NP-hard problems. A lot of effort has been put over the last 10-15 years into formulating such optimization problems as QUBO/Ising instances. See :cite:`lucas2014ising` for an extensive reference. A direct encoding of some of these problems, described in the :ref:`NP Hard problems <np_problems_formulation>` section, has also been :ref:`implemented <np_hard_problems_code>` on the QLM.
+    Among the many different combinatorial problems, some of the most interesting and challenging ones are the NP-hard problems. A lot of effort has been put over the last 10-15 years into formulating such optimization problems as QUBO/Ising instances. See :cite:`lucas2014ising` for an extensive reference. A direct encoding of some of these problems, described in the :ref:`NP-hard problems <np_problems_formulation>` section, has also been :ref:`implemented <np_hard_problems_code>` on the QLM, along with example :notebook:`(notebooks)[overview_combinatorial_optimization.ipynb]`.
 
 .. only:: myqlm
 
@@ -19,18 +19,29 @@ Many real life problems are combinatorial and solving them has actual practical 
     
     Once the problems are encoded, one could solve them using a Quantum Approximate Optimization Algorithm (:ref:`QAOA  <qaoa_description>`) or Simulated Annealing (:ref:`SA  <sa_description>`). There are also tools to solve the problems via Simulated Quantum Annealing (:ref:`SQA <sqa_description>`), but they come in the full QLM version.
 
-    Among the many different combinatorial problems, some of the most interesting and challenging ones are the NP-hard problems. A lot of effort has been put over the last 10-15 years into formulating such optimization problems as QUBO/Ising instances. See :cite:`lucas2014ising`  for an extensive reference. A direct encoding of some of these problems, described in the :ref:`NP Hard problems <np_problems_formulation>` section, has also been :ref:`implemented <np_hard_problems_code>` on myQLM.
+    Among the many different combinatorial problems, some of the most interesting and challenging ones are the NP-hard problems. A lot of effort has been put over the last 10-15 years into formulating such optimization problems as QUBO/Ising instances. See :cite:`lucas2014ising`  for an extensive reference. A direct encoding of some of these problems, described in the :ref:`NP-hard problems <np_problems_formulation>` section, has also been :ref:`implemented <np_hard_problems_code>` on myQLM, along with example :notebook:`(notebooks)[overview_combinatorial_optimization_myqlm.ipynb]`.
 
 .. _formulating_comb:
 
 Formulating combinatorial problems
 ----------------------------------
 
-This section presents definitions of Ising Hamiltonians and QUBO cost functions, along with our conventions regarding their precise formulation. Here is the outline:
+.. only:: qlm
+
+    This section presents definitions of Ising Hamiltonians and QUBO cost functions, along with our conventions regarding their precise formulation (see also an :notebook:`(introductory notebook)[introduction_combinatorial_optimization.ipynb]`). Here is the outline:
 
     1. `Ising Hamiltonians`_
     2. `Quadratic Unconstrained Binary Optimization (QUBO)`_
     3. `General combinatorial problems`_
+
+.. only:: myqlm
+
+    This section presents definitions of Ising Hamiltonians and QUBO cost functions, along with our conventions regarding their precise formulation (see also an :notebook:`(introductory notebook)[introduction_combinatorial_optimization_myqlm.ipynb]`). Here is the outline:
+
+    1. `Ising Hamiltonians`_
+    2. `Quadratic Unconstrained Binary Optimization (QUBO)`_
+    3. `General combinatorial problems`_
+
 
 .. _ising_description:
 
@@ -259,6 +270,7 @@ If you need a lower level interface, the :class:`qat.vsolve.ansatz.AnsatzFactory
         :width: 600px
         :align: center
 
+    A basic example of the use of SA - to solve the Antiferromagnetic Ising Model, is presented in the notebook :notebook:`(Getting started with SA)[getting_started_with_sa.ipynb]`. Some more involved examples where SA solves some of the :ref:`NP-hard problems <np_problems_formulation>` have also been implemented in the following :notebook:`(notebooks)[overview_combinatorial_optimization_myqlm.ipynb]`.
 
 .. _sqa_description:
 
@@ -272,7 +284,7 @@ Simulated Quantum Annealing (SQA)
                 The Simulated Quantum Annealing is not available in myQLM.
                 QUBO and Ising problems can still be used to construct QAOA
                 Ansätze using the `.qaoa_ansatz` method or solved via
-                Simulated Annealing.
+                :ref:`Simulated Annealing  <sa_description>`.
 
 Simulated quantum annealing provides a heuristic which aims to
 minimize **quantum Ising Hamiltonians**.
@@ -331,11 +343,11 @@ quantum annealing works.
 
 .. only:: qlm
 
-    This SQA algorithm is implemented via the method :meth:`qat.mc.sqa`. The quality of the solutions returned will depend on the parameters given to the algorithm (minimum and maximum `gamma` and temperature, number of Monte Carlo steps, etc). We provide a set of fine tuned parameters for common problem classes. The :meth:`~qat.mc.sqa` solver was tested on the :ref:`encoded NP-hard problems <np_problems_formulation>` with various benchmarks and the respective performances were recorded. Along with the problem size and annealing times, the results are presented in the :ref:`SQA Benchmarking and Performance <benchmarking>` section.
+    This SQA algorithm is implemented in the :class:`~qat.sqa.SQAQPU`. The quality of the solutions returned will depend on the parameters given to the algorithm (minimum and maximum `gamma` and temperature, number of Monte Carlo steps, etc). We provide a set of fine tuned parameters for common problem classes. The SQA solver was tested on the :ref:`encoded NP-hard problems <np_problems_formulation>` with various benchmarks and the respective performances were recorded. Along with the problem size and annealing times, the results are presented in the :ref:`SQA Benchmarking and Performance <benchmarking>` section.
 
 .. only:: myqlm
 
-    This SQA algorithm is implemented via the method ``qat.mc.sqa``. The quality of the solutions returned will depend on the parameters given to the algorithm (minimum and maximum `gamma` and temperature, number of Monte Carlo steps, etc). We provide a set of fine tuned parameters for common problem classes. The ``sqa`` solver was tested on the :ref:`encoded NP-hard problems <np_problems_formulation>` with various benchmarks and the respective performances were recorded. Along with the problem size and annealing times, the results are presented in the :ref:`SQA Benchmarking and Performance <benchmarking>` section.
+    This SQA algorithm is implemented in the ``qat.sqa.SQAQPU``. The quality of the solutions returned will depend on the parameters given to the algorithm (minimum and maximum `gamma` and temperature, number of Monte Carlo steps, etc). We provide a set of fine tuned parameters for common problem classes. The SQA solver was tested on the :ref:`encoded NP-hard problems <np_problems_formulation>` with various benchmarks and the respective performances were recorded. Along with the problem size and annealing times, the results are presented in the :ref:`SQA Benchmarking and Performance <benchmarking>` section.
 
 
 Bibliography

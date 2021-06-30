@@ -1,0 +1,34 @@
+Released June 30, 2021
+
+myQLM Power Access
+******************
+myQLM can be extended to access all QPUs and Plugins of a remote QLM, `the Quantum Learning Machine from Atos <https://atos.net/fr/solutions/quantum-learning-machine>`_ and let you benefit the power of the Appliance. If the feature is activated on your QLM, the submission of a job would look like:
+
+.. code-block:: python
+
+    from qlmaas.qpus import LinAlg
+    from qlmaas.plugins import Nnizer
+
+    remote_stack = Nnizer() | LinAlg()
+    async_result = remote_stack.submit(job)
+    result = async_result.join()
+
+New features
+************
+ - Support for Python 3.9 for Linux, Windows and macOS
+ - Added support for brew Python distribution on macOS
+ - Circuits can now be displayed in the stdout using their new :meth:`~qat.core.Circuit.display` method. They also have two new methods :meth:`~qat.core.Circuit.count` to count the number of occurrences of some gate and :meth:`~qat.core.Circuit.statistics` to gather some statistics about their number of gates.
+ - It is now possible to generate the partial derivatives - :meth:`~qat.core.Job.differentiate` and the gradient of a Job - :meth:`~qat.core.Job.gradient`. These methods return jobs collections whose energies can be summed in order to evaluate the derivatives/gradient. They rely on shift-rule or Hadamard tests (see their documentation).
+ - The partial derivative works also for multivariable ArithExpressions - :meth:`~qat.core.variables.ArithExpression.differentiate`. It can be applied to the usual arithmetic operations between functions, as well to functions to the power of other functions!
+ - Added a :meth:`~qat.core.Circuit.dag` method for circuit objects
+ - Added an implementation of :ref:`Kerenidis-PrakashQRAM/State preparation <state_pre_and_qram>` - :class:`~qat.lang.models.KPTree`.
+ - Updated documentation of :class:`~qat.comm.datamodel.ttypes.Op`
+ - Link the documentation to their corresponding notebooks when possible
+ - One can now create a job ready to run on the :class:`~qat.simulated_annealing.SimulatedAnnealing` QPU via the :meth:`~qat.opt.Ising.to_job()` method of the :class:`~qat.opt.Ising` and :class:`~qat.opt.QUBO` classes.
+ - Added arithmetic operations for :class:`~qat.opt.Ising` and :class:`~qat.opt.QUBO` problems - addition/substraction of an energy offset, J-coupling, magnetic field or even a whole Ising problem to another one. Multiplication and division by real numbers is also possible. Analogously for QUBO.
+ - The :class:`~qat.opt.Ising` class has been serialized and Ising problems can now also be dumped and loaded.
+
+Known problems
+**************
+ - Python 3.9 on macOS/brew distribution may not work (SIGSEGV)
+   Please use the distribution from `python.org <https://python.org>`_
