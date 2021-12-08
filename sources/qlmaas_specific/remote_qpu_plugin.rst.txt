@@ -1,0 +1,44 @@
+Remote QPUs and Plugins
+=======================
+
+Classes :class:`~qat.qlmaas.qpus.QLMaaSQPU` and :class:`~qat.qlmaas.plugins.QLMaaSPlugin`
+are used to manage QPUs and Plugins defined on the server side. The object could be piped
+using the syntax :code:`PLUGIN | ... | PLUGIN | QPU` to build a computation stack defined
+on the server side
+
+.. warning::
+
+    Please note that a stack can't be composed of both remote and local plugins / qpus
+
+.. _remote_qpu:
+
+Remote QPU
+----------
+
+Remote QPUs are managed by :class:`~qat.qlmaas.qpus.QLMaaSQPU` objects. These objects can be
+built using:
+
+ - :mod:`qlmaas.qpus` module if a configuration exists on your computer
+ - a :class:`~qat.qlmaas.QLMaaSConnection` object (when the connection is defined manually).
+   Please note that, even if there is no configuration file on your computer, instantiating
+   a :class:`~qat.qlmaas.QLMaaSConnection` object enables the :mod:`qlmaas.qpus` module
+
+.. autoclass:: qat.qlmaas.qpus.QLMaaSQPU
+    :members: submit
+
+.. _remote_plugin:
+
+Remote Plugin
+-------------
+
+Remote Plugins are managed by :class:`~qat.qlmaas.plugins.QLMaaSPlugin` objects. These objects can be
+built using:
+
+ - :mod:`qlmaas.plugins` module if a configuration exists on your computer
+ - a :class:`~qat.qlmaas.QLMaaSConnection` object (when the connection is defined manually).
+   Please note that, even if there is no configuration file on your computer, instantiating
+   a :class:`~qat.qlmaas.QLMaaSConnection` object enables the :mod:`qlmaas.plugins` module
+
+
+.. autoclass:: qat.qlmaas.plugins.QLMaaSPlugin
+    :members: compile

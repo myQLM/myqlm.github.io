@@ -1,0 +1,46 @@
+Getting started
+===============
+
+Simulating a quantum program may require an amount of computational resources that
+a laptop may not have. **QLMaaS** (for *QLM as a Service*) is a tool used to
+burst myQLM heavy computation on a remote QLM. **QLMaaS** allow to use any
+**Plugin** and **QPU** available on the remote **QLM** and a code running on the
+**QLM** can become **QLMaaS** compatible by changing only few lines of code.
+
+
+.. toggle-header::
+   :header: *Equivalent QLM code*
+
+    .. code-block:: python
+
+        from qat.qpus import LinAlg
+
+.. code-block:: python
+
+    from qat.qlmaas import QLMaaSConnection
+
+    connection = QLMaaSConnection(hostname="...", port=...)
+    LinAlg = connection.get_qpu("qat.qpus:LinAlg")
+
+
+The rest of the code works both on myQLM (with **QLMaaS**) and on the QLM:
+
+.. code-block:: python
+
+    from qat.lang.AQASM import Program, CNOT, H
+
+    prog = Program()
+    qbits = prog.qalloc(2)
+    prog.apply(H, qbits[0])
+    prog.apply(CNOT, qbits)
+    job = prog.to_circ().to_job()
+
+    qpu = LinAlg()
+    result = qpu.submit(job)
+
+On QLMaaS however, job submission is asynchronous. Waiting for the result to be available and obtaining it would
+therefore look like:
+
+.. code-block:: python
+
+   actual_result = result.join()

@@ -1,0 +1,52 @@
+QLMaaS prompt
+=============
+QLMaaS provides a command like tools to manage the job submitted on the server,
+get some informations on the QLM, update the credentials used to connect to
+QLMaaS...
+
+The prompt could be open in Python or by using a command line tool that will
+open the prompt
+
+
+Starting the prompt in a terminal
+---------------------------------
+The command :code:`qlmaas_prompt.py` can  be used to start a prompt directly from
+a terminal
+
+.. code-block:: bash
+
+    qlmaas_prompt.py
+
+This command will try to use the configuration file of QLMaaS to login on the
+server. Nevertheless, if no configuration file is defined or if you want to override
+somes item of your configuration file, you can use some of the following options:
+
+ - The **hostname** option (:code:`--hostname` or :code:`-n`): set the hostname of the QLMaaS
+   server
+ - The **port** option (:code:`--port` or :code:`-p`): set the port of the QLMaaS
+   server
+ - The **authentication** option (:code:`--authentication` or :code:`-a`): authentication
+   method (valid values: :code:`password` or :code:`ssl`)
+ - The **certificate** option (:code:`--certificate` or :code:`-c`): set the SSL
+   certificate used to login (only used for an SSL authentication)
+ - The **key** option (:code:`--key` or :code:`-k`): set the SSL key
+   used to login (only used for SSL authentication)
+ - The **check host** option (:code:`--check-host`): check the host certificate
+
+
+Starting the prompt in Python
+-----------------------------
+The method :func:`~qat.qlmaas.QLMaaSConnection.open_prompt` of
+:class:`~qat.qlmaas.QLMaaSConnection` open a prompt directly from Python:
+
+.. code-block:: python
+
+    from qat.qlmaas import QLMaaSConnection
+
+    conn = QLMaaSConnection()
+    conn.open_prompt()
+
+
+Prompt commands
+---------------
+.. automodule:: qat.qlmaas.prompt

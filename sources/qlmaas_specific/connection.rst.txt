@@ -1,0 +1,234 @@
+.. _qlmaas_connecting:
+
+Connecting to QLMaaS
+====================
+
+The class :class:`~qat.qlmaas.QLMaaSConnection` is used to connect to a remote QLM.
+This class requires some information to connect:
+
+ - the **IP address** of the remote server
+ - the **port** listened to by the server
+ - the **authentication method** used to authenticate the user. The authentication
+   could be based on a pair *username / password* or using a *SSL certificate*
+
+A number of parameters are used to configure this connection, they can be provided in two ways
+with the following order of priority:
+
+#. Passed as parameters to the constructor of :class:`~qat.qlmaas.QLMaaSConnection`.
+#. Set into a :ref:`configuration_file <configuration_file>` (recommended)
+
+
+.. _configuration_file:
+
+Configuring the connection
+--------------------------
+
+The configuration file of QLMaaS is located in the configuration folder of QLMaaS.
+By default, this configuration folder is **$HOME/.qlmaas** but this location can be
+overrided by using the environment variable **QLMAAS_DIR**.
+
+In this folder, the configuration file shoud be named **config.ini** and
+looks like:
+
+.. toggle-header::
+   :header: *Toggle to see an example of configuration*
+
+    .. code-block:: ini
+
+        [Server]
+        hostname=qlmaas.atos.net
+        port=443
+        check_host=True
+        authentication=password
+        timeout=1000
+
+        # Here this section is ignored since "authentication" is set to "password"
+        [SSL]
+        certificate=/path/to/ssl_cert.crt
+        key=/path/to/ssl_key.key
+
+
+.. code-block:: ini
+
+    [Server]
+    # URL of the server (str)
+    hostname = ...
+
+    # Port listen by the server (int)
+    port = ...
+
+    # Should the server certificate be checked (True or False)
+    check_host = ...
+
+    # Authentication method (if "ssl": authentication with SSL certificate, if "password":
+    # authentication with username / password)
+    authentication = ...
+
+    # Duration before timeout of the client connection (int, value in seconds)
+    timeout = ...
+
+    # This part is only used if "authentication" is set to "ssl"
+    [SSL]
+    # SSL certificate and key used to connect to the server (path x2)
+    certificate = ...
+    key = ...
+
+An easy way of creating a configuration file is by using :func:`~qat.qlmaas.QLMaaSConnection.create_config`.
+This method creates a squeleton configuration file *$HOME/.qlmaas/config.ini*, mostly filled in with the information
+from the instanciated :class:`~qat.qlmaas.QLMaaSConnection`.
+
+If a configuration file is set, myQLM will be able to automatically connect
+to the QLMaaS server.
+Having a configuration enables the :mod:`qlmaas` module. This module can be used
+to instanciate remote QPUs or Plugins without instancing any
+:class:`~qat.qlmaas.QLMaaSConnection` objects. Please refer to the documentation
+of the :mod:`qlmaas` module for more information.
+
+
+Authenticating to the server
+----------------------------
+QLMaaS supports 3 authentication methods to connect to a remote QLMaaS server:
+
+#. :ref:`By using a pair username/password <credentials>` (default method)
+#. :ref:`By using a known certificate <ssl_certificate>`
+#. :ref:`By using a trusted certificate <ssl_dn>`
+
+.. _credentials:
+
+Authenticating with username/password (default)
+...............................................
+Connecting with credentials (username and password) is available as soon as your account has been created.
+
+Parameters required for connecting with this authentication method:
+ - *authentication = password* (default value)
+
+.. toggle-header::
+   :header: *Saving credentials*
+
+    Typing the password for every connection could be painful.
+    To avoid typing the credentials every time, you can use either of two methods, the first
+    one having precedence over the second:
+
+    #. a **netrc file** containing the credentials used to connect to the QLMaaS
+       server
+    #. two **environment variables** containing the username and the password used to
+       connect to the QLMaaS server. These two environment variables are:
+
+        - *QLM_USER*: this environment variable contains the username
+        - *QLM_PASSWD*: this environment variable contains the password
+
+.. toggle-header::
+    :header: *Changing your password*
+
+    .. code-block:: python
+
+        from qat.qlmaas import QLMaaSConnection
+        connection = QLMaaSConnection(...)
+
+        # will trigger interactive inputs allowing to change one's password
+        connection.change_password()
+
+    Changing an account password can be done with the :func:`~qat.qlmaas.QLMaaSConnection.change_password` interactive
+    method, which does not take any argument, allowing for setting a new password when prompted.
+
+    This method requires for the user to have a way of connecting to the QLMaaS server in the first place.
+    If you forgot your password and do not have an alternative way to connect, please contact an admin.
+
+.. note::
+
+    This authentication method can be disabled by your administrator. Please ensure this authentication
+    method is enabled for your account before login with credentials.
+
+.. _ssl_certificate:
+
+Authenticating with a known certificate
+........................................
+
+A SSL certificate can be used by a user to login on a QLMaaS server, even if this certificate has not
+been signed by a Certificate Authority.
+For this method, the user certificate must be uploaded on the server.
+
+Parameters required for connecting with this authentication method:
+ - *authentication = ssl*
+ - *certificate = /path/to/ssl_cert.crt*
+ - *key = /path/to/ssl_key.key*
+
+.. toggle-header::
+    :header: *Uploading SSL certificate*
+
+    .. code-block:: python
+
+        from qat.qlmaas import QLMaaSConnection
+        connection = QLMaaSConnection(...)
+
+        connection.save_certificate("/path/to/certificate.cer")
+
+    The :func:`~qat.qlmaas.QLMaaSConnection.save_certificate` method can be used to save an SSL certificate into your
+    account (requires to login with credentials beforehand) if this hasn't already been done by your administrator.
+    If another certificate is already saved for this account, it will be overrided by the new one.
+
+.. note::
+
+    This authentication method can be disabled by your administrator. Please ensure this authentication
+    method is enabled for your account before using this authentication method.
+
+.. _ssl_dn:
+
+Authenticating with a trusted certificate
+.........................................
+
+This authentication method requires you to possess a certificate trusted by the QLMaaS server.
+For this method, your certificate must have its SSL DN (Distinguished name) saved into your account.
+
+Parameters required for connecting with this authentication method:
+ - *authentication = ssl*
+ - *certificate = /path/to/ssl_cert.crt*
+ - *key = /path/to/ssl_key.key*
+
+.. toggle-header::
+    :header: *Uploading your DN*
+
+    .. code-block:: python
+
+       from qat.qlmaas import QLMaaSConnection
+       connection = QLMaaSConnection()
+
+       # save the DN of the provided certificate
+       connection.save_ssl_dn(certificate="/path/to/certificate.cer")
+
+       # change the DN value directly
+       connection.save_ssl_dn(dn="my DN text")
+
+    The :func:`~qat.qlmaas.QLMaaSConnection.save_ssl_dn` method allows you to save an SSL DN into your QLMaaS account,
+    if this hasn't already been done by your administrator.
+    If another SSL DN is already saved for this account, it will be overrided by the new one.
+
+    This method can take one of two keywords arguments:
+     - **dn**: used for providing the DN directly
+     - **certificate**: path to a certificate, which DN will be used
+    It is recommended to use the *certificate* keyword, since this will make sure that the DN uses the correct name convention.
+
+.. note::
+
+    This authentication method can be disabled by your administrator. Please ensure this authentication
+    method is enabled for your account before using this authentication method.
+
+.. _qlmaasconnection:
+
+Connecting to the QLMaaS server
+-------------------------------
+The class :class:`~qat.qlmaas.QLMaaSConnection` is used to connect, get information and submit requests to a QLMaaS
+server.
+
+.. code-block:: python
+
+   from qat.qlmaas import QLMaaSConnection
+
+   # if using a configuration file
+   connection = QLMaaSConnection()
+
+   # if not, provide the necessary arguments
+   connection = QLMaaSConnection(hostname="...", port=...)
+
+.. autoclass:: qat.qlmaas.QLMaaSConnection
+   :members: get_qpus, get_qpu, get_plugins, get_plugin, open_prompt, get_job, get_job_infos, create_config, change_password, save_certificate, save_ssl_dn

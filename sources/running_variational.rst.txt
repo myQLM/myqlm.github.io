@@ -143,7 +143,7 @@ ___________________________________
 
 The simplest way to run a variational algorithm is to use a dedicated Plugin that will take care of the energy minimization.
 
-The default variational Plugin wraps the `scipy.optimize.minimize` function: :class:`qat.plugins.ScipyMinimizePlugin`
+The default variational Plugin wraps the `scipy.optimize.minimize` function: :class:`qat.plugins.ScipyMinimizePlugin`. 
 
 .. run-block:: python
 
@@ -183,7 +183,7 @@ The default variational Plugin wraps the `scipy.optimize.minimize` function: :cl
 
 
 
-This plugin also supports a nice feature: it can read optimization parameters directly from the job's meta data. This allows you to build a stack with no particular choice of optimization parameters and attach these parameters directly to the job when submitting it. In this setting, the previous example becomes:
+This plugin also supports a nice feature: it can read optimization parameters directly from the job's meta data or directly from the result. This allows you to build a stack with no particular choice of optimization parameters and attach these parameters directly to the job when submitting it. In this setting, the previous example becomes:
 
 
 .. run-block:: python
@@ -226,6 +226,20 @@ This plugin also supports a nice feature: it can read optimization parameters di
 
     print('final energy:', result.value)
     print('best parameters:', result.meta_data['parameters'])
+    print('best parameters (dictionary):', result.parameter_map)
     print('trace:', result.meta_data['optimization_trace'])
 
+An alternative is the :class:`qat.plugins.sequential_optimization` Plugin, which only works for a certain class of circuits but stands out for its shot-noise resilience.
 
+Differentiating jobs
+_____________________
+
+Many variational algorithms require computing the gradient of the cost function :math:`E(\vec{\theta}) = \langle \psi(\vec{\theta}) | H | \psi(\vec{\theta})\rangle`.
+The gradient can be used in gradient-based optimization methods.
+QLM jobs come with methods to compute the derivative of :math:`E(\vec{\theta})` automically: :func:`~qat.core.Job.differentiate` and :func:`~qat.core.Job.gradient`.
+
+Examples of use of this feature are given in :notebook:`(this notebook)[differentiating_jobs.ipynb]`.
+
+Testing for several initializations of the parameters
+______________________________________________________
+Variational optimization tends to be sensitive to the initial parameters it started from. You can insert the :class:`qat.plugins.multiple_launches_analyzer` Plugin before a VQE optimizer to automatically perform several VQE runs and keep the lowest-energy result. This is illustrated in the notebook :notebook:`(Making several VQE runs and keeping the best result with the MultipleLaunchesAnalyzer plugin)[multiple_launches_analyzer_plugin.ipynb]`.
