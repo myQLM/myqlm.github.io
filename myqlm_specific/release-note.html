@@ -35,7 +35,7 @@
             <img src="../static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1
+                myQLM-1.5.1.454
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -74,9 +74,15 @@
 <li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contrib.html">Contributing to myQLM</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-5-1">What’s new in myQLM 1.5.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#new-features">New features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#updated-features">Updated features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fixes">Fixes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-4-0">What’s new in myQLM 1.4.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#myqlm-power-access">myQLM Power Access</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#new-features">New features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">New features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#known-problems">Known problems</a></li>
 </ul>
 </li>
@@ -133,6 +139,40 @@
 </style>
 <section id="release-notes">
 <h1>Release notes<a class="headerlink" href="#release-notes" title="Permalink to this headline"></a></h1>
+<section id="what-s-new-in-myqlm-1-5-1">
+<h2>What’s new in myQLM 1.5.1<a class="headerlink" href="#what-s-new-in-myqlm-1-5-1" title="Permalink to this headline"></a></h2>
+<p>Released December 6, 2021</p>
+<section id="new-features">
+<h3>New features<a class="headerlink" href="#new-features" title="Permalink to this headline"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="qat-pylinalg.html#qat.pylinalg.PyLinalg" title="qat.pylinalg.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> now supports efficient implementation of controlled gates. It now supports simulation of circuits generated with the <code class="code docutils literal notranslate"><span class="pre">submatrices_only</span></code> keyword argument set to <code class="code docutils literal notranslate"><span class="pre">True</span></code> (<code class="code docutils literal notranslate"><span class="pre">prog.to_circ(submatrices_only=True)</span></code>)</p></li>
+<li><p><a class="reference internal" href="../qat-core.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a> objects now have an attribute <code class="code docutils literal notranslate"><span class="pre">processing_types</span></code> used to define the type of supported measurement (e.g., Observable or Sample). QuameleonPlugin has been updated to check this new attribute</p></li>
+<li><p>Added a device ‘ZUCHONGZHI’ describing the Chinese quantum chip of the same name</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="updated-features">
+<h3>Updated features<a class="headerlink" href="#updated-features" title="Permalink to this headline"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="qat-pylinalg.html#qat.pylinalg.PyLinalg" title="qat.pylinalg.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> should now throw a cleaner exception (<a class="reference internal" href="../introduction.html#qat.comm.exceptions.ttypes.QPUException" title="qat.comm.exceptions.ttypes.QPUException"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUException</span></code></a>) when failing to retrieve the matrix of a gate</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">get_variables</span></code> methods of myQLM objects will now return a sorted list instead of a set</p></li>
+<li><p><a class="reference internal" href="../qat-core.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a> returned by a <a class="reference internal" href="../qat-core.html#qat.plugins.Junction" title="qat.plugins.Junction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Junction</span></code></a> has the same meta_data as the input <a class="reference internal" href="../qat-core.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="fixes">
+<h3>Fixes<a class="headerlink" href="#fixes" title="Permalink to this headline"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>Fix <a class="reference internal" href="../qat-core.html#qat.plugins.Junction" title="qat.plugins.Junction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Junction</span></code></a> plugins when a Batch object having no meta data is submitted</p></li>
+<li><p>Fix <code class="code docutils literal notranslate"><span class="pre">len(Result)</span></code> when the result is stored as a map</p></li>
+<li><p>An exception is now raised when trying to differentiate non-observable job</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
 <section id="what-s-new-in-myqlm-1-4-0">
 <h2>What’s new in myQLM 1.4.0<a class="headerlink" href="#what-s-new-in-myqlm-1-4-0" title="Permalink to this headline"></a></h2>
 <p>Released June 30, 2021</p>
@@ -148,8 +188,8 @@
 </pre></div>
 </div>
 </section>
-<section id="new-features">
-<h3>New features<a class="headerlink" href="#new-features" title="Permalink to this headline"></a></h3>
+<section id="id1">
+<h3>New features<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p>Support for Python 3.9 for Linux, Windows and macOS</p></li>
