@@ -55,20 +55,17 @@ Processing types for jobs are defined via an enum class:
 
 Observables
 ------------
-Observables are objects implementing the concept of a quantum mechanical observable :math:`\hat{O}`. They can be written in qubit (Pauli matrices) representation as well as others (fermions, bosons).
 
 .. module:: qat.core.wrappers.observable
 
 .. autoclass:: qat.core.Observable
-
-Check :notebook:`(this notebook)[observables.ipynb]` for an example of use and manipulation of observables.
 
 .. autoclass:: qat.core.Term
 
 Results
 -------
 
-A result is composed of several samples or, if an observable is measured,
+A result is composed of several samples or, is an observable is measured,
 of a scalar. The result data structure is :class:`~qat.core.Result`
 
 .. autoclass:: qat.core.Result
@@ -89,7 +86,7 @@ Circuits
 --------
 
 Here is the basic interface of the circuit class.
-For more information on the various attributes of the circuit object, please refer to :ref:`circuit_full_description`.
+For more information on the various attributes the circuit object, please refer to :ref:`circuit_full_description`.
 For instance, one can easily concatenate two :class:`~qat.core.Circuit` objects (as long as they have the same number of qubits):
 
 .. code-block:: python
@@ -133,7 +130,7 @@ Among the other useful methods, we can find:
 Displaying circuits
 ----------------------
 
-Circuits could be displayed in a notebook or inside
+Circuits could be displayed is a notebook or inside
 a terminal. To display a circuit in a terminal, you
 can use the function :func:`qat.core.console.display`
 
@@ -172,7 +169,7 @@ Hardware specifications are described by a the class
 
 .. autoclass:: qat.core.TopologyType
 
-    This class is an enumeration describing the type of a
+    This class is a enumeration describing the type of a
     :class:`~qat.core.Topology`. Currently, there are
     three types of topologies:
 
@@ -235,7 +232,7 @@ These classes are core classes hidden behind :class:`qat.lang.AQASM.gates.Abstra
 Variables and expressions
 ----------------------------
 
-When defining a variational circuit, pyAQASM provides its own way to declare variables (via the :meth:`qat.lang.AQASM.Program.new_var` method).
+When defining variational circuit, pyAQASM provides its own way to declare variables (via the :meth:`qat.lang.AQASM.Program.new_var` method).
 However, it is possible to turn most parts of a Job into a parametrized quantity using :class:`qat.core.Variable` objects. 
 
 .. autoclass:: qat.core.Variable
@@ -246,7 +243,7 @@ However, it is possible to turn most parts of a Job into a parametrized quantity
     :members:
 
 
-It is possible to extend the set of symbols supported by this abstract expression mechanics by extending the
+It is possible to extend the set of symbols supported by this abstract expression mecanics by extending the
 list of a symbols with a new :class:`qat.core.variables.Symbol`. The only constraint is that the new symbols should have a fixed arity that is known in advance. 
 
 .. autoclass:: qat.core.variables.Symbol

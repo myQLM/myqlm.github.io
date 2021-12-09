@@ -70,58 +70,6 @@ The :class:`qat.vsolve.ansatz.AnsatzFactory` provides a recipe to produce such a
 .. autoclass:: qat.vsolve.ansatz.AnsatzFactory
     :members: qaoa_circuit
 
-
-Generating QA jobs
--------------------
-
-It is possible to turn :class:`qat.opt.CombinatorialProblem`/:class:`qat.opt.QUBO`/:class:`qat.opt.Ising` into Quantum Annealing jobs thanks to the :class:`~qat.opt.schedule_generator.ScheduleGenerator` interface:
-
-.. autoclass:: qat.opt.schedule_generator.ScheduleGenerator
-   :members: annealing_job
-
-
-Mixing Hamiltonians can be generated through the :class:`qat.opt.MixingFactory`:
-
-.. autoclass:: qat.opt.MixingFactory
-   :members:
-
-
-You can also define you own mixing by creating a class that implements the following (very straightforward) interface:
-
-.. autoclass:: qat.opt.mixing_factory.InitialStateBuilder
-   :members:
-
-
-This interface is used by the following specializations:
-
-.. autoclass:: qat.opt.mixing_factory.SimpleInitialState
-   :members:
-
-.. autoclass:: qat.opt.mixing_factory.IndependentAnnealing
-   :members:
-
-
-.. _np_hard_problems_code:
-
-Encoding NP-hard Problems
----------------------------
-
-.. only:: qlm
-
-    We present here classes for encoding some of the famous NP problems. An instrinsic feature of these problems is that they can be formulated as minimization or maximization problems, i.e. with a cost function. At the same time finding the lowest energy of a physical system, represented by a cost Hamiltonian, is also a minimization problem. Therefore, we can represent the cost function of an NP problem by a cost Hamiltonian. Such a Hamiltonian, given in an Ising form can then be annealed using Simulated Quantum Annealing (SQA). The QLM is equipped with the :class:`~qat.sqa.SQAQPU` for performing SQA, hence allowing one to solve the NP problems in this way.
-
-.. only:: myqlm
-
-    We present here classes for encoding some of the famous NP problems. An instrinsic feature of these problems is that they can be formulated as minimization or maximization problems, i.e. with a cost function. At the same time finding the lowest energy of a physical system, represented by a cost Hamiltonian, is also a minimization problem. Therefore, we can represent the cost function of an NP problem by a cost Hamiltonian. Such a Hamiltonian, given in an Ising form can then be annealed using Simulated Annealing (SA).
-
-
-Furthermore, problems formulated as Quadratic Unconstrained Binary Optimisation (QUBO), can also be annealed, since we can translate them to Ising via our :func:`~qat.opt.QUBO.to_ising` method.
-
-.. only:: myqlm
-
-        .. note::
-
-
 .. _np_hard_problems_code:
 
 Encoding NP-hard Problems
