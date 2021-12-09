@@ -1,86 +1,43 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Installing myQLM &mdash; myQLM documentation  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../static/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../static/contentui.css" type="text/css" />
-
-  
-  
+      <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../static/contentui.css" type="text/css" />
     <link rel="shortcut icon" href="../static/favicon.ico"/>
-  
-
-  
-  
-
-  
-
-  
   <!--[if lt IE 9]>
     <script src="../static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../static/documentation_options.js"></script>
         <script src="../static/jquery.js"></script>
         <script src="../static/underscore.js"></script>
         <script src="../static/doctools.js"></script>
         <script src="../static/contentui.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="static/js/require.min.js"></script>
-    
-    <script type="text/javascript" src="../static/js/theme.js"></script>
-
-    
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="myQLM license" href="license.html" />
     <link rel="prev" title="Quantum Application Toolset" href="../index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> myQLM documentation
-          
-
-          
-            
             <img src="../static/myqlm.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                myQLM-1.4.0
+                myQLM-1.5.1
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -88,23 +45,13 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Basic usage</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Basic usage</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installing myQLM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="license.html">myQLM license</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#compatibility-matrix">Compatibility Matrix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#compatibility-matrix">Compatibility Matrix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#install-jupyter">Install Jupyter</a></li>
 </ul>
 </li>
@@ -116,7 +63,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#for-qiskit">For Qiskit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#for-projectq">For ProjectQ</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#for-cirq">For Cirq</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#for-pyquil">For PyQuil</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#for-pyquil-deprecated-for-python-3-6">For PyQuil (deprecated for python 3.6)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#for-all-of-them">For all of them</a></li>
 </ul>
 </li>
@@ -131,17 +78,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability with myQLM</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Advanced usage</span></p>
+<p class="caption" role="heading"><span class="caption-text">Advanced usage</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Main objects: Jobs, Observables, Circuits…</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../source_doc.html">Source code documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../commands.html">Command-line tools</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Additional information</span></p>
+<p class="caption" role="heading"><span class="caption-text">Source code documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source_doc.html">Source code documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional information</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
@@ -149,69 +99,29 @@
 <li class="toctree-l1"><a class="reference internal" href="release-note.html">Release notes</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">myQLM documentation</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Installing myQLM</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   
 <style>
 /* CSS overrides for sphinx_rtd_theme */
@@ -236,8 +146,8 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="installing-myqlm">
-<h1>Installing myQLM<a class="headerlink" href="#installing-myqlm" title="Permalink to this headline">¶</a></h1>
+<section id="installing-myqlm">
+<h1>Installing myQLM<a class="headerlink" href="#installing-myqlm" title="Permalink to this headline"></a></h1>
 <div class="toctree-wrapper compound">
 </div>
 <p>Please read the <a class="reference internal" href="license.html#license"><span class="std std-ref">Atos myQLM End-User Licence Agreement (Atos myQLM EULA)</span></a>
@@ -248,50 +158,62 @@ and conditions of this agreement. This agreement is between you and
 you are agreeing to be bound by the terms of <a class="reference internal" href="license.html#license"><span class="std std-ref">this license</span></a>. If you do
 not agree with the terms, do not download, install, copy or otherwise use myQLM.
 If you have downloaded or installed myQLM and do not agree to the terms, promptly delete myQLM.</p>
-<div class="section" id="compatibility-matrix">
-<h2>Compatibility Matrix<a class="headerlink" href="#compatibility-matrix" title="Permalink to this headline">¶</a></h2>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h2>
+<p>myQLM is installed using the <em>Package Installer for Python</em> (or pip). Please ensure pip command
+is installed on your machine (if not, you can <a class="reference external" href="https://pip.pypa.io/en/stable/installing/">download pip here</a>)
+and that myQLM is installable on your computer (by looking at the compatibility matrix below)</p>
+<section id="compatibility-matrix">
+<h3>Compatibility Matrix<a class="headerlink" href="#compatibility-matrix" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 43%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
+<col style="width: 39%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p>OS <code class="docutils literal notranslate"><span class="pre">\</span></code> Python*</p></td>
-<td><p>3.6</p></td>
-<td><p>3.7</p></td>
-<td><p>3.8</p></td>
-<td><p>3.9</p></td>
+<tr class="row-odd"><td><p><strong>OS \ Python</strong> <a class="footnote-reference brackets" href="#id3" id="id1">1</a></p></td>
+<td><p><strong>3.6</strong></p></td>
+<td><p><strong>3.7</strong></p></td>
+<td><p><strong>3.8</strong></p></td>
+<td><p><strong>3.9</strong></p></td>
 </tr>
-<tr class="row-even"><td><p>Linux</p></td>
-<td><p>x</p></td>
+<tr class="row-even"><td><p><strong>Linux</strong></p></td>
+<td><p>✓</p></td>
 <td></td>
 <td></td>
-<td><p>x</p></td>
+<td><p>✓</p></td>
 </tr>
-<tr class="row-odd"><td><p>Windows</p></td>
-<td><p>x</p></td>
-<td><p>x</p></td>
-<td><p>x</p></td>
-<td><p>x</p></td>
+<tr class="row-odd"><td><p><strong>Windows</strong></p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
 </tr>
-<tr class="row-even"><td><p>macOS**</p></td>
-<td><p>x</p></td>
-<td><p>x</p></td>
-<td><p>x</p></td>
-<td><p>x</p></td>
+<tr class="row-even"><td><p><strong>macOS</strong> <a class="footnote-reference brackets" href="#id4" id="id2">2</a></p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
 </tr>
 </tbody>
 </table>
-<p>* 64-bit versions only</p>
-<p>** Only python.org and brew python distributions are supported</p>
-<div class="section" id="install-jupyter">
-<h3>Install Jupyter<a class="headerlink" href="#install-jupyter" title="Permalink to this headline">¶</a></h3>
-<p>myQLM is installed using the <em>Package Installer for Python</em> (or pip). If the pip
-command is not installed on your machine, you can
-<a class="reference external" href="https://pip.pypa.io/en/stable/installing/">download pip here</a>.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>64-bit versions only</p>
+</dd>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Only <a class="reference external" href="https://www.python.org/downloads/macos/">python.org</a> and brew python distributions are supported
+Using python brew distribution while the same version(*) installed from python.org will cause a segmentation fault.
+In this situation, please use the one from python.org or uninstall it before using the one from brew.
+(*) version being major.minor - e.g. 3.8</p>
+</dd>
+</dl>
+</section>
+<section id="install-jupyter">
+<h3>Install Jupyter<a class="headerlink" href="#install-jupyter" title="Permalink to this headline"></a></h3>
 <p>myQLM comes with interactive tutorials (or notebooks). These tutorials require
 Jupyter. In order to install Jupyter, please type the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">jupyter</span>
@@ -299,34 +221,34 @@ Jupyter. In order to install Jupyter, please type the following command:</p>
 </div>
 <p>Moreover, if you want to display myQLM quantum circuits inside Jupyter notebooks, please
 install <a class="reference external" href="http://docs.wand-py.org/en/0.6.6/guide/install.html">ImageMagick for wand.</a></p>
-</div>
-</div>
-<div class="section" id="install">
-<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="install-myqlm-wheels">
-<h3>Install myQLM wheels<a class="headerlink" href="#install-myqlm-wheels" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="install">
+<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline"></a></h2>
+<section id="install-myqlm-wheels">
+<h3>Install myQLM wheels<a class="headerlink" href="#install-myqlm-wheels" title="Permalink to this headline"></a></h3>
 <p>Please install myQLM by typing the following command in a Windows, MacOS or Linux prompt:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">myqlm</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="install-myqlm-magics">
-<span id="install-magics"></span><h3>Install myQLM magics<a class="headerlink" href="#install-myqlm-magics" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="install-myqlm-magics">
+<span id="install-magics"></span><h3>Install myQLM magics<a class="headerlink" href="#install-myqlm-magics" title="Permalink to this headline"></a></h3>
 <p>myQLM provides tools to display quantum circuits inside Jupyter notebooks. These
 magics can be installed using the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">qat</span><span class="o">.</span><span class="n">magics</span><span class="o">.</span><span class="n">install</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="download-jupyter-notebooks">
-<h3>Download Jupyter notebooks<a class="headerlink" href="#download-jupyter-notebooks" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="download-jupyter-notebooks">
+<h3>Download Jupyter notebooks<a class="headerlink" href="#download-jupyter-notebooks" title="Permalink to this headline"></a></h3>
 <p>myQLM comes with interactive tutorials you can open with Jupyter Notebook. Please
 download <a class="reference internal" href="notebooks.html#myqlm-notebooks"><span class="std std-ref">myQLM notebooks here</span></a>
 and start the notebook <code class="code docutils literal notranslate"><span class="pre">overview.ipynb</span></code>, this notebook contains a table of
 content of all our tutorials.</p>
-</div>
-<div class="section" id="interoperability">
-<span id="install-interop"></span><h3>Interoperability<a class="headerlink" href="#interoperability" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="interoperability">
+<span id="install-interop"></span><h3>Interoperability<a class="headerlink" href="#interoperability" title="Permalink to this headline"></a></h3>
 <p>This package enables access to other quantum programming environments such as
 Qiskit, projectQ, pyQuil, Cirq …
 This package will not automatically install dependency packages because someone who
@@ -335,78 +257,66 @@ quantum environment can be cherry-picked using the pip command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">myqlm</span><span class="o">-</span><span class="n">interop</span><span class="p">[</span><span class="o">&lt;</span><span class="n">PACKAGE</span><span class="o">&gt;</span><span class="n">_binder</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="section" id="for-qiskit">
-<h4>For Qiskit<a class="headerlink" href="#for-qiskit" title="Permalink to this headline">¶</a></h4>
+<section id="for-qiskit">
+<h4>For Qiskit<a class="headerlink" href="#for-qiskit" title="Permalink to this headline"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">myqlm</span><span class="o">-</span><span class="n">interop</span><span class="p">[</span><span class="n">qiskit_binder</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="for-projectq">
-<h4>For ProjectQ<a class="headerlink" href="#for-projectq" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="for-projectq">
+<h4>For ProjectQ<a class="headerlink" href="#for-projectq" title="Permalink to this headline"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">myqlm</span><span class="o">-</span><span class="n">interop</span><span class="p">[</span><span class="n">projectq_binder</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="for-cirq">
-<h4>For Cirq<a class="headerlink" href="#for-cirq" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="for-cirq">
+<h4>For Cirq<a class="headerlink" href="#for-cirq" title="Permalink to this headline"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">myqlm</span><span class="o">-</span><span class="n">interop</span><span class="p">[</span><span class="n">cirq_binder</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="for-pyquil">
-<h4>For PyQuil<a class="headerlink" href="#for-pyquil" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="for-pyquil-deprecated-for-python-3-6">
+<h4>For PyQuil (deprecated for python 3.6)<a class="headerlink" href="#for-pyquil-deprecated-for-python-3-6" title="Permalink to this headline"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">myqlm</span><span class="o">-</span><span class="n">interop</span><span class="p">[</span><span class="n">pyquil_binder</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="for-all-of-them">
-<h4>For all of them<a class="headerlink" href="#for-all-of-them" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="for-all-of-them">
+<h4>For all of them<a class="headerlink" href="#for-all-of-them" title="Permalink to this headline"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">myqlm</span><span class="o">-</span><span class="n">interop</span><span class="p">[</span><span class="nb">all</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="license.html" class="btn btn-neutral float-right" title="myQLM license" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../index.html" class="btn btn-neutral float-left" title="Quantum Application Toolset" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="license.html" class="btn btn-neutral float-right" title="myQLM license" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright Atos 2016-2021.
+    <p>&#169; Copyright Atos 2016-2021.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
