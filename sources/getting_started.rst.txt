@@ -17,43 +17,39 @@ The following code snippet creates and simulates a simple Bell pair circuit:
 .. figure:: bell_pair.png
     :scale: 100 %
 
+.. run-block:: python
 
+    from qat.lang.AQASM import Program, H, CNOT
 
-.. only:: qlm
+    # Create a Program
+    qprog = Program()
+    # Number of qbits
+    nbqbits = 2
+    # Allocate some qbits
+    qbits = qprog.qalloc(nbqbits)
 
-    .. run-block:: python
+    # Apply some quantum Gates
+    H(qbits[0])
+    CNOT(qbits[0], qbits[1])
 
-        from qat.lang.AQASM import Program, H, CNOT
+    # Export this program into a quantum circuit
+    circuit = qprog.to_circ()
 
-        # Create a Program
-        qprog = Program()
-        # Number of qbits
-        nbqbits = 2
-        # Allocate some qbits
-        qbits = qprog.qalloc(nbqbits)
+    # Import a Quantum Processor Unit Factory (the default one)
+    from qat.qpus import get_default_qpu
 
-        # Apply some quantum Gates
-        H(qbits[0]) 
-        CNOT(qbits[0], qbits[1])
+    # Create a Quantum Processor Unit
+    qpu = get_default_qpu()
 
-        # Export this program into a quantum circuit
-        circuit = qprog.to_circ()
-    
-        # Import a Quantum Processor Unit Factory (the default one)
-        from qat.qpus import get_default_qpu
+    # Create a job
+    job = circuit.to_job()
 
-        # Create a Quantum Processor Unit
-        qpu = get_default_qpu()
+    # Submit the job to the QPU
+    result = qpu.submit(job)
 
-        # Create a job
-        job = circuit.to_job()
-
-        # Submit the job to the QPU
-        result = qpu.submit(job)
-
-        # Iterate over the final state vector to get all final components
-        for sample in result:
-            print("State %s amplitude %s" % (sample.state, sample.amplitude))
+    # Iterate over the final state vector to get all final components
+    for sample in result:
+        print("State %s amplitude %s" % (sample.state, sample.amplitude))
 
 The first few lines of code are dedicated to the generation of a quantum circuit and a job, an atomic computation task in the QLM language. A detailed description of the quantum circuit generation tools can be found in the :ref:`programming section <programming>`.
 

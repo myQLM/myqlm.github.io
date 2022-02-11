@@ -140,6 +140,43 @@
 <figure class="align-default">
 <a class="reference internal image-reference" href="images/bell_pair.png"><img alt="images/bell_pair.png" src="images/bell_pair.png" style="width: 153.0px; height: 76.0px;" /></a>
 </figure>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">CNOT</span>
+
+<span class="c1"># Create a Program</span>
+<span class="n">qprog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="c1"># Number of qbits</span>
+<span class="n">nbqbits</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="c1"># Allocate some qbits</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">)</span>
+
+<span class="c1"># Apply some quantum Gates</span>
+<span class="n">H</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Export this program into a quantum circuit</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="c1"># Import a Quantum Processor Unit Factory (the default one)</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+
+<span class="c1"># Create a Quantum Processor Unit</span>
+<span class="n">qpu</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span>
+
+<span class="c1"># Create a job</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+
+<span class="c1"># Submit the job to the QPU</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+
+<span class="c1"># Iterate over the final state vector to get all final components</span>
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;State </span><span class="si">%s</span><span class="s2"> amplitude </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">amplitude</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">State</span> <span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span> <span class="n">amplitude</span> <span class="p">(</span><span class="mf">0.7071067811865475</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">)</span>
+<span class="n">State</span> <span class="o">|</span><span class="mi">11</span><span class="o">&gt;</span> <span class="n">amplitude</span> <span class="p">(</span><span class="mf">0.7071067811865475</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>The first few lines of code are dedicated to the generation of a quantum circuit and a job, an atomic computation task in the QLM language. A detailed description of the quantum circuit generation tools can be found in the <a class="reference internal" href="programming.html#programming"><span class="std std-ref">programming section</span></a>.</p>
 <p>Then the remaining lines instantiate a simulator, submit the job, and print the simulation results. More information about this process can be found in the <a class="reference internal" href="simulating.html#simulating"><span class="std std-ref">simulating section</span></a>.</p>
 <p>QLM also comes with a collection of powerful tools, called Plugins, to manipulate quantum circuits and execution results. Information about these tools can be found in the <a class="reference internal" href="manipulating.html#manipulating"><span class="std std-ref">manipulating section</span></a>.</p>
