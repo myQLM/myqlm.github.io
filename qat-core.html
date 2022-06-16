@@ -38,7 +38,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.6.1.705
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +64,7 @@
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command-line tools</a></li>
 </ul>
@@ -94,6 +95,7 @@
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#plugins">Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#qpus">QPUs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#digital-quantum-simulation-tools">Digital quantum simulation tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#combinatorial-optimization-and-qaoa">Combinatorial optimization and QAOA</a></li>
 </ul>
 </li>
@@ -443,6 +445,12 @@ variable. These jobs have an additional qubit and have observables that are
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Job.from_bytes">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Job.from_bytes" title="Permalink to this definition"></a></dt>
+<dd><p>Builds a job from raw bytes object</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="qat.core.Job.from_thrift">
 <em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_thrift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tobject</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Job.from_thrift" title="Permalink to this definition"></a></dt>
 <dd><p>Builds a Job from a thrift job</p>
@@ -512,6 +520,12 @@ by the same offset.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Job.to_thrift">
+<span class="sig-name descname"><span class="pre">to_thrift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Job.to_thrift" title="Permalink to this definition"></a></dt>
+<dd><p>Cast the Result into a pure Thrift object</p>
+</dd></dl>
+
 </dd></dl>
 
 <p>Processing types for jobs are defined via an enum class:</p>
@@ -552,6 +566,12 @@ batch</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Batch.from_bytes">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Batch.from_bytes" title="Permalink to this definition"></a></dt>
+<dd><p>Builds a batch from raw bytes object</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="qat.core.Batch.from_thrift">
 <em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_thrift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tobject</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Batch.from_thrift" title="Permalink to this definition"></a></dt>
 <dd><p>Builds a Batch object from a thrift batch</p>
@@ -575,6 +595,12 @@ batch</p></li>
 <dd class="field-even"><p><a class="reference internal" href="#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Batch.to_thrift">
+<span class="sig-name descname"><span class="pre">to_thrift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Batch.to_thrift" title="Permalink to this definition"></a></dt>
+<dd><p>Cast the Result into a pure Thrift object</p>
 </dd></dl>
 
 </dd></dl>
@@ -662,7 +688,7 @@ representing the observable.</p>
 
 </dd></dl>
 
-<p>Check <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fbasic%2Fobservables.ipynb" style="color: #ff7823; text-decoration: underline">this notebook</a> for an example of use and manipulation of observables.</p>
+<p>Check <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fbasic%2Fobservables.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">this notebook</a> for an example of use and manipulation of observables.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.core.Term">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">Term</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coefficient</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pauli_op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_validity_check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Term" title="Permalink to this definition"></a></dt>
@@ -793,6 +819,12 @@ intermediate measures</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Result.from_bytes">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Result.from_bytes" title="Permalink to this definition"></a></dt>
+<dd><p>Builds a result from raw bytes object</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="qat.core.Result.from_thrift">
 <em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_thrift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tobject</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Result.from_thrift" title="Permalink to this definition"></a></dt>
 <dd><p>Builds a Result object from a thrift object</p>
@@ -885,6 +917,12 @@ simulators)</p></li>
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">amplitude</span></span><a class="headerlink" href="#qat.core.wrappers.result.Sample.amplitude" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the amplitude of the Sample (wrapped in a Python
 complex number)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.wrappers.result.Sample.from_bytes">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.wrappers.result.Sample.from_bytes" title="Permalink to this definition"></a></dt>
+<dd><p>Builds a sample from raw bytes object</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1122,7 +1160,7 @@ instructions:</p>
 <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;C-C-C-RX&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x146f2b14ec70</span><span class="o">&gt;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-C-C-RX&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x146ad0e8a580</span><span class="o">&gt;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;MEASURE&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;RESET&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
@@ -1250,8 +1288,8 @@ in order to re-generate the various matrices and subcircuits.</p></li>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Circuit</span> <span class="n">dagger</span><span class="p">:</span>
 <span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_2&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_0&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_10&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_8&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1287,10 +1325,16 @@ the sign of its angle in order to invert it.</p>
     <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Circuit</span> <span class="n">dagger</span> <span class="p">(</span><span class="n">smarter</span><span class="p">):</span>
-<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_0&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">16</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+  <span class="n">File</span> <span class="s2">&quot;circuit.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">529</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">dag</span>
+  <span class="n">File</span> <span class="s2">&quot;util.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">540</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">linking</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">dagger_circuit</span>
+  <span class="n">File</span> <span class="s2">&quot;linker.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">214</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">linking</span><span class="o">.</span><span class="n">linker</span><span class="o">.</span><span class="n">Linker</span><span class="o">.</span><span class="n">link</span>
+  <span class="n">File</span> <span class="s2">&quot;linker.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">191</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">linking</span><span class="o">.</span><span class="n">linker</span><span class="o">.</span><span class="n">Linker</span><span class="o">.</span><span class="n">link_gates</span>
+  <span class="n">File</span> <span class="s2">&quot;util.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">392</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">linking</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">link_gates</span>
+  <span class="n">File</span> <span class="s2">&quot;util.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">290</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">linking</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">generate_subcircuit</span>
+  <span class="n">File</span> <span class="s2">&quot;gate_set.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">344</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">gate_set</span><span class="o">.</span><span class="n">GateSet</span><span class="o">.</span><span class="fm">__getitem__</span>
+<span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">gate_set</span><span class="o">.</span><span class="n">UnknownGate</span><span class="p">:</span> <span class="n">No</span> <span class="n">known</span> <span class="n">signature</span> <span class="k">for</span> <span class="n">gate</span> <span class="n">named</span> <span class="n">ZZ</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1298,12 +1342,12 @@ the sign of its angle in order to invert it.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.core.Circuit.display">
 <span class="sig-name descname"><span class="pre">display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.display" title="Permalink to this definition"></a></dt>
-<dd><p>Calls the <a href="#id1"><span class="problematic" id="id2">:fun:`qat.core.console.display`</span></a> method on the circuit.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>kwargs</strong> (<em>dict</em>) – arguments passed to <a href="#id3"><span class="problematic" id="id4">:fun:`qat.core.console.display`</span></a></p>
-</dd>
-</dl>
+<dd><p>Displays the circuit.
+This method adapts to the environment (i.e. notebook or terminal).</p>
+<p>It will call one of the following methods:
+- <a href="#id1"><span class="problematic" id="id2">:method:`qat.core.printer.plot_in_notebook`</span></a> if inside a notebook
+- <a href="#id3"><span class="problematic" id="id4">:method:`qat.core.console.display`</span></a> if in a terminal</p>
+<p>All kwargs are passed to these methods.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1356,6 +1400,12 @@ Default to False.</p></li>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.from_bytes">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.from_bytes" title="Permalink to this definition"></a></dt>
+<dd><p>Builds a circuit from raw bytes object</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1512,7 +1562,7 @@ a terminal. To display a circuit in a terminal, you
 can use the function <a class="reference internal" href="#qat.core.console.display" title="qat.core.console.display"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.console.display()</span></code></a></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="qat.core.console.display">
-<span class="sig-prename descclassname"><span class="pre">qat.core.console.</span></span><span class="sig-name descname"><span class="pre">display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batchmode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.console.display" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">qat.core.console.</span></span><span class="sig-name descname"><span class="pre">display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batchmode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renaming_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.console.display" title="Permalink to this definition"></a></dt>
 <dd><p>Displays a circuit on the terminal using
 ASCII art. By default, calls to sub-circuits are
 not inlined when displaying. You can display
@@ -1548,6 +1598,7 @@ maximal depth of inlining.</p>
 <li><p><strong>batchmode</strong> (<em>bool</em><em>, </em><em>optional</em>) – if this variable is set
 to <code class="code docutils literal notranslate"><span class="pre">True</span></code>, this function will not wait
 for user input</p></li>
+<li><p><strong>renaming_dict</strong> (<em>optional</em><em>, </em><em>dict</em>) – an alias dictionary to display gates with custom names</p></li>
 </ul>
 </dd>
 </dl>
@@ -1559,14 +1610,8 @@ for user input</p></li>
 An exception is raised if your circuit contains measures,
 gates controlled classically, logic operators, …</p>
 </div>
-<p>The <code class="code docutils literal notranslate"><span class="pre">%qatdisplay</span></code> magic can be used to display a circuit in
+<p>The <code class="code docutils literal notranslate"><span class="pre">.display</span></code> method can be used to display a circuit in
 a notebook or in an IPython terminal.</p>
-<p>If myQLM Python magics has not been installed, please refer to
-<a class="reference internal" href="myqlm_specific/install.html#install-magics"><span class="std std-ref">the magic installation page</span></a> to install
-this magic command</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">qatdisplay</span> <span class="n">circuit</span>
-</pre></div>
-</div>
 </section>
 <section id="hardware-specifications">
 <h2>Hardware specifications<a class="headerlink" href="#hardware-specifications" title="Permalink to this headline"></a></h2>
@@ -1574,7 +1619,7 @@ this magic command</p>
 <a class="reference internal" href="#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.core.HardwareSpecs">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">HardwareSpecs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.HardwareSpecs" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">HardwareSpecs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nbqbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.HardwareSpecs" title="Permalink to this definition"></a></dt>
 <dd><p>Simple higher level wrapper for the serializable HardwareSpecs class.</p>
 <dl class="simple">
 <dt>Instance attributes:</dt><dd><ul class="simple">
@@ -1591,7 +1636,7 @@ of supported processing types</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.core.HardwareSpecs.as_graph">
-<span class="sig-name descname"><span class="pre">as_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.HardwareSpecs.as_graph" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">as_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nqbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.HardwareSpecs.as_graph" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a <code class="code docutils literal notranslate"><span class="pre">networkx.Graph</span></code> object corresponding to the topology.
 This function calls the method <a class="reference internal" href="#qat.core.Topology.to_nx" title="qat.core.Topology.to_nx"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_nx()</span></code></a>
 of the class <a class="reference internal" href="#qat.core.Topology" title="qat.core.Topology"><code class="xref py py-class docutils literal notranslate"><span class="pre">Topology</span></code></a></p>
@@ -1675,17 +1720,11 @@ the device’s connectivity for easy inclusion in a QLM stack</p>
 <dd><p>Number of qubits composing the hardware</p>
 </dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py" id="qat.core.HardwareSpecs.topology">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">topology</span></span><a class="headerlink" href="#qat.core.HardwareSpecs.topology" title="Permalink to this definition"></a></dt>
-<dd><p>Topology of the hardware</p>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.core.Topology">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">Topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">Topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbqbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology" title="Permalink to this definition"></a></dt>
 <dd><p>Simple higher-level wrapper for the serializable Topology class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1704,6 +1743,7 @@ of the topology (All to All, LNN or Custom)</p></li>
 corresponds to the index of a control qubit and each linked value
 corresponds to indexes of qubits which can be target of this
 control qubit</p></li>
+<li><p><strong>nbqbits</strong> (<em>int</em><em>, </em><em>optional</em>) – number of qubits</p></li>
 </ul>
 </dd>
 </dl>
@@ -1741,6 +1781,12 @@ qubit.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Topology.from_bytes">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology.from_bytes" title="Permalink to this definition"></a></dt>
+<dd><p>Builds a topology from raw bytes object</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="qat.core.Topology.from_nx">
 <em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">from_nx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nx_graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology.from_nx" title="Permalink to this definition"></a></dt>
 <dd><p>Builds a Topology object from a networkx Graph</p>
@@ -1775,16 +1821,32 @@ with a map that maps graph nodes to qubit indexes</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="qat.core.Topology.nbqbits">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">nbqbits</span></span><a class="headerlink" href="#qat.core.Topology.nbqbits" title="Permalink to this definition"></a></dt>
+<dd><p>Getter of nbqbits of a topology object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Topology.set_nbqbits">
+<span class="sig-name descname"><span class="pre">set_nbqbits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology.set_nbqbits" title="Permalink to this definition"></a></dt>
+<dd><p>A helper method that set the nbqbits of a custom topology, used by the HardwareSpecs to fix the number of qubits
+of a custom topology</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.core.Topology.to_nx">
-<span class="sig-name descname"><span class="pre">to_nx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology.to_nx" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">to_nx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nqbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology.to_nx" title="Permalink to this definition"></a></dt>
 <dd><p>Cast the Topology object into a networkx graph.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>a networkx graph</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nqbits</strong> (<em>optional</em><em>, </em><em>int</em>) – if specified, the number of qubits</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>nx.Graph</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a networkx graph</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>nx.Graph</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2223,19 +2285,21 @@ when displaying the symbol.</p></li>
     <span class="nb">print</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">symbol</span><span class="o">.</span><span class="n">evaluator</span><span class="p">,</span> <span class="n">symbol</span><span class="o">.</span><span class="n">arity</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x1458d923f380</span><span class="o">&gt;</span> <span class="mi">2</span>
-<span class="o">*</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x1458d923f520</span><span class="o">&gt;</span> <span class="mi">2</span>
-<span class="o">-</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x1458d923f6c0</span><span class="o">&gt;</span> <span class="mi">2</span>
-<span class="n">UMINUS</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x1458d923f860</span><span class="o">&gt;</span> <span class="mi">1</span>
-<span class="o">/</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x1458d923fa00</span><span class="o">&gt;</span> <span class="mi">2</span>
-<span class="o">**</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x1458d923fba0</span><span class="o">&gt;</span> <span class="mi">2</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x149e383531e0</span><span class="o">&gt;</span> <span class="mi">2</span>
+<span class="o">*</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x149e38353380</span><span class="o">&gt;</span> <span class="mi">2</span>
+<span class="o">-</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x149e38353520</span><span class="o">&gt;</span> <span class="mi">2</span>
+<span class="n">UMINUS</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x149e383536c0</span><span class="o">&gt;</span> <span class="mi">1</span>
+<span class="o">/</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x149e38353860</span><span class="o">&gt;</span> <span class="mi">2</span>
+<span class="o">**</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x149e38353a00</span><span class="o">&gt;</span> <span class="mi">2</span>
 <span class="n">cos</span> <span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">&#39;cos&#39;</span><span class="o">&gt;</span> <span class="mi">1</span>
 <span class="n">sin</span> <span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">&#39;sin&#39;</span><span class="o">&gt;</span> <span class="mi">1</span>
 <span class="n">exp</span> <span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">&#39;exp&#39;</span><span class="o">&gt;</span> <span class="mi">1</span>
 <span class="n">sqrt</span> <span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">&#39;sqrt&#39;</span><span class="o">&gt;</span> <span class="mi">1</span>
-<span class="n">heaviside</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x1458d9242110</span><span class="o">&gt;</span> <span class="mi">3</span>
-<span class="n">ln</span> <span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">&#39;log&#39;</span><span class="o">&gt;</span> <span class="mi">1</span>
+<span class="n">heaviside</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x149e38353ee0</span><span class="o">&gt;</span> <span class="mi">3</span>
 <span class="nb">max</span> <span class="o">&lt;</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">function</span> <span class="nb">max</span><span class="o">&gt;</span> <span class="mi">2</span>
+<span class="n">ln</span> <span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">&#39;log&#39;</span><span class="o">&gt;</span> <span class="mi">1</span>
+<span class="n">real</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">real</span> <span class="n">at</span> <span class="mh">0x149e3b75df70</span><span class="o">&gt;</span> <span class="mi">1</span>
+<span class="n">imag</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">imag</span> <span class="n">at</span> <span class="mh">0x149e3b763160</span><span class="o">&gt;</span> <span class="mi">1</span>
 </pre></div>
 </div>
 <p>For instance, the following piece of code adds a new symbol that represents the min between two numeric values.</p>

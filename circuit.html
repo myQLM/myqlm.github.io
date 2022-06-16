@@ -34,7 +34,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.6.1.705
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -60,6 +60,7 @@
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command-line tools</a></li>
 </ul>
@@ -133,7 +134,7 @@
 
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">QFT</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">QFT</span><span class="p">(</span><span class="mi">4</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
 <span class="n">prog</span><span class="o">.</span><span class="n">measure</span><span class="p">([</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
 <span class="n">prog</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
@@ -164,7 +165,7 @@
 
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">QFT</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">QFT</span><span class="p">(</span><span class="mi">4</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
 <span class="n">prog</span><span class="o">.</span><span class="n">measure</span><span class="p">([</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
 <span class="n">prog</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
@@ -408,7 +409,7 @@ of <a class="reference internal" href="introduction.html#qat.comm.datamodel.ttyp
 <span class="c1"># Create a circuit</span>
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qbit</span><span class="p">)</span>
+<span class="n">H</span><span class="p">(</span><span class="n">qbit</span><span class="p">)</span>
 <span class="n">circ</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
 
 <span class="c1"># Extract the definition of the gate H</span>
@@ -435,7 +436,7 @@ the name of the subgate.</p>
 <span class="c1"># Create a circuit</span>
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(),</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">H</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="n">qbits</span><span class="p">)</span>
 <span class="n">circ</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
 
 <span class="c1"># Extract the definition of the gate C-H</span>
@@ -464,7 +465,7 @@ contains the definition of the gate.</p>
 <span class="c1"># Create a circuit</span>
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">QFT</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">QFT</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
 <span class="n">circ</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
 
 <span class="c1"># Extract the definition of QFT(2)</span>

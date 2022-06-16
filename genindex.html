@@ -33,7 +33,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.6.1.705
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -59,6 +59,7 @@
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command-line tools</a></li>
 </ul>
@@ -185,6 +186,8 @@
         <li><a href="qat-lang.html#qat.lang.AQASM.routines.QRoutine.apply">(qat.lang.AQASM.routines.QRoutine method)</a>
 </li>
       </ul></li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.qse.apply_quantum_subspace_expansion">apply_quantum_subspace_expansion() (in module qat.fermion.chemistry.qse)</a>
+</li>
       <li><a href="myqlm_specific/projectq.html#qat.interop.projectq.AqasmEngine">AqasmEngine (class in qat.interop.projectq)</a>
 </li>
       <li><a href="myqlm_specific/projectq.html#qat.interop.projectq.AqasmPrinter">AqasmPrinter (class in qat.interop.projectq)</a>
@@ -267,8 +270,6 @@
 </li>
       <li><a href="qat-lang.html#qat.lang.linking.linker.Linker.clear_gate_set">clear_gate_set() (qat.lang.linking.linker.Linker method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="qat-core.html#qat.core.Term.coeff">coeff (qat.core.Term attribute)</a>
 </li>
       <li><a href="qat-opt.html#qat.opt.CombinatorialProblem">CombinatorialProblem (class in qat.opt)</a>
@@ -287,13 +288,33 @@
         <li><a href="observable-splitter.html#qat.plugins.ObservableSplitter.compile">(qat.plugins.ObservableSplitter method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="qat-lang.html#qat.lang.AQASM.routines.QRoutine.compute">compute() (qat.lang.AQASM.routines.QRoutine method)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.ucc.compute_active_space_integrals">compute_active_space_integrals() (in module qat.fermion.chemistry.ucc)</a>
 </li>
       <li><a href="qat-lang.html#qat.lang.AQASM.gates.Gate.conj">conj() (qat.lang.AQASM.gates.Gate method)</a>
 </li>
       <li><a href="qat-lang.html#qat.lang.AQASM.Program.conjugate">conjugate() (qat.lang.AQASM.Program method)</a>
 </li>
       <li><a href="qat-core.html#qat.core.Observable.constant_coeff">constant_coeff (qat.core.Observable attribute)</a>
+
+      <ul>
+        <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian.constant_coeff">(qat.fermion.chemistry.wrapper.MolecularHamiltonian attribute)</a>
+</li>
+        <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MoleculeInfo.constant_coeff">(qat.fermion.chemistry.wrapper.MoleculeInfo attribute)</a>
+</li>
+        <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.ElectronicStructureHamiltonian.constant_coeff">(qat.fermion.hamiltonians.ElectronicStructureHamiltonian attribute)</a>
+</li>
+        <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.Hamiltonian.constant_coeff">(qat.fermion.hamiltonians.Hamiltonian attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.ucc.construct_ucc_ansatz">construct_ucc_ansatz() (in module qat.fermion.chemistry.ucc)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.ucc.convert_to_h_integrals">convert_to_h_integrals() (in module qat.fermion.chemistry.ucc)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.Hamiltonian.copy">copy() (qat.fermion.hamiltonians.Hamiltonian method)</a>
 </li>
       <li><a href="qat-core.html#qat.core.Circuit.count">count() (qat.core.Circuit method)</a>
 </li>
@@ -312,6 +333,8 @@
       <li><a href="qat-core.html#qat.core.Circuit.dag">dag() (qat.core.Circuit method)</a>
 
       <ul>
+        <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.Hamiltonian.dag">(qat.fermion.hamiltonians.Hamiltonian method)</a>
+</li>
         <li><a href="qat-lang.html#qat.lang.AQASM.gates.Gate.dag">(qat.lang.AQASM.gates.Gate method)</a>
 </li>
         <li><a href="qat-lang.html#qat.lang.AQASM.gates.ParamGate.dag">(qat.lang.AQASM.gates.ParamGate method)</a>
@@ -334,7 +357,13 @@
       <ul>
         <li><a href="qat-core.html#qat.core.Circuit.display">(qat.core.Circuit method)</a>
 </li>
+        <li><a href="qat-lang.html#qat.lang.AQASM.gates.ParamGate.display">(qat.lang.AQASM.gates.ParamGate method)</a>
+</li>
+        <li><a href="qat-lang.html#qat.lang.AQASM.Program.display">(qat.lang.AQASM.Program method)</a>
+</li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="display-plugin.html#qat.core.console.Display.do_post_processing">do_post_processing() (qat.core.console.Display method)</a>
 
       <ul>
@@ -345,8 +374,6 @@
         <li><a href="observable-splitter.html#qat.plugins.ObservableSplitter.do_post_processing">(qat.plugins.ObservableSplitter method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="qat-core.html#qat.core.Batch.dump">dump() (qat.core.Batch method)</a>
 
       <ul>
@@ -371,6 +398,8 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.ElectronicStructureHamiltonian">ElectronicStructureHamiltonian (class in qat.fermion.hamiltonians)</a>
+</li>
       <li><a href="qat-core.html#qat.core.Circuit.empty">empty() (qat.core.Circuit static method)</a>
 </li>
       <li><a href="qat-core.html#qat.core.formula_eval.evaluate">evaluate() (in module qat.core.formula_eval)</a>
@@ -387,6 +416,8 @@
         <li><a href="qat-lang.html#qat.lang.AQASM.qint.QCompExp.evaluate">(qat.lang.AQASM.qint.QCompExp method)</a>
 </li>
         <li><a href="qat-lang.html#qat.lang.AQASM.qint.QInt.evaluate">(qat.lang.AQASM.qint.QInt method)</a>
+</li>
+        <li><a href="qat-opt.html#qat.opt.boolexpr.Var.evaluate">(qat.opt.boolexpr.Var method)</a>
 </li>
         <li><a href="qat-core.html#qat.plugins.Optimizer.evaluate">(qat.plugins.Optimizer method)</a>
 </li>
@@ -415,6 +446,22 @@
         <li><a href="qat-lang.html#qat.lang.AQASM.routines.QRoutine.free_ancillae">(qat.lang.AQASM.routines.QRoutine method)</a>
 </li>
       </ul></li>
+      <li><a href="qat-core.html#qat.core.Batch.from_bytes">from_bytes() (qat.core.Batch class method)</a>
+
+      <ul>
+        <li><a href="qat-core.html#qat.core.Circuit.from_bytes">(qat.core.Circuit class method)</a>
+</li>
+        <li><a href="qat-core.html#qat.core.Job.from_bytes">(qat.core.Job class method)</a>
+</li>
+        <li><a href="qat-core.html#qat.core.Result.from_bytes">(qat.core.Result class method)</a>
+</li>
+        <li><a href="qat-core.html#qat.core.Topology.from_bytes">(qat.core.Topology class method)</a>
+</li>
+        <li><a href="qat-core.html#qat.core.wrappers.result.Sample.from_bytes">(qat.core.wrappers.result.Sample class method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="qat-core.html#qat.core.Topology.from_nx">from_nx() (qat.core.Topology static method)</a>
 </li>
       <li><a href="qat-core.html#qat.core.variables.ArithExpression.from_string">from_string() (qat.core.variables.ArithExpression static method)</a>
@@ -477,6 +524,10 @@
       </ul></li>
       <li><a href="qat-core.html#qat.core.gate_set.GateSignature.get_circuit">get_circuit() (qat.core.gate_set.GateSignature method)</a>
 </li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.ucc.get_cluster_ops">get_cluster_ops() (in module qat.fermion.chemistry.ucc)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian.get_electronic_hamiltonian">get_electronic_hamiltonian() (qat.fermion.chemistry.wrapper.MolecularHamiltonian method)</a>
+</li>
       <li><a href="qat-lang.html#qat.lang.AQASM.Program.get_free_ancillae">get_free_ancillae() (qat.lang.AQASM.Program method)</a>
 
       <ul>
@@ -485,12 +536,18 @@
       </ul></li>
       <li><a href="observable-splitter.html#qat.plugins.ObservableSplitter.get_fresh_key">get_fresh_key() (qat.plugins.ObservableSplitter method)</a>
 </li>
-      <li><a href="qat-opt.html#qat.opt.Ising.get_j_h_and_offset">get_j_h_and_offset() (qat.opt.Ising method)</a>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.ucc.get_hf_ket">get_hf_ket() (in module qat.fermion.chemistry.ucc)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="qat-core.html#qat.core.gate_set.GateSignature.get_matrix">get_matrix() (qat.core.gate_set.GateSignature method)</a>
+      <li><a href="qat-opt.html#qat.opt.Ising.get_j_h_and_offset">get_j_h_and_offset() (qat.opt.Ising method)</a>
 </li>
+      <li><a href="qat-core.html#qat.core.gate_set.GateSignature.get_matrix">get_matrix() (qat.core.gate_set.GateSignature method)</a>
+
+      <ul>
+        <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.Hamiltonian.get_matrix">(qat.fermion.hamiltonians.Hamiltonian method)</a>
+</li>
+      </ul></li>
       <li><a href="qat-opt.html#qat.opt.boolexpr.Clause.get_observable">get_observable() (qat.opt.boolexpr.Clause method)</a>
 
       <ul>
@@ -533,13 +590,27 @@
 </li>
       <li><a href="qat-devices.html#qat.devices.GridDevice">GridDevice (class in qat.devices)</a>
 </li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.ucc.guess_init_params">guess_init_params() (in module qat.fermion.chemistry.ucc)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.Hamiltonian">Hamiltonian (class in qat.fermion.hamiltonians)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MoleculeInfo.hamiltonian">hamiltonian (qat.fermion.chemistry.wrapper.MoleculeInfo attribute)</a>
+</li>
       <li><a href="qat-core.html#qat.core.HardwareSpecs">HardwareSpecs (class in qat.core)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.ElectronicStructureHamiltonian.hpq">hpq (qat.fermion.hamiltonians.ElectronicStructureHamiltonian attribute)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.ElectronicStructureHamiltonian.hpqrs">hpqrs (qat.fermion.hamiltonians.ElectronicStructureHamiltonian attribute)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.Hamiltonian.htype">htype (qat.fermion.hamiltonians.Hamiltonian property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -647,7 +718,27 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.make_anderson_model">make_anderson_model() (in module qat.fermion.hamiltonians)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.make_embedded_model">make_embedded_model() (in module qat.fermion.hamiltonians)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.circuits.make_general_hwe_circ">make_general_hwe_circ() (in module qat.fermion.circuits)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.make_hubbard_model">make_hubbard_model() (in module qat.fermion.hamiltonians)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.circuits.make_ldca_circ">make_ldca_circ() (in module qat.fermion.circuits)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.circuits.make_mr_circ">make_mr_circ() (in module qat.fermion.circuits)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.circuits.make_mrep_circ">make_mrep_circ() (in module qat.fermion.circuits)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.circuits.make_shallow_circ">make_shallow_circ() (in module qat.fermion.circuits)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.trotterisation.make_trotterisation_routine">make_trotterisation_routine() (in module qat.fermion.trotterisation)</a>
+</li>
       <li><a href="myqlm_specific/qat-pylinalg.html#qat.pylinalg.simulator.mat2nparray">mat2nparray() (in module qat.pylinalg.simulator)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.Hamiltonian.matrix">matrix (qat.fermion.hamiltonians.Hamiltonian attribute)</a>
 </li>
       <li><a href="qat-opt.html#qat.opt.max_cut.MaxCut">MaxCut (class in qat.opt.max_cut)</a>
 </li>
@@ -677,9 +768,7 @@
 </li>
         <li><a href="qat-devices.html#module-qat.devices">qat.devices</a>
 </li>
-        <li><a href="fermionic_ansatze.html#module-qat.dqs.ansatz_circuits">qat.dqs.ansatz_circuits</a>
-</li>
-        <li><a href="fermionic_ansatze.html#module-qat.dqs.matchgates_util">qat.dqs.matchgates_util</a>
+        <li><a href="qat-fermion.html#module-qat.fermion">qat.fermion</a>
 </li>
         <li><a href="myqlm_specific/cirq.html#module-qat.interop.cirq.converters">qat.interop.cirq.converters</a>
 </li>
@@ -724,6 +813,10 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian">MolecularHamiltonian (class in qat.fermion.chemistry.wrapper)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MoleculeInfo">MoleculeInfo (class in qat.fermion.chemistry.wrapper)</a>
+</li>
       <li><a href="qat-lang-arith.html#qat.lang.AQASM.qftarith.mult">mult() (in module qat.lang.AQASM.qftarith)</a>
 </li>
       <li><a href="qat-lang-arith.html#qat.lang.AQASM.arithmetic.mult_const">mult_const() (in module qat.lang.AQASM.arithmetic)</a>
@@ -734,16 +827,24 @@
       </ul></li>
       <li><a href="qat-lang-arith.html#qat.lang.AQASM.arithmetic.mult_const_mod">mult_const_mod() (in module qat.lang.AQASM.arithmetic)</a>
 </li>
+      <li><a href="multiple_launches_analyzer.html#qat.plugins.MultipleLaunchesAnalyzer">MultipleLaunchesAnalyzer (class in qat.plugins)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MoleculeInfo.n_electrons">n_electrons (qat.fermion.chemistry.wrapper.MoleculeInfo attribute)</a>
+</li>
       <li><a href="qat-core.html#qat.core.HardwareSpecs.nbqbits">nbqbits (qat.core.HardwareSpecs property)</a>
 
       <ul>
         <li><a href="qat-core.html#qat.core.Observable.nbqbits">(qat.core.Observable attribute)</a>
+</li>
+        <li><a href="qat-core.html#qat.core.Topology.nbqbits">(qat.core.Topology property)</a>
+</li>
+        <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.Hamiltonian.nbqbits">(qat.fermion.hamiltonians.Hamiltonian attribute)</a>
 </li>
       </ul></li>
       <li><a href="qat-lang.html#qat.lang.AQASM.Program.new_var">new_var() (qat.lang.AQASM.Program method)</a>
@@ -758,6 +859,14 @@
 </li>
       <li><a href="qat-lang.html#qat.lang.AQASM.routines.QRoutine.new_wires">new_wires() (qat.lang.AQASM.routines.QRoutine method)</a>
 </li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MoleculeInfo.noons">noons (qat.fermion.chemistry.wrapper.MoleculeInfo attribute)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian.nqbits">nqbits (qat.fermion.chemistry.wrapper.MolecularHamiltonian attribute)</a>
+
+      <ul>
+        <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MoleculeInfo.nqbits">(qat.fermion.chemistry.wrapper.MoleculeInfo attribute)</a>
+</li>
+      </ul></li>
       <li><a href="qat-opt.html#qat.opt.number_partitioning.NumberPartitioning">NumberPartitioning (class in qat.opt.number_partitioning)</a>
 </li>
   </ul></td>
@@ -770,6 +879,12 @@
 </li>
       <li><a href="observable-splitter.html#qat.plugins.ObservableSplitter">ObservableSplitter (class in qat.plugins)</a>
 </li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian.one_body_integrals">one_body_integrals (qat.fermion.chemistry.wrapper.MolecularHamiltonian attribute)</a>
+
+      <ul>
+        <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MoleculeInfo.one_body_integrals">(qat.fermion.chemistry.wrapper.MoleculeInfo attribute)</a>
+</li>
+      </ul></li>
       <li><a href="circuit.html#qat.comm.datamodel.ttypes.Op">Op (class in qat.comm.datamodel.ttypes)</a>, <a href="introduction.html#qat.comm.datamodel.ttypes.Op">[1]</a>
 </li>
   </ul></td>
@@ -782,6 +897,8 @@
 </li>
       <li><a href="myqlm_specific/openqasm.html#qat.interop.openqasm.OqasmParser">OqasmParser (class in qat.interop.openqasm)</a>
 </li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MoleculeInfo.orbital_energies">orbital_energies (qat.fermion.chemistry.wrapper.MoleculeInfo attribute)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -791,6 +908,22 @@
       <li><a href="qat-core.html#qat.core.Result.parameter_map">parameter_map (qat.core.Result property)</a>
 </li>
       <li><a href="qat-lang.html#qat.lang.AQASM.gates.ParamGate">ParamGate (class in qat.lang.AQASM.gates)</a>
+</li>
+      <li><a href="qat-opt.html#qat.opt.graph_colouring.GraphColouring.parse_result">parse_result() (qat.opt.graph_colouring.GraphColouring method)</a>
+
+      <ul>
+        <li><a href="qat-opt.html#qat.opt.graph_partitioning.GraphPartitioning.parse_result">(qat.opt.graph_partitioning.GraphPartitioning method)</a>
+</li>
+        <li><a href="qat-opt.html#qat.opt.k_clique.KClique.parse_result">(qat.opt.k_clique.KClique method)</a>
+</li>
+        <li><a href="qat-opt.html#qat.opt.max_cut.MaxCut.parse_result">(qat.opt.max_cut.MaxCut method)</a>
+</li>
+        <li><a href="qat-opt.html#qat.opt.vertex_cover.VertexCover.parse_result">(qat.opt.vertex_cover.VertexCover method)</a>
+</li>
+      </ul></li>
+      <li><a href="qat-fermion_source.html#qat.fermion.phase_estimation.perform_phase_estimation">perform_phase_estimation() (in module qat.fermion.phase_estimation)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation">perform_pyscf_computation() (in module qat.fermion.chemistry.pyscf_tools)</a>
 </li>
       <li><a href="qat-lang.html#qat.lang.AQASM.qbool.QBool.phase">phase() (qat.lang.AQASM.qbool.QBool method)</a>
 
@@ -810,6 +943,8 @@
       </ul></li>
       <li><a href="qat-core.html#qat.core.variables.ArithExpression.pretty_print">pretty_print() (qat.core.variables.ArithExpression method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="qat-core.html#qat.comm.shared.ttypes.ProcessingType">ProcessingType (class in qat.comm.shared.ttypes)</a>
 </li>
       <li><a href="qat-opt.html#qat.opt.graph_partitioning.produce_j_h_and_offset">produce_j_h_and_offset() (in module qat.opt.graph_partitioning)</a>
@@ -820,8 +955,6 @@
         <li><a href="qat-opt.html#qat.opt.number_partitioning.produce_j_h_and_offset">(in module qat.opt.number_partitioning)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="qat-opt.html#qat.opt.binary_linear_integer_programming.produce_q_and_offset">produce_q_and_offset() (in module qat.opt.binary_linear_integer_programming)</a>
 
       <ul>
@@ -913,17 +1046,10 @@
 </li>
       </ul></li>
       <li>
-    qat.dqs.ansatz_circuits
+    qat.fermion
 
       <ul>
-        <li><a href="fermionic_ansatze.html#module-qat.dqs.ansatz_circuits">module</a>
-</li>
-      </ul></li>
-      <li>
-    qat.dqs.matchgates_util
-
-      <ul>
-        <li><a href="fermionic_ansatze.html#module-qat.dqs.matchgates_util">module</a>
+        <li><a href="qat-fermion.html#module-qat.fermion">module</a>
 </li>
       </ul></li>
       <li>
@@ -996,8 +1122,6 @@
         <li><a href="qat-lang-arith.html#module-qat.lang.AQASM.classarith">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     qat.lang.AQASM.misc
 
@@ -1005,6 +1129,8 @@
         <li><a href="qat-lang.html#module-qat.lang.AQASM.misc">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     qat.lang.AQASM.qftarith
 
@@ -1134,14 +1260,16 @@
 </li>
       <li><a href="qat-core.html#qat.core.Circuit.remove_locks">remove_locks() (qat.core.Circuit method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="myqlm_specific/qat-pylinalg.html#qat.pylinalg.simulator.reset">reset() (in module qat.pylinalg.simulator)</a>
 
       <ul>
         <li><a href="qat-lang.html#qat.lang.AQASM.Program.reset">(qat.lang.AQASM.Program method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MoleculeInfo.restrict_active_space">restrict_active_space() (qat.fermion.chemistry.wrapper.MoleculeInfo method)</a>
+</li>
       <li><a href="qat-core.html#qat.core.Result">Result (class in qat.core)</a>
 </li>
       <li><a href="myqlm_specific/qiskit.html#qat.interop.qiskit.QiskitJob.result">result() (qat.interop.qiskit.QiskitJob method)</a>
@@ -1163,6 +1291,14 @@
       <li><a href="qat-opt.html#qat.opt.schedule_generator.ScheduleGenerator">ScheduleGenerator (class in qat.opt.schedule_generator)</a>
 </li>
       <li><a href="variational-plugin.html#qat.plugins.ScipyMinimizePlugin">ScipyMinimizePlugin (class in qat.plugins)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.ucc.select_active_orbitals">select_active_orbitals() (in module qat.fermion.chemistry.ucc)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian.select_active_space">select_active_space() (qat.fermion.chemistry.wrapper.MolecularHamiltonian method)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.ucc.select_excitation_operators">select_excitation_operators() (in module qat.fermion.chemistry.ucc)</a>
+</li>
+      <li><a href="sequential_optimization.html#qat.plugins.SeqOptim">SeqOptim (class in qat.plugins)</a>, <a href="variational-plugin.html#qat.plugins.SeqOptim">[1]</a>
 </li>
       <li><a href="qat-core.html#qat.core.qpu.QPUHandler.serve">serve() (qat.core.qpu.QPUHandler method)</a>
 
@@ -1188,6 +1324,8 @@
 </li>
       <li><a href="qat-core.html#qat.core.gate_set.GateSignature.set_matrix_generator">set_matrix_generator() (qat.core.gate_set.GateSignature method)</a>
 </li>
+      <li><a href="qat-core.html#qat.core.Topology.set_nbqbits">set_nbqbits() (qat.core.Topology method)</a>
+</li>
       <li><a href="variational-plugin.html#qat.plugins.ScipyMinimizePlugin.set_options">set_options() (qat.plugins.ScipyMinimizePlugin method)</a>
 </li>
       <li><a href="myqlm_specific/pyquil.html#qat.interop.pyquil.PyquilQPU.set_qpu">set_qpu() (qat.interop.pyquil.PyquilQPU method)</a>
@@ -1200,6 +1338,8 @@
 </li>
       <li><a href="qat-lang.html#qat.lang.AQASM.qint.QInt.set_value">set_value() (qat.lang.AQASM.qint.QInt method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="qat-core.html#qat.core.Circuit.shift_qbits">shift_qbits() (qat.core.Circuit method)</a>
 
       <ul>
@@ -1208,8 +1348,6 @@
       </ul></li>
       <li><a href="qat-opt.html#qat.opt.mixing_factory.SimpleInitialState">SimpleInitialState (class in qat.opt.mixing_factory)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="myqlm_specific/qat-pylinalg.html#qat.pylinalg.simulator.simulate">simulate() (in module qat.pylinalg.simulator)</a>
 </li>
       <li><a href="myqlm_specific/qat-simulated_annealing.html#qat.simulated_annealing.SimulatedAnnealing">SimulatedAnnealing (class in qat.simulated_annealing)</a>
@@ -1267,7 +1405,11 @@
       <li><a href="qat-core.html#qat.core.Term">Term (class in qat.core)</a>
 </li>
       <li><a href="qat-core.html#qat.core.Observable.terms">terms (qat.core.Observable attribute)</a>
+
+      <ul>
+        <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.Hamiltonian.terms">(qat.fermion.hamiltonians.Hamiltonian attribute)</a>
 </li>
+      </ul></li>
       <li><a href="qat-lang.html#qat.lang.AQASM.Program.to_circ">to_circ() (qat.lang.AQASM.Program method)</a>
 </li>
       <li><a href="qat-opt.html#qat.opt.Ising.to_combinatorial_problem">to_combinatorial_problem() (qat.opt.Ising method)</a>
@@ -1290,8 +1432,6 @@
         <li><a href="qat-opt.html#qat.opt.QUBO.to_job">(qat.opt.QUBO method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="qat-core.html#qat.core.Topology.to_nx">to_nx() (qat.core.Topology method)</a>
 </li>
       <li><a href="qat-opt.html#qat.opt.CombinatorialProblem.to_qubo">to_qubo() (qat.opt.CombinatorialProblem method)</a>
@@ -1300,9 +1440,17 @@
         <li><a href="qat-opt.html#qat.opt.Ising.to_qubo">(qat.opt.Ising method)</a>
 </li>
       </ul></li>
-      <li><a href="qat-core.html#qat.core.Variable.to_thrift">to_thrift() (qat.core.Variable method)</a>
+      <li><a href="qat-fermion_source.html#qat.fermion.hamiltonians.Hamiltonian.to_spin">to_spin() (qat.fermion.hamiltonians.Hamiltonian method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="qat-core.html#qat.core.Batch.to_thrift">to_thrift() (qat.core.Batch method)</a>
 
       <ul>
+        <li><a href="qat-core.html#qat.core.Job.to_thrift">(qat.core.Job method)</a>
+</li>
+        <li><a href="qat-core.html#qat.core.Variable.to_thrift">(qat.core.Variable method)</a>
+</li>
         <li><a href="qat-core.html#qat.core.variables.ArithExpression.to_thrift">(qat.core.variables.ArithExpression method)</a>
 </li>
         <li><a href="qat-lang.html#qat.lang.AQASM.bits.BoolFormula.to_thrift">(qat.lang.AQASM.bits.BoolFormula method)</a>
@@ -1312,12 +1460,26 @@
 </li>
       <li><a href="qat-core.html#qat.core.Topology">Topology (class in qat.core)</a>
 </li>
-      <li><a href="qat-core.html#qat.core.HardwareSpecs.topology">topology (qat.core.HardwareSpecs property)</a>
-</li>
       <li><a href="qat-core.html#qat.core.TopologyType">TopologyType (class in qat.core)</a>
 </li>
       <li><a href="qat-lang.html#qat.lang.AQASM.gates.Gate.trans">trans() (qat.lang.AQASM.gates.Gate method)</a>
 </li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian.transform_basis">transform_basis() (qat.fermion.chemistry.wrapper.MolecularHamiltonian method)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.ucc.transform_integrals_to_new_basis">transform_integrals_to_new_basis() (in module qat.fermion.chemistry.ucc)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.transforms.transform_to_bk_basis">transform_to_bk_basis() (in module qat.fermion.transforms)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.transforms.transform_to_jw_basis">transform_to_jw_basis() (in module qat.fermion.transforms)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.transforms.transform_to_parity_basis">transform_to_parity_basis() (in module qat.fermion.transforms)</a>
+</li>
+      <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian.two_body_integrals">two_body_integrals (qat.fermion.chemistry.wrapper.MolecularHamiltonian attribute)</a>
+
+      <ul>
+        <li><a href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MoleculeInfo.two_body_integrals">(qat.fermion.chemistry.wrapper.MoleculeInfo attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 

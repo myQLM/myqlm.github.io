@@ -38,7 +38,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.6.1.705
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -82,6 +82,7 @@
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command-line tools</a></li>
 </ul>
@@ -241,8 +242,8 @@ from some classical simulators.</p>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;State </span><span class="si">%s</span><span class="s2">: probability </span><span class="si">%s</span><span class="s2"> +/- </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">err</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">State</span> <span class="o">|</span><span class="mi">11</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.46</span> <span class="o">+/-</span> <span class="mf">0.050090826596203314</span>
-<span class="n">State</span> <span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.54</span> <span class="o">+/-</span> <span class="mf">0.050090826596203314</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">State</span> <span class="o">|</span><span class="mi">11</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.58</span> <span class="o">+/-</span> <span class="mf">0.04960449637488582</span>
+<span class="n">State</span> <span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.42</span> <span class="o">+/-</span> <span class="mf">0.04960449637488582</span>
 </pre></div>
 </div>
 <p>Notice how the estimated probability of the states differs from the ideal one due to “shot noise”. The <code class="docutils literal notranslate"><span class="pre">err</span></code>
@@ -343,9 +344,14 @@ repeat the measurement a finite number of times:</p>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;O&gt; (</span><span class="si">{</span><span class="n">nbshots</span><span class="si">}</span><span class="s2"> shots) = </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">100</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="o">+/-</span> <span class="kc">None</span>
-<span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">1000</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="o">+/-</span> <span class="kc">None</span>
-<span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">10000</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="o">+/-</span> <span class="kc">None</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">18</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+  <span class="n">File</span> <span class="s2">&quot;qpu.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">199</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">CommonQPU</span><span class="o">.</span><span class="n">submit</span>
+  <span class="n">File</span> <span class="s2">&quot;qpu.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">202</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">CommonQPU</span><span class="o">.</span><span class="n">submit</span>
+  <span class="n">File</span> <span class="s2">&quot;qpu.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">125</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">CommonQPU</span><span class="o">.</span><span class="n">_submit_batch</span>
+  <span class="n">File</span> <span class="s2">&quot;/var/lib/jenkins/workspace/myqlm-tutorial-doc_master/runtime_linux-x86_64_el8_python39/usr/lib64/python3.9/site-packages/qat/pylinalg/service.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">184</span><span class="p">,</span> <span class="ow">in</span> <span class="n">submit_job</span>
+    <span class="k">raise</span> <span class="n">QPUException</span><span class="p">(</span><span class="n">ErrorType</span><span class="o">.</span><span class="n">INVALID_ARGS</span><span class="p">,</span>
+<span class="n">qat</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ttypes</span><span class="o">.</span><span class="n">QPUException</span><span class="p">:</span> <span class="n">QPUException</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">modulename</span><span class="o">=</span><span class="s1">&#39;qat.pylinalg&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;In OBSERVABLE mode, cannot use nbshots &gt; 0 (here nbshots = 100). Use ObservableSplitter plugin.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>

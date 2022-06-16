@@ -38,7 +38,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.6.1.705
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +64,7 @@
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command-line tools</a></li>
 </ul>
@@ -90,6 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#plugins">Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#qpus">QPUs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#digital-quantum-simulation-tools">Digital quantum simulation tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#combinatorial-optimization-and-qaoa">Combinatorial optimization and QAOA</a></li>
 </ul>
 </li>
@@ -254,6 +256,17 @@ The two gates are required to have the same arity.</p>
 <li><p><strong>gate1</strong> (<a class="reference internal" href="#qat.lang.AQASM.gates.Gate" title="qat.lang.AQASM.gates.Gate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></a>) – a gate</p></li>
 <li><p><strong>gate2</strong> (<a class="reference internal" href="#qat.lang.AQASM.gates.Gate" title="qat.lang.AQASM.gates.Gate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></a>) – another gate</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.lang.AQASM.Program.display">
+<span class="sig-name descname"><span class="pre">display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.Program.display" title="Permalink to this definition"></a></dt>
+<dd><p>Transforms the program into a circuit and displays it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – key word arguments passed to the <cite>display</cite> method of the circuit</p>
 </dd>
 </dl>
 </dd></dl>
@@ -580,7 +593,7 @@ of the initial gate.</p>
 </pre></div>
 </div>
 <p>and use this new abstract gate as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">my_rz</span><span class="p">(</span><span class="mf">0.4</span><span class="p">),</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_rz</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>It is possible to attach a matrix generator to the abstract gate in order to generate and include a matrix in the final circuit (if you want to be able to simulate the circuit for instance).</p>
@@ -654,6 +667,17 @@ abstract gate</p></li>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#qat.lang.AQASM.gates.Gate" title="qat.lang.AQASM.gates.Gate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.lang.AQASM.gates.ParamGate.display">
+<span class="sig-name descname"><span class="pre">display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.gates.ParamGate.display" title="Permalink to this definition"></a></dt>
+<dd><p>Displays the param gate (if the gate has a circuit generator).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – key word arguments passed to the <cite>display</cite> method of the circuit</p>
 </dd>
 </dl>
 </dd></dl>

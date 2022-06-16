@@ -90,10 +90,10 @@ Let us execute a quantum circuit on this QPU:
     from qat.lang.AQASM import Program, H, CNOT, RX
     prog = Program()
     reg = prog.qalloc(3)
-    prog.apply(H, reg[0])
-    prog.apply(CNOT, reg[0], reg[1])
-    prog.apply(RX(np.pi/2), reg[0])
-    prog.apply(CNOT, reg[1], reg[2])
+    H(reg[0])
+    CNOT(reg[0], reg[1])
+    RX(np.pi/2)(reg[0])
+    CNOT(reg[1], reg[2])
     circ = prog.to_circ()
     job = circ.to_job(nbshots=5, aggregate_data=False)
     qpu = MyQPU()
@@ -172,7 +172,7 @@ Since our plugin inherits from the :class:`~qat.plugins.AbstractPlugin` class, w
 
         prog = Program()
         for qb in prog.qalloc(3):
-            prog.apply(H, qb)
+            H(qb)
 
         for sample in my_stack.submit(prog.to_circ().to_job()):
             print(sample)
@@ -199,7 +199,7 @@ Since our plugin inherits from the :class:`~qat.plugins.AbstractPlugin` class, w
 
         prog = Program()
         for qb in prog.qalloc(3):
-            prog.apply(H, qb)
+            H(qb)
 
         for sample in my_stack.submit(prog.to_circ().to_job()):
             print(sample)
@@ -238,7 +238,7 @@ Let us change our code so that our plugin prints any incoming circuit and the si
 
         prog = Program()
         for qb in prog.qalloc(3):
-            prog.apply(H, qb)
+            H(qb)
 
         job = prog.to_circ().to_job()
         # Let's submit 3 times our job in a single go
@@ -276,7 +276,7 @@ Let us change our code so that our plugin prints any incoming circuit and the si
 
         prog = Program()
         for qb in prog.qalloc(3):
-            prog.apply(H, qb)
+            H(qb)
 
         job = prog.to_circ().to_job()
         # Let's submit 3 times our job in a single go
@@ -320,7 +320,7 @@ Finally, let's change the implementation of the `do_post_processing` method:
 
         prog = Program()
         for qb in prog.qalloc(3):
-            prog.apply(H, qb)
+            H(qb)
 
         job = prog.to_circ().to_job()
         # Let's submit 3 times our job in a single go
@@ -361,7 +361,7 @@ Finally, let's change the implementation of the `do_post_processing` method:
 
         prog = Program()
         for qb in prog.qalloc(3):
-            prog.apply(H, qb)
+            H(qb)
 
         job = prog.to_circ().to_job()
         # Let's submit 3 times our job in a single go
@@ -431,7 +431,7 @@ In the following example, we will construct a quite naive junction that will pro
 
     prog = Program()
     qbits = prog.qalloc(1)
-    prog.apply(RY(prog.new_var(float, r"\beta")), qbits)
+    RY(prog.new_var(float, r"\beta"))(qbits)
     job = prog.to_circ().to_job(observable=Observable.sigma_z(0, 1))
 
     result = stack.submit(job)

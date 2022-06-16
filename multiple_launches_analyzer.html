@@ -34,7 +34,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.6.1.705
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -60,6 +60,7 @@
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command-line tools</a></li>
 </ul>
@@ -124,6 +125,25 @@
 </style>
 <span class="target" id="module-qat.plugins.multiple_launches_analyzer"></span><section id="multiple-launches-run-and-analyze-plugin">
 <h1>Multiple launches run and analyze plugin<a class="headerlink" href="#multiple-launches-run-and-analyze-plugin" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.plugins.MultipleLaunchesAnalyzer">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">MultipleLaunchesAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_runs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.MultipleLaunchesAnalyzer" title="Permalink to this definition"></a></dt>
+<dd><p>A very simple plugin that duplicates each job of the batch
+and for each keeps the result associated to the lowest observed value.</p>
+<p>The plugin may be used to carry out the batch optimization
+of the angles of a fixed ansatz starting from different random
+initializations. To this end, the stack upstream must include a
+VQE optimizer instantiated without any starting point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_runs</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Number of initializations investigated. Defaults to 5.</p></li>
+<li><p><strong>verbose</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – Print infos. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 

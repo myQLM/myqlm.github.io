@@ -50,11 +50,11 @@ Similarly, to provide a subcircuit implementation, one attaches to the definitio
     def c_phase(theta):
         routine = QRoutine()
         wires = routine.new_wires(2)
-        routine.apply(CNOT, wires)
-        routine.apply(PH(-theta/2), wires[1])
-        routine.apply(CNOT, wires)
-        routine.apply(PH(theta/2), wires[0])
-        routine.apply(PH(theta/2), wires[1])
+        CNOT(wires)
+        PH(-theta/2)(wires[1])
+        CNOT, wires)
+        PH(theta/2)(wires[0])
+        PH(theta/2)(wires[1])
         return routine
 
 
@@ -95,12 +95,12 @@ The `build_gate` decorator removes a lot of this clunkyness by allowing you to t
         routine = QRoutine()
         wires = routine.new_wires(nbqbits)
         for wire in wires:
-            routine.apply(H, wire)
+            H(wire)
         return routine
 
     prog = Program()
     qbits = prog.qalloc(4)
-    prog.apply(wht(4), qbits)
+    wht(4)(qbits)
     # This circuit will contain a gate containing a subcircuit 
     # of length 4
     circuit = prog.to_circ()
@@ -119,7 +119,7 @@ Consider for instance the following program:
     prog = Program()
     qbits = prog.qalloc(2 * 10)
     adder = AbstractGate("ADD", [int, int], arity=lambda n1, n2: n1 + n2)
-    prog.apply(adder(10, 10), qbits)
+    adder(10, 10)(qbits)
 
 This code will run without error. The generated circuit (the result of :meth:`~qat.lang.AQASM.Program.to_circ`) will contain a single gate without any subcircuit implementation. Therefore, attempting to execute this circuit on most QPUs will fail.
 
@@ -151,7 +151,7 @@ Lets update the first piece of code to link the implementation `foo.my_adder` to
     prog = Program()
     qbits = prog.qalloc(2 * 10)
     adder = AbstractGate("ADD", [int, int], arity=lambda n1, n2: n1 + n2)
-    prog.apply(adder(10, 10), qbits)
+    adder(10, 10)(qbits)
 
     import foo
     circuit = prog.to_circ(link=[foo.my_adder])
@@ -167,7 +167,7 @@ Equivalently one could have linked the full namespace `foo`, if we had for insta
     prog = Program()
     qbits = prog.qalloc(2 * 10)
     adder = AbstractGate("ADD", [int, int], arity=lambda n1, n2: n1 + n2)
-    prog.apply(adder(10, 10), qbits)
+    adder(10, 10)(qbits)
 
     import foo
     circuit = prog.to_circ(link=[foo])
@@ -194,10 +194,10 @@ This scheme is natively supported inside the :class:`~qat.lang.AQASM.routines.QR
 
     # Opening a computation scope
     with routine.compute():
-        routine.apply(CNOT, wires[0], wires[1])
+        CNOT(wires[0], wires[1])
     # The scope is now closed and stored internally
 
-    routine.apply(PH(1.), wires[1])
+    PH(1.)(wires[1])
 
     # Here we 'pop' the last closed scope and apply its dagger
     routine.uncompute()
@@ -236,12 +236,12 @@ Of course computation scopes can be nested:
     routine = QRoutine()
     wires = routine.new_wires(3)
     with routine.compute():
-        routine.apply(CNOT, wires[0], wires[1])
+        CNOT(wires[0], wires[1])
         with routine.compute():
-            routine.apply(CNOT, wires[1], wires[2])
-        routine.apply(PH(1.), wires[2])
+            CNOT(wires[1], wires[2])
+        PH(1.)(wires[2])
         routine.uncompute()
-    routine.apply(PH(2.), wires[1])
+    PH(2.)(wires[1])
     routine.uncompute()
     # The routine now contains 9 gates
 
@@ -278,7 +278,7 @@ As a consequence, it is possible to link subcircuit implementations of a gate us
 
     prog = Program()
     qbits = prog.qalloc(20)
-    prog.apply(add(10, 10), qbits)
+    add(10, 10)(qbits)
 
     # No ancillae
     circuit = prog.to_circ(link=[qftarith])

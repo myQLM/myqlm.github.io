@@ -36,7 +36,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.6.1.705
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -77,6 +77,7 @@
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command-line tools</a></li>
 </ul>
@@ -187,25 +188,25 @@
 </ul>
 <p>(The mathematical definition of these gates is given in <a class="reference internal" href="aqasm.html#aqasm"><span class="std std-ref">The AQASM format</span></a>.)</p>
 <p>These gates can be applied to the qubits from the qubit register:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">CNOT</span><span class="p">,</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">RZ</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">),</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">CNOT</span><span class="p">(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">H</span><span class="p">(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">RZ</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">)(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>From this initial gate set, one can also build new gates using control and dagger operations:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">PH</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(),</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">RX</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">dag</span><span class="p">(),</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">PH</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">RX</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">dag</span><span class="p">()(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>Of course, controls can be stacked:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">PH</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(),</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">PH</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>By convention, the outermost control qubit is always the first argument in the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.apply" title="qat.lang.AQASM.Program.apply"><code class="xref py py-func docutils literal notranslate"><span class="pre">apply()</span></code></a> method.</p>
+<p>By convention, the outermost control qubit is always the first argument in when calling a gate.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here qbits_reg[0] is the control qbit:</span>
-<span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(),</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">H</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="c1"># And here, qbits_reg[0] and qbits_reg[2] are the controls:</span>
-<span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(),</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+<span class="n">H</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
 </pre></div>
 </div>
 </section>
@@ -216,7 +217,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># A new 1-qbit gate parametrized by 2 angles</span>
 <span class="n">C</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">C</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">C</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>Of course, you can also provide a way to generate the matrix corresponding to the gate:</p>
@@ -241,7 +242,7 @@ the previous section).</p>
 <p>PyAQASM offers the possibility to define your own gates from a matrix. This is done via the <code class="code docutils literal notranslate"><span class="pre">CustomGate</span></code> class.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
 <span class="n">my_minus_z</span> <span class="o">=</span> <span class="n">CustomGate</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
-<span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">my_minus_z</span><span class="p">,</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">my_minus_z</span><span class="p">(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 </section>
@@ -251,14 +252,15 @@ the previous section).</p>
 This interface is provided by the <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> object.
 Inside these routines, qubits are inexistant: a routine is just a gate, thus it only knows about the incoming/outgoing wires. Wires are referred to using integers. The arity of the routine is updated dynamically depending on the used wires.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
-<span class="n">my_routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">my_routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">CNOT</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">wires</span> <span class="o">=</span> <span class="n">my_routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">H</span><span class="p">(</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="p">)</span>
 
-<span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">my_routine</span><span class="p">,</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">my_routine</span><span class="p">(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
 <span class="c1"># Since QRoutine are Gates, one can control/dagger them</span>
-<span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">my_routine</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(),</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
-<span class="n">my_program</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">my_routine</span><span class="o">.</span><span class="n">dag</span><span class="p">(),</span> <span class="n">qbtis_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">my_routine</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">my_routine</span><span class="o">.</span><span class="n">dag</span><span class="p">()(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
 </pre></div>
 </div>
 </section>

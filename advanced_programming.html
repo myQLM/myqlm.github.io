@@ -38,7 +38,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.6.1.705
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -95,6 +95,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command-line tools</a></li>
 </ul>
@@ -200,11 +201,11 @@ However, when the time comes to simulate or properly execute the quantum circuit
 <span class="k">def</span> <span class="nf">c_phase</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
     <span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
     <span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">CNOT</span><span class="p">,</span> <span class="n">wires</span><span class="p">)</span>
-    <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">PH</span><span class="p">(</span><span class="o">-</span><span class="n">theta</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">CNOT</span><span class="p">,</span> <span class="n">wires</span><span class="p">)</span>
-    <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">PH</span><span class="p">(</span><span class="n">theta</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">PH</span><span class="p">(</span><span class="n">theta</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="p">)</span>
+    <span class="n">PH</span><span class="p">(</span><span class="o">-</span><span class="n">theta</span><span class="o">/</span><span class="mi">2</span><span class="p">)(</span><span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">CNOT</span><span class="p">,</span> <span class="n">wires</span><span class="p">)</span>
+    <span class="n">PH</span><span class="p">(</span><span class="n">theta</span><span class="o">/</span><span class="mi">2</span><span class="p">)(</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">PH</span><span class="p">(</span><span class="n">theta</span><span class="o">/</span><span class="mi">2</span><span class="p">)(</span><span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">routine</span>
 
 
@@ -212,6 +213,12 @@ However, when the time comes to simulate or properly execute the quantum circuit
 <span class="c1"># Or alternatively</span>
 <span class="n">c_phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;C_PHASE&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">c_phase_gate</span><span class="o">.</span><span class="n">set_circuit_generator</span><span class="p">(</span><span class="n">c_phase</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">8</span>
+    <span class="n">CNOT</span><span class="p">,</span> <span class="n">wires</span><span class="p">)</span>
+               <span class="o">^</span>
+<span class="ne">SyntaxError</span><span class="p">:</span> <span class="n">unmatched</span> <span class="s1">&#39;)&#39;</span>
 </pre></div>
 </div>
 </section>
@@ -238,12 +245,12 @@ to define circuit generators and abstract gates separately.</p>
     <span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
     <span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">wire</span> <span class="ow">in</span> <span class="n">wires</span><span class="p">:</span>
-        <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">wire</span><span class="p">)</span>
+        <span class="n">H</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">routine</span>
 
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">wht</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">wht</span><span class="p">(</span><span class="mi">4</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
 <span class="c1"># This circuit will contain a gate containing a subcircuit</span>
 <span class="c1"># of length 4</span>
 <span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
@@ -259,7 +266,7 @@ to define circuit generators and abstract gates separately.</p>
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">adder</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;ADD&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">:</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)</span>
-<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">adder</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">adder</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This code will run without error. The generated circuit (the result of <a class="reference internal" href="qat-lang.html#qat.lang.AQASM.Program.to_circ" title="qat.lang.AQASM.Program.to_circ"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_circ()</span></code></a>) will contain a single gate without any subcircuit implementation. Therefore, attempting to execute this circuit on most QPUs will fail.</p>
@@ -286,7 +293,7 @@ Lets update the first piece of code to link the implementation <cite>foo.my_adde
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">adder</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;ADD&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">:</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)</span>
-<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">adder</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">adder</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">foo</span>
 <span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">(</span><span class="n">link</span><span class="o">=</span><span class="p">[</span><span class="n">foo</span><span class="o">.</span><span class="n">my_adder</span><span class="p">])</span>
@@ -300,7 +307,7 @@ Equivalently one could have linked the full namespace <cite>foo</cite>, if we ha
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">adder</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;ADD&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">:</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)</span>
-<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">adder</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">adder</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">foo</span>
 <span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">(</span><span class="n">link</span><span class="o">=</span><span class="p">[</span><span class="n">foo</span><span class="p">])</span>
@@ -321,10 +328,10 @@ Equivalently one could have linked the full namespace <cite>foo</cite>, if we ha
 
 <span class="c1"># Opening a computation scope</span>
 <span class="k">with</span> <span class="n">routine</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
-    <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">CNOT</span><span class="p">,</span> <span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="c1"># The scope is now closed and stored internally</span>
 
-<span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">PH</span><span class="p">(</span><span class="mf">1.</span><span class="p">),</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">PH</span><span class="p">(</span><span class="mf">1.</span><span class="p">)(</span><span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
 <span class="c1"># Here we &#39;pop&#39; the last closed scope and apply its dagger</span>
 <span class="n">routine</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
@@ -357,12 +364,12 @@ Equivalently one could have linked the full namespace <cite>foo</cite>, if we ha
 <span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
 <span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="k">with</span> <span class="n">routine</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
-    <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">CNOT</span><span class="p">,</span> <span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
     <span class="k">with</span> <span class="n">routine</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
-        <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">CNOT</span><span class="p">,</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">wires</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-    <span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">PH</span><span class="p">(</span><span class="mf">1.</span><span class="p">),</span> <span class="n">wires</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">wires</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">PH</span><span class="p">(</span><span class="mf">1.</span><span class="p">)(</span><span class="n">wires</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
     <span class="n">routine</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
-<span class="n">routine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">PH</span><span class="p">(</span><span class="mf">2.</span><span class="p">),</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">PH</span><span class="p">(</span><span class="mf">2.</span><span class="p">)(</span><span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">routine</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
 <span class="c1"># The routine now contains 9 gates</span>
 </pre></div>
@@ -392,7 +399,7 @@ the call tree.</p>
 
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">add</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
 
 <span class="c1"># No ancillae</span>
 <span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">(</span><span class="n">link</span><span class="o">=</span><span class="p">[</span><span class="n">qftarith</span><span class="p">])</span>

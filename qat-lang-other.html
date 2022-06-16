@@ -38,7 +38,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.6.1.705
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +64,7 @@
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command-line tools</a></li>
 </ul>
@@ -90,6 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#plugins">Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#qpus">QPUs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#digital-quantum-simulation-tools">Digital quantum simulation tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#combinatorial-optimization-and-qaoa">Combinatorial optimization and QAOA</a></li>
 </ul>
 </li>
@@ -244,32 +246,32 @@ This information can be retrieved in the <cite>.qubits</cite> attribute of the o
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Full</span> <span class="n">state</span> <span class="n">preparation</span><span class="p">:</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.8116168828975587</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.8558086600101706</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.116210947376985</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.335171189348236</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.7433617340302164</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.17695401912883513</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.0453162845163722</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.1907714044560027</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.2743614449830472</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.04704767986131431</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.726184084951522</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.10954847551212732</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.044016381288210504</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.007252928629773225</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 <span class="n">QRAM</span> <span class="n">call</span> <span class="k">with</span> <span class="mi">1</span> <span class="n">qubit</span> <span class="n">address</span>
 <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.8558086600101706</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.335171189348236</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.7433617340302164</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.17695401912883513</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.0453162845163722</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.1907714044560027</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.2743614449830472</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.04704767986131431</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.726184084951522</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.10954847551212732</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.044016381288210504</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.007252928629773225</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 </pre></div>
 </div>

@@ -25,7 +25,7 @@
     <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="The AQASM format" href="aqasm.html" />
+    <link rel="next" title="Digital quantum simulation for spin and fermionic systems" href="qat-fermion.html" />
     <link rel="prev" title="Advanced programming using pyAQASM" href="advanced_programming.html" /> 
 </head>
 
@@ -38,7 +38,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.6.1.705
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -94,6 +94,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#interfacing-with-dwave">Interfacing with DWAVE</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command-line tools</a></li>
 </ul>
@@ -160,19 +161,19 @@
 <span id="id1"></span><h1>Advanced combinatorial optimization<a class="headerlink" href="#advanced-combinatorial-optimization" title="Permalink to this headline"></a></h1>
 <section id="np-hard-problems">
 <span id="np-problems-formulation"></span><h2>NP-hard problems<a class="headerlink" href="#np-hard-problems" title="Permalink to this headline"></a></h2>
-<p>Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are the NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (see the Combinatorial Optimization <a class="reference internal" href="combinatorial_optimization_intro.html#combinatorial-optimization"><span class="std std-ref">section</span></a> and <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fintroduction_combinatorial_optimization_myqlm.ipynb" style="color: #ff7823; text-decoration: underline">notebook</a>). Some of them, like max cut, graph colouring, number partitioning, etc. could be easily formulated in these ways using myQLM tools. A description of these problems can be found below and the respective helper classes for each problem are given in the <span class="xref std std-ref">Source code</span>. An example notebook for each problem could be found in the <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Foverview_combinatorial_optimization_myqlm.ipynb" style="color: #ff7823; text-decoration: underline">overview</a>.</p>
+<p>Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are the NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (see the Combinatorial Optimization <a class="reference internal" href="combinatorial_optimization_intro.html#combinatorial-optimization"><span class="std std-ref">section</span></a> and <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fintroduction_combinatorial_optimization_myqlm.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">notebook</a>). Some of them, like max cut, graph colouring, number partitioning, etc. could be easily formulated in these ways using myQLM tools. A description of these problems can be found below and the respective helper classes for each problem are given in the <span class="xref std std-ref">Source code</span>. An example notebook for each problem could be found in the <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Foverview_combinatorial_optimization_myqlm.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">overview</a>.</p>
 <section id="unconstrained-graph-problems">
 <h3>Unconstrained Graph Problems<a class="headerlink" href="#unconstrained-graph-problems" title="Permalink to this headline"></a></h3>
 <p>These problems concern graphs for which any output result is valid. In other words, any solution will obey the criteria for a right solution. However, this result may not be the most optimal.</p>
 <section id="max-cut">
 <span id="maxcut-description"></span><h4>Max cut<a class="headerlink" href="#max-cut" title="Permalink to this headline"></a></h4>
 <p>Given an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>, the problem consists in partitioning the graph into two subgraphs connected by the maximum number of edges. Annealing the problem with the <a class="reference internal" href="qat-opt.html#qat.opt.max_cut.MaxCut" title="qat.opt.max_cut.MaxCut"><code class="xref py py-class docutils literal notranslate"><span class="pre">MaxCut</span></code></a> class needs <span class="math notranslate nohighlight">\(\#V\)</span> spins (one spin per vertex of the graph).</p>
-<p>Take a look at a notebook on solving <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fmax_cut_myqlm.ipynb" style="color: #ff7823; text-decoration: underline">Max Cut</a> problems with <a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>.</p>
+<p>Take a look at a notebook on solving <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fmax_cut_myqlm.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Max Cut</a> problems with <a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>.</p>
 </section>
 <section id="graph-partitioning">
 <span id="graph-partitioning-description"></span><h4>Graph Partitioning<a class="headerlink" href="#graph-partitioning" title="Permalink to this headline"></a></h4>
 <p>Given an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>, the problem consists in partitioning the graph into two equally-sized subgraphs connected by the minimal number of edges. Annealing the problem with the <a class="reference internal" href="qat-opt.html#qat.opt.graph_partitioning.GraphPartitioning" title="qat.opt.graph_partitioning.GraphPartitioning"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphPartitioning</span></code></a> class needs <span class="math notranslate nohighlight">\(\#V\)</span> spins (one spin for each individual vertex).</p>
-<p>See a notebook on solving <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fgraph_partitioning_myqlm.ipynb" style="color: #ff7823; text-decoration: underline">Graph Partitioning</a> problems with <a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>.</p>
+<p>See a notebook on solving <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fgraph_partitioning_myqlm.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Graph Partitioning</a> problems with <a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>.</p>
 </section>
 </section>
 <section id="constrained-graph-problems">
@@ -185,12 +186,12 @@
 <section id="k-clique">
 <span id="kclique-description"></span><h4>K-Clique<a class="headerlink" href="#k-clique" title="Permalink to this headline"></a></h4>
 <p>Given an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>, the problem consists in finding out whether there exists a complete subgraph of size <span class="math notranslate nohighlight">\(K\)</span>. Annealing the problem with the help of our <a class="reference internal" href="qat-opt.html#qat.opt.k_clique.KClique" title="qat.opt.k_clique.KClique"><code class="xref py py-class docutils literal notranslate"><span class="pre">KClique</span></code></a> class requires <span class="math notranslate nohighlight">\(\#V\)</span> spins (one spin per vertex).</p>
-<p>See a notebook on solving <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fk_clique_myqlm.ipynb" style="color: #ff7823; text-decoration: underline">K-Clique</a> problems with <a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>.</p>
+<p>See a notebook on solving <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fk_clique_myqlm.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">K-Clique</a> problems with <a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>.</p>
 </section>
 <section id="vertex-cover">
 <span id="vertex-cover-description"></span><h4>Vertex Cover<a class="headerlink" href="#vertex-cover" title="Permalink to this headline"></a></h4>
 <p>Given an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>, the problem consists in finding the smallest number of nodes to be coloured, such that every edge has a coloured vertex. As an addition, we want to know which these vertices are. To anneal this problem we would need our <a class="reference internal" href="qat-opt.html#qat.opt.vertex_cover.VertexCover" title="qat.opt.vertex_cover.VertexCover"><code class="xref py py-class docutils literal notranslate"><span class="pre">VertexCover</span></code></a> class with <span class="math notranslate nohighlight">\(\#V\)</span> spins (one spin per vertex).</p>
-<p>Here is a notebook on solving <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fvertex_cover_myqlm.ipynb" style="color: #ff7823; text-decoration: underline">Vertex Cover</a> problems with <a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>.</p>
+<p>Here is a notebook on solving <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fvertex_cover_myqlm.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Vertex Cover</a> problems with <a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>.</p>
 </section>
 </section>
 <section id="other-problems">
@@ -199,7 +200,7 @@
 <section id="number-partitioning">
 <span id="number-partitioning-description"></span><h4>Number Partitioning<a class="headerlink" href="#number-partitioning" title="Permalink to this headline"></a></h4>
 <p>Given a set of real and potentially repeating numbers, the problem consists in partitioning them in two subsets, such that the sum of the numbers in both of them is equal (or as close as possible). To obtain an answer, we would need to use our <a class="reference internal" href="qat-opt.html#qat.opt.number_partitioning.NumberPartitioning" title="qat.opt.number_partitioning.NumberPartitioning"><code class="xref py py-class docutils literal notranslate"><span class="pre">NumberPartitioning</span></code></a> class and anneal <span class="math notranslate nohighlight">\(N\)</span> spins, where <span class="math notranslate nohighlight">\(N\)</span> is the size of the set of numbers.</p>
-<p>Take a look at a notebook on solving <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fnumber_partitioning_myqlm.ipynb" style="color: #ff7823; text-decoration: underline">Number Partitioning</a> problems with <a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>.</p>
+<p>Take a look at a notebook on solving <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fnumber_partitioning_myqlm.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Number Partitioning</a> problems with <a class="reference internal" href="combinatorial_optimization_intro.html#sa-description"><span class="std std-ref">SA</span></a>.</p>
 </section>
 <section id="binary-integer-linear-programming">
 <span id="bilp-description"></span><h4>Binary Integer Linear Programming<a class="headerlink" href="#binary-integer-linear-programming" title="Permalink to this headline"></a></h4>
@@ -338,7 +339,7 @@ code snippet:</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="advanced_programming.html" class="btn btn-neutral float-left" title="Advanced programming using pyAQASM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="aqasm.html" class="btn btn-neutral float-right" title="The AQASM format" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="qat-fermion.html" class="btn btn-neutral float-right" title="Digital quantum simulation for spin and fermionic systems" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

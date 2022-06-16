@@ -1,0 +1,366 @@
+.. _qat-fermion_advanced_usage:
+
+Advanced usage
+##############
+
+We will describe here the advanced usage of the :mod:`qat.fermion` module.
+
+.. contents:: Table of Contents
+   :depth: 2
+   :local:
+   :backlinks: none
+
+.. _qat-fermion_vqe:
+
+Variational Quantum Eigensolver (VQE)
+*************************************
+
+The VQE is one of the flagship algorithms using near-term quantum computers. We present in this section how to do a simple VQE using
+:mod:`qat.fermion`.
+
+We will define manually a Hubbard Hamiltonian, using one- and two-body integrals, and use them to initialize a
+:class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian`. We will then convert this Hamiltonian to a spin representation,
+and find its ground state energy via VQE. To do so, we will manually create a parametric circuit (ansatz), whose parameters we will optimize.
+
+.. note::
+
+     In the following section, we define the Hubbard model manually, but we could also use :ref:`the Hamiltonian constructor for the Hubbard
+     model <qat-fermion_source_hamiltonians_constructors_hubbard>`.
+
+Let us define the Hubbard model:
+
+.. code-block:: python
+
+    import numpy as np
+    from qat.fermion import ElectronicStructureHamiltonian
+    from qat.lang.AQASM import H, RX, RY, CNOT, Program
+    from qat.qpus import get_default_qpu
+    from qat.plugins import ScipyMinimizePlugin
+
+    nqbits = 2
+    u = 2.0
+    hpq = np.zeros((nqbits,) * 2)
+    hpq[0,0] = hpq[1,1] = - u/2
+    hpqrs = np.zeros((nqbits, ) * 4)
+    hpqrs[0, 1, 0, 1] = hpqrs[1, 0, 1, 0] = - u
+
+    hamiltonian = ElectronicStructureHamiltonian(hpq=hpq, hpqrs=hpqrs)
+
+We then convert the fermionic Hamiltonian to a spin Hamiltonian.
+
+.. code-block:: python
+
+    hamiltonian_sp = hamiltonian.to_spin()
+
+We compute the eigenenergies of the Hamiltonian matrix to find the exact energy.
+
+.. code-block:: python
+
+    exact_energy = min(np.linalg.eigh(hamiltonian_sp.get_matrix()))
+
+>>> print(f"Exact_energy = {exact_energy}")
+Exact_energy = -1.0
+
+Let us write the ansatz we will optimize:
+
+.. code-block:: python
+
+    # Initialize a Program and the number of qubits
+    prog = Program()
+    qbits = prog.qalloc(nqbits)
+
+    # Initialize the parameters
+    theta = prog.new_var(float, "\\theta")
+    phi = prog.new_var(float, "\\phi")
+
+    # Write the ansatz
+    H(qbits[0])
+    RY(theta)(qbits[0])
+    CNOT(qbits)
+    RX(phi)(qbits[1])
+
+Finally, we optimize the parameters such that they minimize the expectation value of the Hamiltonian we defined previously.
+
+.. code-block:: python
+
+    # Choose the QPU and define the VQE stack
+    qpu = get_default_qpu()
+    stack = ScipyMinimizePlugin(x0=[0.5, 1.23], method="COBYLA") | qpu
+
+    # Submit the job to the stack
+    res = stack.submit(prog.to_circ().to_job(observable=hamiltonian_sp))
+
+We find :math:`\theta` and :math:`\phi`:
+
+>>> print(f"=== VQE COBYLA RESULTS ===\nEnergy = {res.value}\ntheta, phi = {res.meta_data['parameters']}")
+=== VQE COBYLA RESULTS ===
+Energy = -0.9999999974320526
+theta, phi = [3.1416940034276815, 1.2147911128415545]
+
+We show in more details :notebook:`(a VQE for fermions in our Jupyter notebooks.)[qat_fermion_vqe_hubbard.ipynb]`
+
+.. note::
+
+     Many more ansatz are available in :mod:`qat.fermion`. See :ref:`our list of available fermionic ansatze. <qat-fermion_source_ansatz>`
+
+
+.. _qat-fermion_tools_for_vqe:
+
+Quantum Chemistry tools for VQE
+*******************************
+
+Various methods are available to quantum chemists for the study of atomic and molecular systems:
+
+     * **Unitary coupled-cluster** (UCC) ansatz construction,
+     * **Cluster operator generation**,
+     * **Initial parameters guess via Møller-Plesset perturbation theory**,
+     * **Trotterization**,
+     * **Active space selection**.
+
+More information is available in the following notebooks:
+
+     * :notebook:`(the resolution of a UCC ansatz using the VQE algorithm)[qat_fermion_vqe_ucc_example_1_h2.ipynb]` for a :math:`H_2` molecule,
+     * :notebook:`(and a similar resolution)[qat_fermion_vqe_ucc_example_2_lih.ipynb]` for a :math:`LiH` molecule, with active space selection.
+
+We have introduced in :mod:`qat.fermion` the classes :class:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian` and
+:class:`~qat.fermion.chemistry.wrapper.MoleculeInfo`. These classes are helper classes, meaning they are an interface to lower-level functions
+in :mod:`qat.fermion`, meant to simplify the way you interact with the code. We will see here how to use these classes to study a :math:`LiH` molecule. A more thorough study is available in :mod:`qat.fermion`
+Jupyter notebooks.
+
+We will assume you already have enough information about the molecule itself. You are free to use whatever quantum chemistry library
+you prefer. For simplicity's sake, we provide a basic function :func:`~qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation`
+which collects the information we need.
+
+We start by inputting the geometry, the basis, the spin and the charge of the molecule.
+
+.. run-block:: python
+
+     from qat.fermion.chemistry.pyscf_tools import perform_pyscf_computation
+
+     geometry = [("Li", (0.0, 0.0, 0.0)), ("H", (0.0, 0.0, 1.75))]
+     basis = "6-31g"
+     spin = 0
+     charge = 0
+
+     (
+     rdm1,
+     orbital_energies,
+     nuclear_repulsion,
+     n_electrons,
+     one_body_integrals,
+     two_body_integrals,
+     info,
+     ) = perform_pyscf_computation(geometry=geometry, basis=basis, spin=spin, charge=charge)
+
+MolecularHamiltonian
+====================
+
+From there, we can use the :class:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian` class.
+
+.. code-block:: python
+
+     from qat.fermion.chemistry import MolecularHamiltonian
+
+     # Define the molecular hamiltonian
+     mol_h = MolecularHamiltonian(one_body_integrals, two_body_integrals, nuclear_repulsion)
+
+>>> print(mol_h)
+ MolecularHamiltonian(
+ - constant_coeff : 0.9071609330057144
+ - integrals shape
+    * one_body_integrals : (11, 11)
+    * two_body_integrals : (11, 11, 11, 11)
+)
+
+>>> print(mol_h.nqbits)
+22
+
+This class is different from the :class:`~qat.fermion.hamiltonians.Hamiltonian` classes we have seen so far.
+It is defined using interaction integrals. You can convert it to an
+:class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian` using the method
+:meth:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian.get_electronic_hamiltonian`.
+
+:class:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian` allows:
+
+* the change of the one and two body integrals to a new basis, using :meth:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian.transform_basis`
+* the selection of the active space, using :meth:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian.select_active_space`
+
+To illustrate this, we will compute the natural orbitals occupation numbers (NOONs) as well as their basis transformation matrix.
+We will then use the :meth:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian.transform_basis` method to change the basis of our
+:class:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian`.
+
+.. code-block:: python
+
+     import numpy as np
+
+     # Compute NOONs and the basis
+     noons, basis_change = np.linalg.eigh(rdm1)
+
+     # The noons should be in decreasing order. This means we should flip the basis as well.
+     noons = list(reversed(noons))
+     basis_change = np.flip(basis_change, axis=1)
+
+     # Change the hamiltonian basis
+     mol_h_new_basis = mol_h.transform_basis(basis_change)
+
+We can then proceed to the active space selection.
+
+.. code-block:: python
+
+     # Active space selection
+     mol_h_active, active_indices, occupied_indices = mol_h_new_basis.select_active_space(
+     noons=noons, n_electrons=n_electrons, threshold_1=0.02, threshold_2=0.002
+     )
+
+>>> print(mol_h_active)
+ MolecularHamiltonian(
+ - constant_coeff : 0.9071609330057144
+ - integrals shape
+    * one_body_integrals : (2, 2)
+    * two_body_integrals : (2, 2, 2, 2)
+)
+
+>>> print(mol_h_active.nqbits)
+4
+
+We reduced the number of qubits from 22 to 4 qubits !
+
+.. note::
+
+     * You can access the one and two body integrals, and the constant (nuclear repulsion) via the attributes :attr:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian.one_body_integrals`, :attr:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian.two_body_integrals` and :attr:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian.constant_coeff`.
+     * The number of qubits is accessible via :attr:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian.nqbits`.
+
+MoleculeInfo
+============
+
+While the :class:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian` brings simplicity, we can add another layer of simplicity by
+using the :class:`~qat.fermion.chemistry.wrapper.MoleculeInfo` class. When restricting the active space,
+:class:`~qat.fermion.chemistry.wrapper.MoleculeInfo` takes care of updating its attributes such as the active and occupied orbitals
+indices, as well as the direct update of the NOONs and orbital energies.
+
+More information is available in the :ref:`source code documentation <qat-fermion_source_molecule_info>`. The :class:`~qat.fermion.chemistry.wrapper.MoleculeInfo` class is used in :notebook:`(our VQE UCC ansatz resolution)[qat_fermion_vqe_ucc_example_2_lih.ipynb]` of the :math:`LiH` molecule.
+
+.. _qat-fermion_ansatz:
+
+Fermionic ansatz circuits
+*************************
+
+We also provide some circuits useful in a context of VQE on fermionic systems:
+
+* :ref:`Low-Depth Circuit Ansatz (LDCA): a general ansatz for correlated fermionic systems <qat-fermion_source_ansatz_ldca>`
+* :ref:`Multi-Reference (MR) ansatz: a four-qubit, one-parameter ansatz <qat-fermion_source_ansatz_mr>`
+* :ref:`Multi-Reference, Excitation-Preserving (MREP) ansatz: a eight-qubit ansatz building on the MR ansatz <qat-fermion_source_ansatz_mrep>`
+* :ref:`The 8-parameter circuit ansatz <qat-fermion_source_ansatz_8params>`
+* :ref:`General hardware-efficient ansatz: a general constructor <qat-fermion_source_ansatz_hwe>`
+* :ref:`(Only for QLM users) Compressed LDCA ansatz: the compressed version of the LDCA ansatz circuit <qat-fermion_source_ansatz_compressed_ldca>`
+
+.. _qat-fermion_phase_estimation:
+
+Quantum phase estimation
+************************
+
+The quantum phase space estimation algorithm allows for the estimation of the eigenvalue associated
+with a given eigenvector. Let us see how to use this algorithm with a simple example.
+
+We will first define a Hubbard model, and find its exact eigenenergies via direct diagonalization.
+
+.. run-block:: python
+
+     import numpy as np
+     from qat.fermion.hamiltonians import make_hubbard_model
+
+     # Define the Hubbard model
+     U = 1.0
+     t = 0.2
+     t_mat = -t * np.array([[0.0, 1.0], [1.0, 0.0]])
+
+     # We get an ElectronicStructureHamiltonian
+     hamiltonian = make_hubbard_model(t_mat, U, mu=U / 2)
+
+     # Find its eigenenergies
+     eigvals = np.linalg.eigvalsh(hamiltonian.get_matrix())
+
+>>> print(np.round(eigvals, decimals=4))
+[-1.1403 -1.     -1.     -1.     -0.7    -0.7    -0.7    -0.7    -0.3
+ -0.3    -0.3    -0.3     0.      0.      0.      0.1403]
+
+Now we know the exact eigenenergies, let us find them once again using the quantum phase estimation algorithm.
+
+.. code-block:: python
+
+     from qat.qpus import get_default_qpu
+     from qat.fermion.phase_estimation import perform_phase_estimation
+
+     qpu = get_default_qpu()
+
+     nqbits_phase = 8
+     n_trotter_steps = 6
+     guess_energy = -0.1  # try an energy which is off from 0
+     size_interval = 5
+
+     energy, prob = perform_phase_estimation(
+     hamiltonian,
+     nqbits_phase,
+     n_trotter_steps,
+     E_target=guess_energy,
+     size_interval=size_interval,
+     qpu=qpu,
+     )
+
+>>> print(f"E = {energy}")
+E = -0.002343750000000089
+
+We find an energy very close to some of the exact eigenenergies we computed earlier !
+
+More information is available in the :ref:`source code documentation <qat-fermion_source_qpe>` and in the notebook :notebook:`(on quantum phase estimation on the Hubbard molecule)[qat_fermion_qpe_hubbard_molecule.ipynb]`.
+
+.. _qat-fermion_trotter:
+
+Trotterization tools
+********************
+
+You can trotterize any Hamiltonian using our trotterization tools.
+
+Here is an example.
+
+.. run-block:: python
+
+     import numpy as np
+
+     from qat.lang.AQASM import Program
+     from qat.fermion.trotterisation import make_trotterisation_routine
+     from qat.fermion.hamiltonians import make_hubbard_model
+
+     # Define the Hubbard model
+     U = 1.0
+     t = 0.2
+     t_mat = -t * np.array([[0.0, 1.0], [1.0, 0.0]])
+
+     # We get an ElectronicStructureHamiltonian
+     hamiltonian = make_hubbard_model(t_mat, U, mu=U / 2)
+
+     # Trotterize the Hamiltonian (with 1 trotter step)
+     qrout = make_trotterisation_routine(hamiltonian, n_trotter_steps=1, final_time=1)
+
+     # Define an empty Program and apply the QRoutine on it
+     prog = Program()
+     reg = prog.qalloc(hamiltonian.nbqbits)
+     prog.apply(qrout, reg)
+     circ = prog.to_circ()
+
+>>> %qatdisplay circ
+
+.. image:: qat-fermion_trotter.png
+   :width: 800
+
+For more information, see the :func:`~qat.fermion.trotterisation.make_trotterisation_routine` function documentation.
+The trotterization is used for the UCC ansatz construction in our UCC VQE notebooks,
+see :notebook:`(here)[qat-fermion_vqe_ucc_example_1_h2.ipynb]` for the :math:`H_2` molecule, and :notebook:`(here)[qat_fermion_vqe_ucc_example_2_lih.ipynb]` for the :math:`LiH` molecule.
+
+.. _qat-fermion_qse:
+
+Quantum subspace expansion
+**************************
+
+The quantum subspace expansion is a method that can allow to reach a better precision at the cost of doing additional measurements.
+You will find more details directly in the :func:`~qat.fermion.chemistry.qse.apply_quantum_subspace_expansion` documentation. See how to use it in :notebook:`(the quantum subspace expansion notebook)[qat_fermion_quantum_subspace_expansion_h2.ipynb]`.

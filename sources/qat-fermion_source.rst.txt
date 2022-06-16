@@ -1,0 +1,192 @@
+.. _qat-fermion-source:
+
+Digital quantum simulation for spin and fermionic systems
+=========================================================
+
+The :mod:`qat.fermion` module contains tools for the study of spin and fermionic systems. Please see the :ref:`main page <qat-fermion>`
+for more information on how to use the module.
+
+.. contents:: Table of Contents
+   :depth: 2
+   :local:
+   :backlinks: none
+
+The Hamiltonians classes
+########################
+
+The :class:`~qat.fermion.hamiltonians.Hamiltonian` and :class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian` are
+essentially an :class:`~qat.core.Observable` class, with additional functionalities. This means any method available in
+:class:`~qat.core.Observable` is available in :class:`~qat.fermion.hamiltonians.Hamiltonian` and
+:class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian`.
+
+.. _qat-fermion_source_hamiltonian:
+
+Hamiltonian
+***********
+
+.. autoclass:: qat.fermion.hamiltonians.Hamiltonian
+   :members: htype, dag, get_matrix, to_spin, copy
+
+.. _qat-fermion_source_electronicstructurehamiltonian:
+
+ElectronicStructureHamiltonian
+******************************
+
+.. autoclass:: qat.fermion.hamiltonians.ElectronicStructureHamiltonian
+
+.. _qat-fermion_source_chemistry_wrappers:
+
+Atomic and molecular studies study
+##################################
+
+MolecularHamiltonian
+********************
+
+.. _qat-fermion_source_molecular_hamiltonian:
+
+.. autoclass:: qat.fermion.chemistry.wrapper.MolecularHamiltonian
+   :members: transform_basis, select_active_space, get_electronic_hamiltonian
+
+MoleculeInfo
+************
+
+.. _qat-fermion_source_molecule_info:
+
+.. autoclass:: qat.fermion.chemistry.wrapper.MoleculeInfo
+   :members: restrict_active_space
+
+.. _qat-fermion_source_hamiltonian_constructors:
+
+Common many-body Hamiltonians
+#############################
+
+We present here Hamiltonian constructors for common many-body Hamiltonians.
+
+.. _qat-fermion_source_hamiltonians_constructors_hubbard:
+
+The Hubbard model
+*****************
+
+.. autofunction:: qat.fermion.hamiltonians.make_hubbard_model
+
+.. _qat-fermion_source_hamiltonians_constructors_anderson:
+
+The single-impurity Anderson Model
+**********************************
+
+.. autofunction:: qat.fermion.hamiltonians.make_anderson_model
+
+.. _qat-fermion_source_hamiltonians_constructors_embedded:
+
+The generalized impurity Hamiltonian
+************************************
+
+.. autofunction:: qat.fermion.hamiltonians.make_embedded_model
+
+.. _qat-fermion_source_transforms:
+
+The spin-fermion transforms
+###########################
+
+.. _qat-fermion_source_transforms_jw:
+
+Jordan-Wigner transform
+***********************
+
+.. autofunction:: qat.fermion.transforms.transform_to_jw_basis
+
+.. _qat-fermion_source_transforms_bk:
+
+Bravyi-Kitaev transform
+***********************
+
+.. autofunction:: qat.fermion.transforms.transform_to_bk_basis
+
+.. _qat-fermion_source_transforms_parity:
+
+Parity basis transform
+**********************
+
+.. autofunction:: qat.fermion.transforms.transform_to_parity_basis
+
+.. _qat-fermion_source_ansatz:
+
+Fermionic ansatz circuits
+#########################
+
+.. _qat-fermion_source_ansatz_ldca:
+
+Low-Depth Circuit Ansatz (LDCA)
+*******************************
+
+.. autofunction:: qat.fermion.circuits.make_ldca_circ
+
+.. _qat-fermion_source_ansatz_mr:
+
+Multi-Reference (MR) ansatz
+***************************
+
+.. autofunction:: qat.fermion.circuits.make_mr_circ
+
+.. _qat-fermion_source_ansatz_mrep:
+
+Multi-Reference, Excitation-Preserving (MREP) ansatz
+****************************************************
+
+.. autofunction:: qat.fermion.circuits.make_mrep_circ
+
+.. _qat-fermion_source_ansatz_hwe:
+
+General hardware-efficient ansatz
+*********************************
+
+.. autofunction:: qat.fermion.circuits.make_general_hwe_circ
+
+.. _qat-fermion_source_ansatz_8params:
+
+The 8-parameter circuit ansatz
+******************************
+
+.. autofunction:: qat.fermion.circuits.make_shallow_circ
+
+.. _qat-fermion_source_ansatz_compressed_ldca:
+
+Compressed LDCA ansatz (only for QLM users)
+*******************************************
+
+.. autofunction:: qat.fermion.circuits.make_compressed_ldca_circ
+
+.. _qat-fermion_source_qpe:
+
+Quantum phase estimation
+########################
+
+.. autofunction:: qat.fermion.phase_estimation.perform_phase_estimation
+
+.. _qat-fermion_source_qse:
+
+Quantum subspace expansion
+##########################
+
+.. autofunction:: qat.fermion.chemistry.qse.apply_quantum_subspace_expansion
+
+Unitary Coupled-Cluster (UCC)
+#############################
+
+.. autofunction:: qat.fermion.chemistry.ucc.transform_integrals_to_new_basis
+.. autofunction:: qat.fermion.chemistry.ucc.compute_active_space_integrals
+.. autofunction:: qat.fermion.chemistry.ucc.convert_to_h_integrals
+.. autofunction:: qat.fermion.chemistry.ucc.construct_ucc_ansatz
+.. autofunction:: qat.fermion.chemistry.ucc.select_active_orbitals
+.. autofunction:: qat.fermion.chemistry.ucc.select_excitation_operators
+.. autofunction:: qat.fermion.chemistry.ucc.guess_init_params
+.. autofunction:: qat.fermion.chemistry.ucc.get_hf_ket
+.. autofunction:: qat.fermion.chemistry.ucc.get_cluster_ops
+
+.. _qat-fermion_source_trotter:
+
+Utility functions
+#################
+
+.. autofunction:: qat.fermion.trotterisation.make_trotterisation_routine
+.. autofunction:: qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation

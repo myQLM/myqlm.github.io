@@ -38,7 +38,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.6.1.705
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +64,7 @@
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">Command-line tools</a></li>
 </ul>
@@ -84,6 +85,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#qpus">QPUs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#digital-quantum-simulation-tools">Digital quantum simulation tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#combinatorial-optimization-and-qaoa">Combinatorial optimization and QAOA</a></li>
 </ul>
 </li>
@@ -170,9 +172,9 @@ to include your favorite classical optimizer inside a QLM stack.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best parameters:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">meta_data</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Final</span> <span class="n">energy</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.9999999959462045</span>
-<span class="n">Minimization</span> <span class="n">trace</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.9380334554546228</span><span class="p">,</span> <span class="mf">0.21521432005137245</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.7054718686954221</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9775504748138564</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.35087368259342083</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.7568656301384117</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9992891521532854</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9588968699901771</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9867922929166001</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9996926845421643</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9984300364603328</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999579798120614</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999791496825979</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9998981836497581</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999967452724093</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.999999082142224</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999861602563839</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999945285368944</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999284356991</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999998210550017</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999939546368</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999998210550017</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999373071398</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999999504207</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999959462045</span><span class="p">]</span>
-<span class="n">Best</span> <span class="n">parameters</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.141682695751232</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Final</span> <span class="n">energy</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.9999999983931858</span>
+<span class="n">Minimization</span> <span class="n">trace</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.9632991733601795</span><span class="p">,</span> <span class="mf">0.2945966490590248</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.6449566757849433</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9915398072823346</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4265058126844489</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.807927186310663</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9928290041720961</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9701786095807703</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.998357100749528</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.999986634213573</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.997711241270926</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9993368554824292</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999453497479686</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999157250999664</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999992011340958</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999965092971483</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999997625631956</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999986127666308</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999798337558</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999586857464</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999990620734</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999586857464</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999897309609</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999983931858</span><span class="p">]</span>
+<span class="n">Best</span> <span class="n">parameters</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.1415359647136</span><span class="p">]</span>
 </pre></div>
 </div>
 <details class="related-notebooks"><summary>There are 4 related notebooks</summary><div><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fvariational_algorithms%2Fdisplaying_informations.ipynb" target="_blank" rel="noreferrer noopener"><i class="icon icon-book"></i><p>displaying_informations.ipynb</p></a><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fvariational_algorithms%2Fqaoa.ipynb" target="_blank" rel="noreferrer noopener"><i class="icon icon-book"></i><p>qaoa.ipynb</p></a><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fvariational_algorithms%2Fscipy_optimize_binder.ipynb" target="_blank" rel="noreferrer noopener"><i class="icon icon-book"></i><p>scipy_optimize_binder.ipynb</p></a><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fvariational_algorithms%2Fvqe_getting_started_random_spin.ipynb" target="_blank" rel="noreferrer noopener"><i class="icon icon-book"></i><p>vqe_getting_started_random_spin.ipynb</p></a></div></details><p>Below is the detailed documentation of the available plugins:</p>
@@ -300,6 +302,41 @@ See class Inertia_weight for more details.</p></li>
 <p><strong>Sequential Optimization</strong></p>
 </div>
 <div class="toggle-content docutils container">
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.plugins.SeqOptim">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">SeqOptim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncycles</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeff</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.SeqOptim" title="Permalink to this definition"></a></dt>
+<dd><p>This plugin implements the sequential parameter optimization technique (also known as <em>rotosolve</em>) described in:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://dx.doi.org/10.1103/PhysRevResearch.2.043158">Nakanishi et al.</a> (arXiv:1903.12166) [2020]</p></li>
+<li><p><a class="reference external" href="http://dx.doi.org/10.22331/q-2021-01-28-391">Ostaszewski et al.</a> (arXiv:1905.09692) [2021]</p></li>
+</ul>
+<p>It is a particularization of the <a class="reference internal" href="qat-core.html#qat.plugins.Optimizer" title="qat.plugins.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> class.</p>
+<p>It consists in tuning the parameters of a variational ansatz one after the other, cycling
+several times through all of them, leveraging the parameter shift rule to find a local minimum
+with three measurements of the cost function.</p>
+<p>Such a method can be used only if all parametrized gates are of the form <span class="math notranslate nohighlight">\(\exp(-ic\theta P/2)\)</span> where <span class="math notranslate nohighlight">\(P\)</span>
+is a tensor product of Pauli matrices and <span class="math notranslate nohighlight">\(c\)</span> a number that must be entered in the ‘coeff’
+field of the plugin (e.g. for rotation matrices <span class="math notranslate nohighlight">\(RX\)</span>, <span class="math notranslate nohighlight">\(RY\)</span>, <span class="math notranslate nohighlight">\(RZ\)</span>, <span class="math notranslate nohighlight">\(c=1\)</span>).</p>
+<p>In the current implementation of the plugin, all parameterized gates are assumed to be of the same type (i.e. have the same
+coefficient <span class="math notranslate nohighlight">\(c\)</span>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The applicability of the method is not checked for when the batch is received.
+It belongs to the user to provide a circuit matching the requirements mentioned above.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ncycles</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of times the plugin cycles through each angle, defaults to 10. The value to which it should
+be set so that the cost function converges is however strongly problem-dependent.</p></li>
+<li><p><strong>coeff</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) – Rescaling parameter <span class="math notranslate nohighlight">\(c\)</span> for all the circuit’s angles. Defaults to 1.</p></li>
+<li><p><strong>x0</strong> (<em>Optional</em><em>[</em><em>np.ndarray</em><em>]</em>) – Initial value of the parameters. Defaults to None, in which case we assume random initialization.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – whether we want to print intermediary cost function values, defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 </section>
 

@@ -81,33 +81,33 @@ These gates can be applied to the qubits from the qubit register:
 
 .. code-block:: python
 
-   my_program.apply(CNOT, qbits_reg[0], qbits_reg[1])
-   my_program.apply(H, qbits_reg[2])
-   my_program.apply(RZ(np.pi/2.), qbits_reg[0]
+   CNOT(qbits_reg[0], qbits_reg[1])
+   H(qbits_reg[2])
+   RZ(np.pi/2.)(qbits_reg[0]
 
 From this initial gate set, one can also build new gates using control and dagger operations:
 
 .. code-block:: python
 
-    my_program.apply(PH(np.pi/2).ctrl(), qbits_reg[0], qbits_reg[1])
-    my_program.apply(RX(np.pi/4).dag(), qbits_reg[0])
+    PH(np.pi/2).ctrl()(qbits_reg[0], qbits_reg[1])
+    RX(np.pi/4).dag()(qbits_reg[0])
 
 
 Of course, controls can be stacked:
 
 .. code-block:: python
 
-    my_program.apply(PH(np.pi/2).ctrl().ctrl().ctrl(), qbits_reg[0:4])
+    PH(np.pi/2).ctrl().ctrl().ctrl()(qbits_reg[0:4])
 
-By convention, the outermost control qubit is always the first argument in the :func:`~qat.lang.AQASM.Program.apply` method.
+By convention, the outermost control qubit is always the first argument in when calling a gate.
 
 
 .. code-block:: python
 
     # Here qbits_reg[0] is the control qbit:
-    my_program.apply(H.ctrl(), qbits_reg[0], qbits_reg[2])
+    H.ctrl()(qbits_reg[0], qbits_reg[2])
     # And here, qbits_reg[0] and qbits_reg[2] are the controls:
-    my_program.apply(H.ctrl().ctrl(), qbits_reg[0], qbits_reg[2], qbits_reg[9])
+    H.ctrl().ctrl()(qbits_reg[0], qbits_reg[2], qbits_reg[9])
 
 
 
@@ -125,7 +125,7 @@ Your code would look like this:
     # A new 1-qbit gate parametrized by 2 angles
     C = AbstractGate("C", [float, float], arity=1)
 
-    my_program.apply(C(np.pi/2, np.pi/4), qbits_reg[0])
+    C(np.pi/2, np.pi/4)(qbits_reg[0])
 
 Of course, you can also provide a way to generate the matrix corresponding to the gate:
 
@@ -157,7 +157,7 @@ PyAQASM offers the possibility to define your own gates from a matrix. This is d
 
     mat = np.array([[-1, 0], [0, 1]])
     my_minus_z = CustomGate(mat)
-    my_program.apply(my_minus_z, qbits_reg[0])
+    my_minus_z(qbits_reg[0])
 
 
 Quantum routines
@@ -171,14 +171,15 @@ Inside these routines, qubits are inexistant: a routine is just a gate, thus it 
 .. code-block:: python
 
     my_routine = QRoutine()
-    my_routine.apply(H, 0)
-    my_routine.apply(CNOT, 0, 1)
+    wires = my_routine.new_wires(2)
+    H(wires[0])
+    CNOT(wires)
 
-    my_program.apply(my_routine, qbits_reg[0], qbits_reg[1])
+    my_routine(qbits_reg[0], qbits_reg[1])
 
     # Since QRoutine are Gates, one can control/dagger them
-    my_program.apply(my_routine.ctrl(), qbits_reg[0:3])
-    my_program.apply(my_routine.dag(), qbtis_reg[0:2])
+    my_routine.ctrl()(qbits_reg[0:3])
+    my_routine.dag()(qbits_reg[0:2])
 
 
 

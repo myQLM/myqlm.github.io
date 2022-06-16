@@ -13,7 +13,7 @@ Most of the standard manipulations can be handled via the high-level interface o
 
     prog = Program()
     qbits = prog.qalloc(4)
-    prog.apply(QFT(4), qbits)
+    QFT(4)(qbits)
     prog.measure([qbits[0], qbits[3]])
     prog.reset(qbits[2])
     circuit = prog.to_circ()
@@ -30,7 +30,7 @@ Most of the standard manipulations can be handled via the high-level interface o
 
     prog = Program()
     qbits = prog.qalloc(4)
-    prog.apply(QFT(4), qbits)
+    QFT(4)(qbits)
     prog.measure([qbits[0], qbits[3]])
     prog.reset(qbits[2])
     circuit = prog.to_circ()
@@ -212,7 +212,7 @@ a gate:
         # Create a circuit
         prog = Program()
         qbit = prog.qalloc(1)
-        prog.apply(H, qbit)
+        H(qbit)
         circ = prog.to_circ()
 
         # Extract the definition of the gate H
@@ -233,7 +233,7 @@ a gate:
        # Create a circuit
        prog = Program()
        qbits = prog.qalloc(2)
-       prog.apply(H.ctrl(), qbits)
+       H.ctrl()(qbits)
        circ = prog.to_circ()
 
        # Extract the definition of the gate C-H
@@ -256,7 +256,7 @@ a gate:
         # Create a circuit
         prog = Program()
         qbits = prog.qalloc(2)
-        prog.apply(QFT(2), qbits)
+        QFT(2)(qbits)
         circ = prog.to_circ()
 
         # Extract the definition of QFT(2)

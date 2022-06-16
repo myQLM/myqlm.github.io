@@ -278,7 +278,7 @@ Let us imagine that we wrote a Python file **my_lib.py** containing the followin
     def my_qft(n):
         routine = QRoutine()
         for qb in range(n):
-            routine.apply(H, qb)
+          H(qb)
         return routine
 
 We can link this implementation of the QFT to the compiler in order to inline this subcircuit in place of the abstract gate named QFT.
