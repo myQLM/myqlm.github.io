@@ -151,10 +151,21 @@ The 8-parameter circuit ansatz
 
 .. _qat-fermion_source_ansatz_compressed_ldca:
 
-Compressed LDCA ansatz (only for QLM users)
-*******************************************
+.. only:: myqlm
 
-.. autofunction:: qat.fermion.circuits.make_compressed_ldca_circ
+   Compressed LDCA ansatz (only for QLM users)
+   *******************************************
+   
+   .. note::
+
+      This ansatz is not available in `MyQLM`, only in `QLM`.
+
+.. only:: qlm
+
+   Compressed LDCA ansatz (only for QLM users)
+   *******************************************
+
+   .. autofunction:: qat.fermion.circuits.make_compressed_ldca_circ
 
 .. _qat-fermion_source_qpe:
 
@@ -178,7 +189,6 @@ Unitary Coupled-Cluster (UCC)
 .. autofunction:: qat.fermion.chemistry.ucc.convert_to_h_integrals
 .. autofunction:: qat.fermion.chemistry.ucc.construct_ucc_ansatz
 .. autofunction:: qat.fermion.chemistry.ucc.select_active_orbitals
-.. autofunction:: qat.fermion.chemistry.ucc.select_excitation_operators
 .. autofunction:: qat.fermion.chemistry.ucc.guess_init_params
 .. autofunction:: qat.fermion.chemistry.ucc.get_hf_ket
 .. autofunction:: qat.fermion.chemistry.ucc.get_cluster_ops

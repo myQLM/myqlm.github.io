@@ -38,7 +38,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.6.1.705
+                myQLM-1.5.1-1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -146,6 +146,21 @@
 <section id="basic-usage">
 <span id="qat-fermion-basic-usage"></span><h1>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline"></a></h1>
 <p>We will describe here the basic usage of the <a class="reference internal" href="qat-fermion.html#module-qat.fermion" title="qat.fermion"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.fermion</span></code></a> module.</p>
+<div class="contents local topic" id="table-of-contents">
+<p class="topic-title">Table of Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#defining-a-hamiltonian" id="id1">Defining a Hamiltonian</a></p>
+<ul>
+<li><p><a class="reference internal" href="#spin-hamiltonians" id="id2">Spin Hamiltonians</a></p></li>
+<li><p><a class="reference internal" href="#fermionic-hamiltonians" id="id3">Fermionic Hamiltonians</a></p></li>
+<li><p><a class="reference internal" href="#fermionic-hamiltonian-using-one-and-two-electrons-integrals" id="id4">Fermionic Hamiltonian using one and two-electrons integrals</a></p></li>
+<li><p><a class="reference internal" href="#the-get-matrix-method" id="id5">The <a class="reference internal" href="qat-fermion_source.html#qat.fermion.hamiltonians.Hamiltonian.get_matrix" title="qat.fermion.hamiltonians.Hamiltonian.get_matrix"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_matrix()</span></code></a> method</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#fermionic-to-spin-representation" id="id6">Fermionic to spin representation</a></p></li>
+<li><p><a class="reference internal" href="#some-hamiltonian-constructors" id="id7">Some Hamiltonian constructors</a></p></li>
+</ul>
+</div>
 <section id="defining-a-hamiltonian">
 <span id="qat-fermion-hamiltonian"></span><h2>Defining a Hamiltonian<a class="headerlink" href="#defining-a-hamiltonian" title="Permalink to this headline"></a></h2>
 <p>Many problems in physics are defined by their Hamiltonian. The basic object we will manipulate is the <a class="reference internal" href="qat-fermion_source.html#qat.fermion.hamiltonians.Hamiltonian" title="qat.fermion.hamiltonians.Hamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hamiltonian</span></code></a>.
@@ -221,7 +236,7 @@ accepts the one and two-body terms <span class="math notranslate nohighlight">\(
 <p class="admonition-title">Note</p>
 <p>An alternative definition for the electronic-structure Hamiltonian is :</p>
 <div class="math notranslate nohighlight">
-\[H = \sum_{ij\sigma} I_{uv}c^{\dagger}_{i\sigma}c_{j\sigma} + \frac{1}{2}\sum_{uvwx}\sum_{\sigma \sigma'} I_{uvwx}c^{\dagger}_{i\sigma}c^{\dagger}_{j\sigma'}c_{k\sigma'}c_{l\sigma} + r\mathbb{I}\]</div>
+\[H = \sum_{uv\sigma} I_{uv}c^{\dagger}_{u\sigma}c_{v\sigma} + \frac{1}{2}\sum_{uvwx}\sum_{\sigma \sigma'} I_{uvwx}c^{\dagger}_{u\sigma}c^{\dagger}_{v\sigma'}c_{k\sigma'}c_{l\sigma} + r\mathbb{I}\]</div>
 <p>Should you need to define an <a class="reference internal" href="qat-fermion_source.html#qat.fermion.hamiltonians.ElectronicStructureHamiltonian" title="qat.fermion.hamiltonians.ElectronicStructureHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElectronicStructureHamiltonian</span></code></a> using the one- and two-body integrals <span class="math notranslate nohighlight">\(I_{uv}\)</span> and <span class="math notranslate nohighlight">\(I_{uvwx}\)</span>, you have two options:</p>
 <blockquote>
 <div><ul class="simple">
@@ -229,6 +244,7 @@ accepts the one and two-body terms <span class="math notranslate nohighlight">\(
 <li><p>define a <a class="reference internal" href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">MolecularHamiltonian</span></code></a> using <span class="math notranslate nohighlight">\(I_{uv},I_{uvwx}\)</span> and extract the <a class="reference internal" href="qat-fermion_source.html#qat.fermion.hamiltonians.ElectronicStructureHamiltonian" title="qat.fermion.hamiltonians.ElectronicStructureHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElectronicStructureHamiltonian</span></code></a> using its <a class="reference internal" href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian.get_electronic_hamiltonian" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian.get_electronic_hamiltonian"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_electronic_hamiltonian()</span></code></a> method.</p></li>
 </ul>
 </div></blockquote>
+<p>For more information on this type of body integrals, see <a class="reference internal" href="qat-fermion_source.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">MolecularHamiltonian</span></code></a> documentation.</p>
 </div>
 <p>You can also consult the Jupyter notebook on <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fdigital_quantum_simulations_spin_fermion%2Fqat_fermion_spin_fermion_transforms.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">spin-fermion transforms</a>.</p>
 </section>

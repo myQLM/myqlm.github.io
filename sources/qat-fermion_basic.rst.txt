@@ -8,7 +8,6 @@ We will describe here the basic usage of the :mod:`qat.fermion` module.
 .. contents:: Table of Contents
    :depth: 2
    :local:
-   :noindex:
    :backlinks: none
 
 .. _qat-fermion_hamiltonian:
@@ -99,17 +98,18 @@ The :class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian` inherits f
 
 .. note::
 
-        An alternative definition for the electronic-structure Hamiltonian is :
+    An alternative definition for the electronic-structure Hamiltonian is :
 
-        .. math::
+    .. math::
 
-            H = \sum_{ij\sigma} I_{uv}c^{\dagger}_{i\sigma}c_{j\sigma} + \frac{1}{2}\sum_{uvwx}\sum_{\sigma \sigma'} I_{uvwx}c^{\dagger}_{i\sigma}c^{\dagger}_{j\sigma'}c_{k\sigma'}c_{l\sigma} + r\mathbb{I}
+        H = \sum_{uv\sigma} I_{uv}c^{\dagger}_{u\sigma}c_{v\sigma} + \frac{1}{2}\sum_{uvwx}\sum_{\sigma \sigma'} I_{uvwx}c^{\dagger}_{u\sigma}c^{\dagger}_{v\sigma'}c_{k\sigma'}c_{l\sigma} + r\mathbb{I}
 
-        Should you need to define an :class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian` using the one- and two-body integrals :math:`I_{uv}` and :math:`I_{uvwx}`, you have two options:
+    Should you need to define an :class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian` using the one- and two-body integrals :math:`I_{uv}` and :math:`I_{uvwx}`, you have two options:
 
-            * convert the :math:`I_{uv},I_{uvwx}` to :math:`h_{pq},h_{pqrs}` using the :func:`qat.fermion.chemistry.ucc.convert_to_h_integrals` and define the :class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian` using :math:`h_{pq},h_{pqrs}`;
-
-            * define a :class:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian` using :math:`I_{uv},I_{uvwx}` and extract the :class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian` using its :meth:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian.get_electronic_hamiltonian` method.
+        * convert the :math:`I_{uv},I_{uvwx}` to :math:`h_{pq},h_{pqrs}` using the :func:`qat.fermion.chemistry.ucc.convert_to_h_integrals` and define the :class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian` using :math:`h_{pq},h_{pqrs}`;
+        * define a :class:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian` using :math:`I_{uv},I_{uvwx}` and extract the :class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian` using its :meth:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian.get_electronic_hamiltonian` method.
+    
+    For more information on this type of body integrals, see :class:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian` documentation.
 
 You can also consult the Jupyter notebook on :notebook:`(spin-fermion transforms)[qat_fermion_spin_fermion_transforms.ipynb]`.
 
