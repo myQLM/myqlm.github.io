@@ -8,6 +8,7 @@
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
       <link rel="stylesheet" href="static/contentui.css" type="text/css" />
+      <link rel="stylesheet" href="static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
     <link rel="shortcut icon" href="static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="static/js/html5shiv.min.js"></script>
@@ -16,8 +17,11 @@
         <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
         <script src="static/jquery.js"></script>
         <script src="static/underscore.js"></script>
+        <script src="static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="static/doctools.js"></script>
+        <script src="static/sphinx_highlight.js"></script>
         <script src="static/contentui.js"></script>
+        <script src="static/design-tabs.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -36,7 +40,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.7.1-1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -56,10 +60,15 @@
 <li class="toctree-l1"><a class="reference internal" href="combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability with myQLM</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Notebooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">List of notebooks</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced usage</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Main objects: Jobs, Observables, Circuits…</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_generators.html">Building advanced computation stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
@@ -117,6 +126,11 @@
               id="toggle-1" style="display: none" alt="-" /></td>
        <td>
        <a href="source_doc.html#module-qat"><code class="xref">qat</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="myqlm_specific/qat-clinalg.html#module-qat.clinalg"><code class="xref">qat.clinalg</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
@@ -181,6 +195,11 @@
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
+       <a href="myqlm_specific/qiskit.html#module-qat.interop.qiskit.runtime"><code class="xref">qat.interop.qiskit.runtime</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
        <a href="qat-lang.html#module-qat.lang"><code class="xref">qat.lang</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
@@ -221,7 +240,17 @@
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="multiple_launches_analyzer.html#module-qat.plugins.multiple_launches_analyzer"><code class="xref">qat.plugins.multiple_launches_analyzer</code></a></td><td>
+       <a href="advanced_combinatorial_optimization.html#module-qat.opt.generators"><code class="xref">qat.opt.generators</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="plugin_gradient_descent.html#module-qat.plugins.GradientDescentOptimizer"><code class="xref">qat.plugins.GradientDescentOptimizer</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="plugin_multiplelaunches.html#module-qat.plugins.MultipleLaunchesAnalyzer"><code class="xref">qat.plugins.MultipleLaunchesAnalyzer</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
@@ -231,7 +260,12 @@
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="sequential_optimization.html#module-qat.plugins.sequential_optimization"><code class="xref">qat.plugins.sequential_optimization</code></a></td><td>
+       <a href="plugin_seqoptim.html#module-qat.plugins.SeqOptim"><code class="xref">qat.plugins.SeqOptim</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="plugin_zeronoise.html#module-qat.plugins.ZeroNoiseExtrapolator"><code class="xref">qat.plugins.ZeroNoiseExtrapolator</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>

@@ -1,0 +1,69 @@
+Quantum Annealing (QA)
+______________________
+
+**Quantum Annealing (QA)** is a generic optimization framework that utilizes a continuous quantum dynamic to find the global minimum of a target function.
+In practice, this framework is often applied to combinatorial optimization since combinatorial cost function are usually simple to encode into a Hamiltonian.
+
+A generic quantum annealing is defined using a target Hamiltonian :math:`H_{C}` such that:
+
+.. math::
+
+    H_C | x\rangle = C(x)|x\rangle
+
+encodes a cost function :math:`C`, and using a problem independent mixing Hamiltonian :math:`H_0` such that:
+
+.. math::
+
+    [H_C, H_0] \neq 0
+
+The quantum system is prepared in the (problem independent) ground state of :math:`H_0` and evolved slowly according the following time-dependent Hamiltonian:
+
+.. math::
+
+    H(t) = (1 - \frac{t}{T}) H_0 + \frac{t}{T} H_C
+
+during a time :math:`T`. For large :math:`T`, the adiabatic theorem states that the final quantum state will 'largely' overlap the ground state of :math:`H_C`. Thus, measuring this quantum state in the computational basis will produce the global minimum of :math:`C` with large probability.
+
+
+It is possible to automatically generate quantum annealing jobs from a any of the problem description classes descibed earlier. For instance, the following piece of code produces an annealing job for a MaxCut instance:
+
+.. run-block:: python
+
+    from qat.opt import MaxCut
+    import networkx as nx
+
+    graph = nx.generators.erdos_renyi_graph(10, 0.5)
+    problem = MaxCut(graph)
+    # We just need to specify the value of T (tmax)
+    annealing_job = problem.annealing_job(tmax=47)
+
+
+The default mixing Hamitonian (:math:`H_0`) is :
+
+.. math::
+
+    H_0 = - \sum \sigma_x^{(i)}
+
+Its ground state is :math:`|+\rangle^{\otimes n}` (a simple product state).
+
+
+Some applications may require more advanced mixing Hamiltonians. QLM comes with a few mixing Hamiltonians already pre-programmed in a :class:`~qat.opt.MixingFactory`.
+
+
+One can, for instance, define a bit-move mixing Hamiltonian that will mix the subspaces of constant Hamming weights. This is useful when one needs to restrict the search to bit-strings of fixed Hamming weight:
+
+
+.. run-block:: python
+
+    from qat.opt import MaxCut, MixingFactory
+    import networkx as nx
+
+    graph = nx.generators.erdos_renyi_graph(10, 0.5)
+    problem = MaxCut(graph)
+
+    # Looking for a solution of Hamming weight 3
+    mixing = MixingFactory.bit_move(10, 3)
+    annealing_job = problem.annealing_job(tmax=47, mixing=mixing)
+
+
+Doing this will effectively change the mixing Hamiltonian, and, of course, the initial state of the computation. This change can lead to an increase in the computation time since some mixing Hamiltonians have non trivial ground states whose preparation might involve a problem independent annealing to take place before the true annealing.

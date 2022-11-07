@@ -229,7 +229,7 @@ This plugin also supports a nice feature: it can read optimization parameters di
     print('best parameters (dictionary):', result.parameter_map)
     print('trace:', result.meta_data['optimization_trace'])
 
-An alternative is the :class:`qat.plugins.sequential_optimization` Plugin, which only works for a certain class of circuits but stands out for its shot-noise resilience.
+An alternative is the :class:`qat.plugins.SeqOptim` Plugin, which only works for a certain class of circuits but stands out for its shot-noise resilience.
 
 Differentiating jobs
 _____________________
@@ -242,4 +242,4 @@ Examples of use of this feature are given in :notebook:`(this notebook)[differen
 
 Testing for several initializations of the parameters
 ______________________________________________________
-Variational optimization tends to be sensitive to the initial parameters it started from. You can insert the :class:`qat.plugins.multiple_launches_analyzer` Plugin before a VQE optimizer to automatically perform several VQE runs and keep the lowest-energy result. This is illustrated in the notebook :notebook:`(Making several VQE runs and keeping the best result with the MultipleLaunchesAnalyzer plugin)[multiple_launches_analyzer_plugin.ipynb]`.
+Variational optimization tends to be sensitive to the initial parameters it started from. You can insert the :class:`qat.plugins.MultipleLaunchesAnalyzer` Plugin before a VQE optimizer to automatically perform several VQE runs and keep the lowest-energy result. This is illustrated in the notebook :notebook:`(Making several VQE runs and keeping the best result with the MultipleLaunchesAnalyzer plugin)[multiple_launches_analyzer_plugin.ipynb]`.

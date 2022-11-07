@@ -2,16 +2,25 @@
 
 .. module:: qat.fermion
 
+.. button-link:: https://github.com/myQLM/myqlm-fermion
+    :color: primary
+    :outline:
+    :align: right
+    
+    :octicon:`logo-github`
+
 Digital quantum simulation for spin and fermionic systems
 =========================================================
 
-.. note:: 
+.. note::
 
-    The module :mod:`qat.fermion` is currently in **alpha** version. It is still experimental. The installation is done via the source code
-    directly, see `the repository installation instruction here <https://github.com/myQLM/myqlm-fermion#installation>`_.
+    | :mod:`qat.fermion` is a revamped and improved version of the now deprecated :code:`qat.dqs` module.
+    | To update your code, please refer to the detailed changelog :ref:`detailed changelog <qat-fermion_compatibility_guide>`.
+    
+This is the reference documentation for the :mod:`qat.fermion` module. Its aim is to provide tools for describing and solving spin
+and fermionic problems. The code of :mod:`qat.fermion` is open-source and part of the myQLM suite. The source code can be found `here <https://github.com/myQLM/myqlm-fermion>`_.
 
-This is the reference documentation for the :mod:`qat.fermion` module. Its aim is to provide tools for describing and 
-solving spin and fermionic problems. This includes, among others:
+This includes, among others:
 
     * objects to help you define **fermionic and spin Hamiltonians**,
     * spin-to-fermion transformations, such as Jordan-Wigner, Bravyi-Kitaev or parity basis transformations,
@@ -19,9 +28,13 @@ solving spin and fermionic problems. This includes, among others:
     * tools aimed at atomic and molecule studies (active space selection, basis transformations,...etc),
     * a **trotterization** module,
     * a **quantum phase estimation** module,
+    * an adaptative ansatz VQE plugin (ADAPT-VQE),
+    * a natural gradient-based optimizer,
+    * a sequential hybrid classical-quantum optimizer,
+    * a zero noise extrapolator plugin for multiqubit noise mitigation,
     * ...
 
-:mod:`qat.fermion` features have been broken down in two parts.
+:mod:`qat.fermion` features have been broken down into three parts.
 
 ..  toctree-filt::
     :maxdepth: 2
@@ -33,6 +46,16 @@ solving spin and fermionic problems. This includes, among others:
 
     qat-fermion_advanced
 
+.. toctree-filt::
+    :maxdepth: 2
+
+    qat-fermion_plugins
+
+.. toctree-filt::
+    :maxdepth: 1
+
+    qat-fermion_compatibility_guide
+
 We also provide the following Jupyter notebooks:
 
     * :notebook:`(Spin-fermions transforms)[qat_fermion_spin_fermion_transforms.ipynb]`
@@ -41,7 +64,11 @@ We also provide the following Jupyter notebooks:
     * :notebook:`(VQE for a LiH molecule using the UCC ansatz)[qat_fermion_vqe_ucc_example_2_lih.ipynb]`
     * :notebook:`(Quantum Phase Estimation on the Hubbard molecule)[qat_fermion_qpe_hubbard_molecule.ipynb]`
     * :notebook:`(Advanced VQE: Quantum Subspace Expansion)[qat_fermion_quantum_subspace_expansion_h2.ipynb]`
+    * :notebook:`(Natural gradient-based optimizer)[qat_fermion_natural_gradient_vqe.ipynb]`
+    * :notebook:`(Optimizing circuits with the sequential optimization plugin)[qat_fermion_sequential_optimization_plugin.ipynb]`
+    * :notebook:`(Running several optimizations and keeping the best one with MultipleLaunchesPlugin)[qat_fermion_multiple_launches_analyzer_plugin.ipynb]`
+    * :notebook:`(Mitigating multiqubit noise (QLM users only))[qat_fermion_zero_noise_extrapolation_plugin.ipynb]`
 
-.. note::
+* The source code documentation is available :ref:`here <qat-fermion-source>`.
+* The changelog is available :ref:`here <qat-fermion_compatibility_guide>`.
 
-    The source code documentation is available :ref:`here <qat-fermion-source>`.

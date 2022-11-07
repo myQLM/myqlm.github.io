@@ -9,6 +9,7 @@
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
       <link rel="stylesheet" href="static/contentui.css" type="text/css" />
+      <link rel="stylesheet" href="static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
     <link rel="shortcut icon" href="static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="static/js/html5shiv.min.js"></script>
@@ -17,11 +18,14 @@
         <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
         <script src="static/jquery.js"></script>
         <script src="static/underscore.js"></script>
+        <script src="static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="static/doctools.js"></script>
+        <script src="static/sphinx_highlight.js"></script>
         <script src="static/contentui.js"></script>
+        <script src="static/design-tabs.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -38,7 +42,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.7.1-1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -51,25 +55,22 @@
               <p class="caption" role="heading"><span class="caption-text">Basic usage</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/install.html">Installing myQLM</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#a-simple-grover">A simple Grover</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#the-diffusion">The diffusion</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-oracle">The oracle</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#a-simple-variational-algorithm">A simple variational algorithm</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="programming.html">Writing quantum circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simulating.html">Executing quantum circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability with myQLM</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Notebooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">List of notebooks</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced usage</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Main objects: Jobs, Observables, Circuits…</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_generators.html">Building advanced computation stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
@@ -136,7 +137,11 @@
 }
 </style>
 <section id="getting-started">
-<span id="id1"></span><h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h1>
+<span id="id1"></span><h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h1>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+QLM Hello world</label><div class="sd-tab-content docutils">
 <p>The following code snippet creates and simulates a simple Bell pair circuit:</p>
 <figure class="align-default">
 <a class="reference internal image-reference" href="images/bell_pair.png"><img alt="images/bell_pair.png" src="images/bell_pair.png" style="width: 153.0px; height: 76.0px;" /></a>
@@ -183,8 +188,10 @@
 <p>QLM also comes with a collection of powerful tools, called Plugins, to manipulate quantum circuits and execution results. Information about these tools can be found in the <a class="reference internal" href="manipulating.html#manipulating"><span class="std std-ref">manipulating section</span></a>.</p>
 <p>Finally, the QLM provides powerful simulators, called Quantum Processing Units (QPUs). The example above used the default one. You will find more information about QPUs <a class="reference internal" href="source_doc.html#qpus"><span class="std std-ref">here</span></a>.</p>
 <p>The rest of this section is dedicated to some basic examples of quantum algorithms from the standard literature (such as Grover and a variational algorithm).</p>
-<section id="a-simple-grover">
-<h2>A simple Grover<a class="headerlink" href="#a-simple-grover" title="Permalink to this headline"></a></h2>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+A simple Grover</label><div class="sd-tab-content docutils">
 <p>Let’s write a simple Grover algorithm. Grover is a quantum search algorithm that can find an element in an unstructured search space quadratically faster than a randomized classical algorithm. In this search model, the problem is specified by an <strong>oracle</strong>, i.e a function <span class="math notranslate nohighlight">\(\mathcal{X}\rightarrow \{0, 1\}\)</span>, and we are looking for an element <span class="math notranslate nohighlight">\(x \in \mathcal{X}\)</span> such that <span class="math notranslate nohighlight">\(f(x) = 1\)</span>.</p>
 <p>The algorithm consists in alternating two operations <span class="math notranslate nohighlight">\(\pi \sqrt{\frac{1}{a}}/4\)</span> times where <span class="math notranslate nohighlight">\(a = \frac{|f^{-1}(\{1\})|}{|\mathcal{X}|}\)</span> is the probability of finding the searched element in the uniform distribution.</p>
 <p>These operations are:</p>
@@ -195,8 +202,7 @@
 </ul>
 </div></blockquote>
 <p>Let’s dive in the details of their implementation for a simple search!</p>
-<section id="the-diffusion">
-<h3>The diffusion<a class="headerlink" href="#the-diffusion" title="Permalink to this headline"></a></h3>
+<p><strong>The diffusion</strong></p>
 <p>To keep things simple we will consider the following search space: <span class="math notranslate nohighlight">\(\mathcal{X} = \{0, 1\}^{2k}\)</span>.
 In this setting, a diffusion can be implemented as follows:</p>
 <blockquote>
@@ -243,9 +249,7 @@ In this setting, a diffusion can be implemented as follows:</p>
 </div>
 </div></blockquote>
 <p>This is a bit clearer now: We have our walls of <span class="math notranslate nohighlight">\(H\)</span> and <span class="math notranslate nohighlight">\(X\)</span> gates, our controlled <span class="math notranslate nohighlight">\(Z\)</span> gate, and we undo our walls using the uncomputation.</p>
-</section>
-<section id="the-oracle">
-<h3>The oracle<a class="headerlink" href="#the-oracle" title="Permalink to this headline"></a></h3>
+<p><strong>The oracle</strong></p>
 <p>In this space, we will look for palindromes: bit strings that are their own mirrors.
 We will implement our oracle as follows (remember that we need to flip the sign of the amplitude of all palindromes):</p>
 <blockquote>
@@ -299,19 +303,19 @@ There are exactly <span class="math notranslate nohighlight">\(2^k\)</span> pali
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span><span class="mi">0000</span><span class="o">&gt;</span> <span class="mf">0.24999999999999956</span>
-<span class="o">|</span><span class="mi">0110</span><span class="o">&gt;</span> <span class="mf">0.2499999999999995</span>
-<span class="o">|</span><span class="mi">1001</span><span class="o">&gt;</span> <span class="mf">0.2499999999999995</span>
-<span class="o">|</span><span class="mi">1111</span><span class="o">&gt;</span> <span class="mf">0.2499999999999995</span>
+<span class="o">|</span><span class="mi">0110</span><span class="o">&gt;</span> <span class="mf">0.24999999999999956</span>
+<span class="o">|</span><span class="mi">1001</span><span class="o">&gt;</span> <span class="mf">0.24999999999999956</span>
+<span class="o">|</span><span class="mi">1111</span><span class="o">&gt;</span> <span class="mf">0.24999999999999956</span>
 </pre></div>
 </div>
 <p>As you can see, all the bit strings we can sample (with decently high  probability) are palindromes!</p>
 <p>Of course, this example is not particularly helpful to solve practical problems, but the QLM comes with high
 level constructs that can help you write more advanced oracles.
 If you are curious, you can have a look at <span class="xref std std-ref">this section</span> of the documentation to see how to write complicated oracles relying on custom data structures.</p>
-</section>
-</section>
-<section id="a-simple-variational-algorithm">
-<h2>A simple variational algorithm<a class="headerlink" href="#a-simple-variational-algorithm" title="Permalink to this headline"></a></h2>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-2">
+A simple variational algorithm</label><div class="sd-tab-content docutils">
 <p>Variational algorithms are believed to be well suited to Noisy, Intermediate-Scale Quantum (NISQ) processors as they do not necessarily require long circuits to nevertheless
 prepare powerful ansatz states.</p>
 <p>In the code snippet below, we illustrate how the QLM can be used to write such variational algorithms in a few lines of code: we first define the Hamiltonian
@@ -352,12 +356,40 @@ so-called “plugin” that is going to perform the iterative optimization of th
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Minimum VQE energy =</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Minimum</span> <span class="n">VQE</span> <span class="n">energy</span> <span class="o">=-</span><span class="mf">2.9999999999985336</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">capi_return</span> <span class="ow">is</span> <span class="n">NULL</span>
+<span class="n">Call</span><span class="o">-</span><span class="n">back</span> <span class="n">cb_calcfc_in__cobyla__user__routines</span> <span class="n">failed</span><span class="o">.</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">31</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+  <span class="n">File</span> <span class="s2">&quot;qpu.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">198</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">CommonQPU</span><span class="o">.</span><span class="n">submit</span>
+  <span class="n">File</span> <span class="s2">&quot;qpu.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">201</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">CommonQPU</span><span class="o">.</span><span class="n">submit</span>
+  <span class="n">File</span> <span class="s2">&quot;junction.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">82</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">junction</span><span class="o">.</span><span class="n">Junction</span><span class="o">.</span><span class="n">_submit_batch</span>
+  <span class="n">File</span> <span class="s2">&quot;junction.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">79</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">junction</span><span class="o">.</span><span class="n">Junction</span><span class="o">.</span><span class="n">_submit_batch</span>
+  <span class="n">File</span> <span class="s2">&quot;optimizer.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">103</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">Optimizer</span><span class="o">.</span><span class="n">run</span>
+  <span class="n">File</span> <span class="s2">&quot;scipy_binder.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">105</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">vsolve</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">scipy_binder</span><span class="o">.</span><span class="n">ScipyMinimizePlugin</span><span class="o">.</span><span class="n">optimize</span>
+  <span class="n">File</span> <span class="s2">&quot;/usr/local/lib64/python3.9/site-packages/scipy/optimize/_minimize.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">705</span><span class="p">,</span> <span class="ow">in</span> <span class="n">minimize</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">_minimize_cobyla</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">constraints</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
+  <span class="n">File</span> <span class="s2">&quot;/usr/local/lib64/python3.9/site-packages/scipy/optimize/_cobyla_py.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">34</span><span class="p">,</span> <span class="ow">in</span> <span class="n">wrapper</span>
+    <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s2">&quot;/usr/local/lib64/python3.9/site-packages/scipy/optimize/_cobyla_py.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">273</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_minimize_cobyla</span>
+    <span class="n">xopt</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">cobyla</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">calcfc</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x0</span><span class="p">),</span> <span class="n">rhobeg</span><span class="o">=</span><span class="n">rhobeg</span><span class="p">,</span>
+  <span class="n">File</span> <span class="s2">&quot;/usr/local/lib64/python3.9/site-packages/scipy/optimize/_cobyla_py.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">261</span><span class="p">,</span> <span class="ow">in</span> <span class="n">calcfc</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s2">&quot;scipy_binder.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">103</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">vsolve</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">scipy_binder</span><span class="o">.</span><span class="n">ScipyMinimizePlugin</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">evaluate_aux</span>
+  <span class="n">File</span> <span class="s2">&quot;optimizer.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">89</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">Optimizer</span><span class="o">.</span><span class="n">evaluate</span>
+  <span class="n">File</span> <span class="s2">&quot;junction.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">144</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">junction</span><span class="o">.</span><span class="n">Junction</span><span class="o">.</span><span class="n">execute</span>
+  <span class="n">File</span> <span class="s2">&quot;qpu.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">198</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">CommonQPU</span><span class="o">.</span><span class="n">submit</span>
+  <span class="n">File</span> <span class="s2">&quot;qpu.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">201</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">CommonQPU</span><span class="o">.</span><span class="n">submit</span>
+  <span class="n">File</span> <span class="s2">&quot;qpu.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">124</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">CommonQPU</span><span class="o">.</span><span class="n">_submit_batch</span>
+  <span class="n">File</span> <span class="s2">&quot;qpu.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">240</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">clinalg</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">CLinalg</span><span class="o">.</span><span class="n">submit_job</span>
+  <span class="n">File</span> <span class="s2">&quot;qpu.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">246</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">clinalg</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">CLinalg</span><span class="o">.</span><span class="n">submit_job</span>
+  <span class="n">File</span> <span class="s2">&quot;qpu.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">278</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">clinalg</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">CLinalg</span><span class="o">.</span><span class="n">_calculate_expectation_value</span>
+<span class="n">qat</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ttypes</span><span class="o">.</span><span class="n">QPUException</span><span class="p">:</span> <span class="n">QPUException</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">modulename</span><span class="o">=</span><span class="s1">&#39;qat.clinalg&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Observable with nbshots &gt; 0 not implemented. Use ObservableSplitter plugin.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You can learn more about QLM jobs, observables, circuits <a class="reference internal" href="simulating.html#simulating"><span class="std std-ref">here</span></a> and <a class="reference internal" href="introduction.html#introduction"><span class="std std-ref">there</span></a>.
 You can learn more about parametric circuits and variational plugins <a class="reference internal" href="running_variational.html#variational"><span class="std std-ref">here</span></a>.</p>
-</section>
+</div>
+</div>
 </section>
 
 

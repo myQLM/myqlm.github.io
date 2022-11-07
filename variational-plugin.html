@@ -9,6 +9,7 @@
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
       <link rel="stylesheet" href="static/contentui.css" type="text/css" />
+      <link rel="stylesheet" href="static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
     <link rel="shortcut icon" href="static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="static/js/html5shiv.min.js"></script>
@@ -17,16 +18,19 @@
         <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
         <script src="static/jquery.js"></script>
         <script src="static/underscore.js"></script>
+        <script src="static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="static/doctools.js"></script>
+        <script src="static/sphinx_highlight.js"></script>
         <script src="static/contentui.js"></script>
+        <script src="static/design-tabs.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ObservableSplitter : turning observable sampling into qubit sampling" href="observable-splitter.html" />
-    <link rel="prev" title="qat.devices: The device library" href="qat-devices.html" /> 
+    <link rel="prev" title="Graph Colouring Generator" href="graph_colouring_generator.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,7 +42,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.7.1-1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -58,10 +62,15 @@
 <li class="toctree-l1"><a class="reference internal" href="combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability with myQLM</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Notebooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">List of notebooks</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced usage</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Main objects: Jobs, Observables, Circuits…</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_generators.html">Building advanced computation stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
@@ -71,16 +80,29 @@
 <p class="caption" role="heading"><span class="caption-text">Source code documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="source_doc.html">Source code documentation</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="source_doc.html#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-core-library">The core library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-programming-library">The programming library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-device-library">The device library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#generators">Generators</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="source_doc.html#plugins">Plugins</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Plugins for variational algorithms</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Plugins for variational algorithms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#qat.plugins.ScipyMinimizePlugin"><code class="docutils literal notranslate"><span class="pre">ScipyMinimizePlugin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qat.plugins.SPSAMinimizePlugin"><code class="docutils literal notranslate"><span class="pre">SPSAMinimizePlugin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qat.plugins.PSOMinimizePlugin"><code class="docutils literal notranslate"><span class="pre">PSOMinimizePlugin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qat.plugins.SeqOptim"><code class="docutils literal notranslate"><span class="pre">SeqOptim</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="observable-splitter.html">ObservableSplitter : turning observable sampling into qubit sampling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="circuit-inliner.html">CircuitInliner : inlining circuit inside a stack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="display-plugin.html">Display : a console displayer plugin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="quameleon.html">QuameleonPlugin : emulating hardware constraints via a plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="remap-plugin.html">Remap: unused qubits remover</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugin_adaptvqe.html">ADAPT-VQE: building iteratively efficient ansatze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugin_gradient_descent.html">GradientDescentOptimizer: Natural gradient descent optimizer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugin_seqoptim.html">SeqOptim: optimizing circuits with the sequential optimization algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugin_multiplelaunches.html">MultipleLaunchesAnalyzer: running several optimizations and keeping the best one</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugin_zeronoise.html">ZeroNoiseExtrapolator: zero-noise extrapolation for multiqubit noise mitigation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cost_function_plugin.html">CostFunctionPlugin: variational optimization without observable</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#qpus">QPUs</a></li>
@@ -147,7 +169,7 @@
 }
 </style>
 <section id="plugins-for-variational-algorithms">
-<span id="variational-programs"></span><h1>Plugins for variational algorithms<a class="headerlink" href="#plugins-for-variational-algorithms" title="Permalink to this headline"></a></h1>
+<span id="variational-programs"></span><h1>Plugins for variational algorithms<a class="headerlink" href="#plugins-for-variational-algorithms" title="Permalink to this heading"></a></h1>
 <p>The following plugins inherit from the <a class="reference internal" href="qat-core.html#qat.plugins.Optimizer" title="qat.plugins.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> class and provide an easy way
 to include your favorite classical optimizer inside a QLM stack.</p>
 <p>These plugins require the input job to have abstract parameters
@@ -172,9 +194,9 @@ to include your favorite classical optimizer inside a QLM stack.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best parameters:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">meta_data</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Final</span> <span class="n">energy</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.9999999918269894</span>
-<span class="n">Minimization</span> <span class="n">trace</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5826998824890912</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3690187957474291</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9814632949911313</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.6915549670698716</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9531970749607921</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9035369587781963</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9976995298131777</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9983669971617355</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9928496676493986</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9996644387184866</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999857249154076</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.999330542021979</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9997801744640608</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999969513844853</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999471431938249</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999796765189295</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999998668034648</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999989675268992</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999998940022518</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.999999549973809</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.99999997660952</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999996121454</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999630101263</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999973973012</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999918269894</span><span class="p">]</span>
-<span class="n">Best</span> <span class="n">parameters</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.141720505148842</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Final</span> <span class="n">energy</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.9999999991899413</span>
+<span class="n">Minimization</span> <span class="n">trace</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.9603486710308782</span><span class="p">,</span> <span class="mf">0.28427499675805346</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.6531597985328097</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9900824872533468</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4167279031924828</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8015259484050502</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9940603231923152</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9727359224048047</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9989169087261816</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9998727451084918</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9969240998186283</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9988861201360315</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999460333852</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9998830113134668</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999719952416978</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999910333243904</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999986803489734</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999991483643815</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999872400779</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999997900281994</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999184364584</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999982150096</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999999991899413</span><span class="p">]</span>
+<span class="n">Best</span> <span class="n">parameters</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.141632904272737</span><span class="p">]</span>
 </pre></div>
 </div>
 <details class="related-notebooks"><summary>There are 4 related notebooks</summary><div><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fvariational_algorithms%2Fdisplaying_informations.ipynb" target="_blank" rel="noreferrer noopener"><i class="icon icon-book"></i><p>displaying_informations.ipynb</p></a><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fvariational_algorithms%2Fqaoa.ipynb" target="_blank" rel="noreferrer noopener"><i class="icon icon-book"></i><p>qaoa.ipynb</p></a><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fvariational_algorithms%2Fscipy_optimize_binder.ipynb" target="_blank" rel="noreferrer noopener"><i class="icon icon-book"></i><p>scipy_optimize_binder.ipynb</p></a><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fvariational_algorithms%2Fvqe_getting_started_random_spin.ipynb" target="_blank" rel="noreferrer noopener"><i class="icon icon-book"></i><p>vqe_getting_started_random_spin.ipynb</p></a></div></details><p>Below is the detailed documentation of the available plugins:</p>
@@ -184,7 +206,7 @@ to include your favorite classical optimizer inside a QLM stack.</p>
 <div class="toggle-content docutils container">
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.plugins.ScipyMinimizePlugin">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">ScipyMinimizePlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binding_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.ScipyMinimizePlugin" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">ScipyMinimizePlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binding_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.ScipyMinimizePlugin" title="Permalink to this definition"></a></dt>
 <dd><p>A variational plugin for hybrid quantum classical optimization
 based on the <cite>scipy.optimize.minimize</cite> method.</p>
 <p>It is a particularization of the <a class="reference internal" href="qat-core.html#qat.plugins.Optimizer" title="qat.plugins.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> class.</p>
@@ -238,14 +260,14 @@ in which case we assume random initilization.</p></li>
 <div class="toggle-content docutils container">
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.plugins.SPSAMinimizePlugin">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">SPSAMinimizePlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binding_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.SPSAMinimizePlugin" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">SPSAMinimizePlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binding_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.SPSAMinimizePlugin" title="Permalink to this definition"></a></dt>
 <dd><p>A variational minimizer based on the  Simultaneous Perturbation Stochastic
 Approximation (SPSA) algorithm.</p>
 <p>This is a particularization of the <a class="reference internal" href="qat-core.html#qat.plugins.Optimizer" title="qat.plugins.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x0</strong> (<em>np array</em>) – initial values</p></li>
+<li><p><strong>x0</strong> (<em>np.array</em><em>, </em><em>optional</em>) – Initial parameters values. If set to None, the initial parameters will be randomly chosen.</p></li>
 <li><p><strong>binding_args</strong> (<em>dict</em><em>, </em><em>optional</em>) – arguments to bind job variables (see <a class="reference internal" href="qat-core.html#qat.plugins.Optimizer" title="qat.plugins.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a>
 documentation). Defaults to None.</p></li>
 <li><p><strong>maxiter</strong> (<em>int</em><em>, </em><em>optional</em>) – maximal number of iterations. Defaults to 100.</p></li>
@@ -274,14 +296,14 @@ two successive function evalutions are lower than precision. Defaults to 1e-4.</
 <div class="toggle-content docutils container">
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.plugins.PSOMinimizePlugin">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">PSOMinimizePlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binding_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.PSOMinimizePlugin" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">PSOMinimizePlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binding_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.PSOMinimizePlugin" title="Permalink to this definition"></a></dt>
 <dd><p>A variational minimizer based on the Particle Swarm Optimization (PSO) algorithm.</p>
 <p>It is a particularization of the <a class="reference internal" href="qat-core.html#qat.plugins.Optimizer" title="qat.plugins.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x0</strong> (<em>numpy.ndarray</em>) – Initial position of one Particle. If you have no idea,
-take a positive integer which is equal to the number of parameters to optimize.</p></li>
+<li><p><strong>x0</strong> (<em>optional</em><em>, </em><em>numpy.ndarray</em>) – Initial position of one Particle. By default defined as an integer equal to the number of
+parameters to optimize.</p></li>
 <li><p><strong>binding_args</strong> (<em>optional</em><em>, </em><em>dict</em>) – arguments passed to the variable binding method</p></li>
 <li><p><strong>choose_inertia_function</strong> (<em>str</em><em>, </em><em>optional</em>) – method for picking the inertia weights. It may be ‘constant’,
 ‘random’, ‘linearly_decreasing’ (default), ‘chaotic_random’.</p></li>
@@ -304,7 +326,7 @@ See class Inertia_weight for more details.</p></li>
 <div class="toggle-content docutils container">
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.plugins.SeqOptim">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">SeqOptim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncycles</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeff</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.SeqOptim" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">SeqOptim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncycles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.SeqOptim" title="Permalink to this definition"></a></dt>
 <dd><p>This plugin implements the sequential parameter optimization technique (also known as <em>rotosolve</em>) described in:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://dx.doi.org/10.1103/PhysRevResearch.2.043158">Nakanishi et al.</a> (arXiv:1903.12166) [2020]</p></li>
@@ -314,7 +336,7 @@ See class Inertia_weight for more details.</p></li>
 <p>It consists in tuning the parameters of a variational ansatz one after the other, cycling
 several times through all of them, leveraging the parameter shift rule to find a local minimum
 with three measurements of the cost function.</p>
-<p>Such a method can be used only if all parametrized gates are of the form <span class="math notranslate nohighlight">\(\exp(-ic\theta P/2)\)</span> where <span class="math notranslate nohighlight">\(P\)</span>
+<p>Such a method can be used only if all parametrized gates are of the form <span class="math notranslate nohighlight">\(\exp(-i c \theta P/2)\)</span> where <span class="math notranslate nohighlight">\(P\)</span>
 is a tensor product of Pauli matrices and <span class="math notranslate nohighlight">\(c\)</span> a number that must be entered in the ‘coeff’
 field of the plugin (e.g. for rotation matrices <span class="math notranslate nohighlight">\(RX\)</span>, <span class="math notranslate nohighlight">\(RY\)</span>, <span class="math notranslate nohighlight">\(RZ\)</span>, <span class="math notranslate nohighlight">\(c=1\)</span>).</p>
 <p>In the current implementation of the plugin, all parameterized gates are assumed to be of the same type (i.e. have the same
@@ -344,7 +366,7 @@ be set so that the cost function converges is however strongly problem-dependent
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="qat-devices.html" class="btn btn-neutral float-left" title="qat.devices: The device library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="graph_colouring_generator.html" class="btn btn-neutral float-left" title="Graph Colouring Generator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="observable-splitter.html" class="btn btn-neutral float-right" title="ObservableSplitter : turning observable sampling into qubit sampling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -1,0 +1,29 @@
+.. _combinatorial_optimization_generators_utils:
+
+Combinatorial Optimization Generators tools
+===========================================
+Generators used to solve combinatorial problems could return a parsed result. This parsed result
+is a class containing:
+
+ - the raw :class:`~qat.core.Result` found by the execution
+ - the raw best :class:`~qat.core.wrappers.result.Sample`
+ - a parsed version of the best :class:`~qat.core.wrappers.result.Sample`, that could be displayed
+
+.. autoclass:: qat.opt.results.GraphPartitioningResult
+   :members: display
+
+K-Clique result
+--------------
+Generator :class:`~qat.opt.generators.KCliqueGenerator` will cast the :class:`~qat.core.Result` returned by the QPU
+into a :class:`~qat.opt.results.KCliqueResult` (which is a subclass of :class:`~qat.opt.results.GraphPartitioningResult`)
+
+.. autoclass:: qat.opt.results.KCliqueResult
+   :members: clique
+
+Vertex cover result
+-------------------
+Generator :class:`~qat.opt.generators.VertexCoverGenerator` will cast the :class:`~qat.core.Result` returned by the QPU
+into a :class:`~qat.opt.results.VertexCoverResult` (which is a subclass of :class:`~qat.opt.results.GraphPartitioningResult`)
+
+.. autoclass:: qat.opt.results.VertexCoverResult
+   :members: cover

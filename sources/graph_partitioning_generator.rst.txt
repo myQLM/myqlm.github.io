@@ -1,0 +1,141 @@
+.. _graph_partitioning_generator:
+
+Graph Partitioning Generator
+============================
+
+The :class:`~qat.opt.generators.GraphPartitioningGenerator` can be used to generate batches to solve the Graph Partitioning
+problem on an input graph. Some examples using different types of job generation and QPUs on some simple graphs are shown below:
+
+QAOA job generation
+--------------------
+
+.. run-block:: python
+
+    import networkx as nx
+    from qat.generators import GraphPartitioningGenerator
+    from qat.plugins import ScipyMinimizePlugin
+    from qat.qpus import get_default_qpu
+
+    graph = nx.full_rary_tree(3, 6)
+
+    scipy_args = dict(method="COBYLA", tol=1e-5, options={"maxiter": 200})
+    graph_partitioning_application = GraphPartitioningGenerator(job_type="qaoa") | (ScipyMinimizePlugin(**scipy_args) | get_default_qpu())
+    combinatorial_result = graph_partitioning_application.execute(graph, 1)
+
+    print("The nodes in the first subgraph are", combinatorial_result.subsets[0])
+    print("The nodes in the second subgraph are", combinatorial_result.subsets[1])
+
+The parsed combinatorial result can also be displayed with networkx using the
+:meth:`~qat.opt.results.GraphPartitioningResult.display` method:
+
+.. code-block:: python
+
+    combinatorial_result.display()
+
+.. figure:: graph_partitioning_generator_result.png
+    :scale: 100 %
+
+Annealing job generation
+------------------------
+
+.. only:: qlm
+
+    .. run-block:: python
+
+        import networkx as nx
+        from qat.generators import GraphPartitioningGenerator
+        from qat.qpus import SQAQPU
+
+        graph = nx.full_rary_tree(2, 30)
+
+        graph_partitioning_application = GraphPartitioningGenerator(job_type="annealing") | SQAQPU()
+        combinatorial_result = graph_partitioning_application.execute(graph, 1)
+
+        print("The nodes in the first subgraph are", combinatorial_result.subsets[0])
+        print("The nodes in the second subgraph are", combinatorial_result.subsets[1])
+
+    Similarly, the function :meth:`~qat.opt.results.GraphPartitioningResult.display` method: can be used
+    to display the result:
+
+    .. code-block:: python
+
+        combinatorial_result.display()
+
+    .. figure:: graph_partitioning_generator_result_annealing.png
+        :scale: 100 %
+
+.. only:: myqlm
+
+    .. run-block:: python
+
+        import networkx as nx
+        from qat.generators import GraphPartitioningGenerator
+        from qat.qpus import SimulatedAnnealing
+        from qat.core import Variable
+        from qat.opt.sqa_best_parameters import sqa_best_parameters_dicts
+
+        graph = nx.full_rary_tree(2, 30)
+
+        # Create a temperature function
+        t = Variable("t", float)
+        temp_max = sqa_best_parameters_dicts["GraphPartitioning"]["temp_max"]
+        temp_min = sqa_best_parameters_dicts["GraphPartitioning"]["temp_min"]
+        temp_t = temp_min * t + temp_max * (1 - t)  # annealing requires going from a high to a very low temperature
+        n_steps = 5000
+
+        graph_partitioning_application = GraphPartitioningGenerator(job_type="annealing") | SimulatedAnnealing(temp_t, n_steps)
+        combinatorial_result = graph_partitioning_application.execute(graph, 1)
+
+        print("The nodes in the first subgraph are", combinatorial_result.subsets[0])
+        print("The nodes in the second subgraph are", combinatorial_result.subsets[1])
+
+    Similarly, the function :meth:`~qat.opt.results.GraphPartitioningResult.display` method can be used
+    to display the result:
+
+    .. code-block:: python
+
+        combinatorial_result.display()
+
+    .. figure:: graph_partitioning_generator_result_annealing.png
+        :scale: 100 %
+
+Scheduling job generation
+-------------------------
+
+.. only:: qlm
+
+    .. run-block:: python
+
+        import networkx as nx
+        from qat.generators import GraphPartitioningGenerator
+        from qat.qpus import AnalogQPU
+
+        graph = nx.full_rary_tree(3, 6)
+
+        graph_partitioning_application = GraphPartitioningGenerator(job_type="schedule") | AnalogQPU()
+        combinatorial_result = graph_partitioning_application.execute(graph, 1)
+
+        print("The nodes in the first subgraph are", combinatorial_result.subsets[0])
+        print("The nodes in the second subgraph are", combinatorial_result.subsets[1])
+
+    The same example with the QAOA job generation method is used here. Therefore the coresponding figure will
+    be the same when :meth:`~qat.opt.results.GraphPartitioningResult.display` method is used to display the result.
+
+.. only:: myqlm
+
+    .. run-block:: python
+
+        import networkx as nx
+        from qat.generators import GraphPartitioningGenerator
+
+        graph = nx.full_rary_tree(3, 6)
+
+        graph_partitioning_generator = GraphPartitioningGenerator(job_type="schedule")
+        schedule_batch = graph_partitioning_generator.generate(None, graph, 1)
+
+    Currently the analog qpus that can be used to execute the schedule are only available in the QLM.
+    Therefore the generated schedule_batch here can be passed to a QLM for execution.
+
+.. autoclass:: qat.opt.generators.GraphPartitioningGenerator
+
+    .. automethod:: generate

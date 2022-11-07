@@ -9,6 +9,7 @@
       <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../static/css/custom.css" type="text/css" />
       <link rel="stylesheet" href="../static/contentui.css" type="text/css" />
+      <link rel="stylesheet" href="../static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
     <link rel="shortcut icon" href="../static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../static/js/html5shiv.min.js"></script>
@@ -17,8 +18,11 @@
         <script data-url_root="../" id="documentation_options" src="../static/documentation_options.js"></script>
         <script src="../static/jquery.js"></script>
         <script src="../static/underscore.js"></script>
+        <script src="../static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../static/doctools.js"></script>
+        <script src="../static/sphinx_highlight.js"></script>
         <script src="../static/contentui.js"></script>
+        <script src="../static/design-tabs.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -35,7 +39,7 @@
             <img src="../static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.7.1-1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -55,10 +59,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability with myQLM</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Notebooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks.html">List of notebooks</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced usage</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Main objects: Jobs, Observables, Circuits…</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_generators.html">Building advanced computation stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
@@ -75,15 +84,30 @@
 <li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contrib.html">Contributing to myQLM</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-5-1">What’s new in myQLM 1.5.1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-7-1">What’s new in myQLM 1.7.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#a-new-simulated-qpu-in-myqlm">A new simulated QPU in myQLM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tools-for-fermionic-computations-myqlm-fermion">Tools for fermionic computations (myQLM-fermion)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batch-generators-in-myqlm">Batch generators in myQLM</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#new-features">New features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#updated-features">Updated features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fixes">Fixes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-6-0">What’s new in myQLM 1.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">New features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Updated features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-5-1">What’s new in myQLM 1.5.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">New features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Updated features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Fixes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-4-0">What’s new in myQLM 1.4.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#myqlm-power-access">myQLM Power Access</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">New features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">New features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#known-problems">Known problems</a></li>
 </ul>
 </li>
@@ -139,22 +163,51 @@
 }
 </style>
 <section id="release-notes">
-<h1>Release notes<a class="headerlink" href="#release-notes" title="Permalink to this headline"></a></h1>
-<section id="what-s-new-in-myqlm-1-5-1">
-<h2>What’s new in myQLM 1.5.1<a class="headerlink" href="#what-s-new-in-myqlm-1-5-1" title="Permalink to this headline"></a></h2>
-<p>Released December 6, 2021</p>
+<h1>Release notes<a class="headerlink" href="#release-notes" title="Permalink to this heading"></a></h1>
+<section id="what-s-new-in-myqlm-1-7-1">
+<h2>What’s new in myQLM 1.7.1<a class="headerlink" href="#what-s-new-in-myqlm-1-7-1" title="Permalink to this heading"></a></h2>
+<p>Released October 31, 2022</p>
+<section id="a-new-simulated-qpu-in-myqlm">
+<h3>A new simulated QPU in myQLM<a class="headerlink" href="#a-new-simulated-qpu-in-myqlm" title="Permalink to this heading"></a></h3>
+<p>myQLM provides a new QPU, <a class="reference internal" href="qat-clinalg.html#qat.clinalg.CLinalg" title="qat.clinalg.CLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">CLinalg</span></code></a>, written in C++. This new linear-algebra simulatation has been designed as a faster alternative to <a class="reference internal" href="qat-pylinalg.html#qat.pylinalg.PyLinalg" title="qat.pylinalg.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> (written in Python) and its basic interface and features are very similar. The documentation for this simulator can be found <a class="reference internal" href="qat-clinalg.html#qat-clinalg"><span class="std std-ref">here</span></a>.</p>
+<p>This new QPU provides also a low-level API to manipulate the statevector</p>
+</section>
+<section id="tools-for-fermionic-computations-myqlm-fermion">
+<h3>Tools for fermionic computations (myQLM-fermion)<a class="headerlink" href="#tools-for-fermionic-computations-myqlm-fermion" title="Permalink to this heading"></a></h3>
+<p><a class="reference internal" href="../qat-fermion.html#module-qat.fermion" title="qat.fermion"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.fermion</span></code></a>, the module for digital quantum simulation of spin and fermionic systems is now <a class="reference external" href="https://github.com/myQLM/myqlm-fermion">open-source</a> and part of myQLM. The full documentation is available <a class="reference internal" href="../qat-fermion.html#qat-fermion"><span class="std std-ref">here</span></a>. The module includes, among other things:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>objects to help you define <strong>fermionic and spin Hamiltonians</strong>,</p></li>
+<li><p>spin and fermionic Hamiltonians algebraic operations, with automatic normal ordering of fermionic operators,</p></li>
+<li><p>spin-to-fermion transformations, such as Jordan-Wigner, Bravyi-Kitaev or parity basis transformations,</p></li>
+<li><p><strong>variational quantum eigensolver</strong> (VQE) tools, including a module to construct a <strong>UCC ansatz</strong>,</p></li>
+<li><p>tools aimed at atomic and molecule studies (active space selection, basis transformations,…etc),</p></li>
+<li><p>a <strong>trotterization</strong> module,</p></li>
+<li><p>a <strong>quantum phase estimation</strong> module,</p></li>
+<li><p>an adaptative ansatz VQE plugin (ADAPT-VQE),</p></li>
+<li><p>a natural gradient-based optimizer,</p></li>
+<li><p>a sequential hybrid classical-quantum optimizer,</p></li>
+<li><p>a zero noise extrapolator plugin for multiqubit noise mitigation.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="batch-generators-in-myqlm">
+<h3>Batch generators in myQLM<a class="headerlink" href="#batch-generators-in-myqlm" title="Permalink to this heading"></a></h3>
+<p>myQLM provides a new service called <em>BatchGenerator</em> that could be piped at the beginning of a computational stack composed of plugins and a QPU. A BatchGenerator should inherits from <a class="reference internal" href="../qat-core.html#qat.core.generator.AbstractGenerator" title="qat.core.generator.AbstractGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGenerator</span></code></a> and overload the <a class="reference internal" href="../qat-core.html#qat.core.generator.AbstractGenerator.generate" title="qat.core.generator.AbstractGenerator.generate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate()</span></code></a> method. This method will generate as many <a class="reference internal" href="../qat-core.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a> objects as needed and will send these objects to the QPU iteratively. Please refer to <a class="reference internal" href="../batch_generators.html#batch-generators"><span class="std std-ref">the batch generator section</span></a> for more information.</p>
+</section>
 <section id="new-features">
-<h3>New features<a class="headerlink" href="#new-features" title="Permalink to this headline"></a></h3>
+<h3>New features<a class="headerlink" href="#new-features" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p><a class="reference internal" href="qat-pylinalg.html#qat.pylinalg.PyLinalg" title="qat.pylinalg.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> now supports efficient implementation of controlled gates. It now supports simulation of circuits generated with the <code class="code docutils literal notranslate"><span class="pre">submatrices_only</span></code> keyword argument set to <code class="code docutils literal notranslate"><span class="pre">True</span></code> (<code class="code docutils literal notranslate"><span class="pre">prog.to_circ(submatrices_only=True)</span></code>)</p></li>
 <li><p><a class="reference internal" href="../qat-core.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a> objects now have an attribute <code class="code docutils literal notranslate"><span class="pre">processing_types</span></code> used to define the type of supported measurement (e.g., Observable or Sample). QuameleonPlugin has been updated to check this new attribute</p></li>
 <li><p>Added a device ‘ZUCHONGZHI’ describing the Chinese quantum chip of the same name</p></li>
+<li><p>myQLM-interop can submit jobs to an IBM Quantum Experience QPU using the Qiksit Runtime API. The new QPU wrapper of myQLM-interop, <a class="reference internal" href="qiskit.html#qat.interop.qiskit.runtime.QiskitRuntimeQPU" title="qat.interop.qiskit.runtime.QiskitRuntimeQPU"><code class="xref py py-class docutils literal notranslate"><span class="pre">QiskitRuntimeQPU</span></code></a>, supports jobs in SAMPLING and OBSERVABLE mode.</p></li>
 </ul>
 </div></blockquote>
 </section>
 <section id="updated-features">
-<h3>Updated features<a class="headerlink" href="#updated-features" title="Permalink to this headline"></a></h3>
+<h3>Updated features<a class="headerlink" href="#updated-features" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p><a class="reference internal" href="qat-pylinalg.html#qat.pylinalg.PyLinalg" title="qat.pylinalg.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> should now throw a cleaner exception (<a class="reference internal" href="../introduction.html#qat.comm.exceptions.ttypes.QPUException" title="qat.comm.exceptions.ttypes.QPUException"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUException</span></code></a>) when failing to retrieve the matrix of a gate</p></li>
@@ -164,7 +217,76 @@
 </div></blockquote>
 </section>
 <section id="fixes">
-<h3>Fixes<a class="headerlink" href="#fixes" title="Permalink to this headline"></a></h3>
+<h3>Fixes<a class="headerlink" href="#fixes" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>Fix <a class="reference internal" href="../qat-core.html#qat.plugins.Junction" title="qat.plugins.Junction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Junction</span></code></a> plugins when a Batch object having no meta data is submitted</p></li>
+<li><p>Fix <code class="code docutils literal notranslate"><span class="pre">len(Result)</span></code> when the result is stored as a map</p></li>
+<li><p>An exception is now raised when trying to differentiate non-observable job</p></li>
+<li><p>The implementation of U2 and U3 gates have changed in myQLM-interop (Qiskit binder). Translating a circuit composed of at least one U2 or U3 gate from Qiskit to myQLM is fixed</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="what-s-new-in-myqlm-1-6-0">
+<h2>What’s new in myQLM 1.6.0<a class="headerlink" href="#what-s-new-in-myqlm-1-6-0" title="Permalink to this heading"></a></h2>
+<p>Released April 25, 2022</p>
+<section id="id1">
+<h3>New features<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="qat-pylinalg.html#qat.pylinalg.PyLinalg" title="qat.pylinalg.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> now supports efficient implementation of controlled gates. It now supports simulation of circuits generated with the <code class="code docutils literal notranslate"><span class="pre">submatrices_only</span></code> keyword argument set to <code class="code docutils literal notranslate"><span class="pre">True</span></code> (<code class="code docutils literal notranslate"><span class="pre">prog.to_circ(submatrices_only=True)</span></code>)</p></li>
+<li><p><a class="reference internal" href="../qat-core.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a> objects now have an attribute <code class="code docutils literal notranslate"><span class="pre">processing_types</span></code> used to define the type of supported measurement (e.g., Observable or Sample). QuameleonPlugin has been updated to check this new attribute</p></li>
+<li><p>Added a device ‘ZUCHONGZHI’ describing the Chinese quantum chip of the same name</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="id2">
+<h3>Updated features<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="qat-pylinalg.html#qat.pylinalg.PyLinalg" title="qat.pylinalg.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> should now throw a cleaner exception (<a class="reference internal" href="../introduction.html#qat.comm.exceptions.ttypes.QPUException" title="qat.comm.exceptions.ttypes.QPUException"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUException</span></code></a>) when failing to retrieve the matrix of a gate</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">get_variables</span></code> methods of myQLM objects will now return a sorted list instead of a set</p></li>
+<li><p><a class="reference internal" href="../qat-core.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a> returned by a <a class="reference internal" href="../qat-core.html#qat.plugins.Junction" title="qat.plugins.Junction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Junction</span></code></a> has the same meta_data as the input <a class="reference internal" href="../qat-core.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="id3">
+<h3>Fixes<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>Fix <a class="reference internal" href="../qat-core.html#qat.plugins.Junction" title="qat.plugins.Junction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Junction</span></code></a> plugins when a Batch object having no meta data is submitted</p></li>
+<li><p>Fix <code class="code docutils literal notranslate"><span class="pre">len(Result)</span></code> when the result is stored as a map</p></li>
+<li><p>An exception is now raised when trying to differentiate non-observable job</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="what-s-new-in-myqlm-1-5-1">
+<h2>What’s new in myQLM 1.5.1<a class="headerlink" href="#what-s-new-in-myqlm-1-5-1" title="Permalink to this heading"></a></h2>
+<p>Released December 6, 2021</p>
+<section id="id4">
+<h3>New features<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="qat-pylinalg.html#qat.pylinalg.PyLinalg" title="qat.pylinalg.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> now supports efficient implementation of controlled gates. It now supports simulation of circuits generated with the <code class="code docutils literal notranslate"><span class="pre">submatrices_only</span></code> keyword argument set to <code class="code docutils literal notranslate"><span class="pre">True</span></code> (<code class="code docutils literal notranslate"><span class="pre">prog.to_circ(submatrices_only=True)</span></code>)</p></li>
+<li><p><a class="reference internal" href="../qat-core.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a> objects now have an attribute <code class="code docutils literal notranslate"><span class="pre">processing_types</span></code> used to define the type of supported measurement (e.g., Observable or Sample). QuameleonPlugin has been updated to check this new attribute</p></li>
+<li><p>Added a device ‘ZUCHONGZHI’ describing the Chinese quantum chip of the same name</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="id5">
+<h3>Updated features<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="qat-pylinalg.html#qat.pylinalg.PyLinalg" title="qat.pylinalg.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> should now throw a cleaner exception (<a class="reference internal" href="../introduction.html#qat.comm.exceptions.ttypes.QPUException" title="qat.comm.exceptions.ttypes.QPUException"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUException</span></code></a>) when failing to retrieve the matrix of a gate</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">get_variables</span></code> methods of myQLM objects will now return a sorted list instead of a set</p></li>
+<li><p><a class="reference internal" href="../qat-core.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a> returned by a <a class="reference internal" href="../qat-core.html#qat.plugins.Junction" title="qat.plugins.Junction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Junction</span></code></a> has the same meta_data as the input <a class="reference internal" href="../qat-core.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="id6">
+<h3>Fixes<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p>Fix <a class="reference internal" href="../qat-core.html#qat.plugins.Junction" title="qat.plugins.Junction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Junction</span></code></a> plugins when a Batch object having no meta data is submitted</p></li>
@@ -175,10 +297,10 @@
 </section>
 </section>
 <section id="what-s-new-in-myqlm-1-4-0">
-<h2>What’s new in myQLM 1.4.0<a class="headerlink" href="#what-s-new-in-myqlm-1-4-0" title="Permalink to this headline"></a></h2>
+<h2>What’s new in myQLM 1.4.0<a class="headerlink" href="#what-s-new-in-myqlm-1-4-0" title="Permalink to this heading"></a></h2>
 <p>Released June 30, 2021</p>
 <section id="myqlm-power-access">
-<h3>myQLM Power Access<a class="headerlink" href="#myqlm-power-access" title="Permalink to this headline"></a></h3>
+<h3>myQLM Power Access<a class="headerlink" href="#myqlm-power-access" title="Permalink to this heading"></a></h3>
 <p>myQLM can be extended to access all QPUs and Plugins of a remote QLM, <a class="reference external" href="https://atos.net/fr/solutions/quantum-learning-machine">the Quantum Learning Machine from Atos</a> and let you benefit the power of the Appliance. If the feature is activated on your QLM, the submission of a job would look like:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qlmaas.qpus</span> <span class="kn">import</span> <span class="n">LinAlg</span>
 <span class="kn">from</span> <span class="nn">qlmaas.plugins</span> <span class="kn">import</span> <span class="n">Nnizer</span>
@@ -189,8 +311,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id1">
-<h3>New features<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<section id="id7">
+<h3>New features<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p>Support for Python 3.9 for Linux, Windows and macOS</p></li>
@@ -209,7 +331,7 @@
 </div></blockquote>
 </section>
 <section id="known-problems">
-<h3>Known problems<a class="headerlink" href="#known-problems" title="Permalink to this headline"></a></h3>
+<h3>Known problems<a class="headerlink" href="#known-problems" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p>Python 3.9 on macOS/brew distribution may not work (SIGSEGV)

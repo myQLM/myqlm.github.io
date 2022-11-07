@@ -18,8 +18,8 @@ Variational Quantum Eigensolver (VQE)
 The VQE is one of the flagship algorithms using near-term quantum computers. We present in this section how to do a simple VQE using
 :mod:`qat.fermion`.
 
-We will define manually a Hubbard Hamiltonian, using one- and two-body integrals, and use them to initialize a
-:class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian`. We will then convert this Hamiltonian to a spin representation,
+We will define manually a Hubbard Hamiltonian, using one- and two-body integrals, and use them to initialize an
+:class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian`. We will then convert this Hamiltonian to its spin representation,
 and find its ground state energy via VQE. To do so, we will manually create a parametric circuit (ansatz), whose parameters we will optimize.
 
 .. note::
@@ -97,7 +97,7 @@ We find :math:`\theta` and :math:`\phi`:
 Energy = -0.9999999974320526
 theta, phi = [3.1416940034276815, 1.2147911128415545]
 
-We show in more details :notebook:`(a VQE for fermions in our Jupyter notebooks.)[qat_fermion_vqe_hubbard.ipynb]`
+We show in more details a VQE for fermions in our Jupyter notebooks
 
 .. note::
 
@@ -128,7 +128,7 @@ in :mod:`qat.fermion`, meant to simplify the way you interact with the code. We 
 Jupyter notebooks.
 
 We will assume you already have enough information about the molecule itself. You are free to use whatever quantum chemistry library
-you prefer. For simplicity's sake, we provide a basic function :func:`~qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation`
+you prefer. For simplicity's sake, we provide a basic function based on `the package PySCF <https://pyscf.org/>`_ :func:`~qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation`
 which collects the information we need.
 
 We start by inputting the geometry, the basis, the spin and the charge of the molecule.
@@ -175,7 +175,7 @@ From there, we can use the :class:`~qat.fermion.chemistry.wrapper.MolecularHamil
 >>> print(mol_h.nqbits)
 22
 
-This class is different from the :class:`~qat.fermion.hamiltonians.Hamiltonian` classes we have seen so far.
+This class is different from the spin, fermion and electronic-structure Hamiltonian classes we have seen so far.
 It is defined using interaction integrals. You can convert it to an
 :class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian` using the method
 :meth:`~qat.fermion.chemistry.wrapper.MolecularHamiltonian.get_electronic_hamiltonian`.
@@ -348,14 +348,14 @@ Here is an example.
      prog.apply(qrout, reg)
      circ = prog.to_circ()
 
->>> %qatdisplay circ
+>>> circ.display()
 
 .. image:: qat-fermion_trotter.png
    :width: 800
 
 For more information, see the :func:`~qat.fermion.trotterisation.make_trotterisation_routine` function documentation.
 The trotterization is used for the UCC ansatz construction in our UCC VQE notebooks,
-see :notebook:`(here)[qat-fermion_vqe_ucc_example_1_h2.ipynb]` for the :math:`H_2` molecule, and :notebook:`(here)[qat_fermion_vqe_ucc_example_2_lih.ipynb]` for the :math:`LiH` molecule.
+see :notebook:`(here)[qat_fermion_vqe_ucc_example_1_h2.ipynb]` for the :math:`H_2` molecule, and :notebook:`(here)[qat_fermion_vqe_ucc_example_2_lih.ipynb]` for the :math:`LiH` molecule.
 
 .. _qat-fermion_qse:
 

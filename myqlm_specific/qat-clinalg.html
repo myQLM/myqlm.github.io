@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.clinalg: C++ Linear-algebra simulator &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../static/contentui.css" type="text/css" />
+      <link rel="stylesheet" href="../static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../static/documentation_options.js"></script>
+        <script src="../static/jquery.js"></script>
+        <script src="../static/underscore.js"></script>
+        <script src="../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../static/doctools.js"></script>
+        <script src="../static/sphinx_highlight.js"></script>
+        <script src="../static/contentui.js"></script>
+        <script src="../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="qat.pylinalg: Python Linear-algebra simulator" href="qat-pylinalg.html" />
+    <link rel="prev" title="CostFunctionPlugin: variational optimization without observable" href="../cost_function_plugin.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../static/myqlm.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.7.1-1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Basic usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing myQLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../programming.html">Writing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulating.html">Executing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_variational.html">Running variational algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability with myQLM</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notebooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks.html">List of notebooks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Main objects: Jobs, Observables, Circuits…</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_generators.html">Building advanced computation stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_programming.html">Advanced programming using pyAQASM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aqasm.html">The AQASM format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands.html">Command-line tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Source code documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../source_doc.html">Source code documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-core-library">The core library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-programming-library">The programming library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#the-device-library">The device library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#generators">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#plugins">Plugins</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../source_doc.html#qpus">QPUs</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">qat.clinalg: C++ Linear-algebra simulator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#high-level-quantum-processing-unit">High-level Quantum Processing Unit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#c-low-level-statevector">C++ Low-level Statevector</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="qat-pylinalg.html">qat.pylinalg: Python Linear-algebra simulator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="qat-simulated_annealing.html">qat.simulated_annealing: Simulated Annealing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#digital-quantum-simulation-tools">Digital quantum simulation tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source_doc.html#combinatorial-optimization-and-qaoa">Combinatorial optimization and QAOA</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contrib.html">Contributing to myQLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-note.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../source_doc.html">Source code documentation</a> &raquo;</li>
+      <li>qat.clinalg: C++ Linear-algebra simulator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<span class="target" id="module-qat.clinalg"></span><section id="qat-clinalg-c-linear-algebra-simulator">
+<span id="qat-clinalg"></span><h1>qat.clinalg: C++ Linear-algebra simulator<a class="headerlink" href="#qat-clinalg-c-linear-algebra-simulator" title="Permalink to this heading"></a></h1>
+<p>Proposed as a faster alternative to PyLinalg, CLinalg is a Linear-algebra simulator written is C++,
+with a python (pybind11) interface.</p>
+<p>For a general description of linear-algebra-based simulators, please refer to the
+<a class="reference internal" href="qat-pylinalg.html#qat-pylinalg"><span class="std std-ref">qat-pylinalg documentation page</span></a>.</p>
+<section id="high-level-quantum-processing-unit">
+<h2>High-level Quantum Processing Unit<a class="headerlink" href="#high-level-quantum-processing-unit" title="Permalink to this heading"></a></h2>
+<p>This is the high-level class wrapping the simulator. It follows the convention
+of the <a class="reference internal" href="../qat-core.html#qat.core.qpu.QPUHandler" title="qat.core.qpu.QPUHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.qpu.QPUHandler</span></code></a> structure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.clinalg.CLinalg">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.clinalg.</span></span><span class="sig-name descname"><span class="pre">CLinalg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_nbthreads_heuristic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">light_circuit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tqdm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">readonly_statevector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.clinalg.CLinalg" title="Permalink to this definition"></a></dt>
+<dd><p>CLinalg simulator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>use_gpu</strong> (<em>bool</em>) – use the GPU backend (may not be available on your version of CLinalg)
+Default: False</p></li>
+<li><p><strong>precision</strong> (<em>int</em>) – precision used for the simulation, either 1(single)
+or 2(double)
+Default: 2</p></li>
+<li><p><strong>sparse</strong> (<em>bool</em>) – whether or not to return a sparse result
+Default: False</p></li>
+<li><p><strong>use_nbthreads_heuristic</strong> (<em>bool</em>) – use heuristic for choosing the number of threads
+setting this parameter to False will result in using OMP_NUM_THREADS
+Default: True</p></li>
+<li><p><strong>light_circuit</strong> (<em>bool</em>) – option still in development
+Default: False</p></li>
+<li><p><strong>tqdm</strong> (<em>bool</em>) – use tqdm to display progress in simulating the circuit
+Default: False</p></li>
+<li><p><strong>readonly_statevector</strong> (<em>bool</em>) – the statevector included in the result is returned directly in memory
+from the C++ array. This statevector will then be in convention lsb first.
+This option only makes sense for perfect sampling where all qubits are measured.
+Default: False</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.CLinalg.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../qat-core.html#qat.core.Batch" title="qat.core.wrappers.batch.Batch"><span class="pre">Batch</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../qat-core.html#qat.core.BatchResult" title="qat.core.wrappers.result.BatchResult"><span class="pre">BatchResult</span></a></span></span><a class="headerlink" href="#qat.clinalg.CLinalg.submit" title="Permalink to this definition"></a></dt>
+<dd><p>Executes a batch of jobs and returns the corresponding list of Results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>batch</strong> (<a class="reference internal" href="../qat-core.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) – a batch of jobs. If a single job is provided, the
+job is embedded into a Batch, executed, and the first result
+is returned.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a batch result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="../qat-core.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="c-low-level-statevector">
+<h2>C++ Low-level Statevector<a class="headerlink" href="#c-low-level-statevector" title="Permalink to this heading"></a></h2>
+<p>Though not the standard or recommended way of using CLinalg, the C++ statevector object hidden
+under this QPU can be accessed thought the <em>statevector</em> parameter, for instance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.clinalg</span> <span class="kn">import</span> <span class="n">CLinalg</span>
+<span class="n">qpu</span> <span class="o">=</span> <span class="n">CLinalg</span><span class="p">()</span>
+<span class="c1"># change number of qubits to 2</span>
+<span class="n">qpu</span><span class="o">.</span><span class="n">statevector</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># reset the state to |00&gt; and print the state</span>
+<span class="n">qpu</span><span class="o">.</span><span class="n">statevector</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="n">qpu</span><span class="o">.</span><span class="n">statevector</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="mi">1</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="mi">2</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="mi">3</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do consider that the bit convention used in this lower-level statevector is reversed compared
+to the more intuitive one supported by the QPU interface.
+Intuitively, you will consider a state <span class="math notranslate nohighlight">\(|i_0i_1i_2i_3\rangle\)</span> (with qubit 0 being the
+most significant bit); however the ordering used by the low-level statevector instance
+<span class="math notranslate nohighlight">\(|i_3i_2i_1i_0\rangle\)</span> (with qubit 0 being the least significant bit).
+This influences the statevector methods <em>print</em>, <em>reset</em> (if a value is provided) and the way
+in which the statevector is interacted with through the <em>array</em> property.</p>
+</div>
+<section id="pybind-interface">
+<h3>Pybind interface<a class="headerlink" href="#pybind-interface" title="Permalink to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.clinalg.wrapper.</span></span><span class="sig-name descname"><span class="pre">CLinalgStateVectorCPUDouble</span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="Permalink to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_1qbit_ctrl_gate">
+<span class="sig-name descname"><span class="pre">apply_1qbit_ctrl_gate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctrl_qubits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">complex</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_1qbit_ctrl_gate" title="Permalink to this definition"></a></dt>
+<dd><p>Apply a k-controlled 1 qubit gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_1qbit_gate">
+<span class="sig-name descname"><span class="pre">apply_1qbit_gate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">complex</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_1qbit_gate" title="Permalink to this definition"></a></dt>
+<dd><p>Apply a general 1 qubit gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_2qbit_ctrl_gate">
+<span class="sig-name descname"><span class="pre">apply_2qbit_ctrl_gate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctrl_qubits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">complex</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_2qbit_ctrl_gate" title="Permalink to this definition"></a></dt>
+<dd><p>Apply a k-controlled 2 qubits gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_2qbit_gate">
+<span class="sig-name descname"><span class="pre">apply_2qbit_gate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">complex</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_2qbit_gate" title="Permalink to this definition"></a></dt>
+<dd><p>Apply a general 2 qubits gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_CCNOT">
+<span class="sig-name descname"><span class="pre">apply_CCNOT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit3</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_CCNOT" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the CCNOT gate</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_CNOT">
+<span class="sig-name descname"><span class="pre">apply_CNOT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_CNOT" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the CNOT gate</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_CSIGN">
+<span class="sig-name descname"><span class="pre">apply_CSIGN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_CSIGN" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the CSIGN gate</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_H">
+<span class="sig-name descname"><span class="pre">apply_H</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_H" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the H gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_ISWAP">
+<span class="sig-name descname"><span class="pre">apply_ISWAP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_ISWAP" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the ISWAP gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_PH">
+<span class="sig-name descname"><span class="pre">apply_PH</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_PH" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the PH gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_RX">
+<span class="sig-name descname"><span class="pre">apply_RX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_RX" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the RX gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_RY">
+<span class="sig-name descname"><span class="pre">apply_RY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_RY" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the RY gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_RZ">
+<span class="sig-name descname"><span class="pre">apply_RZ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_RZ" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the RZ gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_S">
+<span class="sig-name descname"><span class="pre">apply_S</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_S" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the S gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_SQRTSWAP">
+<span class="sig-name descname"><span class="pre">apply_SQRTSWAP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_SQRTSWAP" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the SQRTSWAP gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_SWAP">
+<span class="sig-name descname"><span class="pre">apply_SWAP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_SWAP" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the SWAP gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_T">
+<span class="sig-name descname"><span class="pre">apply_T</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_T" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the T gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_X">
+<span class="sig-name descname"><span class="pre">apply_X</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_X" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the X gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_Y">
+<span class="sig-name descname"><span class="pre">apply_Y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_Y" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the Y gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_Z">
+<span class="sig-name descname"><span class="pre">apply_Z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_Z" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the Z gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_nqbit_ctrl_gate">
+<span class="sig-name descname"><span class="pre">apply_nqbit_ctrl_gate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctrl_qubits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">complex</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_nqbit_ctrl_gate" title="Permalink to this definition"></a></dt>
+<dd><p>Apply a k-controlled n qubits gate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_nqbit_gate">
+<span class="sig-name descname"><span class="pre">apply_nqbit_gate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">complex</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.apply_nqbit_gate" title="Permalink to this definition"></a></dt>
+<dd><p>Apply a general n qubits gate.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.array">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">array</span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.array" title="Permalink to this definition"></a></dt>
+<dd><p>View of the statevector’s data (does not yield ownership of the data). Values can be edited.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Qubit 0 is the least significant bit (rightmost).</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.array_readonly">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">array_readonly</span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.array_readonly" title="Permalink to this definition"></a></dt>
+<dd><p>Readonly view of the statevector’s data (does not yield ownership of the data). Values cannot be edited.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Qubit 0 is the least significant bit (rightmost).</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.expectation_value">
+<span class="sig-name descname"><span class="pre">expectation_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">wobservable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">qat.core.wobservable.WObservable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">complex</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.expectation_value" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the expectation value of a WObservable (wrapped observable).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.get_distribution">
+<span class="sig-name descname"><span class="pre">get_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">object</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.get_distribution" title="Permalink to this definition"></a></dt>
+<dd><p>Return the marginal distribution over a subset of qubits, as a numpy array. Probabilities which amplitudes are below amp_threshold are set to 0. The first qubit is the most valuable bit.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.get_mapped_distribution">
+<span class="sig-name descname"><span class="pre">get_mapped_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">object</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.get_mapped_distribution" title="Permalink to this definition"></a></dt>
+<dd><p>Return a MapIntDouble object, mapping the states of the marginal distribution over a subset of qubits, to their amplitudes. Only amplitudes higher than amp_threshold are mapped (no copy C++ map).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.get_mapped_statevector">
+<span class="sig-name descname"><span class="pre">get_mapped_statevector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">complex</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.get_mapped_statevector" title="Permalink to this definition"></a></dt>
+<dd><p>Return a dictionary mapping states which amplitudes are higher than the threshold, to their amplitudes (performs a copy of a C++ map).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.get_permuted_statevector">
+<span class="sig-name descname"><span class="pre">get_permuted_statevector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">object</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.get_permuted_statevector" title="Permalink to this definition"></a></dt>
+<dd><p>Return the statevector as a numpy array (performs a copy and a permutation for putting the qubit 0 as most significant). Amplitudes lower than amp_threshold are set to 0.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.print">
+<span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.print" title="Permalink to this definition"></a></dt>
+<dd><p>Print the statevector to the standard output.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.project">
+<span class="sig-name descname"><span class="pre">project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.project" title="Permalink to this definition"></a></dt>
+<dd><p>Project a subset of qubits on a given state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">psi_0_ptr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.reset" title="Permalink to this definition"></a></dt>
+<dd><p>Reset the statevector to the classical state <a href="#id1"><span class="problematic" id="id2">|</span></a>00..0&gt;, or to the provided pure state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.resize">
+<span class="sig-name descname"><span class="pre">resize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbqubits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.resize" title="Permalink to this definition"></a></dt>
+<dd><p>Change the statevector size, to a given number of qubits (its values are then undefined so calling reset is advised).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbshots</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">object</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.sample" title="Permalink to this definition"></a></dt>
+<dd><p>Return a MapIntInt object, mapping states which have been sampled, to their number of occurences (no copy C++ map).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.sample_subset">
+<span class="sig-name descname"><span class="pre">sample_subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbshots</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">object</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.sample_subset" title="Permalink to this definition"></a></dt>
+<dd><p>Return a MapIntInt object, mapping states which have been sampled out of a subset of qubits, to their number of occurences (no copy C++ map).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.set_num_threads">
+<span class="sig-name descname"><span class="pre">set_num_threads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbthreads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.set_num_threads" title="Permalink to this definition"></a></dt>
+<dd><p>Set number of threads to be used.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.simulate_circuit">
+<span class="sig-name descname"><span class="pre">simulate_circuit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wcircuit:</span> <span class="pre">CLinalgWCircuit&lt;double&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.simulate_circuit" title="Permalink to this definition"></a></dt>
+<dd><p>Simulate a CLinalgWCircuit (lightweight wrapped circuit).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.state_probability">
+<span class="sig-name descname"><span class="pre">state_probability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble" title="qat.clinalg.wrapper.CLinalgStateVectorCPUDouble"><span class="pre">qat.clinalg.wrapper.CLinalgStateVectorCPUDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#qat.clinalg.wrapper.CLinalgStateVectorCPUDouble.state_probability" title="Permalink to this definition"></a></dt>
+<dd><p>Return the probability of a given state.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../cost_function_plugin.html" class="btn btn-neutral float-left" title="CostFunctionPlugin: variational optimization without observable" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="qat-pylinalg.html" class="btn btn-neutral float-right" title="qat.pylinalg: Python Linear-algebra simulator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Atos 2016-2022.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

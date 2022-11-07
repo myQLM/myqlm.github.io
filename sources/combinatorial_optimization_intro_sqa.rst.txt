@@ -1,0 +1,75 @@
+Simulated Quantum Annealing (SQA)
+_________________________________
+
+.. only:: myqlm
+
+    .. note::
+
+        The Simulated Quantum Annealing is not available in myQLM.
+        QUBO and Ising problems can still be used to construct QAOA
+        Ansätze using the `.qaoa_ansatz` method or solved via
+        :ref:`Simulated Annealing  <solving_comb>`.
+
+**Simulated Quantum Annealing (SQA)** provides a heuristic which aims to
+minimize **quantum Ising Hamiltonians**.
+
+The questions of whether SQA performs such minimizations more efficiently
+than **physical quantum annealing machines**, and whether SQA
+can be called 'emulation' of those machines is a matter of hot scientific debate.
+
+Settling these questions is of course beyond the scope of this
+documentation. The interested reader may look at: :cite:`ronnow2014defining`,
+:cite:`denchev2016computational`, :cite:`hen2015probing` or :cite:`andriyash2017can`, for instance.
+
+Formally, our SQA implementation is based on a **discrete-time
+path integral Monte Carlo** formulation of quantum annealing, as derivedF
+in :cite:`martovnak2002quantum`.
+
+In short, instead of sampling the equilibrium distribution, at finite temperature of the quantum Ising Hamiltonian:
+
+.. math::
+
+    H = -\sum_{i,j} J_{i,j}\sigma_{z}^{i}\sigma_{z}^{j}-\sum_{i} h_{i}\sigma_{z}^{i} - \Gamma\sum_{i}\sigma_{x}^{i}
+
+one samples from the equivalent classical Ising Hamiltonian:
+
+.. math::
+
+    H = -\sum_{k=1}^{n_{trotters}}\left( \sum_{i,j} J_{i,j} s_{i}^{k}s_{j}^{k} + \sum_{i} h_{i} s_{i}^{k} + J^{\perp}s_{l}^{k}s_{l}^{k+1} \right) 
+
+with :math:`J^{\perp} = - n_{trotters}\cdot \log\left(\tanh(\frac{\Gamma}{n_{trotters}T})\right)` and :math:`n` quantum spins are replaced with :math:`n_{trotters}\times n` classical spins.
+
+In quantum annealing, :math:`\Gamma` is typically gradually decreased
+from a high value to :math:`0`, such that, if the system is prepared in the
+ground state of :math:`\sum_{i}\Gamma\sigma_{x}^{i}`, it ends up 
+in the ground state of the Ising Hamiltonian at the end of the transition.
+
+The idea of simulated quantum annealing is to sample from the equilibrium
+distribution of the equivalent classical Hamiltonian at several
+points :math:`\{\Gamma_{l}\}` along that transition. 
+The configuration resulting from sampling at :math:`\Gamma_{l}`
+is kept at the starting configuration for :math:`\Gamma_{l+1}`.
+
+The following picture describes in pseudo-code how the simulated
+quantum annealing works.
+
+.. image:: simulated_quantum_annealing_algoritm_latex.png
+    :width: 600px
+    :align: center
+
+.. note::
+
+    The **memory requirements** of **simulated quantum 
+    annealing** are **polynomial in the number of spins**. 
+    There is **no hard memory
+    limit** as to how many spins can be represented and manipulated with
+    this technique.
+
+.. only:: qlm
+
+    This SQA algorithm is implemented in the :class:`~qat.sqa.SQAQPU`. The quality of the solutions returned will depend on the parameters given to the algorithm (minimum and maximum `gamma` and temperature, number of Monte Carlo steps, etc). We provide a set of fine tuned parameters for common problem classes. The SQA solver was tested on the :ref:`encoded NP-hard problems <np_problems_formulation>` with various benchmarks and the respective performances were recorded. Along with the problem size and annealing times, the results are presented in the :ref:`SQA Benchmarking and Performance <benchmarking>` section.
+
+.. only:: myqlm
+
+    This SQA algorithm is implemented in the ``qat.sqa.SQAQPU``. The quality of the solutions returned will depend on the parameters given to the algorithm (minimum and maximum `gamma` and temperature, number of Monte Carlo steps, etc). We provide a set of fine tuned parameters for common problem classes. The SQA solver was tested on the :ref:`encoded NP-hard problems <np_problems_formulation>` with various benchmarks and the respective performances were recorded. Along with the problem size and annealing times, the results are presented in the :ref:`SQA Benchmarking and Performance <benchmarking>` section.
+

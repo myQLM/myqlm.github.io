@@ -9,6 +9,7 @@
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
       <link rel="stylesheet" href="static/contentui.css" type="text/css" />
+      <link rel="stylesheet" href="static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
     <link rel="shortcut icon" href="static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="static/js/html5shiv.min.js"></script>
@@ -17,8 +18,11 @@
         <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
         <script src="static/jquery.js"></script>
         <script src="static/underscore.js"></script>
+        <script src="static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="static/doctools.js"></script>
+        <script src="static/sphinx_highlight.js"></script>
         <script src="static/contentui.js"></script>
+        <script src="static/design-tabs.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -36,7 +40,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.7.1-1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -56,10 +60,15 @@
 <li class="toctree-l1"><a class="reference internal" href="combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability with myQLM</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Notebooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">List of notebooks</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced usage</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Main objects: Jobs, Observables, Circuits…</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_generators.html">Building advanced computation stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
@@ -139,17 +148,17 @@
 }
 </style>
 <section id="command-line-tools">
-<h1>Command-line tools<a class="headerlink" href="#command-line-tools" title="Permalink to this headline"></a></h1>
+<h1>Command-line tools<a class="headerlink" href="#command-line-tools" title="Permalink to this heading"></a></h1>
 <p>The myQLM set of Python libraries also comes with a set of command-line
 scripts to generate, execute and optimize circuits</p>
 <section id="compiler">
-<h2>Compiler<a class="headerlink" href="#compiler" title="Permalink to this headline"></a></h2>
+<h2>Compiler<a class="headerlink" href="#compiler" title="Permalink to this heading"></a></h2>
 <p>myQLM comes with a compiler and a decompiler to convert
 Atos Quantum Assembly Language (AQASM) files into useable Quantum
 Circuit for our QPUs and vice-versa. Please refer to
 <a class="reference internal" href="aqasm.html#aqasm"><span class="std std-ref">The AQASM format</span></a> to learn more about the AQASM format.</p>
 <section id="aqasm2circ">
-<h3>aqasm2circ<a class="headerlink" href="#aqasm2circ" title="Permalink to this headline"></a></h3>
+<h3>aqasm2circ<a class="headerlink" href="#aqasm2circ" title="Permalink to this heading"></a></h3>
 <p>This command takes one or two arguments, an input file (i.e. AQASM file) and
 optionally an output file. If no output file is supplied, the output will be
 the input file appended with <code class="code docutils literal notranslate"><span class="pre">.circ</span></code>.</p>
@@ -179,7 +188,7 @@ This circuit could be load using Python:</p>
 </div>
 </section>
 <section id="circ2aqasm">
-<h3>circ2aqasm<a class="headerlink" href="#circ2aqasm" title="Permalink to this headline"></a></h3>
+<h3>circ2aqasm<a class="headerlink" href="#circ2aqasm" title="Permalink to this heading"></a></h3>
 <p>This is the main decompiler which will take a Quantum Circuit file and
 return the resulting Atos Quantum Assembly Language (AQASM) file used to
 generate the circuit. The command takes one or two arguments, an input file
@@ -194,13 +203,13 @@ equivalent to <code class="code docutils literal notranslate"><span class="pre">
 </section>
 </section>
 <section id="simulation-execution-commands">
-<h2>Simulation / Execution commands<a class="headerlink" href="#simulation-execution-commands" title="Permalink to this headline"></a></h2>
+<h2>Simulation / Execution commands<a class="headerlink" href="#simulation-execution-commands" title="Permalink to this heading"></a></h2>
 <p>myQLM provides <code class="code docutils literal notranslate"><span class="pre">qat-jobrun</span></code> and <code class="code docutils literal notranslate"><span class="pre">qat-batchrun</span></code> to execute any
 Job or Batch using any QPU. Moreover, plugins coulb be linked to this QPU
 direclty from the command line. Moreover, the QLM provides tools to
 display results of a simulation / execution.</p>
 <section id="qat-jobrun-and-qat-batchrun">
-<h3>qat-jobrun and qat-batchrun<a class="headerlink" href="#qat-jobrun-and-qat-batchrun" title="Permalink to this headline"></a></h3>
+<h3>qat-jobrun and qat-batchrun<a class="headerlink" href="#qat-jobrun-and-qat-batchrun" title="Permalink to this heading"></a></h3>
 <p>This command will deserialize a job (or a batch) and run it via some execution
 stack.</p>
 <p>QPUs and Plugins are referred to using the <code class="code docutils literal notranslate"><span class="pre">namespace:class_name</span></code>
@@ -236,7 +245,7 @@ qat-jobrun --qpu qat.pylinalg:PyLinalg compiled.batch -o jobout.res
 </div>
 </section>
 <section id="qat-resprint">
-<h3>qat-resprint<a class="headerlink" href="#qat-resprint" title="Permalink to this headline"></a></h3>
+<h3>qat-resprint<a class="headerlink" href="#qat-resprint" title="Permalink to this heading"></a></h3>
 <p>Naturally, there is a command to display a dumped result in the stdout. This
 command can be used to display the result of <code class="code docutils literal notranslate"><span class="pre">qat-jobrun</span></code> or
 <code class="code docutils literal notranslate"><span class="pre">qat-batchrun</span></code>.</p>
@@ -247,7 +256,7 @@ qat-resprint -b batchres.res -N <span class="m">2</span>
 </div>
 </section>
 <section id="qat-circstat">
-<h3>qat-circstat<a class="headerlink" href="#qat-circstat" title="Permalink to this headline"></a></h3>
+<h3>qat-circstat<a class="headerlink" href="#qat-circstat" title="Permalink to this heading"></a></h3>
 <p>This command displays some statistics about a serialized circuit. The output
 is straightforward to interpretate:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>qat-circstat compiled.circ

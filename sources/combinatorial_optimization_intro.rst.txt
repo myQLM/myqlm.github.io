@@ -3,21 +3,21 @@
 Combinatorial optimization
 ==========================
 
-Many real life problems are combinatorial and solving them has actual practical applications. An intrinsic feature of these problems is that they can be formulated as minimization or maximization problems, i.e. with a cost function. At the same time finding the lowest energy of a physical system, represented by a cost Hamiltonian, is also a minimization problem. Due to this intimate relation, problems described with a cost function (:ref:`QUBO <qubo_description>`) or a cost Hamiltonian (:ref:`Ising <ising_description>`) could be solved by simulating the process of finding their minimum energy. This lowest energy should encode the solution to our problem.
+Many real life problems are combinatorial and solving them has actual practical applications. An intrinsic feature of these problems is that they can be formulated as minimization or maximization problems, i.e. with a cost function. At the same time finding the lowest energy of a physical system, represented by a cost Hamiltonian, is also a minimization problem. Due to this intimate relation, problems described with a cost function (:ref:`QUBO <formulating_comb>`) or a cost Hamiltonian (:ref:`Ising <formulating_comb>`) could be solved by simulating the process of finding their minimum energy. This lowest energy should encode the solution to our problem.
 
 .. only:: qlm
 
-    The QLM provides :ref:`helper classes <qubo_and_ising_code>` for both of these formulations, and also the more generic :ref:`Combinatorial Problem <combinatorial_problem_description>`, in which one can describe problems with clauses and variables.
+    The QLM provides :ref:`helper classes <qubo_and_ising_code>` for both of these formulations, and also the more generic :ref:`Combinatorial Problem <formulating_comb>`, in which one can describe problems with clauses and variables.
 
-    Once the problems are encoded, one can solve them by either a Quantum Approximate Optimization Algorithm (:ref:`QAOA  <qaoa_description>`) or Simulated Quantum Annealing (:ref:`SQA <sqa_description>`) as described in the :ref:`Solving combinatorial problems <solving_comb>` section.
+    Once the problems are encoded, one can solve them by either a Quantum Approximate Optimization Algorithm (QAOA) or Simulated Quantum Annealing (SQA) as described in the :ref:`Solving combinatorial problems <solving_comb>` section.
     
     Among the many different combinatorial problems, some of the most interesting and challenging ones are the NP-hard problems. A lot of effort has been put over the last 10-15 years into formulating such optimization problems as QUBO/Ising instances. See :cite:`lucas2014ising` for an extensive reference. A direct encoding of some of these problems, described in the :ref:`NP-hard problems <np_problems_formulation>` section, has also been :ref:`implemented <np_hard_problems_code>` on the QLM, along with example :notebook:`(notebooks)[overview_combinatorial_optimization.ipynb]`.
 
 .. only:: myqlm
 
-    myQLM provides :ref:`helper classes <qubo_and_ising_code>` for both of these formulations, and also the more generic :ref:`Combinatorial Problem <combinatorial_problem_description>`, in which one can describe problems with clauses and variables - see the :ref:`Formulating combinatorial problems <formulating_comb>` section below.
+    myQLM provides :ref:`helper classes <qubo_and_ising_code>` for both of these formulations, and also the more generic :ref:`Combinatorial Problem <formulating_comb>`, in which one can describe problems with clauses and variables.
     
-    Once the problems are encoded, one could solve them using a Quantum Approximate Optimization Algorithm (:ref:`QAOA  <qaoa_description>`) or Simulated Annealing (:ref:`SA  <sa_description>`). There are also tools to solve the problems via Simulated Quantum Annealing (:ref:`SQA <sqa_description>`), but they come in the full QLM version.
+    Once the problems are encoded, one could solve them using a Quantum Approximate Optimization Algorithm (:ref:`QAOA  <solving_comb>`) or Simulated Annealing (:ref:`SA  <solving_comb>`). There are also tools to solve the problems via Simulated Quantum Annealing (:ref:`SQA <solving_comb>`), but they come in the full QLM version.
 
     Among the many different combinatorial problems, some of the most interesting and challenging ones are the NP-hard problems. A lot of effort has been put over the last 10-15 years into formulating such optimization problems as QUBO/Ising instances. See :cite:`lucas2014ising`  for an extensive reference. A direct encoding of some of these problems, described in the :ref:`NP-hard problems <np_problems_formulation>` section, has also been :ref:`implemented <np_hard_problems_code>` on myQLM, along with example :notebook:`(notebooks)[overview_combinatorial_optimization_myqlm.ipynb]`.
 
@@ -28,404 +28,189 @@ Formulating combinatorial problems
 
 .. only:: qlm
 
-    This section presents definitions of Ising Hamiltonians and QUBO cost functions, along with our conventions regarding their precise formulation (see also an :notebook:`(introductory notebook)[introduction_combinatorial_optimization.ipynb]`). Here is the outline:
-
-    1. `Ising Hamiltonians`_
-    2. `Quadratic Unconstrained Binary Optimization (QUBO)`_
-    3. `General combinatorial problems`_
+    This section presents definitions of Ising Hamiltonians and QUBO cost functions, along with our conventions regarding their precise formulation (see also this :notebook:`(introductory notebook)[introduction_combinatorial_optimization.ipynb]`).
 
 .. only:: myqlm
 
-    This section presents definitions of Ising Hamiltonians and QUBO cost functions, along with our conventions regarding their precise formulation (see also an :notebook:`(introductory notebook)[introduction_combinatorial_optimization_myqlm.ipynb]`). Here is the outline:
+    This section presents definitions of Ising Hamiltonians and QUBO cost functions, along with our conventions regarding their precise formulation (see also this :notebook:`(introductory notebook)[introduction_combinatorial_optimization_myqlm.ipynb]`).
 
-    1. `Ising Hamiltonians`_
-    2. `Quadratic Unconstrained Binary Optimization (QUBO)`_
-    3. `General combinatorial problems`_
+.. tab-set::
 
+    .. tab-item:: Ising Hamiltonians
 
-.. _ising_description:
+        **Ising Hamiltonians**
 
-Ising Hamiltonians
-******************
+        Given :math:`n` qubits, a **2-local Ising Hamiltonian** is an operator of the
+        form:
 
-Given :math:`n` qubits, a **2-local Ising Hamiltonian** is an operator of the
-form:
+        .. math::
 
-.. math::
+            H = - \sum_{i=1}^{n} h_{i}\sigma_{z}^{i} - \sum_{i,j=1}^{n} J_{ij}\sigma_{z}^{i}\sigma_{z}^{j}
 
-    H = - \sum_{i=1}^{n} h_{i}\sigma_{z}^{i} - \sum_{i,j=1}^{n} J_{ij}\sigma_{z}^{i}\sigma_{z}^{j}
+        where :math:`\sigma_{z}^{i} = \begin{pmatrix}1 & 0 \\ 0 & -1 \end{pmatrix}`, 
+        :math:`h` is a vector of real coefficients usually referred to as the **local magnetic field**,
+        and :math:`J` is a **real symmetric matrix with a zero diagonal**, usually referred to as the **coupling matrix**.
 
-where :math:`\sigma_{z}^{i} = \begin{pmatrix}1 & 0 \\ 0 & -1 \end{pmatrix}`, 
-:math:`h` is a vector of real coefficients usually referred to as the **local magnetic field**,
-and :math:`J` is a **real symmetric matrix with a zero diagonal**, usually referred to as the **coupling matrix**.
+        This Hamiltonian is the direct **quantization** of the following **classical Ising cost
+        function**:
 
-This Hamiltonian is the direct **quantization** of the following **classical Ising cost
-function**:
+        .. math::
 
-.. math::
-    
-    H(s_{1},...,s_{n}) = - \sum_{i=1}^{n} h_{i}s_{i} - \sum_{i,j=1}^{n} J_{ij}s_{i}s_{j}
+            H(s_{1},...,s_{n}) = - \sum_{i=1}^{n} h_{i}s_{i} - \sum_{i,j=1}^{n} J_{ij}s_{i}s_{j}
 
-where :math:`s_{i}\in \{-1,1\}`.
+        where :math:`s_{i}\in \{-1,1\}`.
 
-.. note::
-    In the **interaction term**, we do **not** restrict the sum to, e.g.,
-    :math:`i < j`. This is to make the computation of the Ising cost function
-    more straightforward to write
-    using, for instance, standard numpy functions.
+        .. note::
+            In the **interaction term**, we do **not** restrict the sum to, e.g.,
+            :math:`i < j`. This is to make the computation of the Ising cost function
+            more straightforward to write
+            using, for instance, standard numpy functions.
 
-.. note::
-   For clarity and readability, we do not include any **offset constant term**
-   in the definitions above. A definition including this term would be: 
-   :math:`- \sum_{i=1}^{n} h_{i}s_{i} - \sum_{i,j=1}^{n} J_{ij}s_{i}s_{j} + o`,
-   with :math:`o` the offset. Such a term does not change the **optimization landscape**,
-   but might be needed if one wants to **match values** when **converting Ising cost functions into
-   QUBO instances and vice versa**. See below for more details: :ref:`QUBO <qubo_description>`.
+        .. note::
+           For clarity and readability, we do not include any **offset constant term**
+           in the definitions above. A definition including this term would be: 
+           :math:`- \sum_{i=1}^{n} h_{i}s_{i} - \sum_{i,j=1}^{n} J_{ij}s_{i}s_{j} + o`,
+           with :math:`o` the offset. Such a term does not change the **optimization landscape**,
+           but might be needed if one wants to **match values** when **converting Ising cost functions into
+           QUBO instances and vice versa**.
 
-.. note::
-   In the context of Ising Hamiltonians, qubits are also called **spins**.
+        .. note::
+           In the context of Ising Hamiltonians, qubits are also called **spins**.
 
-Quantum annealing machines are typically designed to try and reach the **minimum energy state
-of Ising Hamiltonians**, also called **ground state**, relying on the **Adiabatic Theorem**.
-See for instance :cite:`albash2018adiabatic` for a general reference on adiabatic quantum computation.
+        Quantum annealing machines are typically designed to try and reach the **minimum energy state
+        of Ising Hamiltonians**, also called **ground state**, relying on the **Adiabatic Theorem**.
+        See for instance :cite:`albash2018adiabatic` for a general reference on adiabatic quantum computation.
 
-.. only:: qlm
+        .. only:: qlm
 
-    Our **classical annealing codes** (see :ref:`Simulated Quantum Annealing (SQA) <sqa_description>`) try and do the same thing: Given :math:`h` and :math:`J` as input, they will, starting from a random configuration,  try to apply **updates**, as part of **Markov chain over the configuration space**, in order to look for **low energy states**, where "energy" is defined by the formulas above.
+            Our **classical annealing codes** (see :ref:`Simulated Quantum Annealing (SQA) <solving_comb>`) try and do the same thing: Given :math:`h` and :math:`J` as input, they will, starting from a random configuration,  try to apply **updates**, as part of **Markov chain over the configuration space**, in order to look for **low energy states**, where "energy" is defined by the formulas above.
 
-.. only:: myqlm
+        .. only:: myqlm
 
-    **Classical annealing codes** like Simulated Quantum Annealing (:ref:`SQA <sqa_description>`) try and do the same thing: Given :math:`h` and :math:`J` as input, they will, starting from a random configuration, try to apply **updates**, as part of **Markov chain over the configuration space**, in order to look for **low energy states**, where "energy" is defined by the formulas above.
+            **Classical annealing codes** like Simulated Quantum Annealing (:ref:`SQA <solving_comb>`) try and do the same thing: Given :math:`h` and :math:`J` as input, they will, starting from a random configuration, try to apply **updates**, as part of **Markov chain over the configuration space**, in order to look for **low energy states**, where "energy" is defined by the formulas above.
 
-.. note::
-   A coupling value :math:`J > 0` between two spins :math:`\sigma_{i}` and 
-   :math:`\sigma_{j}` can sometimes be called, in our convention, a **ferromagnetic coupling**,
-   as the alignment of the two spins onto a same value will tend to **lower the energy** of the system
-   making it closer to its **ground state**.
+        .. note::
+           A coupling value :math:`J > 0` between two spins :math:`\sigma_{i}` and 
+           :math:`\sigma_{j}` can sometimes be called, in our convention, a **ferromagnetic coupling**,
+           as the alignment of the two spins onto a same value will tend to **lower the energy** of the system
+           making it closer to its **ground state**.
 
-.. only:: qlm
+        .. only:: qlm
 
-    In other words, **quantum annealing machines** and, consequently, **classical annealing codes**, :ref:`SQA <sqa_description>`, aim at tackling the following optimization problem:
+            In other words, **quantum annealing machines** and, consequently, **classical annealing codes**, :ref:`SQA <solving_comb>`, aim at tackling the following optimization problem:
 
-.. only:: myqlm
+        .. only:: myqlm
 
-    In other words, **quantum annealing machines** and, consequently, **classical annealing codes**, :ref:`SA <sa_description>`, aim at tackling the following optimization problem:
+            In other words, **quantum annealing machines** and, consequently, **classical annealing codes**, :ref:`SA <solving_comb>`, aim at tackling the following optimization problem:
 
-.. math::
+        .. math::
 
-    \min_{s_{1}...s_{n}\in \{-1,1\}} \left(- \sum_{i=1}^{n} h_{i}s_{i} - \sum_{i,j=1}^{n} J_{ij}s_{i}s_{j}\right)
- 
-given :math:`h` and :math:`J` as input.
+            \min_{s_{1}...s_{n}\in \{-1,1\}} \left(- \sum_{i=1}^{n} h_{i}s_{i} - \sum_{i,j=1}^{n} J_{ij}s_{i}s_{j}\right)
 
-To produce such Ising-formulated problems, one can use the :class:`qat.opt.Ising` class. It is also possible to translate it to :class:`qat.opt.QUBO` via :meth:`~qat.opt.Ising.to_qubo` or to :class:`~qat.opt.CombinatorialProblem` via :meth:`~qat.opt.Ising.to_combinatorial_problem`.
+        given :math:`h` and :math:`J` as input.
 
-.. _qubo_description:
+        To produce such Ising-formulated problems, one can use the :class:`qat.opt.Ising` class. It is also possible to translate it to :class:`qat.opt.QUBO` via :meth:`~qat.opt.Ising.to_qubo` or to :class:`~qat.opt.CombinatorialProblem` via :meth:`~qat.opt.Ising.to_combinatorial_problem`.
 
-Quadratic Unconstrained Binary Optimization (QUBO)
-**************************************************
+    .. tab-item:: QUBO
 
-Quadratic Unconstrained Binary Optimization consists in, given a **real symmetric matrix**
-:math:`Q`, **minimizing** the following cost function :math:`q`:
+        **Quadratic Unconstrained Binary Optimization (QUBO)** consists in, given a **real symmetric matrix**
+        :math:`Q`, **minimizing** the following cost function :math:`q`:
 
-.. math::
+        .. math::
 
-    q(x_{1},...,x_{n}) = \sum_{i,j=1}^{n} - Q_{ij}x_{i}x_{j}
+            q(x_{1},...,x_{n}) = \sum_{i,j=1}^{n} - Q_{ij}x_{i}x_{j}
 
-where :math:`x_{1},...,x_{n}\in \{0,1\}` are **binary variables**.
+        where :math:`x_{1},...,x_{n}\in \{0,1\}` are **binary variables**.
 
-Written differently, by **solving a QUBO problem**, we mean solving, 
-given :math:`Q`:
+        Written differently, by **solving a QUBO problem**, we mean solving, 
+        given :math:`Q`:
 
-.. math::
+        .. math::
 
-    \min_{x_{1}...x_{n}\in \{0,1\}} \sum_{i,j=1}^{n} - Q_{ij}x_{i}x_{j}
+            \min_{x_{1}...x_{n}\in \{0,1\}} \sum_{i,j=1}^{n} - Q_{ij}x_{i}x_{j}
 
-.. note::
-   The **diagonal** of :math:`Q` is allowed to contain **non-zero elements**.
-   Because :math:`\forall i \quad x_{i}\in\{0,1\}`, :math:`x_{i}^{2} = x_{i}`,
-   and the diagonal terms in the sum above effectively correspond to a **linear part**
-   of the cost function, which can be seen as similar to the **magnetic field terms**
-   in **Ising Hamiltonians**.
+        .. note::
+           The **diagonal** of :math:`Q` is allowed to contain **non-zero elements**.
+           Because :math:`\forall i \quad x_{i}\in\{0,1\}`, :math:`x_{i}^{2} = x_{i}`,
+           and the diagonal terms in the sum above effectively correspond to a **linear part**
+           of the cost function, which can be seen as similar to the **magnetic field terms**
+           in **Ising Hamiltonians**.
 
 
 
-**QUBO instances** are in one-to-one correspondance with **Ising Hamiltonians and cost functions**.
+        **QUBO instances** are in one-to-one correspondance with **Ising Hamiltonians and cost functions**.
 
-Indeed, starting from the expression above for :math:`q`, the **QUBO cost function**,
-and defining :math:`s_{i}=2x_{i}-1` (:math:`\in \{-1,1\}` as :math:`x_{i}\in\{0,1\}`),
-i.e :math:`x_{i}=\frac{s_{i}+1}{2}`,
-one can indeed write:
+        Indeed, starting from the expression above for :math:`q`, the **QUBO cost function**,
+        and defining :math:`s_{i}=2x_{i}-1` (:math:`\in \{-1,1\}` as :math:`x_{i}\in\{0,1\}`),
+        i.e :math:`x_{i}=\frac{s_{i}+1}{2}`,
+        one can indeed write:
 
-.. math:: 
+        .. math:: 
 
-    q(x_{1},...x_{n}) &= \sum_{i,j=1}^{n} - Q_{i,j} x_{i}x_{j} \\~\\
-                      &= - \sum_{i,j=1}^{n} Q_{i,j} \left(\frac{s_{i}+1}{2}\right)\left(\frac{s_{j}+1}{2}\right) \\~\\
-                      &= - \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4}\left(1+s_{i}+s_{j}+s_{i}s_{j}\right) \\~\\ 
-                      &= - \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} - \sum_{i}\left(\sum_{j}\frac{Q_{i,j}}{4}\right) s_{i} - \sum_{j}\left(\sum_{i}\frac{Q_{i,j}}{4}\right) s_{j} - \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} s_{i}s_{j} \\~\\
-                      &= - \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} - \sum_{i=1}^{n} \frac{Q_{i,i}}{4} - \sum_{i}\left(\sum_{j}\frac{Q_{i,j}}{2}\right) s_{i}  - \sum_{i,j | i\neq j}^{n} \frac{Q_{i,j}}{4} s_{i}s_{j} \\~\\
-                      &= - \sum_{i=1}^{n} h_{i}s_{i} - \sum_{i,j=1}^{n} J_{ij}s_{i}s_{j} + o
+            q(x_{1},...x_{n}) &= \sum_{i,j=1}^{n} - Q_{i,j} x_{i}x_{j} \\~\\
+                              &= - \sum_{i,j=1}^{n} Q_{i,j} \left(\frac{s_{i}+1}{2}\right)\left(\frac{s_{j}+1}{2}\right) \\~\\
+                              &= - \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4}\left(1+s_{i}+s_{j}+s_{i}s_{j}\right) \\~\\ 
+                              &= - \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} - \sum_{i}\left(\sum_{j}\frac{Q_{i,j}}{4}\right) s_{i} - \sum_{j}\left(\sum_{i}\frac{Q_{i,j}}{4}\right) s_{j} - \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} s_{i}s_{j} \\~\\
+                              &= - \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} - \sum_{i=1}^{n} \frac{Q_{i,i}}{4} - \sum_{i}\left(\sum_{j}\frac{Q_{i,j}}{2}\right) s_{i}  - \sum_{i,j | i\neq j}^{n} \frac{Q_{i,j}}{4} s_{i}s_{j} \\~\\
+                              &= - \sum_{i=1}^{n} h_{i}s_{i} - \sum_{i,j=1}^{n} J_{ij}s_{i}s_{j} + o
 
-with :math:`h_{i}=\sum_{j}\frac{Q_{i,j}}{2}`, :math:`J_{ij}=\frac{Q_{i,j}}{4}` 
-and an **offset term** :math:`o=- \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} - \sum_{i=1}^{n} \frac{Q_{i,i}}{4}`.
+        with :math:`h_{i}=\sum_{j}\frac{Q_{i,j}}{2}`, :math:`J_{ij}=\frac{Q_{i,j}}{4}` 
+        and an **offset term** :math:`o=- \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} - \sum_{i=1}^{n} \frac{Q_{i,i}}{4}`.
 
-In this case, :class:`~qat.opt.QUBO` is the representative class and it can be translated to :class:`~qat.opt.Ising` and :class:`~qat.opt.CombinatorialProblem` via the :meth:`~qat.opt.QUBO.to_ising` and :meth:`~qat.opt.QUBO.to_combinatorial_problem`, respectively.
+        In this case, :class:`~qat.opt.QUBO` is the representative class and it can be translated to :class:`~qat.opt.Ising` and :class:`~qat.opt.CombinatorialProblem` via the :meth:`~qat.opt.QUBO.to_ising` and :meth:`~qat.opt.QUBO.to_combinatorial_problem`, respectively.
 
-.. _combinatorial_problem_description:
+    .. tab-item:: General Combinatorial Problems
 
-General combinatorial problems
-******************************
+        **General Combinatorial Problems**
 
-The most general way to specify a combinatorial problem is by explicitly declaring boolean variables (:class:`~qat.opt.boolexpr.Var`) and  clauses (:class:`~qat.opt.boolexpr.Clause`) combining these variables. This is achieved via the :class:`qat.opt.CombinatorialProblem` class. 
+        The most general way to specify a combinatorial problem is by explicitly declaring boolean variables (:class:`~qat.opt.boolexpr.Var`) and  clauses (:class:`~qat.opt.boolexpr.Clause`) combining these variables. This is achieved via the :class:`qat.opt.CombinatorialProblem` class. 
 
-While :ref:`Ising <ising_description>` and :ref:`QUBO <qubo_description>` only accept up to two-variable terms, one can define clauses in :class:`~qat.opt.CombinatorialProblem` with as many variables as desired. However, for the case of no more than two variables, a translation to the Ising and QUBO formulations is available using the :meth:`~qat.opt.CombinatorialProblem.to_ising` and :meth:`~qat.opt.CombinatorialProblem.to_qubo` methods.
+        While Ising and QUBO only accept up to two-variable terms, one can define clauses in :class:`~qat.opt.CombinatorialProblem` with as many variables as desired. However, for the case of no more than two variables, a translation to the Ising and QUBO formulations is available using the :meth:`~qat.opt.CombinatorialProblem.to_ising` and :meth:`~qat.opt.CombinatorialProblem.to_qubo` methods.
 
-The cost Hamiltonian extraction is handled by the :class:`~qat.opt.boolexpr.Clause` class such that the final cost Hamiltonian consists of the weighted sum of the cost Hamiltonian of its clauses.
+        The cost Hamiltonian extraction is handled by the :class:`~qat.opt.boolexpr.Clause` class such that the final cost Hamiltonian consists of the weighted sum of the cost Hamiltonian of its clauses.
 
 .. _solving_comb:
 
 Solving combinatorial problems
 ------------------------------
 
-.. only:: qlm
-
-    This section describes how to define and solve combinatorial problems using QLM tools. Here is the outline:
-
-    1. `Quantum Approximate Optimization Algorithm (QAOA)`_
-    2. `Simulated Quantum Annealing (SQA)`_
-    3. `Quantum Annealing (QA)`_
-
-.. only:: myqlm
-
-    This section describes how to define and solve combinatorial problems using QLM tools. Here is the outline:
-
-    1. `Quantum Approximate Optimization Algorithm (QAOA)`_
-    2. `Simulated Annealing (SA)`_
-    3. `Simulated Quantum Annealing (SQA)`_
-    4. `Quantum Annealing (QA)`_
-
-.. _qaoa_description:
-
-Quantum Approximate Optimization Algorithm (QAOA)
-*************************************************
-
-The Quantum Approximate Optimization Algorithm is a heuristic to design variational Ansätze for combinatorial optimization. It is inspired from the digitalization of an analog evolution using a linear ramp, starting from a simple initial Hamiltonian :math:`H_0 = - \sum_i \sigma_x^i` to a diagonal Hamiltonian whose ground state encodes the solution to our problem. 
-
-The circuits produced by this method have the following shape:
-
-.. figure:: qaoa_circuit.PNG
-
-where :math:`H_0 = - \sum_i \sigma_x^i`, and :math:`H_C` is an (efficiently generated) classical cost Hamiltonian that encodes the cost function to optimize. The propagator :math:`e^{i\gamma H_C}` is usually simple to implement from a problem specification. :math:`e^{i\beta H_0}` simply corresponds to a collection of :math:`R_X` rotations of angle :math:`2\beta`.
-
-Once such a circuit is produced, one can use a QPU, along with a classical optimizer, to minimize the quantity:
-:math:`\langle 0|C(\gamma, \beta)^\dagger H_C C(\gamma, \beta)|0 \rangle`
-in order to produce a quantum state with the lowest possible energy (i.e that overlaps well with the proper ground state of :math:`H_C`, which, by construction, corresponds to the optimal solution of our problem). This can be handled via a variational plugin in the QLM, see :ref:`this section <variational-programs>` for more details.
-
-As you can see, the circuit is also parametrized by a depth :math:`d` corresponding to the number of alternating variational layers. The larger the depth, the better the approximation of the solution (at least in theory). In practice, increasing this parameter yields a larger circuit with greater number of parameters to optimize, which can slow down the convergence of the algorithm.
-
-The algorithm is fully described in :cite:`farhi2014quantum`.
-
-It is possible to directly generate ready to run QAOA jobs (containing an Ansatz and the target Hamiltonian) from an instance of :class:`~qat.opt.CombinatorialProblem`/:class:`~qat.opt.QUBO`/:class:`~qat.opt.Ising` via the :class:`~qat.opt.circuit_generator.CircuitGenerator` class. In that case the qlm will take care of generating a cost Hamiltonian for the problem (depending on how you specified it).
-
-If you need a lower level interface, the :class:`qat.vsolve.ansatz.AnsatzFactory` provides a recipe to produce such a variational circuit from a target Hamiltonian. In both cases, the Ansatz factory allows you to pick between (at least) three different circuit synthesis strategies, yielding functionally equivalent circuits with different shapes.
-
-
-.. only:: myqlm
-
-    .. _sa_description:
-
-    Simulated Annealing (SA)
-    ************************
-
-    **Simulated annealing** is a well-known, historical heuristic for
-    combinatorial optimization. It aims at finding low energy-states
-    of a classical Ising system with a **Markov Chain** over
-    **spin configurations**, with **decreasing stochasticity**.
-
-    Stochasticity is specified by a **temperature**. In practice, a 
-    **decreasing temperature schedule** is given to the algorithm. 
-    At the beginning of the execution, large temperature values allow
-    to **jump over energy barriers** to escape **local optima**. When
-    temperature settles to lower values, the **Markov chain** will
-    hopefully settle to the global optimum of the cost function.
-
-    Mathematically, simulated annealing tries to find, given :math:`h` and :math:`J`, the global minimum configuration of: 
-
-    .. math::
-
-        H(s_{1},...,s_{n}) = -\sum_{i,j=1}^{n} J_{ij}s_{i}s_{j}-\sum_{i=1} h_{i}s_{i}
-
-    It does so by first choosing a **random configuration**, which then
-    evolves by applying **updates**. In the case of simulated annealing, 
-    an update consists in **flipping the value** :math:`s_{i}` **of a single spin**.
-
-    An update is **accepted** with probability:
-
-    .. math::
-
-        P_{flip} = min(1, e^{-\Delta H / T})
-
-    with :math:`\Delta H` is the energy change incurred by switching from :math:`s_{i}` to :math:`-s_{i}`. A change decreasing the energy of the system is always accepted, whereas a change which increases it needs a temperature high enough to have a non-negligible probability of being accepted.
-
-    The following picture explains in pseudo-code how simulated annealing works.
-
-    .. image:: simulated_annealing_algoritm_latex.png
-        :width: 600px
-        :align: center
-
-    A basic example of the use of SA - to solve the Antiferromagnetic Ising Model, is presented in the notebook :notebook:`(Getting started with SA)[getting_started_with_sa.ipynb]`. Some more involved examples where SA solves some of the :ref:`NP-hard problems <np_problems_formulation>` have also been implemented in the following :notebook:`(notebooks)[overview_combinatorial_optimization_myqlm.ipynb]`.
-
-.. _sqa_description:
-
-Simulated Quantum Annealing (SQA)
-*********************************
-
-.. only:: myqlm
-
-        .. note::
-
-                The Simulated Quantum Annealing is not available in myQLM.
-                QUBO and Ising problems can still be used to construct QAOA
-                Ansätze using the `.qaoa_ansatz` method or solved via
-                :ref:`Simulated Annealing  <sa_description>`.
-
-Simulated quantum annealing provides a heuristic which aims to
-minimize **quantum Ising Hamiltonians**.
-
-The questions of whether SQA performs such minimizations more efficiently
-than **physical quantum annealing machines**, and whether SQA
-can be called 'emulation' of those machines is a matter of hot scientific debate.
-
-Settling these questions is of course beyond the scope of this
-documentation. The interested reader may look at: :cite:`ronnow2014defining`,
-:cite:`denchev2016computational`, :cite:`hen2015probing` or :cite:`andriyash2017can`, for instance.
-
-Formally, our SQA implementation is based on a **discrete-time
-path integral Monte Carlo** formulation of quantum annealing, as derivedF
-in :cite:`martovnak2002quantum`.
-
-In short, instead of sampling the equilibrium distribution, at finite temperature of the quantum Ising Hamiltonian:
-
-.. math::
-
-    H = -\sum_{i,j} J_{i,j}\sigma_{z}^{i}\sigma_{z}^{j}-\sum_{i} h_{i}\sigma_{z}^{i} - \Gamma\sum_{i}\sigma_{x}^{i}
-
-one samples from the equivalent classical Ising Hamiltonian:
-
-.. math::
-
-    H = -\sum_{k=1}^{n_{trotters}}\left( \sum_{i,j} J_{i,j} s_{i}^{k}s_{j}^{k} + \sum_{i} h_{i} s_{i}^{k} + J^{\perp}s_{l}^{k}s_{l}^{k+1} \right) 
-
-with :math:`J^{\perp} = - n_{trotters}\cdot \log\left(\tanh(\frac{\Gamma}{n_{trotters}T})\right)` and :math:`n` quantum spins are replaced with :math:`n_{trotters}\times n` classical spins.
-
-In quantum annealing, :math:`\Gamma` is typically gradually decreased
-from a high value to :math:`0`, such that, if the system is prepared in the
-ground state of :math:`\sum_{i}\Gamma\sigma_{x}^{i}`, it ends up 
-in the ground state of the Ising Hamiltonian at the end of the transition.
-
-The idea of simulated quantum annealing is to sample from the equilibrium
-distribution of the equivalent classical Hamiltonian at several
-points :math:`\{\Gamma_{l}\}` along that transition. 
-The configuration resulting from sampling at :math:`\Gamma_{l}`
-is kept at the starting configuration for :math:`\Gamma_{l+1}`.
-
-The following picture describes in pseudo-code how the simulated
-quantum annealing works.
-
-.. image:: simulated_quantum_annealing_algoritm_latex.png
-    :width: 600px
-    :align: center
-
-.. note::
-
-    The **memory requirements** of **simulated quantum 
-    annealing** are **polynomial in the number of spins**. 
-    There is **no hard memory
-    limit** as to how many spins can be represented and manipulated with
-    this technique.
+This section describes how to define and solve combinatorial problems using QLM tools.
 
 .. only:: qlm
 
-    This SQA algorithm is implemented in the :class:`~qat.sqa.SQAQPU`. The quality of the solutions returned will depend on the parameters given to the algorithm (minimum and maximum `gamma` and temperature, number of Monte Carlo steps, etc). We provide a set of fine tuned parameters for common problem classes. The SQA solver was tested on the :ref:`encoded NP-hard problems <np_problems_formulation>` with various benchmarks and the respective performances were recorded. Along with the problem size and annealing times, the results are presented in the :ref:`SQA Benchmarking and Performance <benchmarking>` section.
+    .. tab-set::
+
+        .. tab-item:: Quantum Approximate Optimization Algorithm (QAOA)
+        
+            .. include:: combinatorial_optimization_intro_qaoa.rst
+
+        .. tab-item:: Simulated Quantum Annealing (SQA)
+
+            .. include:: combinatorial_optimization_intro_sqa.rst
+
+        .. tab-item:: Quantum Annealing (QA)
+
+            .. include:: combinatorial_optimization_intro_qa.rst
 
 .. only:: myqlm
 
-    This SQA algorithm is implemented in the ``qat.sqa.SQAQPU``. The quality of the solutions returned will depend on the parameters given to the algorithm (minimum and maximum `gamma` and temperature, number of Monte Carlo steps, etc). We provide a set of fine tuned parameters for common problem classes. The SQA solver was tested on the :ref:`encoded NP-hard problems <np_problems_formulation>` with various benchmarks and the respective performances were recorded. Along with the problem size and annealing times, the results are presented in the :ref:`SQA Benchmarking and Performance <benchmarking>` section.
+    .. tab-set::
 
+        .. tab-item:: Quantum Approximate Optimization Algorithm (QAOA)
+        
+            .. include:: combinatorial_optimization_intro_qaoa.rst
 
+        .. tab-item:: Simulated Annealing (SA)
 
-.. _qa_description:
+            .. include:: combinatorial_optimization_intro_sa.rst
 
-Quantum Annealing (QA)
-*********************************
+        .. tab-item:: Simulated Quantum Annealing (SQA)
 
-Quantum Annealing is a generic optimization framework that utilizes a continuous quantum dynamic to find the global minimum of a target function.
-In practice, this framework is often applied to combinatorial optimization since combinatorial cost function are usually simple to encode into a Hamiltonian.
+            .. include:: combinatorial_optimization_intro_sqa.rst
 
-A generic quantum annealing is defined using a target Hamiltonian :math:`H_{C}` such that:
+        .. tab-item:: Quantum Annealing (QA)
 
-.. math::
-
-    H_C | x\rangle = C(x)|x\rangle
-
-encodes a cost function :math:`C`, and using a problem independent mixing Hamiltonian :math:`H_0` such that:
-
-.. math::
-
-    [H_C, H_0] \neq 0
-
-The quantum system is prepared in the (problem independent) ground state of :math:`H_0` and evolved slowly according the following time-dependent Hamiltonian:
-
-.. math::
-
-    H(t) = (1 - \frac{t}{T}) H_0 + \frac{t}{T} H_C
-
-during a time :math:`T`. For large :math:`T`, the adiabatic theorem states that the final quantum state will 'largely' overlap the ground state of :math:`H_C`. Thus, measuring this quantum state in the computational basis will produce the global minimum of :math:`C` with large probability.
-
-
-It is possible to automatically generate quantum annealing jobs from a any of the problem description classes descibed earlier. For instance, the following piece of code produces an annealing job for a MaxCut instance:
-
-.. run-block:: python
-
-    from qat.opt import MaxCut
-    import networkx as nx
-
-    graph = nx.generators.erdos_renyi_graph(10, 0.5)
-    problem = MaxCut(graph)
-    # We just need to specify the value of T (tmax)
-    annealing_job = problem.annealing_job(tmax=47)
-
-
-The default mixing Hamitonian (:math:`H_0`) is :
-
-.. math::
-
-    H_0 = - \sum \sigma_x^{(i)}
-
-Its ground state is :math:`|+\rangle^{\otimes n}` (a simple product state).
-
-
-Some applications may require more advanced mixing Hamiltonians. QLM comes with a few mixing Hamiltonians already pre-programmed in a :class:`~qat.opt.MixingFactory`.
-
-
-One can, for instance, define a bit-move mixing Hamiltonian that will mix the subspaces of constant Hamming weights. This is useful when one needs to restrict the search to bit-strings of fixed Hamming weight:
-
-
-.. run-block:: python
-
-    from qat.opt import MaxCut, MixingFactory
-    import networkx as nx
-
-    graph = nx.generators.erdos_renyi_graph(10, 0.5)
-    problem = MaxCut(graph)
-    
-    # Looking for a solution of Hamming weight 3
-    mixing = MixingFactory.bit_move(10, 3)
-    annealing_job = problem.annealing_job(tmax=47, mixing=mixing)
-
-
-Doing this will effectively change the mixing Hamiltonian, and, of course, the initial state of the computation. This change can lead to an increase in the computation time since some mixing Hamiltonians have non trivial ground states whose preparation might involve a problem independent annealing to take place before the true annealing.
-
-
+            .. include:: combinatorial_optimization_intro_qa.rst
 
 Bibliography
 ------------

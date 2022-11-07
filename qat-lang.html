@@ -9,6 +9,7 @@
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
       <link rel="stylesheet" href="static/contentui.css" type="text/css" />
+      <link rel="stylesheet" href="static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
     <link rel="shortcut icon" href="static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="static/js/html5shiv.min.js"></script>
@@ -17,11 +18,14 @@
         <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
         <script src="static/jquery.js"></script>
         <script src="static/underscore.js"></script>
+        <script src="static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="static/doctools.js"></script>
+        <script src="static/sphinx_highlight.js"></script>
         <script src="static/contentui.js"></script>
+        <script src="static/design-tabs.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -38,7 +42,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.7.1-1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -58,10 +62,15 @@
 <li class="toctree-l1"><a class="reference internal" href="combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability with myQLM</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Notebooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">List of notebooks</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced usage</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Main objects: Jobs, Observables, Circuits…</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_generators.html">Building advanced computation stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
@@ -71,7 +80,6 @@
 <p class="caption" role="heading"><span class="caption-text">Source code documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="source_doc.html">Source code documentation</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="source_doc.html#quantum-application-toolchain-qat-python-libraries">Quantum Application ToolChain (QAT) Python libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-core-library">The core library</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="source_doc.html#the-programming-library">The programming library</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">qat.lang : Programming tools</a><ul>
@@ -83,11 +91,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-qat.lang.AQASM.misc">Gate set management and generation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#quantum-libraries">Quantum libraries</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#linker-and-low-level-circuit-manipulation">Linker and low level circuit manipulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#basic-algorithms">Basic algorithms</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-device-library">The device library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#generators">Generators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#plugins">Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#qpus">QPUs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a></li>
@@ -153,12 +163,12 @@
 }
 </style>
 <span class="target" id="module-qat.lang"></span><section id="qat-lang-programming-tools">
-<h1>qat.lang : Programming tools<a class="headerlink" href="#qat-lang-programming-tools" title="Permalink to this headline"></a></h1>
+<h1>qat.lang : Programming tools<a class="headerlink" href="#qat-lang-programming-tools" title="Permalink to this heading"></a></h1>
 <section id="the-program-class">
-<h2>The Program class<a class="headerlink" href="#the-program-class" title="Permalink to this headline"></a></h2>
+<h2>The Program class<a class="headerlink" href="#the-program-class" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.Program">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.</span></span><span class="sig-name descname"><span class="pre">Program</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_gate_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.Program" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.</span></span><span class="sig-name descname"><span class="pre">Program</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_gate_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.Program" title="Permalink to this definition"></a></dt>
 <dd><p>Class for quantum programs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -261,6 +271,17 @@ The two gates are required to have the same arity.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="qat.lang.AQASM.Program.display">
+<span class="sig-name descname"><span class="pre">display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.Program.display" title="Permalink to this definition"></a></dt>
+<dd><p>Transforms the program into a circuit and displays it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – key word arguments passed to the <cite>display</cite> method of the circuit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="qat.lang.AQASM.Program.export">
 <span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.Program.export" title="Permalink to this definition"></a></dt>
 <dd><blockquote>
@@ -281,7 +302,7 @@ The two gates are required to have the same arity.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.lang.AQASM.Program.get_free_ancillae">
-<span class="sig-name descname"><span class="pre">get_free_ancillae</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.Program.get_free_ancillae" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_free_ancillae</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.Program.get_free_ancillae" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a collection of free ancillae</p>
 </dd></dl>
 
@@ -508,12 +529,12 @@ python packages to pass to the linker.</p></li>
 
 </section>
 <section id="gate-structures">
-<h2>Gate structures<a class="headerlink" href="#gate-structures" title="Permalink to this headline"></a></h2>
+<h2>Gate structures<a class="headerlink" href="#gate-structures" title="Permalink to this heading"></a></h2>
 <p>All classes describing unitary operators inherit from the <a class="reference internal" href="#qat.lang.AQASM.gates.Gate" title="qat.lang.AQASM.gates.Gate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></a> class.
 This parent class contains very little information. Its primary function is to store information about control, dagger and other high-level gate operations. Since this class is not made to be used directly, we skip some part of its documentation.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.gates.Gate">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.gates.</span></span><span class="sig-name descname"><span class="pre">Gate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.gates.Gate" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.gates.</span></span><span class="sig-name descname"><span class="pre">Gate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.gates.Gate" title="Permalink to this definition"></a></dt>
 <dd><p>Mother class for all quantum gates/unitary operators.
 This class should never be instantiated directly.</p>
 <dl class="py method">
@@ -595,7 +616,7 @@ of the initial gate.</p>
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.gates.AbstractGate">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.gates.</span></span><span class="sig-name descname"><span class="pre">AbstractGate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.gates.AbstractGate" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.gates.</span></span><span class="sig-name descname"><span class="pre">AbstractGate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.gates.AbstractGate" title="Permalink to this definition"></a></dt>
 <dd><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This class is for advanced usage.</p>
@@ -631,7 +652,7 @@ be used.</p>
 <p><a class="reference internal" href="#qat.lang.AQASM.gates.ParamGate" title="qat.lang.AQASM.gates.ParamGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParamGate</span></code></a> is generated through <a class="reference internal" href="#qat.lang.AQASM.gates.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a>. An abstract gate instantiated by a set of parameters (such as the my_rz(0.4) from above) returns a <a class="reference internal" href="#qat.lang.AQASM.gates.ParamGate" title="qat.lang.AQASM.gates.ParamGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParamGate</span></code></a> carrying all the necessary information to build the correct abstract syntax tree of the gate.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.gates.ParamGate">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.gates.</span></span><span class="sig-name descname"><span class="pre">ParamGate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abstract_gate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arity</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.gates.ParamGate" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.gates.</span></span><span class="sig-name descname"><span class="pre">ParamGate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abstract_gate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arity</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.gates.ParamGate" title="Permalink to this definition"></a></dt>
 <dd><p>Class for parametrized gates instantiated by some set of parameters.
 Members of this class should be automatically
 instantiated by the AbstractGate structure.
@@ -660,12 +681,23 @@ abstract gate</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.lang.AQASM.gates.ParamGate.display">
+<span class="sig-name descname"><span class="pre">display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.gates.ParamGate.display" title="Permalink to this definition"></a></dt>
+<dd><p>Displays the param gate (if the gate has a circuit generator).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – key word arguments passed to the <cite>display</cite> method of the circuit</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <p>Finally, the notion of gate is also extended to subcircuits via the <a class="reference internal" href="#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> class.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.routines.QRoutine">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.routines.</span></span><span class="sig-name descname"><span class="pre">QRoutine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">routop_l</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_wire</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ancillae</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.routines.QRoutine" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.routines.</span></span><span class="sig-name descname"><span class="pre">QRoutine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">routop_l</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_wire</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ancillae</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.routines.QRoutine" title="Permalink to this definition"></a></dt>
 <dd><p><a class="reference internal" href="#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> represent subcircuits that behave as a Gate object.</p>
 <p>The constructor takes no required arguments.</p>
 <p>Applying a Gate or a <a class="reference internal" href="#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a>
@@ -825,12 +857,12 @@ pops it from the scope stack.</p>
 
 </section>
 <section id="quantum-types">
-<span id="id1"></span><h2>Quantum Types<a class="headerlink" href="#quantum-types" title="Permalink to this headline"></a></h2>
+<span id="id1"></span><h2>Quantum Types<a class="headerlink" href="#quantum-types" title="Permalink to this heading"></a></h2>
 <section id="quantum-boolean-and-expressions">
-<h3>Quantum boolean and expressions<a class="headerlink" href="#quantum-boolean-and-expressions" title="Permalink to this headline"></a></h3>
+<h3>Quantum boolean and expressions<a class="headerlink" href="#quantum-boolean-and-expressions" title="Permalink to this heading"></a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.qbool.QBool">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qbool.</span></span><span class="sig-name descname"><span class="pre">QBool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qbool.QBool" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qbool.</span></span><span class="sig-name descname"><span class="pre">QBool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qbool.QBool" title="Permalink to this definition"></a></dt>
 <dd><p>Class for quantum boolean type.</p>
 <p>This class is not designed to be instantiated by hand, but rather
 via the <cite>.qalloc</cite> method of the <a class="reference internal" href="#qat.lang.AQASM.Program" title="qat.lang.AQASM.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> class
@@ -953,7 +985,7 @@ Effectively applies a <span class="math notranslate nohighlight">\(Z\)</span> ga
 
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.qbool.QBoolArray">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qbool.</span></span><span class="sig-name descname"><span class="pre">QBoolArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qbool.QBoolArray" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qbool.</span></span><span class="sig-name descname"><span class="pre">QBoolArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qbool.QBoolArray" title="Permalink to this definition"></a></dt>
 <dd><p>Class describing an array of <a class="reference internal" href="#qat.lang.AQASM.qbool.QBool" title="qat.lang.AQASM.qbool.QBool"><code class="xref py py-class docutils literal notranslate"><span class="pre">QBool</span></code></a>.</p>
 <p>This class is not designed to be instantiated by hand, but rather
 via the <cite>.qalloc</cite> method of the <a class="reference internal" href="#qat.lang.AQASM.Program" title="qat.lang.AQASM.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> class
@@ -978,7 +1010,7 @@ class.</p>
 <li><p><strong>length</strong> (<em>int</em>) – the length of the underlying register</p></li>
 <li><p><strong>scope</strong> (<a class="reference internal" href="#qat.lang.AQASM.Program" title="qat.lang.AQASM.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a>/<a class="reference internal" href="#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a>) – the
 scope in which the allocation happened</p></li>
-<li><p><strong>qbit_list</strong> (<em>list of int</em>) – optionally a list of indexes of underlying qbits</p></li>
+<li><p><strong>qbit_list</strong> (<em>list</em><em> of </em><em>int</em>) – optionally a list of indexes of underlying qbits</p></li>
 </ul>
 </dd>
 </dl>
@@ -1040,7 +1072,7 @@ a list of the underlying qubits).</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.qbool.QClause">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qbool.</span></span><span class="sig-name descname"><span class="pre">QClause</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operand</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qbool.QClause" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qbool.</span></span><span class="sig-name descname"><span class="pre">QClause</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operand</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qbool.QClause" title="Permalink to this definition"></a></dt>
 <dd><p>Class describing boolean formulae to manipulate qubits.</p>
 <p>This class is not designed to be instantiated by hand.</p>
 <p>Clauses are created by using the boolean
@@ -1165,10 +1197,10 @@ evaluate the formula to true</p></li>
 
 </section>
 <section id="quantum-integers">
-<h3>Quantum integers<a class="headerlink" href="#quantum-integers" title="Permalink to this headline"></a></h3>
+<h3>Quantum integers<a class="headerlink" href="#quantum-integers" title="Permalink to this heading"></a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.qint.QInt">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qint.</span></span><span class="sig-name descname"><span class="pre">QInt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse_bit_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qint.QInt" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qint.</span></span><span class="sig-name descname"><span class="pre">QInt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse_bit_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qint.QInt" title="Permalink to this definition"></a></dt>
 <dd><p>Class for quantum integer type. The qubit list in a QInt is by default encoded such that the
 most significant bit is on the left. The order can be reversed using the <cite>reverse_bit_order</cite> argument.</p>
 <p>As other quantum types, this class is not designed to be constructed by hand, but rather
@@ -1307,7 +1339,7 @@ Effectively, the register is xored with the classical value.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.qint.QArithExp">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qint.</span></span><span class="sig-name descname"><span class="pre">QArithExp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse_bit_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qint.QArithExp" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qint.</span></span><span class="sig-name descname"><span class="pre">QArithExp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse_bit_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qint.QArithExp" title="Permalink to this definition"></a></dt>
 <dd><p>Class describing arithmetic expressions whose operands contain quantum integers.</p>
 <p>This class is not designed to be instantiated by hand, but rather built via
 the addition, substraction, and multiplication of quantum integers with
@@ -1338,7 +1370,7 @@ register.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.qint.QCompExp">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qint.</span></span><span class="sig-name descname"><span class="pre">QCompExp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qint.QCompExp" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.qint.</span></span><span class="sig-name descname"><span class="pre">QCompExp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.qint.QCompExp" title="Permalink to this definition"></a></dt>
 <dd><p>Class describing quantum comparison expressions to manipulate quantum integers.</p>
 <p>This class is not designed to be instantiated by hand, but rather built via
 comparison of quantum integers (with other quantum integers or classical
@@ -1388,16 +1420,16 @@ a temporary Qbit will be used and returned.</p>
 </section>
 </section>
 <section id="other-structures">
-<h2>Other structures<a class="headerlink" href="#other-structures" title="Permalink to this headline"></a></h2>
+<h2>Other structures<a class="headerlink" href="#other-structures" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.bits.Qbit">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.bits.</span></span><span class="sig-name descname"><span class="pre">Qbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.bits.Qbit" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.bits.</span></span><span class="sig-name descname"><span class="pre">Qbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.bits.Qbit" title="Permalink to this definition"></a></dt>
 <dd><p>Class for qbits.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.bits.QRegister">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.bits.</span></span><span class="sig-name descname"><span class="pre">QRegister</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.bits.QRegister" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.bits.</span></span><span class="sig-name descname"><span class="pre">QRegister</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.bits.QRegister" title="Permalink to this definition"></a></dt>
 <dd><p>Class for registers of qbits. They should only be
 declared through the qalloc method of the Program class.
 Qbits inside a register can be accessed
@@ -1406,7 +1438,7 @@ similarly to elements of an array (i.e using brackets and slices).</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.bits.CRegister">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.bits.</span></span><span class="sig-name descname"><span class="pre">CRegister</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.bits.CRegister" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.bits.</span></span><span class="sig-name descname"><span class="pre">CRegister</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.bits.CRegister" title="Permalink to this definition"></a></dt>
 <dd><p>Class for registers of classical bits. They should only be declared
 through the calloc method of the AQASM class
 Cbits inside a register can be accessed similarly
@@ -1414,10 +1446,10 @@ to elements of an array (i.e using brackets and slices).</p>
 </dd></dl>
 
 <section id="classical-bits-and-boolean-formulae">
-<h3>Classical bits and Boolean formulae<a class="headerlink" href="#classical-bits-and-boolean-formulae" title="Permalink to this headline"></a></h3>
+<h3>Classical bits and Boolean formulae<a class="headerlink" href="#classical-bits-and-boolean-formulae" title="Permalink to this heading"></a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.bits.Cbit">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.bits.</span></span><span class="sig-name descname"><span class="pre">Cbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.bits.Cbit" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.bits.</span></span><span class="sig-name descname"><span class="pre">Cbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.bits.Cbit" title="Permalink to this definition"></a></dt>
 <dd><p>Class for cbits.</p>
 <p>Cbits can be composed via logical operator to form Boolean formulae.</p>
 <p>See <a class="reference internal" href="#qat.lang.AQASM.bits.BoolFormula" title="qat.lang.AQASM.bits.BoolFormula"><code class="xref py py-class docutils literal notranslate"><span class="pre">BoolFormula</span></code></a> for examples.</p>
@@ -1430,7 +1462,7 @@ to elements of an array (i.e using brackets and slices).</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.bits.BoolFormula">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.bits.</span></span><span class="sig-name descname"><span class="pre">BoolFormula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.bits.BoolFormula" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.bits.</span></span><span class="sig-name descname"><span class="pre">BoolFormula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.bits.BoolFormula" title="Permalink to this definition"></a></dt>
 <dd><p>Class describing boolean formulae to manipulate classical bits.</p>
 <p>This class is not designed to be instantiated by hand, but rather via
 composition of <a class="reference internal" href="#qat.lang.AQASM.bits.Cbit" title="qat.lang.AQASM.bits.Cbit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cbit</span></code></a> via logical operators.</p>
@@ -1486,18 +1518,18 @@ of the expression.</p>
 
 </section>
 <section id="exceptions">
-<h3>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline"></a></h3>
+<h3>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this heading"></a></h3>
 <p>This exception is defined in <cite>qat.core</cite> but related to <cite>qat.lang</cite>:</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.core.circuit_builder.builder.VariableNameNotAvailable">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.core.circuit_builder.builder.</span></span><span class="sig-name descname"><span class="pre">VariableNameNotAvailable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.circuit_builder.builder.VariableNameNotAvailable" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.core.circuit_builder.builder.</span></span><span class="sig-name descname"><span class="pre">VariableNameNotAvailable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.circuit_builder.builder.VariableNameNotAvailable" title="Permalink to this definition"></a></dt>
 <dd><p>Exception raised when a variable is redefined using the same name.</p>
 </dd></dl>
 
 </section>
 </section>
 <section id="module-qat.lang.AQASM.util">
-<span id="utilities"></span><h2>Utilities<a class="headerlink" href="#module-qat.lang.AQASM.util" title="Permalink to this headline"></a></h2>
+<span id="utilities"></span><h2>Utilities<a class="headerlink" href="#module-qat.lang.AQASM.util" title="Permalink to this heading"></a></h2>
 <p>This module contains a few utilitaries</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="qat.lang.AQASM.util.suppr_ctrl">
@@ -1547,11 +1579,11 @@ The resulting qbits is always the last qbit (hence of index arity - 1).</p>
 
 </section>
 <section id="module-qat.lang.AQASM.misc">
-<span id="gate-set-management-and-generation"></span><h2>Gate set management and generation<a class="headerlink" href="#module-qat.lang.AQASM.misc" title="Permalink to this headline"></a></h2>
+<span id="gate-set-management-and-generation"></span><h2>Gate set management and generation<a class="headerlink" href="#module-qat.lang.AQASM.misc" title="Permalink to this heading"></a></h2>
 <p>This module contains various tools and decorator to turn functions into gates</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.AQASM.misc.build_gate">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.misc.</span></span><span class="sig-name descname"><span class="pre">build_gate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.misc.build_gate" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.AQASM.misc.</span></span><span class="sig-name descname"><span class="pre">build_gate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.AQASM.misc.build_gate" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper class lifting functions into AbstractGates with a circuit
 implementation.</p>
 <dl class="field-list simple">
@@ -1595,19 +1627,40 @@ Arguments can be:</p>
 
 </section>
 <section id="quantum-libraries">
-<h2>Quantum libraries<a class="headerlink" href="#quantum-libraries" title="Permalink to this headline"></a></h2>
+<h2>Quantum libraries<a class="headerlink" href="#quantum-libraries" title="Permalink to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="qat-lang-arith.html">Arithmetic routines</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="qat-lang-arith.html#module-qat.lang.AQASM.qftarith">QFT-based arithmetic</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="qat-lang-arith.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="qat-lang-arith.html#qat.lang.AQASM.qftarith.QFT"><code class="docutils literal notranslate"><span class="pre">QFT()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="qat-lang-arith.html#qat.lang.AQASM.qftarith.add"><code class="docutils literal notranslate"><span class="pre">add()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="qat-lang-arith.html#qat.lang.AQASM.qftarith.add_const"><code class="docutils literal notranslate"><span class="pre">add_const()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="qat-lang-arith.html#qat.lang.AQASM.qftarith.mult"><code class="docutils literal notranslate"><span class="pre">mult()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="qat-lang-arith.html#qat.lang.AQASM.qftarith.mult_const"><code class="docutils literal notranslate"><span class="pre">mult_const()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="qat-lang-arith.html#module-qat.lang.AQASM.classarith">Carry-based arithmetic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="qat-lang-arith.html#module-qat.lang.AQASM.arithmetic">Agnostic/High-level arithmetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qat-lang-arith.html#module-qat.lang.AQASM.classarith">Carry-based arithmetic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="qat-lang-arith.html#qat.lang.AQASM.classarith.cuccaro_add"><code class="docutils literal notranslate"><span class="pre">cuccaro_add()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="qat-lang-arith.html#qat.lang.AQASM.classarith.add"><code class="docutils literal notranslate"><span class="pre">add()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="qat-lang-arith.html#qat.lang.AQASM.classarith.add_const"><code class="docutils literal notranslate"><span class="pre">add_const()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="qat-lang-arith.html#module-qat.lang.AQASM.arithmetic">Agnostic/High-level arithmetic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="qat-lang-arith.html#qat.lang.AQASM.arithmetic.modular_exp"><code class="docutils literal notranslate"><span class="pre">modular_exp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="qat-lang-arith.html#qat.lang.AQASM.arithmetic.mult_const_mod"><code class="docutils literal notranslate"><span class="pre">mult_const_mod()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="qat-lang-arith.html#qat.lang.AQASM.arithmetic.add_const_mod"><code class="docutils literal notranslate"><span class="pre">add_const_mod()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="qat-lang-arith.html#qat.lang.AQASM.arithmetic.mult_const"><code class="docutils literal notranslate"><span class="pre">mult_const()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="qat-lang-arith.html#qat.lang.AQASM.arithmetic.add_mod"><code class="docutils literal notranslate"><span class="pre">add_mod()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="qat-lang-other.html">State preparation and QRAM circuits</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="qat-lang-other.html#qat.lang.models.KPTree"><code class="docutils literal notranslate"><span class="pre">KPTree</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="qat-lang-other.html#qat.lang.models.KPTree.get_routine"><code class="docutils literal notranslate"><span class="pre">KPTree.get_routine()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="qat-lang-other.html#references">References</a></li>
 </ul>
 </li>
@@ -1615,16 +1668,16 @@ Arguments can be:</p>
 </div>
 </section>
 <section id="linker-and-low-level-circuit-manipulation">
-<h2>Linker and low level circuit manipulation<a class="headerlink" href="#linker-and-low-level-circuit-manipulation" title="Permalink to this headline"></a></h2>
+<h2>Linker and low level circuit manipulation<a class="headerlink" href="#linker-and-low-level-circuit-manipulation" title="Permalink to this heading"></a></h2>
 <p>In pyAQASM, gates can be specified using various representations.
 They can be purely abstract (a name and a set of parameter values, such as <cite>RZ</cite>, <cite>[PI/2]</cite>). To this abstract syntax, one can attach a matrix, or even a subcircuit that implements this gate (this is the case of adders of the arithmetic library for instance).</p>
 <p>Circuits are generated in two steps:
-- first a skeleton of the circuit is generated (for instance adders will be gates called <cite>ADD</cite> in this skeletton)
+- first a skeleton of the circuit is generated (for instance adders will be gates called <cite>ADD</cite> in this skeleton)
 - then a subcircuit is generated and attached to this abtract gate.</p>
 <p>This second step is handled by a class called <cite>Linker</cite>. It can be useful in some settings to manipulate this <cite>Linker</cite> object in order to replace gates by subcircuits, or to generate matrices in order to simulate the circuit.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.lang.linking.linker.Linker">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.lang.linking.linker.</span></span><span class="sig-name descname"><span class="pre">Linker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gate_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_matrices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">submatrices_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_locks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.linking.linker.Linker" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.linking.linker.</span></span><span class="sig-name descname"><span class="pre">Linker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gate_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_matrices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">submatrices_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_locks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.linking.linker.Linker" title="Permalink to this definition"></a></dt>
 <dd><p>The purpose of a linker is to crawl a circuit and attach implementations to gates.
 These implementations are specified via a <a class="reference internal" href="qat-core.html#qat.core.gate_set.GateSet" title="qat.core.gate_set.GateSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateSet</span></code></a> object
 (more or less a collection of <a class="reference internal" href="#qat.lang.AQASM.gates.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a>).</p>
@@ -1773,6 +1826,184 @@ will be included in the fresh gate set. Optional. Defaults to True.</p>
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+</section>
+<section id="basic-algorithms">
+<h2>Basic algorithms<a class="headerlink" href="#basic-algorithms" title="Permalink to this heading"></a></h2>
+<p>There are a few basic algorithms present in the <cite>qat.lang.algorithms</cite> module:</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="qat.lang.algorithms.amplification_step">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.algorithms.</span></span><span class="sig-name descname"><span class="pre">amplification_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oracle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_prep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.algorithms.amplification_step" title="Permalink to this definition"></a></dt>
+<dd><p>Builds a routine that performs a single amplification step.
+By default the diffusion operator is Grover’s diffusion.</p>
+<p>If the <cite>state_prep</cite> argument is specified, it will be used to perform the following Householder transform instead:</p>
+<div class="math notranslate nohighlight">
+\[2\left(U|0\rangle\langle 0|U^\dagger\right) - I\]</div>
+<p>where <span class="math notranslate nohighlight">\(U\)</span> is the unitary operator implemented by <cite>state_prep</cite>.</p>
+<p>This method can be used to easily build a Grover search program:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">QInt</span><span class="p">,</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">H</span>
+<span class="kn">from</span> <span class="nn">qat.lang.algorithms</span> <span class="kn">import</span> <span class="n">amplification_step</span>
+
+
+<span class="n">nbits</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+<span class="n">reg1</span> <span class="o">=</span> <span class="n">oracle</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="n">nbits</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+<span class="n">reg2</span> <span class="o">=</span> <span class="n">oracle</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="n">nbits</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+<span class="p">(</span><span class="n">reg1</span> <span class="o">==</span> <span class="n">reg2</span><span class="p">)</span><span class="o">.</span><span class="n">phase</span><span class="p">()</span>
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">amplification_step</span><span class="p">(</span><span class="n">oracle</span><span class="p">)</span>
+
+<span class="n">grover</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">reg1</span> <span class="o">=</span> <span class="n">grover</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="n">nbits</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+<span class="n">reg2</span> <span class="o">=</span> <span class="n">grover</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="n">nbits</span><span class="p">,</span> <span class="n">QInt</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">qbit</span> <span class="ow">in</span> <span class="n">reg1</span><span class="p">:</span>
+    <span class="n">H</span><span class="p">(</span><span class="n">qbit</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">qbit</span> <span class="ow">in</span> <span class="n">reg2</span><span class="p">:</span>
+    <span class="n">H</span><span class="p">(</span><span class="n">qbit</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">step</span><span class="p">(</span><span class="n">reg1</span><span class="p">,</span> <span class="n">reg2</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">grover</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">qubits</span><span class="o">=</span><span class="p">[</span><span class="n">reg1</span><span class="p">,</span> <span class="n">reg2</span><span class="p">])</span>
+
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+<span class="n">qpu</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="mf">0.24999999999999956</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="mf">0.24999999999999956</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="mf">0.24999999999999956</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="mf">0.24999999999999956</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>oracle</strong> (<a class="reference internal" href="#qat.lang.AQASM.gates.Gate" title="qat.lang.AQASM.gates.Gate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></a>) – a quantum gate or routine implementing the oracle</p></li>
+<li><p><strong>state_prep</strong> (optional, <a class="reference internal" href="#qat.lang.AQASM.gates.Gate" title="qat.lang.AQASM.gates.Gate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></a>) – a quantum gate or routine</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a routine</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="qat.lang.algorithms.phase_estimation">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.algorithms.</span></span><span class="sig-name descname"><span class="pre">phase_estimation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbits</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.algorithms.phase_estimation" title="Permalink to this definition"></a></dt>
+<dd><p>Generates a routine that performs phase estimation of some unitary operator.</p>
+<p>The number of qubits of the resulting routine is <span class="math notranslate nohighlight">\(n+k\)</span> where <span class="math notranslate nohighlight">\(n\)</span> is the
+arity of <cite>operator</cite> and <span class="math notranslate nohighlight">\(k\)</span> is <cite>nbits</cite>.
+The routine assumes that the first <span class="math notranslate nohighlight">\(n\)</span> qubits are already prepared and contain the
+states on which the phase estimation should be performed.
+The result will be stored in the last <span class="math notranslate nohighlight">\(k\)</span> qubits.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<a class="reference internal" href="#qat.lang.AQASM.gates.Gate" title="qat.lang.AQASM.gates.Gate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></a>) – a quantum gate or routine</p></li>
+<li><p><strong>nbits</strong> (<em>int</em>) – the number of bits to store the result in</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a routine</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="qat.lang.algorithms.quantum_counting">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.algorithms.</span></span><span class="sig-name descname"><span class="pre">quantum_counting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oracle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.algorithms.quantum_counting" title="Permalink to this definition"></a></dt>
+<dd><p>Performs a quantum counting on some oracle.</p>
+<p>The number of qubits of the resulting routine is <span class="math notranslate nohighlight">\(n+k\)</span> where <span class="math notranslate nohighlight">\(n\)</span> is the
+arity of <cite>oracle</cite> and <span class="math notranslate nohighlight">\(k\)</span> is <cite>nbits</cite>.
+The routine assumes that the first <span class="math notranslate nohighlight">\(n\)</span> qubits are already prepared and contain the
+states on which the counting should be performed.
+The result will be stored in the last <span class="math notranslate nohighlight">\(k\)</span> qubits.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>oracle</strong> (<a class="reference internal" href="#qat.lang.AQASM.gates.Gate" title="qat.lang.AQASM.gates.Gate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></a>) – a quantum gate or routine implementing the oracle</p></li>
+<li><p><strong>nbits</strong> (<em>int</em>) – the number of bits to store the result in</p></li>
+<li><p><strong>prepare</strong> (<em>optional</em><em>, </em><em>bool</em>) – if set to False, omits the preparation of the data register. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a routine</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Additionally, the submodule <cite>qat.lang.algorithms.amplification</cite> contains some functions that might be useful:</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="qat.lang.algorithms.amplification.uniform_distribution">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.algorithms.amplification.</span></span><span class="sig-name descname"><span class="pre">uniform_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nbits</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.algorithms.amplification.uniform_distribution" title="Permalink to this definition"></a></dt>
+<dd><p>Prepares a uniform distribution from state <span class="math notranslate nohighlight">\(|0\rangle\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nbits</strong> (<em>int</em>) – the number of qbits</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a routine</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="qat.lang.algorithms.amplification.householder">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.algorithms.amplification.</span></span><span class="sig-name descname"><span class="pre">householder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_prep</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.algorithms.amplification.householder" title="Permalink to this definition"></a></dt>
+<dd><p>Given some state preparation circuit implementing a unitary operator <span class="math notranslate nohighlight">\(U\)</span>, builds a Householder transform
+of the form:</p>
+<div class="math notranslate nohighlight">
+\[2\left(U|0\rangle\langle 0|U^\dagger\right) - I\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>state_prep</strong> (<a class="reference internal" href="#qat.lang.AQASM.gates.Gate" title="qat.lang.AQASM.gates.Gate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></a>) – a quantum gate or routine</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a routine</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="qat.lang.algorithms.amplification.grover_diffusion">
+<span class="sig-prename descclassname"><span class="pre">qat.lang.algorithms.amplification.</span></span><span class="sig-name descname"><span class="pre">grover_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nbits</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.algorithms.amplification.grover_diffusion" title="Permalink to this definition"></a></dt>
+<dd><p>An implementation of Grover’s diffusion.</p>
+<p>The returned routine implements the following Householder transform:</p>
+<div class="math notranslate nohighlight">
+\[2|s\rangle\langle s| - I\]</div>
+<p>where <span class="math notranslate nohighlight">\(|s\rangle\)</span> is the uniform distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nbits</strong> (<em>int</em>) – the arity of the diffusion</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a routine</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qat.lang.AQASM.routines.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

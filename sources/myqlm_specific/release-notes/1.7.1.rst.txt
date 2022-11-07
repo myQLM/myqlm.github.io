@@ -1,0 +1,59 @@
+Released October 31, 2022
+
+A new simulated QPU in myQLM
+****************************
+myQLM provides a new QPU, :class:`~qat.clinalg.CLinalg`, written in C++. This new linear-algebra simulatation has been designed as a faster alternative to :class:`~qat.pylinalg.PyLinalg` (written in Python) and its basic interface and features are very similar. The documentation for this simulator can be found :ref:`here<qat_clinalg>`.
+
+This new QPU provides also a low-level API to manipulate the statevector
+
+Tools for fermionic computations (myQLM-fermion)
+************************************************
+
+:mod:`qat.fermion`, the module for digital quantum simulation of spin and fermionic systems is now `open-source <https://github.com/myQLM/myqlm-fermion>`_ and part of myQLM. The full documentation is available :ref:`here <qat-fermion>`. The module includes, among other things:
+
+    * objects to help you define **fermionic and spin Hamiltonians**,
+
+    * spin and fermionic Hamiltonians algebraic operations, with automatic normal ordering of fermionic operators,
+
+    * spin-to-fermion transformations, such as Jordan-Wigner, Bravyi-Kitaev or parity basis transformations,
+
+    * **variational quantum eigensolver** (VQE) tools, including a module to construct a **UCC ansatz**,
+
+    * tools aimed at atomic and molecule studies (active space selection, basis transformations,...etc),
+
+    * a **trotterization** module,
+
+    * a **quantum phase estimation** module,
+
+    * an adaptative ansatz VQE plugin (ADAPT-VQE),
+
+    * a natural gradient-based optimizer,
+
+    * a sequential hybrid classical-quantum optimizer,
+
+    * a zero noise extrapolator plugin for multiqubit noise mitigation.
+
+
+Batch generators in myQLM
+*************************
+myQLM provides a new service called *BatchGenerator* that could be piped at the beginning of a computational stack composed of plugins and a QPU. A BatchGenerator should inherits from :class:`~qat.core.generator.AbstractGenerator` and overload the :meth:`~qat.core.generator.AbstractGenerator.generate` method. This method will generate as many :class:`~qat.core.Batch` objects as needed and will send these objects to the QPU iteratively. Please refer to :ref:`the batch generator section <batch_generators>` for more information.
+
+New features
+************
+ - :class:`~qat.pylinalg.PyLinalg` now supports efficient implementation of controlled gates. It now supports simulation of circuits generated with the :code:`submatrices_only` keyword argument set to :code:`True` (:code:`prog.to_circ(submatrices_only=True)`)
+ - :class:`~qat.core.HardwareSpecs` objects now have an attribute :code:`processing_types` used to define the type of supported measurement (e.g., Observable or Sample). QuameleonPlugin has been updated to check this new attribute
+ - Added a device 'ZUCHONGZHI' describing the Chinese quantum chip of the same name
+ - myQLM-interop can submit jobs to an IBM Quantum Experience QPU using the Qiksit Runtime API. The new QPU wrapper of myQLM-interop, :class:`~qat.interop.qiskit.runtime.QiskitRuntimeQPU`, supports jobs in SAMPLING and OBSERVABLE mode.
+
+Updated features
+****************
+ - :class:`~qat.pylinalg.PyLinalg` should now throw a cleaner exception (:class:`~qat.comm.exceptions.ttypes.QPUException`) when failing to retrieve the matrix of a gate
+ - The :code:`get_variables` methods of myQLM objects will now return a sorted list instead of a set 
+ - :class:`~qat.core.BatchResult` returned by a :class:`~qat.plugins.Junction` has the same meta_data as the input :class:`~qat.core.Batch` 
+
+Fixes
+*****
+ - Fix :class:`~qat.plugins.Junction` plugins when a Batch object having no meta data is submitted
+ - Fix :code:`len(Result)` when the result is stored as a map
+ - An exception is now raised when trying to differentiate non-observable job
+ - The implementation of U2 and U3 gates have changed in myQLM-interop (Qiskit binder). Translating a circuit composed of at least one U2 or U3 gate from Qiskit to myQLM is fixed

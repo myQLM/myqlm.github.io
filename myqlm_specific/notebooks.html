@@ -9,6 +9,7 @@
       <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../static/css/custom.css" type="text/css" />
       <link rel="stylesheet" href="../static/contentui.css" type="text/css" />
+      <link rel="stylesheet" href="../static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
     <link rel="shortcut icon" href="../static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../static/js/html5shiv.min.js"></script>
@@ -17,8 +18,11 @@
         <script data-url_root="../" id="documentation_options" src="../static/documentation_options.js"></script>
         <script src="../static/jquery.js"></script>
         <script src="../static/underscore.js"></script>
+        <script src="../static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../static/doctools.js"></script>
+        <script src="../static/sphinx_highlight.js"></script>
         <script src="../static/contentui.js"></script>
+        <script src="../static/design-tabs.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -36,7 +40,7 @@
             <img src="../static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.7.1-1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -56,10 +60,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability with myQLM</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Notebooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks.html">List of notebooks</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced usage</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Main objects: Jobs, Observables, Circuits…</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_generators.html">Building advanced computation stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
@@ -126,23 +135,84 @@
 }
 </style>
 <section id="notebooks">
-<span id="myqlm-notebooks"></span><h1>Notebooks<a class="headerlink" href="#notebooks" title="Permalink to this headline"></a></h1>
-<p>myQLM comes with interactive tutorials you can open with Jupyter Notebook. You
-can:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Run these notebooks in your browser using
-<a class="reference external" href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/master?filepath=overview.ipynb">myBinder</a></p></li>
-<li><p>Clone the <a class="reference external" href="https://github.com/myQLM/myqlm-notebooks">GitHub repository myqlm-notebooks</a>
-containing all our notebooks</p></li>
-<li><p>Download <a class="reference external" href="https://myqlm.github.io/distrib/myqlm_notebooks.zip">a zip file</a>
-containing all our notebooks</p></li>
-</ul>
-</div></blockquote>
-<p>Please start the notebook <code class="code docutils literal notranslate"><span class="pre">overview.ipynb</span></code>, this notebook contains a table
+<span id="myqlm-notebooks"></span><h1>Notebooks<a class="headerlink" href="#notebooks" title="Permalink to this heading"></a></h1>
+<p>myQLM comes with interactive tutorials you can open with Jupyter Notebook.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+Running notebooks in your Browser</label><div class="sd-tab-content docutils">
+<p>myQLM notebooks can be executed without installing anything, by running these notebooks in your web
+browser, using myBinder. Several environments are available:</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+myBinder without myQLM-interop</div>
+<p class="sd-card-text">Run myQLM notebooks in your browser, using an environment without myQLM-interop installed.</p>
+</div>
+<a class="sd-stretched-link reference external" href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/master?filepath=overview.ipynb"></a></div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+myBinder with myQLM-interop for Qiskit</div>
+<p class="sd-card-text">Environment in which myQLM-interop with Qiskit Binder has been installed</p>
+</div>
+<a class="sd-stretched-link reference external" href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/qiskit?filepath=overview.ipynb"></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+myBinder with myQLM-interop for Cirq</div>
+<p class="sd-card-text">Environment in which myQLM-interop with Cirq Binder has been installed</p>
+</div>
+<a class="sd-stretched-link reference external" href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/cirq?filepath=overview.ipynb"></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+myBinder with myQLM-interop for PyQuil</div>
+<p class="sd-card-text">Environment in which myQLM-interop with PyQuil Binder has been installed</p>
+</div>
+<a class="sd-stretched-link reference external" href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/pyquil?filepath=overview.ipynb"></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+myBinder with myQLM-interop for ProjectQ</div>
+<p class="sd-card-text">Environment in which myQLM-interop with Qiskit ProjectQ has been installed</p>
+</div>
+<a class="sd-stretched-link reference external" href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/projectq?filepath=overview.ipynb"></a></div>
+</div>
+</div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+Cloning notebooks from GitHub</label><div class="sd-tab-content docutils">
+<p>Please clone the <a class="reference external" href="https://github.com/myQLM/myqlm-notebooks">GitHub repository myqlm-notebooks</a>
+containing all our notebooks</p>
+<p>Then, you can start the notebook <code class="code docutils literal notranslate"><span class="pre">overview.ipynb</span></code> which contains a table
 of content of all our tutorials.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>jupyter notebook path/to/overview.ipynb
 </pre></div>
+</div>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-2">
+Downloading notebooks</label><div class="sd-tab-content docutils">
+<p>Please download <a class="reference external" href="https://myqlm.github.io/distrib/myqlm_notebooks.zip">this zip file</a>
+containing all our notebooks.</p>
+<p>Then, you can start the notebook <code class="code docutils literal notranslate"><span class="pre">overview.ipynb</span></code> which contains a table
+of content of all our tutorials.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>jupyter notebook path/to/overview.ipynb
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 

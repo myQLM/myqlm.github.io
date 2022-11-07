@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GradientDescentOptimizer: Natural gradient descent optimizer &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="static/contentui.css" type="text/css" />
+      <link rel="stylesheet" href="static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
+    <link rel="shortcut icon" href="static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
+        <script src="static/jquery.js"></script>
+        <script src="static/underscore.js"></script>
+        <script src="static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="static/doctools.js"></script>
+        <script src="static/sphinx_highlight.js"></script>
+        <script src="static/contentui.js"></script>
+        <script src="static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SeqOptim: optimizing circuits with the sequential optimization algorithm" href="plugin_seqoptim.html" />
+    <link rel="prev" title="ADAPT-VQE: building iteratively efficient ansatze" href="plugin_adaptvqe.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> myQLM documentation
+            <img src="static/myqlm.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.7.1-1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Basic usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/install.html">Installing myQLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programming.html">Writing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulating.html">Executing quantum circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_variational.html">Running variational algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability with myQLM</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notebooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">List of notebooks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Main objects: Jobs, Observables, Circuits…</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_generators.html">Building advanced computation stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Command-line tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Source code documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="source_doc.html">Source code documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-core-library">The core library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-programming-library">The programming library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#the-device-library">The device library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#generators">Generators</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="source_doc.html#plugins">Plugins</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="variational-plugin.html">Plugins for variational algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="observable-splitter.html">ObservableSplitter : turning observable sampling into qubit sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="circuit-inliner.html">CircuitInliner : inlining circuit inside a stack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="display-plugin.html">Display : a console displayer plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quameleon.html">QuameleonPlugin : emulating hardware constraints via a plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="remap-plugin.html">Remap: unused qubits remover</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugin_adaptvqe.html">ADAPT-VQE: building iteratively efficient ansatze</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">GradientDescentOptimizer: Natural gradient descent optimizer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#qat.plugins.GradientDescentOptimizer"><code class="docutils literal notranslate"><span class="pre">GradientDescentOptimizer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="plugin_seqoptim.html">SeqOptim: optimizing circuits with the sequential optimization algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugin_multiplelaunches.html">MultipleLaunchesAnalyzer: running several optimizations and keeping the best one</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugin_zeronoise.html">ZeroNoiseExtrapolator: zero-noise extrapolation for multiqubit noise mitigation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cost_function_plugin.html">CostFunctionPlugin: variational optimization without observable</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#qpus">QPUs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#interoperability-with-other-frameworks">Interoperability with other frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#digital-quantum-simulation-tools">Digital quantum simulation tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source_doc.html#combinatorial-optimization-and-qaoa">Combinatorial optimization and QAOA</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/notebooks.html">Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/contrib.html">Contributing to myQLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="myqlm_specific/release-note.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="source_doc.html">Source code documentation</a> &raquo;</li>
+      <li>GradientDescentOptimizer: Natural gradient descent optimizer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<span class="target" id="module-qat.plugins.GradientDescentOptimizer"></span><section id="gradientdescentoptimizer-natural-gradient-descent-optimizer">
+<span id="qat-fermion-source-natgrad"></span><h1>GradientDescentOptimizer: Natural gradient descent optimizer<a class="headerlink" href="#gradientdescentoptimizer-natural-gradient-descent-optimizer" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.plugins.GradientDescentOptimizer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">GradientDescentOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maxiter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda_step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">natural_gradient</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_crit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'grad_norm'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_custom_gates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.GradientDescentOptimizer" title="Permalink to this definition"></a></dt>
+<dd><p>Gradient-based optimization plugin, with possibility to use natural gradients
+as described in <a class="reference external" href="http://dx.doi.org/10.22331/q-2020-05-25-269">this publication</a>.</p>
+<p>The variational parameters are updated according to the rule</p>
+<div class="math notranslate nohighlight">
+\[\vec{\theta}_{k+1} = \vec{\theta}_{k} - \eta g^{+} \vec{\nabla} E\]</div>
+<p>with <span class="math notranslate nohighlight">\(E(\vec{\theta}) = \langle \psi(\vec{\theta}) | H | \psi (\vec{\theta}) \rangle\)</span>,
+<span class="math notranslate nohighlight">\(\left [ \vec{\nabla} E \right ]_i = \frac{\partial E}{\partial \theta_i}\)</span> and</p>
+<p>the metric tensor</p>
+<div class="math notranslate nohighlight">
+\[g_{ij} = \mathrm{Re} \left[ \left \langle \frac{\partial \psi}{\partial \theta_i} \Bigg | \frac{\partial \psi}{\partial \theta_j} \right \rangle
+- \left \langle \frac{\partial \psi}{\partial \theta_i} \Bigg |  \psi \right \rangle
+\left \langle  \psi \Bigg | \frac{\partial \psi}{\partial \theta_j} \right \rangle     \right ]\]</div>
+<p>For regular gradient descent, we choose <span class="math notranslate nohighlight">\(g = I\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>maxiter</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum number of iterations.
+Defaults to 1000.</p></li>
+<li><p><strong>natural_gradient</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to perform natural gradient descent or “classical”
+gradient descent. Default to True.</p></li>
+<li><p><strong>lambda_step</strong> (<em>float</em><em>, </em><em>optional</em>) – Gradient descent step size <span class="math notranslate nohighlight">\(\lambda\)</span>.
+Defaults to 0.2.</p></li>
+<li><p><strong>stop_crit</strong> (<em>string</em><em>, </em><em>optional</em>) – Stopping criterion, among {“grad_norm”|”energy_dist”}.
+Defaults to grad_norm.</p></li>
+<li><p><strong>tol</strong> (<em>float</em><em>, </em><em>optional</em>) – Tolerance for stopping criterion.
+Defaults to 1e-10.</p></li>
+<li><p><strong>x0</strong> (<em>list</em><em>, </em><em>optional</em>) – Initial value of the parameters. The indexing must be the same as for the variables obtained via the
+<a href="#id1"><span class="problematic" id="id2">`</span></a>.get_variables()`method. If None, the initial parameters will be randomly chosen. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This plugin used in the following notebooks:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fdigital_quantum_simulations_spin_fermion%2Fqat_fermion_natural_gradient_vqe.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Natural gradient-based optimizer</a></p></li>
+<li><p><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fdigital_quantum_simulations_spin_fermion%2Fqat_fermion_vqe_hubbard.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Variational Quantum Eigensolver for fermions</a></p></li>
+</ul>
+</div></blockquote>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="plugin_adaptvqe.html" class="btn btn-neutral float-left" title="ADAPT-VQE: building iteratively efficient ansatze" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plugin_seqoptim.html" class="btn btn-neutral float-right" title="SeqOptim: optimizing circuits with the sequential optimization algorithm" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Atos 2016-2022.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -11,7 +11,7 @@ Source code documentation
 The full software stack is composed of the following packages:
 
 The core library
-------------------
+----------------
 
 The core library provides the basic classes and interfaces:
 
@@ -21,7 +21,7 @@ The core library provides the basic classes and interfaces:
     qat-core
 
 The programming library
----------------------------
+-----------------------
 
 The programming library provides tools to generate quantum circuits:
 
@@ -42,10 +42,39 @@ processors:
 
     qat-devices
 
+.. _generators:
+
+Generators
+-----------
+
+Generators generates batches and parses results. Generators are designed to be piped to a computational stack
+(composed of Plugins and a QPU). This new stack will generate quantum jobs, execute them and will return a parsed
+result.
+
+Available generators for solving combinatorial optimization problems:
+
+.. toctree-filt::
+    :maxdepth: 1
+
+    max_cut_generator.rst
+    graph_partitioning_generator.rst
+    kclique_generator.rst
+    vertex_cover_generator.rst
+    graph_colouring_generator.rst
+
+.. only:: qlm
+
+    Generator to perform Quantum Tomography on a quantum hardware:
+
+    .. toctree-filt::
+        :maxdepth: 1
+
+        :qlm_specific:qlm_specific/tomography_generator.rst
+
 .. _plugins:
 
 Plugins
------------
+-------
 
 Plugins are objects to manipulate quantum jobs (circuits, observables) prior to execution and 
 post-process the results:
@@ -55,13 +84,21 @@ post-process the results:
 
     :qlm_specific:qlm_specific/qat-nnize.rst
     :qlm_specific:qlm_specific/qat-pbo.rst
-    :qlm_specific:qlm_specific/optimize_singles.rst
     :qlm_specific:qlm_specific/qat-graphopt.rst
+    :qlm_specific:qlm_specific/qat-synthopline.rst
+    :qlm_specific:qlm_specific/qat-fusion.rst
     variational-plugin.rst
     observable-splitter.rst
     circuit-inliner.rst
     display-plugin.rst
     quameleon.rst
+    remap-plugin.rst
+    plugin_adaptvqe.rst
+    plugin_gradient_descent.rst
+    plugin_seqoptim.rst
+    plugin_multiplelaunches.rst
+    plugin_zeronoise.rst
+    cost_function_plugin.rst
 
 .. _QPUs:
 
@@ -83,6 +120,7 @@ QPUs simulate the execution of quantum jobs with classical simulation methods:
     :qlm_specific:qlm_specific/qat-qpeg
     :qlm_specific:
             qat.analog: analog quantum computations simulator<qlm_specific/analog_computing>
+    :myqlm_specific:myqlm_specific/qat-clinalg
     :myqlm_specific:myqlm_specific/qat-pylinalg
     :myqlm_specific:myqlm_specific/qat-simulated_annealing
 
@@ -100,7 +138,7 @@ QPUs simulate the execution of quantum jobs with classical simulation methods:
 .. only:: qlm
 
     Tools for noisy simulation
-    -------------------------------
+    --------------------------
 
     .. toctree-filt::
         :maxdepth: 1
@@ -118,9 +156,10 @@ Digital quantum simulation tools
     qat-fermion_source
 
 Combinatorial optimization and QAOA
--------------------------------------------------------------------
+-----------------------------------
 
 .. toctree-filt::
     :maxdepth: 1
 
     qat-opt
+    combinatorial_optimization_generators_utils

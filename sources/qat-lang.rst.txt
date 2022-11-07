@@ -147,7 +147,7 @@ In pyAQASM, gates can be specified using various representations.
 They can be purely abstract (a name and a set of parameter values, such as `RZ`, `[PI/2]`). To this abstract syntax, one can attach a matrix, or even a subcircuit that implements this gate (this is the case of adders of the arithmetic library for instance).
 
 Circuits are generated in two steps:
-- first a skeleton of the circuit is generated (for instance adders will be gates called `ADD` in this skeletton)
+- first a skeleton of the circuit is generated (for instance adders will be gates called `ADD` in this skeleton)
 - then a subcircuit is generated and attached to this abtract gate.
 
 This second step is handled by a class called `Linker`. It can be useful in some settings to manipulate this `Linker` object in order to replace gates by subcircuits, or to generate matrices in order to simulate the circuit.
@@ -155,3 +155,23 @@ This second step is handled by a class called `Linker`. It can be useful in some
 
 .. autoclass:: qat.lang.linking.linker.Linker
    :members:
+
+
+Basic algorithms
+------------------
+
+There are a few basic algorithms present in the `qat.lang.algorithms` module:
+
+.. autofunction:: qat.lang.algorithms::amplification_step
+
+.. autofunction:: qat.lang.algorithms::phase_estimation
+
+.. autofunction:: qat.lang.algorithms::quantum_counting
+
+Additionally, the submodule `qat.lang.algorithms.amplification` contains some functions that might be useful:
+
+.. autofunction:: qat.lang.algorithms.amplification::uniform_distribution
+
+.. autofunction:: qat.lang.algorithms.amplification::householder
+
+.. autofunction:: qat.lang.algorithms.amplification::grover_diffusion

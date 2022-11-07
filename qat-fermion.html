@@ -9,6 +9,7 @@
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
       <link rel="stylesheet" href="static/contentui.css" type="text/css" />
+      <link rel="stylesheet" href="static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
     <link rel="shortcut icon" href="static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="static/js/html5shiv.min.js"></script>
@@ -17,8 +18,11 @@
         <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
         <script src="static/jquery.js"></script>
         <script src="static/underscore.js"></script>
+        <script src="static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="static/doctools.js"></script>
+        <script src="static/sphinx_highlight.js"></script>
         <script src="static/contentui.js"></script>
+        <script src="static/design-tabs.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -36,7 +40,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.7.1-1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -56,15 +60,22 @@
 <li class="toctree-l1"><a class="reference internal" href="combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability with myQLM</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Notebooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">List of notebooks</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced usage</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Main objects: Jobs, Observables, Circuits…</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_generators.html">Building advanced computation stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Digital quantum simulation for spin and fermionic systems</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="qat-fermion_basic.html">Basic usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qat-fermion_advanced.html">Advanced usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qat-fermion_plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qat-fermion_compatibility_guide.html">Changelog</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="aqasm.html">The AQASM format</a></li>
@@ -129,15 +140,19 @@
     text-align: unset;
 }
 </style>
-<span class="target" id="module-qat.fermion"><span id="qat-fermion"></span></span><section id="digital-quantum-simulation-for-spin-and-fermionic-systems">
-<h1>Digital quantum simulation for spin and fermionic systems<a class="headerlink" href="#digital-quantum-simulation-for-spin-and-fermionic-systems" title="Permalink to this headline"></a></h1>
+<span class="target" id="module-qat.fermion"><span id="qat-fermion"></span></span><p class="sd-text-right"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-outline-primary reference external" href="https://github.com/myQLM/myqlm-fermion"><span><svg version="1.1" width="2.812em" height="1.0em" class="sd-octicon sd-octicon-logo-github" viewBox="0 0 45 16" aria-hidden="true"><path fill-rule="evenodd" d="M18.53 12.03h-.02c.009 0 .015.01.024.011h.006l-.01-.01zm.004.011c-.093.001-.327.05-.574.05-.78 0-1.05-.36-1.05-.83V8.13h1.59c.09 0 .16-.08.16-.19v-1.7c0-.09-.08-.17-.16-.17h-1.59V3.96c0-.08-.05-.13-.14-.13h-2.16c-.09 0-.14.05-.14.13v2.17s-1.09.27-1.16.28c-.08.02-.13.09-.13.17v1.36c0 .11.08.19.17.19h1.11v3.28c0 2.44 1.7 2.69 2.86 2.69.53 0 1.17-.17 1.27-.22.06-.02.09-.09.09-.16v-1.5a.177.177 0 00-.146-.18zM42.23 9.84c0-1.81-.73-2.05-1.5-1.97-.6.04-1.08.34-1.08.34v3.52s.49.34 1.22.36c1.03.03 1.36-.34 1.36-2.25zm2.43-.16c0 3.43-1.11 4.41-3.05 4.41-1.64 0-2.52-.83-2.52-.83s-.04.46-.09.52c-.03.06-.08.08-.14.08h-1.48c-.1 0-.19-.08-.19-.17l.02-11.11c0-.09.08-.17.17-.17h2.13c.09 0 .17.08.17.17v3.77s.82-.53 2.02-.53l-.01-.02c1.2 0 2.97.45 2.97 3.88zm-8.72-3.61h-2.1c-.11 0-.17.08-.17.19v5.44s-.55.39-1.3.39-.97-.34-.97-1.09V6.25c0-.09-.08-.17-.17-.17h-2.14c-.09 0-.17.08-.17.17v5.11c0 2.2 1.23 2.75 2.92 2.75 1.39 0 2.52-.77 2.52-.77s.05.39.08.45c.02.05.09.09.16.09h1.34c.11 0 .17-.08.17-.17l.02-7.47c0-.09-.08-.17-.19-.17zm-23.7-.01h-2.13c-.09 0-.17.09-.17.2v7.34c0 .2.13.27.3.27h1.92c.2 0 .25-.09.25-.27V6.23c0-.09-.08-.17-.17-.17zm-1.05-3.38c-.77 0-1.38.61-1.38 1.38 0 .77.61 1.38 1.38 1.38.75 0 1.36-.61 1.36-1.38 0-.77-.61-1.38-1.36-1.38zm16.49-.25h-2.11c-.09 0-.17.08-.17.17v4.09h-3.31V2.6c0-.09-.08-.17-.17-.17h-2.13c-.09 0-.17.08-.17.17v11.11c0 .09.09.17.17.17h2.13c.09 0 .17-.08.17-.17V8.96h3.31l-.02 4.75c0 .09.08.17.17.17h2.13c.09 0 .17-.08.17-.17V2.6c0-.09-.08-.17-.17-.17zM8.81 7.35v5.74c0 .04-.01.11-.06.13 0 0-1.25.89-3.31.89-2.49 0-5.44-.78-5.44-5.92S2.58 1.99 5.1 2c2.18 0 3.06.49 3.2.58.04.05.06.09.06.14L7.94 4.5c0 .09-.09.2-.2.17-.36-.11-.9-.33-2.17-.33-1.47 0-3.05.42-3.05 3.73s1.5 3.7 2.58 3.7c.92 0 1.25-.11 1.25-.11v-2.3H4.88c-.11 0-.19-.08-.19-.17V7.35c0-.09.08-.17.19-.17h3.74c.11 0 .19.08.19.17z"></path></svg></span></a></p>
+<section id="digital-quantum-simulation-for-spin-and-fermionic-systems">
+<h1>Digital quantum simulation for spin and fermionic systems<a class="headerlink" href="#digital-quantum-simulation-for-spin-and-fermionic-systems" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The module <a class="reference internal" href="#module-qat.fermion" title="qat.fermion"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.fermion</span></code></a> is currently in <strong>alpha</strong> version. It is still experimental. The installation is done via the source code
-directly, see <a class="reference external" href="https://github.com/myQLM/myqlm-fermion#installation">the repository installation instruction here</a>.</p>
+<div class="line-block">
+<div class="line"><a class="reference internal" href="#module-qat.fermion" title="qat.fermion"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.fermion</span></code></a> is a revamped and improved version of the now deprecated <code class="code docutils literal notranslate"><span class="pre">qat.dqs</span></code> module.</div>
+<div class="line">To update your code, please refer to the detailed changelog <a class="reference internal" href="qat-fermion_compatibility_guide.html#qat-fermion-compatibility-guide"><span class="std std-ref">detailed changelog</span></a>.</div>
 </div>
-<p>This is the reference documentation for the <a class="reference internal" href="#module-qat.fermion" title="qat.fermion"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.fermion</span></code></a> module. Its aim is to provide tools for describing and
-solving spin and fermionic problems. This includes, among others:</p>
+</div>
+<p>This is the reference documentation for the <a class="reference internal" href="#module-qat.fermion" title="qat.fermion"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.fermion</span></code></a> module. Its aim is to provide tools for describing and solving spin
+and fermionic problems. The code of <a class="reference internal" href="#module-qat.fermion" title="qat.fermion"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.fermion</span></code></a> is open-source and part of the myQLM suite. The source code can be found <a class="reference external" href="https://github.com/myQLM/myqlm-fermion">here</a>.</p>
+<p>This includes, among others:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>objects to help you define <strong>fermionic and spin Hamiltonians</strong>,</p></li>
@@ -146,15 +161,20 @@ solving spin and fermionic problems. This includes, among others:</p>
 <li><p>tools aimed at atomic and molecule studies (active space selection, basis transformations,…etc),</p></li>
 <li><p>a <strong>trotterization</strong> module,</p></li>
 <li><p>a <strong>quantum phase estimation</strong> module,</p></li>
+<li><p>an adaptative ansatz VQE plugin (ADAPT-VQE),</p></li>
+<li><p>a natural gradient-based optimizer,</p></li>
+<li><p>a sequential hybrid classical-quantum optimizer,</p></li>
+<li><p>a zero noise extrapolator plugin for multiqubit noise mitigation,</p></li>
 <li><p>…</p></li>
 </ul>
 </div></blockquote>
-<p><a class="reference internal" href="#module-qat.fermion" title="qat.fermion"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.fermion</span></code></a> features have been broken down in two parts.</p>
+<p><a class="reference internal" href="#module-qat.fermion" title="qat.fermion"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.fermion</span></code></a> features have been broken down into three parts.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="qat-fermion_basic.html">Basic usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="qat-fermion_basic.html#defining-a-hamiltonian">Defining a Hamiltonian</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qat-fermion_basic.html#fermionic-to-spin-representation">Fermionic to spin representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qat-fermion_basic.html#spin-and-fermionic-hamiltonian-operations">Spin and fermionic Hamiltonian operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qat-fermion_basic.html#some-hamiltonian-constructors">Some Hamiltonian constructors</a></li>
 </ul>
 </li>
@@ -173,6 +193,16 @@ solving spin and fermionic problems. This includes, among others:</p>
 </li>
 </ul>
 </div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="qat-fermion_plugins.html">Plugins</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="qat-fermion_compatibility_guide.html">Changelog</a></li>
+</ul>
+</div>
 <p>We also provide the following Jupyter notebooks:</p>
 <blockquote>
 <div><ul class="simple">
@@ -182,12 +212,16 @@ solving spin and fermionic problems. This includes, among others:</p>
 <li><p><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fdigital_quantum_simulations_spin_fermion%2Fqat_fermion_vqe_ucc_example_2_lih.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">VQE for a LiH molecule using the UCC ansatz</a></p></li>
 <li><p><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fdigital_quantum_simulations_spin_fermion%2Fqat_fermion_qpe_hubbard_molecule.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Quantum Phase Estimation on the Hubbard molecule</a></p></li>
 <li><p><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fdigital_quantum_simulations_spin_fermion%2Fqat_fermion_quantum_subspace_expansion_h2.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Advanced VQE: Quantum Subspace Expansion</a></p></li>
+<li><p><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fdigital_quantum_simulations_spin_fermion%2Fqat_fermion_natural_gradient_vqe.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Natural gradient-based optimizer</a></p></li>
+<li><p><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fdigital_quantum_simulations_spin_fermion%2Fqat_fermion_sequential_optimization_plugin.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Optimizing circuits with the sequential optimization plugin</a></p></li>
+<li><p><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fdigital_quantum_simulations_spin_fermion%2Fqat_fermion_multiple_launches_analyzer_plugin.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Running several optimizations and keeping the best one with MultipleLaunchesPlugin</a></p></li>
+<li><p><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fdigital_quantum_simulations_spin_fermion%2Fqat_fermion_zero_noise_extrapolation_plugin.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Mitigating multiqubit noise (QLM users only)</a></p></li>
 </ul>
 </div></blockquote>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The source code documentation is available <a class="reference internal" href="qat-fermion_source.html#qat-fermion-source"><span class="std std-ref">here</span></a>.</p>
-</div>
+<ul class="simple">
+<li><p>The source code documentation is available <a class="reference internal" href="qat-fermion_source.html#qat-fermion-source"><span class="std std-ref">here</span></a>.</p></li>
+<li><p>The changelog is available <a class="reference internal" href="qat-fermion_compatibility_guide.html#qat-fermion-compatibility-guide"><span class="std std-ref">here</span></a>.</p></li>
+</ul>
 </section>
 
 

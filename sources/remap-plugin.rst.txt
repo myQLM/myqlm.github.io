@@ -1,0 +1,64 @@
+Remap: unused qubits remover
+============================
+
+:class:`~qat.plugins.Remap` class is used to remove usused qubits from circuit. Unused but measured qubits are also removed, this plugin
+will remove these qubits and post-process the result (the post processing step will assign the state :math:`|0\rangle` for these qubits).
+
+This plugins has two mode:
+ - **Default mode:** All unused qubits are removed
+ - **Keep topology mode:** Qubits on which a gate is applied are preserved. For instance, a qubit applied on qubit of index :math:`j` before the plugin
+   will still be applied on the qubit of index :math:`j` after the compilation, even if qubit of index :math:`j - 1` is unused (then, qubit of index
+   :math:`j - 1` is not removed neither)
+
+.. tab-set::
+
+    .. tab-item:: Default mode example
+
+        .. run-block:: python
+
+            from qat.plugins import Display, Remap
+            from qat.qpus import get_default_qpu
+            from qat.lang.AQASM import Program, H
+
+            # Creates a circuit having an unused qubits
+            prog = Program()
+            _, qbit, _ = prog.qalloc(3)
+            prog.apply(H, qbit)
+            job = prog.to_circ().to_job()
+
+            # Builds a stack
+            qpu = Remap() | Display(batchmode=True) | get_default_qpu()
+            print("Circuit after compilation (1 qbit circuit):")
+            result = qpu.submit(job)
+
+            # Prints result
+            print("Result:")
+            for sample in result:
+                print(f"{sample.state}: {sample.probability}")
+
+    .. tab-item:: Keep topology mode example
+
+        .. run-block:: python
+
+            from qat.plugins import Display, Remap
+            from qat.qpus import get_default_qpu
+            from qat.lang.AQASM import Program, H
+
+            # Creates a circuit having an unused qubits
+            prog = Program()
+            _, qbit, _ = prog.qalloc(3)
+            prog.apply(H, qbit)
+            job = prog.to_circ().to_job()
+
+            # Builds a stack
+            qpu = Remap(keep_topology=True) | Display(batchmode=True) | get_default_qpu()
+            print("Circuit after compilation (2 qbits circuit):")
+            result = qpu.submit(job)
+
+            # Prints result
+            print("Result:")
+            for sample in result:
+                print(f"{sample.state}: {sample.probability}")
+
+
+.. autoclass:: qat.plugins.Remap

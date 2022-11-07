@@ -1,0 +1,56 @@
+.. module:: qat.clinalg
+
+.. _qat_clinalg:
+
+qat.clinalg: C++ Linear-algebra simulator
+=========================================
+
+Proposed as a faster alternative to PyLinalg, CLinalg is a Linear-algebra simulator written is C++,
+with a python (pybind11) interface.
+
+For a general description of linear-algebra-based simulators, please refer to the
+:ref:`qat-pylinalg documentation page<qat_pylinalg>`.
+
+High-level Quantum Processing Unit
+----------------------------------
+
+This is the high-level class wrapping the simulator. It follows the convention
+of the :class:`qat.core.qpu.QPUHandler` structure.
+
+.. autoclass:: qat.clinalg.CLinalg
+    :members: submit
+
+
+C++ Low-level Statevector
+-------------------------
+
+Though not the standard or recommended way of using CLinalg, the C++ statevector object hidden
+under this QPU can be accessed thought the *statevector* parameter, for instance:
+ 
+.. run-block:: python
+
+    from qat.clinalg import CLinalg
+    qpu = CLinalg()
+    # change number of qubits to 2
+    qpu.statevector.resize(2)
+    # reset the state to |00> and print the state
+    qpu.statevector.reset()
+    qpu.statevector.print()
+
+
+.. warning::
+
+    Do consider that the bit convention used in this lower-level statevector is reversed compared
+    to the more intuitive one supported by the QPU interface.
+    Intuitively, you will consider a state :math:`|i_0i_1i_2i_3\rangle` (with qubit 0 being the
+    most significant bit); however the ordering used by the low-level statevector instance
+    :math:`|i_3i_2i_1i_0\rangle` (with qubit 0 being the least significant bit).
+    This influences the statevector methods *print*, *reset* (if a value is provided) and the way
+    in which the statevector is interacted with through the *array* property.
+
+
+Pybind interface
+................
+
+.. autoclass:: qat.clinalg.wrapper.CLinalgStateVectorCPUDouble
+    :members:

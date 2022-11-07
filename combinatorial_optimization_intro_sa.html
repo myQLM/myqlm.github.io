@@ -4,11 +4,12 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Multiple launches run and analyze plugin &mdash; myQLM documentation  documentation</title>
+  <title>Simulated annealing (SA) &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" href="static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="static/css/custom.css" type="text/css" />
       <link rel="stylesheet" href="static/contentui.css" type="text/css" />
+      <link rel="stylesheet" href="static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
     <link rel="shortcut icon" href="static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="static/js/html5shiv.min.js"></script>
@@ -17,9 +18,14 @@
         <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
         <script src="static/jquery.js"></script>
         <script src="static/underscore.js"></script>
+        <script src="static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="static/doctools.js"></script>
+        <script src="static/sphinx_highlight.js"></script>
         <script src="static/contentui.js"></script>
+        <script src="static/design-tabs.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -34,7 +40,7 @@
             <img src="static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.5.1-1
+                myQLM-1.7.1-1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -54,10 +60,15 @@
 <li class="toctree-l1"><a class="reference internal" href="combinatorial_optimization_intro.html">Combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="myqlm_specific/interoperability.html">Interoperability with myQLM</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Notebooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">List of notebooks</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced usage</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Main objects: Jobs, Observables, Circuits…</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manipulating.html">Building custom execution stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_generators.html">Building advanced computation stacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_programming.html">Advanced programming using pyAQASM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_combinatorial_optimization.html">Advanced combinatorial optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="qat-fermion.html">Digital quantum simulation for spin and fermionic systems</a></li>
@@ -90,7 +101,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Multiple launches run and analyze plugin</li>
+      <li>Simulated annealing (SA)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -123,27 +134,31 @@
     text-align: unset;
 }
 </style>
-<span class="target" id="module-qat.plugins.multiple_launches_analyzer"></span><section id="multiple-launches-run-and-analyze-plugin">
-<h1>Multiple launches run and analyze plugin<a class="headerlink" href="#multiple-launches-run-and-analyze-plugin" title="Permalink to this headline"></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="qat.plugins.MultipleLaunchesAnalyzer">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">MultipleLaunchesAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_runs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.MultipleLaunchesAnalyzer" title="Permalink to this definition"></a></dt>
-<dd><p>A very simple plugin that duplicates each job of the batch
-and for each keeps the result associated to the lowest observed value.</p>
-<p>The plugin may be used to carry out the batch optimization
-of the angles of a fixed ansatz starting from different random
-initializations. To this end, the stack upstream must include a
-VQE optimizer instantiated without any starting point.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>n_runs</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Number of initializations investigated. Defaults to 5.</p></li>
-<li><p><strong>verbose</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – Print infos. Defaults to False.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="simulated-annealing-sa">
+<h1>Simulated annealing (SA)<a class="headerlink" href="#simulated-annealing-sa" title="Permalink to this heading"></a></h1>
+<p><strong>Simulated annealing (SA)</strong> is a well-known, historical heuristic for
+combinatorial optimization. It aims at finding low energy-states
+of a classical Ising system with a <strong>Markov Chain</strong> over
+<strong>spin configurations</strong>, with <strong>decreasing stochasticity</strong>.</p>
+<p>Stochasticity is specified by a <strong>temperature</strong>. In practice, a
+<strong>decreasing temperature schedule</strong> is given to the algorithm.
+At the beginning of the execution, large temperature values allow
+to <strong>jump over energy barriers</strong> to escape <strong>local optima</strong>. When
+temperature settles to lower values, the <strong>Markov chain</strong> will
+hopefully settle to the global optimum of the cost function.</p>
+<p>Mathematically, simulated annealing tries to find, given <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(J\)</span>, the global minimum configuration of:</p>
+<div class="math notranslate nohighlight">
+\[H(s_{1},...,s_{n}) = -\sum_{i,j=1}^{n} J_{ij}s_{i}s_{j}-\sum_{i=1} h_{i}s_{i}\]</div>
+<p>It does so by first choosing a <strong>random configuration</strong>, which then
+evolves by applying <strong>updates</strong>. In the case of simulated annealing,
+an update consists in <strong>flipping the value</strong> <span class="math notranslate nohighlight">\(s_{i}\)</span> <strong>of a single spin</strong>.</p>
+<p>An update is <strong>accepted</strong> with probability:</p>
+<div class="math notranslate nohighlight">
+\[P_{flip} = min(1, e^{-\Delta H / T})\]</div>
+<p>with <span class="math notranslate nohighlight">\(\Delta H\)</span> is the energy change incurred by switching from <span class="math notranslate nohighlight">\(s_{i}\)</span> to <span class="math notranslate nohighlight">\(-s_{i}\)</span>. A change decreasing the energy of the system is always accepted, whereas a change which increases it needs a temperature high enough to have a non-negligible probability of being accepted.</p>
+<p>The following picture explains in pseudo-code how simulated annealing works.</p>
+<a class="reference internal image-reference" href="images/simulated_annealing_algoritm_latex.png"><img alt="images/simulated_annealing_algoritm_latex.png" class="align-center" src="images/simulated_annealing_algoritm_latex.png" style="width: 600px;" /></a>
+<p>A basic example of the use of SA - to solve the Antiferromagnetic Ising Model, is presented in the notebook <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fgetting_started_with_sa.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Getting started with SA</a>. Some more involved examples where SA solves some of the <a class="reference internal" href="advanced_combinatorial_optimization.html#np-problems-formulation"><span class="std std-ref">NP-hard problems</span></a> have also been implemented in the following <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Foverview_combinatorial_optimization_myqlm.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">notebooks</a>.</p>
 </section>
 
 

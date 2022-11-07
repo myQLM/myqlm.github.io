@@ -14,18 +14,25 @@ for more information on how to use the module.
 The Hamiltonians classes
 ########################
 
-The :class:`~qat.fermion.hamiltonians.Hamiltonian` and :class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian` are
-essentially an :class:`~qat.core.Observable` class, with additional functionalities. This means any method available in
-:class:`~qat.core.Observable` is available in :class:`~qat.fermion.hamiltonians.Hamiltonian` and
-:class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian`.
+:class:`~qat.fermion.hamiltonians.SpinHamiltonian`, :class:`~qat.fermion.hamiltonians.FermionHamiltonian` and
+:class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian` are essentially :class:`~qat.core.Observable` classes with
+additional functionalities. Let us detail the additional features they contain.
 
-.. _qat-fermion_source_hamiltonian:
+.. _qat-fermion_source_spin_hamiltonian:
 
-Hamiltonian
-***********
+SpinHamiltonian
+***************
 
-.. autoclass:: qat.fermion.hamiltonians.Hamiltonian
-   :members: htype, dag, get_matrix, to_spin, copy
+.. autoclass:: qat.fermion.hamiltonians.SpinHamiltonian
+   :members: dag, get_matrix, copy
+
+.. _qat-fermion_source_fermion_hamiltonian:
+
+FermionHamiltonian
+******************
+
+.. autoclass:: qat.fermion.hamiltonians.FermionHamiltonian
+   :members: dag, get_matrix, to_spin, to_electronic, copy
 
 .. _qat-fermion_source_electronicstructurehamiltonian:
 
@@ -33,6 +40,7 @@ ElectronicStructureHamiltonian
 ******************************
 
 .. autoclass:: qat.fermion.hamiltonians.ElectronicStructureHamiltonian
+   :members: dag, get_matrix, to_spin, to_fermion, copy
 
 .. _qat-fermion_source_chemistry_wrappers:
 
@@ -151,21 +159,10 @@ The 8-parameter circuit ansatz
 
 .. _qat-fermion_source_ansatz_compressed_ldca:
 
-.. only:: myqlm
+Compressed LDCA ansatz (only for QLM users)
+*******************************************
 
-   Compressed LDCA ansatz (only for QLM users)
-   *******************************************
-   
-   .. note::
-
-      This ansatz is not available in `MyQLM`, only in `QLM`.
-
-.. only:: qlm
-
-   Compressed LDCA ansatz (only for QLM users)
-   *******************************************
-
-   .. autofunction:: qat.fermion.circuits.make_compressed_ldca_circ
+.. autofunction:: qat.fermion.circuits.make_compressed_ldca_circ
 
 .. _qat-fermion_source_qpe:
 
@@ -200,3 +197,12 @@ Utility functions
 
 .. autofunction:: qat.fermion.trotterisation.make_trotterisation_routine
 .. autofunction:: qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation
+
+Plugins
+#######
+
+* :ref:`AdaptVQEPlugin <qat-fermion_source_adaptvqe>`
+* :ref:`GradientDescentOptimizer <qat-fermion_source_natgrad>`
+* :ref:`SeqOptim <qat-fermion_source_seqoptim>`
+* :ref:`MultipleLaunchesAnalyzer <qat-fermion_source_multiplelaunches>`
+* :ref:`ZeroNoiseExtrapolator <qat-fermion_source_zeronoise>`
