@@ -1,0 +1,244 @@
+
+.. _getting_started:
+
+Getting started
+===============
+
+.. only:: qlm
+
+    The Atos Quantum Learning Machine contains tools for **writing**, **compiling**,
+    **optimizing** and **simulating** **quantum circuits**.
+
+    It comes as a set of **Python libraries**, under the general namespace ``qat``,
+    for Quantum Applications Toolset.
+
+
+.. tab-set::
+
+    .. tab-item:: QLM Hello world
+
+
+        The following code snippet creates and simulates a simple Bell pair circuit:
+
+        .. figure:: bell_pair.png
+            :scale: 100 %
+
+        .. run-block:: python
+
+            from qat.lang.AQASM import Program, H, CNOT
+
+            # Create a Program
+            qprog = Program()
+            # Number of qbits
+            nbqbits = 2
+            # Allocate some qbits
+            qbits = qprog.qalloc(nbqbits)
+
+            # Apply some quantum Gates
+            H(qbits[0])
+            CNOT(qbits[0], qbits[1])
+
+            # Export this program into a quantum circuit
+            circuit = qprog.to_circ()
+
+            # Import a Quantum Processor Unit Factory (the default one)
+            from qat.qpus import get_default_qpu
+
+            # Create a Quantum Processor Unit
+            qpu = get_default_qpu()
+
+            # Create a job
+            job = circuit.to_job()
+
+            # Submit the job to the QPU
+            result = qpu.submit(job)
+
+            # Iterate over the final state vector to get all final components
+            for sample in result:
+                print("State %s amplitude %s" % (sample.state, sample.amplitude))
+
+        The first few lines of code are dedicated to the generation of a quantum circuit and a job, an atomic computation task in the QLM language. A detailed description of the quantum circuit generation tools can be found in the :ref:`programming section <programming>`.
+
+        Then the remaining lines instantiate a simulator, submit the job, and print the simulation results. More information about this process can be found in the :ref:`simulating section <simulating>`.
+
+        QLM also comes with a collection of powerful tools, called Plugins, to manipulate quantum circuits and execution results. Information about these tools can be found in the :ref:`manipulating section <manipulating>`.
+
+        Finally, the QLM provides powerful simulators, called Quantum Processing Units (QPUs). The example above used the default one. You will find more information about QPUs :ref:`here <QPUs>`.
+
+        The rest of this section is dedicated to some basic examples of quantum algorithms from the standard literature (such as Grover and a variational algorithm).
+
+    .. tab-item:: A simple Grover
+
+        Let's write a simple Grover algorithm. Grover is a quantum search algorithm that can find an element in an unstructured search space quadratically faster than a randomized classical algorithm. In this search model, the problem is specified by an **oracle**, i.e a function :math:`\mathcal{X}\rightarrow \{0, 1\}`, and we are looking for an element :math:`x \in \mathcal{X}` such that :math:`f(x) = 1`.
+
+
+        The algorithm consists in alternating two operations :math:`\pi \sqrt{\frac{1}{a}}/4` times where :math:`a = \frac{|f^{-1}(\{1\})|}{|\mathcal{X}|}` is the probability of finding the searched element in the uniform distribution.
+
+        These operations are:
+
+         * an oracle :math:`U_f: |x \rangle \mapsto (-1)^{f(x)}|x\rangle`
+         
+         * a diffusion :math:`U_D = I - 2|s\rangle\langle s|` where :math:`|s\rangle = \frac{1}{\sqrt{|\mathcal{X}|}} \sum_{x\in\mathcal{X}} |x\rangle`
+
+        Let's dive in the details of their implementation for a simple search!
+
+        **The diffusion**
+
+        To keep things simple we will consider the following search space: :math:`\mathcal{X} = \{0, 1\}^{2k}`.
+        In this setting, a diffusion can be implemented as follows:
+          
+         * First, we will put all qubits in the diagonal basis by applying a wall of H gates.
+         * We can then flip the amplitude of the :math:`|0..0\rangle` state by flipping all qubits using a wall of :math:`X` gates and applying a controlled :math:`Z` gate on all qubits.
+         * Finally, we can undo our basis changes by applying a wall of :math:`X` followed by a wall of :math:`H`
+
+         We will write a python function that given a number :math:`k` returns a diffusion routine over :math:`2k` qubits:
+
+         .. run-block-mem:: python ex_grover_palindromes
+
+           import numpy as np
+           # everything we need to write a quantum circuit
+           from qat.lang.AQASM import *
+           # a default qpu (here a simulator)
+           from qat.qpus import get_default_qpu
+
+           # This is a standard implementation of Grover's diffusion
+           def diffusion(k):
+                routine = QRoutine()
+                wires = routine.new_wires(2 * k)
+                for wire in wires:
+                    H(wire)
+                    X(wire)
+                Z.ctrl(2 * k - 1)(wires)
+                for wire in wires:
+                    X(wire)
+                    H(wire)
+                return routine
+
+
+        As you can see, we repeat a lot of code to do basis change and revert them. We can simplify a bit the code by using a compute/uncompute:
+
+         .. run-block-mem:: python ex_grover_palindromes
+
+           def diffusion(k):
+                routine = QRoutine()
+                wires = routine.new_wires(2 * k)
+                with routine.compute():
+                    for wire in wires:
+                        H(wire)
+                        X(wire)
+                Z.ctrl(2 * k - 1)(wires)
+                routine.uncompute()
+                return routine
+
+        This is a bit clearer now: We have our walls of :math:`H` and :math:`X` gates, our controlled :math:`Z` gate, and we undo our walls using the uncomputation.
+
+        **The oracle**
+
+
+        In this space, we will look for palindromes: bit strings that are their own mirrors.
+        We will implement our oracle as follows (remember that we need to flip the sign of the amplitude of all palindromes):
+         * First we will compute the xor of :math:`b_1` and :math:`b_{2k}`, :math:`b_2` and :math:`b_{2k-1}`, etc. We will do these operations in place in the second half of the bit string.
+         * Then we will flip the amplitude of our state if and only if its second half is :math:`0...0`. To do so, we will flip all bits in the second half (using :math:`X` gates) and perform a controlled :math:`Z` gate on the second half, thus flipping the amplitude if and only if all qubits are set to :math:`1`.
+         * Finally, we can revert to the original state by uncomputing the bit flips and xors (once again we will use a compute/uncompute block)
+
+
+        .. run-block-mem:: python ex_grover_palindromes
+
+            def is_palindrome(k):
+                routine = QRoutine()
+                first_half = routine.new_wires(k)
+                second_half = routine.new_wires(k)
+                with routine.compute():
+                    for w1, w2 in zip(first_half, reversed(second_half)):
+                        CNOT(w1, w2)
+                    for w2 in second_half:
+                        X(w2)
+                Z.ctrl(k - 1)(second_half)
+                routine.uncompute()
+                return routine
+
+        And this is it. We can now run a Grover algorithm to find palindromes!
+        There are exactly :math:`2^k` palindromes over :math:`2k` bits, hence we will need to perform :math:`\approx \pi\sqrt{2^k}/4` iterations to find a palindrome with good probability.
+
+        .. run-block-mem:: python ex_grover_palindromes
+
+           k = 2
+           grover = Program()
+           qbits = grover.qalloc(2 * k)
+           diff = diffusion(k)
+           oracle = is_palindrome(k)
+
+           # We start by a uniform superposition of bit strings:
+           for qbit in qbits:
+               H(qbit)
+
+           nsteps = int(np.pi * np.sqrt(2 ** k) / 4)
+           for _ in range(nsteps):
+               oracle(qbits)
+               diff(qbits)
+
+           # Build a circuit
+           circuit = grover.to_circ()
+               
+           # Build a job
+           job = circuit.to_job()
+
+           # Evaluate the job and print the output probabilities
+           result = get_default_qpu().submit(job)
+           for sample in result:
+               print(sample.state, sample.probability)
+
+
+        As you can see, all the bit strings we can sample (with decently high  probability) are palindromes!
+
+        Of course, this example is not particularly helpful to solve practical problems, but the QLM comes with high
+        level constructs that can help you write more advanced oracles.
+        If you are curious, you can have a look at :ref:`this section <_quantum-types>` of the documentation to see how to write complicated oracles relying on custom data structures.
+
+
+    .. tab-item:: A simple variational algorithm
+
+        Variational algorithms are believed to be well suited to Noisy, Intermediate-Scale Quantum (NISQ) processors as they do not necessarily require long circuits to nevertheless
+        prepare powerful ansatz states.
+
+        In the code snippet below, we illustrate how the QLM can be used to write such variational algorithms in a few lines of code: we first define the Hamiltonian
+        :math:`H` (here the antiferromagnetic Heisenberg Hamiltonian) whose ground-state energy we want to approximate. We then define the ansatz circuit,
+        i.e a parametric circuit with parameters :math:`\theta_i` to be optimized. Finally, our quantum stack is composed of a QPU (here a simulator) and a
+        so-called "plugin" that is going to perform the iterative optimization of the parameters given the ansatz circuit and the observable to be minimized.
+
+        .. run-block:: python
+
+            from qat.core import Observable, Term
+            from qat.lang.AQASM import Program, RY, CNOT
+            from qat.qpus import get_default_qpu
+            from qat.plugins import ScipyMinimizePlugin
+
+            # we instantiate the Hamiltonian we want to approximate the ground state energy of
+            hamiltonian = Observable(nqbits=2, pauli_terms=[Term(1, op, [0, 1]) for op in ["XX", "YY", "ZZ"]])
+
+            # we construct the variational circuit (ansatz)
+            prog = Program()
+            reg = prog.qalloc(2)
+            theta = [prog.new_var(float, '\\theta_%s'%i) for i in range(2)]
+            RY(theta[0])(reg[0])
+            RY(theta[1])(reg[1])
+            CNOT(reg[0], reg[1])
+            circ = prog.to_circ()
+
+            # construct a (variational) job with the variational circuit and the observable
+            job = circ.to_job(observable=hamiltonian)
+
+            # we now build a stack that can handle variational jobs
+            qpu = get_default_qpu()
+            optimizer_scipy = ScipyMinimizePlugin(method="COBYLA",
+                                                  tol=1e-6,
+                                                  options={"maxiter": 200},
+                                                  x0=[0, 0])
+            stack = optimizer_scipy | qpu
+
+            # we submit the job and print the optimized variational energy (the exact GS energy is -3)
+            result = stack.submit(job)
+            print(f"Minimum VQE energy ={result.value}")
+
+        You can learn more about QLM jobs, observables, circuits :ref:`here <simulating>` and :ref:`there <introduction>`.
+        You can learn more about parametric circuits and variational plugins :ref:`here <variational>`.
