@@ -1,0 +1,87 @@
+.. _macos:
+
+myQLM Installation on MacOS
+---------------------------
+There are two methods supported to install myQLM on MacOS.
+
+IMPORTANT: Do not install Python 3 twice using both methods. Only follow one method or the other and install Python 3 once.
+Installing two Python 3 from different sources may have consequential behaviors (e.g. segmentation fault).
+
+
+.. dropdown::  myQLM Installation on MacOS using Homebrew
+
+    | Install Homebrew with the following command (requires sudo access, code taken from `https://brew.sh <https://brew.sh>`_):
+
+    .. code-block::
+
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    | At the end of installation, it will ask to put Homebrew in the PATH.
+    | Run the commands specified on-screen.
+    | Example:
+
+    .. code-block::
+
+        echo '# Set PATH, MANPATH, etc., for Homebrew.' >> /Users/johnsmith/.bash_profile
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/johnsmith/.bash_profile
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+
+    | These commands are necessary to setup Homebrew to be used.
+    | Verify Homebrew is available with the command:
+
+    .. code-block::
+
+        brew
+
+    | Next is to install Python 3 using brew.
+    | Install the latest Python 3 with the following command:
+
+    .. code-block::
+
+        brew install python3
+
+    | You can specify the version of Python 3 by using '@' before the version number and after 'python':
+
+    .. code-block::
+
+        brew install python@3.9
+
+    | Refer to the :ref:`Compatibility Matrix <install-matrix>` for supported Python versions.
+
+    | **Information regarding Python 3 Anaconda running along Python 3 Homebrew**
+    
+    | Unfortunately, there is no easy way to get both Pythons working at the same time.
+    | For Anaconda users, after installing Homebrew, Homebrew will become the default.
+    | To reverse this change, comment out the following line in your .bash_profile:
+
+    .. code-block::
+
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+
+    | Log off and log back in.
+
+    | Make sure you are using `Homebrew <https://brew.sh>`_ Python 3\ :sup:`[1]` before proceeding to :ref:`myQLM Installation <install>`.
+
+    .. [1] > which python3
+
+.. dropdown:: myQLM Installation on MacOS using Python.org
+
+    | Go to `https://python.org/download <https://python.org/download>`_.
+    | Download the latest Python 3 and follow through the installation setup (requires sudo access).
+    | After installation is complete, open a Terminal.
+
+    **Information regarding Python 3 Anaconda running along Python 3 from Python.org**
+
+    | Unfortunately, there is no easy way to get both Pythons working at the same time.
+    | For Anaconda users, after installing Python 3 from python.org, python.org will become the default.
+    | To reverse this change, comment out the following line in your .bash_profile:
+
+    .. code-block::
+
+        PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
+
+    | Log off and log back in.
+
+    | Make sure you are using Python 3\ :sup:`[2]` from `python.org <https://python.org/>`_ before proceeding to :ref:`myQLM Installation <install>`.
+
+    .. [2] > which python3

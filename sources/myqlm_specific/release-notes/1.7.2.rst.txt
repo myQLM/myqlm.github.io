@@ -1,0 +1,38 @@
+Released January 03, 2023
+
+This is a maintenance release of 1.7.1.
+
+Main Fixes
+**********
+* When trying to display a simple circuit in a jupyter notebook in Windows, a permission error occurs on the generated pdf file
+
+* Fix segmentation fault in numpy
+
+* Support more numpy versions on myqlm
+
+Deprecation warnings
+********************
+You may see these warnings when displaying a circuit:
+
+.. code-block::
+
+    DeprecationWarning: LAYOUT_BASIC is deprecated and will be removed in Pillow 10 (2023-07-01). Use Layout.BASIC instead.
+    DeprecationWarning: getsize is deprecated and will be removed in Pillow 10 (2023-07-01). Use getbbox or getlength instead.
+    ...
+
+| These warnings can be suppressed by adding a nowarning.py file under:
+
+.. code-block::
+
+    # The .ipython directory below maybe different if IPYTHON_DIR is defined
+    $HOME/.ipython/profile_default/startup/nowarning.py
+
+| The content of the file should be something like:
+
+.. code-block::
+
+    import warnings
+    warnings.simplefilter(action='ignore', category=FutureWarning)
+    warnings.simplefilter(action='ignore', category=DeprecationWarning)
+
+Restart Jupyter

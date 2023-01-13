@@ -39,7 +39,7 @@
             <img src="../static/myqlm.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.7.1-1
+                myQLM-1.7.2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -84,6 +84,11 @@
 <li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contrib.html">Contributing to myQLM</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-7-2">What’s new in myQLM 1.7.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#main-fixes">Main Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deprecation-warnings">Deprecation warnings</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-7-1">What’s new in myQLM 1.7.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#a-new-simulated-qpu-in-myqlm">A new simulated QPU in myQLM</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tools-for-fermionic-computations-myqlm-fermion">Tools for fermionic computations (myQLM-fermion)</a></li>
@@ -164,6 +169,44 @@
 </style>
 <section id="release-notes">
 <h1>Release notes<a class="headerlink" href="#release-notes" title="Permalink to this heading"></a></h1>
+<section id="what-s-new-in-myqlm-1-7-2">
+<h2>What’s new in myQLM 1.7.2<a class="headerlink" href="#what-s-new-in-myqlm-1-7-2" title="Permalink to this heading"></a></h2>
+<p>Released January 03, 2023</p>
+<p>This is a maintenance release of 1.7.1.</p>
+<section id="main-fixes">
+<h3>Main Fixes<a class="headerlink" href="#main-fixes" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>When trying to display a simple circuit in a jupyter notebook in Windows, a permission error occurs on the generated pdf file</p></li>
+<li><p>Fix segmentation fault in numpy</p></li>
+<li><p>Support more numpy versions on myqlm</p></li>
+</ul>
+</section>
+<section id="deprecation-warnings">
+<h3>Deprecation warnings<a class="headerlink" href="#deprecation-warnings" title="Permalink to this heading"></a></h3>
+<p>You may see these warnings when displaying a circuit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ne">DeprecationWarning</span><span class="p">:</span> <span class="n">LAYOUT_BASIC</span> <span class="ow">is</span> <span class="n">deprecated</span> <span class="ow">and</span> <span class="n">will</span> <span class="n">be</span> <span class="n">removed</span> <span class="ow">in</span> <span class="n">Pillow</span> <span class="mi">10</span> <span class="p">(</span><span class="mi">2023</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">01</span><span class="p">)</span><span class="o">.</span> <span class="n">Use</span> <span class="n">Layout</span><span class="o">.</span><span class="n">BASIC</span> <span class="n">instead</span><span class="o">.</span>
+<span class="ne">DeprecationWarning</span><span class="p">:</span> <span class="n">getsize</span> <span class="ow">is</span> <span class="n">deprecated</span> <span class="ow">and</span> <span class="n">will</span> <span class="n">be</span> <span class="n">removed</span> <span class="ow">in</span> <span class="n">Pillow</span> <span class="mi">10</span> <span class="p">(</span><span class="mi">2023</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">01</span><span class="p">)</span><span class="o">.</span> <span class="n">Use</span> <span class="n">getbbox</span> <span class="ow">or</span> <span class="n">getlength</span> <span class="n">instead</span><span class="o">.</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">These warnings can be suppressed by adding a nowarning.py file under:</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># The .ipython directory below maybe different if IPYTHON_DIR is defined
+$HOME/.ipython/profile_default/startup/nowarning.py
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">The content of the file should be something like:</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Restart Jupyter</p>
+</section>
+</section>
 <section id="what-s-new-in-myqlm-1-7-1">
 <h2>What’s new in myQLM 1.7.1<a class="headerlink" href="#what-s-new-in-myqlm-1-7-1" title="Permalink to this heading"></a></h2>
 <p>Released October 31, 2022</p>
