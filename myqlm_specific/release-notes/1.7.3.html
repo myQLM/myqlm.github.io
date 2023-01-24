@@ -132,40 +132,21 @@
     text-align: unset;
 }
 </style>
-<p>Released January 03, 2023</p>
+<p>Released January 23, 2023</p>
 <p>This is a maintenance release of 1.7.1.</p>
 <section id="main-fixes">
 <h1>Main Fixes<a class="headerlink" href="#main-fixes" title="Permalink to this heading"></a></h1>
 <ul class="simple">
-<li><p>When trying to display a simple circuit in a jupyter notebook in Windows, a permission error occurs on the generated pdf file</p></li>
-<li><p>Fix segmentation fault in numpy</p></li>
-<li><p>Support more numpy versions on myqlm</p></li>
+<li><dl class="simple">
+<dt>myqlm-clinalg 0.0.5</dt><dd><ul>
+<li><p>Unreproducible behaviour when using some types of Abstract Gates</p></li>
+<li><p>Any RESET gate that wasn’t applied in a specific scenario behaved incorrectly</p></li>
+<li><p>Simulator running non-inlined circuits caused unexpected exceptions</p></li>
 </ul>
-</section>
-<section id="deprecation-warnings">
-<h1>Deprecation warnings<a class="headerlink" href="#deprecation-warnings" title="Permalink to this heading"></a></h1>
-<p>You may see these warnings when displaying a circuit:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ne">DeprecationWarning</span><span class="p">:</span> <span class="n">LAYOUT_BASIC</span> <span class="ow">is</span> <span class="n">deprecated</span> <span class="ow">and</span> <span class="n">will</span> <span class="n">be</span> <span class="n">removed</span> <span class="ow">in</span> <span class="n">Pillow</span> <span class="mi">10</span> <span class="p">(</span><span class="mi">2023</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">01</span><span class="p">)</span><span class="o">.</span> <span class="n">Use</span> <span class="n">Layout</span><span class="o">.</span><span class="n">BASIC</span> <span class="n">instead</span><span class="o">.</span>
-<span class="ne">DeprecationWarning</span><span class="p">:</span> <span class="n">getsize</span> <span class="ow">is</span> <span class="n">deprecated</span> <span class="ow">and</span> <span class="n">will</span> <span class="n">be</span> <span class="n">removed</span> <span class="ow">in</span> <span class="n">Pillow</span> <span class="mi">10</span> <span class="p">(</span><span class="mi">2023</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">01</span><span class="p">)</span><span class="o">.</span> <span class="n">Use</span> <span class="n">getbbox</span> <span class="ow">or</span> <span class="n">getlength</span> <span class="n">instead</span><span class="o">.</span>
-<span class="o">...</span>
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line">These warnings can be suppressed by adding a nowarning.py file under:</div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># The .ipython directory below maybe different if IPYTHON_DIR is defined
-$HOME/.ipython/profile_default/startup/nowarning.py
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line">The content of the file should be something like:</div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Restart Jupyter</p>
+</dd>
+</dl>
+</li>
+</ul>
 </section>
 
 
