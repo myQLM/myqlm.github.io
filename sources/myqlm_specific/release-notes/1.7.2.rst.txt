@@ -4,11 +4,14 @@ This is a maintenance release of 1.7.1.
 
 Main Fixes
 **********
-* When trying to display a simple circuit in a jupyter notebook in Windows, a permission error occurs on the generated pdf file
+* qat-comm + qat-core
+    - Fix segmentation fault in numpy
+    - Support more numpy versions on myqlm
 
-* Fix segmentation fault in numpy
+* qat-lang
+    - ModuleNotFoundError: No module named 'jaxlib'
 
-* Support more numpy versions on myqlm
+* myqlm-clinalg
 
 Deprecation warnings
 ********************
@@ -36,3 +39,37 @@ You may see these warnings when displaying a circuit:
     warnings.simplefilter(action='ignore', category=DeprecationWarning)
 
 Restart Jupyter
+
+Dependant Packages
+******************
++------------------+---------+---------+
+| Requires-Dist    | Version | Status  |
++==================+=========+=========+
+| qat-comm         | 1.4.2   | UPDATED |
++------------------+---------+---------+
+| qat-core         | 1.6.1   | UPDATED |
++------------------+---------+---------+
+| qat-devices      | 0.2.0   |         |
++------------------+---------+---------+
+| qat-lang         | 2.2.1   | UPDATED |
++------------------+---------+---------+
+| qat-variational  | 1.4.0   |         |
++------------------+---------+---------+
+| myqlm-clinalg    | 0.0.4   |         |
++------------------+---------+---------+
+| myqlm-contrib    | 1.7.1   |         |
++------------------+---------+---------+
+| myqlm-fermion    | 1.0.0   |         |
++------------------+---------+---------+
+| myqlm-simulators | 1.7.1   |         |
++------------------+---------+---------+
+
+Other Packages
+**************
++------------------+---------+---------+
+| Requires-Dist    | Version | Status  |
++==================+=========+=========+
+| myqlm-interop    | 1.7.1   |         |
++------------------+---------+---------+
+
+Note: Versions must be greater or equal to the versions above
