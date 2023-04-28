@@ -1,11 +1,41 @@
-.wy-side-nav-search {
-    background: rgb(41, 128, 185);
+/**
+ * Style of the nav-bar. This navbar uses the color of the Eviden theme
+ * (i.e. background in orange / rgb(255, 109, 67) - text in black / rgb(0, 0, 0)
+ */
+
+/* Define all colors of the Eviden color scheme */
+* {
+    --eviden-orange: rgb(255, 109, 67);
+    --eviden-deepblue: rgb(0, 45, 60);
+    --eviden-gray: rgb(236, 236, 237);
+    --eviden-black: rgb(0, 0, 0);
+    --eviden-white: rgb(255, 255, 255);
 }
-.wy-nav-side {
-    background: rgb(41, 128, 185);
+
+/* Background */
+.wy-side-nav-search, .wy-nav-side, .wy-nav-top {
+    background: var(--eviden-orange);
 }
-.wy-menu > p > .caption-text {
-    color: white;
+
+/* Text */
+.wy-side-nav-search .icon.icon-home,
+.wy-nav-top a,
+.wy-nav-top i,
+.wy-menu .caption-text,
+.wy-menu a {
+    color: var(--eviden-black);
+}
+
+/* Hover */
+.wy-menu a:hover {
+    background: var(--eviden-deepblue);
+    color:  var(--eviden-white);
+}
+
+/* Version information */
+.wy-side-nav-search > div.version {
+    color: var(--eviden-deepblue);
+    opacity: 0.7;
 }
 
 
