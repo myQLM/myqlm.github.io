@@ -1,0 +1,95 @@
+.. _qpu:
+
+Quantum Processing Unit (QPU)
+=============================
+A **Quantum Processing Unit** (or **QPU**) is, in this framework, a Python object designed to execute a :class:`~qat.core.Job`
+and return a :class:`~qat.core.Result`:
+
+ - The :class:`~qat.core.Job` defines :ref:`what should be executed <job>` (e.g. quantum circuit, analog schedule, annealing Ising Hamiltonian),
+   how to execute it (e.g. initial state, number of shots), and which information should be returned to the user (e.g. final measurement, aggregate data).
+   The definition of a :class:`~qat.core.Job` is presented on the :ref:`job page <job>`.
+ - The :class:`~qat.core.Result` contains the :ref:`output of the execution <result>`, such as measurement outputs (e.g. list of samples, average value of an :class:`~qat.core.Observable`),
+   and, optionally, some information on the execution (contained in the meta-data of the Result). The definition of :class:`~qat.core.Result` is presented on the :ref:`result page <result>`.
+
+A QPU can be a Quantum Emulator (a classical software emulating the behavior of a physical QPU) or a Physical system. Our framework defines 3 types of QPUs, which are:
+
+ - Gate based QPUs: These QPUs execute a job containing a :ref:`circuit <circuit>`. The :class:`~qat.core.Circuit` is wrapped into a job by using the respective :meth:`~qat.core.Circuit.to_job` method.
+
+ - Analog QPUs: These QPUs execute a job containing a :ref:`schedule <schedules_section>`. The :class:`~qat.core.Schedule` is wrapped into a job by using the respective :meth:`~qat.core.Schedule.to_job` method.
+
+ - Annealing QPUs: These QPUs execute a job containing an :ref:`Ising Hamiltonian <ising_description>`.  The :class:`~qat.opt.Ising` is wrapped into a job by using the respective :meth:`~qat.opt.Ising.to_job` method.
+
+.. _remote_qpu:
+
+.. dropdown:: Creating a remote QPU and accessing it
+
+    Any QPU defined in our framework can be started in server mode, and can be accessed using myQLM or from any other
+    Qaptiva Appliance, using a synchronous connection. This section explains the creation of a server and also how
+    to connect to a remote QPU
+
+    .. only:: qlm
+
+        .. note::
+
+            :ref:`Qaptiva Access <qaptiva_access>` provides advanced tools to create dynamically remote QPUs (and even more)
+            and access it remotely, using an asynchronous connection
+
+    .. tab-set::
+
+        .. tab-item:: Server mode
+
+            Any QPU has a method :func:`~qat.qpus.QPUHandler.serve` to start this QPU in
+            server mode. This method takes the PORT and the IP as arguments. For instance:
+
+            .. only:: qlm
+
+                .. code-block:: python
+
+                    from qat.qpus import LinAlg
+
+                    # Define a PORT and a IP
+                    PORT = 1234
+                    IP = "*"
+
+                    # Define a QPU
+                    qpu = LinAlg()
+                    qpu.serve(PORT, IP)
+
+            .. only:: myqlm
+
+                .. code-block:: python
+
+                    from qat.qpus import CLinalg
+
+                    # Define a PORT and a IP
+                    PORT = 1234
+                    IP = "*"
+
+                    # Define a QPU
+                    qpu = CLinalg()
+                    qpu.serve(PORT, IP)
+
+        .. tab-item:: Client mode
+
+            If a distant QPU is started in server mode, our Framework can be used as client of
+            a connection.
+            Assuming the server is listening to the port :code:`1234` and the ip of the server is
+            :code:`127.0.0.1`, :class:`~qat.qpus.RemoteQPU` can be used to connect to this server:
+
+            .. code-block:: python
+
+                from qat.qpus import RemoteQPU
+
+                # Define PORT and IP
+                PORT = 1234
+                IP = "127.0.0.1"
+
+                # Define a client
+                qpu = RemoteQPU(PORT, IP)
+
+            .. warning::
+
+                The connection is synchronous, therefore, if the client is disconnected during the execution
+                of a Batch/Job, result of the execution is lost
+
+.. autocard::

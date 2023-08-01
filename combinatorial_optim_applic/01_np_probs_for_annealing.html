@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NP-hard problems &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../static/documentation_options.js"></script>
+        <script src="../static/jquery.js"></script>
+        <script src="../static/underscore.js"></script>
+        <script src="../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../static/doctools.js"></script>
+        <script src="../static/sphinx_highlight.js"></script>
+        <script src="../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Max Cut" href="01_np_probs_for_annealing/max_cut_ann_prob.html" />
+    <link rel="prev" title="Combinatorial optimization" href="../combinatorial_optim_applic.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../02_user_guide/01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02_user_guide/02_execute.html">Executing quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../fermion.html">Spin and fermionic systems</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../combinatorial_optim_applic.html">Combinatorial optimization</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">NP-hard problems</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#unconstrained-graph-problems">Unconstrained Graph Problems</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="01_np_probs_for_annealing/max_cut_ann_prob.html">Max Cut</a></li>
+<li class="toctree-l6"><a class="reference internal" href="01_np_probs_for_annealing/graph_partitioning_ann_prob.html">Graph Partitioning</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#constrained-graph-problems">Constrained Graph Problems</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="01_np_probs_for_annealing/kclique_ann_prob.html">KClique</a></li>
+<li class="toctree-l6"><a class="reference internal" href="01_np_probs_for_annealing/vertex_cover_ann_prob.html">Vertex Cover</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#other-problems">Other problems</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="01_np_probs_for_annealing/number_partitioning_ann_prob.html">Number Partitioning</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#simulated-quantum-annealing-benchmarking-and-performance">Simulated Quantum Annealing Benchmarking and Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="02_qaoa.html">Quantum Approximate Optimization Algorithm (QAOA)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="03_qa.html">Quantum Annealing (QA)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="04_np_problem_generators.html">Problem generators</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interoperability_annealing.html">Interoperability with annealing framework</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../combinatorial_optim_applic.html">Combinatorial optimization</a> &raquo;</li>
+      <li>NP-hard problems</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="np-hard-problems">
+<span id="np-problems-annealing"></span><h1>NP-hard problems<a class="headerlink" href="#np-hard-problems" title="Permalink to this heading"></a></h1>
+<p>Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are the NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (refer to <a class="reference internal" href="../02_user_guide/01_write/03_annealing_problems.html#annealing-programming"><span class="std std-ref">Annealing programming</span></a> and this <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fintroduction_combinatorial_optimization_myqlm.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">notebook</a>).
+Some of them, like <a class="reference internal" href="01_np_probs_for_annealing/max_cut_ann_prob.html#max-cut-ann-prob"><span class="std std-ref">Max Cut</span></a>, <a class="reference internal" href="01_np_probs_for_annealing/vertex_cover_ann_prob.html#vertex-cover-ann-prob"><span class="std std-ref">Vertex Cover</span></a>, <a class="reference internal" href="01_np_probs_for_annealing/number_partitioning_ann_prob.html#number-partitioning-ann-prob"><span class="std std-ref">Number Partitioning</span></a>, etc. could be easily formulated in these ways using myQLM tools.
+A description of these problems can be found below and the respective helper classes for each problem are given in the <span class="xref std std-ref">API</span>.
+An example notebook for each problem could be found in the <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Foverview_combinatorial_optimization_myqlm.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">overview</a>.</p>
+<section id="unconstrained-graph-problems">
+<h2>Unconstrained Graph Problems<a class="headerlink" href="#unconstrained-graph-problems" title="Permalink to this heading"></a></h2>
+<p>These problems concern graphs for which any output result is valid. In other words, any solution will obey the criteria for a right solution. However, this result may not be the most optimal.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-4 sd-g-xs-4 sd-g-sm-4 sd-g-md-4 sd-g-lg-4 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Max Cut</div>
+</div>
+<a class="sd-stretched-link reference internal" href="01_np_probs_for_annealing/max_cut_ann_prob.html"><span class="doc"></span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Graph Partitioning</div>
+</div>
+<a class="sd-stretched-link reference internal" href="01_np_probs_for_annealing/graph_partitioning_ann_prob.html"><span class="doc"></span></a></div>
+</div>
+</div>
+</div>
+</section>
+<section id="constrained-graph-problems">
+<h2>Constrained Graph Problems<a class="headerlink" href="#constrained-graph-problems" title="Permalink to this heading"></a></h2>
+<p>A graph problem is constrained when the output solution needs to obey some conditions in order to be valid. For example, <a class="reference internal" href="01_np_probs_for_annealing/vertex_cover_ann_prob.html#vertex-cover-ann-prob"><span class="std std-ref">Vertex Cover</span></a> requires that every edge is connected by at least one coloured node - so if the solution graph does not have this property, it is not valid. Therefore, we call <em>constrained</em> all problems with conditional correctness on their solution.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-3 sd-row-cols-xs-3 sd-row-cols-sm-3 sd-row-cols-md-3 sd-row-cols-lg-3 sd-g-4 sd-g-xs-4 sd-g-sm-4 sd-g-md-4 sd-g-lg-4 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+K-Clique</div>
+</div>
+<a class="sd-stretched-link reference internal" href="01_np_probs_for_annealing/kclique_ann_prob.html"><span class="doc"></span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Vertex Cover</div>
+</div>
+<a class="sd-stretched-link reference internal" href="01_np_probs_for_annealing/vertex_cover_ann_prob.html"><span class="doc"></span></a></div>
+</div>
+</div>
+</div>
+</section>
+<section id="other-problems">
+<h2>Other problems<a class="headerlink" href="#other-problems" title="Permalink to this heading"></a></h2>
+<p>Some problems are more numbers-oriented, like <a class="reference internal" href="01_np_probs_for_annealing/number_partitioning_ann_prob.html#number-partitioning-ann-prob"><span class="std std-ref">Number Partitioning</span></a>, which also belongs to NP-hard and can be well solved via Simulated Annealing (<a class="reference internal" href="../02_user_guide/02_execute/03_qpu/03_annealing.html#simulated-annealing"><span class="std std-ref">SA</span></a>).</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-4 sd-g-xs-4 sd-g-sm-4 sd-g-md-4 sd-g-lg-4 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Number Partitioning</div>
+</div>
+<a class="sd-stretched-link reference internal" href="01_np_probs_for_annealing/number_partitioning_ann_prob.html"><span class="doc"></span></a></div>
+</div>
+</div>
+</div>
+<p>For all the problems above we provide a set of fine tuned parameters which Simulated Quantum Annealing that is offered in the full
+Qaptiva Appliance would need. The solver was tested with various benchmarks and the respective performances were recorded. Along
+with the problem size and annealing times, the results are presented in the benchmarking section below.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Many of these parameters showed overall good performances with Simulated Annealing as well.</p>
+</div>
+</section>
+<section id="simulated-quantum-annealing-benchmarking-and-performance">
+<span id="sqa-benchmarking"></span><h2>Simulated Quantum Annealing Benchmarking and Performance<a class="headerlink" href="#simulated-quantum-annealing-benchmarking-and-performance" title="Permalink to this heading"></a></h2>
+<p>Although Simulated Quantum Annealing is only provided in Qaptiva, we present here its performance for some of the different NP problems to hint on its capabilities. Below are shown the benchmark sources, the range of spins for the problem instances, together with the average execution times.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+Max Cut</label><div class="sd-tab-content docutils">
+<ul>
+<li><p><strong>Performance optimized</strong>: <span class="math notranslate nohighlight">\(\frac {\text{number of Max Cut edges found}} {\text{best number of Max Cut edges}}\)</span></p></li>
+<li><p><strong>Problem instances</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Benchmarks</strong>: 9 planar and random graphs from the <a class="reference external" href="http://web.stanford.edu/~yyye/yyye/Gset/">Gset benchmark dataset</a></p></li>
+<li><p><strong>Others</strong>: &gt; 20 random trees</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Spin count</strong>: from 20 to 10 000</p></li>
+<li><p><strong>Performance</strong>: &gt; 98%</p></li>
+<li><p><strong>Execution time</strong>: mostly &lt; 1 sec and up to 5 seconds for 10 000 spins</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+Graph Colouring</label><div class="sd-tab-content docutils">
+<ul>
+<li><p><strong>Performance optimized</strong>: <span class="math notranslate nohighlight">\(\frac {\text{number of edges with vertices of different colours}} {\text{number of all edges}}\)</span></p></li>
+<li><p><strong>Problem instances</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Benchmarks</strong>: 6 - random graphs and a Leighton graph from <a class="reference external" href="http://cedric.cnam.fr/~porumbed/graphs/index.html">DIMACS Graphs</a></p></li>
+<li><p><strong>Others</strong>: 13 random graphs</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Spin count</strong>: from 60 to 24 000</p></li>
+<li><p><strong>Performance</strong>: 88% for best colouring, 95% - 99%  for a few more colours</p></li>
+<li><p><strong>Execution time</strong>: &lt; 10 sec for up to 24 000 spins</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-2">
+K-Clique</label><div class="sd-tab-content docutils">
+<ul>
+<li><p><strong>Performance optimized</strong>: <span class="math notranslate nohighlight">\(\frac {\text{number of edges in the subgraph found}} {\text{required number of edges for the subgraph to be complete}}\)</span></p></li>
+<li><p><strong>Problem instances</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Benchmarks</strong>: 27 differently generated graphs from the <a class="reference external" href="http://sites.nlsde.buaa.edu.cn/~kexu/benchmarks/graph-benchmarks.htm">BHOSLIB</a>, <a class="reference external" href="https://mat.gsia.cmu.edu/COLOR02/clq.html">DIMACS</a> and <a class="reference external" href="https://turing.cs.hbg.psu.edu/txn131/clique.html">Clique benchmark datasets</a></p></li>
+<li><p><strong>Others</strong>: 5 random graphs</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Spin count</strong>: from 450 to 4000</p></li>
+<li><p><strong>Performance</strong>: &gt; 98%</p></li>
+<li><p><strong>Execution time</strong>: mostly &lt; 1 sec when below 4000 spins</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-3">
+Vertex Cover</label><div class="sd-tab-content docutils">
+<ul>
+<li><p><strong>Performance optimized</strong>: <span class="math notranslate nohighlight">\(\frac {\text{best number of coloured nodes}} {\text{found number of coloured nodes}}\)</span></p></li>
+<li><p><strong>Problem instances</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Benchmarks</strong>: 21 random graphs from the <a class="reference external" href="http://sites.nlsde.buaa.edu.cn/~kexu/benchmarks/graph-benchmarks.htm">BHOSLIB</a> and <a class="reference external" href="https://oeis.org/A265032/a265032.html">OEIS benchmark datasets</a></p></li>
+<li><p><strong>Others</strong>: 5 random graphs</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Spin count</strong>: from 450 to 4000</p></li>
+<li><p><strong>Performance</strong>: &gt; 98%</p></li>
+<li><p><strong>Execution time</strong>: mostly &lt; 1 sec and up to 10 seconds for 4000 spins</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-4">
+Number Partitioning</label><div class="sd-tab-content docutils">
+<ul class="simple">
+<li><p><strong>Performance optimized</strong>: <span class="math notranslate nohighlight">\(\frac {\text{sum of numbers in smaller sum subset}} {\text{sum of numbers in larger sum subset}}\)</span></p></li>
+<li><p><strong>Problem instances</strong>: &gt; 30 random number sets of integer or real, non-repeating or repeating numbers</p></li>
+<li><p><strong>Spin count</strong>: from 20 to 40 000</p></li>
+<li><p><strong>Performance</strong>: &gt; 99%</p></li>
+<li><p><strong>Execution time</strong>: from instantly to 15 sec for 40 000 spins</p></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../combinatorial_optim_applic.html" class="btn btn-neutral float-left" title="Combinatorial optimization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="01_np_probs_for_annealing/max_cut_ann_prob.html" class="btn btn-neutral float-right" title="Max Cut" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

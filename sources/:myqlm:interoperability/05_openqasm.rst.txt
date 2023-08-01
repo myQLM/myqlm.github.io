@@ -1,0 +1,46 @@
+OpenQASM Compiler
+=================
+
+Translating quantum circuits
+----------------------------
+
+myQLM provides a script to translate a QASM file into a myQLM circuit file.
+For instance, the following bash command generate a file :code:`bell.circ`
+containing a myQLM circuit from a text file :code:`bell.qasm`
+
+.. code-block:: bash
+
+    # Bash command
+    oqasm2circ bell.qasm bell.cirq
+
+The Python code corresponding to this translate uses the class
+:class:`~qat.interop.openqasm.OqasmParser`
+
+.. run-block:: python
+
+    from qat.interop.openqasm import OqasmParser
+
+    # Define a bell pair QASM circuit
+    bell_data = """
+    OPENQASM 2.0;
+
+    // Allocate qubits and cbits
+    qreg q[2];
+    creg c[2];
+
+    // Define the circuit
+    h q[0];
+    cx q[0],q[1];
+
+    // Measure
+    measure q[0] -> c[0];
+    measure q[1] -> c[1];
+    """
+
+    # Translate into a myQLM circuit
+    parser = OqasmParser()
+    circuit = parser.compile(bell_data)
+    print("The circuit is composed of gates",
+          list(circuit.iterate_simple()))
+
+.. note::  The 2.0 version of OPENQASM is the only one fully supported, other versions might work flawlessly, but they haven't been tested.

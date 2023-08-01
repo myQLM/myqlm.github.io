@@ -1,0 +1,75 @@
+Quantum programs
+================
+Qaptiva Framework provides tools to create quantum program. These tools are packaged under :mod:`qat.lang`  module and are known as PyAQASM (for Python + AQASM). A :class:`~qat.lang.Program`
+is designed to build advanced quantum circuits which can be stored under two format:
+
+ - the serialized *.circ* format - it is under this format that circuits are sent to simulation or optimization services, when command-line tools are used
+ - the text *.aqasm* format - human readable representation of the circuit
+
+The following picture gives an overview of the circuit generation process of the PyAQASM library:
+
+.. figure:: images/circuit_gen.png
+       :scale: 50 %
+
+Therefore, there are two ways to generate a .circ file from a :class:`~qat.lang.Program` instance by:
+
+ - directly generating a :class:`~qat.core.Circuit` instance and serializing it (right path in the figure)
+ - exporting your program to an .aqasm text file (human readable text format), and compiling it using the command-line tool `aqasm2circ` (left path in the figure)
+
+Since the core of Qaptiva is purely based on Python, serialization is **NOT** a mandatory step, and is here only to facilitate advanced applications
+
+Allocating qubit and classical registers
+----------------------------------------
+Qubit registers are allocated by the Program using the :func:`~qat.lang.Program.qalloc` method.
+
+.. code-block:: python
+
+    qbits_reg = my_program.qalloc(10)
+
+Similarly, registers that hold classical bits can be allocated using the :func:`~qat.lang.Program.calloc` method.
+
+.. code-block:: python
+
+    cbits_reg = my_program.calloc(10)
+
+Applying quantum gate
+---------------------
+Gates can be applied by using the :meth:`~qat.lang.Program.apply` method or by calling the gate on a set of qubits. For instance:
+
+.. code-block:: python
+
+    my_program.apply(H, qbits_reg[0])
+    # or
+    H(qbits_reg[0])
+
+A gate or the :meth:`~qat.lang.Program.apply` method can take several arguments, to apply the gate on several qubits:
+
+.. code-block:: python
+
+    my_program.apply(CNOT, qbits_reg[1], qbits_reg[2])
+    # or
+    CNOT(qbits_reg[1], qbits_reg[2])
+
+Advanced operations
+-------------------
+The :class:`~qat.lang.Program` structure supports various instructions:
+
+* :func:`~qat.lang.Program.measure`: measure a qubit during the computation (not to be used for final measurements)
+
+* :func:`~qat.lang.Program.reset`: reset a qubit or classical bit: it consists in measuring the qubit, and applying a bit flip (X gate) if the outcome is 1
+
+* :func:`~qat.lang.Program.cc_apply`: apply a gate conditionally, depending on the state of a classical bit
+
+* :func:`~qat.lang.Program.cbreak`: interrupt the computation depending on a condition on a set of classical bits
+
+
+Generating the circuit
+----------------------
+Once you are satisfied with your :class:`~qat.lang.Program`, it can be exported to a circuit format that can be simulated. This is done using the :func:`~qat.lang.Program.to_circ` method.
+This method has parameters and can be fine-tuned to meet your needs
+
+
+Exporting the circuit
+---------------------
+The :class:`~qat.lang.Program` object can also be exported to a human-readable AQASM format.
+This is done using the :func:`~qat.lang.Program.export` method

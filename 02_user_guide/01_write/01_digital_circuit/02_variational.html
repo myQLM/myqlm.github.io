@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creating variational circuits &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Quantum programs" href="03_program.html" />
+    <link rel="prev" title="Creating and adding quantum gates to a circuit" href="01_quantum_gates.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../01_write.html">Writing quantum programs</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../01_digital_circuit.html">Gate-based programming</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="01_quantum_gates.html">Creating and adding quantum gates to a circuit</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Creating variational circuits</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#variational-jobs">Variational jobs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#binding-variables">Binding variables</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="03_program.html">Quantum programs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="04_routines.html">Quantum routines (and Oracles)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="05_aqasm.html">Atos Quantum Assembler (AQASM)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../02_analog_schedule.html">Analog programming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_annealing_problems.html">Annealing programming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_observable.html">Creating observables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../02_execute.html">Executing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../../01_write.html">Writing quantum programs</a> &raquo;</li>
+          <li><a href="../01_digital_circuit.html">Gate-based programming</a> &raquo;</li>
+      <li>Creating variational circuits</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="creating-variational-circuits">
+<span id="gate-based-variational"></span><h1>Creating variational circuits<a class="headerlink" href="#creating-variational-circuits" title="Permalink to this heading"></a></h1>
+<p>The Qaptiva framework comes with a collection of tools to efficiently describe and run variational quantum algorithm.
+This page introduces the basic mechanics allowing you to write variational schemes.</p>
+<p>For a more advanced usage, <a class="reference internal" href="../../../combinatorial_optim_applic.html#combinatorial-optimization"><span class="std std-ref">combinatorial optimization</span></a> defines a high-level interface to describe
+combinatorial optimization problems and automatically generate parametrized Ansätze.</p>
+<section id="variational-jobs">
+<h2>Variational jobs<a class="headerlink" href="#variational-jobs" title="Permalink to this heading"></a></h2>
+<p>When running a variational quantum algorithm, we are, most of the time, interested in minimizing the energy of some observable <span class="math notranslate nohighlight">\(H\)</span> over some
+parametrized quantum state <span class="math notranslate nohighlight">\(|\psi(\theta)\rangle\)</span>, i.e minimizing <span class="math notranslate nohighlight">\(\langle \psi(\theta)| H |\psi(\theta) \rangle\)</span>.</p>
+<p>We can build a variational quantum circuit by introducing open parameters in a pyAQASM <cite>Program</cite>:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="functional" for="sd-tab-item-0">
+Functional mode</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
+
+<span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="n">RY</span><span class="p">(</span><span class="n">theta</span><span class="p">)(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variables:&quot;</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Job variables:&quot;</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span>
+<span class="n">Job</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="sequential" for="sd-tab-item-1">
+Sequential mode</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">variable</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="n">RY</span><span class="p">(</span><span class="n">variable</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
+<span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">variable</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
+
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variables:&quot;</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Job variables:&quot;</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+<span class="n">Job</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Additionally, the sampled observable itself can have parametrized coefficients:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="functional" for="sd-tab-item-2">
+Functional mode</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># Obs = \sum_i \sigma_x^i</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">obs</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Observable variables:&quot;</span><span class="p">,</span> <span class="n">obs</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
+
+<span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">qbit_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">RY</span><span class="p">(</span><span class="n">theta</span><span class="p">)(</span><span class="n">qbit_idx</span><span class="p">)</span>
+        <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)(</span><span class="n">qbit_idx</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Circuit variables:&quot;</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Job variables:&quot;</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+<span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+<span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">Observable</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span>
+<span class="n">Circuit</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span>
+<span class="n">Job</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;theta&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="sequential" for="sd-tab-item-3">
+Sequential mode</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># Obs = \sum_i \sigma_x^i</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">obs</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Observable variables:&quot;</span><span class="p">,</span> <span class="n">obs</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">variable</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">qbit</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
+    <span class="n">RY</span><span class="p">(</span><span class="n">variable</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
+    <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">variable</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
+
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Circuit variables:&quot;</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Job variables:&quot;</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+<span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+<span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">Observable</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span>
+<span class="n">Circuit</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+<span class="n">Job</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This offers the possiblity to have layered parametrized optimization, or even compilation tradeoffs where some variational parameters end up in the sampled observable.</p>
+</section>
+<section id="binding-variables">
+<h2>Binding variables<a class="headerlink" href="#binding-variables" title="Permalink to this heading"></a></h2>
+<p>Once we’ve built a parametrized job, its variables can be instantiated using the overloaded <cite>__call__</cite> operator:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="functional" for="sd-tab-item-4">
+Functional mode</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
+
+<span class="c1"># Step 1: defining observable</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">obs</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># Step 2: defining circuit</span>
+<span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">qbit_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">RY</span><span class="p">(</span><span class="n">theta</span><span class="p">)(</span><span class="n">qbit_idx</span><span class="p">)</span>
+        <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)(</span><span class="n">qbit_idx</span><span class="p">)</span>
+
+<span class="c1"># Step 3: creating job and binding variables</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">)</span>
+
+<span class="n">job_2</span> <span class="o">=</span> <span class="n">job</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">job_2</span><span class="o">.</span><span class="n">observable</span><span class="p">)</span>
+
+<span class="n">job_3</span> <span class="o">=</span> <span class="n">job</span><span class="p">(</span><span class="o">**</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">()})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">job_3</span><span class="o">.</span><span class="n">observable</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">job_3</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="mf">0.6663486761279838</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.6663486761279838</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.6663486761279838</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.26293133498335286</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.0517253399334114</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.26293133498335286</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.0517253399334114</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.26293133498335286</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.0517253399334114</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="sequential" for="sd-tab-item-5">
+Sequential mode</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
+
+<span class="c1"># Step 1: defining observable</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">obs</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># Step 2: defining circuit</span>
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">variable</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">qbit</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
+    <span class="n">RY</span><span class="p">(</span><span class="n">variable</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
+    <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">variable</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
+
+<span class="c1"># Step 3: creating job and binding variables</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">)</span>
+
+<span class="n">job_2</span> <span class="o">=</span> <span class="n">job</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">job_2</span><span class="o">.</span><span class="n">observable</span><span class="p">)</span>
+
+<span class="n">job_3</span> <span class="o">=</span> <span class="n">job</span><span class="p">(</span><span class="o">**</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">()})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">job_3</span><span class="o">.</span><span class="n">observable</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">job_3</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="mf">0.13286701102213283</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.13286701102213283</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.13286701102213283</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.18128427226556842</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.7251370890622737</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.18128427226556842</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.7251370890622737</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.18128427226556842</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.7251370890622737</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="01_quantum_gates.html" class="btn btn-neutral float-left" title="Creating and adding quantum gates to a circuit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="03_program.html" class="btn btn-neutral float-right" title="Quantum programs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

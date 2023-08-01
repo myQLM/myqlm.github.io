@@ -1,0 +1,84 @@
+.. module:: qat.plugins
+
+.. |qaptiva| unicode:: Qaptiva U+2122
+
+qat.plugins
+===========
+
+:ref:`Plugins <plugin>` are objects to manipulate quantum jobs (circuits, observables) prior to execution and post-process the results.
+
+.. only:: qlm
+
+    Currently, the following plugins are offered to the users in |qaptiva|.
+
+.. only:: myqlm
+    
+    Currently, the following plugins are offered to the users in myQLM.
+
+
+Circuit rewriting plugins
+_________________________
+
+.. autoapi::
+
+    [:class:`qat.plugins.Nnizer`] Plugin solving the SWAP insertion problem
+    [:class:`qat.plugins.FusionPlugin`] Merge quantum gates together to reduce the number of gates
+    [:class:`qat.plugins.Remap`] Unused qubits remover
+    [:class:`qat.plugins.PatternManager`] High-level plugin applying rewriting rules following a meta-heuristic
+    [:class:`qat.plugins.GateRewriter`] Replace some gates by a pattern in a circuit
+    [:class:`qat.plugins.KAKCompression`] Compress sequences of consecutive single qubit gates into a fixed universal pattern
+    [:class:`qat.plugins.Graphopt`] Automated optimization of large quantum circuits with continuous parameters
+    [:class:`qat.plugins.ObservableSplitter`] Turning observable sampling into qubit sampling
+    [:class:`qat.plugins.CircuitInliner`] Inlining circuit inside a stack
+    [:class:`qat.plugins.CausalConesSplitter`] Transform job to batch by generating circuits corresponding to each term in the observable
+    [:class:`qat.plugins.BaseChanger`] Split observable job into smaller diagonal observable jobs
+
+
+.. only:: qlm
+
+    Circuit synthesis plugins
+    _________________________
+
+    .. autoapi::
+
+        [:class:`qat.plugins.LazySynthesis`] Lazy circuit synthesis based on nnization algorithm
+        [:class:`qat.plugins.InitialMapping`] Plugin wrapping various remapping methods
+        [:class:`qat.plugins.NISQCompiler`] Generic compiler for NISQ quantum circuits
+
+
+Variational optimization plugins
+________________________________
+
+.. autoapi::
+
+    [:class:`qat.plugins.ScipyMinimizePlugin`] Hybrid quantum classical optimization based on the Scipy
+    [:class:`qat.plugins.SPSAMinimizePlugin`] Minimizer based on Simultaneous Perturbation Stochastic Approximation (SPSA) algorithm
+    [:class:`qat.plugins.PSOMinimizePlugin`] Minimizer based on the Particle Swarm Optimization (PSO) algorithm
+    [:class:`qat.plugins.CostFunctionPlugin`] Perform variational optimization without observable
+
+
+Plugin for fermionic systems
+____________________________
+
+.. autoapi::
+
+    [:class:`qat.plugins.AdaptVQEPlugin`] Plugin building iteratively efficient ansatze
+    [:class:`qat.plugins.GradientDescentOptimizer`] Natural gradient descent optimizer
+    [:class:`qat.plugins.MultipleLaunchesAnalyzer`] Plugin running several optimizations and keeping the best one
+    [:class:`qat.plugins.SeqOptim`] Iteratively transform into Natural Orbitals basis
+    [:class:`qat.plugins.TransformObservable`] Plugin performing a transformation on the Observable
+    [:class:`qat.plugins.ZeroNoiseExtrapolator`] Plugin performing Zero-Noise Extrapolation
+
+
+Plugin utilities
+________________
+
+.. autoapi::
+
+    [:class:`qat.plugins.Display`] Display a quantum circuit in a terminal
+    [:class:`qat.plugins.QuameleonPlugin`] Plugin emulating hardware constraints
+    [:class:`qat.plugins.AbstractPlugin`] Abstract class of all plugins
+    [:class:`qat.plugins.Junction`] Specialized abstract plugin allowing iterations inside a Qaptiva stack
+    [:class:`qat.plugins.Optimizer`] Specialized abstract junction performing variational optimization
+    [:class:`qat.plugins.RemotePlugin`] Connect to a plugin running in a remote server
+    [:class:`qat.plugins.UploadedPlugin`] Plugin than can be uploaded with Qaptiva Access

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.plugins &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../static/documentation_options.js"></script>
+        <script src="../../static/jquery.js"></script>
+        <script src="../../static/underscore.js"></script>
+        <script src="../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../static/doctools.js"></script>
+        <script src="../../static/sphinx_highlight.js"></script>
+        <script src="../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="qat.plugins.CircuitInliner" href="module_plugins/circuitinliner.html" />
+    <link rel="prev" title="qat.opt.schedule_generator.ScheduleGenerator" href="module_opt/schedulegenerator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="module_comm.html">qat.comm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_core.html">qat.core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_opt.html">qat.opt</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">qat.plugins</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/circuitinliner.html">qat.plugins.CircuitInliner</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/observablesplitter.html">qat.plugins.ObservableSplitter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/costfunctionplugin.html">qat.plugins.CostFunctionPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/psominimizeplugin.html">qat.plugins.PSOMinimizePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/scipyminimizeplugin.html">qat.plugins.ScipyMinimizePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/spsaminimizeplugin.html">qat.plugins.SPSAMinimizePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/adaptvqeplugin.html">qat.plugins.AdaptVQEPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/gradientdescentoptimizer.html">qat.plugins.GradientDescentOptimizer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/multiplelaunchesanalyzer.html">qat.plugins.MultipleLaunchesAnalyzer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/seqoptim.html">qat.plugins.SeqOptim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/transformobservable.html">qat.plugins.TransformObservable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/zeronoiseextrapolator.html">qat.plugins.ZeroNoiseExtrapolator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/abstractplugin.html">qat.plugins.AbstractPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/display.html">qat.plugins.Display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/junction.html">qat.plugins.Junction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/optimizer.html">qat.plugins.Optimizer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/quameleonplugin.html">qat.plugins.QuameleonPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/remoteplugin.html">qat.plugins.RemotePlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_quops.html">qat.quops</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../04_api_reference.html">API reference</a> &raquo;</li>
+          <li><a href="../module_qat.html">qat</a> &raquo;</li>
+      <li>qat.plugins</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="module-qat.plugins"></span><section id="qat-plugins">
+<h1>qat.plugins<a class="headerlink" href="#qat-plugins" title="Permalink to this heading"></a></h1>
+<p><a class="reference internal" href="../../02_user_guide/02_execute/04_plugin.html#plugin"><span class="std std-ref">Plugins</span></a> are objects to manipulate quantum jobs (circuits, observables) prior to execution and post-process the results.</p>
+<p>Currently, the following plugins are offered to the users in myQLM.</p>
+<section id="circuit-rewriting-plugins">
+<h2>Circuit rewriting plugins<a class="headerlink" href="#circuit-rewriting-plugins" title="Permalink to this heading"></a></h2>
+<table class="colwidths-given docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_plugins/circuitinliner.html#qat.plugins.CircuitInliner" title="qat.plugins.CircuitInliner"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.CircuitInliner</span></code></a></p></td>
+<td><p>Inlining circuit inside a stack</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_plugins/observablesplitter.html#qat.plugins.ObservableSplitter" title="qat.plugins.ObservableSplitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.ObservableSplitter</span></code></a></p></td>
+<td><p>Turning observable sampling into qubit sampling</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="variational-optimization-plugins">
+<h2>Variational optimization plugins<a class="headerlink" href="#variational-optimization-plugins" title="Permalink to this heading"></a></h2>
+<table class="colwidths-given docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_plugins/costfunctionplugin.html#qat.plugins.CostFunctionPlugin" title="qat.plugins.CostFunctionPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.CostFunctionPlugin</span></code></a></p></td>
+<td><p>Perform variational optimization without observable</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_plugins/psominimizeplugin.html#qat.plugins.PSOMinimizePlugin" title="qat.plugins.PSOMinimizePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.PSOMinimizePlugin</span></code></a></p></td>
+<td><p>Minimizer based on the Particle Swarm Optimization (PSO) algorithm</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_plugins/scipyminimizeplugin.html#qat.plugins.ScipyMinimizePlugin" title="qat.plugins.ScipyMinimizePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.ScipyMinimizePlugin</span></code></a></p></td>
+<td><p>Hybrid quantum classical optimization based on the Scipy</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_plugins/spsaminimizeplugin.html#qat.plugins.SPSAMinimizePlugin" title="qat.plugins.SPSAMinimizePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.SPSAMinimizePlugin</span></code></a></p></td>
+<td><p>Minimizer based on Simultaneous Perturbation Stochastic Approximation (SPSA) algorithm</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="plugin-for-fermionic-systems">
+<h2>Plugin for fermionic systems<a class="headerlink" href="#plugin-for-fermionic-systems" title="Permalink to this heading"></a></h2>
+<table class="colwidths-given docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_plugins/adaptvqeplugin.html#qat.plugins.AdaptVQEPlugin" title="qat.plugins.AdaptVQEPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.AdaptVQEPlugin</span></code></a></p></td>
+<td><p>Plugin building iteratively efficient ansatze</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_plugins/gradientdescentoptimizer.html#qat.plugins.GradientDescentOptimizer" title="qat.plugins.GradientDescentOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.GradientDescentOptimizer</span></code></a></p></td>
+<td><p>Natural gradient descent optimizer</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_plugins/multiplelaunchesanalyzer.html#qat.plugins.MultipleLaunchesAnalyzer" title="qat.plugins.MultipleLaunchesAnalyzer"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.MultipleLaunchesAnalyzer</span></code></a></p></td>
+<td><p>Plugin running several optimizations and keeping the best one</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_plugins/seqoptim.html#qat.plugins.SeqOptim" title="qat.plugins.SeqOptim"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.SeqOptim</span></code></a></p></td>
+<td><p>Iteratively transform into Natural Orbitals basis</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_plugins/transformobservable.html#qat.plugins.TransformObservable" title="qat.plugins.TransformObservable"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.TransformObservable</span></code></a></p></td>
+<td><p>Plugin performing a transformation on the Observable</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_plugins/zeronoiseextrapolator.html#qat.plugins.ZeroNoiseExtrapolator" title="qat.plugins.ZeroNoiseExtrapolator"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.ZeroNoiseExtrapolator</span></code></a></p></td>
+<td><p>Plugin performing Zero-Noise Extrapolation</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="plugin-utilities">
+<h2>Plugin utilities<a class="headerlink" href="#plugin-utilities" title="Permalink to this heading"></a></h2>
+<table class="colwidths-given docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_plugins/abstractplugin.html#qat.plugins.AbstractPlugin" title="qat.plugins.AbstractPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.AbstractPlugin</span></code></a></p></td>
+<td><p>Abstract class of all plugins</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_plugins/display.html#qat.plugins.Display" title="qat.plugins.Display"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.Display</span></code></a></p></td>
+<td><p>Display a quantum circuit in a terminal</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_plugins/junction.html#qat.plugins.Junction" title="qat.plugins.Junction"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.Junction</span></code></a></p></td>
+<td><p>Specialized abstract plugin allowing iterations inside a Qaptiva stack</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_plugins/optimizer.html#qat.plugins.Optimizer" title="qat.plugins.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.Optimizer</span></code></a></p></td>
+<td><p>Specialized abstract junction performing variational optimization</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_plugins/quameleonplugin.html#qat.plugins.QuameleonPlugin" title="qat.plugins.QuameleonPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.QuameleonPlugin</span></code></a></p></td>
+<td><p>Plugin emulating hardware constraints</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_plugins/remoteplugin.html#qat.plugins.RemotePlugin" title="qat.plugins.RemotePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.RemotePlugin</span></code></a></p></td>
+<td><p>Connect to a plugin running in a remote server</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="module_opt/schedulegenerator.html" class="btn btn-neutral float-left" title="qat.opt.schedule_generator.ScheduleGenerator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="module_plugins/circuitinliner.html" class="btn btn-neutral float-right" title="qat.plugins.CircuitInliner" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

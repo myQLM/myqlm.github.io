@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.hardware.GatesSpecification &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="qat.hardware.HardwareModel" href="hardwaremodel.html" />
+    <link rel="prev" title="qat.hardware.DefaultHardwareModel" href="defaulthardwaremodel.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../module_comm.html">qat.comm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../module_hardware.html">qat.hardware</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="defaultgatesspecification.html">qat.hardware.DefaultGatesSpecification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defaulthardwaremodel.html">qat.hardware.DefaultHardwareModel</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">qat.hardware.GatesSpecification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hardwaremodel.html">qat.hardware.HardwareModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_depolarizing_hardware_model.html">qat.hardware.make_depolarizing_hardware_model</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../04_api_reference.html">API reference</a> &raquo;</li>
+          <li><a href="../../module_qat.html">qat</a> &raquo;</li>
+          <li><a href="../module_hardware.html">qat.hardware</a> &raquo;</li>
+      <li>qat.hardware.GatesSpecification</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-hardware-gatesspecification">
+<h1>qat.hardware.GatesSpecification<a class="headerlink" href="#qat-hardware-gatesspecification" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.hardware.GatesSpecification">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.hardware.</span></span><span class="sig-name descname"><span class="pre">GatesSpecification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gate_times</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quantum_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_prep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.hardware.GatesSpecification" title="Permalink to this definition"></a></dt>
+<dd><p>A GatesSpecification specifies the gates of a quantum hardware (independently of its environment).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gate_times</strong> (<em>dict&lt;str</em><em>, </em><em>float&gt;</em><em> or </em><em>dict&lt;str</em><em>, </em><em>dict&lt;tuple&lt;int&gt;</em><em>, </em><em>float&gt;&gt;</em><em> or </em><em>dict&lt;str</em><em>, </em><em>lambda&lt;param</em><em>, </em><em>float&gt;&gt;</em><em> or </em><em>dict&lt;str</em><em>, </em><em>dict&lt;tuple&lt;int&gt;</em><em>, </em><em>lambda&lt;param</em><em>, </em><em>float&gt;&gt;</em>) – contains duration (possibly parametric) of each gate (possibly qubit-wise)</p></li>
+<li><p><strong>quantum_channels</strong> (<em>dict&lt;str</em><em>, </em><em>QuantumChannel&gt;</em><em> or </em><em>dict&lt;str</em><em>, </em><em>lambda&lt;param</em><em>, </em><em>QuantumChannel&gt;&gt;</em><em> or </em><em>dict&lt;str</em><em>, </em><em>dict&lt;qbits</em><em>, </em><em>QuantumChannel&gt;&gt;</em><em> or </em><em>dict&lt;str</em><em>, </em><em>dict&lt;qbits</em><em>, </em><em>lambda&lt;param</em><em>, </em><em>QuantumChannel&gt;&gt;&gt;</em>) – dictionary
+containing the quantum channels describing each gate</p></li>
+<li><p><strong>state_prep</strong> (<em>array</em><em> or </em><em>dict&lt;int</em><em>, </em><em>array&gt;</em><em>, </em><em>optional</em>) – array describing initial state of register <span class="math notranslate nohighlight">\(\rho_0\)</span> as
+matrix in computational basis. Defaults to None (perfect initialization, <span class="math notranslate nohighlight">\(\rho_0 = |0\rangle \langle 0|\)</span>).</p></li>
+<li><p><strong>meas</strong> (<em>array</em><em> or </em><em>dict&lt;int</em><em>, </em><em>array&gt;</em><em>, </em><em>optional</em>) – array <span class="math notranslate nohighlight">\(E\)</span> defining the measurement operation. The measurement
+operation is a two-outcome POVM <span class="math notranslate nohighlight">\(\lbrace I - E, E \rbrace\)</span> with two outcomes 0 and 1. Thus,
+<span class="math notranslate nohighlight">\(p(0) = \mathrm{Tr}\left[\rho (I - E) \right]\)</span> and <span class="math notranslate nohighlight">\(p(1)=\mathrm{Tr}\left[ \rho E \right]\)</span>.
+Defaults to None (perfect measurement, <span class="math notranslate nohighlight">\(|1\rangle \langle 1|\)</span>).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="qat.hardware.GatesSpecification.gate_times">
+<span class="sig-name descname"><span class="pre">gate_times</span></span><a class="headerlink" href="#qat.hardware.GatesSpecification.gate_times" title="Permalink to this definition"></a></dt>
+<dd><p>contains duration (possibly parametric) of each gate (possibly qubit-wise)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict&lt;str, float&gt; or dict&lt;str, dict&lt;tuple&lt;int&gt;, float&gt;&gt; or dict&lt;str, lambda&lt;param, float&gt;&gt; or dict&lt;str, dict&lt;tuple&lt;int&gt;, lambda&lt;param, float&gt;&gt;</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="qat.hardware.GatesSpecification.quantum_channels">
+<span class="sig-name descname"><span class="pre">quantum_channels</span></span><a class="headerlink" href="#qat.hardware.GatesSpecification.quantum_channels" title="Permalink to this definition"></a></dt>
+<dd><p>dictionary
+containing the quantum channels describing each gate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict&lt;str, QuantumChannel&gt; or dict&lt;str, lambda&lt;param, QuantumChannel&gt;&gt; or dict&lt;str, dict&lt;qbits, QuantumChannel&gt;&gt; or dict&lt;str, dict&lt;qbits, lambda&lt;param, QuantumChannel&gt;&gt;&gt;</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="qat.hardware.GatesSpecification.state_prep">
+<span class="sig-name descname"><span class="pre">state_prep</span></span><a class="headerlink" href="#qat.hardware.GatesSpecification.state_prep" title="Permalink to this definition"></a></dt>
+<dd><p>array describing initial state of register <span class="math notranslate nohighlight">\(\rho_0\)</span> as
+matrix in computational basis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>array or dict&lt;int, array&gt;, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="qat.hardware.GatesSpecification.meas">
+<span class="sig-name descname"><span class="pre">meas</span></span><a class="headerlink" href="#qat.hardware.GatesSpecification.meas" title="Permalink to this definition"></a></dt>
+<dd><p>array <span class="math notranslate nohighlight">\(E\)</span> defining the measurement operation. The measurement
+operation is a two-outcome POVM <span class="math notranslate nohighlight">\(\lbrace I - E, E \rbrace\)</span> with two outcomes 0 and 1. Thus,
+<span class="math notranslate nohighlight">\(p(0) = \mathrm{Tr}\left[\rho (I - E) \right]\)</span> and <span class="math notranslate nohighlight">\(p(1)=\mathrm{Tr}\left[ \rho E \right]\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>array or dict&lt;int, array&gt;, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.hardware.GatesSpecification.get_gate_time">
+<span class="sig-name descname"><span class="pre">get_gate_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gate_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.hardware.GatesSpecification.get_gate_time" title="Permalink to this definition"></a></dt>
+<dd><p>Get time of a specific gate and qubit</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gate_type</strong> (<em>string</em>) – type of gate (e.g “H”, “RZ”, …)</p></li>
+<li><p><strong>qbits</strong> (<em>tuple</em>) – indices of qbits</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the gate time for the given qubits</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Also works if gate time is the same for each qubit/qubit pair etc.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.hardware.GatesSpecification.get_quantum_channel">
+<span class="sig-name descname"><span class="pre">get_quantum_channel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gate_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gate_dic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.hardware.GatesSpecification.get_quantum_channel" title="Permalink to this definition"></a></dt>
+<dd><p>Get noise channel of a specific gate and qubit</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gate_type</strong> (<em>string</em>) – type of the gate (e.g “H”, “RZ”,…)</p></li>
+<li><p><strong>qbits</strong> (<em>tuple</em>) – qbits on which gate is applied</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the channel corresponding to the gate</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../module_quops/quantumchannelkraus.html#qat.quops.QuantumChannelKraus" title="qat.quops.QuantumChannelKraus">QuantumChannelKraus</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="defaulthardwaremodel.html" class="btn btn-neutral float-left" title="qat.hardware.DefaultHardwareModel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hardwaremodel.html" class="btn btn-neutral float-right" title="qat.hardware.HardwareModel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

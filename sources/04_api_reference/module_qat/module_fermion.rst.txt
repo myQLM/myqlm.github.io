@@ -1,0 +1,137 @@
+.. module:: qat.fermion
+
+.. |qaptiva| unicode:: Qaptiva U+2122
+
+qat.fermion
+===========
+    
+:mod:`qat.fermion` module  aims at providing tools for describing and solving spin and fermionic problems.
+The code of :mod:`qat.fermion` is open-source and part of the myQLM suite. The source code can be found `here <https://github.com/myQLM/myqlm-fermion>`_.
+
+
+.. module:: qat.fermion.hamiltonians
+
+
+Hamiltonians constructors
+_________________________
+
+To help you write your own Hamiltonian for various spin and fermionic systems, we provide various Hamiltonian classes.
+
+.. autoapi::
+
+    [:class:`qat.fermion.hamiltonians.SpinHamiltonian`] Spin hamiltonian constructor
+    [:class:`qat.fermion.hamiltonians.FermionHamiltonian`] Fermionic hamiltonian constructor
+    [:class:`qat.fermion.hamiltonians.ElectronicStructureHamiltonian`] Electronic structure hamiltonian constructor
+
+
+Common many-body Hamiltonians
+_____________________________
+
+Some of the most common models have their own Hamiltonian generators.
+
+
+.. autoapi::
+
+    [:func:`qat.fermion.hamiltonians.make_hubbard_model`] Hubbard model hamiltonian
+    [:func:`qat.fermion.hamiltonians.make_anderson_model`] The single-impurity Anderson Model
+    [:func:`qat.fermion.hamiltonians.make_embedded_model`] The generalized impurity Hamiltonian
+
+
+The spin-fermion transforms
+___________________________
+
+.. module:: qat.fermion.transforms
+
+
+Various fermionic-to-spin transforms are provided.
+
+.. autoapi::
+
+    [:func:`qat.fermion.transforms.transform_to_jw_basis`] Fermionic to spin using Jordan-Wigner encoding
+    [:func:`qat.fermion.transforms.transform_to_bk_basis`] Fermionic to spin using Bravyi-Kitaev encoding
+    [:func:`qat.fermion.transforms.transform_to_parity_basis`] Fermionic to spin using parity encoding
+
+
+Fermionic ansatz circuits
+_________________________
+
+.. module:: qat.fermion.circuits
+
+We provide various common ansatz generators.
+
+.. autoapi::
+
+    [:func:`qat.fermion.circuits.make_ldca_circ`] Constructs a `LDCA circuit <https://arxiv.org/abs/1801.01053>`_
+    [:func:`qat.fermion.circuits.make_mr_circ`] Constructs a `small one-parameter Multi-Reference (MR) circuit on 4 qubits <https://pubs.acs.org/doi/10.1021/acscentsci.8b00788>`_
+    [:func:`qat.fermion.circuits.make_mrep_circ`] Constructs the `8-qubit Multi-Reference Excitation Preserving (MREP) ansatz <https://pubs.acs.org/doi/10.1021/acscentsci.8b00788>`_ 
+    [:func:`qat.fermion.circuits.make_general_hwe_circ`] Constructs a hardware efficient ansatz
+    [:func:`qat.fermion.circuits.make_shallow_circ`] Constructs the 8-parameter circuit proposed in `Keen et al. article (2019) <https://arxiv.org/abs/1910.09512>`_
+    [:func:`qat.fermion.circuits.make_compressed_ldca_circ`] Constructs a compressed version of the LDCA ansatz circuit (only for |qaptiva| users)
+
+
+.. module:: qat.fermion.chemistry
+
+Atomic and molecular studies
+____________________________
+
+We provide helper classes aimed at automating various aspects of atomic and molecular studies.
+
+.. autoapi::
+
+    [:class:`qat.fermion.chemistry.wrapper.MolecularHamiltonian`] Molecular hamiltonian helper class
+    [:class:`qat.fermion.chemistry.wrapper.MoleculeInfo`] Helper class for handling molecular systems computations
+
+
+.. module:: qat.fermion.chemistry.ucc
+
+Unitary Coupled-Cluster (UCC)
+_____________________________
+
+We provide various tools specific to UCC.
+
+.. autoapi::
+
+    [:func:`qat.fermion.chemistry.ucc.transform_integrals_to_new_basis`] Change one and two-body integrals to new basis
+    [:func:`qat.fermion.chemistry.ucc.compute_active_space_integrals`] Restrict one- and two-body integrals for given list of active indices
+    [:func:`qat.fermion.chemistry.ucc.convert_to_h_integrals`] Converts one and two-body integrals to electronic structure hamiltonian terms
+    [:func:`qat.fermion.chemistry.ucc.construct_ucc_ansatz`] Builds the parametric state preparation circuit implementing the provided cluster operator
+    [:func:`qat.fermion.chemistry.ucc.select_active_orbitals`] Selects the right active space and freezes core electrons according to their natural orbitals occupation numbers
+    [:func:`qat.fermion.chemistry.ucc.guess_init_params`] Find initial parameters using Møller-Plesset perturbation theory
+    [:func:`qat.fermion.chemistry.ucc.get_hf_ket`] Get Hartree-Fock state stored as a vector with right-to-left orbitals indexing
+    [:func:`qat.fermion.chemistry.ucc.get_cluster_ops`] Compute the cluster operators
+
+
+Quantum subspace expansion
+__________________________
+
+.. module:: qat.fermion.chemistry.qse
+
+An implementation of the quantum subspace expansion is available.
+
+.. autoapi::
+
+    [:func:`qat.fermion.chemistry.qse.apply_quantum_subspace_expansion`] Apply quantum subspace expansion to a given Hamiltonian
+
+
+Quantum phase estimation
+________________________
+
+.. module:: qat.fermion.phase_estimation
+
+An implementation of the quantum phase estimation algorithm is available.
+
+.. autoapi::
+
+    [:func:`qat.fermion.phase_estimation.perform_phase_estimation`] Perform quantum phase estimation on an :class:`~qat.fermion.hamiltonians.ElectronicStructureHamiltonian`    
+
+
+Utility functions
+_________________
+
+Two utility functions may be used to speed up your own implementations.
+
+.. autoapi::
+
+    [:func:`qat.fermion.trotterisation.make_trotterisation_routine`] Trotterizes (first order) the evolution operator of a Hamiltonian
+    [:func:`qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation`] Helper function to perform various calculations using PySCF
+

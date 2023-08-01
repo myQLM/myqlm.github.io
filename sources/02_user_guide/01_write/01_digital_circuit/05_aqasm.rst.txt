@@ -1,0 +1,289 @@
+.. _aqasm:
+
+Atos Quantum Assembler (AQASM)
+==============================
+AQASM is a simple and non procedural circuit description language. It comes with a command-line compiler allowing to directly generate
+a circuit description and compile it into a :class:`~qat.core.Circuit` structure.
+
+.. note::
+
+    The purpose of this format is not to efficiently serialize or store quantum circuits. We 
+    strongly advise using the binary serialization of :class:`~qat.core.Circuit` 
+    objects (using the :meth:`~qat.core.Circuit.dump` method) for efficient serialization.
+
+The text format
+---------------
+
+The structure of an AQASM source file is rather simple:
+
+* the file starts with a (potentially empty) header:
+
+  * declaring some constant gates (via their matrices)
+
+  * or some abstract gate (via their signature, similar to the AbstractGate constructor)
+
+* the body starts with a resource declaration followed by a sequence of instructions constituting the circuit
+
+To sum up:
+
+.. code-block:: text
+    
+    <HEADER>
+    BEGIN
+    qubits <N>
+    [cbits <N>]
+    <BODY>
+    END
+
+Header
+^^^^^^
+
+The header contains two types of declaration:
+
+* **Constant gate declaration**. To declare a constant gate.
+  The syntax is rather straightfoward:
+
+.. code-block:: text
+    
+    DEFINE GATE <gate name> = <gate matrix>
+
+
+.. code-block:: text
+    
+    DEFINE GATE my_z = [[(1,0) (0,0)] [(0,0) (-1,0)]]
+
+
+
+* **Abstract gate declaration**. Similarly to pyAQASM, it is possible to declare parametrized gate constructors.
+  However, it is not possible to specify how to generate the underlying collection of operators (see the linking section).
+  The syntax is a bit more involved:
+
+.. code-block:: text
+
+    DEFINE PARAM <gate name> <argument types> : <arity>
+
+Here the argument types is a sequence of types in the list: int, float, string.
+
+.. code-block:: text
+    
+    DEFINE PARAM MY_RXRZ float float : 1 
+    DEFINE PARAM MY_QFT int : None
+
+
+Instructions 
+^^^^^^^^^^^^
+After writing the ressource declaration as follows:
+
+.. code-block:: text
+    
+    BEGIN
+    qubits <N>
+    [cbits <N>]
+
+the body is constitued of a sequence of instructions:
+
+* **Gate application**. The syntax for gate application is the following:
+
+    .. code-block:: text
+
+        <gate> <qbit_list>
+
+    
+    Qubits are referenced using the syntax:
+
+    .. code-block:: text
+        
+        q[0], q[9], ...
+
+    Gates can be referenced:
+
+        * by name: either using a predefined gate (H, CNOT, etc) or using a constant gate declared in the heade
+
+          .. code-block:: text
+            
+            H q[0]
+            CNOT q[0], q[1]
+
+            GATE my_cz q[0]
+
+
+        * using a gate operator: these are CTRL, DAG, CONJ, TRANS
+
+          .. code-block:: text
+            
+            CTRL(H) q[0], q[1]
+            DAG(CTRL(Y)) q[2], q[3]
+
+
+
+        * using a parametrized gate: either using of of the predefined one (RX, RY, RZ, PH) or using one declared in the header
+
+          .. code-block:: text
+            
+            RZ[PI/2] q[0]
+            CTRL(PH[PI/4]) q[0], q[1]
+            MY_RXRZ[PI/2, PI/4] q[0]
+
+        * using a matrix
+        
+          .. code-block:: text
+            
+            [[(1,0) (0,0)] [(0, 0) (0, -i)]] q[0]
+
+
+* **Measures** are specified using the following syntax:
+
+  .. code-block:: text
+    
+    MEAS <qbit list> [<cbit list>]
+   
+  For instance:
+  
+  .. code-block:: text
+    
+    MEAS q[0], q[1] c[0], c[2]
+
+  measures qbits 0 and 1 and store the results in cbits 0 and 2.
+
+  If no cbits are specified, the cbits with index correspond to the qbits indices will be used
+
+  .. code-block:: text
+    
+    MEAS q[0], q[1]
+
+  measures qbits 0 and 1 and store the results in cbits 0 and 1.
+
+
+
+* **Conditional gate application**. The syntax for gate application depending on a cbit value is the following:
+
+  .. code-block:: text
+
+    ? <cbit> : <gate> <qbit list>
+
+  For instance:
+
+  .. code-block:: text
+
+    ? c[0] : X q[0]
+
+  will apply gate X on qbit 0 if and only if cbit 0 is set to 1
+
+
+* **Resets** can act on qbits or cbits.
+
+  .. code-block:: text
+
+     RESET [<qbit list>] [<cbit list>]
+
+  E.g:
+
+  .. code-block:: text
+
+     RESET q[0], q[1] c[0]
+
+
+* **Cbits manipulation**. The values of cbits can also be changed via boolean operations. The general syntax is the following:
+
+  .. code-block:: text
+
+     LOGIC <cbit to update> <boolean formula>
+
+  where *<boolean formula>* stands for any well constructed expression using &, \|, ^, ~ and cbits.
+    
+  For instance:
+
+  .. code-block:: text
+
+     LOGIC c[0] c[1] & c[2] & c[3]
+
+  will update the value of cbit 0 with the logical AND of cbits 1, 2, and 3.
+
+
+* **Break** instructions describe conditional break during the circuit execution. The condition is specified via a boolean formula (see cbits manipulation for how to build a boolean formula).
+
+  .. code-block:: text
+
+    BREAK <boolean formula>
+
+List of gates
+^^^^^^^^^^^^^
+
+=========================== ================== ====== =====
+Gate name                   AQASM Keyword      Qubits Notes
+=========================== ================== ====== =====
+Hadamard                    H                  1      :math:`\begin{vmatrix} \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\ \end{vmatrix}`
+Pauli X                     X                  1      :math:`\begin{vmatrix} 0 & 1 \\ 1 & 0 \\ \end{vmatrix}`
+Pauli Y                     Y                  1      :math:`\begin{vmatrix} 0 & -i \\ i & 0 \\ \end{vmatrix}`
+Pauli Z                     Z                  1      :math:`\begin{vmatrix} 1 & 0 \\ 0 & -1 \\ \end{vmatrix}`
+Identity                    I                  1      :math:`\begin{vmatrix} 1 & 0 \\ 0 & 1 \\ \end{vmatrix}`
+Phase shift                 PH[:math:`\theta`] 1      :math:`\forall \theta \in\rm I\!R: \\ \begin{vmatrix} 1 & 0 \\ 0 & e^{i\theta} \\ \end{vmatrix}`
+S gate                      S                  1      :math:`\begin{vmatrix} 1 & 0 \\ 0 & i \\ \end{vmatrix}`
+T gate                      T                  1      :math:`\begin{vmatrix} 1 & 0 \\ 0 & e^{i\frac{\pi}{4}} \\ \end{vmatrix}`
+X Rotation                  RX[:math:`\theta`] 1      :math:`\forall \theta \in\rm I\!R: \\ \begin{vmatrix} \cos(\frac{\theta}{2}) & -i\sin(\frac{\theta}{2}) ~\\ -i\sin(\frac{\theta}{2}) & \cos(\frac{\theta}{2}) \\ \end{vmatrix}`
+Y Rotation                  RY[:math:`\theta`] 1      :math:`\forall \theta \in\rm I\!R: \\ \begin{vmatrix} \cos(\frac{\theta}{2}) & -\sin(\frac{\theta}{2}) ~\\ \sin(\frac{\theta}{2}) & \cos(\frac{\theta}{2}) \\ \end{vmatrix}`
+Z Rotation                  RZ[:math:`\theta`] 1      :math:`\forall \theta \in\rm I\!R: \\ \begin{vmatrix} e^{-i\frac{\theta}{2}} & 0 \\ 0 & e^{i\frac{\theta}{2}} \\ \end{vmatrix}`
+Controlled NOT              CNOT               2      :math:`\begin{vmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0 \\ \end{vmatrix}`
+Controlled Z                CSIGN              2      :math:`\begin{vmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & -1 \\ \end{vmatrix}`
+SWAP                        SWAP               2      :math:`\begin{vmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ \end{vmatrix}`
+iSWAP                       iSWAP              2      :math:`\begin{vmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & i & 0 \\ 0 & i & 0 & 0 \\ 0 & 0 & 0 & 1 \\ \end{vmatrix}`
+:math:`\sqrt{\text{SWAP}}`  SQRTSWAP           2      :math:`\begin{vmatrix} 1 & 0 & 0 & 0 \\ 0 & \frac{1}{2}(1 + i) & \frac{1}{2}(1 - i) & 0 \\ 0 & \frac{1}{2}(1 - i) & \frac{1}{2}(1 + i) & 0 \\ 0 & 0 & 0 & 1 \\ \end{vmatrix}`
+Toffoli                     CCNOT              3      :math:`\begin{vmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\ \end{vmatrix}`
+=========================== ================== ====== =====
+
+
+Compiling .aqasm files
+----------------------
+
+The compilation of AQASM source files into circuits is done through the **aqasm2circ** executable.
+
+.. code-block:: bash
+    
+    $ aqasm2circ <infile> [<outfile>]
+
+will compile an AQASM text file into a binary file containing a serialized version of the circuit.
+
+
+Compilation time linking
+------------------------
+
+It is possible to link some Python namespace to the **aqasm2circ** compiler in order to link some implementation to the abstract gates used in the AQASM source.
+
+For instance consider the following AQASM source:
+
+.. code-block:: text
+
+    DEFINE PARAM QFT int : None
+    BEGIN
+    qubits 3
+
+    QFT[3] q[0], q[1], q[2]
+
+    END
+
+
+This circuit will contain a single gate called QFT with parameter 3. However, we did not specify any implementation for this gate. This implementation can be linked at compilation time.
+
+Let us imagine that we wrote a Python file **my_lib.py** containing the following code:
+
+.. code-block:: python
+
+    from qat.lang.AQASM import QRoutine, H
+    from qat.lang.AQASM.misc import build_gate
+    
+    # Notice the use of the function decorator 
+    # and the signature declared in the constructor of the decorator
+    @build_gate("QFT", [int], lambda n: n)
+    def my_qft(n):
+        routine = QRoutine()
+        for qb in range(n):
+          H(qb)
+        return routine
+
+We can link this implementation of the QFT to the compiler in order to inline this subcircuit in place of the abstract gate named QFT.
+
+.. code-block:: bash
+
+    $ aqasm2circ -L my_lib my_aqasm.aqasm out.circ
+
+For instance, the namespace :mod:`qat.lang.AQASM.qftarith` can be linked to inline implementations of most of the arithmetical functions.

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.qpus.SimulatedAnnealing &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="qat.qpus.get_current_qpu" href="get_current_qpu.html" />
+    <link rel="prev" title="qat.qpus.PyLinalg" href="%3Amyqlm%3Apylinalg.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../module_comm.html">qat.comm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../module_qpus.html">qat.qpus</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="%3Amyqlm%3Aclinalg.html">qat.qpus.CLinalg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="classicalqpu.html">qat.qpus.ClassicalQPU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%3Amyqlm%3Apylinalg.html">qat.qpus.PyLinalg</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">qat.qpus.SimulatedAnnealing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_current_qpu.html">qat.qpus.get_current_qpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_default_qpu.html">qat.qpus.get_default_qpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qpuhandler.html">qat.qpus.QPUHandler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remoteqpu.html">qat.qpus.RemoteQPU</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../04_api_reference.html">API reference</a> &raquo;</li>
+          <li><a href="../../module_qat.html">qat</a> &raquo;</li>
+          <li><a href="../module_qpus.html">qat.qpus</a> &raquo;</li>
+      <li>qat.qpus.SimulatedAnnealing</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-qpus-simulatedannealing">
+<h1>qat.qpus.SimulatedAnnealing<a class="headerlink" href="#qat-qpus-simulatedannealing" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.qpus.SimulatedAnnealing">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.qpus.</span></span><span class="sig-name descname"><span class="pre">SimulatedAnnealing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temp_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.qpus.SimulatedAnnealing" title="Permalink to this definition"></a></dt>
+<dd><p>A Simulated Annealing solver interfaced as a Quantum Processing Unit (QPU)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>temp_t</strong> (<a class="reference internal" href="../module_core/module_variables/arithexpression.html#qat.core.variables.ArithExpression" title="qat.core.variables.ArithExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithExpression</span></code></a>) – temperature-time dependence. It needs to be specified using
+a variable <code class="code docutils literal notranslate"><span class="pre">t</span></code> instantiated with the class <a class="reference internal" href="../module_core/variable.html#qat.core.Variable" title="qat.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>.</p></li>
+<li><p><strong>n_steps</strong> (<em>int</em>) – number of annealing time steps in Temp(t) evolution.</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Randomness seed.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.qpus.SimulatedAnnealing.submit_job">
+<span class="sig-name descname"><span class="pre">submit_job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.qpus.SimulatedAnnealing.submit_job" title="Permalink to this definition"></a></dt>
+<dd><p>Execute simulated annealing for a given job.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>job</strong> (<a class="reference internal" href="../module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a>) – the job to execute</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a result with the solution spin configuration(s)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>result (<a class="reference internal" href="../module_core/result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="qat.simulated_annealing.service.extract_j_and_h_from_obs">
+<span class="sig-prename descclassname"><span class="pre">qat.simulated_annealing.service.</span></span><span class="sig-name descname"><span class="pre">extract_j_and_h_from_obs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.simulated_annealing.service.extract_j_and_h_from_obs" title="Permalink to this definition"></a></dt>
+<dd><p>A function to extract the <span class="math notranslate nohighlight">\(J\)</span> coupling matrix, magnetic field
+<span class="math notranslate nohighlight">\(h\)</span> and Ising energy offset <span class="math notranslate nohighlight">\(E_I\)</span> from the Hamiltonian of an Ising
+problem. The Hamiltonian should be of the form</p>
+<div class="math notranslate nohighlight">
+\[H = - \sum_{ij} J_{ij} s_i s_j - \sum_i h_i s_i - E_I\]</div>
+<p>with <span class="math notranslate nohighlight">\(s_i, s_j \in \{-1,1\}\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obs</strong> (<a class="reference internal" href="../module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a>) – an observable for an Ising problem</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>3-element tuple containing</p>
+<ul class="simple">
+<li><p><strong>J</strong> (<em>2D numpy array</em>) - an array with the coupling between each two spins - it
+represents the <span class="math notranslate nohighlight">\(J\)</span> matrix from the Hamiltonian of the problem</p></li>
+<li><p><strong>h</strong> (<em>1D numpy array</em>) - an array with the magnetic field acting on each of the
+spins, coming from the Hamiltonian of the problem</p></li>
+<li><p><strong>offset_i</strong> (<em>double</em>) - the value of the Ising offset energy in the respective
+Hamiltonian</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="%3Amyqlm%3Apylinalg.html" class="btn btn-neutral float-left" title="qat.qpus.PyLinalg" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="get_current_qpu.html" class="btn btn-neutral float-right" title="qat.qpus.get_current_qpu" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

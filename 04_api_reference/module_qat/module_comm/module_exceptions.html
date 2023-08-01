@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.comm.exceptions &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="qat.comm.exceptions.ttypes.ErrorType" href="module_exceptions/errortype.html" />
+    <link rel="prev" title="qat.comm.datamodel.ttypes.Op" href="module_datamodel/op.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../module_comm.html">qat.comm</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="module_datamodel.html">qat.comm.datamodel</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">qat.comm.exceptions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="module_exceptions/errortype.html">qat.comm.exceptions.ttypes.ErrorType</a></li>
+<li class="toctree-l5"><a class="reference internal" href="module_exceptions/pluginexception.html">qat.comm.exceptions.ttypes.PluginException</a></li>
+<li class="toctree-l5"><a class="reference internal" href="module_exceptions/qpuexception.html">qat.comm.exceptions.ttypes.QPUException</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="module_resource.html">qat.comm.resource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_shared.html">qat.comm.shared</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../04_api_reference.html">API reference</a> &raquo;</li>
+          <li><a href="../../module_qat.html">qat</a> &raquo;</li>
+          <li><a href="../module_comm.html">qat.comm</a> &raquo;</li>
+      <li>qat.comm.exceptions</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="module-qat.comm.exceptions"></span><section id="qat-comm-exceptions">
+<h1>qat.comm.exceptions<a class="headerlink" href="#qat-comm-exceptions" title="Permalink to this heading"></a></h1>
+<p>All exceptions raised by QPUs and Plugins are Thrift exceptions. This is particularly usefull when
+using a remote QPU/Plugin, since it allows the server to cleanly catch the exception and transmit
+it to the client. Upon receiving the exception, the client will raise it, thus emulating a ‘local’
+behavior.</p>
+<table class="colwidths-given docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_exceptions/errortype.html#qat.comm.exceptions.ttypes.ErrorType" title="qat.comm.exceptions.ttypes.ErrorType"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.comm.exceptions.ttypes.ErrorType</span></code></a></p></td>
+<td><p>Enumeration of error types</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_exceptions/pluginexception.html#qat.comm.exceptions.ttypes.PluginException" title="qat.comm.exceptions.ttypes.PluginException"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.comm.exceptions.ttypes.PluginException</span></code></a></p></td>
+<td><p>Exception raised by Plugins</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_exceptions/qpuexception.html#qat.comm.exceptions.ttypes.QPUException" title="qat.comm.exceptions.ttypes.QPUException"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.comm.exceptions.ttypes.QPUException</span></code></a></p></td>
+<td><p>Exception raised by QPUs</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+<p>Some additional information is packed inside the exception, taking the form of a file name and a
+line number. Additionally, exceptions come with an error code that characterizes the type of error
+that appeared inside the Plugin/QPU:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RZ</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">PyLinalg</span>
+<span class="kn">from</span> <span class="nn">qat.comm.exceptions.ttypes</span> <span class="kn">import</span> <span class="n">QPUException</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">RZ</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">(</span><span class="n">include_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">PyLinalg</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">QPUException</span> <span class="k">as</span> <span class="n">excp</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">excp</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QPUException</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">modulename</span><span class="o">=</span><span class="s1">&#39;qat.pylinalg&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Gate RZ has no matrix!&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s1">&#39;qat/pylinalg/simulator.py&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="mi">103</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here code <span class="math notranslate nohighlight">\(14\)</span> means that the simulator encountered a non supported gate (here a gate with
+no matrix).</p>
+<p>Another useful code is the one raised when a break instruction is triggered:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">PyLinalg</span>
+<span class="kn">from</span> <span class="nn">qat.comm.exceptions.ttypes</span> <span class="kn">import</span> <span class="n">QPUException</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">cbreak</span><span class="p">(</span><span class="o">~</span><span class="n">cbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">PyLinalg</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">QPUException</span> <span class="k">as</span> <span class="n">excp</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">excp</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QPUException</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">modulename</span><span class="o">=</span><span class="s1">&#39;qat.pylinalg&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;BREAK at gate #1 : formula : NOT 0, cbits : [(0, False)]&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Code <span class="math notranslate nohighlight">\(10\)</span> will always refer to a triggered break instruction.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="module_datamodel/op.html" class="btn btn-neutral float-left" title="qat.comm.datamodel.ttypes.Op" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="module_exceptions/errortype.html" class="btn btn-neutral float-right" title="qat.comm.exceptions.ttypes.ErrorType" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

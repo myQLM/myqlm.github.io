@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PyQuil interoperability &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../static/documentation_options.js"></script>
+        <script src="../static/jquery.js"></script>
+        <script src="../static/underscore.js"></script>
+        <script src="../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../static/doctools.js"></script>
+        <script src="../static/sphinx_highlight.js"></script>
+        <script src="../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cirq interoperability" href="03_cirq.html" />
+    <link rel="prev" title="Qiskit interoperability" href="01_qiskit.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../02_user_guide/01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02_user_guide/02_execute.html">Executing quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../fermion.html">Spin and fermionic systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../combinatorial_optim_applic.html">Combinatorial optimization</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html#available-binders">Available binders</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="01_qiskit.html">Qiskit interoperability</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">PyQuil interoperability</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#translating-quantum-circuits">Translating quantum circuits</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#connecting-to-a-qpu">Connecting to a QPU</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="03_cirq.html">Cirq interoperability</a></li>
+<li class="toctree-l5"><a class="reference internal" href="04_projectq.html">ProjectQ interoperability</a></li>
+<li class="toctree-l5"><a class="reference internal" href="05_openqasm.html">OpenQASM Compiler</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../interoperability_annealing.html">Interoperability with annealing framework</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a> &raquo;</li>
+      <li>PyQuil interoperability</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pyquil-interoperability">
+<h1>PyQuil interoperability<a class="headerlink" href="#pyquil-interoperability" title="Permalink to this heading"></a></h1>
+<p><strong>Warning:</strong> Deprecated for python 3.6</p>
+<section id="translating-quantum-circuits">
+<h2>Translating quantum circuits<a class="headerlink" href="#translating-quantum-circuits" title="Permalink to this heading"></a></h2>
+<p>myQLM provides binders to translate quantum circuit from PyQuil to myQLM
+and vice-verse throught functions <a class="reference internal" href="../04_api_reference/module_qat/%3Amyqlm%3Amodule_interop/module_pyquil/pyquil_to_qlm.html#qat.interop.pyquil.pyquil_to_qlm" title="qat.interop.pyquil.pyquil_to_qlm"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyquil_to_qlm()</span></code></a>
+and <a class="reference internal" href="../04_api_reference/module_qat/%3Amyqlm%3Amodule_interop/module_pyquil/qlm_to_pyquil.html#qat.interop.pyquil.qlm_to_pyquil" title="qat.interop.pyquil.qlm_to_pyquil"><code class="xref py py-func docutils literal notranslate"><span class="pre">qlm_to_pyquil()</span></code></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.interop.pyquil</span> <span class="kn">import</span> <span class="n">pyquil_to_qlm</span>
+
+<span class="n">qlm_circuit</span> <span class="o">=</span> <span class="n">pyquil_to_qlm</span><span class="p">(</span><span class="n">your_pyquil_circuit</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.interop.pyquil</span> <span class="kn">import</span> <span class="n">qlm_to_pyquil</span>
+
+<span class="n">pyquil_circuit</span> <span class="o">=</span> <span class="n">qlm_to_pyquil</span><span class="p">(</span><span class="n">your_qlm_circuit</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="connecting-to-a-qpu">
+<h2>Connecting to a QPU<a class="headerlink" href="#connecting-to-a-qpu" title="Permalink to this heading"></a></h2>
+<p>myQLM can be used to connect to a PyQuil QVM. This module is composed of a main
+class <a class="reference internal" href="../04_api_reference/module_qat/%3Amyqlm%3Amodule_interop/module_pyquil/pyquilqpu.html#qat.interop.pyquil.PyquilQPU" title="qat.interop.pyquil.PyquilQPU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyquilQPU</span></code></a> used to wrap a QVM into a myQLM QPU.</p>
+<p>In this section, we assume a QVM is running locally and that this QVM is listenning
+to the port 15011. The following code defines a myQLM QPU wrapping the PyQuil QVM:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.interop.pyquil</span> <span class="kn">import</span> <span class="n">PyquilQPU</span>
+<span class="kn">from</span> <span class="nn">pyquil</span> <span class="kn">import</span> <span class="n">get_qc</span>
+
+<span class="c1"># Define port and ip</span>
+<span class="n">IP</span>   <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
+<span class="n">PORT</span> <span class="o">=</span> <span class="s2">&quot;15011&quot;</span>
+
+<span class="c1"># Define a QPU</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;QCS_SETTINGS_APPLICATIONS_PYQUIL_QVM_URL&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;http://</span><span class="si">{ip}</span><span class="s2">:</span><span class="si">{port}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">IP</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">PORT</span><span class="p">)</span>
+<span class="n">qvm</span> <span class="o">=</span> <span class="n">get_qc</span><span class="p">(</span><span class="s1">&#39;9q-qvm&#39;</span><span class="p">)</span>
+<span class="n">qpu</span> <span class="o">=</span> <span class="n">PyquilQPU</span><span class="p">(</span><span class="n">qvm</span><span class="p">)</span>
+
+<span class="c1"># Submit a job to the QVM</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">qlm_job</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="01_qiskit.html" class="btn btn-neutral float-left" title="Qiskit interoperability" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="03_cirq.html" class="btn btn-neutral float-right" title="Cirq interoperability" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

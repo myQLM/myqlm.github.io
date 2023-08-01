@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.fermion.chemistry.wrapper.MoleculeInfo &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="qat.fermion.chemistry.ucc.compute_active_space_integrals" href="compute_active_space_integrals.html" />
+    <link rel="prev" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian" href="molecularhamiltonian.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../module_comm.html">qat.comm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../module_fermion.html">qat.fermion</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="electronicstructurehamiltonian.html">qat.fermion.hamiltonians.ElectronicStructureHamiltonian</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spinhamiltonian.html">qat.fermion.hamiltonians.SpinHamiltonian</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_anderson_model.html">qat.fermion.hamiltonians.make_anderson_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_embedded_model.html">qat.fermion.hamiltonians.make_embedded_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_hubbard_model.html">qat.fermion.hamiltonians.make_hubbard_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="transform_to_bk_basis.html">qat.fermion.transforms.transform_to_bk_basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="transform_to_jw_basis.html">qat.fermion.transforms.transform_to_jw_basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="transform_to_parity_basis.html">qat.fermion.transforms.transform_to_parity_basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_compressed_ldca_circ.html">qat.fermion.circuits.make_compressed_ldca_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_general_hwe_circ.html">qat.fermion.circuits.make_general_hwe_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_ldca_circ.html">qat.fermion.circuits.make_ldca_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_mr_circ.html">qat.fermion.circuits.make_mr_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_mrep_circ.html">qat.fermion.circuits.make_mrep_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_shallow_circ.html">qat.fermion.circuits.make_shallow_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molecularhamiltonian.html">qat.fermion.chemistry.wrapper.MolecularHamiltonian</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">qat.fermion.chemistry.wrapper.MoleculeInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compute_active_space_integrals.html">qat.fermion.chemistry.ucc.compute_active_space_integrals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="construct_ucc_ansatz.html">qat.fermion.chemistry.ucc.construct_ucc_ansatz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="convert_to_h_integrals.html">qat.fermion.chemistry.ucc.convert_to_h_integrals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_cluster_ops.html">qat.fermion.chemistry.ucc.get_cluster_ops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_hf_ket.html">qat.fermion.chemistry.ucc.get_hf_ket</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guess_init_params.html">qat.fermion.chemistry.ucc.guess_init_params</a></li>
+<li class="toctree-l4"><a class="reference internal" href="select_active_orbitals.html">qat.fermion.chemistry.ucc.select_active_orbitals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="transform_integrals_to_new_basis.html">qat.fermion.chemistry.ucc.transform_integrals_to_new_basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apply_quantum_subspace_expansion.html">qat.fermion.chemistry.qse.apply_quantum_subspace_expansion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="perform_phase_estimation.html">qat.fermion.phase_estimation.perform_phase_estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_trotterisation_routine.html">qat.fermion.trotterisation.make_trotterisation_routine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="perform_pyscf_computation.html">qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../04_api_reference.html">API reference</a> &raquo;</li>
+          <li><a href="../../module_qat.html">qat</a> &raquo;</li>
+          <li><a href="../module_fermion.html">qat.fermion</a> &raquo;</li>
+      <li>qat.fermion.chemistry.wrapper.MoleculeInfo</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-fermion-chemistry-wrapper-moleculeinfo">
+<h1>qat.fermion.chemistry.wrapper.MoleculeInfo<a class="headerlink" href="#qat-fermion-chemistry-wrapper-moleculeinfo" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.fermion.chemistry.wrapper.MoleculeInfo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.fermion.chemistry.wrapper.</span></span><span class="sig-name descname"><span class="pre">MoleculeInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hamiltonian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="molecularhamiltonian.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian"><span class="pre">MolecularHamiltonian</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_electrons</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noons</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbital_energies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.fermion.chemistry.wrapper.MoleculeInfo" title="Permalink to this definition"></a></dt>
+<dd><p>MoleculeInfo helper class. This class is a even higher level version of the
+<a class="reference internal" href="molecularhamiltonian.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">MolecularHamiltonian</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hamiltonian</strong> (<a class="reference internal" href="molecularhamiltonian.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian"><em>MolecularHamiltonian</em></a>) – The MolecularHamiltonian of the studied molecule.</p></li>
+<li><p><strong>n_electrons</strong> (<em>int</em>) – Number of electrons.</p></li>
+<li><p><strong>noons</strong> (<em>Union</em><em>[</em><em>np.ndarray</em><em>, </em><em>List</em><em>[</em><em>float</em><em>]</em><em>]</em>) – Natural orbital occupation number.</p></li>
+<li><p><strong>orbital_energies</strong> (<em>np.ndarray</em>) – Orbital energies.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="qat.fermion.chemistry.wrapper.MoleculeInfo.nqbits">
+<span class="sig-name descname"><span class="pre">nqbits</span></span><a class="headerlink" href="#qat.fermion.chemistry.wrapper.MoleculeInfo.nqbits" title="Permalink to this definition"></a></dt>
+<dd><p>The total number of qubits.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="qat.fermion.chemistry.wrapper.MoleculeInfo.one_body_integrals">
+<span class="sig-name descname"><span class="pre">one_body_integrals</span></span><a class="headerlink" href="#qat.fermion.chemistry.wrapper.MoleculeInfo.one_body_integrals" title="Permalink to this definition"></a></dt>
+<dd><p>One-body integrals <span class="math notranslate nohighlight">\(I_{uv}\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="qat.fermion.chemistry.wrapper.MoleculeInfo.two_body_integrals">
+<span class="sig-name descname"><span class="pre">two_body_integrals</span></span><a class="headerlink" href="#qat.fermion.chemistry.wrapper.MoleculeInfo.two_body_integrals" title="Permalink to this definition"></a></dt>
+<dd><p>Two-body integrals <span class="math notranslate nohighlight">\(I_{uvwx}\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="qat.fermion.chemistry.wrapper.MoleculeInfo.constant_coeff">
+<span class="sig-name descname"><span class="pre">constant_coeff</span></span><a class="headerlink" href="#qat.fermion.chemistry.wrapper.MoleculeInfo.constant_coeff" title="Permalink to this definition"></a></dt>
+<dd><p>Constant coefficient <span class="math notranslate nohighlight">\(r\)</span> (core repulsion).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="qat.fermion.chemistry.wrapper.MoleculeInfo.hamiltonian">
+<span class="sig-name descname"><span class="pre">hamiltonian</span></span><a class="headerlink" href="#qat.fermion.chemistry.wrapper.MoleculeInfo.hamiltonian" title="Permalink to this definition"></a></dt>
+<dd><p>The <a class="reference internal" href="molecularhamiltonian.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">MolecularHamiltonian</span></code></a> of the studied molecule.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="molecularhamiltonian.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian">MolecularHamiltonian</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="qat.fermion.chemistry.wrapper.MoleculeInfo.n_electrons">
+<span class="sig-name descname"><span class="pre">n_electrons</span></span><a class="headerlink" href="#qat.fermion.chemistry.wrapper.MoleculeInfo.n_electrons" title="Permalink to this definition"></a></dt>
+<dd><p>Number of electrons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="qat.fermion.chemistry.wrapper.MoleculeInfo.noons">
+<span class="sig-name descname"><span class="pre">noons</span></span><a class="headerlink" href="#qat.fermion.chemistry.wrapper.MoleculeInfo.noons" title="Permalink to this definition"></a></dt>
+<dd><p>Natural orbital occupation number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Union[np.ndarray, List[float]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="qat.fermion.chemistry.wrapper.MoleculeInfo.orbital_energies">
+<span class="sig-name descname"><span class="pre">orbital_energies</span></span><a class="headerlink" href="#qat.fermion.chemistry.wrapper.MoleculeInfo.orbital_energies" title="Permalink to this definition"></a></dt>
+<dd><p>Orbital energies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.fermion.chemistry</span> <span class="kn">import</span> <span class="n">MolecularHamiltonian</span><span class="p">,</span> <span class="n">MoleculeInfo</span>
+
+<span class="c1"># For illustration purpose, initialize random one- and two-body integrals, and a constant</span>
+<span class="n">one_body_integral</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">two_body_integral</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">constant</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>
+<span class="n">noons</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">orbital_energies</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># Define the MolecularHamiltonian</span>
+<span class="n">mol_h</span> <span class="o">=</span> <span class="n">MolecularHamiltonian</span><span class="p">(</span><span class="n">one_body_integral</span><span class="p">,</span> <span class="n">two_body_integral</span><span class="p">,</span> <span class="n">constant</span><span class="p">)</span>
+
+<span class="c1"># Define MoleculeInfo</span>
+<span class="n">molecule</span> <span class="o">=</span> <span class="n">MoleculeInfo</span><span class="p">(</span>
+    <span class="n">mol_h</span><span class="p">,</span>
+    <span class="n">n_electrons</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">noons</span><span class="o">=</span><span class="n">noons</span><span class="p">,</span>
+    <span class="n">orbital_energies</span><span class="o">=</span><span class="n">orbital_energies</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">molecule</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MoleculeInfo</span><span class="p">(</span>
+ <span class="o">-</span> <span class="n">MolecularHamiltonian</span><span class="p">(</span>
+    <span class="o">*</span> <span class="n">constant_coeff</span> <span class="p">:</span> <span class="mf">0.33129927338717</span>
+    <span class="o">*</span> <span class="n">integrals</span> <span class="n">shape</span>
+       <span class="o">**</span> <span class="n">one_body_integrals</span> <span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+       <span class="o">**</span> <span class="n">two_body_integrals</span> <span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+   <span class="p">)</span>
+ <span class="o">-</span> <span class="n">n_electrons</span> <span class="o">=</span> <span class="mi">4</span>
+ <span class="o">-</span> <span class="n">noons</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.8581547598493781</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.732819050062052</span><span class="p">,</span> <span class="mf">0.4256123721438503</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11958717062609028</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0945855006449214</span><span class="p">,</span> <span class="mf">0.30536659080837314</span><span class="p">,</span> <span class="mf">0.8044121795965283</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.6205669510937284</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.019303427567053</span><span class="p">,</span> <span class="mf">0.5239441435939519</span><span class="p">]</span>
+ <span class="o">-</span> <span class="n">orbital</span> <span class="n">energies</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.4739213307556298</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.13026477476677145</span><span class="p">,</span> <span class="mf">1.4431554261836255</span><span class="p">,</span> <span class="mf">0.019227516210518353</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9932750661548351</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0776804467267234</span><span class="p">,</span> <span class="mf">1.012172278945679</span><span class="p">,</span> <span class="mf">3.082053440920983</span><span class="p">,</span> <span class="mf">0.2772676817710427</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4437658290232952</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.fermion.chemistry.wrapper.MoleculeInfo.restrict_active_space">
+<span class="sig-name descname"><span class="pre">restrict_active_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold_1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold_2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.fermion.chemistry.wrapper.MoleculeInfo.restrict_active_space" title="Permalink to this definition"></a></dt>
+<dd><p>Same method as the <a class="reference internal" href="molecularhamiltonian.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">MolecularHamiltonian</span></code></a> method
+<a class="reference internal" href="molecularhamiltonian.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian.select_active_space" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian.select_active_space"><code class="xref py py-meth docutils literal notranslate"><span class="pre">select_active_space()</span></code></a>, except it also modifies
+all the molecule parameters accordingly (NOONs, orbital energies, and number of electrons).</p>
+<p>For more information, see <a class="reference internal" href="molecularhamiltonian.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian.select_active_space" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian.select_active_space"><code class="xref py py-meth docutils literal notranslate"><span class="pre">select_active_space()</span></code></a>
+documentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>threshold_1</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) – The upper threshold <span class="math notranslate nohighlight">\(\varepsilon_1\)</span> on
+the NOON of an active orbital.</p></li>
+<li><p><strong>threshold_2</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) – The lower threshold <span class="math notranslate nohighlight">\(\varepsilon_2\)</span> on
+the NOON of an active orbital.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="molecularhamiltonian.html" class="btn btn-neutral float-left" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="compute_active_space_integrals.html" class="btn btn-neutral float-right" title="qat.fermion.chemistry.ucc.compute_active_space_integrals" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

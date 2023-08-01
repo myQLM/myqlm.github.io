@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.qpus.QPUHandler &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="qat.qpus.RemoteQPU" href="remoteqpu.html" />
+    <link rel="prev" title="qat.qpus.get_default_qpu" href="get_default_qpu.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../module_comm.html">qat.comm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../module_qpus.html">qat.qpus</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="%3Amyqlm%3Aclinalg.html">qat.qpus.CLinalg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="classicalqpu.html">qat.qpus.ClassicalQPU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%3Amyqlm%3Apylinalg.html">qat.qpus.PyLinalg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%3Amyqlm%3Asimulatedannealing.html">qat.qpus.SimulatedAnnealing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_current_qpu.html">qat.qpus.get_current_qpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_default_qpu.html">qat.qpus.get_default_qpu</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">qat.qpus.QPUHandler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remoteqpu.html">qat.qpus.RemoteQPU</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../04_api_reference.html">API reference</a> &raquo;</li>
+          <li><a href="../../module_qat.html">qat</a> &raquo;</li>
+          <li><a href="../module_qpus.html">qat.qpus</a> &raquo;</li>
+      <li>qat.qpus.QPUHandler</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-qpus-qpuhandler">
+<h1>qat.qpus.QPUHandler<a class="headerlink" href="#qat-qpus-qpuhandler" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.qpus.QPUHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.qpus.</span></span><span class="sig-name descname"><span class="pre">QPUHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.qpus.QPUHandler" title="Permalink to this definition"></a></dt>
+<dd><p>Abstract class describing the mininmal QPU interface.</p>
+<p>The minimal interface is the implementation of the <cite>submit_job</cite> method:</p>
+<p>This method should return a Result structure corresponding to the execution
+of a Job.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.qpus.QPUHandler.apply_resource_consumption_limits">
+<span class="sig-name descname"><span class="pre">apply_resource_consumption_limits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allocation_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../module_comm/module_resource/allocationmodel.html#qat.comm.resource.ttypes.AllocationModel" title="qat.comm.resource.ttypes.AllocationModel"><span class="pre">AllocationModel</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.qpus.QPUHandler.apply_resource_consumption_limits" title="Permalink to this definition"></a></dt>
+<dd><p>Placeholder: subclasses must implement this</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.qpus.QPUHandler.estimate_resources_for_batch">
+<span class="sig-name descname"><span class="pre">estimate_resources_for_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.wrappers.batch.Batch"><span class="pre">Batch</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../module_comm/module_resource/resourcemodel.html#qat.comm.resource.ttypes.ResourceModel" title="qat.comm.resource.ttypes.ResourceModel"><span class="pre">ResourceModel</span></a></span></span><a class="headerlink" href="#qat.qpus.QPUHandler.estimate_resources_for_batch" title="Permalink to this definition"></a></dt>
+<dd><p>Placeholder: subclasses must implement this.</p>
+<p>QPU classes implement this method to locally compute a
+ResourceModel which tells what resources they will need to
+compute a batch.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.qpus.QPUHandler.get_specs">
+<span class="sig-name descname"><span class="pre">get_specs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.wrappers.hardware_specs.HardwareSpecs"><span class="pre">HardwareSpecs</span></a></span></span><a class="headerlink" href="#qat.qpus.QPUHandler.get_specs" title="Permalink to this definition"></a></dt>
+<dd><p>Returns an empty HardwareSpecs object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.qpus.QPUHandler.serve">
+<span class="sig-name descname"><span class="pre">serve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host_ip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.qpus.QPUHandler.serve" title="Permalink to this definition"></a></dt>
+<dd><p>Runs the QPU inside a server</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> (<em>int</em>) – the port on which to listen</p></li>
+<li><p><strong>host_ip</strong> (<em>str</em>) – the url on which to publish the API. Optional.
+Defaults to ‘localhost’.</p></li>
+<li><p><strong>server_type</strong> (<em>str</em><em>, </em><em>optional</em>) – <p>type of server. The different
+types of server are:</p>
+<blockquote>
+<div><ul>
+<li><p>”simple”: single-thread server, accepts one connection
+at a time (default server type)</p></li>
+<li><p>”threaded”: multi-thread server, each connection
+starts a new thread</p></li>
+<li><p>”pool”: multi-thread server, each connection runs
+in a thread, with a maximum of 10 running threads</p></li>
+<li><p>”fork”: multi-process server, each connection runs
+in a new process</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.qpus.QPUHandler.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.wrappers.batch.Batch"><span class="pre">Batch</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../module_core/batchresult.html#qat.core.BatchResult" title="qat.core.wrappers.result.BatchResult"><span class="pre">BatchResult</span></a></span></span><a class="headerlink" href="#qat.qpus.QPUHandler.submit" title="Permalink to this definition"></a></dt>
+<dd><p>Executes a batch of jobs and returns the corresponding list of Results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>batch</strong> (<a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) – a batch of jobs. If a single job is provided, the
+job is embedded into a Batch, executed, and the first result
+is returned.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a batch result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="../module_core/batchresult.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.qpus.QPUHandler.submit_job">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">submit_job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../module_core/job.html#qat.core.Job" title="qat.core.wrappers.job.Job"><span class="pre">Job</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../module_core/result.html#qat.core.Result" title="qat.core.wrappers.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#qat.qpus.QPUHandler.submit_job" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a Result structure corresponding to the execution of a Job.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notice that the job can be assumed to be already
+compiled/optimized.</p>
+<p>This is the end of the pipe!</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>job</strong> (<a class="reference internal" href="../module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a>) – the job to execute</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="../module_core/result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="get_default_qpu.html" class="btn btn-neutral float-left" title="qat.qpus.get_default_qpu" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="remoteqpu.html" class="btn btn-neutral float-right" title="qat.qpus.RemoteQPU" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

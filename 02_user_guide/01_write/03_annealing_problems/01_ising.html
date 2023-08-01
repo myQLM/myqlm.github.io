@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ising Hamiltonians &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Quadratic Unconstrained Binary Optimization (QUBO)" href="02_qubo.html" />
+    <link rel="prev" title="Annealing programming" href="../03_annealing_problems.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../01_write.html">Writing quantum programs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../01_digital_circuit.html">Gate-based programming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_analog_schedule.html">Analog programming</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../03_annealing_problems.html">Annealing programming</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Ising Hamiltonians</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#bibliography">Bibliography</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="02_qubo.html">Quadratic Unconstrained Binary Optimization (QUBO)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="03_comb_prob.html">General Combinatorial Problems</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../03_observable.html">Creating observables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../02_execute.html">Executing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../../01_write.html">Writing quantum programs</a> &raquo;</li>
+          <li><a href="../03_annealing_problems.html">Annealing programming</a> &raquo;</li>
+      <li>Ising Hamiltonians</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ising-hamiltonians">
+<span id="ising-description"></span><h1>Ising Hamiltonians<a class="headerlink" href="#ising-hamiltonians" title="Permalink to this heading"></a></h1>
+<p>Given <span class="math notranslate nohighlight">\(n\)</span> qubits, a <strong>2-local Ising Hamiltonian</strong> is an operator of the
+form:</p>
+<div class="math notranslate nohighlight">
+\[H = - \sum_{i=1}^{n} h_{i}\sigma_{z}^{i} - \sum_{i,j=1}^{n} J_{ij}\sigma_{z}^{i}\sigma_{z}^{j}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma_{z}^{i} = \begin{pmatrix}1 &amp; 0 \\ 0 &amp; -1 \end{pmatrix}\)</span>,
+<span class="math notranslate nohighlight">\(h\)</span> is a vector of real coefficients usually referred to as the <strong>local magnetic field</strong>,
+and <span class="math notranslate nohighlight">\(J\)</span> is a <strong>real symmetric matrix with a zero diagonal</strong>, usually referred to as the <strong>coupling matrix</strong>.</p>
+<p>This Hamiltonian is the direct <strong>quantization</strong> of the following <strong>classical Ising cost
+function</strong>:</p>
+<div class="math notranslate nohighlight">
+\[H(s_{1},...,s_{n}) = - \sum_{i=1}^{n} h_{i}s_{i} - \sum_{i,j=1}^{n} J_{ij}s_{i}s_{j}\]</div>
+<p>where <span class="math notranslate nohighlight">\(s_{i}\in \{-1,1\}\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>In the <strong>interaction term</strong>, we do <strong>not</strong> restrict the sum to, e.g., <span class="math notranslate nohighlight">\(i &lt; j\)</span>. This is to make the computation of the Ising cost function more straightforward to write using, for instance, standard numpy functions.</p></li>
+<li><p>For clarity and readability, we do not include any <strong>offset constant term</strong> in the definitions above. A definition including this term would be: <span class="math notranslate nohighlight">\(- \sum_{i=1}^{n} h_{i}s_{i} - \sum_{i,j=1}^{n} J_{ij}s_{i}s_{j} + o\)</span>, with <span class="math notranslate nohighlight">\(o\)</span> the offset. Such a term does not change the <strong>optimization landscape</strong>, but might be needed if one wants to <strong>match values</strong> when <strong>converting Ising cost functions into     QUBO instances and vice versa</strong>.</p></li>
+<li><p>In the context of Ising Hamiltonians, qubits are also called <strong>spins</strong>.</p></li>
+</ul>
+</div>
+<p>Quantum annealing machines are typically designed to try and reach the <strong>minimum energy state
+of Ising Hamiltonians</strong>, also called <strong>ground state</strong>, relying on the <strong>Adiabatic Theorem</strong>.
+See for instance <span id="id1">[<a class="reference internal" href="#id3" title="Tameem Albash and Daniel A Lidar. Adiabatic quantum computation. Reviews of Modern Physics, 90(1):015002, 2018. URL: https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.90.015002.">AL18</a>]</span> for a general reference on adiabatic quantum computation.</p>
+<p><strong>Classical annealing codes</strong> like Simulated Quantum Annealing (<a class="reference internal" href="../../02_execute/03_qpu/03_annealing.html#simulated-annealing"><span class="std std-ref">SA</span></a>) try and do the same thing: Given <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(J\)</span> as input, they will, starting from a random configuration, try to apply <strong>updates</strong>, as part of <strong>Markov chain over the configuration space</strong>, in order to look for <strong>low energy states</strong>, where “energy” is defined by the formulas above.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A coupling value <span class="math notranslate nohighlight">\(J &gt; 0\)</span> between two spins <span class="math notranslate nohighlight">\(\sigma_{i}\)</span> and
+<span class="math notranslate nohighlight">\(\sigma_{j}\)</span> can sometimes be called, in our convention, a <strong>ferromagnetic coupling</strong>,
+as the alignment of the two spins onto a same value will tend to <strong>lower the energy</strong> of the system
+making it closer to its <strong>ground state</strong>.</p>
+</div>
+<p>In other words, <strong>quantum annealing machines</strong> and, consequently, <strong>classical annealing codes</strong>, <a class="reference internal" href="../../02_execute/03_qpu/03_annealing.html#simulated-annealing"><span class="std std-ref">SA</span></a>, aim at tackling the following optimization problem:</p>
+<div class="math notranslate nohighlight">
+\[\min_{s_{1}...s_{n}\in \{-1,1\}} \left(- \sum_{i=1}^{n} h_{i}s_{i} - \sum_{i,j=1}^{n} J_{ij}s_{i}s_{j}\right)\]</div>
+<p>given <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(J\)</span> as input.</p>
+<p>To produce such Ising-formulated problems, one can use the <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/ising.html#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.Ising</span></code></a> class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">Ising</span>
+
+<span class="n">problem_size</span> <span class="o">=</span> <span class="mi">6</span>  <span class="c1"># number of qubits for annealing, can reach to 100s even 1000s</span>
+
+<span class="c1"># Problem-specific parameters for Ising</span>
+<span class="c1"># Magnetic field h</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">248</span><span class="p">)</span>
+<span class="n">h_field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">problem_size</span><span class="p">)</span>
+
+<span class="c1"># J-coupling matrix</span>
+<span class="n">any_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">problem_size</span><span class="p">,</span> <span class="n">problem_size</span><span class="p">)</span>
+<span class="n">j_mat</span> <span class="o">=</span> <span class="p">((</span><span class="n">any_mat</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">any_mat</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c1"># make it symmetric</span>
+         <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">any_mat</span><span class="p">)))</span>  <span class="c1"># make it with 0s as the diagonal elements</span>
+
+<span class="c1"># Offset - can be 0</span>
+<span class="n">offset</span> <span class="o">=</span> <span class="mf">2.18</span>
+
+<span class="c1"># Create an Ising problem</span>
+<span class="n">problem_Ising</span> <span class="o">=</span> <span class="n">Ising</span><span class="p">(</span><span class="n">J</span><span class="o">=</span><span class="n">j_mat</span><span class="p">,</span>
+                      <span class="n">h</span><span class="o">=</span><span class="n">h_field</span><span class="p">,</span>
+                      <span class="n">offset_i</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Magnetic field h:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">problem_Ising</span><span class="o">.</span><span class="n">magnetic_field_h</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;J-coupling matrix:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">problem_Ising</span><span class="o">.</span><span class="n">j_coupling_matrix</span><span class="p">)</span>
+
+<span class="c1"># Create a job</span>
+<span class="n">problem_Ising_job</span> <span class="o">=</span> <span class="n">problem_Ising</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">gamma_t</span><span class="o">=</span><span class="n">gamma_t_fun</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="n">tmax</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">An Ising Job has been created - ready to run on an annealing QPU.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Magnetic</span> <span class="n">field</span> <span class="n">h</span><span class="p">:</span>
+<span class="p">[</span><span class="mf">0.69198662</span> <span class="mf">0.48503501</span> <span class="mf">0.02913885</span> <span class="mf">0.56996588</span> <span class="mf">0.84630373</span> <span class="mf">0.99216786</span><span class="p">]</span> 
+
+<span class="n">J</span><span class="o">-</span><span class="n">coupling</span> <span class="n">matrix</span><span class="p">:</span>
+<span class="p">[[</span><span class="mf">0.</span>         <span class="mf">0.72490608</span> <span class="mf">0.36270136</span> <span class="mf">0.21518767</span> <span class="mf">0.43237698</span> <span class="mf">0.53659164</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.72490608</span> <span class="mf">0.</span>         <span class="mf">0.43329047</span> <span class="mf">0.63995666</span> <span class="mf">0.75877295</span> <span class="mf">0.67301865</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.36270136</span> <span class="mf">0.43329047</span> <span class="mf">0.</span>         <span class="mf">0.74051823</span> <span class="mf">0.84432295</span> <span class="mf">0.68663996</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.21518767</span> <span class="mf">0.63995666</span> <span class="mf">0.74051823</span> <span class="mf">0.</span>         <span class="mf">0.76994591</span> <span class="mf">0.78961076</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.43237698</span> <span class="mf">0.75877295</span> <span class="mf">0.84432295</span> <span class="mf">0.76994591</span> <span class="mf">0.</span>         <span class="mf">0.38143552</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.53659164</span> <span class="mf">0.67301865</span> <span class="mf">0.68663996</span> <span class="mf">0.78961076</span> <span class="mf">0.38143552</span> <span class="mf">0.</span>        <span class="p">]]</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">30</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">NameError</span><span class="p">:</span> <span class="n">name</span> <span class="s1">&#39;gamma_t_fun&#39;</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
+</pre></div>
+</div>
+<p>It is also possible to translate the Ising problem to <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/qubo.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.QUBO</span></code></a> via <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/ising.html#qat.opt.Ising.to_qubo" title="qat.opt.Ising.to_qubo"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_qubo()</span></code></a> or to <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a> via <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/ising.html#qat.opt.Ising.to_combinatorial_problem" title="qat.opt.Ising.to_combinatorial_problem"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_combinatorial_problem()</span></code></a>.</p>
+<section id="bibliography">
+<h2>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this heading"></a></h2>
+<div class="docutils container" id="id2">
+<dl class="citation">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">AL18</a></span></dt>
+<dd><p>Tameem Albash and Daniel A Lidar. Adiabatic quantum computation. <em>Reviews of Modern Physics</em>, 90(1):015002, 2018. URL: <a class="reference external" href="https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.90.015002">https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.90.015002</a>.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../03_annealing_problems.html" class="btn btn-neutral float-left" title="Annealing programming" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="02_qubo.html" class="btn btn-neutral float-right" title="Quadratic Unconstrained Binary Optimization (QUBO)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+.. _plugin:
+
+Extending a QPU (by using Plugins)
+==================================
+The QAT (for *Qaptiva Application Toolset*) library defines a concept, named **Plugin**, designed to extend the capabilities of a
+:ref:`QPU <qpu>`. In this framework, QPUs can execute jobs to return a result. This simple behavior reaches its limits when manipulating
+advanced jobs, using a QPU not capable of executing the job (e.g. limited qubits connectivity, limited gate set, etc.)
+
+.. card:: Use case
+   :class-card: qaptiva-use-case
+
+    I want to execute a variational job (e.g. a VQE algorithm) on a QPU which does not support observable measurement. Moreover, my job
+    needs to be transpiled to be executed on my QPU.
+
+    **How to execute a such job?**
+
+    I can use plugins to extend my QPU. My improved QPU will:
+
+     - compile any incomming job
+     - execute variational jobs (e.g. my QPU will use scipy to find the optimal value for any abstract variable)
+     - support observable measurement (e.g. incomming jobs will be decomposed into a list of sample jobs, and by post-processing
+       their result, my QPu will return an averable value)
+
+**Plugins** are objects that can process a flow of quantum jobs on their way to a **QPU**, and/or process a flow of information (samples or values) on their way back from a **QPU**.
+
+Their API is composed of two methods:
+
+    * **compile** for the way in (i.e from the user to the **QPU**).
+      This method will take a :class:`~qat.core.Batch` together with some
+      :class:`~qat.core.HardwareSpecs` and return a new
+      :class:`~qat.core.Batch`.
+    * **post_process** for the way out (i.e from the **QPU** to the user).
+      This method will process a :class:`~qat.core.BatchResult` and return
+      either a :class:`~qat.core.BatchResult` or a new
+      :class:`~qat.core.Batch` that should go back to the **QPU**.
+
+This simple semantics allow to compose **Plugin** to form expressive compilation stacks and extend the features provided by a **QPU**.
+Creating a stack using plugins is quite straightforward:
+
+.. code-block:: python
+
+    my_stack = plugin1 | plugin2 | .. | my_qpu
+
+In this code, when a fresh batch or job is submitted, the batch will run through the *compile* of `plugin1`, the resulting batch will run through the *compile* of `plugin2`, etc. 
+When reaching `my_qpu` the execution will start, and the results will be processed in reversed order on their way back.
+
+Overall the information flow can be summed up as follows:
+
+.. figure:: images/plugin_qpu.png
+    :width: 560px
+    :align: center
+
+|
+
+**Plugins** can be used to perform a wide range of transformation, our library provides a set of plugins defined in :mod:`qat.plugins`
+module but one can define its own plugin 
+
+.. _remote_plugin:
+
+.. dropdown:: Creating a remote Plugin and accessing it
+
+    Any Plugin defined in our framework can be started in server mode, and can be accessed using myQLM or from any other Qaptiva Appliance, using a synchronous connection.
+    This section explains the creation of a server and also how to connect to a remote Plugin
+
+    .. note::
+
+        :ref:`Qaptiva Access <qaptiva_access>` provides advanced tools to create dynamically remote Plugins (and even more) and access it remotely, using an asynchronous connection
+
+    .. tab-set::
+
+        .. tab-item:: Server side
+
+            Any plugin has a method :meth:`~qat.plugins.AbstractPlugin.serve` to start this plugin in server mode. 
+            This method takes the PORT and the IP as arguments. For instance:
+
+            .. code-block:: python
+
+                from qat.plugins import Remap
+
+                # Define a PORT and a IP
+                PORT = 1234
+                IP = "*"
+
+                # Define a plugin
+                plugin = Remap()
+                plugin.serve(PORT, IP)
+
+        .. tab-item:: Client side
+
+            If a distant plugin is started in server mode, our framework can be used as client of a connection. Assuming the server is listening to
+            the port :code:`1234` and the ip of the server is :code:`127.0.0.1`, :class:`~qat.plugins.RemotePlugin` can be used to connect to this server:
+
+            .. code-block:: python
+
+                from qat.plugins import RemotePlugin
+
+                # Define PORT and IP
+                PORT = 1234
+                IP = "127.0.0.1"
+
+                # Define a client
+                plugin = RemotePlugin(PORT, IP)
+
+            .. warning::
+
+                The connection is synchronous, therefore, if the client is disconnected during the pre-processing or the post-processing, result of the execution is lost
+
+A **Plugin** can re-submit batches to the QPU, nevertheless, the *QAT* library provides a subtype of plugin, called **Junction**, providing a more convenient API to design plugins
+resubmitting jobs sequentially (e.g. a plugin optimizing angles of a variational job)
+
+.. warning::
+
+    A plugin can post-process a result. Then, the batch returned by the compilation step may not be equal to the initial batch (the post-process method
+    can be used to repair a result, to return the expected result to the user)
+
+.. autocard::

@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.core.Circuit &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="qat.core.Job" href="job.html" />
+    <link rel="prev" title="qat.core.Batch" href="batch.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../module_comm.html">qat.comm</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../module_core.html">qat.core</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="module_application.html">qat.core.application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_circuit_builder.html">qat.core.circuit_builder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_gate_set.html">qat.core.gate_set</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_qpu.html">qat.core.qpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_spins.html">qat.core.spins</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_variables.html">qat.core.variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="batch.html">qat.core.Batch</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">qat.core.Circuit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="job.html">qat.core.Job</a></li>
+<li class="toctree-l4"><a class="reference internal" href="schedule.html">qat.core.Schedule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="batchresult.html">qat.core.BatchResult</a></li>
+<li class="toctree-l4"><a class="reference internal" href="result.html">qat.core.Result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sample.html">qat.core.Sample</a></li>
+<li class="toctree-l4"><a class="reference internal" href="state.html">qat.core.wrappers.result.State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="observable.html">qat.core.Observable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="term.html">qat.core.Term</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hardwarespecs.html">qat.core.HardwareSpecs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topology.html">qat.core.Topology</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topologytype.html">qat.core.TopologyType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="parameter.html">qat.core.Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="variable.html">qat.core.Variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aggregate_data.html">qat.core.wrappers.result.aggregate_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="assert_plugin.html">qat.core.assertion.assert_plugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="assert_qpu.html">qat.core.assertion.assert_qpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="display.html">qat.core.console.display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="evaluate.html">qat.core.formula_eval.evaluate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_in_notebook.html">qat.core.printer.plot_in_notebook</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../04_api_reference.html">API reference</a> &raquo;</li>
+          <li><a href="../../module_qat.html">qat</a> &raquo;</li>
+          <li><a href="../module_core.html">qat.core</a> &raquo;</li>
+      <li>qat.core.Circuit</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-core-circuit">
+<h1>qat.core.Circuit<a class="headerlink" href="#qat-core-circuit" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.core.Circuit">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">Circuit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gateDic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbqbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbcbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_gate_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_matrices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_dic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qregs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ancilla_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_serialized_gate_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit" title="Permalink to this definition"></a></dt>
+<dd><p>Simple higher level wrapper for the serializable Circuit class.</p>
+<p>This wrapper provides high-level manipulation routines such as variable
+binding or iteration.</p>
+<p>Circuits are usually built using the <cite>.to_circ</cite> method of the
+<a class="reference internal" href="../module_lang/program.html#qat.lang.Program" title="qat.lang.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> class, and are not designed to
+be built by hand.</p>
+<p>The simplest way to explore the content of a circuit is to use the
+<cite>.iterate_simple</cite> method that provides a user friendly sequence of
+instructions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">cbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">calloc</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
+    <span class="n">H</span><span class="p">(</span><span class="n">qb</span><span class="p">)</span>
+<span class="n">RX</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(</span><span class="mi">3</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">reset</span><span class="p">([</span><span class="n">qbits</span><span class="p">[</span><span class="mi">3</span><span class="p">]],</span> <span class="p">[</span><span class="n">cbits</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-C-C-RX&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x1472a5aa00d0</span><span class="o">&gt;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;MEASURE&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RESET&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.bind_variable">
+<span class="sig-name descname"><span class="pre">bind_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gate_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.bind_variable" title="Permalink to this definition"></a></dt>
+<dd><p>Bind variable <cite>v_name</cite> with value <cite>v_value</cite>. Returns a fresh circuit.
+If binding the variable result in a gate becoming fully defined, its matrix
+will be regenerated using the default gate set of pyAQASM (or using a
+custom gate set).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>For performances reasons, this method does not fully
+copy the circuit. In particular, modifying some portions
+of the resulting circuit will have a side effect of the initial
+circuit.
+To avoid this behavior, feel free to deepcopy the circuit beforehand.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v_name</strong> (<em>str</em>) – the variable name</p></li>
+<li><p><strong>v_value</strong> (<em>any</em>) – the value</p></li>
+<li><p><strong>gate_set</strong> (<em>optional</em><em>, </em><a class="reference internal" href="module_gate_set/gateset.html#qat.core.gate_set.GateSet" title="qat.core.gate_set.GateSet"><em>GateSet</em></a>) – a gate set to use to generate the matrices
+for freshly bound gates</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a quantum circuit</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.bind_variables">
+<span class="sig-name descname"><span class="pre">bind_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v_dictionary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gate_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.bind_variables" title="Permalink to this definition"></a></dt>
+<dd><p>Iterates <a class="reference internal" href="#qat.core.Circuit.bind_variable" title="qat.core.Circuit.bind_variable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bind_variable()</span></code></a> over a dictionary of (names, values).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v_dictionary</strong> (<em>map&lt;str</em><em>,</em><em>any&gt;</em>) – the variable names/values dictionary</p></li>
+<li><p><strong>gate_set</strong> (<em>optional</em><em>, </em><a class="reference internal" href="module_gate_set/gateset.html#qat.core.gate_set.GateSet" title="qat.core.gate_set.GateSet"><em>GateSet</em></a>) – a gate set to use to generate the matrices
+for freshly bound gates. If not None, the current gate set will be updated
+and used to fill the matrices</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a quantum circuit.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.compile">
+<span class="sig-name descname"><span class="pre">compile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qpu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.compile" title="Permalink to this definition"></a></dt>
+<dd><p>Compiles the circuit given some QPU or stack.</p>
+<p>If the first argument is a QPU, then this call is equivalent to:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">qpu</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Otherwise, if the first argument is a Plugin, this is equivalent to:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plugin</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">specs</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qpu</strong> (<a class="reference internal" href="../module_qpus/qpuhandler.html#qat.qpus.QPUHandler" title="qat.qpus.QPUHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUHandler</span></code></a> or <a class="reference internal" href="../module_plugins/abstractplugin.html#qat.plugins.AbstractPlugin" title="qat.core.plugins.AbstractPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractPlugin</span></code></a>) – a plugin or a qpu</p></li>
+<li><p><strong>specs</strong> (optional,:class:<cite>~qat.core.HardwareSpecs</cite>) – optionally, some specs (only used when <cite>qpu</cite> is a Plugin)
+kwargs (keyword arguments): these are passed to the <cite>.to_job</cite> method of the circuit</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>a compiled job or a batch of jobs if the compilation produced</dt><dd><p>several jobs</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> or <a class="reference internal" href="batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that the return type is a Job and not a Circuit. This is due to the fact that some Plugins might
+change the sampling directive in the incoming job (e.g. shuffle the order of the measured qubits).</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.count" title="Permalink to this definition"></a></dt>
+<dd><p>Return the number of occurences of a given gate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>gate</strong> (<em>str</em>) – a gate name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a gate count</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.dag">
+<span class="sig-name descname"><span class="pre">dag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dagger_from_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.dag" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the dagger of a circuit.
+This function:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>crawls the gate dictionary and replace subgates by their dagger</p></li>
+<li><p>clears the implementations of these subgates (i.e their matrices, subcircuits, etc)</p></li>
+<li><p>reverts the list of instructions of the circuit</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError if the circuit contains non-unitary instructions</strong> – (i.e classical operations, measurements, etc)</p></li>
+<li><p><strong>ValueError if the circuit contains a gate with no proper</strong> – syntax, or if gate name is not in the <cite>dagger_from_params</cite> map.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>dagger_from_params</strong> (<em>dict</em><em>, </em><em>optional</em>) – a dictionary that maps gate names to
+callable that, given a set of parameters, returns the new parameters that
+implement the dagger of the gate (see example below)</p></li>
+<li><p><strong>kwargs</strong> – any additional keyword arguments are fed to a <a class="reference internal" href="../module_lang/linker.html#qat.lang.linking.Linker" title="qat.lang.linking.linker.Linker"><code class="xref py py-class docutils literal notranslate"><span class="pre">Linker</span></code></a>
+in order to re-generate the various matrices and subcircuits.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Example</div>
+<p class="sd-card-text">By default, the default gate set of pyAQASM is fully supported:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Building a simple circuit</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">H</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">PH</span><span class="p">(</span><span class="mf">1.22</span><span class="p">)(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">RY</span><span class="p">(</span><span class="mf">3.9</span><span class="p">)</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="n">qbits</span><span class="p">)</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">qbits</span><span class="p">)</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Circuit dagger:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">dag</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Circuit</span> <span class="n">dagger</span><span class="p">:</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_10&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_8&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">If the circuit contains custom asbtract gate, one can
+specify a way to change their parameters in order to
+invert them. The following examples shows how to define
+a <span class="math notranslate nohighlight">\(ZZ\)</span> rotation and specify that one needs to flip
+the sign of its angle in order to invert it.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Building a simple circuit</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">ZZ</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;ZZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">H</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">qbits</span><span class="p">)</span>
+<span class="n">ZZ</span><span class="p">(</span><span class="mf">5.334</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="c1"># Default dag function</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Default dagger (default) ===&quot;</span><span class="p">)</span>
+<span class="n">dagger</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">dag</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">gate</span> <span class="ow">in</span> <span class="n">dagger</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">gate</span><span class="p">)</span>
+
+<span class="c1"># Dag rule</span>
+<span class="n">dagger_from_params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;ZZ&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">params</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+<span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Circuit dagger (smarter) ===&quot;</span><span class="p">)</span>
+<span class="n">smart_dagger</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">dag</span><span class="p">(</span><span class="n">dagger_from_params</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">gate</span> <span class="ow">in</span> <span class="n">smart_dagger</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">gate</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">===</span> <span class="n">Default</span> <span class="n">dagger</span> <span class="p">(</span><span class="n">default</span><span class="p">)</span> <span class="o">===</span>
+<span class="p">(</span><span class="s1">&#39;D-ZZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">5.334</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="o">===</span> <span class="n">Circuit</span> <span class="n">dagger</span> <span class="p">(</span><span class="n">smarter</span><span class="p">)</span> <span class="o">===</span>
+<span class="p">(</span><span class="s1">&#39;ZZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">5.334</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.depth">
+<span class="sig-name descname"><span class="pre">depth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gate_times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.depth" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the depth of the quantum circuit.</p>
+<p>The execution time of each gate can either be specified via a dictionary <cite>gate_times</cite> or a list of gates <cite>gates</cite>.</p>
+<p>Via dictionary: each gate has an execution time as specified by the dictionary, or <cite>default</cite> if not in the dictionary.</p>
+<p>Via a list: each gate in the list has execution time 1, all other gates have execution time <cite>default</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gate_times</strong> (<em>optional</em><em>, </em><em>dict</em>) – a dictionary mapping strings to floats</p></li>
+<li><p><strong>gates</strong> (<em>optional</em><em>, </em><em>list</em>) – a list of gate names</p></li>
+<li><p><strong>default</strong> (<em>optional</em><em>, </em><em>float</em>) – the default execution time of all unspecified gates</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the overall execution time of the circuit</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.display">
+<span class="sig-name descname"><span class="pre">display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.display" title="Permalink to this definition"></a></dt>
+<dd><p>Displays the circuit.
+This method adapts to the environment (i.e. notebook or terminal).</p>
+<p>It will call one of the following methods:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="plot_in_notebook.html#qat.core.printer.plot_in_notebook" title="qat.core.printer.plot_in_notebook"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.printer.plot_in_notebook()</span></code></a> if inside a notebook</p></li>
+<li><p><a class="reference internal" href="display.html#qat.core.console.display" title="qat.core.console.display"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.console.display()</span></code></a> if in a terminal</p></li>
+</ul>
+</div></blockquote>
+<p>All kwargs are passed to these methods.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.dump">
+<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.dump" title="Permalink to this definition"></a></dt>
+<dd><p>Dumps the circuit in a binary file (.circ)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fname</strong> (<em>str</em>) – the file name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.empty">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nbqbits</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.empty" title="Permalink to this definition"></a></dt>
+<dd><p>Generates an empty circuit</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nbqbits</strong> (<em>int</em>) – the number of qbits of the circuit</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an empty circuit</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.eval">
+<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.eval" title="Permalink to this definition"></a></dt>
+<dd><p>Turns the Circuit into a Job and calls the .eval method.</p>
+<p>All arguments are passed to the .eval method of the resulting job.</p>
+<p>These two lines are equivalent:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">circuit</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="n">e</span><span class="p">)</span>
+<span class="c1"># and</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.fill_matrices">
+<span class="sig-name descname"><span class="pre">fill_matrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gate_set</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">submatrices_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_default_gate_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.fill_matrices" title="Permalink to this definition"></a></dt>
+<dd><p>Attaches matrices to gates according to the matrix
+generators in <code class="code docutils literal notranslate"><span class="pre">gate_set</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gate_set</strong> (<a class="reference internal" href="module_gate_set/gateset.html#qat.core.gate_set.GateSet" title="qat.core.gate_set.GateSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateSet</span></code></a>) – a gate
+set specifying the matrix generators of the gates present
+in the circuit. Note that if some gate has no corresponding
+entry in the gate set or its signature has no matrix generator,
+no matrix will be attached to its definition.</p></li>
+<li><p><strong>submatrices_only</strong> (<em>bool</em>) – <p>If set to True, only subgate will receive
+matrices. Default to True.</p>
+</p></li>
+<li><p><strong>include_default_gate_set</strong> (<em>bool</em>) – if set to True, the native gate
+set of pyAQASM will be included.
+Default to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.from_bytes">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.from_bytes" title="Permalink to this definition"></a></dt>
+<dd><p>Builds a circuit from raw bytes object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.from_thrift">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_thrift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tobject</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.from_thrift" title="Permalink to this definition"></a></dt>
+<dd><p>Builds a Circuit from a thrift circuit</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="qat.core.Circuit.gate_set">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gate_set</span></span><a class="headerlink" href="#qat.core.Circuit.gate_set" title="Permalink to this definition"></a></dt>
+<dd><p>The gate set used to generate the circuit</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.get_variables">
+<span class="sig-name descname"><span class="pre">get_variables</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.get_variables" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the sorted list of variables appearing in the circuit</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.insert_gate">
+<span class="sig-name descname"><span class="pre">insert_gate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.insert_gate" title="Permalink to this definition"></a></dt>
+<dd><p>Inserts a pyAQASM gate inside the circuit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> (<em>int</em>) – index where to insert the gate</p></li>
+<li><p><strong>gate</strong> (<a class="reference internal" href="../module_lang/gate.html#qat.lang.AQASM.gates.Gate" title="qat.lang.AQASM.gates.Gate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gate</span></code></a>) – a pyAQASM gate (or routine)</p></li>
+<li><p><strong>qbits</strong> (<em>list&lt;int&gt;</em>) – a list of integers</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – all the keyword arguments are fed to the linker</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.iterate_simple">
+<span class="sig-name descname"><span class="pre">iterate_simple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.iterate_simple" title="Permalink to this definition"></a></dt>
+<dd><p>Iterates over the instructions of the circuit in a user friendly way.</p>
+<p>The iterator yields tuples with explicit content.
+Each tuples starts with a keyword or a gate name, followed
+by the arguments of the instruction.</p>
+<p>E.g, a measure of qubits 0 and 1 stored in cbits 2 and 3 would yield:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s2">&quot;MEASURE&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.load">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.load" title="Permalink to this definition"></a></dt>
+<dd><p>Loads a circuit from a binary (.circ) file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fname</strong> (<em>str</em>) – the file name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a circuit</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.remove_locks">
+<span class="sig-name descname"><span class="pre">remove_locks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.remove_locks" title="Permalink to this definition"></a></dt>
+<dd><p>Remove all lock/release placeholders of the circuit.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.run" title="Permalink to this definition"></a></dt>
+<dd><p>Runs the circuit on a qpu.</p>
+<p>The two following lines of code are equivalent:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qpu</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="c1"># and</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qpu</strong> (optional, <a class="reference internal" href="../module_qpus/qpuhandler.html#qat.qpus.QPUHandler" title="qat.qpus.QPUHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUHandler</span></code></a>) – the target qpu. If None, import the default qpu
+(via <a class="reference internal" href="../module_qpus/get_default_qpu.html#qat.qpus.get_default_qpu" title="qat.qpus.get_default_qpu"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_default_qpu()</span></code></a>)</p></li>
+<li><p><strong>kwargs</strong> (<em>keyword arguments</em>) – these are passed to the <cite>.to_job</cite> method of the circuit</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.shift_qbits">
+<span class="sig-name descname"><span class="pre">shift_qbits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.shift_qbits" title="Permalink to this definition"></a></dt>
+<dd><p>Shift all the qbit indexes of the circuit by a given offset.
+Consequently increases the number of qbits by the same offset.</p>
+<p>Acts in place.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>offset</strong> (<em>int</em>) – the offset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.statistics">
+<span class="sig-name descname"><span class="pre">statistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.statistics" title="Permalink to this definition"></a></dt>
+<dd><p>Returns some statistics on the circuit.</p>
+<p>The returned value is a dictionary with a very straightforward content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dictionary</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Circuit.to_job">
+<span class="sig-name descname"><span class="pre">to_job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'SAMPLE'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbshots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggregate_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.094947017729282e-13</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Circuit.to_job" title="Permalink to this definition"></a></dt>
+<dd><p>Generates a Job containing the circuit and some post
+processing information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job_type</strong> (<em>str</em>) – possible values are “SAMPLE” for computational basis sampling
+of some qubits, or “OBS” for observable evaluation
+(see <a class="reference internal" href="observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.core.Observable</span></code></a>
+for more information about this mode).</p></li>
+<li><p><strong>qubits</strong> (<em>optional</em><em>, </em><em>list&lt;int&gt;</em><em>, </em><em>list&lt;QRegister&gt;</em>) – the list of qubits to measure
+(in “SAMPLE” mode).
+If some quantum register is passed instead, all the qubits of the register will be
+measured. Moreover, if the register was “typed”
+(see <a class="reference internal" href="../module_lang/program.html#qat.lang.Program.qalloc" title="qat.lang.Program.qalloc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qat.lang.Program.qalloc()</span></code></a>
+for more information), the results will be cast into the register type.
+Defaults to None,
+meaning all qubits are to be measured.</p></li>
+<li><p><strong>nbshots</strong> (<em>optional</em><em>, </em><em>int</em>) – The number of shots to perform. Defaults to zero.
+If set to zero,
+the convention is that the QPU should do its best: a quantum processor will
+use the largest
+amount of shot authorized by its configuration, while a simulator
+will try to output
+all the possible states constained in the final distribution, together with their
+probabilities (and possible amplitudes).</p></li>
+<li><p><strong>aggregate_data</strong> (<em>optional</em><em>, </em><em>bool</em>) – if set to True, and <cite>nbshots</cite> is not zero,
+the samples will be
+aggregated and their probability field will be used to store their
+observed frequencies of apparition. Defaults to True.</p></li>
+<li><p><strong>amp_threshold</strong> (<em>optional</em><em>, </em><em>double</em>) – amplitude threshold under which states are
+not returned in the result structure. Useful to prune states that
+are unlikely to be measured out of the
+returned samples. Defaults to 1/2^40.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>observable</strong> (<a class="reference internal" href="observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a>) – see
+<a class="reference internal" href="observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a>. Used for the
+“OBS” mode only).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="most-useful-circuit-methods">
+<h2>Most useful Circuit methods<a class="headerlink" href="#most-useful-circuit-methods" title="Permalink to this heading"></a></h2>
+<p>One can easily concatenate two <a class="reference internal" href="#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> objects with the overloaded
+<code class="code docutils literal notranslate"><span class="pre">__add__</span></code> operator (as long as they have the same number of qubits):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_circuit</span> <span class="o">=</span> <span class="n">circuit1</span> <span class="o">+</span> <span class="n">circuit2</span>
+</pre></div>
+</div>
+<p>Tensorial composition is implemented via an overloading of the <code class="code docutils literal notranslate"><span class="pre">__mult__</span></code> operator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kron_circuit</span> <span class="o">=</span> <span class="n">circuit1</span> <span class="o">*</span> <span class="n">circuit2</span>
+</pre></div>
+</div>
+<p>Among the other useful methods, we can find:</p>
+<ul>
+<li><p>The direct generation of a <a class="reference internal" href="job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> object from a circuit using various parameters,
+with the <a class="reference internal" href="#qat.core.Circuit.to_job" title="qat.core.Circuit.to_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_job()</span></code></a> method:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s2">&quot;SAMPLE&quot;</span><span class="p">,</span> <span class="n">nbshots</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">qubits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Serialization/deserialization of a circuit can be done using the <a class="reference internal" href="#qat.core.Circuit.dump" title="qat.core.Circuit.dump"><code class="xref py py-meth docutils literal notranslate"><span class="pre">dump()</span></code></a>
+and <a class="reference internal" href="#qat.core.Circuit.load" title="qat.core.Circuit.load"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load()</span></code></a> methods:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">circuit</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="s2">&quot;my_circuit.circ&quot;</span><span class="p">)</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">Circuit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;my_circuit.circ&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Binding of abstract variables using the <a class="reference internal" href="#qat.core.Circuit.bind_variables" title="qat.core.Circuit.bind_variables"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bind_variables()</span></code></a> method:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_circuit</span> <span class="o">=</span> <span class="n">circuit</span><span class="p">(</span><span class="n">theta</span><span class="o">=</span><span class="mf">0.34</span><span class="p">)</span>
+<span class="c1"># or, equivalently</span>
+<span class="n">new_circuit</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">bind_variables</span><span class="p">({</span><span class="n">theta</span><span class="p">:</span> <span class="mf">0.34</span><span class="p">})</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<section id="iterating-of-a-circuit">
+<h3>Iterating of a Circuit<a class="headerlink" href="#iterating-of-a-circuit" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Iterating over the instructions using the <a class="reference internal" href="#qat.core.Circuit.iterate_simple" title="qat.core.Circuit.iterate_simple"><code class="xref py py-meth docutils literal notranslate"><span class="pre">iterate_simple()</span></code></a> method</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qftarith</span> <span class="kn">import</span> <span class="n">QFT</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">QFT</span><span class="p">(</span><span class="mi">4</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">measure</span><span class="p">([</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">instruction</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">instruction</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-PH&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.5707963267948966</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-PH&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.7853981633974483</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-PH&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.39269908169872414</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-PH&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.5707963267948966</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-PH&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.7853981633974483</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;C-PH&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.5707963267948966</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;MEASURE&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RESET&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[])</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Iterating over raw instructions (for advanced usage):</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.qftarith</span> <span class="kn">import</span> <span class="n">QFT</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">QFT</span><span class="p">(</span><span class="mi">4</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">measure</span><span class="p">([</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">instruction</span> <span class="ow">in</span> <span class="n">circuit</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">instruction</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_2&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_4&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_6&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_2&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_4&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;_2&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Op</span><span class="p">(</span><span class="n">gate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cbits</span><span class="o">=</span><span class="p">[],</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="qubits-and-cbits">
+<h3>Qubits and cbits<a class="headerlink" href="#qubits-and-cbits" title="Permalink to this heading"></a></h3>
+<p>The number of qubits and classical bits declared in the circuit can be accessed like so:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">circuit</span><span class="o">.</span><span class="n">nbqbits</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">nbcbits</span>
+</pre></div>
+</div>
+<p>At circuit generation, the convention is to extend the number of classical bits to match the number
+of declared qubits. So it might be that your didn’t declare any cbits in pyAQASM, and still end up
+with a non-zero number of classical bits.</p>
+<p>The field <cite>nbqbits</cite> might also be extended to match the total number of qbits used by the circuit
+(for instance if a sub-routine is using some ancillae that are dynamically allocated at
+inlining/emulation/execution).</p>
+<p>This extension requires to emulate the flow of the circuit.</p>
+<p>All quantum registers declared in pyAQASM can be found in the <cite>.qregs</cite> field.
+The type of these registers is also stored in the QReg structure:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">qreg</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">qregs</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Register of length </span><span class="si">{}</span><span class="s2"> starting at </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">qreg</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="n">qreg</span><span class="o">.</span><span class="n">start</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Please refer <a class="reference internal" href="../../../02_user_guide/01_write/01_digital_circuit/04_routines/03_oracles.html#oracles"><span class="std std-ref">this section of the user guide regarding quantum types</span></a> for more
+information on registers.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="batch.html" class="btn btn-neutral float-left" title="qat.core.Batch" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="job.html" class="btn btn-neutral float-right" title="qat.core.Job" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

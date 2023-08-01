@@ -1,0 +1,144 @@
+.. _observable:
+
+Creating observables
+====================
+
+Observables
+...........
+
+As mentioned in the :ref:`job section <job>`, it is possible to construct a :class:`~qat.core.Job`
+requiring the sampling of some observable on the final state produced by a quantum circuit.
+The :class:`~qat.core.Observable` class provides a basic interface to declare observables.
+
+.. run-block:: python
+
+    from qat.core import Observable, Term
+
+    my_observable = Observable(4, # A 4 qubits observable
+                               pauli_terms=[
+                                   Term(1., "ZZ", [0, 1]),
+                                   Term(4., "XZ", [2, 0]),
+                                   Term(3., "ZXZX", [0, 1, 2, 3])
+                               ],
+                               constant_coeff=23.)
+    print(my_observable)
+
+
+Observables operations
+......................
+
+
+Observables can be added and multiplied by a scalar:
+
+.. dropdown:: Observable basic arithmetic
+
+    .. run-block:: python
+
+        from qat.core import Observable, Term
+
+        obs1 = Observable(2, pauli_terms=[Term(1., "ZZ", [0, 1])], constant_coeff=1.)
+        obs2 = Observable(2, pauli_terms=[Term(1., "X", [0])], constant_coeff=2.)
+
+        print(obs1 + obs2)
+
+
+    .. run-block:: python
+
+        from qat.core import Observable, Term
+
+        obs1 = Observable(2, pauli_terms=[Term(1., "ZZ", [0, 1])])
+
+        print(4 * obs1)
+
+They can be composed via tensor product using the `^` `__xor__` operator:
+
+.. dropdown:: Observable composition
+
+    .. run-block:: python
+
+        from qat.core import Observable, Term
+
+        obs1 = Observable(2, pauli_terms=[Term(1., "ZZ", [0, 1])])
+        obs2 = Observable(2, pauli_terms=[Term(1., "X", [0])])
+
+        print(obs1 ^ obs2)
+
+The commutator of two observables can be computed using the `|` `__or__` operator:
+
+.. dropdown:: Observable commutation
+
+    .. run-block:: python
+
+        from qat.core import Observable, Term
+
+        obs1 = Observable(2, pauli_terms=[Term(1., "ZZ", [0, 1])])
+        obs2 = Observable(2, pauli_terms=[Term(1., "X", [0])])
+
+        print(obs1 | obs2)
+
+
+Single term observables
+.......................
+
+
+Simple observables containing only one Pauli terms can be created with the `sigma_x`, `sigma_y` and
+`sigma_z` class methods (or equivalently, `x`, `y` and `z`):
+
+
+.. dropdown:: Shorthand single Pauli term notation
+
+    .. tab-set::
+
+        .. tab-item:: sigma_{x, y, z} notation
+
+            .. run-block:: python
+
+                from qat.core import Observable
+
+                obs1 = Observable.sigma_x(0)
+                obs2 = Observable.sigma_y(1)
+                obs3 = Observable.sigma_z(0, nbqbits=2)
+
+                print("obs1:", obs1)
+                print("obs2:", obs2)
+                print("obs3:", obs3)
+
+        .. tab-item:: {x, y, z} notation
+
+            .. run-block:: python
+
+                from qat.core import Observable
+
+                obs1 = Observable.x(0)
+                obs2 = Observable.y(1)
+                obs3 = Observable.z(0, nbqbits=2)
+
+                print("obs1:", obs1)
+                print("obs2:", obs2)
+                print("obs3:", obs3)
+
+    Of course those simple observable can be composed by using previously seen operators in order
+    to get more complex ones.
+
+    .. run-block:: python
+
+        from qat.core import Observable
+
+        obs1 = Observable.sigma_z(0)
+        obs2 = Observable.x(0)
+
+        print(((obs1 ^ obs2) + 3) * 2)
+
+
+Using an observable
+...................
+
+Once written, observables can be attached to a circuit to form an observable sampling job
+(see the :ref:`job section <job>` for more examples):
+
+.. code-block:: python
+
+    from qat.core import Observable, Term
+
+    obs = Observable(2, pauli_terms=[Term(1., "ZZ", [0, 1])])
+    job = circuit.to_job(observable=obs, nbshots=2048)

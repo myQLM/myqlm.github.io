@@ -1,0 +1,89 @@
+.. module:: qat.core
+
+qat.core
+========
+
+This module provides the core data structures and functions needed in the framework. 
+
+.. autosubmodules::
+    :maxdepth: 1
+
+
+Objects for writing a job
+-------------------------
+
+Following are used to send a circuit/schedule or a set of circuits/schedules to a plugin or to a
+QPU. The circuit is then compiled or executed. The :class:`~qat.core.Job` class is used to send a
+single :class:`~qat.core.Circuit` or :class:`~qat.core.Schedule` to a QPU whereas the
+:class:`~qat.core.Batch` class is used to send several :class:`~qat.core.Circuit` objects
+or several :class:`~qat.core.Schedule` objects at the same time.
+
+.. autoapi::
+
+    [:class:`qat.core.Batch`] Collection of :class:`~qat.core.Job` objects
+    [:class:`qat.core.Circuit`] Quantum circuit describing a collection of gates
+    [:class:`qat.core.Job`] Job that can be processed by a QPU
+    [:class:`qat.core.Schedule`] Encoding of time-dependent Hamiltonians
+
+
+Objects for parsing a job result
+--------------------------------
+
+.. autoapi::
+
+    [:class:`qat.core.BatchResult`] Collection of :class:`~qat.core.Result` objects
+    [:class:`qat.core.Result`] Result of a quantum processing
+    [:class:`qat.core.Sample`] One sample of the :class:`~qat.core.Result` of a quantum processing
+    [:class:`qat.core.wrappers.result.State`] Represents a *classical* state
+
+
+Observable-related objects
+--------------------------
+
+Observables are objects implementing the concept of a quantum mechanical observable :math:`\hat{O}`.
+They can be written in qubit (Pauli matrices) representation as well as others (fermions, bosons).
+
+.. autoapi::
+
+    [:class:`qat.core.Observable`] Describes an observable over the Hilbert space spanned by a list of qbits
+    [:class:`qat.core.Term`] One term in the Pauli basis of an :class:`~qat.core.Observable`
+
+
+Hardware specifications
+-----------------------
+
+Hardware specifications are described by the class :class:`~qat.core.HardwareSpecs`.
+
+.. autoapi::
+
+    [:class:`qat.core.HardwareSpecs`] Hardware specification of a quantum processor
+    [:class:`qat.core.Topology`] Describes the topology of a quantum processor
+    [:class:`qat.core.TopologyType`] Enumeration describing the type of a :class:`~qat.core.Topology`
+
+
+Variables and Parameters
+------------------------
+
+When defining a variational circuit, pyAQASM provides its own way to declare variables (via the
+:meth:`qat.lang.Program.new_var` method). However, it is possible to turn most parts of a Job
+into a parametrized quantity using :class:`~qat.core.Variable` objects.
+
+.. autoapi::
+
+    [:class:`qat.core.Parameter`] Time-dependent parameter than can be included within a :class:`~qat.core.Schedule`
+    [:class:`qat.core.Variable`] Typed variable, which can :class:`~qat.core.variables.ArithExpression` objects
+
+More utilities on :class:`~qat.core.Variable` objects are documented in :mod:`qat.core.variables`.
+
+
+Misc. utilities
+---------------
+
+.. autoapi::
+
+    [:func:`qat.core.console.display`] Displays a circuit on the terminal using ASCII art
+    [:func:`qat.core.printer.plot_in_notebook`] Displays a circuit inside a Jupyter notebook
+    [:func:`qat.core.formula_eval.evaluate`] Evaluate a logical formula
+    [:func:`qat.core.assertion.assert_qpu`] Ensure an assertion is valid (to be used in a QPU)
+    [:func:`qat.core.assertion.assert_plugin`] Ensure an assertion is valid (to be used in a Plugin)
+    [:func:`qat.core.wrappers.result.aggregate_data`] Aggregate data

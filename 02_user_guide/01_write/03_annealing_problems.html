@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Annealing programming &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../static/documentation_options.js"></script>
+        <script src="../../static/jquery.js"></script>
+        <script src="../../static/underscore.js"></script>
+        <script src="../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../static/doctools.js"></script>
+        <script src="../../static/sphinx_highlight.js"></script>
+        <script src="../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Ising Hamiltonians" href="03_annealing_problems/01_ising.html" />
+    <link rel="prev" title="Analog Jobs" href="02_analog_schedule/03_an_jobs.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../01_write.html">Writing quantum programs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="01_digital_circuit.html">Gate-based programming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_analog_schedule.html">Analog programming</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Annealing programming</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="03_annealing_problems/01_ising.html">Ising Hamiltonians</a></li>
+<li class="toctree-l4"><a class="reference internal" href="03_annealing_problems/02_qubo.html">Quadratic Unconstrained Binary Optimization (QUBO)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="03_annealing_problems/03_comb_prob.html">General Combinatorial Problems</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="03_observable.html">Creating observables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../02_execute.html">Executing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../01_write.html">Writing quantum programs</a> &raquo;</li>
+      <li>Annealing programming</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="annealing-programming">
+<span id="id1"></span><h1>Annealing programming<a class="headerlink" href="#annealing-programming" title="Permalink to this heading"></a></h1>
+<p>Many real life problems are combinatorial and can be formulated as minimization or maximization problems, i.e. with a cost function. At the same time finding the lowest energy of a physical system, represented by a cost Hamiltonian, is also a minimization problem. Due to this intimate relation, problems described with a cost function (<a class="reference internal" href="03_annealing_problems/02_qubo.html#qubo-description"><span class="std std-ref">QUBO</span></a>) or a cost Hamiltonian (<a class="reference internal" href="03_annealing_problems/01_ising.html#ising-description"><span class="std std-ref">Ising</span></a>) could be solved by simulating the process of finding their minimum energy. This process is called <em>annealing</em> and the lowest energy found should contain the solution to our problem.</p>
+<p>The following sections present the definitions of <a class="reference internal" href="03_annealing_problems/01_ising.html#ising-description"><span class="std std-ref">Ising Hamiltonians</span></a>, <a class="reference internal" href="03_annealing_problems/02_qubo.html#qubo-description"><span class="std std-ref">QUBO</span></a> cost functions and general <a class="reference internal" href="03_annealing_problems/03_comb_prob.html#comb-prob-description"><span class="std std-ref">Combinatorial problems</span></a>, how to encode them, along with our conventions regarding their precise formulation  (see also this <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fintroduction_combinatorial_optimization_myqlm.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">introductory notebook</a>).
+Once encoded, the problems can be sent to a <a class="reference internal" href="../02_execute/03_qpu/03_annealing.html#simulated-annealing"><span class="std std-ref">Simulated Annealer</span></a> for execution.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-3 sd-row-cols-xs-3 sd-row-cols-sm-3 sd-row-cols-md-3 sd-row-cols-lg-3 sd-g-4 sd-g-xs-4 sd-g-sm-4 sd-g-md-4 sd-g-lg-4 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Ising Hamiltonians</div>
+</div>
+<a class="sd-stretched-link reference internal" href="03_annealing_problems/01_ising.html"><span class="doc"></span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Quadratic Unconstrained Binary Optimization (QUBO)</div>
+</div>
+<a class="sd-stretched-link reference internal" href="03_annealing_problems/02_qubo.html"><span class="doc"></span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+General Combinatorial Problems</div>
+</div>
+<a class="sd-stretched-link reference internal" href="03_annealing_problems/03_comb_prob.html"><span class="doc"></span></a></div>
+</div>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="02_analog_schedule/03_an_jobs.html" class="btn btn-neutral float-left" title="Analog Jobs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="03_annealing_problems/01_ising.html" class="btn btn-neutral float-right" title="Ising Hamiltonians" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

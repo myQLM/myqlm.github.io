@@ -1,0 +1,156 @@
+.. _custom-plugin:
+
+Make your own plugin
+====================
+In our framework, a Plugin class should inherit from :class:`qat.plugins.AbstractPlugin` which defined the following
+methods:
+
+ - Method :meth:`~qat.plugins.AbstractPlugin.compile` *required*, this method takes a :class:`~qat.core.Batch` and a
+   :class:`~qat.core.HardwareSpecs` and returns a :class:`~qat.core.Batch`. This **compile** method (way in) will pre-process
+   any batch before executing it on the QPU
+
+ - Method :meth:`~qat.plugins.AbstractPlugin.post_process` *optional*, this method takes a :class:`~qat.core.BatchResult` and returns
+   either a :class:`~qat.core.BatchResult` or a :class:`~qat.core.Batch`. This **post_process** method (way out) will post-process
+   the result returned by the QPU. If this method returns a :class:`~qat.core.Batch`, this new batch will be resubmitted to the QPU,
+   otherwise the new result is returned to the user
+
+.. dropdown:: Raising exception in the code
+
+    A Plugin can raise a :class:`~qat.comm.exceptions.ttypes.PluginException`. A plugin can be accessed remotly (using
+    :ref:`Qaptiva Access <qaptiva_access>` or by starting the Plugin in server mode). This exception can be serialized and re-raised on
+    the client side
+
+    A :class:`~qat.comm.exceptions.ttypes.PluginException` can be raised using :func:`~qat.core.assertion.assert_plugin`
+
+    .. code-block:: python
+
+        from qat.core.assertion import assert_plugin
+
+        # If my_condition() returns False: raises a PluginException
+        # If my_condition() returns True: do nothing
+        assert_plugin(my_condition(), "Error message")
+
+Method compile
+--------------
+Method :meth:`~qat.plugins.AbstractPlugin.compile` is the only required method. This function takes
+two parameters:
+
+ - An argument of type :class:`~qat.core.Batch` defining what should be executed by the QPU
+ - An argument of type :class:`~qat.core.HardwareSpecs` giving the :ref:`capabilities of the QPU <hardware-specs>`. This argument is given
+   by the :meth:`~qat.qpus.QPUHandler.get_specs` method of the QPU. This object contains some information on the QPU
+   and can be used to adapt the compilation stage
+
+This function should return a :class:`~qat.core.Batch` that will be executed by the rest of the stack
+
+.. run-block:: python
+
+    from qat.core.plugins import AbstractPlugin
+
+    class MyPlugin(AbstractPlugin):
+        def compile(self, batch, hardware_specs):
+            # Do something with the batch of jobs `batch`, and, optionally, the specs
+            return batch
+
+
+Method post_process
+-------------------
+Method :meth:`~qat.plugins.AbstractPlugin.post_process` is an optional method. This function takes a :class:`~qat.core.BatchResult`
+(i.e. a list of :class:`~qat.core.Result`) and returns either a:
+
+ - A :class:`~qat.core.BatchResult`: the result is then returned to the user (and post-processed by plugins placed before in the stack, if
+   any)
+ - A :class:`~qat.core.Batch`: the result is resubmitted to the QPU (and pre-processed by plugins placed between the current plugin and
+   the QPU)
+
+This function is designed to repair the result if needed. For instance, the :meth:`~qat.plugins.AbstractPlugin.compile` method can
+return an equivalent batch (which is not equal), the result can then be repaired using :meth:`~qat.plugins.AbstractPlugin.post_process`
+to ensure that the result returned to the user correspond to expected result of the initial *not compiled* batch
+
+.. run-block:: python
+
+    from qat.core.plugins import AbstractPlugin
+
+    class MyPlugin(AbstractPlugin):
+        def compile(self, batch, hardware_specs):
+            # Do something with the batch of jobs `batch`, and, optionally, the specs
+            return batch
+
+        def post_process(self, batch_result):
+            # Do something with the execution result
+            return batch_result
+
+.. note::
+
+    Any plugin has a :meth:`~qat.plugins.AbstractPlugin.do_post_processing` method. This method is used to check if the plugin
+    must repair the result before returning it to the user (this function does not take any parameter and returns a boolean).
+
+    If a delocalized plugin (i.e. distant plugin) is used in a stack, this function will be used to check if the remote plugin needs to
+    do post-processing. If the remote plugin does not need to do post-processing, the result is not send to this plugin, saving
+    a lot of time
+
+A concrete example
+------------------
+This section provides an example of plugin displaying debug information to the screen. This plugin will:
+
+ - print all circuits submitted to the QPU. This function will loop of over the jobs composing the
+   batch and print the circuit for each job
+ - print the result of the computation. This function will loop over the results composing the batch-result
+   and print the samples for each result
+
+The plugin will look like:
+
+.. run-block-mem:: python example-custom-plugin
+
+    from qat.core.plugins import AbstractPlugin
+
+    class MyPlugin(AbstractPlugin):
+        def compile(self, batch, hardware_specs):
+            # For each job
+            for index, job in enumerate(batch):
+                print(f">> Job #{index}")
+
+                # Print the circuit (i.e. printing each gate)
+                for op in job.circuit.iterate_simple():
+                    print(op)
+
+            # Return compiled batch
+            return batch
+
+        def post_process(self, batch_result):
+            # For each result
+            for index, result in enumerate(batch_result):
+                print(f">> Result #{index} - result of size {len(result)}")
+
+                # Print the result (i.e. print each sample)
+                for sample in result:
+                    print(sample.state, sample.probability)
+
+            return batch_result
+
+This plugin can be used with any QPU, by using the pipe operator. The following example creates a QPU using
+:func:`~qat.qpus.get_default_qpu` as execution engine but pre-processing and post-processing jobs using our plugin
+
+.. run-block-mem:: python example-custom-plugin
+
+    from qat.qpus import get_default_qpu
+
+    my_qpu = MyPlugin() | get_default_qpu()
+
+This QPU can be used to execute a GHZ circuit
+
+.. run-block-mem:: python example-custom-plugin
+
+    from qat.lang import qrout, H, CNOT
+
+    @qrout
+    def ghz():
+        H(0)
+        CNOT(0, 1)
+        CNOT(1, 2)
+
+    all_results = my_qpu.submit([ghz.to_job()] * 3)
+
+    print("\n===== Final result =====")
+
+    for result in all_results:
+        print(result)

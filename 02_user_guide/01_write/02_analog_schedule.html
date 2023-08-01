@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analog programming &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../static/documentation_options.js"></script>
+        <script src="../../static/jquery.js"></script>
+        <script src="../../static/underscore.js"></script>
+        <script src="../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../static/doctools.js"></script>
+        <script src="../../static/sphinx_highlight.js"></script>
+        <script src="../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Building schedules" href="02_analog_schedule/01_building_schedules.html" />
+    <link rel="prev" title="Atos Quantum Assembler (AQASM)" href="01_digital_circuit/05_aqasm.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../01_write.html">Writing quantum programs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="01_digital_circuit.html">Gate-based programming</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Analog programming</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#background">Background</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#creating-analog-jobs">Creating analog Jobs</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="02_analog_schedule/01_building_schedules.html">Building schedules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="02_analog_schedule/02_manip_schedules.html">Manipulating schedules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="02_analog_schedule/03_an_jobs.html">Analog Jobs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="03_annealing_problems.html">Annealing programming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_observable.html">Creating observables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../02_execute.html">Executing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../01_write.html">Writing quantum programs</a> &raquo;</li>
+      <li>Analog programming</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="schedules-section"></span><section id="analog-programming">
+<h1>Analog programming<a class="headerlink" href="#analog-programming" title="Permalink to this heading"></a></h1>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this heading"></a></h2>
+<p>Beneath every physical realization of a digital quantum circuit lies an analog execution of a Hamiltonian. To represent the gates in the circuit, different parts of this Hamiltonian correspond to, for example, very specific changes in the magnetic field experienced by the qubits. In general, however, these changes need not be that specific. In fact, the way a quantum hardware can vary the magnetic field is only limited by its physical capabilities. This enables the device to perform all sorts of operations, hence realize a large variety of Hamiltonians. Most of these would not correspond to quantum gates or whole circuits, but would still have rich properties with actual practical applications. Some of them would even describe quantum systems from the fields of Quantum Chemistry and Materials Science and are often interesting to explore on their own (for example finding a <span class="xref std std-ref">ground state energy</span>). Therefore, being able to encode and evolve a general Hamiltonian in an analog manner can open the door for answers which digital quantum computation alone may struggle to give.</p>
+</section>
+<section id="creating-analog-jobs">
+<h2>Creating analog Jobs<a class="headerlink" href="#creating-analog-jobs" title="Permalink to this heading"></a></h2>
+<p>Qaptiva comes with a module for analog quantum computations which consists in specifying the <em>analog</em> controls of the quantum computer in order to simulate the evolution of a general Hamiltonian with or without defects. The way one can steer an analog quantum computation is very similar to the digital quantum computation framework:</p>
+<ol class="arabic simple">
+<li><p>Just like a (digital) quantum <a class="reference internal" href="../../04_api_reference/module_qat/module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a>, one can describe a Hamiltonian <span class="math notranslate nohighlight">\(H\)</span> with a high-level of abstraction via an (analog) quantum <a class="reference internal" href="02_analog_schedule/01_building_schedules.html#building-schedules-sec"><span class="std std-ref">Schedule</span></a>. In general, <span class="math notranslate nohighlight">\(H\)</span> can be time-dependent and can always be decomposed as</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[H(t) = \sum_i \lambda_i(t) H_i\]</div>
+<p>with <span class="math notranslate nohighlight">\(\lambda_i(t)\)</span> a time-dependent analog control field and <span class="math notranslate nohighlight">\(H_i\)</span> a Hermitian operator (implemented as an <a class="reference internal" href="../../04_api_reference/module_qat/module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a> object).</p>
+<ol class="arabic simple" start="2">
+<li><p>A <a class="reference internal" href="../../04_api_reference/module_qat/module_core/schedule.html#qat.core.Schedule" title="qat.core.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a> is transformed to a quantum <a class="reference internal" href="../../04_api_reference/module_qat/module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> which can optionally contain an observable to be measured on the final quantum state. For analog jobs one can also specify a list of many <code class="code docutils literal notranslate"><span class="pre">observables</span></code> in the <a class="reference internal" href="../../04_api_reference/module_qat/module_core/schedule.html#qat.core.Schedule.to_job" title="qat.core.Schedule.to_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_job()</span></code></a> method of the <a class="reference internal" href="../../04_api_reference/module_qat/module_core/schedule.html#qat.core.Schedule" title="qat.core.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a>.</p></li>
+<li><p>The <a class="reference internal" href="../../04_api_reference/module_qat/module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> is then sent to an analog QPU which comes with a hardware model that describes its physical properties. Analog QPUs are available in the full Qaptiva™ appliance.</p></li>
+</ol>
+<p>The following sections present examples on how one can encode Schedules, use arithmetic operations between them and send them to a dedicated <span class="xref std std-ref">analog QPU</span> for simulation.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-3 sd-row-cols-xs-3 sd-row-cols-sm-3 sd-row-cols-md-3 sd-row-cols-lg-3 sd-g-4 sd-g-xs-4 sd-g-sm-4 sd-g-md-4 sd-g-lg-4 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Building schedules</div>
+</div>
+<a class="sd-stretched-link reference internal" href="02_analog_schedule/01_building_schedules.html"><span class="doc"></span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Manipulating schedules</div>
+</div>
+<a class="sd-stretched-link reference internal" href="02_analog_schedule/02_manip_schedules.html"><span class="doc"></span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Analog Jobs</div>
+</div>
+<a class="sd-stretched-link reference internal" href="02_analog_schedule/03_an_jobs.html"><span class="doc"></span></a></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="01_digital_circuit/05_aqasm.html" class="btn btn-neutral float-left" title="Atos Quantum Assembler (AQASM)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="02_analog_schedule/01_building_schedules.html" class="btn btn-neutral float-right" title="Building schedules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

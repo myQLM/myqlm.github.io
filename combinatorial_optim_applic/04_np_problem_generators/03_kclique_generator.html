@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K-Clique Generator &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../static/documentation_options.js"></script>
+        <script src="../../static/jquery.js"></script>
+        <script src="../../static/underscore.js"></script>
+        <script src="../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../static/doctools.js"></script>
+        <script src="../../static/sphinx_highlight.js"></script>
+        <script src="../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Vertex Cover Generator" href="04_vertex_cover_generator.html" />
+    <link rel="prev" title="Graph Partitioning Generator" href="02_graph_partitioning_generator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../02_user_guide/01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02_user_guide/02_execute.html">Executing quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../fermion.html">Spin and fermionic systems</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../combinatorial_optim_applic.html">Combinatorial optimization</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../01_np_probs_for_annealing.html">NP-hard problems</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../02_qaoa.html">Quantum Approximate Optimization Algorithm (QAOA)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../03_qa.html">Quantum Annealing (QA)</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../04_np_problem_generators.html">Problem generators</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="../04_np_problem_generators.html#np-hard-problems-generators">NP-hard problems generators</a><ul class="current">
+<li class="toctree-l6"><a class="reference internal" href="01_max_cut_generator.html">Max Cut Generator</a></li>
+<li class="toctree-l6"><a class="reference internal" href="02_graph_partitioning_generator.html">Graph Partitioning Generator</a></li>
+<li class="toctree-l6 current"><a class="current reference internal" href="#">K-Clique Generator</a></li>
+<li class="toctree-l6"><a class="reference internal" href="04_vertex_cover_generator.html">Vertex Cover Generator</a></li>
+<li class="toctree-l6"><a class="reference internal" href="05_graph_colouring_generator.html">Graph Colouring Generator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../interoperability_annealing.html">Interoperability with annealing framework</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../../combinatorial_optim_applic.html">Combinatorial optimization</a> &raquo;</li>
+          <li><a href="../04_np_problem_generators.html">Problem generators</a> &raquo;</li>
+      <li>K-Clique Generator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="k-clique-generator">
+<span id="kclique-generator"></span><h1>K-Clique Generator<a class="headerlink" href="#k-clique-generator" title="Permalink to this heading"></a></h1>
+<p>Given an undirected graph with vertex set <span class="math notranslate nohighlight">\(V\)</span> and edge set <span class="math notranslate nohighlight">\(E\)</span>, K-Clique consists in finding out whether there exists a complete subgraph of size <span class="math notranslate nohighlight">\(K\)</span>. Annealing the problem requires <span class="math notranslate nohighlight">\(\#V\)</span> spins (one spin per vertex).</p>
+<p>The <a class="reference internal" href="../../04_api_reference/module_qat/module_generators/kcliquegenerator.html#qat.generators.KCliqueGenerator" title="qat.opt.generators.KCliqueGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">KCliqueGenerator</span></code></a> can be used to generate batches to solve the K-Clique problem on
+an input graph. Some examples using different types of job generation and QPUs on some simple graphs are shown below:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+QAOA job generation</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.generators</span> <span class="kn">import</span> <span class="n">KCliqueGenerator</span>
+<span class="kn">from</span> <span class="nn">qat.plugins</span> <span class="kn">import</span> <span class="n">ScipyMinimizePlugin</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
+
+<span class="n">scipy_args</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;COBYLA&quot;</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;maxiter&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">})</span>
+<span class="n">kclique_application</span> <span class="o">=</span> <span class="n">KCliqueGenerator</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s2">&quot;qaoa&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">ScipyMinimizePlugin</span><span class="p">(</span><span class="o">**</span><span class="n">scipy_args</span><span class="p">)</span> <span class="o">|</span> <span class="n">get_default_qpu</span><span class="p">())</span>
+<span class="n">combinatorial_result</span> <span class="o">=</span> <span class="n">kclique_application</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The nodes of the complete subgraph are&quot;</span><span class="p">,</span> <span class="n">combinatorial_result</span><span class="o">.</span><span class="n">clique</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">nodes</span> <span class="n">of</span> <span class="n">the</span> <span class="n">complete</span> <span class="n">subgraph</span> <span class="n">are</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The parsed combinatorial result can also be displayed with NetworkX using the
+<a class="reference internal" href="../../04_api_reference/module_qat/module_opt/module_results/graphpartitioningresult.html#qat.opt.results.GraphPartitioningResult.display" title="qat.opt.results.GraphPartitioningResult.display"><code class="xref py py-meth docutils literal notranslate"><span class="pre">display()</span></code></a> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">combinatorial_result</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../../images/kclique_generator_result.png"><img alt="../../images/kclique_generator_result.png" src="../../images/kclique_generator_result.png" style="width: 349.0px; height: 231.0px;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+Annealing job generation</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.generators</span> <span class="kn">import</span> <span class="n">KCliqueGenerator</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">SimulatedAnnealing</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Variable</span>
+<span class="kn">from</span> <span class="nn">qat.opt.sqa_best_parameters</span> <span class="kn">import</span> <span class="n">sqa_best_parameters_dicts</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+                      <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+                      <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+                      <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">)])</span>
+
+<span class="c1"># Create a temperature function</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+<span class="n">temp_max</span> <span class="o">=</span> <span class="n">sqa_best_parameters_dicts</span><span class="p">[</span><span class="s2">&quot;KClique&quot;</span><span class="p">][</span><span class="s2">&quot;temp_max&quot;</span><span class="p">]</span>
+<span class="n">temp_min</span> <span class="o">=</span> <span class="n">sqa_best_parameters_dicts</span><span class="p">[</span><span class="s2">&quot;KClique&quot;</span><span class="p">][</span><span class="s2">&quot;temp_min&quot;</span><span class="p">]</span>
+<span class="n">temp_t</span> <span class="o">=</span> <span class="n">temp_min</span> <span class="o">*</span> <span class="n">t</span> <span class="o">+</span> <span class="n">temp_max</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span>  <span class="c1"># annealing requires going from a high to a very low temperature</span>
+<span class="n">n_steps</span> <span class="o">=</span> <span class="mi">5000</span>
+
+<span class="n">kclique_application</span> <span class="o">=</span> <span class="n">KCliqueGenerator</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s2">&quot;annealing&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">SimulatedAnnealing</span><span class="p">(</span><span class="n">temp_t</span><span class="p">,</span> <span class="n">n_steps</span><span class="p">)</span>
+<span class="n">combinatorial_result</span> <span class="o">=</span> <span class="n">kclique_application</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The nodes of the complete subgraph are&quot;</span><span class="p">,</span> <span class="n">combinatorial_result</span><span class="o">.</span><span class="n">clique</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">nodes</span> <span class="n">of</span> <span class="n">the</span> <span class="n">complete</span> <span class="n">subgraph</span> <span class="n">are</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Similarly, the method <a class="reference internal" href="../../04_api_reference/module_qat/module_opt/module_results/graphpartitioningresult.html#qat.opt.results.GraphPartitioningResult.display" title="qat.opt.results.GraphPartitioningResult.display"><code class="xref py py-meth docutils literal notranslate"><span class="pre">display()</span></code></a> can be used
+to display the result:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">combinatorial_result</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../../images/kclique_generator_result_annealing.png"><img alt="../../images/kclique_generator_result_annealing.png" src="../../images/kclique_generator_result_annealing.png" style="width: 516.0px; height: 340.0px;" /></a>
+</figure>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-2">
+Analog job generation</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.generators</span> <span class="kn">import</span> <span class="n">KCliqueGenerator</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+                      <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+                      <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+                      <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">)])</span>
+
+<span class="n">kclique_generator</span> <span class="o">=</span> <span class="n">KCliqueGenerator</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s2">&quot;schedule&quot;</span><span class="p">)</span>
+<span class="n">schedule_batch</span> <span class="o">=</span> <span class="n">kclique_generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Currently the analog qpus that can be used to execute the schedule are only available in Qaptiva.
+Therefore the generated schedule_batch here can be passed to Qaptiva for execution.</p>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="02_graph_partitioning_generator.html" class="btn btn-neutral float-left" title="Graph Partitioning Generator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="04_vertex_cover_generator.html" class="btn btn-neutral float-right" title="Vertex Cover Generator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+.. _result:
+
+Result of a quantum program
+===========================
+After the :class:`~qat.core.Job` is executed, a result is returned from the :ref:`QPU <qpu>`. It will be 
+encapsulated in a :class:`~qat.core.Result` object. Depending on the type of the job, the result 
+will either be composed of several samples, or a scalar in case that an observable is measured.
+
+A :class:`~qat.core.Result` object mainly contains the following information:
+
+    - **raw_data** : a list of :class:`~qat.core.wrappers.result.Sample` (for a sampling job)
+    - **value** : a scalar output (for an observable job)
+    - **value_data** : the value of individual terms (for an observable job)
+    - **meta_data** : any additional information from the QPU
+    - **statevector** : the entire state vector (only available if the simulator offers this feature)
+
+
+For a sampling job, the result is returned as a list of samples, and the structure of a sample is described below:
+
+    - **state** : the measured state
+    - **amplitude** : the amplitude of the measured state
+    - **probability** : the probability of the obtained state
+    - **intermediate_measurements** : a list summarizing the results of intermediate measurements
+    - **err** : the approximated error of the sampling
+
+
+Additional information can be returned from a :ref:`QPU <qpu>` (or a :ref:`plugin <plugin>` when post processing) in the 
+**meta_data**, for example:
+
+    - the **simulation time**
+    - the **number of circuits** of the final job in case of an observable measurement job
+    - the optimal **parameters** and the **optimization trace** in case of a variational optimization job
+
+Please refer to the API reference of the specific QPUs and plugins for detailed metadata that will be added.
+
+
+The result returned from a QPU can be modified by the :ref:`plugins <plugin>` in the execution stack, through the 
+post_process method. This feature allows the plugins to return the result to the user in a desirable format.
+
+
+.. note::
+    A result can be serialized in a binary file, and be reconstructed later by loading the file, with the 
+    :meth:`~qat.core.Result.dump` and the :meth:`~qat.core.Result.load` methods.

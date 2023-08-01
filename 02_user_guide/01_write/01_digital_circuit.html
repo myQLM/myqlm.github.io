@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gate-based programming &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../static/documentation_options.js"></script>
+        <script src="../../static/jquery.js"></script>
+        <script src="../../static/underscore.js"></script>
+        <script src="../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../static/doctools.js"></script>
+        <script src="../../static/sphinx_highlight.js"></script>
+        <script src="../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Creating and adding quantum gates to a circuit" href="01_digital_circuit/01_quantum_gates.html" />
+    <link rel="prev" title="Writing quantum programs" href="../01_write.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../01_write.html">Writing quantum programs</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Gate-based programming</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="01_digital_circuit/01_quantum_gates.html">Creating and adding quantum gates to a circuit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01_digital_circuit/02_variational.html">Creating variational circuits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01_digital_circuit/03_program.html">Quantum programs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01_digital_circuit/04_routines.html">Quantum routines (and Oracles)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01_digital_circuit/05_aqasm.html">Atos Quantum Assembler (AQASM)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="02_analog_schedule.html">Analog programming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_annealing_problems.html">Annealing programming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_observable.html">Creating observables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../02_execute.html">Executing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../01_write.html">Writing quantum programs</a> &raquo;</li>
+      <li>Gate-based programming</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gate-based-programming">
+<span id="circuit"></span><h1>Gate-based programming<a class="headerlink" href="#gate-based-programming" title="Permalink to this heading"></a></h1>
+<p>myQLM provides a <strong>powerful semantic</strong> to create your own quantum circuit / job. It defines several type of objects one could use
+to define a quantum circuit, these tools are accessible from the <a class="reference internal" href="../../04_api_reference/module_qat/module_lang.html#module-qat.lang" title="qat.lang"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.lang</span></code></a> module:</p>
+<ul class="simple">
+<li><p>The <a class="reference internal" href="../../04_api_reference/module_qat/module_lang/qroutine.html#qat.lang.QRoutine" title="qat.lang.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> class defines a sequence of pure quantum gates. These quantum routines can be used to build another
+<a class="reference internal" href="../../04_api_reference/module_qat/module_lang/qroutine.html#qat.lang.QRoutine" title="qat.lang.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> or a <a class="reference internal" href="../../04_api_reference/module_qat/module_lang/program.html#qat.lang.Program" title="qat.lang.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a>. A routine can also be built by using the <a class="reference internal" href="../../04_api_reference/module_qat/module_lang/qrout.html#qat.lang.qrout" title="qat.lang.qrout"><code class="xref py py-func docutils literal notranslate"><span class="pre">qrout()</span></code></a>
+decorator</p></li>
+<li><p>The <a class="reference internal" href="../../04_api_reference/module_qat/module_lang/program.html#qat.lang.Program" title="qat.lang.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> class defines a sequence of instructions that will be executed on the QPU. These instructions can be purely
+quantum (a quantum gate), hybrid (e.g. intermediate measurement returning a classical value, a quantum gate controlled by a classical bit)
+or purely classical (e.g. bit operations)</p></li>
+<li><p>The <a class="reference internal" href="../../04_api_reference/module_qat/module_lang/qfunc.html#qat.lang.qfunc" title="qat.lang.qfunc"><code class="xref py py-func docutils literal notranslate"><span class="pre">qfunc()</span></code></a> decorator defines a quantum job wrapped inside a function. This decorator is used to create a quantum routine
+by using the same syntax as a Python function</p></li>
+</ul>
+<p>Quantum Programs (and Quantum Routines built without the <a class="reference internal" href="../../04_api_reference/module_qat/module_lang/qrout.html#qat.lang.qrout" title="qat.lang.qrout"><code class="xref py py-func docutils literal notranslate"><span class="pre">qrout()</span></code></a> decorator) must be compiled into a
+<a class="reference internal" href="../../04_api_reference/module_qat/module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> object. The <a class="reference internal" href="../../04_api_reference/module_qat/module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> class provides a nice API to manipulate the sequence of instructions.
+Usually, <a class="reference internal" href="../../04_api_reference/module_qat/module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> are directly fed to QPUs via a Python interface</p>
+<p>Please note that this framework can be used to define a <span class="xref std std-ref">combinatorial problems</span> from which QAOA instances can be generated. This
+feature is discussed in another section of the documentation</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Creating a custom quantum circuit</div>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+Defining a Quantum Routine</label><div class="sd-tab-content docutils">
+<p class="sd-card-text">A pure quantum circuit is a Quantum Routine. These objects can be built using <a class="reference internal" href="../../04_api_reference/module_qat/module_lang/qroutine.html#qat.lang.QRoutine" title="qat.lang.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> or the <a class="reference internal" href="../../04_api_reference/module_qat/module_lang/qrout.html#qat.lang.qrout" title="qat.lang.qrout"><code class="xref py py-func docutils literal notranslate"><span class="pre">qrout()</span></code></a>
+decorator.</p>
+<p class="sd-card-text">This decorator is used to build a quantum routine using a Python function. This Python function executes the quantum gates one by one. For instance,
+a Bell pair can be created using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">CNOT</span>
+
+<span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">bell_pair</span><span class="p">():</span>
+    <span class="n">H</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">This quantum routine can then be displayed, as any quantum circuit:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bell_pair</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">batchmode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> ┌─┐   
+─┤H├─●─
+ └─┘ │ 
+     │ 
+    ┌┴┐
+────┤X├
+    └─┘
+       
+
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+Defining a Quantum Program</label><div class="sd-tab-content docutils">
+<p class="sd-card-text">A quantum program provides tools to create advanced quantum circuits. These circuits can be composed of intermediate measurement, classical instructions,
+etc. Quantum bits and Classical bits must be allocated manually. For instance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">CNOT</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Allocate 2 qubits</span>
+<span class="n">H</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">circ</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+<span class="n">circ</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">batchmode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> ┌─┐   
+─┤H├─●─
+ └─┘ │ 
+     │ 
+    ┌┴┐
+────┤X├
+    └─┘
+       
+
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-2">
+Defining a Quantum Function</label><div class="sd-tab-content docutils">
+<p class="sd-card-text">A quantum circuit can be wrapped into a Python function. This Python function executes the quantum gates one by one and returns a list of qubits or an
+<a class="reference internal" href="../../04_api_reference/module_qat/module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a> (if a list of qubits is returned, these qubits are sampled; if an <a class="reference internal" href="../../04_api_reference/module_qat/module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a> is returned, this observable is measured)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qfunc</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">CNOT</span>
+
+<span class="nd">@qfunc</span>
+<span class="k">def</span> <span class="nf">bell_pair</span><span class="p">():</span>
+    <span class="n">H</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">bell_pair</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;State </span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="si">}</span><span class="s2"> amplitude </span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">amplitude</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">State</span> <span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span> <span class="n">amplitude</span> <span class="p">(</span><span class="mf">0.7071067811865475</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">)</span>
+<span class="n">State</span> <span class="o">|</span><span class="mi">11</span><span class="o">&gt;</span> <span class="n">amplitude</span> <span class="p">(</span><span class="mf">0.7071067811865475</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">)</span>
+<span class="n">No</span> <span class="n">GPU</span><span class="o">/</span><span class="n">TPU</span> <span class="n">found</span><span class="p">,</span> <span class="n">falling</span> <span class="n">back</span> <span class="n">to</span> <span class="n">CPU</span><span class="o">.</span> <span class="p">(</span><span class="n">Set</span> <span class="n">TF_CPP_MIN_LOG_LEVEL</span><span class="o">=</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">rerun</span> <span class="k">for</span> <span class="n">more</span> <span class="n">info</span><span class="o">.</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">In this example, this function performs a call to the default QPU to simulate the quantum circuit</p>
+</div>
+</div>
+</div>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-3 sd-row-cols-xs-3 sd-row-cols-sm-3 sd-row-cols-md-3 sd-row-cols-lg-3 sd-g-4 sd-g-xs-4 sd-g-sm-4 sd-g-md-4 sd-g-lg-4 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Creating and adding quantum gates to a circuit</div>
+</div>
+<a class="sd-stretched-link reference internal" href="01_digital_circuit/01_quantum_gates.html"><span class="doc"></span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Creating variational circuits</div>
+</div>
+<a class="sd-stretched-link reference internal" href="01_digital_circuit/02_variational.html"><span class="doc"></span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Quantum programs</div>
+</div>
+<a class="sd-stretched-link reference internal" href="01_digital_circuit/03_program.html"><span class="doc"></span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Quantum routines (and Oracles)</div>
+</div>
+<a class="sd-stretched-link reference internal" href="01_digital_circuit/04_routines.html"><span class="doc"></span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Atos Quantum Assembler (AQASM)</div>
+</div>
+<a class="sd-stretched-link reference internal" href="01_digital_circuit/05_aqasm.html"><span class="doc"></span></a></div>
+</div>
+</div>
+</div>
+<p>Some submodules of the pyAQASM library provide high-level routines or algorithms:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../04_api_reference/module_qat/module_lang/module_qftarith.html#module-qat.lang.AQASM.qftarith" title="qat.lang.AQASM.qftarith"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qftarith</span></code></a> provides QFT-based implementation of various arithmetic operations (including QFT itself)</p></li>
+<li><p><a class="reference internal" href="../../04_api_reference/module_qat/module_lang/module_classarith.html#module-qat.lang.AQASM.classarith" title="qat.lang.AQASM.classarith"><code class="xref py py-mod docutils literal notranslate"><span class="pre">classarith</span></code></a> provides carry-arithmetic operations</p></li>
+<li><p><a class="reference internal" href="../../04_api_reference/module_qat/module_lang/module_arithmetic.html#module-qat.lang.AQASM.arithmetic" title="qat.lang.AQASM.arithmetic"><code class="xref py py-mod docutils literal notranslate"><span class="pre">arithmetic</span></code></a> provides a unified interface for all arithmetic operations</p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../01_write.html" class="btn btn-neutral float-left" title="Writing quantum programs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="01_digital_circuit/01_quantum_gates.html" class="btn btn-neutral float-right" title="Creating and adding quantum gates to a circuit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

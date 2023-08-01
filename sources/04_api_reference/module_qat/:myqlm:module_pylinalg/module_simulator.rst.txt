@@ -1,0 +1,34 @@
+.. module:: qat.pylinalg.simulator
+
+qat.pylinalg.simulator
+======================
+
+The actual numpy-based simulation code can be accessed in the :mod:`qat.pylinalg.simulator`
+module, which source code is documented here.
+
+.. autoapi::
+
+    [:func:`qat.pylinalg.simulator.simulate`] Simulate a provided circuit
+
+.. note:: :func:`qat.pylinalg.simulator.simulate` mainly consists in a for loop
+    over the :code:`ops` attribute of the input :class:`~qat.core.Circuit`,
+    i.e the gates of the circuit. They are successively applied onto the quantum
+    state, which starts in :math:`|0...0\rangle`. A gate can be of several types:
+
+     - **GATETYPE** (default)
+     - **MEASURE** (measure some qubits, store the result)
+     - **RESET** (measure a qubit, if result is 1, apply X onto it)
+     - **CLASSIC** (perform classical logical computation on classical bits)
+     - **CLASSICCTRL** (perform classically controlled quantum gate)
+     - **BREAK** (raise break exception if a clasical formula is evaluated to True)
+
+    :code:`circuit.ops` is a list of :class:`qat.comm.datamodel.ttypes.Op`.
+
+
+.. autoapi::
+
+    [:func:`qat.pylinalg.simulator.measure`] Samples measurement results on the specified qubits
+    [:func:`qat.pylinalg.simulator.project`] Projects the state to specified values
+    [:func:`qat.pylinalg.simulator.reset`] Resets the value of the specified qubits
+    [:func:`qat.pylinalg.simulator.raise_break`] Raises break exception
+    [:func:`qat.pylinalg.simulator.mat2nparray`] Converts serialized matrix format into numpy array

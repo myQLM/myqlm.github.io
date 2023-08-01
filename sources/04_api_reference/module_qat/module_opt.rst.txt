@@ -1,0 +1,58 @@
+.. module:: qat.opt
+
+qat.opt
+=======
+
+.. autosubmodules::
+    :maxdepth: 1
+
+
+Generic combinatorial optimization
+-----------------------------------
+
+The class :class:`~qat.opt.CombinatorialProblem`, together with :class:`~qat.opt.boolexpr.Clause` and :class:`~qat.opt.boolexpr.Var` allow one to represent a general combinatorial problem, like :ref:`3-SAT<comb_prob_description>`. Clauses (:class:`~qat.opt.boolexpr.Clause`) are declared by combining variables (:class:`~qat.opt.boolexpr.Var`). The cost Hamiltonian extraction is handled by the (:class:`~qat.opt.boolexpr.Clause`) class. The final cost Hamiltonian consists of the weighted sum of the cost Hamiltonian of its clauses.
+
+.. autoapi::
+
+    [:class:`qat.opt.CombinatorialProblem`] Encoding general Combinatorial problems with many :class:`~qat.opt.boolexpr.Clause` and :class:`~qat.opt.boolexpr.Var`
+    [:class:`qat.opt.boolexpr.Clause`] A Class to define clauses between variables, for e.g. satisfiability problems
+    [:class:`qat.opt.boolexpr.Var`] A class for the variables themselves overloading logical operators to closely interact with the :class:`~qat.opt.boolexpr.Clause` class
+
+Quadratic problems: Ising and QUBO
+-----------------------------------
+
+Classes for the :ref:`Ising <ising_description>` and :ref:`QUBO <qubo_description>` formulations of combinatorial problems, solved via annealing (or :ref:`gate-based <qaoa>` or :ref:`analog <quantum_annealing>` approaches).
+
+.. autoapi::
+
+    [:class:`qat.opt.Ising`] The class to represent Ising Hamiltonians
+    [:class:`qat.opt.QUBO`] The class encoding Quadratic Unconstrained Binary Optimization (QUBO) problems
+
+
+Classes for the supported NP-Hard problems
+------------------------------------------
+
+Each of the following inherits from either :class:`~qat.opt.Ising` or :class:`~qat.opt.QUBO`.
+
+.. autoapi::
+
+    [:class:`qat.opt.MaxCut`] A class to encode the Max Cut problem
+    [:class:`qat.opt.GraphPartitioning`] A class to encode the Graph Partitioning problem
+    [:class:`qat.opt.KClique`] A class to encode the K-Clique problem
+    [:class:`qat.opt.VertexCover`] A class to encode the Vertex Cover problem
+    [:class:`qat.opt.GraphColouring`] A class to encode the Graph Colouring problem
+    [:class:`qat.opt.NumberPartitioning`] A class to encode the Number Partitioning problem
+    [:class:`qat.opt.BILP`] A class to encode the Binary Integer Linear Programming problem
+
+
+Generating QAOA Ansätze or QA Jobs
+------------------------------------
+
+.. autoapi::
+
+    [:class:`qat.opt.circuit_generator.CircuitGenerator`] An interface from which :class:`~qat.opt.CombinatorialProblem` / :class:`~qat.opt.Ising` / :class:`~qat.opt.QUBO` inherit allowing classes to generate ready to run :ref:`QAOA <qaoa>` jobs
+    [:class:`qat.opt.schedule_generator.ScheduleGenerator`]  An interface from which  :class:`~qat.opt.CombinatorialProblem` / :class:`~qat.opt.Ising` / :class:`~qat.opt.QUBO`  inherit allowing classes to generate :ref:`Quantum Annealing <quantum_annealing>` jobs
+    [:class:`qat.vsolve.ansatz.AnsatzFactory`] A class allowing to produce variational circuits for :ref:`QAOA <qaoa>` from a target Hamiltonian
+    [:class:`qat.opt.MixingFactory`] A class with methods to generate custom mixing Hamiltonians for analog :ref:`Quantum Annealing <quantum_annealing>`
+
+The classes of the objects produced by :class:`~qat.opt.MixingFactory`, together with the interface they specialize from, are documented in the :mod:`qat.opt.mixing_factory` module.

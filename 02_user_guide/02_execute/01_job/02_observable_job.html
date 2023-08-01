@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Observable Job &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Automated batch generation" href="03_automated_batch_generation.html" />
+    <link rel="prev" title="Sample Job" href="01_sample_job.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../02_execute.html">Executing quantum programs</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../01_job.html">Constructing one or multiple Jobs (using Batch)</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="01_sample_job.html">Sample Job</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Observable Job</a></li>
+<li class="toctree-l4"><a class="reference internal" href="03_automated_batch_generation.html">Automated batch generation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../02_result.html">Result of a quantum program</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_qpu.html">Quantum Processing Unit (QPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04_plugin.html">Extending a QPU (by using Plugins)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_variational.html">Running variational algorithms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../../02_execute.html">Executing quantum programs</a> &raquo;</li>
+          <li><a href="../01_job.html">Constructing one or multiple Jobs (using Batch)</a> &raquo;</li>
+      <li>Observable Job</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="observable-job">
+<span id="id1"></span><h1>Observable Job<a class="headerlink" href="#observable-job" title="Permalink to this heading"></a></h1>
+<p>The second type of final measurement, the “OBSERVABLE” mode can be used to compute the average value of an <a class="reference internal" href="../../01_write/03_observable.html#observable"><span class="std std-ref">observable</span></a>.
+We will reuse the simple Bell pair <span class="math notranslate nohighlight">\(|\psi\rangle=(|00\rangle+|11\rangle)/\sqrt{2}\)</span> circuit, and compute the average value of the following observable:</p>
+<div class="math notranslate nohighlight">
+\[O = X_0 \otimes Z_1\]</div>
+<p>A straightforward computation yields <span class="math notranslate nohighlight">\(\langle O \rangle = 0\)</span>. Let us now perform
+this computation with Qaptiva and verify the result.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+Infinite number of shots, all qubits</label><div class="sd-tab-content docutils">
+<p>We start with a computation devoid of any shot noise (infinite number of shots).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">CNOT</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+
+<span class="c1"># Create a circuit</span>
+<span class="n">qprog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">H</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="c1"># Create an observable</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;XZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
+
+<span class="c1"># Create a job</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">)</span>
+
+<span class="c1"># Execute</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&lt;O&gt; = &quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="o">=</span>  <span class="mf">0.0</span>
+</pre></div>
+</div>
+<p>We verify that the expectation <code class="docutils literal notranslate"><span class="pre">value</span></code> <span class="math notranslate nohighlight">\(\langle O \rangle\)</span> of the result is 0.</p>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+Finite number of shots, all qubits</label><div class="sd-tab-content docutils">
+<p>We now look at the effect of shot noise. In practice one can only repeat the measurement a finite number of times.
+Here, we will submit three jobs, each with a different number of shots <code class="docutils literal notranslate"><span class="pre">nbshots</span></code>, to the QPU.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">CNOT</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+
+<span class="c1"># Create a circuit</span>
+<span class="n">qprog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">H</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="c1"># Create an observable</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;XZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
+
+<span class="c1"># Create a job</span>
+<span class="k">for</span> <span class="n">nbshots</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">]:</span>
+    <span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">nbshots</span><span class="o">=</span><span class="n">nbshots</span><span class="p">)</span>
+
+    <span class="c1"># The QPU is stacked with ObservableSplitter, as the default myQLM QPU does not support</span>
+    <span class="c1"># a finite number of shots for observable sampling</span>
+    <span class="kn">from</span> <span class="nn">qat.plugins</span> <span class="kn">import</span> <span class="n">ObservableSplitter</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">ObservableSplitter</span><span class="p">()</span> <span class="o">|</span> <span class="n">get_default_qpu</span><span class="p">())</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;O&gt; (</span><span class="si">{</span><span class="n">nbshots</span><span class="si">}</span><span class="s2"> shots) = </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">100</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.10000000000000003</span> <span class="o">+/-</span> <span class="mf">0.1</span>
+<span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">1000</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="o">+/-</span> <span class="mf">0.03163859985841663</span>
+<span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">10000</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.017000000000000043</span> <span class="o">+/-</span> <span class="mf">0.009999054860826147</span>
+</pre></div>
+</div>
+<p>We can see that the expectation <code class="docutils literal notranslate"><span class="pre">value</span></code> <span class="math notranslate nohighlight">\(\langle O \rangle\)</span> of the result differs from the ideal one due to “shot noise”.
+The <code class="docutils literal notranslate"><span class="pre">error</span></code> field contains the standard error of the estimated expectation value.</p>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="01_sample_job.html" class="btn btn-neutral float-left" title="Sample Job" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="03_automated_batch_generation.html" class="btn btn-neutral float-right" title="Automated batch generation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

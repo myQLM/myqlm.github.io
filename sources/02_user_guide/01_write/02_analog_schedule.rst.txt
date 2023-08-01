@@ -1,0 +1,52 @@
+.. _schedules_section:
+
+.. |qaptiva| unicode:: Qaptiva U+2122
+
+Analog programming
+==================
+
+Background
+----------
+
+Beneath every physical realization of a digital quantum circuit lies an analog execution of a Hamiltonian. To represent the gates in the circuit, different parts of this Hamiltonian correspond to, for example, very specific changes in the magnetic field experienced by the qubits. In general, however, these changes need not be that specific. In fact, the way a quantum hardware can vary the magnetic field is only limited by its physical capabilities. This enables the device to perform all sorts of operations, hence realize a large variety of Hamiltonians. Most of these would not correspond to quantum gates or whole circuits, but would still have rich properties with actual practical applications. Some of them would even describe quantum systems from the fields of Quantum Chemistry and Materials Science and are often interesting to explore on their own (for example finding a :ref:`ground state energy<analog_applications_sec>`). Therefore, being able to encode and evolve a general Hamiltonian in an analog manner can open the door for answers which digital quantum computation alone may struggle to give.
+
+Creating analog Jobs
+--------------------
+
+Qaptiva comes with a module for analog quantum computations which consists in specifying the *analog* controls of the quantum computer in order to simulate the evolution of a general Hamiltonian with or without defects. The way one can steer an analog quantum computation is very similar to the digital quantum computation framework:
+
+.. only:: myqlm
+
+    1) Just like a (digital) quantum :class:`~qat.core.Circuit`, one can describe a Hamiltonian :math:`H` with a high-level of abstraction via an (analog) quantum :ref:`Schedule<building_schedules_sec>`. In general, :math:`H` can be time-dependent and can always be decomposed as
+
+    .. math::
+
+        H(t) = \sum_i \lambda_i(t) H_i
+
+    with :math:`\lambda_i(t)` a time-dependent analog control field and :math:`H_i` a Hermitian operator (implemented as an :class:`~qat.core.Observable` object).
+
+    2) A :class:`~qat.core.Schedule` is transformed to a quantum :class:`~qat.core.Job` which can optionally contain an observable to be measured on the final quantum state. For analog jobs one can also specify a list of many :code:`observables` in the :meth:`~qat.core.Schedule.to_job` method of the :class:`~qat.core.Schedule`.
+
+    3) The :class:`~qat.core.Job` is then sent to an analog QPU which comes with a hardware model that describes its physical properties. Analog QPUs are available in the full |qaptiva| appliance.
+
+
+.. only:: qlm
+
+    1) Just like a (digital) quantum :class:`~qat.core.Circuit`, one can describe a Hamiltonian :math:`H` with a high-level of abstraction via an (analog) quantum :ref:`Schedule<building_schedules_sec>`. In general, :math:`H` can be time-dependent and can always be decomposed as
+
+    .. math::
+
+        H(t) = \sum_i \lambda_i(t) H_i
+
+    with :math:`\lambda_i(t)` a time-dependent analog control field and :math:`H_i` a Hermitian operator (implemented as an :class:`~qat.core.Observable` object).
+
+    2) A :class:`~qat.core.Schedule` is transformed to a quantum :class:`~qat.core.Job` which can optionally contain an observable to be measured on the final quantum state. For analog jobs one can also specify a list of many :code:`observables` in the :meth:`~qat.core.Schedule.to_job` method of the :class:`~qat.core.Schedule`.
+
+    3) The :class:`~qat.core.Job` is then sent to an :ref:`analog QPU<analog_qpus>`, which comes with a hardware model that describes its physical properties (like its digital counterpart, :class:`~qat.qpus.NoisyQProc`).
+
+
+The following sections present examples on how one can encode Schedules, use arithmetic operations between them and send them to a dedicated :ref:`analog QPU<analog_qpus>` for simulation.
+
+
+.. autocard::
+    :columns: 3

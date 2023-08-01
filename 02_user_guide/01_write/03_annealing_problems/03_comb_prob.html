@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>General Combinatorial Problems &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Creating observables" href="../03_observable.html" />
+    <link rel="prev" title="Quadratic Unconstrained Binary Optimization (QUBO)" href="02_qubo.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../01_write.html">Writing quantum programs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../01_digital_circuit.html">Gate-based programming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_analog_schedule.html">Analog programming</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../03_annealing_problems.html">Annealing programming</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="01_ising.html">Ising Hamiltonians</a></li>
+<li class="toctree-l4"><a class="reference internal" href="02_qubo.html">Quadratic Unconstrained Binary Optimization (QUBO)</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">General Combinatorial Problems</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../03_observable.html">Creating observables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../02_execute.html">Executing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../../01_write.html">Writing quantum programs</a> &raquo;</li>
+          <li><a href="../03_annealing_problems.html">Annealing programming</a> &raquo;</li>
+      <li>General Combinatorial Problems</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="general-combinatorial-problems">
+<span id="comb-prob-description"></span><h1>General Combinatorial Problems<a class="headerlink" href="#general-combinatorial-problems" title="Permalink to this heading"></a></h1>
+<p>The most general way to specify a combinatorial problem is by explicitly declaring boolean variables (<a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/var.html#qat.opt.boolexpr.Var" title="qat.opt.boolexpr.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a>) and  clauses (<a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/clause.html#qat.opt.boolexpr.Clause" title="qat.opt.boolexpr.Clause"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clause</span></code></a>) combining these variables. This is achieved via the <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.CombinatorialProblem</span></code></a> class. While <a class="reference internal" href="01_ising.html#ising-description"><span class="std std-ref">Ising</span></a> and <a class="reference internal" href="02_qubo.html#qubo-description"><span class="std std-ref">QUBO</span></a> effectively accept only up to two-variable terms, one can define clauses in <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a> with as many variables as desired. Here is an example of encoding a simple instance of the famous 3-SAT NP-hard problem:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">CombinatorialProblem</span>
+
+<span class="c1"># Create a problem</span>
+<span class="n">comb_prob</span> <span class="o">=</span> <span class="n">CombinatorialProblem</span><span class="p">(</span><span class="s2">&quot;3-SAT&quot;</span><span class="p">)</span>
+
+<span class="c1"># Declare five variables</span>
+<span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">x4</span> <span class="o">=</span> <span class="n">comb_prob</span><span class="o">.</span><span class="n">new_vars</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Add (weighted) clauses between variables - for 3-SAT they will only contain &lt;= 3 variables</span>
+<span class="n">comb_prob</span><span class="o">.</span><span class="n">add_clause</span><span class="p">(</span> <span class="n">x0</span> <span class="o">&amp;</span>  <span class="n">x2</span> <span class="o">^</span> <span class="o">~</span><span class="n">x3</span> <span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">comb_prob</span><span class="o">.</span><span class="n">add_clause</span><span class="p">(</span><span class="o">~</span><span class="n">x1</span> <span class="o">^</span>  <span class="n">x3</span> <span class="o">^</span>  <span class="n">x4</span> <span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mf">1.12</span><span class="p">)</span>
+<span class="n">comb_prob</span><span class="o">.</span><span class="n">add_clause</span><span class="p">(</span> <span class="n">x4</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x0</span> <span class="o">^</span> <span class="o">~</span><span class="n">x1</span><span class="p">),</span> <span class="n">weight</span><span class="o">=</span><span class="mf">0.86</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">comb_prob</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Can translate to an Observable for a gate-based manipulation</span>
+<span class="n">comb_prob_obs</span> <span class="o">=</span> <span class="n">comb_prob</span><span class="o">.</span><span class="n">get_observable</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;As Observable:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">comb_prob_obs</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span><span class="o">-</span><span class="n">SAT</span><span class="p">:</span>
+ <span class="mi">5</span> <span class="n">variables</span><span class="p">,</span> <span class="mi">3</span> <span class="n">clauses</span> 
+
+<span class="n">As</span> <span class="n">Observable</span><span class="p">:</span>
+<span class="mf">1.1500000000000001</span> <span class="o">*</span> <span class="n">I</span><span class="o">^</span><span class="mi">5</span> <span class="o">+</span>
+<span class="mf">0.1875</span> <span class="o">*</span> <span class="p">(</span><span class="n">Z</span><span class="o">|</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.1875</span> <span class="o">*</span> <span class="p">(</span><span class="n">ZZ</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.1875</span> <span class="o">*</span> <span class="p">(</span><span class="n">ZZ</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="o">+</span>
+<span class="o">-</span><span class="mf">0.1875</span> <span class="o">*</span> <span class="p">(</span><span class="n">ZZZ</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.56</span> <span class="o">*</span> <span class="p">(</span><span class="n">ZZZ</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span> <span class="o">+</span>
+<span class="o">-</span><span class="mf">0.215</span> <span class="o">*</span> <span class="p">(</span><span class="n">Z</span><span class="o">|</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.215</span> <span class="o">*</span> <span class="p">(</span><span class="n">ZZ</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+<span class="o">-</span><span class="mf">0.215</span> <span class="o">*</span> <span class="p">(</span><span class="n">ZZZ</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Only for the case of no more than two variables per clause, a translation to the <a class="reference internal" href="01_ising.html#ising-description"><span class="std std-ref">Ising</span></a> and <a class="reference internal" href="02_qubo.html#qubo-description"><span class="std std-ref">QUBO</span></a> formulations is available (via the <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem.to_ising" title="qat.opt.CombinatorialProblem.to_ising"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_ising()</span></code></a> and <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem.to_qubo" title="qat.opt.CombinatorialProblem.to_qubo"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_qubo()</span></code></a> methods) and hence can be solved with <a class="reference internal" href="../../02_execute/03_qpu/03_annealing.html#simulated-annealing"><span class="std std-ref">Simulated Annealing (SA)</span></a>.</p></li>
+<li><p>However, Combinatorial problems with more than 2-variable clauses <strong>can</strong> still be translated to a gate-based <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a> (as exemplified above) and e.g. solved via the Quantum Approximate Optimization Algorithm (<a class="reference internal" href="../../../combinatorial_optim_applic/02_qaoa.html#qaoa"><span class="std std-ref">QAOA</span></a>) as we describe in the <a class="reference internal" href="../../../combinatorial_optim_applic.html#combinatorial-optimization"><span class="std std-ref">Combinatorial Optimization</span></a> section.</p></li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="02_qubo.html" class="btn btn-neutral float-left" title="Quadratic Unconstrained Binary Optimization (QUBO)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../03_observable.html" class="btn btn-neutral float-right" title="Creating observables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

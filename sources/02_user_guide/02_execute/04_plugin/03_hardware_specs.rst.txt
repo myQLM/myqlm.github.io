@@ -1,0 +1,54 @@
+.. _hardware-specs:
+
+Getting information from the QPU
+================================
+QPUs define a set of specifications, stored in an object of type :class:`~qat.core.HardwareSpecs`, which can be retrieved by :meth:`~qat.qpus.QPUHandler.get_specs`. This set of specification defines
+what could be executed on the QPU, for instance:
+
+ - the **number of qubits** composing the QPU
+ - the **topology** of the QPU (i.e. pair of qubits on which a two qubit gate can be applied - this attribute is a graph of type :class:`~qat.core.Topology`)
+ - the **gateset** of the QPU (i.e. supported gates)
+ - the **processing types** (i.e. if the QPU support *SAMPLE* measurement, *OBSERVABLE* measurement, or both)
+ - the **description** of the QPU
+
+These specifications can be used by plugins to adapt their *compilation stage*, to target the QPU
+
+Creating custom specifications
+..............................
+This sections provides an example explaning how to create custom hardware specs. In this example, will will consider a QPU capable of executing *RX*, *RZ* and *CNOT* gates. CNOT gates can only be applied
+between few pairs of qubits defined by the topology below. This QPU is assumed to support *SAMPLE* measurement
+
+.. figure:: images/topology.png
+    :width: 280px
+    :align: center
+
+|
+
+This topology can be created using networkx and casted into a :class:`~qat.core.Topology`:
+
+.. run-block-mem:: python hard-specs-example
+
+    import networkx as nx
+    from qat.core import Topology
+
+    graph = nx.Graph([(0, 1), (0, 2), (1, 3), (2, 3), (2, 4), (3, 4)])
+    topology = Topology.from_nx(graph)
+
+The gate-set can be defined using gates defined in :mod:`qat.lang`:
+
+.. run-block-mem:: python hard-specs-example
+
+    from qat.core.gate_set import GateSet
+    from qat.lang import RX, RZ, CNOT
+
+    gateset = GateSet({"RX": RX, "RZ": RZ, "CNOT": CNOT})
+
+Now, hardware specifications can be merged into a single object:
+
+.. run-block-mem:: python hard-specs-example
+
+    from qat.core import HardwareSpecs
+    from qat.comm.shared.ttypes import ProcessingType
+
+    my_specs = HardwareSpecs(nbqbits=5, topology=topology, gateset=gateset, processing_types=[ProcessingType.SAMPLE],
+                             description="Example of QPU specs")

@@ -1,0 +1,137 @@
+qat.plugins.CostFunctionPlugin
+==============================
+
+.. only:: qlm
+
+    In the Qaptiva framework, variational optimization plugins are designed to minimize the energy of an observable. This formalism requires to encode
+    the quantity to be minimized using an observable (which is not always easy to do)
+
+.. only:: myqlm
+
+    In the myQLM framework, variational optimization plugins are designed to minimize the energy of an observable. This formalism requires to encode
+    the quantity to be minimized using an observable (which is not always easy to do)
+
+This plugin has been designed to encode this quantity using a Python function. The quantity computed by the cost function given to the will be minimized
+by the optimizer plugin present in the stack.
+
+.. card:: Example of CostFunctionPlugin
+
+    In this example, one will try to maximize the Hamming weigth of a sample (i.e. maximizing the number of 1 in the state - or minimizing the number of
+    0 in this state).
+    This cost function can be easily encoding using an observable but implementing this cost function in Python is easier. The :class:`~qat.plugins.CostFunctionPlugin`
+    has two mode:
+
+     - **Function acting on samples:** the function given to this plugin takes a :class:`~qat.core.wrappers.result.Sample` and returns a `float`
+     - **Function acting on results:** the function given to this plugin takes a :class:`~qat.core.Result` and returns a `float`
+
+    .. tab-set::
+
+        .. tab-item:: Function acting on samples
+
+            This example will focus on minimizing the Hamming weight. A basic circuit composed of two qubits, with one RX gate per qubit, will be chosen to illustrate
+            this example
+
+            .. run-block-mem:: python cost-plugin-sample
+
+                from qat.lang.AQASM import Program, RX
+
+                prog = Program()
+                qbits = prog.qalloc(2)
+
+                for idx, qb in enumerate(qbits):
+                    angle = prog.new_var(float, f"V{idx}")
+                    prog.apply(RX(angle), qb)
+
+                circ = prog.to_circ()
+                job = circ.to_job()
+
+            The cost function must be defined, in this mode, the code function takes a :class:`~qat.core.wrappers.result.Sample` and returns a `float`. For instance,
+            one can write:
+
+            .. run-block-mem:: python cost-plugin-sample
+
+                def cost_function(sample):
+                    """
+                    This function should be minimize. Then, the number of 0 present in the state
+                    will be computed
+                    """
+                    return sample.state.bitstring.count("0")
+
+            Then, the plugin can be used to optimize the angles of our job
+
+            .. run-block-mem:: python cost-plugin-sample
+
+                from qat.plugins import ScipyMinimizePlugin, CostFunctionPlugin
+                from qat.qpus import get_default_qpu
+
+                stack = ScipyMinimizePlugin() | CostFunctionPlugin(cost_function) | get_default_qpu()
+                result = stack.submit(job)
+
+            The final state can be be retrieved, state :math:`|11\rangle` is the state having the higher probability
+
+            .. run-block-mem:: python cost-plugin-sample
+
+                job_fixed_angles = job(**result.parameter_map)
+                result_fixed_angles = stack.submit(job_fixed_angles)
+
+                for sample in result_fixed_angles:
+                    print(f"{sample.state} has a probability of {sample.probability:.2}")
+
+        .. tab-item:: Function acting on results
+
+            This example will focus on minimizing the Hamming weight. A basic circuit composed of two qubits, with one RX gate per qubit, will be chosen to illustrate
+            this example
+
+            .. run-block-mem:: python cost-plugin-result
+
+                from qat.lang.AQASM import Program, RX
+
+                prog = Program()
+                qbits = prog.qalloc(2)
+
+                for idx, qb in enumerate(qbits):
+                    angle = prog.new_var(float, f"V{idx}")
+                    prog.apply(RX(angle), qb)
+
+                circ = prog.to_circ()
+                job = circ.to_job()
+
+            The cost function must be defined, in this mode, the code function takes a :class:`~qat.core.Result` and returns a `float`. For instance,
+            one can write:
+
+            .. run-block-mem:: python cost-plugin-result
+
+                def cost_function(result):
+                    """
+                    This function should be minimize. Then, the number of 0 present in the state
+                    will be computed
+                    """
+                    return sum(sample.probability * sample.state.bitstring.count("0") for sample in result)
+
+            Then, the plugin can be used to optimize the angles of our job
+
+            .. warning::
+
+                :class:`~qat.plugins.CostFunctionPlugin` assume a function taking a :class:`~qat.core.wrappers.result.Sample` as argument is provided. To change this
+                behavior, an argument `is_result_argument=True` must be specified
+
+            .. run-block-mem:: python cost-plugin-result
+
+                from qat.plugins import ScipyMinimizePlugin, CostFunctionPlugin
+                from qat.qpus import get_default_qpu
+
+                stack = ScipyMinimizePlugin() | CostFunctionPlugin(cost_function, is_result_argument=True) | get_default_qpu()
+                result = stack.submit(job)
+
+            The final state can be be retrieved, state :math:`|11\rangle` is the state having the higher probability
+
+            .. run-block-mem:: python cost-plugin-result
+
+                job_fixed_angles = job(**result.parameter_map)
+                result_fixed_angles = stack.submit(job_fixed_angles)
+
+                for sample in result_fixed_angles:
+                    print(f"{sample.state} has a probability of {sample.probability:.2}")
+
+.. autoclass:: qat.plugins.CostFunctionPlugin
+    :members: compile

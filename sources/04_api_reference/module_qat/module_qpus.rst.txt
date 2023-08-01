@@ -1,0 +1,64 @@
+.. module:: qat.qpus
+
+qat.qpus
+========
+
+:ref:`QPUs <qpu>` are objects to execute quantum :class:`~qat.core.Job`, and return a :class:`~qat.core.Result`.
+
+.. only:: qlm
+
+    Currently, the following QPUs are offered to the users in Qaptiva.
+
+.. only:: myqlm
+    
+    Currently, the following QPUs are offered to the users in myQLM.
+
+Gate-based QPUs
+---------------
+
+.. autoapi::
+
+   [:class:`qat.qpus.LinAlg`] Linear-algebra-based simulator
+   [:class:`qat.qpus.MPS`] Matrix-product-states simulator
+   [:class:`qat.qpus.Stabs`] Clifford simulator
+   [:class:`qat.qpus.Feynman`] Path-integral simulator
+   [:class:`qat.qpus.Bdd`] QMDD-based simulator
+   [:class:`qat.qpus.QPEG`] MPS-based simulator
+   [:class:`qat.qpus.NoisyQProc`] Noisy simulator
+   [:class:`qat.qpus.MPO`] Matrix product operator simulator
+   [:class:`qat.qpus.ClassicalQPU`] Simulator only able to process non-quantum gates
+   [:class:`qat.qpus.MPSLegacy`] Legacy QPU for MPS
+   [:class:`qat.qpus.CLinalg`] C++ linear-algebra-based simulator
+   [:class:`qat.qpus.PyLinalg`] Python linear-algebra-based simulator
+
+
+.. only:: qlm
+
+    Analog Quantum Simulators
+    -------------------------
+
+    .. autoapi::
+
+        [:class:`qat.qpus.QutipQPU`] Analog simulator using *Boost.odeint*
+        [:class:`qat.qpus.AnalogQPU`] Analog simulator based on the *QuTiP* library
+
+
+Simulated Annealing
+-------------------
+
+.. autoapi::
+
+    [:class:`qat.qpus.SQAQPU`] Simulated quantum annealer
+    [:class:`qat.qpus.SimulatedAnnealing`] Simulated annealer
+
+
+Abstract and utility QPU classes
+--------------------------------
+
+.. autoapi::
+
+    [:class:`qat.qpus.UploadedQPU`] QPU than can be uploaded with Qaptiva Access
+    [:func:`qat.qpus.get_current_qpu`] Returns the QPU in the current context
+    [:func:`qat.qpus.get_default_qpu`] Get the default QPU
+    [:class:`qat.qpus.QPUHandler`] Abstract QPU interface
+    [:class:`qat.qpus.RemoteQPU`] Interface for connecting to a QPU server

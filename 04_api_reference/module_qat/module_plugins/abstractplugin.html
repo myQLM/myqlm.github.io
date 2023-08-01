@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.plugins.AbstractPlugin &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="qat.plugins.Display" href="display.html" />
+    <link rel="prev" title="qat.plugins.ZeroNoiseExtrapolator" href="zeronoiseextrapolator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../module_comm.html">qat.comm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../module_plugins.html">qat.plugins</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="circuitinliner.html">qat.plugins.CircuitInliner</a></li>
+<li class="toctree-l4"><a class="reference internal" href="observablesplitter.html">qat.plugins.ObservableSplitter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="costfunctionplugin.html">qat.plugins.CostFunctionPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="psominimizeplugin.html">qat.plugins.PSOMinimizePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scipyminimizeplugin.html">qat.plugins.ScipyMinimizePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spsaminimizeplugin.html">qat.plugins.SPSAMinimizePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="adaptvqeplugin.html">qat.plugins.AdaptVQEPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gradientdescentoptimizer.html">qat.plugins.GradientDescentOptimizer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="multiplelaunchesanalyzer.html">qat.plugins.MultipleLaunchesAnalyzer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="seqoptim.html">qat.plugins.SeqOptim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="transformobservable.html">qat.plugins.TransformObservable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zeronoiseextrapolator.html">qat.plugins.ZeroNoiseExtrapolator</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">qat.plugins.AbstractPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="display.html">qat.plugins.Display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="junction.html">qat.plugins.Junction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="optimizer.html">qat.plugins.Optimizer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="quameleonplugin.html">qat.plugins.QuameleonPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remoteplugin.html">qat.plugins.RemotePlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../04_api_reference.html">API reference</a> &raquo;</li>
+          <li><a href="../../module_qat.html">qat</a> &raquo;</li>
+          <li><a href="../module_plugins.html">qat.plugins</a> &raquo;</li>
+      <li>qat.plugins.AbstractPlugin</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-plugins-abstractplugin">
+<h1>qat.plugins.AbstractPlugin<a class="headerlink" href="#qat-plugins-abstractplugin" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.plugins.AbstractPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">AbstractPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.AbstractPlugin" title="Permalink to this definition"></a></dt>
+<dd><p>Abstract interface of a Plugin.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.plugins.AbstractPlugin.post_process">
+<span class="sig-name descname"><span class="pre">post_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.AbstractPlugin.post_process" title="Permalink to this definition"></a></dt>
+<dd><p>A plugin can <strong>optionally</strong> post-process a result. Post-processing consists of editing
+the <a class="reference internal" href="../module_core/batchresult.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a> object returned by the QPU</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your plugin does not require prost-processing, not defining this method would lead to
+better performances</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>batch_result</strong> (<a class="reference internal" href="../module_core/batchresult.html#qat.core.BatchResult" title="qat.core.BatchResult"><em>BatchResult</em></a>) – object to be post-processed</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>post-processed <a class="reference internal" href="../module_core/batchresult.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../module_core/batchresult.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.plugins.AbstractPlugin.compile">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.AbstractPlugin.compile" title="Permalink to this definition"></a></dt>
+<dd><p>Compiles a Batch into another Batch according to
+some hardware specs</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.plugins.AbstractPlugin.do_post_processing">
+<span class="sig-name descname"><span class="pre">do_post_processing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.AbstractPlugin.do_post_processing" title="Permalink to this definition"></a></dt>
+<dd><p>Returns True iff the results need to be aggregated/post processed
+via the plugin.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.plugins.AbstractPlugin.serve">
+<span class="sig-name descname"><span class="pre">serve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host_ip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.AbstractPlugin.serve" title="Permalink to this definition"></a></dt>
+<dd><p>Runs the plugin inside a server</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> (<em>int</em>) – the port on which to listen</p></li>
+<li><p><strong>host_ip</strong> (<em>str</em>) – the url on which to publish the API. Optional.
+Defaults to ‘localhost’.</p></li>
+<li><p><strong>server_type</strong> (<em>str</em><em>, </em><em>optional</em>) – <p>type of server. The different
+types of server are:</p>
+<blockquote>
+<div><ul>
+<li><p>”simple”: single-thread server, accepts one connection
+at a time (default server type)</p></li>
+<li><p>”threaded”: multi-thread server, each connection
+starts a new thread</p></li>
+<li><p>”pool”: multi-thread server, each connection runs
+in a thread, with a maximum of 10 running threads</p></li>
+<li><p>”fork”: multi-process server, each connection runs
+in a new process</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="zeronoiseextrapolator.html" class="btn btn-neutral float-left" title="qat.plugins.ZeroNoiseExtrapolator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="display.html" class="btn btn-neutral float-right" title="qat.plugins.Display" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

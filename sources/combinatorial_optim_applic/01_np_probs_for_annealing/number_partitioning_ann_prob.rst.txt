@@ -1,0 +1,124 @@
+.. _number_partitioning_ann_prob:
+
+Number Partitioning
+===================
+
+Given a set of real and potentially repeating numbers, the problem consists in partitioning them in two subsets, such that the sum
+of the numbers in both of them is equal (or as close as possible). To obtain an answer, we would need to use our 
+:class:`~qat.opt.number_partitioning.NumberPartitioning` class and anneal :math:`N` spins, where :math:`N` is the size of the set of numbers.
+
+.. only:: qlm
+    
+    Solving this problem using the simulated quantum annealing method requires :class:`~qat.qpus.SQAQPU`.
+    
+.. only:: myqlm
+
+    Solving this problem using the simulated annealing method requires the :class:`~qat.qpus.SimulatedAnnealing` QPU.
+
+.. only:: qlm
+
+    .. run-block:: python
+
+        import numpy as np
+        from qat.opt import NumberPartitioning
+        from qat.qpus import SQAQPU
+        from qat.core import Variable
+        from qat.core.spins import integer_to_spins
+
+        # Specify the set of numbers
+        numbers_set = np.random.randint(low=1, high=50, size=30)
+
+        # Show the set
+        print(numbers_set)
+        number_partitioning_problem = NumberPartitioning(numbers_set)
+
+        # Extract parameters for SQA
+        problem_parameters_dict = number_partitioning_problem.get_best_parameters()
+        n_monte_carlo_updates = problem_parameters_dict["n_monte_carlo_updates"]
+        n_trotters = problem_parameters_dict["n_trotters"]
+        n_steps = int(n_monte_carlo_updates /
+                    (n_trotters * len(numbers_set))) # the last one is the number of spins, i.e. the problem size
+        temp_max = problem_parameters_dict["temp_max"]
+        temp_min = problem_parameters_dict["temp_min"]
+        gamma_max = problem_parameters_dict["gamma_max"]
+        gamma_min = problem_parameters_dict["gamma_min"]
+
+        # Create a temperature and a gamma schedule
+        tmax = 1.0
+        t = Variable("t", float)
+        temp_t = temp_min * (t / tmax) + temp_max * (1 - t / tmax)
+        gamma_t = gamma_min * (t / tmax) + gamma_max * (1 - t / tmax)
+
+        # Create a job and send it to a QPU
+        problem_job = number_partitioning_problem.to_job(gamma_t=gamma_t, tmax=tmax, nbshots=1)
+        sqa_qpu = SQAQPU(temp_t=temp_t, n_steps=n_steps, n_trotters=n_trotters)
+        problem_result = sqa_qpu.submit(problem_job)
+
+        # Present best configuration
+        state_int = problem_result.raw_data[0].state.int  # raw_data is a list of Samples - one per shot
+        solution_configuration = integer_to_spins(state_int, len(numbers_set))
+        print("Solution configuration: \n" + str(solution_configuration) + "\n")
+
+        # Show subsets
+        indices_spin_1 = np.where(solution_configuration == 1)[0]
+        spin_1_subset = [numbers_set[i] for i in indices_spin_1]
+        print("The first subset has the numbers:\n" + str(spin_1_subset) + "\n")
+
+        indices_spin_minus_1 = np.where(solution_configuration == -1)[0]
+        spin_minus_1_subset = [numbers_set[i] for i in indices_spin_minus_1]
+        print("The second subset has the numbers:\n" + str(spin_minus_1_subset))
+
+.. only:: myqlm
+
+    .. run-block:: python
+
+        import numpy as np
+        from qat.opt import NumberPartitioning
+        from qat.qpus import SimulatedAnnealing
+        from qat.simulated_annealing import integer_to_spins
+        from qat.core import Variable
+
+        # Specify the set of numbers
+        numbers_set = np.random.randint(low=1, high=50, size=30)
+
+        # Show the set
+        print(numbers_set)
+        number_partitioning_problem = NumberPartitioning(numbers_set)
+
+        # Extract parameters for SA
+        problem_parameters_dict = number_partitioning_problem.get_best_parameters()
+        n_steps = problem_parameters_dict["n_steps"]
+        temp_max = problem_parameters_dict["temp_max"]
+        temp_min = problem_parameters_dict["temp_min"]
+
+        # Create a temperature schedule and a QPU
+        tmax = 1.0
+        t = Variable("t", float)
+        temp_t = temp_min * (t / tmax) + temp_max * (1 - t / tmax)
+        sa_qpu = SimulatedAnnealing(temp_t=temp_t, n_steps=n_steps)
+
+        # Create a job and send it to the QPU
+        problem_job = number_partitioning_problem.to_job(tmax=tmax)
+        problem_result = sa_qpu.submit(problem_job)
+
+        # Extract and print the solution configuration
+        state = problem_result.raw_data[0].state.int  # raw_data is a list of Samples - one per computation
+        solution_configuration = integer_to_spins(state, len(numbers_set))
+        print("Solution configuration: \n" + str(solution_configuration) + "\n")
+
+        # Show subsets
+        indices_spin_1 = np.where(solution_configuration == 1)[0]
+        spin_1_subset = [numbers_set[i] for i in indices_spin_1]
+        print("The first subset has the numbers:\n" + str(spin_1_subset) + "\n")
+
+        indices_spin_minus_1 = np.where(solution_configuration == -1)[0]
+        spin_minus_1_subset = [numbers_set[i] for i in indices_spin_minus_1]
+        print("The second subset has the numbers:\n" + str(spin_minus_1_subset))
+
+.. only:: qlm
+
+    This example is also detailed in this notebook on solving :notebook:`(Number Partitioning)[number_partitioning.ipynb]` problems with :ref:`SQA <simulated_quantum_annealing>`.
+
+.. only:: myqlm
+
+    This example is also detailed in this notebook on solving :notebook:`(Number Partitioning)[number_partitioning_myqlm.ipynb]` problems with :ref:`SA <simulated_annealing>`.

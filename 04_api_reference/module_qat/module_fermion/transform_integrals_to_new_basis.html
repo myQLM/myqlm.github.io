@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.fermion.chemistry.ucc.transform_integrals_to_new_basis &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="qat.fermion.chemistry.qse.apply_quantum_subspace_expansion" href="apply_quantum_subspace_expansion.html" />
+    <link rel="prev" title="qat.fermion.chemistry.ucc.select_active_orbitals" href="select_active_orbitals.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../module_comm.html">qat.comm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../module_fermion.html">qat.fermion</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="electronicstructurehamiltonian.html">qat.fermion.hamiltonians.ElectronicStructureHamiltonian</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spinhamiltonian.html">qat.fermion.hamiltonians.SpinHamiltonian</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_anderson_model.html">qat.fermion.hamiltonians.make_anderson_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_embedded_model.html">qat.fermion.hamiltonians.make_embedded_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_hubbard_model.html">qat.fermion.hamiltonians.make_hubbard_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="transform_to_bk_basis.html">qat.fermion.transforms.transform_to_bk_basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="transform_to_jw_basis.html">qat.fermion.transforms.transform_to_jw_basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="transform_to_parity_basis.html">qat.fermion.transforms.transform_to_parity_basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_compressed_ldca_circ.html">qat.fermion.circuits.make_compressed_ldca_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_general_hwe_circ.html">qat.fermion.circuits.make_general_hwe_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_ldca_circ.html">qat.fermion.circuits.make_ldca_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_mr_circ.html">qat.fermion.circuits.make_mr_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_mrep_circ.html">qat.fermion.circuits.make_mrep_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_shallow_circ.html">qat.fermion.circuits.make_shallow_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molecularhamiltonian.html">qat.fermion.chemistry.wrapper.MolecularHamiltonian</a></li>
+<li class="toctree-l4"><a class="reference internal" href="moleculeinfo.html">qat.fermion.chemistry.wrapper.MoleculeInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compute_active_space_integrals.html">qat.fermion.chemistry.ucc.compute_active_space_integrals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="construct_ucc_ansatz.html">qat.fermion.chemistry.ucc.construct_ucc_ansatz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="convert_to_h_integrals.html">qat.fermion.chemistry.ucc.convert_to_h_integrals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_cluster_ops.html">qat.fermion.chemistry.ucc.get_cluster_ops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_hf_ket.html">qat.fermion.chemistry.ucc.get_hf_ket</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guess_init_params.html">qat.fermion.chemistry.ucc.guess_init_params</a></li>
+<li class="toctree-l4"><a class="reference internal" href="select_active_orbitals.html">qat.fermion.chemistry.ucc.select_active_orbitals</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">qat.fermion.chemistry.ucc.transform_integrals_to_new_basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apply_quantum_subspace_expansion.html">qat.fermion.chemistry.qse.apply_quantum_subspace_expansion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="perform_phase_estimation.html">qat.fermion.phase_estimation.perform_phase_estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_trotterisation_routine.html">qat.fermion.trotterisation.make_trotterisation_routine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="perform_pyscf_computation.html">qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../04_api_reference.html">API reference</a> &raquo;</li>
+          <li><a href="../../module_qat.html">qat</a> &raquo;</li>
+          <li><a href="../module_fermion.html">qat.fermion</a> &raquo;</li>
+      <li>qat.fermion.chemistry.ucc.transform_integrals_to_new_basis</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-fermion-chemistry-ucc-transform-integrals-to-new-basis">
+<h1>qat.fermion.chemistry.ucc.transform_integrals_to_new_basis<a class="headerlink" href="#qat-fermion-chemistry-ucc-transform-integrals-to-new-basis" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="qat.fermion.chemistry.ucc.transform_integrals_to_new_basis">
+<span class="sig-prename descclassname"><span class="pre">qat.fermion.chemistry.ucc.</span></span><span class="sig-name descname"><span class="pre">transform_integrals_to_new_basis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">one_body_integrals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">two_body_integrals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#qat.fermion.chemistry.ucc.transform_integrals_to_new_basis" title="Permalink to this definition"></a></dt>
+<dd><p>Change one and two body integrals (indices p, q…) to
+new basis (indices i, j…) using transformation U such that</p>
+<div class="math notranslate nohighlight">
+\[\hat{c}_{i}=\sum_{q}U_{qi}c_{q}\]</div>
+<p>i.e</p>
+<div class="math notranslate nohighlight">
+\[\hat{I}_{ij} =\sum_{pq}U_{pi}I_{pq}U_{jq}^{\dagger}
+\hat{I}_{ijkl}=\sum_{pqrs}U_{pi}U_{qj}I_{pqrs}U_{kr}^{\dagger}U_{ls}^{\dagger}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>one_body_integrals</strong> (<em>np.ndarray</em>) – One-body integrals <span class="math notranslate nohighlight">\(I_{pq}\)</span>.</p></li>
+<li><p><strong>two_body_integrals</strong> (<em>np.ndarray</em>) – Two-body integrals <span class="math notranslate nohighlight">\(I_{pqrs}\)</span>.</p></li>
+<li><p><strong>u_mat</strong> (<em>np.ndarray</em>) – Transformation matrix <span class="math notranslate nohighlight">\(U\)</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>h_hat_ij (np.ndarray): One-body integrals <span class="math notranslate nohighlight">\(\hat{I}_{ij}\)</span>.</p></li>
+<li><p>h_hat_ijkl (np.ndarray): Two-body integrals <span class="math notranslate nohighlight">\(\hat{I}_{ijkl}\)</span>.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple[np.ndarray, np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="select_active_orbitals.html" class="btn btn-neutral float-left" title="qat.fermion.chemistry.ucc.select_active_orbitals" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="apply_quantum_subspace_expansion.html" class="btn btn-neutral float-right" title="qat.fermion.chemistry.qse.apply_quantum_subspace_expansion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

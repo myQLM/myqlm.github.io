@@ -1,0 +1,121 @@
+.. _running_variational:
+
+Running variational algorithms
+==============================
+
+This framework comes with a collection of tools to efficiently describe and run variational quantum algorithm.
+This page introduces the basic mechanics allowing you to write variational schemes.
+
+Writing :ref:`variational circuits <gate_based_variational>` is discussed in another section.
+
+Extending a QPU to support variational jobs
+-------------------------------------------
+
+The simplest way to run a variational algorithm is to use a :ref:`dedicated Plugin <plugin>` that will take care of the energy
+minimization.
+
+The default variational Plugin wraps the `scipy.optimize.minimize` function: :class:`~qat.plugins.ScipyMinimizePlugin`. This plugin
+extends an exisiting QPU by using the "|" operator
+
+.. run-block-mem:: python run-variational-circuit
+
+    from qat.plugins import ScipyMinimizePlugin
+    from qat.qpus import get_default_qpu
+
+    qpu = (
+        ScipyMinimizePlugin(method="COBYLA", tol=1e-3, options={"maxiter": 150})
+        | get_default_qpu()
+    )
+
+This new QPU will optimize the abstract variable parametrizing the submitted job, to minimize the measured average value of the
+:ref:`observable <observable>` attached to the job.
+
+.. run-block-mem:: python run-variational-circuit
+
+    from qat.lang import qrout, RY, RZ
+    from qat.core import Observable, Term, Variable
+
+    # Define the observable
+    t = Variable("t")
+    obs = sum((1 - t) * Observable.sigma_x(idx) for idx in range(3))
+
+    # Define the Ansatz
+    @qrout
+    def ansatz(theta):
+        " Dummy Ansatz"
+        for qbit in range(3):
+            RY(theta)(qbit)
+            RZ(4 * theta)(qbit)
+
+    # Define job and submit it
+    job = ansatz.to_job(observable=obs)
+    result = qpu.submit(job)
+
+    print('final energy:', result.value)
+    print('best parameters:', result.parameter_map)
+    print('trace:', result.meta_data['optimization_trace'])
+
+This plugin also supports a nice feature: it can read optimization parameters directly from the job's meta data or directly from the
+result. This allows you to build a stack with no particular choice of optimization parameters and attach these parameters
+directly to the job when submitting it. In this setting, the previous example becomes:
+
+.. run-block:: python
+
+    import json
+    from qat.plugins import ScipyMinimizePlugin
+    from qat.qpus import get_default_qpu
+
+    qpu = (
+        ScipyMinimizePlugin()
+        | get_default_qpu()
+    )
+
+    from qat.lang import qrout, RY, RZ
+    from qat.core import Observable, Term, Variable
+
+    # Define the observable
+    t = Variable("t")
+    obs = sum((1 - t) * Observable.sigma_x(idx) for idx in range(3))
+
+    # Define the Ansatz
+    @qrout
+    def ansatz(theta):
+        " Dummy Ansatz"
+        for qbit in range(3):
+            RY(theta)(qbit)
+            RZ(4 * theta)(qbit)
+
+    # Define job and submit it
+    job = ansatz.to_job(observable=obs)
+
+    optimizer_args = {
+        "method": "COBYLA", 
+        "tol": 1e-3, 
+        "options": {"maxiter": 150}
+    }
+
+    result = qpu.submit(job, meta_data={"ScipyMinimizePlugin": json.dumps(optimizer_args)})
+
+    print('final energy:', result.value)
+    print('best parameters:', result.parameter_map)
+    print('trace:', result.meta_data['optimization_trace'])
+
+An alternative is the :class:`~qat.plugins.SeqOptim` Plugin, which only works for a certain class of circuits but stands out for its
+shot-noise resilience.
+
+Differentiating jobs
+--------------------
+
+Many variational algorithms require computing the gradient of the cost function :math:`E(\vec{\theta}) = \langle \psi(\vec{\theta}) | H | \psi(\vec{\theta})\rangle`.
+The gradient can be used in gradient-based optimization methods.
+Qaptiva jobs come with methods to compute the derivative of :math:`E(\vec{\theta})` automically: :func:`~qat.core.Job.differentiate` and :func:`~qat.core.Job.gradient`.
+
+Examples of use of this feature are given in :notebook:`(the "differentiating jobs" notebook)[differentiating_jobs.ipynb]`.
+
+Testing for several initializations of the parameters
+-----------------------------------------------------
+
+Variational optimization tends to be sensitive to the initial parameters it started from. You can insert the
+:class:`~qat.plugins.MultipleLaunchesAnalyzer` Plugin before a VQE optimizer to automatically perform several VQE
+runs and keep the lowest-energy result. This is illustrated in the notebook
+:notebook:`(Making several VQE runs and keeping the best result with the MultipleLaunchesAnalyzer plugin)[qat_fermion_multiple_launches_analyzer_plugin.ipynb]`.

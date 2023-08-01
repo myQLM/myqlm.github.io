@@ -1,0 +1,94 @@
+.. module:: qat.quops
+
+qat.quops
+=========
+
+This module regroups classes and functions to create and manipulate quantum channels, also called quantum operations, quantum maps or quantum process.
+They describe the generalized dynamics of quantum systems when coupled to an external environment.
+
+It is advised to first read the user guide on noise models in :ref:`noise_models`.
+
+Quantum Channels
+----------------
+
+Here are classes related to describing a generic quantum channel.
+
+.. autoapi::
+
+   [:class:`qat.quops.QuantumChannel`] Abstract class for quantum channels
+   [:class:`qat.quops.ParametricQuantumChannel`] Abstract class for parametric quantum channels
+   [:class:`qat.quops.ParametricGateNoise`] Applies noise channel based on gate time
+   [:class:`qat.quops.ChannelRepresentations`] Identifiers for quantum channel representations
+   [:class:`qat.quops.QuantumChannelKraus`] Quantum channel in the Kraus representation
+   [:class:`qat.quops.QuantumChannelPTM`] Quantum channel in the Pauli Transfer Matrix (PTM) representation
+   [:class:`qat.quops.QuantumChannelChoi`] Quantum channel in the Choi-Jamiolkowski representation
+   [:class:`qat.quops.QuantumChannelChi`] Quantum channel in the chi matrix representation
+
+All quantum channels derive from the abstract class :class:`~qat.quops.QuantumChannel`.
+Different representations are available: namely Kraus operators, Pauli Transfer Matrix (PTM), Choi-Jamiolkowski mapping and :math:`\chi`-matrix.
+They can be converted into one another through dedicated methods, for example :meth:`~qat.quops.QuantumChannelKraus.to_chi`.
+Channels that depend on a parameter, for instance a duration that represents the exposition time to an environment, are called *parametric quantum channels* and derive from :class:`~qat.quops.ParametricQuantumChannel`.
+
+The following functions allows to check for important properties of a :class:`~qat.quops.QuantumChannel`.
+Be aware that they are not defined for all representations.
+
+.. autoapi::
+
+   [:func:`qat.quops.is_trace_preserving`] Check if a channel is trace preserving
+   [:func:`qat.quops.is_trace_reducing`] Check if a channel is trace reducing
+   [:func:`qat.quops.is_unital`] Check if a channel is unital
+   [:func:`qat.quops.is_completely_positive`] Check if a channel is completely positive
+
+Predefined quantum channels
+---------------------------
+
+The following commonly used channels are already defined in Qaptiva:
+
+.. autoapi::
+
+   [:class:`qat.quops.ParametricPureDephasing`] Parametric quantum channel for pure dephasing noise
+   [:class:`qat.quops.ParametricAmplitudeDamping`] Parametric quantum channel for amplitude damping noise
+   [:func:`qat.quops.make_depolarizing_channel`] Quantum channel for depolarizing noise
+   [:func:`qat.quops.make_avg_fid_equiv_depol_channel`] Quantum channel for depolarizing noise (alternative)
+   [:func:`qat.quops.make_generalized_amplitude_damping`] Quantum channel for generalized amplitude damping noise
+
+Metrics
+-------
+
+.. module:: qat.quops.metrics
+
+:mod:`qat.quops.metrics` regroups functions related to metrics of the space of density matrices and of the space of quantum maps (also called processes in this context), i.e. distances, norms and fidelities.
+
+.. autoapi::
+
+   [:func:`qat.quops.metrics.get_state_fidelity`] Fidelity between two states
+   [:func:`qat.quops.metrics.get_average_process_fidelity`] Average process fidelity between two quantum channels
+   [:func:`qat.quops.metrics.get_entanglement_process_fidelity`] Entanglement process fidelity between two quantum channels
+   [:func:`qat.quops.metrics.get_process_distance`] Trace distance between Choi representations of two quantum channels
+   [:func:`qat.quops.metrics.get_trace_distance`] Trace distance between two density matrices
+   [:func:`qat.quops.metrics.get_diamond_norm`] Diamond norm of a quantum channel
+
+Operator basis
+--------------
+
+The :math:`\chi`-matrix representation depends on the choice of operator basis. Here are functions to define such basis.
+
+.. autoapi::
+
+   [:func:`qat.quops.math_util.make_standard_matrix_basis`] Canonical matrix basis
+   [:func:`qat.quops.math_util.make_standard_vector_basis`] Canonical vector basis
+   [:func:`qat.quops.math_util.make_pauli_matrix_basis`] Pauli matrix basis
+   [:func:`qat.quops.math_util.convert_density_mat_to_pauli_vec`] Convert matrix from canonical to Pauli
+   [:func:`qat.quops.math_util.convert_pauli_vec_to_density_mat`] Convert matrix from Pauli to canonical
+
+Mathematical utilities
+----------------------
+
+Some useful functions related to the manipulation of quantum channels.
+
+.. autoapi::
+
+   [:func:`qat.quops.math_util.partial_trace`] Partial trace of a matrix
+   [:func:`qat.quops.math_util.multikron`] Kronecker product of a list of matrices
+   [:func:`qat.quops.math_util.are_equal_up_to_phase`] Check equality of states up to a global phase
+

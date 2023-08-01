@@ -1,0 +1,213 @@
+.. _np_problems_annealing:
+
+NP-hard problems
+----------------
+
+.. only:: qlm
+
+    Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are the NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (refer to :ref:`Annealing programming <annealing_programming>` and this :notebook:`(notebook)[introduction_combinatorial_optimization.ipynb]`).
+    Some of them, like :ref:`Max Cut <max_cut_ann_prob>`, :ref:`Graph Colouring <graph_colouring_ann_prob>`, :ref:`Number Partitioning <number_partitioning_ann_prob>`, etc. could be easily formulated in these ways using the Qaptiva tools.
+    A description of these problems can be found below and the respective helper classes for each problem are given in the :ref:`API <np_hard_problems_code>`.
+    An example notebook for each problem could be found in the :notebook:`(overview)[overview_combinatorial_optimization.ipynb]`.
+
+.. only:: myqlm
+
+    Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are the NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (refer to :ref:`Annealing programming <annealing_programming>` and this :notebook:`(notebook)[introduction_combinatorial_optimization_myqlm.ipynb]`).
+    Some of them, like :ref:`Max Cut <max_cut_ann_prob>`, :ref:`Vertex Cover <vertex_cover_ann_prob>`, :ref:`Number Partitioning <number_partitioning_ann_prob>`, etc. could be easily formulated in these ways using myQLM tools.
+    A description of these problems can be found below and the respective helper classes for each problem are given in the :ref:`API <np_hard_problems_code>`.
+    An example notebook for each problem could be found in the :notebook:`(overview)[overview_combinatorial_optimization_myqlm.ipynb]`.
+
+Unconstrained Graph Problems
+____________________________
+
+These problems concern graphs for which any output result is valid. In other words, any solution will obey the criteria for a right solution. However, this result may not be the most optimal.
+
+.. toctree::
+    :hidden:
+    :maxdepth: 1
+
+    01_np_probs_for_annealing/max_cut_ann_prob.rst
+    01_np_probs_for_annealing/graph_partitioning_ann_prob.rst
+
+.. grid:: 2
+    :gutter: 4
+
+    .. grid-item-card:: Max Cut
+        :link: 01_np_probs_for_annealing/max_cut_ann_prob.rst
+
+    .. grid-item-card:: Graph Partitioning
+        :link: 01_np_probs_for_annealing/graph_partitioning_ann_prob.rst
+
+Constrained Graph Problems
+__________________________
+
+.. only:: qlm
+
+    A graph problem is constrained when the output solution needs to obey some conditions in order to be valid. For example, :ref:`Graph Colouring <graph_colouring_ann_prob>` requires that every two nodes connected by an edge are coloured differently - so if the solution graph does not have this property, it is not valid. Therefore, we call *constrained* all problems with conditional correctness on their solution.
+
+    .. toctree::
+        :hidden:
+        :maxdepth: 1
+
+        01_np_probs_for_annealing/kclique_ann_prob.rst
+        01_np_probs_for_annealing/vertex_cover_ann_prob.rst
+        01_np_probs_for_annealing/graph_colouring_ann_prob.rst
+
+    .. grid:: 3
+        :gutter: 4
+
+        .. grid-item-card:: K-Clique
+            :link: 01_np_probs_for_annealing/kclique_ann_prob.rst
+
+        .. grid-item-card:: Vertex Cover
+            :link: 01_np_probs_for_annealing/vertex_cover_ann_prob.rst
+
+        .. grid-item-card:: Graph Colouring
+            :link: 01_np_probs_for_annealing/graph_colouring_ann_prob.rst
+
+.. only:: myqlm
+
+    A graph problem is constrained when the output solution needs to obey some conditions in order to be valid. For example, :ref:`Vertex Cover <vertex_cover_ann_prob>` requires that every edge is connected by at least one coloured node - so if the solution graph does not have this property, it is not valid. Therefore, we call *constrained* all problems with conditional correctness on their solution.
+    
+    .. toctree::
+        :hidden:
+        :maxdepth: 1
+
+        01_np_probs_for_annealing/kclique_ann_prob.rst
+        01_np_probs_for_annealing/vertex_cover_ann_prob.rst
+
+    .. grid:: 3
+        :gutter: 4
+
+        .. grid-item-card:: K-Clique
+            :link: 01_np_probs_for_annealing/kclique_ann_prob.rst
+
+        .. grid-item-card:: Vertex Cover
+            :link: 01_np_probs_for_annealing/vertex_cover_ann_prob.rst
+
+Other problems
+______________
+
+.. only:: qlm
+
+    Some problems are more numbers-oriented, like :ref:`Number Partitioning <number_partitioning_ann_prob>` and Binary Integer Linear Programming (:ref:`BILP <bilp_ann_prob>`). These also belong to NP-hard and can be solved via Simulated Quantum Annealing (:ref:`SQA <simulated_quantum_annealing>`).
+
+    .. toctree::
+        :hidden:
+        :maxdepth: 1
+
+        01_np_probs_for_annealing/number_partitioning_ann_prob.rst
+        01_np_probs_for_annealing/bilp_ann_prob.rst
+
+    .. grid:: 2
+        :gutter: 4
+
+        .. grid-item-card:: Number Partitioning
+            :link: 01_np_probs_for_annealing/number_partitioning_ann_prob.rst
+
+        .. grid-item-card:: Binary Integer Linear Programming (BILP)
+            :link: 01_np_probs_for_annealing/bilp_ann_prob.rst
+
+.. only:: myqlm
+
+    Some problems are more numbers-oriented, like :ref:`Number Partitioning <number_partitioning_ann_prob>`, which also belongs to NP-hard and can be well solved via Simulated Annealing (:ref:`SA <simulated_annealing>`).
+
+    .. toctree::
+        :hidden:
+        :maxdepth: 1
+
+        01_np_probs_for_annealing/number_partitioning_ann_prob.rst
+
+    .. grid:: 2
+        :gutter: 4
+
+        .. grid-item-card:: Number Partitioning
+            :link: 01_np_probs_for_annealing/number_partitioning_ann_prob.rst
+
+.. only:: qlm
+
+    For all the problems above we provide a set of fine tuned parameters which :class:`~qat.qpus.SQAQPU` would need. The solver was tested with various benchmarks and the respective performances were recorded. Along with the problem size and annealing times, the results are presented in the benchmarking section below.
+
+.. only:: myqlm
+
+    For all the problems above we provide a set of fine tuned parameters which Simulated Quantum Annealing that is offered in the full
+    Qaptiva Appliance would need. The solver was tested with various benchmarks and the respective performances were recorded. Along
+    with the problem size and annealing times, the results are presented in the benchmarking section below.
+
+    .. note::
+
+        Many of these parameters showed overall good performances with Simulated Annealing as well.
+
+
+.. _sqa_benchmarking: 
+
+Simulated Quantum Annealing Benchmarking and Performance
+________________________________________________________
+
+.. only:: qlm
+
+    To solve each of the NP problems with Simulated Quantum Annealing (:ref:`SQA <simulated_quantum_annealing>`) we need to feed the solver in :class:`~qat.qpus.SQAQPU` with parameters tailored for the specific problem. We provide such fine tuned parameters for a given set of instances for each problem class. They can be accessed from the ``get_best_parameters`` method of the respective problem class.
+
+    Below, we present the benchmark sources and the performances we obtain with the parameters found. We also show the range of spins of these instances, together with the average execution times.
+
+.. only:: myqlm
+
+    Although Simulated Quantum Annealing is only provided in Qaptiva, we present here its performance for some of the different NP problems to hint on its capabilities. Below are shown the benchmark sources, the range of spins for the problem instances, together with the average execution times.
+
+.. tab-set::
+
+    .. tab-item:: Max Cut
+
+            - **Performance optimized**: :math:`\frac {\text{number of Max Cut edges found}} {\text{best number of Max Cut edges}}`
+            - **Problem instances**: 
+
+                - **Benchmarks**: 9 planar and random graphs from the `Gset benchmark dataset <http://web.stanford.edu/~yyye/yyye/Gset/>`_
+                - **Others**: > 20 random trees
+            - **Spin count**: from 20 to 10 000
+            - **Performance**: > 98%
+            - **Execution time**: mostly < 1 sec and up to 5 seconds for 10 000 spins
+
+
+    .. tab-item:: Graph Colouring
+
+            - **Performance optimized**: :math:`\frac {\text{number of edges with vertices of different colours}} {\text{number of all edges}}`
+            - **Problem instances**:
+
+                - **Benchmarks**: 6 - random graphs and a Leighton graph from `DIMACS Graphs <http://cedric.cnam.fr/~porumbed/graphs/index.html>`_
+                - **Others**: 13 random graphs
+            - **Spin count**: from 60 to 24 000
+            - **Performance**: 88% for best colouring, 95% - 99%  for a few more colours
+            - **Execution time**: < 10 sec for up to 24 000 spins
+
+
+    .. tab-item:: K-Clique
+
+            - **Performance optimized**: :math:`\frac {\text{number of edges in the subgraph found}} {\text{required number of edges for the subgraph to be complete}}`
+            - **Problem instances**: 
+
+                - **Benchmarks**: 27 differently generated graphs from the `BHOSLIB <http://sites.nlsde.buaa.edu.cn/~kexu/benchmarks/graph-benchmarks.htm>`_, `DIMACS <https://mat.gsia.cmu.edu/COLOR02/clq.html>`_ and `Clique benchmark datasets <https://turing.cs.hbg.psu.edu/txn131/clique.html>`_
+                - **Others**: 5 random graphs
+            - **Spin count**: from 450 to 4000
+            - **Performance**: > 98%
+            - **Execution time**: mostly < 1 sec when below 4000 spins
+
+
+    .. tab-item:: Vertex Cover
+
+            - **Performance optimized**: :math:`\frac {\text{best number of coloured nodes}} {\text{found number of coloured nodes}}`
+            - **Problem instances**: 
+
+                - **Benchmarks**: 21 random graphs from the `BHOSLIB <http://sites.nlsde.buaa.edu.cn/~kexu/benchmarks/graph-benchmarks.htm>`_ and `OEIS benchmark datasets <https://oeis.org/A265032/a265032.html>`_
+                - **Others**: 5 random graphs
+            - **Spin count**: from 450 to 4000
+            - **Performance**: > 98%
+            - **Execution time**: mostly < 1 sec and up to 10 seconds for 4000 spins
+
+
+    .. tab-item:: Number Partitioning
+
+            - **Performance optimized**: :math:`\frac {\text{sum of numbers in smaller sum subset}} {\text{sum of numbers in larger sum subset}}`
+            - **Problem instances**: > 30 random number sets of integer or real, non-repeating or repeating numbers
+            - **Spin count**: from 20 to 40 000
+            - **Performance**: > 99%
+            - **Execution time**: from instantly to 15 sec for 40 000 spins

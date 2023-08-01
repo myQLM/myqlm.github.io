@@ -1,0 +1,16 @@
+CLinalg: C++ Linear-algebra-based simulator
+-------------------------------------------
+
+Proposed as a faster alternative to :class:`~qat.qpus.PyLinalg`, :class:`~qat.qpus.CLinalg` is a
+Linear-algebra simulator written in C++, with a python (pybind11) interface.
+
+It is the default simulator of myQLM.
+
+For a general description of linear-algebra-based simulators, please refer to the
+:ref:`PyLinalg documentation page<reference_qat_qpus_pylinalg>`.
+
+**miscellanous remarks about the simulator**:
+
+ * it accepts any gate, of any arity.
+ * it works with the entire amplitude vector. Any information is available.
+ * it is memory and run-time exponential in the number of qubits. This implies a hard simulation limit at around 20-30 qubits, depending on your RAM.

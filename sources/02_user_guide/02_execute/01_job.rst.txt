@@ -1,0 +1,85 @@
+.. _job:
+
+Constructing one or multiple Jobs (using Batch)
+===============================================
+In Qaptiva, the :ref:`quantum circuit <circuit>` can be viewed as routines preparing a quantum memory in a particular state. 
+When simulating the circuit, the user will need to describe the result that he want to obtain from the quantum state. 
+This is achieved by specifying the **final measurement** to be carried out on the final state of the register, i.e on the 
+wavefunction :math:`|\psi\rangle` that has been prepared by the quantum circuit.
+
+**Two types** of final measurements are commonly used in quantum algorithms:
+
+- "**Sample**": Measuring the projection of the wavefunction on the computational basis (formally speaking, this means measuring
+  qubits "along the Z axis"). 
+  
+  For instance, if the final state is :math:`|\psi\rangle=(|00\rangle+|11\rangle)/\sqrt{2}`, measuring
+  "in the computational basis" will yield the bitstring "00" in 50% (:math:`1/\sqrt{2}^2`) of cases, and "11" the rest of the time.
+  Because of the statistical nature of the measurement, many repeated measurements on the computational basis, yielding many
+  different bitstrings or "**samples**", are necessary to get an accurate estimate of the frequencies of each computational basis
+  state ("00": 50%, "01": 0%, "10": 0%, "11": 50% in our case). We will call "**nbshots**" the number of such repetitions
+  (with a classical emulator, one can in general emulate an infinite number of shots since one has access to the exact frequencies).
+  Of course, one may decide to measure only a subset of qubits.
+
+- "**Observable**": Measuring the value of a quantum mechanical **observable** :math:`O` in the final state.
+
+  On average, such a value is given by the formula :math:`\langle O \rangle = \langle \psi | O |\psi \rangle`. While this average value can directly be
+  computed using a classical computer, on an actual QPU, only a limited set of observables can be measured. In practice, most QPUs
+  provide only "Z-axis" measurements, i.e, as described above, the possibility to measure the projection of the wavefunction on
+  computational basis states. In order to perform the estimation of the average value of an observable, one thus needs to convert
+  the computation of :math:`\langle O \rangle` into a series of Z axis measurements (with possible modifications of the circuit),
+  estimate bitstrings frequencies as described above (with a given number of shots or repetitions), and combine those subresults back
+  into an estimate of :math:`\langle O \rangle`.
+
+
+.. warning::
+    While the first final processing type is native to most actual QPUs, some QPUs do not have native support for the ``OBS`` 
+    processing type. In the absence of a native support, the :ref:`ObservableSplitter <obs_splitter>` plugin of Qaptiva can 
+    enhance the QPU with an observable-processing capacity.
+
+
+To contain these informations, the quantum jobs are wrapped in a :class:`~qat.core.Job` class. 
+In addition to the quantum circuit, the user can provide several options when constructing the quantum job:
+    
+    - The **type of final measurement** to perform: standard measurement in computational basis ``SAMPLE`` or sampling of an observable ``OBS``
+    - The **number of shots**, to perform
+    - The **qubits** to be measured
+    - The format of the returned result: whether to **aggregate** the samples
+    - The **amplitude threshold** of the final measurement: states with amplitude under the threshold will be considered null
+    - The **initial quantum state** of the simulation
+    - In case of a variational job, the value of all the **binded variables**
+
+
+.. note::
+    By default, the processing type is ``SAMPLE``, with all qubits being measured, and an infinite number of shots (i.e no statistical uncertainty).
+
+
+In most cases, the job object is not meant to be constructed manually. Instead, it is generated from a :class:`~qat.core.Circuit` 
+using the :meth:`~qat.core.Circuit.to_job` method. The job can then be sent to the :ref:`QPU <qpu>` to be simulated.
+
+The :class:`~qat.core.Batch` class contains a list of jobs, allowing several circuits to be sent to a QPU with only a single request.
+A batch can also include a **meta_data** field if the QPU accepts metadata so that it can be configured with batch related options. 
+ 
+
+The code block below shows a simple example using a batch to simulate a circuit:
+
+
+.. code-block:: python
+
+    # Import a Quantum Processor Unit Factory (the default one)
+    from qat.qpus import get_default_qpu
+
+    # Create a Quantum Processor Unit
+    qpu = get_default_qpu()
+    # Create a job from a circuit
+    job = circuit.to_job(nbshots=1024, qubits=[1,7])
+
+    # Submit the job
+    result = qpu.submit(job)
+
+
+.. note::
+    A job (or a batch) can be serialized in a binary file, and be reconstructed later by loading the file, with the 
+    :meth:`~qat.core.Job.dump` and the :meth:`~qat.core.Job.load` methods.
+
+
+.. autocard::

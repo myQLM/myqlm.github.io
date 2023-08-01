@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ancillae management and compute scopes &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../static/documentation_options.js"></script>
+        <script src="../../../../static/jquery.js"></script>
+        <script src="../../../../static/underscore.js"></script>
+        <script src="../../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../static/doctools.js"></script>
+        <script src="../../../../static/sphinx_highlight.js"></script>
+        <script src="../../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Oracles and quantum types" href="03_oracles.html" />
+    <link rel="prev" title="Naming quantum routines" href="01_naming_routines.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../01_write.html">Writing quantum programs</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../01_digital_circuit.html">Gate-based programming</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../01_quantum_gates.html">Creating and adding quantum gates to a circuit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../02_variational.html">Creating variational circuits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../03_program.html">Quantum programs</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../04_routines.html">Quantum routines (and Oracles)</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="01_naming_routines.html">Naming quantum routines</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">Ancillae management and compute scopes</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#automated-ancillae-management">Automated ancillae management</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#compute-uncompute-scopes">Compute/uncompute scopes</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="03_oracles.html">Oracles and quantum types</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../05_aqasm.html">Atos Quantum Assembler (AQASM)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_analog_schedule.html">Analog programming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_annealing_problems.html">Annealing programming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_observable.html">Creating observables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../02_execute.html">Executing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../../../01_write.html">Writing quantum programs</a> &raquo;</li>
+          <li><a href="../../01_digital_circuit.html">Gate-based programming</a> &raquo;</li>
+          <li><a href="../04_routines.html">Quantum routines (and Oracles)</a> &raquo;</li>
+      <li>Ancillae management and compute scopes</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ancillae-management-and-compute-scopes">
+<h1>Ancillae management and compute scopes<a class="headerlink" href="#ancillae-management-and-compute-scopes" title="Permalink to this heading"></a></h1>
+<section id="automated-ancillae-management">
+<h2>Automated ancillae management<a class="headerlink" href="#automated-ancillae-management" title="Permalink to this heading"></a></h2>
+<p>The <a class="reference internal" href="../../../../04_api_reference/module_qat/module_lang/qroutine.html#qat.lang.QRoutine" title="qat.lang.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> object comes with a system of ancillae management.
+In practice, one can allocate fresh wires and declare them as ancillae:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">QRoutine</span>
+
+<span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+<span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ancilla</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">routine</span><span class="o">.</span><span class="n">set_ancillae</span><span class="p">(</span><span class="n">ancilla</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This routine will have arity 1, its second wire being declared as an ancilla.
+Upon calling the <a class="reference internal" href="../../../../04_api_reference/module_qat/module_lang/program.html#qat.lang.Program.to_circ" title="qat.lang.Program.to_circ"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_circ()</span></code></a> method of a program containing this routine, additional qubits will
+be dynamically allocated and passed to the routine. Of course this allocation is made recursively across
+the call tree.</p>
+<p>The only thing you have to ensure is that the ancillae are freed before leaving the routine (i.e are in product <span class="math notranslate nohighlight">\(|0\rangle\)</span> state).</p>
+<p>As a consequence, it is possible to link subcircuit implementations of a gate using different number of ancillae:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">Program</span>
+<span class="kn">from</span> <span class="nn">qat.lang.AQASM.arithmetic</span> <span class="kn">import</span> <span class="n">add</span>
+<span class="kn">import</span> <span class="nn">qat.lang.AQASM.qftarith</span> <span class="k">as</span> <span class="nn">qftarith</span>
+<span class="kn">import</span> <span class="nn">qat.lang.AQASM.classarith</span> <span class="k">as</span> <span class="nn">classarith</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">add</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
+
+<span class="c1"># No ancillae</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">(</span><span class="n">link</span><span class="o">=</span><span class="p">[</span><span class="n">qftarith</span><span class="p">])</span>
+
+<span class="c1"># 9 ancillae</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">(</span><span class="n">link</span><span class="o">=</span><span class="p">[</span><span class="n">classarith</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="compute-uncompute-scopes">
+<h2>Compute/uncompute scopes<a class="headerlink" href="#compute-uncompute-scopes" title="Permalink to this heading"></a></h2>
+<p>A quite common programming scheme in reversible computation in general, and quantum computation in particular, is the <em>compute/uncompute</em> scheme.</p>
+<p>Usually, one has to compute some function, use the result of this computation, and then uncompute the first part of the circuit to free up some ancilla resources.</p>
+<p>This scheme is natively supported inside the <a class="reference internal" href="../../../../04_api_reference/module_qat/module_lang/qroutine.html#qat.lang.QRoutine" title="qat.lang.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> and <a class="reference internal" href="../../../../04_api_reference/module_qat/module_lang/program.html#qat.lang.Program" title="qat.lang.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> objects using a <strong>with</strong> statement:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">CNOT</span><span class="p">,</span> <span class="n">PH</span>
+
+<span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+
+<span class="c1"># Allocating 2 wires to apply gates on</span>
+<span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Opening a computation scope</span>
+<span class="k">with</span> <span class="n">routine</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="c1"># The scope is now closed and stored internally</span>
+
+<span class="n">PH</span><span class="p">(</span><span class="mf">1.</span><span class="p">)(</span><span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Here we &#39;pop&#39; the last closed scope and apply its dagger</span>
+<span class="n">routine</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
+<span class="c1"># The routine now contains 3 gates</span>
+</pre></div>
+</div>
+<p>or, using programs:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">CNOT</span><span class="p">,</span> <span class="n">PH</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+
+<span class="c1"># Allocating 2 wires to apply gates on</span>
+<span class="n">wires</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Opening a computation scope</span>
+<span class="k">with</span> <span class="n">prog</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="c1"># The scope is now closed and stored internally</span>
+
+<span class="n">PH</span><span class="p">(</span><span class="mf">1.</span><span class="p">)(</span><span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Here we &#39;pop&#39; the last closed scope and apply its dagger</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
+<span class="c1"># The routine now contains 3 gates</span>
+</pre></div>
+</div>
+<p>Of course computation scopes can be nested:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">CNOT</span><span class="p">,</span> <span class="n">PH</span>
+
+<span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+<span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">routine</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">with</span> <span class="n">routine</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
+        <span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">wires</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">PH</span><span class="p">(</span><span class="mf">1.</span><span class="p">)(</span><span class="n">wires</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">routine</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
+<span class="n">PH</span><span class="p">(</span><span class="mf">2.</span><span class="p">)(</span><span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">routine</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
+<span class="c1"># The routine now contains 9 gates</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="01_naming_routines.html" class="btn btn-neutral float-left" title="Naming quantum routines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="03_oracles.html" class="btn btn-neutral float-right" title="Oracles and quantum types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.core.Topology &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="qat.core.TopologyType" href="topologytype.html" />
+    <link rel="prev" title="qat.core.HardwareSpecs" href="hardwarespecs.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../module_comm.html">qat.comm</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../module_core.html">qat.core</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="module_application.html">qat.core.application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_circuit_builder.html">qat.core.circuit_builder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_gate_set.html">qat.core.gate_set</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_qpu.html">qat.core.qpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_spins.html">qat.core.spins</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_variables.html">qat.core.variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="batch.html">qat.core.Batch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="circuit.html">qat.core.Circuit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="job.html">qat.core.Job</a></li>
+<li class="toctree-l4"><a class="reference internal" href="schedule.html">qat.core.Schedule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="batchresult.html">qat.core.BatchResult</a></li>
+<li class="toctree-l4"><a class="reference internal" href="result.html">qat.core.Result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sample.html">qat.core.Sample</a></li>
+<li class="toctree-l4"><a class="reference internal" href="state.html">qat.core.wrappers.result.State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="observable.html">qat.core.Observable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="term.html">qat.core.Term</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hardwarespecs.html">qat.core.HardwareSpecs</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">qat.core.Topology</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topologytype.html">qat.core.TopologyType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="parameter.html">qat.core.Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="variable.html">qat.core.Variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aggregate_data.html">qat.core.wrappers.result.aggregate_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="assert_plugin.html">qat.core.assertion.assert_plugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="assert_qpu.html">qat.core.assertion.assert_qpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="display.html">qat.core.console.display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="evaluate.html">qat.core.formula_eval.evaluate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_in_notebook.html">qat.core.printer.plot_in_notebook</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../04_api_reference.html">API reference</a> &raquo;</li>
+          <li><a href="../../module_qat.html">qat</a> &raquo;</li>
+          <li><a href="../module_core.html">qat.core</a> &raquo;</li>
+      <li>qat.core.Topology</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-core-topology">
+<h1>qat.core.Topology<a class="headerlink" href="#qat-core-topology" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.core.Topology">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">Topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbqbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology" title="Permalink to this definition"></a></dt>
+<dd><p>Simple higher-level wrapper for the serializable Topology class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>topology</strong> (<em>ThriftTopology</em><em>, </em><em>optional</em>) – serializable object describing the
+topology</p></li>
+<li><p><strong>is_directed</strong> (<em>bool</em><em>, </em><em>optional</em>) – set the topology directed or undirected
+(used if your topology is Custom). If your topology is undirected,
+any qubit of a pair is either a control or a target qubit,
+otherwise, only one qubit of the pair is the control qubit. The
+topology is, by default, undirected</p></li>
+<li><p><strong>type</strong> (<a class="reference internal" href="topologytype.html#qat.core.TopologyType" title="qat.core.TopologyType"><code class="xref py py-class docutils literal notranslate"><span class="pre">TopologyType</span></code></a>, optional) – type
+of the topology (All to All, LNN or Custom)</p></li>
+<li><p><strong>graph</strong> (<em>dict&lt;int</em><em>, </em><em>list&lt;int&gt;&gt;</em><em>, </em><em>optional</em>) – graph describing the topology
+(required iff the topology is Custom). Any key of this dictionary
+corresponds to the index of a control qubit and each linked value
+corresponds to indexes of qubits which can be target of this
+control qubit</p></li>
+<li><p><strong>nbqbits</strong> (<em>int</em><em>, </em><em>optional</em>) – number of qubits</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Topology.add_edge">
+<span class="sig-name descname"><span class="pre">add_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qb1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qb2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology.add_edge" title="Permalink to this definition"></a></dt>
+<dd><p>Update connectivity between qubits. The topology will be set to CUSTOM
+(if needed).
+Use this method if a two qubits gate can be applied between qubits of
+indexes <code class="code docutils literal notranslate"><span class="pre">qb1</span></code> and <code class="code docutils literal notranslate"><span class="pre">qb2</span></code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your topology is directed, the first argument is the control
+qubit.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qb1</strong> (<em>int</em>) – index of the first qubit</p></li>
+<li><p><strong>qb2</strong> (<em>int</em>) – index of the second qubit</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Topology.dump">
+<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology.dump" title="Permalink to this definition"></a></dt>
+<dd><p>Dumps the Toplogy inside a file in binary format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fname</strong> (<em>str</em>) – the file name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Topology.from_bytes">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology.from_bytes" title="Permalink to this definition"></a></dt>
+<dd><p>Builds a topology from raw bytes object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Topology.from_nx">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_nx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nx_graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology.from_nx" title="Permalink to this definition"></a></dt>
+<dd><p>Builds a Topology object from a networkx Graph</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nx_graph</strong> (<em>networkx.Graph</em>) – a networkx Graph</p></li>
+<li><p><strong>vmap</strong> (<em>optional</em><em>, </em><em>dict</em>) – if set, the dictionary is update
+with a map that maps graph nodes to qubit indexes</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Topology.from_thrift">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_thrift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tobject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_none</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology.from_thrift" title="Permalink to this definition"></a></dt>
+<dd><p>Builds a Topology object from a thrift topology object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Topology.load">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology.load" title="Permalink to this definition"></a></dt>
+<dd><p>Loads a Topology from a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fname</strong> (<em>str</em>) – the file name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="#qat.core.Topology" title="qat.core.Topology"><code class="xref py py-class docutils literal notranslate"><span class="pre">Topology</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="qat.core.Topology.nbqbits">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nbqbits</span></span><a class="headerlink" href="#qat.core.Topology.nbqbits" title="Permalink to this definition"></a></dt>
+<dd><p>Getter of nbqbits of a topology object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Topology.set_nbqbits">
+<span class="sig-name descname"><span class="pre">set_nbqbits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology.set_nbqbits" title="Permalink to this definition"></a></dt>
+<dd><p>A helper method that set the nbqbits of a custom topology, used by the HardwareSpecs to fix the number of qubits
+of a custom topology</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Topology.to_nx">
+<span class="sig-name descname"><span class="pre">to_nx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nqbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Topology.to_nx" title="Permalink to this definition"></a></dt>
+<dd><p>Cast the Topology object into a networkx graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nqbits</strong> (<em>optional</em><em>, </em><em>int</em>) – if specified, the number of qubits</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a networkx graph</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>nx.Graph</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="hardwarespecs.html" class="btn btn-neutral float-left" title="qat.core.HardwareSpecs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="topologytype.html" class="btn btn-neutral float-right" title="qat.core.TopologyType" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

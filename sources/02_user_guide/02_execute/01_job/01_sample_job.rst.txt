@@ -1,0 +1,95 @@
+.. _sample_job:
+
+Sample Job
+==========
+
+We take the same example (simple Bell pair circuit) in the :ref:`Getting Started <getting_started>` page to illustrate this case.
+
+The ``Job`` is created from a circuit using the circuit's ``to_job()`` method, which by default use ``SAMPLE`` processing type.
+It is then fed to the QPU's ``submit`` method, which returns a :ref:`Result <result>` object.
+In ``SAMPLE`` mode, this result can be iterated on, yielding the various "samples", with each sample
+corresponding to a given bitstring (``state``) and its frequency of appearance (``probability``) upon
+conducting a Z measurement over the final state :math:`|\psi\rangle`. States with zero probability
+are not listed (one can set a threshold ``amp_threshold`` to filter out states below a certain probability amplitude). 
+
+
+.. tab-set::
+
+    .. tab-item:: Infinite number of shots, all qubits
+
+        .. run-block:: python
+
+            from qat.lang.AQASM import Program, H, CNOT
+            from qat.qpus import get_default_qpu
+
+            # Create a circuit
+            qprog = Program()
+            qbits = qprog.qalloc(2)
+            H(qbits[0])
+            CNOT(qbits[0], qbits[1])
+            circuit = qprog.to_circ()
+
+            # Create a job
+            job = circuit.to_job() # no parameters, equivalent to "nbshots=0"
+
+            # Execute
+            result = get_default_qpu().submit(job)
+            for sample in result:
+                print("State %s: probability %s, amplitude %s" % (sample.state, sample.probability, sample.amplitude))
+
+        Here, we also print the probability ``amplitude`` corresponding to each computational basis state.
+        However, this piece of information is in general not available from an actual QPU, but merely from some classical simulators.
+
+    .. tab-item:: Finite number of shots, all qubits
+
+        .. run-block:: python
+
+            from qat.lang.AQASM import Program, H, CNOT
+            from qat.qpus import get_default_qpu
+
+            # Create a circuit
+            qprog = Program()
+            qbits = qprog.qalloc(2)
+            H(qbits[0])
+            CNOT(qbits[0], qbits[1])
+            circuit = qprog.to_circ()
+
+            # Create a job
+            job = circuit.to_job(nbshots=100)
+
+            # Execute
+            result = get_default_qpu().submit(job)
+            for sample in result:
+                print("State %s: probability %s +/- %s" % (sample.state, sample.probability, sample.err))
+
+        We can see that the estimated probability of the states differs from the ideal one due to "shot noise". The ``err``
+        field of the ``sample`` object contains the standard error of the mean on the appearance frequency of the state.
+        It decreases as :math:`1/\sqrt{n_\mathrm{shots}}`.
+
+    .. tab-item:: Infinite number of shots, only one qubit
+
+        Here, we decide to measure only the second qubit:
+
+        .. run-block:: python
+
+            from qat.lang.AQASM import Program, H, CNOT
+            from qat.qpus import get_default_qpu
+
+            # Create a circuit
+            qprog = Program()
+            qbits = qprog.qalloc(2)
+            H(qbits[0])
+            CNOT(qbits[0], qbits[1])
+            circuit = qprog.to_circ()
+
+            # Create a job
+            job = circuit.to_job(nbshots=0, qubits=[1])
+
+            # Execute
+            result = get_default_qpu().submit(job)
+            for sample in result:
+                print("State %s: probability %s +/- %s" % (sample.state, sample.probability, sample.err))
+
+        As expected, the probability of measuring "0" on the second qubit is the same as the 
+        probability of measuring "1". Here, ``err`` is ``None`` because we took an infinite number
+        of shots.

@@ -1,0 +1,259 @@
+Writing quantum programs
+========================
+This framework provides tools to **write advanced quantum jobs** using only few lines of code. Qaptiva supports several quantum paradigms,
+such as the :ref:`gate-based paradigm <circuit>`, the :ref:`analog paradigm <schedules_section>`, and
+the :ref:`quantum annealing paradigm <annealing_programming>`. All of these paradigms are detailed in the
+:ref:`writing section, in user guide <writing>`.
+
+This page focus on the gate-based paradigm. Module :mod:`qat.lang` contains all Python objects required to create these quantum
+circuits, which include:
+
+ - the native gates of Qaptiva framework
+ - a programming library to create a quantum :class:`~qat.core.Circuit` using these native gates. Programming a quantum circuit
+   can rely on:
+
+    - a function - gates are added to the circuit using either :func:`~qat.lang.qrout` or :func:`~qat.lang.qfunc` decorators
+    - the :class:`~qat.lang.Program` class - gates are added to the circuit using :meth:`~qat.lang.Program.apply` method
+
+Example of a grover algorithm
+-----------------------------
+
+Let's write a simple Grover algorithm. Grover is a quantum search algorithm that can find an element in an unstructured search space
+quadratically faster than a randomized classical algorithm. In this search model, the problem is specified by an **oracle**,
+i.e a function :math:`\mathcal{X}\rightarrow \{0, 1\}`, and we are looking for an element :math:`x \in \mathcal{X}`
+such that :math:`f(x) = 1`.
+
+The algorithm consists in alternating two operations :math:`\pi \sqrt{\frac{1}{a}}/4` times where
+:math:`a = \frac{|f^{-1}(\{1\})|}{|\mathcal{X}|}` is the probability of finding the searched element in the uniform distribution.
+
+These operations are:
+
+    * an oracle :math:`U_f: |x \rangle \mapsto (-1)^{f(x)}|x\rangle`
+    
+    * a diffusion :math:`U_D = I - 2|s\rangle\langle s|` where :math:`|s\rangle = \frac{1}{\sqrt{|\mathcal{X}|}} \sum_{x\in\mathcal{X}} |x\rangle`
+
+Let's dive in the details of their implementation for a simple search!
+
+The diffusion
+.............
+
+To keep things simple we will consider the following search space: :math:`\mathcal{X} = \{0, 1\}^{2k}`.
+In this setting, a diffusion can be implemented as follows:
+    
+    * First, we will put all the qubits in the diagonal basis by applying a wall of H gates.
+    * We can then flip the amplitude of the :math:`|0..0\rangle` state by flipping all qubits using a wall of :math:`X` gates
+      and applying a controlled :math:`Z` gate on all qubits.
+    * Finally, we can undo our basis changes by applying a wall of :math:`X` followed by a wall of :math:`H`
+
+We will write a python function that given a number :math:`k` returns a diffusion routine over :math:`2k` qubits:
+
+    .. tab-set::
+
+        .. tab-item:: Functional mode
+            :sync: functional_mode
+        
+            .. run-block-mem:: python ex_grover_palindromes_func
+
+                import numpy as np
+                # everything we need to write a quantum circuit
+                from qat.lang import *
+
+                # This is a standard implementation of Grover's diffusion
+                @qrout(unroll=False)
+                def diffusion(k):
+                    for wire in range(2 * k):
+                        H(wire)
+                        X(wire)
+                    Z.ctrl(2 * k - 1)(list(range(2*k)))
+                    for wire in range(2 * k):
+                        X(wire)
+                        H(wire)
+
+
+        .. tab-item:: Sequential mode
+            :sync: sequential_mode
+
+
+            .. run-block-mem:: python ex_grover_palindromes_seq
+
+                import numpy as np
+                # everything we need to write a quantum circuit
+                from qat.lang import *
+
+                # This is a standard implementation of Grover's diffusion
+                def diffusion(k):
+                    routine = QRoutine()
+                    wires = routine.new_wires(2 * k)
+                    for wire in wires:
+                        H(wire)
+                        X(wire)
+                    Z.ctrl(2 * k - 1)(wires)
+                    for wire in wires:
+                        X(wire)
+                        H(wire)
+                    return routine
+
+
+As you can see, we repeat a lot of code to do basis change and revert them. We can simplify the code by using a compute/uncompute block:
+
+.. tab-set::
+
+        .. tab-item:: Functional mode
+            :sync: functional_mode
+        
+            .. run-block-mem:: python ex_grover_palindromes_func
+
+                @qrout(unroll=False)
+                def diffusion(k):
+                    with compute():
+                        for wire in range(2 * k):
+                            H(wire)
+                            X(wire)
+                    Z.ctrl(2 * k - 1)(list(range(2*k)))
+
+
+            Notice how we don't need to explicitely uncompute the H and X gates.
+            These gates will be automatically uncomputed when exiting the routine.
+
+        .. tab-item:: Sequential mode
+            :sync: sequential_mode
+
+            .. run-block-mem:: python ex_grover_palindromes_seq
+
+                def diffusion(k):
+                    routine = QRoutine()
+                    wires = routine.new_wires(2 * k)
+                    with routine.compute():
+                        for wire in wires:
+                            H(wire)
+                            X(wire)
+                    Z.ctrl(2 * k - 1)(wires)
+                    routine.uncompute()
+                    return routine
+
+This is clearer now: We have our walls of :math:`H` and :math:`X` gates, our controlled :math:`Z` gate, and we undo our
+walls using the uncomputation.
+
+The oracle
+..........
+
+In this space, we will look for palindromes: bit strings that are their own mirrors.
+We will implement our oracle as follows (remember that we need to flip the sign of the amplitude of all palindromes):
+
+    * First we will compute the xor of :math:`b_1` and :math:`b_{2k}`, :math:`b_2` and :math:`b_{2k-1}`, etc. We will
+	  do these operations in place in the second half of the bit string.
+    * Then we will flip the amplitude of our state if and only if its second half is :math:`0...0`. To do so, we will
+      flip all bits in the second half (using :math:`X` gates) and perform a controlled :math:`Z` gate on the second half,
+      thus flipping the amplitude if and only if all qubits are set to :math:`1`.
+    * Finally, we can revert to the original state by uncomputing the bit flips and xors (once again we will use a compute/uncompute block)
+
+.. tab-set::
+
+        .. tab-item:: Functional mode
+            :sync: functional_mode
+
+            .. run-block-mem:: python ex_grover_palindromes_func
+                
+                @qrout(unroll=False)
+                def is_palindrome(k):
+                    first_half = list(range(k))
+                    second_half = list(range(k, 2 * k))
+                    with compute():
+                        for w1, w2 in zip(first_half, reversed(second_half)):
+                            CNOT(w1, w2)
+                        for w2 in second_half:
+                            X(w2)
+                    Z.ctrl(k - 1)(second_half)
+
+
+        .. tab-item:: Sequential mode
+            :sync: sequential_mode
+
+
+            .. run-block-mem:: python ex_grover_palindromes_seq
+
+                def is_palindrome(k):
+                    routine = QRoutine()
+                    first_half = routine.new_wires(k)
+                    second_half = routine.new_wires(k)
+                    with routine.compute():
+                        for w1, w2 in zip(first_half, reversed(second_half)):
+                            CNOT(w1, w2)
+                        for w2 in second_half:
+                            X(w2)
+                    Z.ctrl(k - 1)(second_half)
+                    routine.uncompute()
+                    return routine
+
+And this is it. We can now run a Grover algorithm to find palindromes!
+There are exactly :math:`2^k` palindromes over :math:`2k` bits, hence we will need to perform
+:math:`\approx \pi\sqrt{2^k}/4` iterations to find a palindrome with good probability.
+
+.. tab-set::
+
+        .. tab-item:: Functional mode
+            :sync: functional_mode
+        
+            .. run-block-mem:: python ex_grover_palindromes_func
+
+                k = 2
+
+                @qrout
+                def grover():
+                    qbits = list(range(2 * k))
+                    diff = diffusion(k)
+                    oracle = is_palindrome(k)
+
+                    # We start by a uniform superposition of bit strings:
+                    for qbit in qbits:
+                        H(qbit)
+
+                    nsteps = int(np.pi * np.sqrt(2 ** k) / 4)
+                    for _ in range(nsteps):
+                        oracle(qbits)
+                        diff(qbits)
+
+                result = grover().run()
+
+                for sample in result:
+                    print(sample.state, sample.probability)
+
+        .. tab-item:: Sequential mode
+            :sync: sequential_mode
+
+            .. run-block-mem:: python ex_grover_palindromes_seq
+
+                k = 2
+                grover = Program()
+                qbits = grover.qalloc(2 * k)
+                diff = diffusion(k)
+                oracle = is_palindrome(k)
+
+                # We start by a uniform superposition of bit strings:
+                for qbit in qbits:
+                    H(qbit)
+
+                nsteps = int(np.pi * np.sqrt(2 ** k) / 4)
+                for _ in range(nsteps):
+                    oracle(qbits)
+                    diff(qbits)
+
+                # Build a circuit
+                circuit = grover.to_circ()
+                    
+                # Build a job
+                job = circuit.to_job()
+
+                from qat.qpus import get_default_qpu
+
+                # Evaluate the job and print the output probabilities
+                result = get_default_qpu().submit(job)
+                for sample in result:
+                    print(sample.state, sample.probability)
+
+As you can see, all the bit strings we can sample (with decently high probability) are palindromes!
+
+Of course, this example is not particularly helpful to solve practical problems, but this framework comes with high
+level constructs that can help you write more advanced oracles.
+If you are curious, you can have a look at the :ref:`oracles section <oracles>` of the documentation
+to see how to write complicated oracles relying on custom data structures.

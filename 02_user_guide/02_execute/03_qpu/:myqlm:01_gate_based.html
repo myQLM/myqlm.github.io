@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gate based computing &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Annealing computing" href="03_annealing.html" />
+    <link rel="prev" title="Quantum Processing Unit (QPU)" href="../03_qpu.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../02_execute.html">Executing quantum programs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../01_job.html">Constructing one or multiple Jobs (using Batch)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_result.html">Result of a quantum program</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../03_qpu.html">Quantum Processing Unit (QPU)</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Gate based computing</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#clinalg-c-linear-algebra-based-simulator">CLinalg: C++ Linear-algebra-based simulator</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pylinalg-python-linear-algebra-based-simulator">PyLinalg: Python Linear-algebra-based simulator</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="03_annealing.html">Annealing computing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="04_custom_qpu.html">Make your own QPU</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../04_plugin.html">Extending a QPU (by using Plugins)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_variational.html">Running variational algorithms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../../02_execute.html">Executing quantum programs</a> &raquo;</li>
+          <li><a href="../03_qpu.html">Quantum Processing Unit (QPU)</a> &raquo;</li>
+      <li>Gate based computing</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gate-based-computing">
+<span id="digital-qpus-ug-myqlm"></span><h1>Gate based computing<a class="headerlink" href="#gate-based-computing" title="Permalink to this heading"></a></h1>
+<p>Gate-based quantum emulators can be split in several categories:</p>
+<table class="docutils align-center" id="id4" style="width: 75%">
+<caption><span class="caption-text">QPU Emulators</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head stub"></th>
+<th class="head"><p>Ideal Computation</p></th>
+<th class="head"><p>Noisy Computation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><th class="stub"><p>Exact Representation</p></th>
+<td><p>PyLinalg, CLinalg</p></td>
+<td><p>N.A. <a class="footnote-reference brackets" href="#na" id="id1">1</a></p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Approximate Representation</p></th>
+<td><p>N.A. <a class="footnote-reference brackets" href="#na" id="id2">1</a></p></td>
+<td><p>N.A. <a class="footnote-reference brackets" href="#na" id="id3">1</a></p></td>
+</tr>
+</tbody>
+</table>
+<p>A complete list of these QPUs can be found <a class="reference internal" href="../../../04_api_reference/module_qat/module_qpus.html#module-qat.qpus" title="qat.qpus"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.qpus</span></code></a>.</p>
+<dl class="footnote brackets">
+<dt class="label" id="na"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id3">3</a>)</span></dt>
+<dd><p>The full Qaptiva appliance contains a variety of QPUs, comprising all of those categories,
+as for instance QPUs capable of simulating physical noise.</p>
+</dd>
+</dl>
+<section id="clinalg-c-linear-algebra-based-simulator">
+<h2>CLinalg: C++ Linear-algebra-based simulator<a class="headerlink" href="#clinalg-c-linear-algebra-based-simulator" title="Permalink to this heading"></a></h2>
+<p>Proposed as a faster alternative to <a class="reference internal" href="../../../04_api_reference/module_qat/module_qpus/%3Amyqlm%3Apylinalg.html#qat.qpus.PyLinalg" title="qat.qpus.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a>, <a class="reference internal" href="../../../04_api_reference/module_qat/module_qpus/%3Amyqlm%3Aclinalg.html#qat.qpus.CLinalg" title="qat.qpus.CLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">CLinalg</span></code></a> is a
+Linear-algebra simulator written in C++, with a python (pybind11) interface.</p>
+<p>It is the default simulator of myQLM.</p>
+<p>For a general description of linear-algebra-based simulators, please refer to the
+<a class="reference internal" href="../../../04_api_reference/module_qat/module_qpus/%3Amyqlm%3Apylinalg.html#reference-qat-qpus-pylinalg"><span class="std std-ref">PyLinalg documentation page</span></a>.</p>
+<p><strong>miscellanous remarks about the simulator</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>it accepts any gate, of any arity.</p></li>
+<li><p>it works with the entire amplitude vector. Any information is available.</p></li>
+<li><p>it is memory and run-time exponential in the number of qubits. This implies a hard simulation limit at around 20-30 qubits, depending on your RAM.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="pylinalg-python-linear-algebra-based-simulator">
+<h2>PyLinalg: Python Linear-algebra-based simulator<a class="headerlink" href="#pylinalg-python-linear-algebra-based-simulator" title="Permalink to this heading"></a></h2>
+<p><a class="reference internal" href="../../../04_api_reference/module_qat/module_qpus/%3Amyqlm%3Apylinalg.html#qat.qpus.PyLinalg" title="qat.qpus.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.qpus.PyLinalg</span></code></a> was the first simulator delivered with myQLM.
+It performs a unitary evolution of the initial quantum state using the operations described in a
+quantum circuit. This simulator is called “Python Linear-Algebra”.</p>
+<p>It is entirely written in Python, and is based in particular on the
+<a class="reference external" href="http://www.numpy.org/">Numpy</a> library.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../03_qpu.html" class="btn btn-neutral float-left" title="Quantum Processing Unit (QPU)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="03_annealing.html" class="btn btn-neutral float-right" title="Annealing computing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

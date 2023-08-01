@@ -1,0 +1,106 @@
+.. _observable_job:
+
+Observable Job
+==============
+
+The second type of final measurement, the "OBSERVABLE" mode can be used to compute the average value of an :ref:`observable <observable>`.
+We will reuse the simple Bell pair :math:`|\psi\rangle=(|00\rangle+|11\rangle)/\sqrt{2}` circuit, and compute the average value of the following observable:
+
+.. math::
+    O = X_0 \otimes Z_1
+
+A straightforward computation yields :math:`\langle O \rangle = 0`. Let us now perform
+this computation with Qaptiva and verify the result.
+
+.. tab-set::
+
+    .. tab-item:: Infinite number of shots, all qubits
+
+        We start with a computation devoid of any shot noise (infinite number of shots). 
+
+        .. run-block:: python
+
+            from qat.lang.AQASM import Program, H, CNOT
+            from qat.qpus import get_default_qpu
+
+            # Create a circuit
+            qprog = Program()
+            qbits = qprog.qalloc(2)
+            H(qbits[0])
+            CNOT(qbits[0], qbits[1])
+            circuit = qprog.to_circ()
+
+            # Create an observable
+            from qat.core import Observable, Term
+            obs = Observable(2, pauli_terms=[Term(1, "XZ", [0, 1])])
+
+            # Create a job
+            job = circuit.to_job(observable=obs)
+
+            # Execute
+            result = get_default_qpu().submit(job)
+            print("<O> = ", result.value)
+
+        We verify that the expectation ``value`` :math:`\langle O \rangle` of the result is 0.
+        
+    .. tab-item:: Finite number of shots, all qubits
+
+        We now look at the effect of shot noise. In practice one can only repeat the measurement a finite number of times.
+        Here, we will submit three jobs, each with a different number of shots ``nbshots``, to the QPU.
+
+        .. only:: qlm
+
+            .. run-block:: python
+
+                from qat.lang.AQASM import Program, H, CNOT
+                from qat.qpus import get_default_qpu
+
+                # Create a circuit
+                qprog = Program()
+                qbits = qprog.qalloc(2)
+                H(qbits[0])
+                CNOT(qbits[0], qbits[1])
+                circuit = qprog.to_circ()
+
+                # Create an observable
+                from qat.core import Observable, Term
+                obs = Observable(2, pauli_terms=[Term(1, "XZ", [0, 1])])
+
+                # Create a job
+                for nbshots in [100, 1000, 10000]:
+                    job = circuit.to_job(observable=obs, nbshots=nbshots)
+                    result = get_default_qpu().submit(job)
+                    print(f"<O> ({nbshots} shots) = {result.value} +/- {result.error}")
+
+        
+        .. only:: myqlm
+
+            .. run-block:: python
+
+                from qat.lang.AQASM import Program, H, CNOT
+                from qat.qpus import get_default_qpu
+
+                # Create a circuit
+                qprog = Program()
+                qbits = qprog.qalloc(2)
+                H(qbits[0])
+                CNOT(qbits[0], qbits[1])
+                circuit = qprog.to_circ()
+
+                # Create an observable
+                from qat.core import Observable, Term
+                obs = Observable(2, pauli_terms=[Term(1, "XZ", [0, 1])])
+
+                # Create a job
+                for nbshots in [100, 1000, 10000]:
+                    job = circuit.to_job(observable=obs, nbshots=nbshots)
+
+                    # The QPU is stacked with ObservableSplitter, as the default myQLM QPU does not support
+                    # a finite number of shots for observable sampling
+                    from qat.plugins import ObservableSplitter
+                    result = (ObservableSplitter() | get_default_qpu()).submit(job)
+
+                    print(f"<O> ({nbshots} shots) = {result.value} +/- {result.error}")
+        
+        We can see that the expectation ``value`` :math:`\langle O \rangle` of the result differs from the ideal one due to "shot noise".
+        The ``error`` field contains the standard error of the estimated expectation value.

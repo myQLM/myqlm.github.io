@@ -1,0 +1,140 @@
+.. _vertex_cover_generator:
+
+Vertex Cover Generator
+======================
+
+Given an undirected graph with vertex set :math:`V` and edge set :math:`E`, Vertex Cover consists in finding the smallest number of nodes to be coloured, such that every edge has a coloured vertex. As an addition, we want to know which these vertices are. To anneal this problem we would need :math:`\#V` spins (one spin per vertex).
+
+The :class:`~qat.opt.generators.VertexCoverGenerator` can be used to generate batches to solve the Vertex Cover problem on an
+input graph. Some examples using different types of job generation and QPUs on some simple graphs are shown below:
+
+.. tab-set::
+
+    .. tab-item:: QAOA job generation
+
+        .. run-block:: python
+
+            import networkx as nx
+            from qat.generators import VertexCoverGenerator
+            from qat.plugins import ScipyMinimizePlugin
+            from qat.qpus import get_default_qpu
+
+            graph = nx.full_rary_tree(3, 6)
+
+            scipy_args = dict(method="COBYLA", tol=1e-5, options={"maxiter": 200})
+            vertex_cover_application = VertexCoverGenerator(job_type="qaoa") | (ScipyMinimizePlugin(**scipy_args) | get_default_qpu())
+            combinatorial_result = vertex_cover_application.execute(graph, 10, 5)
+
+            print("The nodes in the subgraph that forms a cover are", combinatorial_result.cover)
+            print("The number of nodes in the cover is", len(combinatorial_result.cover))
+
+        The parsed combinatorial result can also be displayed with NetworkX using the
+        :meth:`~qat.opt.results.GraphPartitioningResult.display` method:
+
+        .. code-block:: python
+
+            combinatorial_result.display()
+
+        .. figure:: vertex_cover_generator_result.png
+            :scale: 100 %
+
+
+    .. tab-item::  Annealing job generation
+
+        .. only:: qlm
+
+            .. run-block:: python
+
+                import networkx as nx
+                from qat.generators import VertexCoverGenerator
+                from qat.qpus import SQAQPU
+
+                graph = nx.full_rary_tree(2, 30)
+
+                vertex_cover_application = VertexCoverGenerator(job_type="annealing") | SQAQPU()
+                combinatorial_result = vertex_cover_application.execute(graph, 10, 5)
+
+                print("The nodes in the subgraph that forms a cover are", combinatorial_result.cover)
+                print("The number of nodes in the cover is", len(combinatorial_result.cover))
+
+            Similarly, the method :meth:`~qat.opt.results.GraphPartitioningResult.display` can be used
+            to display the result:
+
+            .. code-block:: python
+
+                combinatorial_result.display()
+
+            .. figure:: vertex_cover_generator_result_annealing.png
+                :scale: 100 %
+
+        .. only:: myqlm
+
+            .. run-block:: python
+
+                import networkx as nx
+                from qat.generators import VertexCoverGenerator
+                from qat.qpus import SimulatedAnnealing
+                from qat.core import Variable
+                from qat.opt.sqa_best_parameters import sqa_best_parameters_dicts
+
+                graph = nx.full_rary_tree(3, 6)
+
+                # Create a temperature function
+                t = Variable("t", float)
+                temp_max = sqa_best_parameters_dicts["VertexCover"]["temp_max"]
+                temp_min = sqa_best_parameters_dicts["VertexCover"]["temp_min"]
+                temp_t = temp_min * t + temp_max * (1 - t)  # annealing requires going from a high to a very low temperature
+                n_steps = 5000
+
+                vertex_cover_application = VertexCoverGenerator(job_type="annealing") | SimulatedAnnealing(temp_t, n_steps)
+                combinatorial_result = vertex_cover_application.execute(graph, 10, 5)
+
+                print("The nodes in the subgraph that forms a cover are", combinatorial_result.cover)
+                print("The number of nodes in the cover is", len(combinatorial_result.cover))
+
+            Similarly, the method :meth:`~qat.opt.results.GraphPartitioningResult.display` can be used
+            to display the result:
+
+            .. code-block:: python
+
+                combinatorial_result.display()
+
+            .. figure:: vertex_cover_generator_result.png
+                :scale: 100 %
+
+
+    .. tab-item:: Analog job generation
+
+        .. only:: qlm
+
+            .. run-block:: python
+
+                import networkx as nx
+                from qat.generators import VertexCoverGenerator
+                from qat.qpus import AnalogQPU
+
+                graph = nx.full_rary_tree(3, 6)
+
+                vertex_cover_application = VertexCoverGenerator(job_type="schedule") | AnalogQPU()
+                combinatorial_result = vertex_cover_application.execute(graph, 10, 5)
+
+                print("The nodes in the subgraph that forms a cover are", combinatorial_result.cover)
+                print("The number of nodes in the cover is", len(combinatorial_result.cover))
+
+            The same example as with the QAOA job generation is used here. Therefore, the corresponding figure will
+            be the same when displayed with the :meth:`~qat.opt.results.GraphPartitioningResult.display` method.
+
+        .. only:: myqlm
+
+            .. run-block:: python
+
+                import networkx as nx
+                from qat.generators import VertexCoverGenerator
+
+                graph = nx.full_rary_tree(3, 6)
+
+                vertex_cover_generator = VertexCoverGenerator(job_type="schedule")
+                schedule_batch = vertex_cover_generator.generate(None, graph, 10, 5)
+
+            Currently the analog qpus that can be used to execute the schedule are only available on Qaptiva.
+            Therefore the generated schedule_batch here can be passed to Qaptiva for execution.

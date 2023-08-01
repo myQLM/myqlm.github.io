@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Make your own QPU &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Extending a QPU (by using Plugins)" href="../04_plugin.html" />
+    <link rel="prev" title="Annealing computing" href="03_annealing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../02_execute.html">Executing quantum programs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../01_job.html">Constructing one or multiple Jobs (using Batch)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_result.html">Result of a quantum program</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../03_qpu.html">Quantum Processing Unit (QPU)</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="%3Amyqlm%3A01_gate_based.html">Gate based computing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="03_annealing.html">Annealing computing</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Make your own QPU</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#method-submit-job">Method submit_job</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#method-get-specs">Method get_specs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../04_plugin.html">Extending a QPU (by using Plugins)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_variational.html">Running variational algorithms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../../02_execute.html">Executing quantum programs</a> &raquo;</li>
+          <li><a href="../03_qpu.html">Quantum Processing Unit (QPU)</a> &raquo;</li>
+      <li>Make your own QPU</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="make-your-own-qpu">
+<h1>Make your own QPU<a class="headerlink" href="#make-your-own-qpu" title="Permalink to this heading"></a></h1>
+<p>In our Framework, a QPU class should inherit from <a class="reference internal" href="../../../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler" title="qat.qpus.QPUHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.qpus.QPUHandler</span></code></a> which
+defines the following methods:</p>
+<ul class="simple">
+<li><p>Method <a class="reference internal" href="../../../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler.submit_job" title="qat.qpus.QPUHandler.submit_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">submit_job()</span></code></a> <em>required</em>, this method takes a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> and result a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a></p></li>
+<li><p>Method <a class="reference internal" href="../../../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler.get_specs" title="qat.qpus.QPUHandler.get_specs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_specs()</span></code></a> <em>optional</em>, this method does not take any parameters and returns an <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.HardwareSpecs</span></code></a>. The output of this function
+describes that hardware capabilities (e.g. maximal number of qubits, topology, gate set) and could be used by compilers to adapt a job for the current
+QPU (more information on the <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.HardwareSpecs</span></code></a> can be found in the <a class="reference internal" href="../04_plugin/03_hardware_specs.html#hardware-specs"><span class="std std-ref">in the plugin section</span></a>). If not implemented,
+a default <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.HardwareSpecs</span></code></a> object will be returned</p></li>
+<li><p>Some additional methods can be added to better integrate your QPU within the Qaptiva Appliance</p></li>
+</ul>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Raising exception in the code<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">A QPU can raise <a class="reference internal" href="../../../04_api_reference/module_qat/module_comm/module_exceptions/qpuexception.html#qat.comm.exceptions.ttypes.QPUException" title="qat.comm.exceptions.ttypes.QPUException"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUException</span></code></a>. A QPU can be accessed remotly (using <span class="xref std std-ref">Qaptiva Access</span> or by starting the QPU in server
+mode). This exception can be serialized and re-raised on the client side</p>
+<p class="sd-card-text">A <a class="reference internal" href="../../../04_api_reference/module_qat/module_comm/module_exceptions/qpuexception.html#qat.comm.exceptions.ttypes.QPUException" title="qat.comm.exceptions.ttypes.QPUException"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUException</span></code></a> can be raised using <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/assert_qpu.html#qat.core.assertion.assert_qpu" title="qat.core.assertion.assert_qpu"><code class="xref py py-func docutils literal notranslate"><span class="pre">assert_qpu()</span></code></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.assertion</span> <span class="kn">import</span> <span class="n">assert_qpu</span>
+
+<span class="c1"># If my_condition() returns False:  raises a QPUException</span>
+<span class="c1"># If my_condition() returns True: do nothing</span>
+<span class="n">assert_qpu</span><span class="p">(</span><span class="n">my_condition</span><span class="p">(),</span> <span class="s2">&quot;Error message&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If your QPU implements its own constructor, please ensure the parent constructor is called</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.qpu</span> <span class="kn">import</span> <span class="n">QPUHandler</span>
+
+<span class="k">class</span> <span class="nc">MyQPU</span><span class="p">(</span><span class="n">QPUHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>  <span class="c1"># Please ensure parents constructor is called</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parameter</span> <span class="o">=</span> <span class="n">parameter</span>
+
+    <span class="k">def</span> <span class="nf">submit_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">):</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<section id="method-submit-job">
+<h2>Method submit_job<a class="headerlink" href="#method-submit-job" title="Permalink to this heading"></a></h2>
+<p>The <a class="reference internal" href="../../../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler.submit_job" title="qat.qpus.QPUHandler.submit_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">submit_job()</span></code></a> method is the only required method. This function takes one or
+two parameters:</p>
+<blockquote>
+<div><ul>
+<li><p>a <em>required</em> argument of type <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a>. This argument defines <em>what to execute</em> and <em>what to return</em>. Attributes of this
+class are defined on the <a class="reference internal" href="../01_job.html#job"><span class="std std-ref">job page</span></a></p></li>
+<li><p>an <em>optional</em> argument of type <code class="code docutils literal notranslate"><span class="pre">dict[str,</span> <span class="pre">str]</span></code> (optional means that this argument can be removed, i.e. <code class="code docutils literal notranslate"><span class="pre">def</span> <span class="pre">submit_job(self,</span> <span class="pre">job):</span> <span class="pre">...</span></code> is a valid
+method), this argument containing the meta-data of the <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+A good practise</div>
+<p class="sd-card-text">Meta-data could be used to override temporarly the parameter used to instantiate a QPU (the name of the QPU corresponds to
+the key of this dictionary, and the associated value contains the value to override). Multiple components (like
+<a class="reference internal" href="../04_plugin.html#plugin"><span class="std std-ref">plugins</span></a>) can interact with this QPU by sending <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>. Implementing this “good practise”
+can improve the interaction between these components and the QPU.</p>
+<p class="sd-card-text">For instance, to override the <code class="code docutils literal notranslate"><span class="pre">parameter</span></code> argument defined in the example above, the submit function shall look like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">qat.core.qpu</span> <span class="kn">import</span> <span class="n">QPUHandler</span>
+
+<span class="k">class</span> <span class="nc">MyQPU</span><span class="p">(</span><span class="n">QPUHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>  <span class="c1"># Please ensure parents constructor is called</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parameter</span> <span class="o">=</span> <span class="n">parameter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_default_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;parameter&quot;</span><span class="p">:</span> <span class="n">parameter</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_override</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;parameter&quot;</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parameter</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;parameter&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">submit_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">,</span> <span class="n">meta_data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Override &quot;self._parameter&quot;</span>
+        <span class="k">if</span> <span class="n">meta_data</span><span class="p">:</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">meta_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;MyQPU&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_override</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+
+        <span class="o">...</span> <span class="c1"># Perform execution</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_override</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_default_options</span><span class="p">)</span>
+        <span class="k">return</span> <span class="o">...</span>  <span class="c1"># Return result</span>
+</pre></div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<p>This method is often splitted in 3 main steps:</p>
+<blockquote>
+<div><ul>
+<li><p><strong>Step 1:</strong> ensures the quantum job can be executed “as it is”. This steps ensure the number of shot is valid, the processing type
+(e.g. circuit, schedule, etc.) is valid regarding the QPU, the final measurement is correct, etc.</p></li>
+<li><p><strong>Step 2:</strong> exceutes the quantum job <em>nbshots</em> times (0 shots corresponds to the maximal number of shots supported by the QPU - this
+value is valid)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>if the quantum job contains a <strong>circuit</strong>, gates are executed one by one. Method <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/circuit.html#qat.core.Circuit.iterate_simple" title="qat.core.Circuit.iterate_simple"><code class="xref py py-meth docutils literal notranslate"><span class="pre">iterate_simple()</span></code></a> can
+be used to list all the gates composing the circuit</p></li>
+<li><p>if the quantum jobs contains a <strong>scheduler</strong>, the quantum simulation should be executed accordingly</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Step 3:</strong> builds and cleans result. Samples are added using the <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/result.html#qat.core.Result.add_sample" title="qat.core.Result.add_sample"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_sample()</span></code></a> method, the average value
+of the observable is set by updating the attribute <code class="code docutils literal notranslate"><span class="pre">value</span></code> of <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a>. In sample mode, the result
+can be clean-up using function <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/aggregate_data.html#qat.core.wrappers.result.aggregate_data" title="qat.core.wrappers.result.aggregate_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">aggregate_data()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+<p>The card underneath provides a skeleton for a QPU executing quantum circuits in sample mode</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+A skeleton for a custom QPU<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Result</span>
+<span class="kn">from</span> <span class="nn">qat.core.qpu</span> <span class="kn">import</span> <span class="n">QPUHandler</span>
+<span class="kn">from</span> <span class="nn">qat.core.assertion</span> <span class="kn">import</span> <span class="n">assert_qpu</span>
+<span class="kn">from</span> <span class="nn">qat.core.wrappers.result</span> <span class="kn">import</span> <span class="n">aggregate_data</span>
+
+<span class="n">MAX_NB_SHOTS</span> <span class="o">=</span> <span class="mi">1024</span>
+
+
+<span class="k">class</span> <span class="nc">QPUSkeleton</span><span class="p">(</span><span class="n">QPUHandler</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Skeleton of a custom QPU</span>
+
+<span class="sd">    This skeleton execute a circuit, by running gates one by one. This skeleton also returns</span>
+<span class="sd">    a result</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">submit_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Result</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Execute a job</span>
+<span class="sd">        The job should contain a circuit (neither a analog job, nor a annealing job)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            job: the job to execute</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Result: result of the computation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check job</span>
+        <span class="n">nb_shots</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">nbshots</span> <span class="ow">or</span> <span class="n">MAX_NB_SHOTS</span>
+
+        <span class="n">assert_qpu</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">circuit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;This skeleton can only execute a circuit job&quot;</span><span class="p">)</span>
+        <span class="n">assert_qpu</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">nb_shots</span> <span class="o">&lt;=</span> <span class="n">MAX_NB_SHOTS</span><span class="p">,</span> <span class="s2">&quot;Invalid number of shots&quot;</span><span class="p">)</span>
+        <span class="n">assert_qpu</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">ProcessingType</span><span class="o">.</span><span class="n">SAMPLE</span><span class="p">,</span> <span class="s2">&quot;This QPU does not support OBSERVABLE measurement&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Initialize result</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Result</span><span class="p">()</span>
+
+        <span class="c1"># Measured qubits: qubits which should be measured at the end</span>
+        <span class="c1"># The &quot;qubits&quot; attribute is either:</span>
+        <span class="c1">#   - a list of qubits (list of integer)</span>
+        <span class="c1">#   - None (all qubits should be measured)</span>
+        <span class="n">measured_qubits</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">qubits</span> <span class="ow">or</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">nbqbits</span><span class="p">))</span>
+
+        <span class="c1"># Execute the circuit several time</span>
+        <span class="k">for</span> <span class="n">shot</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nb_shots</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">gate</span> <span class="ow">in</span> <span class="n">job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+                <span class="o">...</span> <span class="c1"># TODO: execute gate</span>
+
+            <span class="n">state</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># TODO: measure qubits listed in &quot;measured_qubits&quot;</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">add_sample</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+
+        <span class="c1"># Aggregate data</span>
+        <span class="c1"># If set to True, the output will be compressed. The list of sample will be caster into a shorter</span>
+        <span class="c1"># list of tuple [state, probability]</span>
+        <span class="k">if</span> <span class="n">job</span><span class="o">.</span><span class="n">aggregate_data</span><span class="p">:</span>
+            <span class="c1"># The &quot;threshold&quot; parameter is used to remove state having a probability lower than this value</span>
+            <span class="c1"># are removed</span>
+            <span class="n">aggregate_data</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">job</span><span class="o">.</span><span class="n">threshold</span><span class="p">)</span>
+
+        <span class="c1"># Return result</span>
+        <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+<section id="method-get-specs">
+<h2>Method get_specs<a class="headerlink" href="#method-get-specs" title="Permalink to this heading"></a></h2>
+<p>This method does not take any parameter and returns a description of the hardware. The output of this function is used by compilers
+to update a quantum jobs, to make it executable by the QPU.</p>
+<p>This hardware description defines:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>the number of qubits composing the QPU</p></li>
+<li><p>the topology of the hardware</p></li>
+<li><p>a gate set</p></li>
+<li><p>if the QPU supports SAMPLE measurements or the OBSERVABLE measurements</p></li>
+<li><p>a description of the hardware</p></li>
+</ul>
+</div></blockquote>
+<p>This method is already implemented by <a class="reference internal" href="../../../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler" title="qat.qpus.QPUHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUHandler</span></code></a> but could be overrided. If not implemented, the QPU is assumed
+to support any size of quantum jobs (in term of qubits), all to all interaction, can execute any gate, support <em>SAMPLE</em> and <em>OBSERVABLE</em>
+measurements</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">HardwareSpecs</span>
+<span class="kn">from</span> <span class="nn">qat.core.qpu</span> <span class="kn">import</span> <span class="n">QPUHandler</span>
+
+<span class="k">def</span> <span class="nf">MyQPU</span><span class="p">(</span><span class="n">QPUHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_specs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a description of the hardware</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">HardwareSpecs</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Class <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a> is detailed on this <a class="reference internal" href="../04_plugin/03_hardware_specs.html#hardware-specs"><span class="std std-ref">in the plugin section</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="03_annealing.html" class="btn btn-neutral float-left" title="Annealing computing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../04_plugin.html" class="btn btn-neutral float-right" title="Extending a QPU (by using Plugins)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

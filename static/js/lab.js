@@ -8,7 +8,7 @@
  * Description:
  * File providing a function to open a file (likely a notebook) into a new
  * jupyter lab tab.
- * QLM JupyterLab plugin is required
+ * Qaptiva JupyterLab plugin is required
  */
 
 // Function used to open a notebook in a new Jupyter lab tab
@@ -38,3 +38,20 @@ function open_jupyterlab_tab(pathname) {
         console.log("Could not open a non-notebook file");
     }
 }
+
+
+// Set JupyterLab links
+addEventListener("DOMContentLoaded", (event) => {
+    // Get all notebook cards
+    let notebook_cards = document.getElementsByClassName("qlm-notebook");
+
+    for (let card of notebook_cards) {
+        // Get notebook path
+        let link_tag = card.getElementsByTagName("a")[0]
+        let notebook_path = link_tag.getAttribute("href");
+
+        // Edit HTML tag
+        link_tag.removeAttribute("href");
+        link_tag.setAttribute("onclick", "open_jupyterlab_tab(\"" + notebook_path + "\")");
+    }
+});

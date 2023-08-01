@@ -1,0 +1,116 @@
+Ancillae management and compute scopes
+======================================
+
+Automated ancillae management
+-----------------------------
+
+The :class:`~qat.lang.QRoutine` object comes with a system of ancillae management.
+In practice, one can allocate fresh wires and declare them as ancillae:
+
+.. run-block:: python
+
+    from qat.lang import QRoutine
+
+    routine = QRoutine()
+    wires = routine.new_wires(1)
+    ancilla = routine.new_wires(1)
+    routine.set_ancillae(ancilla)
+
+
+This routine will have arity 1, its second wire being declared as an ancilla.
+Upon calling the :meth:`~qat.lang.Program.to_circ` method of a program containing this routine, additional qubits will
+be dynamically allocated and passed to the routine. Of course this allocation is made recursively across
+the call tree.
+
+The only thing you have to ensure is that the ancillae are freed before leaving the routine (i.e are in product :math:`|0\rangle` state).
+
+As a consequence, it is possible to link subcircuit implementations of a gate using different number of ancillae:
+
+.. run-block:: python
+
+    from qat.lang import Program
+    from qat.lang.AQASM.arithmetic import add
+    import qat.lang.AQASM.qftarith as qftarith
+    import qat.lang.AQASM.classarith as classarith
+
+    prog = Program()
+    qbits = prog.qalloc(20)
+    add(10, 10)(qbits)
+
+    # No ancillae
+    circuit = prog.to_circ(link=[qftarith])
+
+    # 9 ancillae
+    circuit = prog.to_circ(link=[classarith])
+
+
+Compute/uncompute scopes
+------------------------
+
+A quite common programming scheme in reversible computation in general, and quantum computation in particular, is the *compute/uncompute* scheme.
+
+Usually, one has to compute some function, use the result of this computation, and then uncompute the first part of the circuit to free up some ancilla resources.
+
+This scheme is natively supported inside the :class:`~qat.lang.QRoutine` and :class:`~qat.lang.Program` objects using a **with** statement:
+
+.. run-block:: python
+
+    from qat.lang import QRoutine, CNOT, PH
+
+    routine = QRoutine()
+
+    # Allocating 2 wires to apply gates on
+    wires = routine.new_wires(2)
+
+    # Opening a computation scope
+    with routine.compute():
+        CNOT(wires[0], wires[1])
+    # The scope is now closed and stored internally
+
+    PH(1.)(wires[1])
+
+    # Here we 'pop' the last closed scope and apply its dagger
+    routine.uncompute()
+    # The routine now contains 3 gates
+
+
+or, using programs:
+
+.. run-block:: python
+
+    from qat.lang import Program, CNOT, PH
+
+    prog = Program()
+
+    # Allocating 2 wires to apply gates on
+    wires = prog.qalloc(2)
+
+    # Opening a computation scope
+    with prog.compute():
+        CNOT(wires[0], wires[1])
+    # The scope is now closed and stored internally
+
+    PH(1.)(wires[1])
+
+    # Here we 'pop' the last closed scope and apply its dagger
+    prog.uncompute()
+    # The routine now contains 3 gates
+
+
+Of course computation scopes can be nested:
+
+.. run-block:: python
+       
+    from qat.lang import QRoutine, CNOT, PH
+
+    routine = QRoutine()
+    wires = routine.new_wires(3)
+    with routine.compute():
+        CNOT(wires[0], wires[1])
+        with routine.compute():
+            CNOT(wires[1], wires[2])
+        PH(1.)(wires[2])
+        routine.uncompute()
+    PH(2.)(wires[1])
+    routine.uncompute()
+    # The routine now contains 9 gates

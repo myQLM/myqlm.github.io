@@ -1,0 +1,73 @@
+.. _bilp_ann_prob:
+
+Binary Integer Linear Programming (BILP)
+========================================
+
+Given a vector :math:`c` of size :math:`N`, a vector :math:`b` of size :math:`m` and a matrix :math:`S` of size :math:`m \times N`,
+the problem consists in finding a binary vector :math:`x` (i.e. vector composed of 0 and 1) of size :math:`N` that maximizes the dot
+product :math:`c*x`, such as :math:`S * x = b`.
+
+.. only:: qlm
+
+    Solving this problem using the :ref:`simulated quantum annealing <simulated_quantum_annealing>` method requires our 
+    :class:`~qat.opt.binary_linear_integer_programming.BILP` class and :class:`~qat.qpus.SQAQPU` with :math:`N`
+    spins (one spin per binary value of :math:`x`).
+
+.. only:: myqlm
+
+    Solving this problem using the simulated quantum annealing method requires the Simulated Quantum Annealing QPU with :math:`N`
+    spins (one spin per binary value of :math:`x`), that is available in the full Qaptiva appliance.
+
+.. only:: qlm
+
+    .. run-block:: python
+
+        import numpy as np
+        from qat.opt import BILP
+        from qat.qpus import SQAQPU
+        from qat.core import Variable
+        from qat.core.spins import integer_to_spins
+
+        # Specify the problem; the solution is x = [0, 1, 1, 0]
+        c = np.array([0, 1, 1, 1])
+        S = np.array([[1, 0, 1, 1], [0, 1, 0, 1]])
+        b = np.array([1, 1])
+
+        # Impose constraints for the right encoding
+        B = 1 
+        A = 10 * B
+        bilp_problem = BILP(c, S, b, A, B)
+
+        # Extract parameters for SQA
+        problem_parameters_dict = bilp_problem.get_best_parameters()
+        n_monte_carlo_updates = problem_parameters_dict["n_monte_carlo_updates"]
+        n_trotters = problem_parameters_dict["n_trotters"]
+        n_steps = int(n_monte_carlo_updates /
+                    (n_trotters * len(c))) # the last one is the number of spins, i.e. the problem size
+        temp_max = problem_parameters_dict["temp_max"]
+        temp_min = problem_parameters_dict["temp_min"]
+        gamma_max = problem_parameters_dict["gamma_max"]
+        gamma_min = problem_parameters_dict["gamma_min"]
+
+        # Create a temperature and a gamma schedule
+        tmax = 1.0
+        t = Variable("t", float)
+        temp_t = temp_min * (t / tmax) + temp_max * (1 - t / tmax)
+        gamma_t = gamma_min * (t / tmax) + gamma_max * (1 - t / tmax)
+
+        # Create a job and send it to a QPU
+        problem_job = bilp_problem.to_job(gamma_t=gamma_t, tmax=tmax, nbshots=1)
+        sqa_qpu = SQAQPU(temp_t=temp_t, n_steps=n_steps, n_trotters=n_trotters, seed=9999)
+        problem_result = sqa_qpu.submit(problem_job)
+
+        # Present best configuration
+        state_int = problem_result.raw_data[0].state.int  # raw_data is a list of Samples - one per shot
+        solution_configuration = integer_to_spins(state_int, len(c))
+        print("Solution configuration: \n" + str(solution_configuration) + "\n")
+        x = [1 if spin == 1 else 0 for spin in solution_configuration]
+        print("x is respectively: \n" + str(x) + "\n")
+
+        # Calculate c * x
+        print("Largest value of c * x:\n" + str(np.dot(c, x)))
+
+    This example is also detailed in this notebook on solving :notebook:`(BILP)[binary_integer_linear_programming.ipynb]` problems with :ref:`SQA <simulated_quantum_annealing>`.

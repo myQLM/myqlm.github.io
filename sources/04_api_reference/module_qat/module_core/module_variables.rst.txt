@@ -1,0 +1,50 @@
+.. module:: qat.core.variables
+
+qat.core.variables
+==================
+
+.. autoapi::
+
+    [:class:`qat.core.variables.ArithExpression`] Represents arithmetic expressions
+    [:class:`qat.core.variables.Symbol`] Describes a given label in the AST on an :class:`~qat.core.variables.ArithExpression`
+
+
+It is possible to extend the set of symbols supported by this abstract expression mechanics by
+extending the list of a symbols with a new :class:`~qat.core.variables.Symbol`. The only constraint
+is that the new symbols should have a fixed arity that is known in advance.
+
+Defined symbols can be accessed via the `ALL_SYMBOLS` module variable:
+
+.. run-block:: python
+
+    from qat.core.variables import ALL_SYMBOLS
+
+    for token, symbol in ALL_SYMBOLS.items():
+        print(token, symbol.evaluator, symbol.arity)
+
+For instance, the following piece of code adds a new symbol that represents the min between two numeric values.
+
+.. run-block:: python
+
+    from qat.core.variables import Variable, Symbol, ALL_SYMBOLS
+
+    # token will "min"
+    # underlying function is the standard `min`
+    # it has arity 2
+    # it is not an infix operator
+    my_min = Symbol("min", min, 2, infix=False)
+
+    # This step is necessary if we want to be able to bind variables in expressions containing min
+    ALL_SYMBOLS["min"] = my_min
+
+    a, b = Variable("a"), Variable("b")
+
+    expr = my_min(a, b)
+    print(expr)
+    print(expr(a=3))
+    print(expr(a=3, b=4))
+
+.. warning::
+
+    If you create a Symbol in your environment, but choose to send it for evaluation to a remote Qaptiva appliance,
+    the remote environment will not be aware of this new Symbol and the expression evaluation might fail.

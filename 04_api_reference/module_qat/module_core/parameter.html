@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.core.Parameter &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="qat.core.Variable" href="variable.html" />
+    <link rel="prev" title="qat.core.TopologyType" href="topologytype.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../module_comm.html">qat.comm</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../module_core.html">qat.core</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="module_application.html">qat.core.application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_circuit_builder.html">qat.core.circuit_builder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_gate_set.html">qat.core.gate_set</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_qpu.html">qat.core.qpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_spins.html">qat.core.spins</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_variables.html">qat.core.variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="batch.html">qat.core.Batch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="circuit.html">qat.core.Circuit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="job.html">qat.core.Job</a></li>
+<li class="toctree-l4"><a class="reference internal" href="schedule.html">qat.core.Schedule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="batchresult.html">qat.core.BatchResult</a></li>
+<li class="toctree-l4"><a class="reference internal" href="result.html">qat.core.Result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sample.html">qat.core.Sample</a></li>
+<li class="toctree-l4"><a class="reference internal" href="state.html">qat.core.wrappers.result.State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="observable.html">qat.core.Observable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="term.html">qat.core.Term</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hardwarespecs.html">qat.core.HardwareSpecs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topology.html">qat.core.Topology</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topologytype.html">qat.core.TopologyType</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">qat.core.Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="variable.html">qat.core.Variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aggregate_data.html">qat.core.wrappers.result.aggregate_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="assert_plugin.html">qat.core.assertion.assert_plugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="assert_qpu.html">qat.core.assertion.assert_qpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="display.html">qat.core.console.display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="evaluate.html">qat.core.formula_eval.evaluate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_in_notebook.html">qat.core.printer.plot_in_notebook</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../04_api_reference.html">API reference</a> &raquo;</li>
+          <li><a href="../../module_qat.html">qat</a> &raquo;</li>
+          <li><a href="../module_core.html">qat.core</a> &raquo;</li>
+      <li>qat.core.Parameter</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-core-parameter">
+<h1>qat.core.Parameter<a class="headerlink" href="#qat-core-parameter" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.core.Parameter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">Parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Parameter" title="Permalink to this definition"></a></dt>
+<dd><p>Represents a time-dependent parameter which can be included in the description
+of a Hamiltonian with a <a class="reference internal" href="schedule.html#qat.core.Schedule" title="qat.core.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a>.</p>
+<p>For example, imagine we want to encode the parameter
+<span class="math notranslate nohighlight">\(\alpha(t) = 5 + \cos(t) + g(t)\)</span>, where <span class="math notranslate nohighlight">\(g(t)\)</span> is a
+stochastic signal. This signal can have a Power spectral density (PSD) function
+<span class="math notranslate nohighlight">\(\tilde{g}(f) = \frac{1}{1+f^2}\)</span> for a frequency <span class="math notranslate nohighlight">\(f\)</span>. One can represent
+this expression via <code class="code docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">=</span> <span class="pre">Parameter(value=5,</span> <span class="pre">func=cos_expr,</span> <span class="pre">psd=psd_expr)</span></code>, where
+<code class="code docutils literal notranslate"><span class="pre">cos_expr</span></code> and <code class="code docutils literal notranslate"><span class="pre">psd_expr</span></code> are of type <a class="reference internal" href="module_variables/arithexpression.html#qat.core.variables.ArithExpression" title="qat.core.variables.ArithExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithExpression</span></code></a>.
+and are defined with the <a class="reference internal" href="variable.html#qat.core.Variable" title="qat.core.variables.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> <code class="code docutils literal notranslate"><span class="pre">t</span></code> and <code class="code docutils literal notranslate"><span class="pre">f</span></code>,
+respectively:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Variable</span>
+<span class="kn">from</span> <span class="nn">qat.core.variables</span> <span class="kn">import</span> <span class="n">cos</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span>\<span class="s2">&quot;t</span><span class="se">\&quot;</span><span class="s2">, float)</span>
+<span class="n">cos_expr</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span>\<span class="s2">&quot;f</span><span class="se">\&quot;</span><span class="s2">, float)</span>
+<span class="n">psd_expr</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">f</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">alpha</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">cos_expr</span><span class="p">,</span> <span class="n">psd</span><span class="o">=</span><span class="n">psd_expr</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If one wants to investigate the parameter on its own, for example via plotting it
+versus time, one needs to create the noise <span class="math notranslate nohighlight">\(g(t)\)</span> corresponding to the PSD
+<span class="math notranslate nohighlight">\(\tilde{g}(f)\)</span> via the method <a class="reference internal" href="#qat.core.Parameter.generate_noise" title="qat.core.Parameter.generate_noise"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate_noise()</span></code></a>.</p>
+<p>However, generating the noise is not needed if the <a class="reference internal" href="#qat.core.Parameter" title="qat.core.Parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parameter</span></code></a>
+is passed to a <a class="reference internal" href="../module_hardware/hardwaremodel.html#qat.hardware.HardwareModel" title="qat.hardware.HardwareModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareModel</span></code></a> which will enter the analog QPU.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<em>float</em><em>, </em><em>optional</em>) – the constant component of the parameter</p></li>
+<li><p><strong>func</strong> (<a class="reference internal" href="module_variables/arithexpression.html#qat.core.variables.ArithExpression" title="qat.core.variables.ArithExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithExpression</span></code></a>, optional) – the explicit time-dependence
+of the parameter, specified by the <a class="reference internal" href="variable.html#qat.core.Variable" title="qat.core.variables.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> <code class="code docutils literal notranslate"><span class="pre">t</span></code>.</p></li>
+<li><p><strong>psd</strong> (<a class="reference internal" href="module_variables/arithexpression.html#qat.core.variables.ArithExpression" title="qat.core.variables.ArithExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithExpression</span></code></a>, optional) – the PSD of the stochastic
+time-dependence of the parameter. It dependends on frequency and should
+make use of the <a class="reference internal" href="variable.html#qat.core.Variable" title="qat.core.variables.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> <code class="code docutils literal notranslate"><span class="pre">f</span></code>.</p></li>
+<li><p><strong>sampling_frequency</strong> (<em>float</em><em>, </em><em>optional</em>) – the sampling frequency of the noise component - needed
+for the creation of the noise corresponding to the PSD via the method
+<a class="reference internal" href="#qat.core.Parameter.generate_noise" title="qat.core.Parameter.generate_noise"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate_noise()</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="qat.core.Parameter.func">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">func</span></span><a class="headerlink" href="#qat.core.Parameter.func" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the time-dependent function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Parameter.generate_noise">
+<span class="sig-name descname"><span class="pre">generate_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Parameter.generate_noise" title="Permalink to this definition"></a></dt>
+<dd><p>Creates the noise with the respective times for some given time tf.
+Both the noise and the times can then be accessed via the
+<a class="reference internal" href="#qat.core.Parameter.get_noise" title="qat.core.Parameter.get_noise"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_noise()</span></code></a> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tf</strong> (<em>float</em>) – duration of the signal</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.core.Parameter.get_noise">
+<span class="sig-name descname"><span class="pre">get_noise</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Parameter.get_noise" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the noise signal and the time points at which the noise
+was evaluated if the method
+<a class="reference internal" href="#qat.core.Parameter.generate_noise" title="qat.core.Parameter.generate_noise"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate_noise()</span></code></a> has been called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p>2-element tuple containing</p>
+<ul class="simple">
+<li><p><strong>noise signal</strong> (<em>1D numpy array</em>) - an array with the amplitudes of the noise at each time</p></li>
+<li><p><strong>time points</strong> (<em>1D numpy array</em>) - an array with the times at which the noise was evaluated</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="qat.core.Parameter.psd">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">psd</span></span><a class="headerlink" href="#qat.core.Parameter.psd" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the PSD.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="topologytype.html" class="btn btn-neutral float-left" title="qat.core.TopologyType" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="variable.html" class="btn btn-neutral float-right" title="qat.core.Variable" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

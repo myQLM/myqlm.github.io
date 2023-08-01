@@ -1,0 +1,17 @@
+qat.core.console.display
+========================
+
+Circuits can be displayed in a notebook or inside a terminal. To display a circuit in a terminal,
+you can use the function :func:`qat.core.console.display`
+
+.. autofunction:: qat.core.console.display
+
+.. warning::
+
+    Only `GATETYPE` operators can be visualized in a terminal.
+    An exception is raised if your circuit contains measures,
+    gates controlled classically, logic operators, ...
+
+The :func:`~qat.core.Circuit.display` method can be used to display a circuit in
+a notebook or in an IPython terminal (this function will detect automatically
+if :func:`qat.core.console.display` or :func:`~qat.core.printer.plot_in_notebook` must be used).

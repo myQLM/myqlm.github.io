@@ -1,0 +1,47 @@
+.. module:: qat.devices
+
+qat.devices
+===========
+
+Predefined devices
+------------------
+
+The :mod:`qat.devices` module contains the topologies of various superconduction quantum processors. The following architectures
+are available:
+
+.. autoapi::
+
+    [:data:`qat.devices.RIGETTI_AGAVE`] Topology of Rigetti Agave
+    [:data:`qat.devices.RIGETTI_ASPEN`] Topology of Rigetti Aspen
+    [:data:`qat.devices.IBM_BURLINGTON`] Topology of IBM Burlington
+    [:data:`qat.devices.IBM_YORKTOWN`] Topology of IBM Yorktown
+    [:data:`qat.devices.IBM_MELBOURNE`] Topology of IBM Melbourne
+    [:data:`qat.devices.IBM_RUESCHLIKON`] Topology of IBM Rueschlikon
+    [:data:`qat.devices.IBM_TOKYO`] Topology of IBM Tokyo
+    [:data:`qat.devices.IBM_SINGAPORE`] Topology of IBM Singapore
+    [:data:`qat.devices.IBM_JOHANNESBURG`] Topology of IBM Johannesburg
+    [:data:`qat.devices.GOOGLE_SYCAMORE`] Topology of Google Sycamore
+    [:data:`qat.devices.ZUCHONGZHI`] Topology of Zuchongzhi chip
+
+Each architecture is describes via a :class:`~qat.core.HardwareSpecs` object. For instance,
+to access the connectivity of Rigetti's Aspen chip:
+
+.. run-block:: python
+
+    from qat.devices import RIGETTI_ASPEN
+
+    print("Type:", type(RIGETTI_ASPEN).__name__)
+    print(RIGETTI_ASPEN)
+
+
+Device generators
+-----------------
+
+Additionally, the module also provides generators for regular topologies:
+
+.. autoapi::
+
+    [:class:`qat.devices.LineDevice`] A device with a Linear Nearest Neighbor (LNN) connectivity
+    [:class:`qat.devices.GridDevice`] A device with a grid connectivity
+    [:class:`qat.devices.SquareGridDevice`] A device with a square grid connectivity
+    [:class:`qat.devices.AllToAll`] A device with all-to-all connectivity

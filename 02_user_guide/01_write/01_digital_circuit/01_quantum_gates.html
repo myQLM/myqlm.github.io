@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creating and adding quantum gates to a circuit &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Creating variational circuits" href="02_variational.html" />
+    <link rel="prev" title="Gate-based programming" href="../01_digital_circuit.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../01_write.html">Writing quantum programs</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../01_digital_circuit.html">Gate-based programming</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Creating and adding quantum gates to a circuit</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#native-gates-controls-and-daggers">Native gates, controls and daggers</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#user-defined-parametrized-gates-abstractgate">User defined parametrized gates (AbstractGate)</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#matrix-definition">Matrix definition</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#subcircuit-definition">Subcircuit definition</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#arity-generator">Arity generator</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#deprecated-custom-gates">Deprecated custom gates</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="02_variational.html">Creating variational circuits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="03_program.html">Quantum programs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="04_routines.html">Quantum routines (and Oracles)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="05_aqasm.html">Atos Quantum Assembler (AQASM)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../02_analog_schedule.html">Analog programming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_annealing_problems.html">Annealing programming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_observable.html">Creating observables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../02_execute.html">Executing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../../01_write.html">Writing quantum programs</a> &raquo;</li>
+          <li><a href="../01_digital_circuit.html">Gate-based programming</a> &raquo;</li>
+      <li>Creating and adding quantum gates to a circuit</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="creating-and-adding-quantum-gates-to-a-circuit">
+<h1>Creating and adding quantum gates to a circuit<a class="headerlink" href="#creating-and-adding-quantum-gates-to-a-circuit" title="Permalink to this heading"></a></h1>
+<section id="native-gates-controls-and-daggers">
+<h2>Native gates, controls and daggers<a class="headerlink" href="#native-gates-controls-and-daggers" title="Permalink to this heading"></a></h2>
+<p>The <a class="reference internal" href="../../../04_api_reference/module_qat/module_lang.html#module-qat.lang" title="qat.lang"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.lang</span></code></a> library provides a basic gate set to write your circuits. Their names are rather self-explanatory:</p>
+<ul class="simple">
+<li><p>Constant gates: <strong>X</strong>, <strong>Y</strong>, <strong>Z</strong>, <strong>H</strong>, <strong>S</strong>, <strong>T</strong>, <strong>CNOT</strong>, <strong>CCNOT</strong>, <strong>CSIGN</strong>, <strong>SWAP</strong>, <strong>SQRTSWAP</strong>, <strong>ISWAP</strong></p></li>
+<li><p>Parametrized gates: <strong>RX</strong>, <strong>RY</strong>, <strong>RZ</strong>, <strong>PH</strong> (phase shift)</p></li>
+</ul>
+<p>(The mathematical definition of these gates is given in <a class="reference internal" href="05_aqasm.html#aqasm"><span class="std std-ref">Atos Quantum Assembler (AQASM)</span></a>.)</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+Adding gates to a program</label><div class="sd-tab-content docutils">
+<p>Quantum gates can be applied on any qubits composing a program. Qubits need to be allocated first:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">Program</span>
+
+<span class="n">my_program</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits_reg</span> <span class="o">=</span> <span class="n">my_program</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># Allocate 10 qubits</span>
+</pre></div>
+</div>
+<p>Gates can be applied to the qubits from the qubit register:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">CNOT</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">RZ</span>
+
+<span class="n">CNOT</span><span class="p">(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">H</span><span class="p">(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">RZ</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">)(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>From this initial gate set, one can also build new gates using control and dagger operations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">PH</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">RX</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">dag</span><span class="p">()(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Of course, controls can be stacked:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">PH</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>By convention, the outermost control qubit is always the first argument when calling a gate.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here qbits_reg[0] is the control qubit:</span>
+<span class="n">H</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="c1"># And here, qbits_reg[0] and qbits_reg[2] are the controls:</span>
+<span class="n">H</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">qbits_reg</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+Adding gates to a routine</label><div class="sd-tab-content docutils">
+<p>Quantum gates can be applied on any qubits composing a routine.
+Gates can be applied to the qubits from its index:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">CNOT</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">RZ</span>
+
+<span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">my_routine</span><span class="p">():</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">H</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">RZ</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">)(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>From this initial gate set, one can also build new gates using control and dagger operations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">my_routine</span><span class="p">():</span>
+    <span class="n">PH</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">RX</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">dag</span><span class="p">()(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Of course, controls can be stacked:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">my_routine</span><span class="p">():</span>
+    <span class="n">PH</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="o">*</span><span class="p">[</span><span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p>By convention, the outermost control qubit is always the first argument when calling a gate.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">my_routine</span><span class="p">():</span>
+    <span class="c1"># Here &quot;0&quot; is the control qubit:</span>
+    <span class="n">H</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="c1"># And here, &quot;0&quot; and &quot;2&quot; are the controls:</span>
+    <span class="n">H</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="user-defined-parametrized-gates-abstractgate">
+<span id="abstract-gate"></span><h2>User defined parametrized gates (AbstractGate)<a class="headerlink" href="#user-defined-parametrized-gates-abstractgate" title="Permalink to this heading"></a></h2>
+<p>The <a class="reference internal" href="../../../04_api_reference/module_qat/module_lang/abstractgate.html#qat.lang.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a> class allows you to define any parameterized gate you can think of. This can be quite convenient to describe, for instance, hardware dependent gate set
+or to wrap quantum routines inside a “black box”.
+However, when the time comes to simulate or properly execute the quantum circuits, one might need to provide additional information to these black boxes in order to either:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>be able to simulate it (e.g. can we attach a matrix definition to the gate?) or</p></li>
+<li><p>be able to link it using a sub-circuit library (e.g. can we attach a sub-circuit implementation to the gate?)</p></li>
+</ul>
+</div></blockquote>
+<section id="matrix-definition">
+<h3>Matrix definition<a class="headerlink" href="#matrix-definition" title="Permalink to this heading"></a></h3>
+<p>To provide a matrix implementation for an <a class="reference internal" href="../../../04_api_reference/module_qat/module_lang/abstractgate.html#qat.lang.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a>, one first needs to define a Python function that:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>returns a matrix (for simplicity a numpy array)</p></li>
+<li><p>has the same input signature as the gate</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">AbstractGate</span>
+
+<span class="k">def</span> <span class="nf">phase_matrix</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)])</span>
+
+<span class="n">phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;PHASE&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">matrix_generator</span><span class="o">=</span><span class="n">phase_matrix</span><span class="p">,</span> <span class="n">arity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Or alternatively</span>
+<span class="n">phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;PHASE&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">phase_gate</span><span class="o">.</span><span class="n">set_matrix_generator</span><span class="p">(</span><span class="n">phase_matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="subcircuit-definition">
+<h3>Subcircuit definition<a class="headerlink" href="#subcircuit-definition" title="Permalink to this heading"></a></h3>
+<p>Similarly, to provide a subcircuit implementation, one attaches to the definition of the gate a function returning a <a class="reference internal" href="../../../04_api_reference/module_qat/module_lang/qroutine.html#qat.lang.QRoutine" title="qat.lang.AQASM.routines.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">CNOT</span><span class="p">,</span> <span class="n">PH</span><span class="p">,</span> <span class="n">AbstractGate</span>
+
+<span class="k">def</span> <span class="nf">c_phase</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+    <span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="p">)</span>
+    <span class="n">PH</span><span class="p">(</span><span class="o">-</span><span class="n">theta</span><span class="o">/</span><span class="mi">2</span><span class="p">)(</span><span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="p">)</span>
+    <span class="n">PH</span><span class="p">(</span><span class="n">theta</span><span class="o">/</span><span class="mi">2</span><span class="p">)(</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">PH</span><span class="p">(</span><span class="n">theta</span><span class="o">/</span><span class="mi">2</span><span class="p">)(</span><span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">routine</span>
+
+
+<span class="n">c_phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;C_PHASE&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">circuit_generator</span><span class="o">=</span><span class="n">c_phase</span><span class="p">)</span>
+<span class="c1"># Or alternatively</span>
+<span class="n">c_phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;C_PHASE&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">c_phase_gate</span><span class="o">.</span><span class="n">set_circuit_generator</span><span class="p">(</span><span class="n">c_phase</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="arity-generator">
+<h3>Arity generator<a class="headerlink" href="#arity-generator" title="Permalink to this heading"></a></h3>
+<p>Finally, it is possible for abstract gates to have a variable arity that depends on its parameters.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">AbstractGate</span>
+
+<span class="c1"># A QFT has arity equals to its sole parameter</span>
+<span class="n">qft</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;QFT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n</span> <span class="p">:</span> <span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This way, pyAQASM is able to statically check that the gate is applied on the right number of qubits.</p>
+</section>
+</section>
+<section id="deprecated-custom-gates">
+<h2>Deprecated custom gates<a class="headerlink" href="#deprecated-custom-gates" title="Permalink to this heading"></a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Custom gates are deprecated. Consider using constant valued
+<a class="reference internal" href="../../../04_api_reference/module_qat/module_lang/abstractgate.html#qat.lang.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a> instead (defined in
+the previous section).</p>
+</div>
+<p>PyAQASM offers the possibility to define your own gates from a matrix. This is done via the <code class="code docutils literal notranslate"><span class="pre">CustomGate</span></code> class.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">CustomGate</span>
+
+<span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="n">my_minus_z</span> <span class="o">=</span> <span class="n">CustomGate</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+<span class="n">my_minus_z</span><span class="p">(</span><span class="n">qbits_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../01_digital_circuit.html" class="btn btn-neutral float-left" title="Gate-based programming" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="02_variational.html" class="btn btn-neutral float-right" title="Creating variational circuits" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

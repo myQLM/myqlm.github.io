@@ -1,0 +1,70 @@
+.. _building_schedules_sec:
+
+Building schedules
+==================
+
+Hamiltonian as a list of coefficients and Observables
+-----------------------------------------------------
+
+:class:`~qat.core.Schedule` objects are specified using a collection of pairs of time-dependent coefficients and :class:`~qat.core.Observable` objects.
+Time dependent coefficients are simply arithmetic expressions (built from :class:`~qat.core.variables.Variable`), with a possible open parameter representing the time dependence (usually a variable :code:`t`).
+This collection of pairs is called a "drive".
+
+Here is a simple example that constructs a schedule containing the time-dependent Hamiltonian:
+
+.. math::
+
+    H(t) = (1 - t) \sigma_z^{(0)} + t \sigma_x^{(0)}
+
+.. run-block:: python
+
+    from qat.core import Variable, Schedule, Observable, Term
+
+    t_variable = Variable("t")
+    schedule = Schedule(drive=[(1 - t_variable, Observable(1, pauli_terms=[Term(1, 'Z', [0])])),
+                               (t_variable, Observable(1, pauli_terms=[Term(1, 'X', [0])]))],
+                        tmax=23.0)
+
+    print(schedule)
+
+As one can see, the time during which the schedule is defined (the :code:`tmax` parameter) also needs to be provided.
+
+.. note::
+
+    * It often leads to a faster Schedule creation (especially for tens or hundreds of qubits) if the coefficient of a Hamiltonian's term is fed straight inside the respective :class:`~qat.core.Term` (instead of leaving a coefficient :math:`1`).
+    * Also, if the same Pauli operator will be applied to many terms, list comprehension for the :code:`pauli_terms` argument of an :class:`~qat.core.Observable` will lead to a speed-up (compared to having as many tupples in the :code:`drive`).
+
+Using abstract variables
+""""""""""""""""""""""""
+
+All scalars (i.e coefficients, tmax, etc) can be abstract arithmetic expressions:
+
+.. run-block:: python
+
+    from qat.core import Variable, Schedule, Observable, Term
+
+    t_variable = Variable("t")
+    tmax_expr = 15 * Variable("tmax") - 5
+    schedule = Schedule(drive=[(1 - t_variable, Observable(1, pauli_terms=[Term(1, 'Z', [0])])),
+                               (t_variable, Observable(1, pauli_terms=[Term(1, 'X', [0])]))],
+                        tmax=tmax_expr)
+
+    print(schedule, "\n")
+    print(schedule(tmax=10))
+
+
+Hamiltonian as one Observable
+-----------------------------
+
+Drives can also be declared using an :class:`~qat.core.Observable` with time-dependent coefficients:
+
+.. run-block:: python
+
+    from qat.core import Variable, Schedule, Observable, Term
+
+    t_variable = Variable("t")
+    hamiltonian = (1 - t_variable) * Observable(1, pauli_terms=[Term(1, 'Z', [0])]) + \
+                  t_variable * Observable(1, pauli_terms=[Term(1, 'X', [0])])
+    schedule = Schedule(drive=hamiltonian,
+                        tmax=23.0)
+    print(schedule)

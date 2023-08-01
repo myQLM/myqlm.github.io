@@ -1,0 +1,74 @@
+Manipulating schedules
+======================
+
+The :class:`~qat.core.Schedule` class has some overloaded operators which allow you to manipulate them efficiently.
+
+.. tab-set::
+
+    .. tab-item:: Temporal composition
+
+        Two schedules can be temporally composed using the pipe/or operator:
+
+        .. run-block:: python
+
+            from qat.core import Variable, Observable, Schedule, Term
+
+            t_variable = Variable("t")
+            schedule1 = Schedule(drive=(1 - t_variable) * Observable(1, pauli_terms=[Term(1, 'Z', [0])]),
+                                 tmax=2.0)
+            schedule2 = Schedule(drive=t_variable * Observable(1, pauli_terms=[Term(1, 'X', [0])]),
+                                 tmax=3.0)
+
+            print(schedule1 | schedule2)
+
+
+        Note how the coefficients are ponderated by a `heaviside` signal to filter the ranges of the two schedules.
+
+
+    .. tab-item:: Parallel composition
+
+        Two schedules can be merged into a single schedule containing the sum of the two drives using an addition.
+
+        .. run-block:: python
+
+            from qat.core import Variable, Observable, Schedule, Term
+
+            t_variable = Variable("t")
+            schedule1 = Schedule(drive=(1 - t_variable) * Observable(1, pauli_terms=[Term(1, 'Z', [0])]),
+                                 tmax=2.0)
+            schedule2 = Schedule(drive=t_variable * Observable(1, pauli_terms=[Term(1, 'X', [0])]),
+                                 tmax=3.0)
+
+            print(schedule1 + schedule2)
+
+
+    .. tab-item:: Rescaling a schedule
+
+        Schedules can be rescaled via multiplication by a scalar:
+
+        .. run-block:: python
+
+            from qat.core import Variable, Observable, Schedule, Term
+
+            t_variable = Variable("t")
+            schedule = Schedule(drive=(1 - t_variable) * Observable(1, pauli_terms=[Term(1, 'Z', [0])]),
+                                tmax=2.0)
+
+            print(45 * schedule, "\n")
+            print(Variable("foo") * schedule)
+
+
+    .. tab-item:: Time translation of a schedule
+
+        Schedules can be delayed (in the past or the future) by using the bit shift operators `<<` and `>>`:
+
+        .. run-block:: python
+
+            from qat.core import Variable, Observable, Schedule, Term
+
+            t_variable = Variable("t")
+            schedule = Schedule(drive=(1 - t_variable) * Observable(1, pauli_terms=[Term(1, 'Z', [0])]),
+                                tmax=2.0)
+
+            print(schedule >> 3, "\n")
+            print(schedule << Variable('bar'))

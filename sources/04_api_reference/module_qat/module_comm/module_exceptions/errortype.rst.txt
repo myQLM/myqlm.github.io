@@ -1,0 +1,39 @@
+qat.comm.exceptions.ttypes.ErrorType
+====================================
+
+.. class:: qat.comm.exceptions.ttypes.ErrorType
+
+    Enumeration containing all the defined error code
+
+    .. run-block:: python
+
+        from qat.comm.exceptions.ttypes import ErrorType
+
+        abort_code = ErrorType.ABORT
+
+    The error codes are:
+
+     * **ABORT** = 1
+     * **INVALID_ARGS** = 3
+     * **NONRESULT** = 5
+     * **BREAK** = 10
+     * **ILLEGAL_GATES** = 11
+     * **NBQBITS** = 12
+     * **NBCBITS** = 13
+     * **NOT_SIMULATABLE** = 14
+
+
+Each error code is defined in the enumeration :class:`~qat.comm.exceptions.ttypes.ErrorType`.
+This enumeration is composed of the following items:
+
+ * Error **ABORT** (code :math:`1`) raised when the execution is stopped
+ * Error **INVALID_ARGS** (code :math:`2`) raised when arguments are invalid
+ * Error **NONRESULT** (code :math:`5`) raised when the result is not available
+ * Error **BREAK** (code :math:`10`) raised by a *BREAK* gate in the circuit
+ * Error **ILLEGAL_GATES** (code :math:`11`) raised when the circuit contains
+   a gate unknown for the QPU
+ * Error **NBQBITS** (code :math:`12`) raised when the number of qubits
+   composing the circuit is not compatible with the QPU
+ * Error **NBCBITS** (code :math:`13`) raised when the number of cbits
+   composing the circuit is not compatible with the QPU
+ * Error **NOT_SIMULATABLE** (code :math:`14`) raised when a job is not simulatable

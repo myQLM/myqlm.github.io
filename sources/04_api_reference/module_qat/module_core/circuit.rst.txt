@@ -1,0 +1,118 @@
+qat.core.Circuit
+================
+
+.. autoclass:: qat.core.Circuit
+    :members:
+
+
+Most useful Circuit methods
+---------------------------
+
+One can easily concatenate two :class:`~qat.core.Circuit` objects with the overloaded
+:code:`__add__` operator (as long as they have the same number of qubits):
+
+.. code-block:: python
+
+    cat_circuit = circuit1 + circuit2
+
+Tensorial composition is implemented via an overloading of the :code:`__mult__` operator:
+
+.. code-block:: python
+
+    kron_circuit = circuit1 * circuit2
+
+Among the other useful methods, we can find:
+
+* The direct generation of a :class:`~qat.core.Job` object from a circuit using various parameters,
+  with the :meth:`~qat.core.Circuit.to_job` method:
+
+    .. code-block:: python
+
+        job = circuit.to_job(job_type="SAMPLE", nbshots=1024, qubits=[0, 3, 7])
+
+* Serialization/deserialization of a circuit can be done using the :meth:`~qat.core.Circuit.dump`
+  and :meth:`~qat.core.Circuit.load` methods:
+
+    .. code-block:: python
+
+        circuit.dump("my_circuit.circ")
+        circuit = Circuit.load("my_circuit.circ")
+
+* Binding of abstract variables using the :meth:`~qat.core.Circuit.bind_variables` method:
+
+    .. code-block:: python
+
+        new_circuit = circuit(theta=0.34)
+        # or, equivalently
+        new_circuit = circuit.bind_variables({theta: 0.34})
+
+
+Iterating of a Circuit
+______________________
+
+* Iterating over the instructions using the :meth:`~qat.core.Circuit.iterate_simple` method
+
+.. run-block::  python
+
+    from qat.lang.AQASM import Program
+    from qat.lang.AQASM.qftarith import QFT
+
+    prog = Program()
+    qbits = prog.qalloc(4)
+    QFT(4)(qbits)
+    prog.measure([qbits[0], qbits[3]])
+    prog.reset(qbits[2])
+    circuit = prog.to_circ()
+
+    for instruction in circuit.iterate_simple():
+        print(instruction)
+
+* Iterating over raw instructions (for advanced usage):
+
+.. run-block:: python
+
+    from qat.lang.AQASM import Program
+    from qat.lang.AQASM.qftarith import QFT
+
+    prog = Program()
+    qbits = prog.qalloc(4)
+    QFT(4)(qbits)
+    prog.measure([qbits[0], qbits[3]])
+    prog.reset(qbits[2])
+    circuit = prog.to_circ()
+
+    for instruction in circuit:
+        print(instruction)
+
+
+Qubits and cbits
+________________
+
+The number of qubits and classical bits declared in the circuit can be accessed like so:
+
+.. code-block:: python
+
+    circuit.nbqbits
+    circuit.nbcbits
+
+At circuit generation, the convention is to extend the number of classical bits to match the number
+of declared qubits. So it might be that your didn't declare any cbits in pyAQASM, and still end up
+with a non-zero number of classical bits.
+
+The field `nbqbits` might also be extended to match the total number of qbits used by the circuit
+(for instance if a sub-routine is using some ancillae that are dynamically allocated at
+inlining/emulation/execution).
+
+This extension requires to emulate the flow of the circuit.
+
+All quantum registers declared in pyAQASM can be found in the `.qregs` field.
+The type of these registers is also stored in the QReg structure:
+
+.. code-block:: python
+
+    for qreg in circuit.qregs:
+        print("Register of length {} starting at {}".format(qreg.length, qreg.start))
+
+
+Please refer :ref:`this section of the user guide regarding quantum types <oracles>` for more
+information on registers.

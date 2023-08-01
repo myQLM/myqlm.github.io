@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.pylinalg.simulator.measure &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../static/documentation_options.js"></script>
+        <script src="../../../../static/jquery.js"></script>
+        <script src="../../../../static/underscore.js"></script>
+        <script src="../../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../static/doctools.js"></script>
+        <script src="../../../../static/sphinx_highlight.js"></script>
+        <script src="../../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="qat.pylinalg.simulator.project" href="project.html" />
+    <link rel="prev" title="qat.pylinalg.simulator.mat2nparray" href="mat2nparray.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../module_comm.html">qat.comm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module_core.html">qat.core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module_plugins.html">qat.plugins</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../module_simulator.html">qat.pylinalg.simulator</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="simulate.html">qat.pylinalg.simulator.simulate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="mat2nparray.html">qat.pylinalg.simulator.mat2nparray</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">qat.pylinalg.simulator.measure</a></li>
+<li class="toctree-l5"><a class="reference internal" href="project.html">qat.pylinalg.simulator.project</a></li>
+<li class="toctree-l5"><a class="reference internal" href="raise_break.html">qat.pylinalg.simulator.raise_break</a></li>
+<li class="toctree-l5"><a class="reference internal" href="reset.html">qat.pylinalg.simulator.reset</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module_quops.html">qat.quops</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../../04_api_reference.html">API reference</a> &raquo;</li>
+          <li><a href="../../../module_qat.html">qat</a> &raquo;</li>
+          <li><a href="../../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a> &raquo;</li>
+          <li><a href="../module_simulator.html">qat.pylinalg.simulator</a> &raquo;</li>
+      <li>qat.pylinalg.simulator.measure</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-pylinalg-simulator-measure">
+<h1>qat.pylinalg.simulator.measure<a class="headerlink" href="#qat-pylinalg-simulator-measure" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="qat.pylinalg.simulator.measure">
+<span class="sig-prename descclassname"><span class="pre">qat.pylinalg.simulator.</span></span><span class="sig-name descname"><span class="pre">measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_vec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.pylinalg.simulator.measure" title="Permalink to this definition"></a></dt>
+<dd><p>Samples measurement results on the specified qubits.</p>
+<p>No projection is carried out ! See “project” function.
+Thanks to the absence of projection, several samples can be asked.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state_vec</strong> (<em>numpy.ndarray</em>) – the <code class="code docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+containing full state vector.</p></li>
+<li><p><strong>qubits</strong> (<em>list</em>) – list of integers specifying the subset
+of qubits to measure.</p></li>
+<li><p><strong>nb_samples</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of samples to return. Set to 1
+by default.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>intprob_list</strong>, a list (of length nb_samples) containing tuples of the form (integer, probability). The integer is the result of the measurement on the subset of qubits (when converted to binary representation, it needs to have a width of len(qubits)). The probability is the probability the measurement had to occur. It is useful for renormalizing afterwards.
+In short: it is a list of samples. One sample is a (int, prob) tuple.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="mat2nparray.html" class="btn btn-neutral float-left" title="qat.pylinalg.simulator.mat2nparray" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="project.html" class="btn btn-neutral float-right" title="qat.pylinalg.simulator.project" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

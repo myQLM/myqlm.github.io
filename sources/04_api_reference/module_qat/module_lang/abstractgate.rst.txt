@@ -1,0 +1,33 @@
+qat.lang.AbstractGate
+=====================
+
+:class:`~qat.lang.AbstractGate` in an important class of this framework. This class provides a way to define new parametrized gates.
+Basically, an abstract gate describes a family of gates parametrized by a list of values of various types. The current list of admissible types contains: :code:`int`, :code:`float`, :code:`str`
+
+For instance, to declare a new :class:`~qat.lang.AbstractGate` that describes a :math:`R_z` rotation, we would write:
+
+.. code-block:: python
+
+    my_rz = AbstractGate("RZ", [float], arity=1)
+
+
+and use this new abstract gate as follows:
+
+.. code-block:: python
+
+    my_rz(0.4)(qbits_reg[0])  
+
+
+It is possible to attach a matrix generator to the abstract gate in order to generate and include a matrix in the final circuit (if you want to be able to simulate the circuit for instance).
+
+.. code-block:: python
+
+    def matrix_gen(theta):
+        return np.array([[1, 0], [0, np.exp(1j * theta)])
+
+    my_rz = AbstractGate("RZ", [float], arity=1,
+                         matrix_generator=matrix_gen)
+
+
+.. autoclass:: qat.lang.AbstractGate
+    :members: set_dag

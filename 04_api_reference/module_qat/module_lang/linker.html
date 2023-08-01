@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.lang.linking.Linker &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="qat.lang.AQASM.arithmetic" href="module_arithmetic.html" />
+    <link rel="prev" title="qat.lang.AQASM.misc.generate_gate_set" href="generate_gate_set.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../module_comm.html">qat.comm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../module_lang.html">qat.lang</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="program.html">qat.lang.Program</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qfunc.html">qat.lang.qfunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qrout.html">qat.lang.qrout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="abstractgate.html">qat.lang.AbstractGate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build_gate.html">qat.lang.build_gate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gate.html">qat.lang.AQASM.gates.Gate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="paramgate.html">qat.lang.AQASM.gates.ParamGate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qroutine.html">qat.lang.QRoutine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qbool.html">qat.lang.AQASM.qbool.QBool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qboolarray.html">qat.lang.AQASM.qbool.QBoolArray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qclause.html">qat.lang.AQASM.qbool.QClause</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qarithexp.html">qat.lang.AQASM.qint.QArithExp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qcompexp.html">qat.lang.AQASM.qint.QCompExp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qint.html">qat.lang.AQASM.qint.QInt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="boolformula.html">qat.lang.AQASM.bits.BoolFormula</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cbit.html">qat.lang.AQASM.bits.Cbit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cregister.html">qat.lang.AQASM.bits.CRegister</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qbit.html">qat.lang.AQASM.bits.Qbit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qregister.html">qat.lang.AQASM.bits.QRegister</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generate_gate_set.html">qat.lang.AQASM.misc.generate_gate_set</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">qat.lang.linking.Linker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_arithmetic.html">qat.lang.AQASM.arithmetic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_classarith.html">qat.lang.AQASM.classarith</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_qftarith.html">qat.lang.AQASM.qftarith</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kptree.html">qat.lang.models.KPTree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="amplification_step.html">qat.lang.algorithms.amplification_step</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phase_estimation.html">qat.lang.algorithms.phase_estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="quantum_counting.html">qat.lang.algorithms.quantum_counting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="grover_diffusion.html">qat.lang.algorithms.amplification.grover_diffusion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="householder.html">qat.lang.algorithms.amplification.householder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="uniform_distribution.html">qat.lang.algorithms.amplification.uniform_distribution</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../04_api_reference.html">API reference</a> &raquo;</li>
+          <li><a href="../../module_qat.html">qat</a> &raquo;</li>
+          <li><a href="../module_lang.html">qat.lang</a> &raquo;</li>
+      <li>qat.lang.linking.Linker</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-lang-linking-linker">
+<h1>qat.lang.linking.Linker<a class="headerlink" href="#qat-lang-linking-linker" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.lang.linking.Linker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.lang.linking.</span></span><span class="sig-name descname"><span class="pre">Linker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gate_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_matrices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">submatrices_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_locks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.linking.Linker" title="Permalink to this definition"></a></dt>
+<dd><p>The purpose of a linker is to crawl a circuit and attach implementations to gates.
+These implementations are specified via a <a class="reference internal" href="../module_core/module_gate_set/gateset.html#qat.core.gate_set.GateSet" title="qat.core.gate_set.GateSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateSet</span></code></a> object
+(more or less a collection of <a class="reference internal" href="abstractgate.html#qat.lang.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a>).</p>
+<p>The main method of this class is the <cite>.link</cite> method.</p>
+<p>The following example uses a linker to replace CNOT gates by H and CZ gates:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">qat.core.gate_set</span> <span class="kn">import</span> <span class="n">GateSet</span>
+<span class="kn">from</span> <span class="nn">qat.lang.linking.linker</span> <span class="kn">import</span> <span class="n">Linker</span>
+
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">qbits</span><span class="p">)</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="nd">@build_gate</span><span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">my_cnot_implementation</span><span class="p">():</span>
+    <span class="n">rout</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+    <span class="n">wires</span> <span class="o">=</span> <span class="n">rout</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">rout</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
+        <span class="n">H</span><span class="p">(</span><span class="n">wires</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">CSIGN</span><span class="p">(</span><span class="n">wires</span><span class="p">)</span>
+    <span class="n">rout</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">rout</span>
+
+<span class="c1"># We initialize a Linker with an empty gate set since we want</span>
+<span class="c1"># to override the default CNOT implementation</span>
+<span class="n">linker</span> <span class="o">=</span> <span class="n">Linker</span><span class="p">(</span><span class="n">gate_set</span><span class="o">=</span><span class="n">GateSet</span><span class="p">())</span>
+<span class="n">linker</span><span class="o">.</span><span class="n">add_signature</span><span class="p">(</span><span class="n">my_cnot_implementation</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before linking:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+
+<span class="n">linker</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">circuit</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After linking:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Before</span> <span class="n">linking</span><span class="p">:</span>
+<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">After</span> <span class="n">linking</span><span class="p">:</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;CSIGN&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gate_set</strong> (<a class="reference internal" href="../module_core/module_gate_set/gateset.html#qat.core.gate_set.GateSet" title="qat.core.gate_set.GateSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateSet</span></code></a>) – A gate set to start the linking
+with. Optional. Defaults to the default pyAQASM gate set.</p></li>
+<li><p><strong>include_matrices</strong> (<em>bool</em><em>, </em><em>optional</em>) – if set to True,
+matrices will be generated and included in the circuit. Defaults to True.</p></li>
+<li><p><strong>keep</strong> (<em>list&lt;str&gt;</em>) – if set to a list of gate names,
+these gates will be skipped by the linker. Default to None.</p></li>
+<li><p><strong>link</strong> (<em>list</em>) – a list of <a class="reference internal" href="abstractgate.html#qat.lang.AbstractGate" title="qat.lang.AQASM.gates.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a>, <a class="reference internal" href="../module_core/module_gate_set/gateset.html#qat.core.gate_set.GateSet" title="qat.core.gate_set.GateSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateSet</span></code></a>, or
+python modules to pass to the linker.</p></li>
+<li><p><strong>submatrices_only</strong> (<em>bool</em>) – if set to True,
+only submatrices will be generated and included in the circuit. For instance a CTRL(Y) will only
+generate the matrix for Y, thus saving memory. Default to True.</p></li>
+<li><p><strong>inline</strong> (<em>bool</em><em>, </em><em>optional</em>) – if set to True, subcircuit implementations will be inlined in the main body of the circuit.
+This might increase the memory footprint of the circuit and linking cost. Default to False.</p></li>
+<li><p><strong>include_locks</strong> (<em>bool</em><em>, </em><em>optional</em>) – if set to False, removes all lock/release operators after the linking process.
+If set to True, these operators will remain. These operators are here for debug purpose only. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.lang.linking.Linker.add_signature">
+<span class="sig-name descname"><span class="pre">add_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gate_signature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.linking.Linker.add_signature" title="Permalink to this definition"></a></dt>
+<dd><p>Adds a gate signature to the current gate set of the Linker.
+This gate should not be present in the current gate set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>gate_signature</strong> (<a class="reference internal" href="../module_core/module_gate_set/gatesignature.html#qat.core.gate_set.GateSignature" title="qat.core.gate_set.GateSignature"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateSignature</span></code></a>) – a gate signature</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.lang.linking.Linker.clear_gate_set">
+<span class="sig-name descname"><span class="pre">clear_gate_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_gates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.linking.Linker.clear_gate_set" title="Permalink to this definition"></a></dt>
+<dd><p>Resets the content of the internal gate set of the Linker.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>default_gates</strong> (<em>bool</em>) – If set to True, the default gate set of pyAQASM
+will be included in the fresh gate set. Optional. Defaults to True.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.lang.linking.Linker.compile">
+<span class="sig-name descname"><span class="pre">compile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.linking.Linker.compile" title="Permalink to this definition"></a></dt>
+<dd><p>Applies the linker to all the jobs in a batch.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.lang.linking.Linker.link">
+<span class="sig-name descname"><span class="pre">link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.linking.Linker.link" title="Permalink to this definition"></a></dt>
+<dd><p>Uses the internal gate set of the Linker to link gate implementations.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The linking happens in place (thus modifies the input circuit).</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>circuit</strong> (<a class="reference internal" href="../module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Circuit</span></code></a>) – a quantum circuit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.lang.linking.Linker.link_gates">
+<span class="sig-name descname"><span class="pre">link_gates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.linking.Linker.link_gates" title="Permalink to this definition"></a></dt>
+<dd><p>Uses the internal gate set of the Linker to instantiate the gates of a circuit.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The linking happens in place (thus modifies the input circuit).</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>circuit</strong> (<a class="reference internal" href="../module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Circuit</span></code></a>) – a quantum circuit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.lang.linking.Linker.link_matrices">
+<span class="sig-name descname"><span class="pre">link_matrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.linking.Linker.link_matrices" title="Permalink to this definition"></a></dt>
+<dd><p>Link the matrix implementations to the gate definitions of a circuit.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The linking happens in place (thus modifies the input circuit).</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>circuit</strong> (<a class="reference internal" href="../module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Circuit</span></code></a>) – a quantum circuit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.lang.linking.Linker.set_gate_set">
+<span class="sig-name descname"><span class="pre">set_gate_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gate_set</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.lang.linking.Linker.set_gate_set" title="Permalink to this definition"></a></dt>
+<dd><p>Overrides the internal gate set with a new gate set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>gate_set</strong> (<a class="reference internal" href="../module_core/module_gate_set/gateset.html#qat.core.gate_set.GateSet" title="qat.core.gate_set.GateSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateSet</span></code></a>) – a gate set</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="generate_gate_set.html" class="btn btn-neutral float-left" title="qat.lang.AQASM.misc.generate_gate_set" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="module_arithmetic.html" class="btn btn-neutral float-right" title="qat.lang.AQASM.arithmetic" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

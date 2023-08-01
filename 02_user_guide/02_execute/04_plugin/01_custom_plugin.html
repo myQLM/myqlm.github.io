@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Make your own plugin &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Make you own junction" href="02_custom_junction.html" />
+    <link rel="prev" title="Extending a QPU (by using Plugins)" href="../04_plugin.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../02_execute.html">Executing quantum programs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../01_job.html">Constructing one or multiple Jobs (using Batch)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_result.html">Result of a quantum program</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_qpu.html">Quantum Processing Unit (QPU)</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../04_plugin.html">Extending a QPU (by using Plugins)</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Make your own plugin</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#method-compile">Method compile</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#method-post-process">Method post_process</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#a-concrete-example">A concrete example</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="02_custom_junction.html">Make you own junction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="03_hardware_specs.html">Getting information from the QPU</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../05_variational.html">Running variational algorithms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../../02_execute.html">Executing quantum programs</a> &raquo;</li>
+          <li><a href="../04_plugin.html">Extending a QPU (by using Plugins)</a> &raquo;</li>
+      <li>Make your own plugin</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="make-your-own-plugin">
+<span id="custom-plugin"></span><h1>Make your own plugin<a class="headerlink" href="#make-your-own-plugin" title="Permalink to this heading"></a></h1>
+<p>In our framework, a Plugin class should inherit from <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/abstractplugin.html#qat.plugins.AbstractPlugin" title="qat.plugins.AbstractPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.AbstractPlugin</span></code></a> which defined the following
+methods:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Method <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/abstractplugin.html#qat.plugins.AbstractPlugin.compile" title="qat.plugins.AbstractPlugin.compile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compile()</span></code></a> <em>required</em>, this method takes a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a> and a
+<a class="reference internal" href="../../../04_api_reference/module_qat/module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a> and returns a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>. This <strong>compile</strong> method (way in) will pre-process
+any batch before executing it on the QPU</p></li>
+<li><p>Method <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/abstractplugin.html#qat.plugins.AbstractPlugin.post_process" title="qat.plugins.AbstractPlugin.post_process"><code class="xref py py-meth docutils literal notranslate"><span class="pre">post_process()</span></code></a> <em>optional</em>, this method takes a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/batchresult.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a> and returns
+either a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/batchresult.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a> or a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>. This <strong>post_process</strong> method (way out) will post-process
+the result returned by the QPU. If this method returns a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>, this new batch will be resubmitted to the QPU,
+otherwise the new result is returned to the user</p></li>
+</ul>
+</div></blockquote>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Raising exception in the code<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">A Plugin can raise a <a class="reference internal" href="../../../04_api_reference/module_qat/module_comm/module_exceptions/pluginexception.html#qat.comm.exceptions.ttypes.PluginException" title="qat.comm.exceptions.ttypes.PluginException"><code class="xref py py-class docutils literal notranslate"><span class="pre">PluginException</span></code></a>. A plugin can be accessed remotly (using
+<span class="xref std std-ref">Qaptiva Access</span> or by starting the Plugin in server mode). This exception can be serialized and re-raised on
+the client side</p>
+<p class="sd-card-text">A <a class="reference internal" href="../../../04_api_reference/module_qat/module_comm/module_exceptions/pluginexception.html#qat.comm.exceptions.ttypes.PluginException" title="qat.comm.exceptions.ttypes.PluginException"><code class="xref py py-class docutils literal notranslate"><span class="pre">PluginException</span></code></a> can be raised using <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/assert_plugin.html#qat.core.assertion.assert_plugin" title="qat.core.assertion.assert_plugin"><code class="xref py py-func docutils literal notranslate"><span class="pre">assert_plugin()</span></code></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.assertion</span> <span class="kn">import</span> <span class="n">assert_plugin</span>
+
+<span class="c1"># If my_condition() returns False: raises a PluginException</span>
+<span class="c1"># If my_condition() returns True: do nothing</span>
+<span class="n">assert_plugin</span><span class="p">(</span><span class="n">my_condition</span><span class="p">(),</span> <span class="s2">&quot;Error message&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details><section id="method-compile">
+<h2>Method compile<a class="headerlink" href="#method-compile" title="Permalink to this heading"></a></h2>
+<p>Method <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/abstractplugin.html#qat.plugins.AbstractPlugin.compile" title="qat.plugins.AbstractPlugin.compile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compile()</span></code></a> is the only required method. This function takes
+two parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>An argument of type <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a> defining what should be executed by the QPU</p></li>
+<li><p>An argument of type <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a> giving the <a class="reference internal" href="03_hardware_specs.html#hardware-specs"><span class="std std-ref">capabilities of the QPU</span></a>. This argument is given
+by the <a class="reference internal" href="../../../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler.get_specs" title="qat.qpus.QPUHandler.get_specs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_specs()</span></code></a> method of the QPU. This object contains some information on the QPU
+and can be used to adapt the compilation stage</p></li>
+</ul>
+</div></blockquote>
+<p>This function should return a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a> that will be executed by the rest of the stack</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.plugins</span> <span class="kn">import</span> <span class="n">AbstractPlugin</span>
+
+<span class="k">class</span> <span class="nc">MyPlugin</span><span class="p">(</span><span class="n">AbstractPlugin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">hardware_specs</span><span class="p">):</span>
+        <span class="c1"># Do something with the batch of jobs `batch`, and, optionally, the specs</span>
+        <span class="k">return</span> <span class="n">batch</span>
+</pre></div>
+</div>
+</section>
+<section id="method-post-process">
+<h2>Method post_process<a class="headerlink" href="#method-post-process" title="Permalink to this heading"></a></h2>
+<p>Method <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/abstractplugin.html#qat.plugins.AbstractPlugin.post_process" title="qat.plugins.AbstractPlugin.post_process"><code class="xref py py-meth docutils literal notranslate"><span class="pre">post_process()</span></code></a> is an optional method. This function takes a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/batchresult.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a>
+(i.e. a list of <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a>) and returns either a:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/batchresult.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a>: the result is then returned to the user (and post-processed by plugins placed before in the stack, if
+any)</p></li>
+<li><p>A <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>: the result is resubmitted to the QPU (and pre-processed by plugins placed between the current plugin and
+the QPU)</p></li>
+</ul>
+</div></blockquote>
+<p>This function is designed to repair the result if needed. For instance, the <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/abstractplugin.html#qat.plugins.AbstractPlugin.compile" title="qat.plugins.AbstractPlugin.compile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compile()</span></code></a> method can
+return an equivalent batch (which is not equal), the result can then be repaired using <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/abstractplugin.html#qat.plugins.AbstractPlugin.post_process" title="qat.plugins.AbstractPlugin.post_process"><code class="xref py py-meth docutils literal notranslate"><span class="pre">post_process()</span></code></a>
+to ensure that the result returned to the user correspond to expected result of the initial <em>not compiled</em> batch</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.plugins</span> <span class="kn">import</span> <span class="n">AbstractPlugin</span>
+
+<span class="k">class</span> <span class="nc">MyPlugin</span><span class="p">(</span><span class="n">AbstractPlugin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">hardware_specs</span><span class="p">):</span>
+        <span class="c1"># Do something with the batch of jobs `batch`, and, optionally, the specs</span>
+        <span class="k">return</span> <span class="n">batch</span>
+
+    <span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_result</span><span class="p">):</span>
+        <span class="c1"># Do something with the execution result</span>
+        <span class="k">return</span> <span class="n">batch_result</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Any plugin has a <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/abstractplugin.html#qat.plugins.AbstractPlugin.do_post_processing" title="qat.plugins.AbstractPlugin.do_post_processing"><code class="xref py py-meth docutils literal notranslate"><span class="pre">do_post_processing()</span></code></a> method. This method is used to check if the plugin
+must repair the result before returning it to the user (this function does not take any parameter and returns a boolean).</p>
+<p>If a delocalized plugin (i.e. distant plugin) is used in a stack, this function will be used to check if the remote plugin needs to
+do post-processing. If the remote plugin does not need to do post-processing, the result is not send to this plugin, saving
+a lot of time</p>
+</div>
+</section>
+<section id="a-concrete-example">
+<h2>A concrete example<a class="headerlink" href="#a-concrete-example" title="Permalink to this heading"></a></h2>
+<p>This section provides an example of plugin displaying debug information to the screen. This plugin will:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>print all circuits submitted to the QPU. This function will loop of over the jobs composing the
+batch and print the circuit for each job</p></li>
+<li><p>print the result of the computation. This function will loop over the results composing the batch-result
+and print the samples for each result</p></li>
+</ul>
+</div></blockquote>
+<p>The plugin will look like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.plugins</span> <span class="kn">import</span> <span class="n">AbstractPlugin</span>
+
+<span class="k">class</span> <span class="nc">MyPlugin</span><span class="p">(</span><span class="n">AbstractPlugin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">hardware_specs</span><span class="p">):</span>
+        <span class="c1"># For each job</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">job</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batch</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&gt;&gt; Job #</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Print the circuit (i.e. printing each gate)</span>
+            <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+
+        <span class="c1"># Return compiled batch</span>
+        <span class="k">return</span> <span class="n">batch</span>
+
+    <span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_result</span><span class="p">):</span>
+        <span class="c1"># For each result</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batch_result</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&gt;&gt; Result #</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2"> - result of size </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Print the result (i.e. print each sample)</span>
+            <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">batch_result</span>
+</pre></div>
+</div>
+<p>This plugin can be used with any QPU, by using the pipe operator. The following example creates a QPU using
+<a class="reference internal" href="../../../04_api_reference/module_qat/module_qpus/get_default_qpu.html#qat.qpus.get_default_qpu" title="qat.qpus.get_default_qpu"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_default_qpu()</span></code></a> as execution engine but pre-processing and post-processing jobs using our plugin</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+
+<span class="n">my_qpu</span> <span class="o">=</span> <span class="n">MyPlugin</span><span class="p">()</span> <span class="o">|</span> <span class="n">get_default_qpu</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This QPU can be used to execute a GHZ circuit</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">CNOT</span>
+
+<span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">ghz</span><span class="p">():</span>
+    <span class="n">H</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">all_results</span> <span class="o">=</span> <span class="n">my_qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">([</span><span class="n">ghz</span><span class="o">.</span><span class="n">to_job</span><span class="p">()]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">===== Final result =====&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">all_results</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">Job</span> <span class="c1">#0</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="o">&gt;&gt;</span> <span class="n">Job</span> <span class="c1">#1</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="o">&gt;&gt;</span> <span class="n">Job</span> <span class="c1">#2</span>
+<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="o">&gt;&gt;</span> <span class="n">Result</span> <span class="c1">#0 - result of size 2</span>
+<span class="o">|</span><span class="mi">000</span><span class="o">&gt;</span> <span class="mf">0.4999999999999999</span>
+<span class="o">|</span><span class="mi">111</span><span class="o">&gt;</span> <span class="mf">0.4999999999999999</span>
+<span class="o">&gt;&gt;</span> <span class="n">Result</span> <span class="c1">#1 - result of size 2</span>
+<span class="o">|</span><span class="mi">000</span><span class="o">&gt;</span> <span class="mf">0.4999999999999999</span>
+<span class="o">|</span><span class="mi">111</span><span class="o">&gt;</span> <span class="mf">0.4999999999999999</span>
+<span class="o">&gt;&gt;</span> <span class="n">Result</span> <span class="c1">#2 - result of size 2</span>
+<span class="o">|</span><span class="mi">000</span><span class="o">&gt;</span> <span class="mf">0.4999999999999999</span>
+<span class="o">|</span><span class="mi">111</span><span class="o">&gt;</span> <span class="mf">0.4999999999999999</span>
+
+<span class="o">=====</span> <span class="n">Final</span> <span class="n">result</span> <span class="o">=====</span>
+<span class="n">Result</span><span class="p">(</span><span class="n">need_flip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lsb_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nbqbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">has_statevector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">statevector</span><span class="o">=</span><span class="n">array</span><span class="p">([</span><span class="mf">0.70710678</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span>
+       <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.70710678</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">]),</span> <span class="n">data</span><span class="o">=</span><span class="n">ResData</span><span class="p">(</span><span class="n">_serialized</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mem_ptr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">data_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="p">[</span><span class="n">QRegister</span><span class="p">(</span><span class="n">scope</span><span class="o">=&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">program</span><span class="o">.</span><span class="n">Program</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf33b3370</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">msb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_subtype_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa460</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa4c0</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa2e0</span><span class="o">&gt;</span><span class="p">])]),</span> <span class="n">_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="p">[</span><span class="n">QRegister</span><span class="p">(</span><span class="n">scope</span><span class="o">=&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">program</span><span class="o">.</span><span class="n">Program</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf33b3370</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">msb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_subtype_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa460</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa4c0</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa2e0</span><span class="o">&gt;</span><span class="p">])],</span> <span class="n">error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">meta_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">in_memory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_parameter_map</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">values_data</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Result</span><span class="p">(</span><span class="n">need_flip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lsb_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nbqbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">has_statevector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">statevector</span><span class="o">=</span><span class="n">array</span><span class="p">([</span><span class="mf">0.70710678</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span>
+       <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.70710678</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">]),</span> <span class="n">data</span><span class="o">=</span><span class="n">ResData</span><span class="p">(</span><span class="n">_serialized</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mem_ptr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">data_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="p">[</span><span class="n">QRegister</span><span class="p">(</span><span class="n">scope</span><span class="o">=&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">program</span><span class="o">.</span><span class="n">Program</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf33b3370</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">msb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_subtype_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa460</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa4c0</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa2e0</span><span class="o">&gt;</span><span class="p">])]),</span> <span class="n">_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="p">[</span><span class="n">QRegister</span><span class="p">(</span><span class="n">scope</span><span class="o">=&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">program</span><span class="o">.</span><span class="n">Program</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf33b3370</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">msb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_subtype_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa460</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa4c0</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa2e0</span><span class="o">&gt;</span><span class="p">])],</span> <span class="n">error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">meta_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">in_memory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_parameter_map</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">values_data</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">Result</span><span class="p">(</span><span class="n">need_flip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lsb_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nbqbits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">has_statevector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">statevector</span><span class="o">=</span><span class="n">array</span><span class="p">([</span><span class="mf">0.70710678</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span>
+       <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.</span>        <span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.70710678</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">]),</span> <span class="n">data</span><span class="o">=</span><span class="n">ResData</span><span class="p">(</span><span class="n">_serialized</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mem_ptr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">data_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="p">[</span><span class="n">QRegister</span><span class="p">(</span><span class="n">scope</span><span class="o">=&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">program</span><span class="o">.</span><span class="n">Program</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf33b3370</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">msb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_subtype_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa460</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa4c0</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa2e0</span><span class="o">&gt;</span><span class="p">])]),</span> <span class="n">_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qregs</span><span class="o">=</span><span class="p">[</span><span class="n">QRegister</span><span class="p">(</span><span class="n">scope</span><span class="o">=&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">program</span><span class="o">.</span><span class="n">Program</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf33b3370</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">msb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_subtype_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qbits</span><span class="o">=</span><span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa460</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa4c0</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AQASM</span><span class="o">.</span><span class="n">bits</span><span class="o">.</span><span class="n">Qbit</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x14bcf17aa2e0</span><span class="o">&gt;</span><span class="p">])],</span> <span class="n">error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">meta_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">in_memory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_parameter_map</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">values_data</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../04_plugin.html" class="btn btn-neutral float-left" title="Extending a QPU (by using Plugins)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="02_custom_junction.html" class="btn btn-neutral float-right" title="Make you own junction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

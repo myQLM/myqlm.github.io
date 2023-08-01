@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Variational algorithms with Qaptiva &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../static/documentation_options.js"></script>
+        <script src="../static/jquery.js"></script>
+        <script src="../static/underscore.js"></script>
+        <script src="../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../static/doctools.js"></script>
+        <script src="../static/sphinx_highlight.js"></script>
+        <script src="../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="User guide" href="../02_user_guide.html" />
+    <link rel="prev" title="Executing quantum programs" href="03_execute.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../01_getting_started.html">Getting started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="%3Amyqlm%3A01_install.html">Installing myQLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_execute.html">Executing quantum programs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Variational algorithms with Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../02_user_guide.html">User guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../01_getting_started.html">Getting started</a> &raquo;</li>
+      <li>Variational algorithms with Qaptiva</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="variational-algorithms-with-qaptiva">
+<h1>Variational algorithms with Qaptiva<a class="headerlink" href="#variational-algorithms-with-qaptiva" title="Permalink to this heading"></a></h1>
+<p>Variational algorithms are believed to be well suited to Noisy, Intermediate-Scale Quantum (NISQ) processors as they do not necessarily
+require long circuits to nevertheless prepare powerful ansatz states.</p>
+<p>In the code snippet below, we illustrate how this can be used to write such variational algorithms in a few lines of code: we first
+define the Hamiltonian <span class="math notranslate nohighlight">\(H\)</span> (here the antiferromagnetic Heisenberg Hamiltonian) whose ground-state energy we want to approximate.
+We then define the ansatz circuit, i.e a parametric circuit with parameters <span class="math notranslate nohighlight">\(\theta_i\)</span> to be optimized. Finally, our
+quantum stack is composed of a QPU (here a simulator) and a so-called <a class="reference internal" href="../02_user_guide/02_execute/04_plugin.html#plugin"><span class="std std-ref">“plugin”</span></a> that is going to perform the iterative
+optimization of the parameters given the ansatz circuit and the observable to be minimized.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+Functional mode</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span> <span class="k">as</span> <span class="n">Obs</span>
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">RY</span><span class="p">,</span> <span class="n">CNOT</span><span class="p">,</span> <span class="n">qfunc</span>
+
+<span class="c1"># Here we specify that thetas is an array of length 2</span>
+<span class="nd">@qfunc</span><span class="p">(</span><span class="n">thetas</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">energy</span><span class="p">(</span><span class="n">thetas</span><span class="p">):</span>
+                    <span class="c1"># Quantum job</span>
+                    <span class="c1"># Define Ansätz</span>
+    <span class="n">RY</span><span class="p">(</span><span class="n">thetas</span><span class="p">[</span><span class="mi">0</span><span class="p">])(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">RY</span><span class="p">(</span><span class="n">thetas</span><span class="p">[</span><span class="mi">1</span><span class="p">])(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+                    <span class="c1"># Measure observable</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">Obs</span><span class="o">.</span><span class="n">sigma_z</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">Obs</span><span class="o">.</span><span class="n">sigma_z</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">Obs</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">Obs</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">Obs</span><span class="o">.</span><span class="n">sigma_y</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">Obs</span><span class="o">.</span><span class="n">sigma_y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+
+<span class="n">res</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">energy</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.8</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
+<span class="c1"># Equivalently, one can delegate the minimization to the default qpu which is</span>
+<span class="c1"># equiped with a variational optimizer</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">energy</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Minimum VQE energy = </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">message</span><span class="p">:</span> <span class="n">Optimization</span> <span class="n">terminated</span> <span class="n">successfully</span><span class="o">.</span>
+  <span class="n">success</span><span class="p">:</span> <span class="kc">True</span>
+   <span class="n">status</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="n">fun</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.3099330343247272</span>
+        <span class="n">x</span><span class="p">:</span> <span class="p">[</span> <span class="mf">2.810e+00</span>  <span class="mf">2.800e+00</span><span class="p">]</span>
+      <span class="n">nit</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="n">jac</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.000e+00</span>  <span class="mf">0.000e+00</span><span class="p">]</span>
+ <span class="n">hess_inv</span><span class="p">:</span> <span class="p">[[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]]</span>
+     <span class="n">nfev</span><span class="p">:</span> <span class="mi">6</span>
+     <span class="n">njev</span><span class="p">:</span> <span class="mi">2</span>
+<span class="n">Minimum</span> <span class="n">VQE</span> <span class="n">energy</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.999999999999913</span>
+<span class="n">No</span> <span class="n">GPU</span><span class="o">/</span><span class="n">TPU</span> <span class="n">found</span><span class="p">,</span> <span class="n">falling</span> <span class="n">back</span> <span class="n">to</span> <span class="n">CPU</span><span class="o">.</span> <span class="p">(</span><span class="n">Set</span> <span class="n">TF_CPP_MIN_LOG_LEVEL</span><span class="o">=</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">rerun</span> <span class="k">for</span> <span class="n">more</span> <span class="n">info</span><span class="o">.</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+Sequential mode</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span> <span class="k">as</span> <span class="n">Obs</span><span class="p">,</span> <span class="n">Term</span>
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">CNOT</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+<span class="kn">from</span> <span class="nn">qat.plugins</span> <span class="kn">import</span> <span class="n">ScipyMinimizePlugin</span>
+
+<span class="c1"># we instantiate the Hamiltonian we want to approximate the ground state energy of</span>
+<span class="n">hamiltonian</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Obs</span><span class="o">.</span><span class="n">sigma_z</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">Obs</span><span class="o">.</span><span class="n">sigma_z</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="o">+</span> <span class="n">Obs</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">Obs</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="o">+</span> <span class="n">Obs</span><span class="o">.</span><span class="n">sigma_y</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">Obs</span><span class="o">.</span><span class="n">sigma_y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># we construct the variational circuit (ansatz)</span>
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">reg</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">thetas</span> <span class="o">=</span> <span class="p">[</span><span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">theta_</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+<span class="n">RY</span><span class="p">(</span><span class="n">thetas</span><span class="p">[</span><span class="mi">0</span><span class="p">])(</span><span class="n">reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">RY</span><span class="p">(</span><span class="n">thetas</span><span class="p">[</span><span class="mi">1</span><span class="p">])(</span><span class="n">reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">CNOT</span><span class="p">(</span><span class="n">reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">circ</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="c1"># construct a (variational) job with the variational circuit and the observable</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circ</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">hamiltonian</span><span class="p">)</span>
+
+<span class="c1"># we now build a stack that can handle variational jobs</span>
+<span class="n">qpu</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span>
+<span class="n">optimizer_scipy</span> <span class="o">=</span> <span class="n">ScipyMinimizePlugin</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;COBYLA&quot;</span><span class="p">,</span>
+                                        <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span>
+                                        <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;maxiter&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">},</span>
+                                        <span class="n">x0</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">stack</span> <span class="o">=</span> <span class="n">optimizer_scipy</span> <span class="o">|</span> <span class="n">qpu</span>
+
+<span class="c1"># we submit the job and print the optimized variational energy (the exact GS energy is -3)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="c1"># the output of the optimizer can be found here</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">meta_data</span><span class="p">[</span><span class="s1">&#39;optimizer_data&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Minimum VQE energy = </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">message</span><span class="p">:</span> <span class="n">Optimization</span> <span class="n">terminated</span> <span class="n">successfully</span><span class="o">.</span>
+ <span class="n">success</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">status</span><span class="p">:</span> <span class="mi">1</span>
+     <span class="n">fun</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.999999999998534</span>
+       <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.571e+00</span>  <span class="mf">3.142e+00</span><span class="p">]</span>
+    <span class="n">nfev</span><span class="p">:</span> <span class="mi">66</span>
+   <span class="n">maxcv</span><span class="p">:</span> <span class="mf">0.0</span>
+<span class="n">Minimum</span> <span class="n">VQE</span> <span class="n">energy</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.999999999998534</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For more information, the <a class="reference internal" href="../02_user_guide/01_write.html#writing"><span class="std std-ref">writing section</span></a> explains how to create quantum <a class="reference internal" href="../04_api_reference/module_qat/module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a>,
+<a class="reference internal" href="../04_api_reference/module_qat/module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a>, or quantum <a class="reference internal" href="../04_api_reference/module_qat/module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a>. In addition, the <a class="reference internal" href="../02_user_guide/02_execute/05_variational.html#running-variational"><span class="std std-ref">running variational jobs section</span></a>
+explains how to execute variational algorithms using Qaptiva framework</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="03_execute.html" class="btn btn-neutral float-left" title="Executing quantum programs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../02_user_guide.html" class="btn btn-neutral float-right" title="User guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,194 @@
+Creating and adding quantum gates to a circuit
+==============================================
+Native gates, controls and daggers
+----------------------------------
+The :mod:`qat.lang` library provides a basic gate set to write your circuits. Their names are rather self-explanatory:
+
+* Constant gates: **X**, **Y**, **Z**, **H**, **S**, **T**, **CNOT**, **CCNOT**, **CSIGN**, **SWAP**, **SQRTSWAP**, **ISWAP**
+* Parametrized gates: **RX**, **RY**, **RZ**, **PH** (phase shift)
+
+(The mathematical definition of these gates is given in :ref:`aqasm`.)
+
+.. tab-set::
+
+    .. tab-item:: Adding gates to a program
+
+        Quantum gates can be applied on any qubits composing a program. Qubits need to be allocated first:
+
+        .. code-block:: python
+
+            from qat.lang import Program
+
+            my_program = Program()
+            qbits_reg = my_program.qalloc(10)  # Allocate 10 qubits
+
+        Gates can be applied to the qubits from the qubit register:
+
+        .. code-block:: python
+
+            import numpy as np
+            from qat.lang import CNOT, H, RZ
+
+            CNOT(qbits_reg[0], qbits_reg[1])
+            H(qbits_reg[2])
+            RZ(np.pi/2.)(qbits_reg[0])
+
+        From this initial gate set, one can also build new gates using control and dagger operations:
+
+        .. code-block:: python
+
+            PH(np.pi/2).ctrl()(qbits_reg[0], qbits_reg[1])
+            RX(np.pi/4).dag()(qbits_reg[0])
+
+        Of course, controls can be stacked:
+
+        .. code-block:: python
+
+            PH(np.pi/2).ctrl().ctrl().ctrl()(qbits_reg[0:4])
+
+        By convention, the outermost control qubit is always the first argument when calling a gate.
+
+        .. code-block:: python
+
+            # Here qbits_reg[0] is the control qubit:
+            H.ctrl()(qbits_reg[0], qbits_reg[2])
+            # And here, qbits_reg[0] and qbits_reg[2] are the controls:
+            H.ctrl().ctrl()(qbits_reg[0], qbits_reg[2], qbits_reg[9])
+
+    .. tab-item:: Adding gates to a routine
+
+        Quantum gates can be applied on any qubits composing a routine.
+        Gates can be applied to the qubits from its index:
+
+        .. code-block:: python
+
+            import numpy as np
+            from qat.lang import qrout, CNOT, H, RZ
+
+            @qrout
+            def my_routine():
+                CNOT(1)
+                H(2)
+                RZ(np.pi/2.)(0)
+
+        From this initial gate set, one can also build new gates using control and dagger operations:
+
+        .. code-block:: python
+
+            @qrout
+            def my_routine():
+                PH(np.pi/2).ctrl()(0, 1)
+                RX(np.pi/4).dag()(0)
+
+        Of course, controls can be stacked:
+
+        .. code-block:: python
+
+            @qrout
+            def my_routine():
+                PH(np.pi/2).ctrl().ctrl().ctrl()(*[idx for idx in range(4)])
+
+        By convention, the outermost control qubit is always the first argument when calling a gate.
+
+        .. code-block:: python
+
+            @qrout
+            def my_routine():
+                # Here "0" is the control qubit:
+                H.ctrl()(0, 2)
+                # And here, "0" and "2" are the controls:
+                H.ctrl().ctrl()(0, 2, 9)
+
+
+.. _abstract_gate:
+
+User defined parametrized gates (AbstractGate)
+----------------------------------------------
+The :class:`~qat.lang.AQASM.gates.AbstractGate` class allows you to define any parameterized gate you can think of. This can be quite convenient to describe, for instance, hardware dependent gate set
+or to wrap quantum routines inside a "black box".
+However, when the time comes to simulate or properly execute the quantum circuits, one might need to provide additional information to these black boxes in order to either:
+
+    - be able to simulate it (e.g. can we attach a matrix definition to the gate?) or
+    - be able to link it using a sub-circuit library (e.g. can we attach a sub-circuit implementation to the gate?)
+
+Matrix definition
+.................
+
+To provide a matrix implementation for an :class:`~qat.lang.AQASM.gates.AbstractGate`, one first needs to define a Python function that:
+
+    - returns a matrix (for simplicity a numpy array)
+    - has the same input signature as the gate
+
+.. run-block:: python
+       
+    import numpy as np
+    from qat.lang import AbstractGate
+
+    def phase_matrix(theta):
+        return np.diag([1, np.exp(1j * theta)])
+
+    phase_gate = AbstractGate("PHASE", [float], matrix_generator=phase_matrix, arity=1)
+    # Or alternatively
+    phase_gate = AbstractGate("PHASE", [float], arity=1)
+    phase_gate.set_matrix_generator(phase_matrix)
+
+Subcircuit definition
+.....................
+
+Similarly, to provide a subcircuit implementation, one attaches to the definition of the gate a function returning a :class:`~qat.lang.AQASM.routines.QRoutine`.
+
+.. run-block:: python
+
+    from qat.lang import QRoutine, CNOT, PH, AbstractGate
+
+    def c_phase(theta):
+        routine = QRoutine()
+        wires = routine.new_wires(2)
+        CNOT(wires)
+        PH(-theta/2)(wires[1])
+        CNOT(wires)
+        PH(theta/2)(wires[0])
+        PH(theta/2)(wires[1])
+        return routine
+
+
+    c_phase_gate = AbstractGate("C_PHASE", [float], arity=2, circuit_generator=c_phase)
+    # Or alternatively
+    c_phase_gate = AbstractGate("C_PHASE", [float], arity=2)
+    c_phase_gate.set_circuit_generator(c_phase)
+
+
+Arity generator
+...............
+
+Finally, it is possible for abstract gates to have a variable arity that depends on its parameters.
+
+.. run-block:: python
+
+    from qat.lang import AbstractGate
+
+    # A QFT has arity equals to its sole parameter
+    qft = AbstractGate("QFT", [int], arity=lambda n : n)
+
+This way, pyAQASM is able to statically check that the gate is applied on the right number of qubits.
+
+Deprecated custom gates
+-----------------------
+
+.. warning::
+
+    Custom gates are deprecated. Consider using constant valued
+    :class:`~qat.lang.AQASM.gates.AbstractGate` instead (defined in
+    the previous section).
+
+PyAQASM offers the possibility to define your own gates from a matrix. This is done via the :code:`CustomGate` class.
+
+
+.. code-block:: python
+
+    import numpy as np
+    from qat.lang import CustomGate
+
+    mat = np.array([[-1, 0], [0, 1]])
+    my_minus_z = CustomGate(mat)
+    my_minus_z(qbits_reg[0])

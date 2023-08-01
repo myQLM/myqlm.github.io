@@ -1,0 +1,48 @@
+qat.core.TopologyType
+=====================
+
+.. autoclass:: qat.core.TopologyType
+
+    This class is an enumeration describing the type of a
+    :class:`~qat.core.Topology`. Currently, there are
+    three types of topologies:
+
+    .. dropdown:: **All To All** (ALL_TO_ALL)
+
+        This type describes topologies for which two-qubit
+        gates can be applied on any pair of qubits
+
+        .. run-block:: python
+
+            from qat.core import Topology, TopologyType
+
+            all_to_all = Topology(type=TopologyType.ALL_TO_ALL)
+
+    .. dropdown:: **Linear** (LNN)
+
+        This type describes topologies for which two-qubit gates can only be
+        applied on qubits having consecutive indexes (i.e. a two-qubit gate can
+        only be applied on the qubits of indexes :math:`i` and :math:`i \pm 1`)
+
+        .. run-block:: python
+
+            from qat.core import Topology, TopologyType
+
+            lnn = Topology(type=TopologyType.LNN)
+
+    .. dropdown:: **Custom** (CUSTOM)
+
+        This type describes a custom topology. Objects of type
+        :class:`~qat.core.Topology` having a custom topology type must have
+        a graph
+
+        .. run-block:: python
+
+            from qat.core import Topology, TopologyType
+
+            # Init topology
+            custom = Topology(type=TopologyType.CUSTOM)
+
+            # Graph definition
+            custom.add_edge(0, 1)
+            custom.add_edge(0, 2)

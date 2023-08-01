@@ -1,0 +1,113 @@
+.. _qubo_description:
+
+Quadratic Unconstrained Binary Optimization (QUBO)
+==================================================
+
+**Quadratic Unconstrained Binary Optimization (QUBO)** consists in, given a **real symmetric matrix**
+:math:`Q`, **minimizing** the following cost function :math:`q`:
+
+.. math::
+
+    q(x_{1},...,x_{n}) = \sum_{i,j=1}^{n} - Q_{ij}x_{i}x_{j}
+
+where :math:`x_{1},...,x_{n}\in \{0,1\}` are **binary variables**.
+
+Written differently, by **solving a QUBO problem**, we mean solving, given :math:`Q`:
+
+.. math::
+
+    \min_{x_{1}...x_{n}\in \{0,1\}} \sum_{i,j=1}^{n} - Q_{ij}x_{i}x_{j}
+
+.. note::
+
+    The **diagonal** of :math:`Q` is allowed to contain **non-zero elements**.
+    Because :math:`\forall i \quad x_{i}\in\{0,1\}`, :math:`x_{i}^{2} = x_{i}`,
+    and the diagonal terms in the sum above effectively correspond to a **linear part**
+    of the cost function, which can be seen as similar to the **magnetic field terms**
+    in **Ising Hamiltonians**.
+
+**QUBO instances** are in one-to-one correspondance with **Ising Hamiltonians and cost functions**.
+
+Indeed, starting from the expression above for :math:`q`, the **QUBO cost function**,
+and defining :math:`s_{i}=2x_{i}-1` (:math:`\in \{-1,1\}` as :math:`x_{i}\in\{0,1\}`),
+i.e :math:`x_{i}=\frac{s_{i}+1}{2}`,
+one can indeed write:
+
+.. math:: 
+
+    q(x_{1},...x_{n}) &= \sum_{i,j=1}^{n} - Q_{i,j} x_{i}x_{j} \\~\\
+                      &= - \sum_{i,j=1}^{n} Q_{i,j} \left(\frac{s_{i}+1}{2}\right)\left(\frac{s_{j}+1}{2}\right) \\~\\
+                      &= - \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4}\left(1+s_{i}+s_{j}+s_{i}s_{j}\right) \\~\\ 
+                      &= - \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} - \sum_{i}\left(\sum_{j}\frac{Q_{i,j}}{4}\right) s_{i} - \sum_{j}\left(\sum_{i}\frac{Q_{i,j}}{4}\right) s_{j} - \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} s_{i}s_{j} \\~\\
+                      &= - \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} - \sum_{i=1}^{n} \frac{Q_{i,i}}{4} - \sum_{i}\left(\sum_{j}\frac{Q_{i,j}}{2}\right) s_{i}  - \sum_{i,j | i\neq j}^{n} \frac{Q_{i,j}}{4} s_{i}s_{j} \\~\\
+                      &= - \sum_{i=1}^{n} h_{i}s_{i} - \sum_{i,j=1}^{n} J_{ij}s_{i}s_{j} + o
+
+with :math:`h_{i}=\sum_{j}\frac{Q_{i,j}}{2}`, :math:`J_{ij}=\frac{Q_{i,j}}{4}` 
+and an **offset term** :math:`o=- \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} - \sum_{i=1}^{n} \frac{Q_{i,i}}{4}`.
+
+To produce such QUBO-formulated problems, one can use the :class:`qat.opt.QUBO` class:
+
+.. only:: qlm
+
+    .. run-block:: python
+
+        import numpy as np
+        from qat.opt import QUBO
+        from qat.core.variables import Variable
+
+        problem_size = 5  # number of qubits for annealing, can reach to 100s even 1000s
+
+        # Q matrix
+        np.random.seed(248)
+        any_mat = np.random.rand(problem_size, problem_size)
+        q_mat = (any_mat + np.transpose(any_mat)) / 2  # make it symmetric
+
+        # Offset - can be 0
+        offset = 3.52
+
+        # Create a QUBO problem
+        problem_QUBO = QUBO(Q=q_mat,
+                            offset_q=offset)
+
+        print("Q matrix:")
+        print(problem_QUBO.q_matrix)
+
+        # Create a job by specifying the gamma function (needed for SQA)
+        t_var = Variable("t")
+        tmax = 1.23
+        gamma_max = 170.89 # it is usually problem-specific
+        gamma_t_fun = gamma_max * (1 - t_var / tmax)  # linear decrease to 0 at t=tmax
+        problem_QUBO_job = problem_QUBO.to_job(gamma_t=gamma_t_fun, tmax=tmax)
+
+        print("\nA QUBO Job has been created - ready to run on an annealing QPU.")
+
+.. only:: myqlm
+
+    .. run-block:: python
+
+        import numpy as np
+        from qat.opt import QUBO
+
+        problem_size = 5  # number of qubits for annealing, can reach to 100s even 1000s
+
+        # Q matrix
+        np.random.seed(248)
+        any_mat = np.random.rand(problem_size, problem_size)
+        q_mat = (any_mat + np.transpose(any_mat)) / 2  # make it symmetric
+
+        # Offset - can be 0
+        offset = 3.52
+
+        # Create a QUBO problem
+        problem_QUBO = QUBO(Q=q_mat,
+                            offset_q=offset)
+
+        print("Q matrix:")
+        print(problem_QUBO.q_matrix)
+
+        # Create a job
+        problem_QUBO_job = problem_QUBO.to_job()
+
+        print("\nA QUBO Job has been created - ready to run on an annealing QPU.")
+
+A QUBO problem can be translated to :class:`~qat.opt.Ising` and :class:`~qat.opt.CombinatorialProblem` via the :meth:`~qat.opt.QUBO.to_ising` and :meth:`~qat.opt.QUBO.to_combinatorial_problem` methods, respectively.

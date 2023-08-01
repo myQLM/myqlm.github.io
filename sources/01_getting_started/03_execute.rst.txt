@@ -1,0 +1,161 @@
+Executing quantum programs
+==========================
+
+This framework provides :ref:`Quantum Processing Units (QPU) <qpu>` to execute any quantum job. Our QPUs are listed in the :mod:`qat.qpus`
+module. Quantum :class:`~qat.core.Circuit`, :class:`~qat.core.Schedule`, etc. must be lifted into a quantum :class:`~qat.core.Job` by 
+using their :meth:`~qat.core.Circuit.to_job` method to be executable on the QPU. The job object (detailed in the :ref:`job section <job>`)
+contains additional information, such as:
+
+ - number of shots
+ - what should be measures (**sampling**, **observable**)
+ - etc.
+
+A job can be submitted to a QPU by:
+
+ - calling the :meth:`~qat.qpus.QPUHandler.submit` method of the selected QPU
+ - calling the :meth:`~qat.core.Job.run` method of the job (this method takes the selected QPU in argument, if no QPU is specified,
+   the default QPU is selected)
+
+
+.. tab-set::
+
+    .. tab-item:: Submit method
+        :sync: submit
+
+        A job can be executed using the :meth:`~qat.qpus.QPUHandler.submit` method of the selected QPU
+
+        .. run-block:: python
+
+            from qat.qpus import get_default_qpu
+            from qat.lang import qrout, H, CNOT
+
+            @qrout
+            def bell_pair():
+                H(0)
+                CNOT(0, 1)
+
+            job = bell_pair.to_job()
+            result = get_default_qpu().submit(job)
+
+            for sample in result:
+                print(f"{sample.state}: {sample.probability}")
+
+    .. tab-item:: Run method
+        :sync: run
+
+        A job can be executed using the :meth:`~qat.core.Job.run` method
+
+        .. run-block:: python
+
+            from qat.lang import qrout, H, CNOT
+
+            @qrout
+            def bell_pair():
+                H(0)
+                CNOT(0, 1)
+
+            job = bell_pair.to_job()
+            result = job.run()  # Use default QPU
+
+            for sample in result:
+                print(f"{sample.state}: {sample.probability}")
+
+        The QPU can be selected using a Python context
+
+        .. only:: qlm
+
+            .. run-block:: python
+
+                from qat.qpus import LinAlg
+                from qat.lang import qrout, H, CNOT
+
+                @qrout
+                def bell_pair():
+                    H(0)
+                    CNOT(0, 1)
+
+                job = bell_pair.to_job()
+
+                with LinAlg():
+                    result = job.run()
+
+                for sample in result:
+                    print(f"{sample.state}: {sample.probability}")
+
+        .. only:: myqlm
+
+            .. run-block:: python
+
+                from qat.qpus import CLinalg
+                from qat.lang import qrout, H, CNOT
+
+                @qrout
+                def bell_pair():
+                    H(0)
+                    CNOT(0, 1)
+
+                job = bell_pair.to_job()
+
+                with CLinalg():
+                    result = job.run()
+
+                for sample in result:
+                    print(f"{sample.state}: {sample.probability}")
+
+Any QPU of this framework can be extended using :ref:`plugins <plugin>`. A plugin will extend the capabilities of a QPU, and can be used,
+for instance:
+
+ - to compile jobs before running them on the QPU - the *extended QPU* won't have any gate set limitation, topology limitation, etc.
+ - to support variational computing
+ - etc.
+
+This framework provides plugins to support Variational computing, such as :class:`~qat.plugins.ScipyMinimizePlugin`. This plugin tries
+to minimize the average value of the observable
+
+.. tab-set::
+
+    .. tab-item:: Submit method
+        :sync: submit
+
+        A job can be executed using the :meth:`~qat.qpus.QPUHandler.submit` method of the selected QPU
+
+        .. run-block:: python
+
+            from qat.qpus import get_default_qpu
+            from qat.plugins import ScipyMinimizePlugin
+            from qat.lang import qrout, RX
+            from qat.core import Observable
+
+            @qrout
+            def circuit(theta):
+                RX(theta)(0)
+
+            job = circuit.to_job(observable=Observable.z(0))
+            qpu = ScipyMinimizePlugin() | get_default_qpu()
+            result = qpu.submit(job)
+
+            print("Average value:", result.value)
+            print("Angles:", result.parameter_map)
+
+    .. tab-item:: Run method
+        :sync: run
+
+        A job can be executed using the :meth:`~qat.core.Job.run` method
+
+        .. run-block:: python
+
+            from qat.plugins import ScipyMinimizePlugin
+            from qat.lang import qrout, RX
+            from qat.core import Observable
+
+            @qrout
+            def circuit(theta):
+                RX(theta)(0)
+
+            job = circuit.to_job(observable=Observable.z(0))
+
+            with ScipyMinimizePlugin():
+                result = job.run()
+
+            print("Average value:", result.value)
+            print("Angles:", result.parameter_map)

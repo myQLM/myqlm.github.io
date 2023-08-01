@@ -1,0 +1,64 @@
+.. _interop_annealing:
+
+Interoperability with annealing framework
+=========================================
+
+One can translate from the presented problem formulations, namely :ref:`Ising <ising_description>`, :ref:`QUBO <qubo_description>` and :ref:`Combinatorial problem <comb_prob_description>` to a *Binary Quadratic Model* as specified by DWave's library :code:`dimod`. This is achived by simply calling the method :meth:`~qat.opt.Ising.to_bqm()` of :class:`~qat.opt.Ising`
+(or the respective :meth:`~qat.opt.QUBO.to_bqm()` and :meth:`~qat.opt.CombinatorialProblem.to_bqm()` for :class:`~qat.opt.QUBO` and :class:`~qat.opt.CombinatorialProblem`):
+
+
+.. run-block:: python
+
+    import numpy as np
+    from qat.opt import Ising
+
+    np.random.seed(316)
+
+    # Specify the Ising problem
+    problem_size = 5  # number of qubits
+    h_field = np.random.rand(problem_size)  # Magnetic field h
+
+    # J-coupling matrix
+    any_mat = np.random.rand(problem_size, problem_size)
+    j_mat = ((any_mat + np.transpose(any_mat)) / 2  # make it symmetric
+             - np.diag(np.diag(any_mat)))  # make it with 0s as the diagonal elements
+
+    # Offset - can be 0
+    offset = 2.18
+
+    # Create an Ising problem
+    problem_Ising = Ising(J=j_mat, h=h_field, offset_i=offset)
+
+    # Translate to DWave's Binary Quadratic Model
+    bqm_problem = problem_Ising.to_bqm()
+
+
+.. only:: qlm
+
+    This method also works for the :ref:`NP-Hard problems <np_problems_annealing>` encoded on Qaptiva, for example:
+
+.. only:: myqlm
+
+    This method also works for the :ref:`NP-Hard problems <np_problems_annealing>` encoded on myQLM, for example:
+
+.. code-block:: python
+
+    # import required libraries
+    import numpy as np
+    import networkx as nx
+    from qat.opt import VertexCover
+
+    # Specify the problem
+    graph = nx.Graph()
+    graph.add_nodes_from(np.arange(6))
+    graph.add_edges_from([(0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (1, 5)])
+
+    # Impose constraints for proper encoding
+    B = 1
+    A = B + 0.01
+
+    # Create problem
+    vertex_cover_problem = VertexCover(graph, A=A, B=B)
+
+    # Translate to DWave's Binary Quadratic Model
+    bqm_problem = vertex_cover_problem.to_bqm()

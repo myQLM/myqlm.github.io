@@ -1,0 +1,59 @@
+.. module:: qat.generators
+
+.. |qaptiva| unicode:: Qaptiva U+2122
+
+qat.generators
+==============
+
+:ref:`Generators <batch_generators>` generates batches and parses results. Generators are designed to be piped to a computational
+stack (composed of :ref:`Plugins <plugin>` and a :ref:`QPUs <qpu>`). This new stack will generate quantum jobs, execute them and
+will return a parsed result.
+
+.. only:: qlm
+
+    Currently, the following batch generators are offered to the users in |qaptiva|.
+
+.. only:: myqlm
+    
+    Currently, the following batch generators are offered to the users in myQLM.
+
+
+Combinatorial Optimization Generators
+_____________________________________
+
+.. autoapi::
+
+    [:class:`qat.generators.MaxCutGenerator`] Batch Generator solving the Max Cut problem on an input graph
+    [:class:`qat.generators.GraphPartitioningGenerator`] Batch Generator solving the Graph Partitioning problem on an input graph
+    [:class:`qat.generators.KCliqueGenerator`] Batch Generator solving the KClique problem on an input graph
+    [:class:`qat.generators.VertexCoverGenerator`] Batch Generator solving the Vertex Cover problem on an input graph
+    [:class:`qat.generators.GraphColouringGenerator`] Batch Generator solving the Graph Colouring problem on an input graph
+    [:class:`qat.generators.CombinatorialOptimizerGenerator`] Base class of a batch generator solving a combinatorial optimization problem
+
+.. only:: qlm
+
+    Tomography Generator
+    ____________________
+
+    .. autoapi::
+
+        [:class:`qat.generators.TomographyGenerator`] Batch Generator performing Quantum Tomography on a quantum hardware
+
+
+Generator Utilities
+___________________
+
+.. only:: qlm
+
+    .. autoapi::
+
+        [:class:`qat.generators.AbstractGenerator`] Abstract class of all generators
+        [:class:`qat.generators.RemoteBatchGenerator`] Connect to a generator running in a remote server
+        [:class:`qat.generators.UploadedGenerator`] Generator can then be uploaded with Qaptiva Access
+
+.. only:: myqlm
+
+    .. autoapi::
+
+        [:class:`qat.generators.AbstractGenerator`] Abstract class of all generators
+        [:class:`qat.generators.RemoteBatchGenerator`] Connect to a generator running in a remote server

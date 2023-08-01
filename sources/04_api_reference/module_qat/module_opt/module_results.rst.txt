@@ -1,0 +1,22 @@
+.. module:: qat.opt.results
+
+qat.opt.results
+===============
+
+Combinatorial Optimization Generators Results
+_____________________________________________
+The :class:`~qat.opt.generators.CombinatorialOptimizerGenerator` used to solve combinatorial problems could return a parsed result. 
+This parsed result is a class containing:
+
+- the raw :class:`~qat.core.Result` found by the execution
+- the raw best :class:`~qat.core.Sample`
+
+For a combinatorial optimization problem involving a graph, the parsed result also includes a parsed version of the best 
+:class:`~qat.core.Sample`, that could be displayed.
+
+.. autoapi::
+
+    [:class:`qat.opt.results.CombinatorialResult`] Base class representing the parsed result of a combinatorial problem
+    [:class:`qat.opt.results.GraphPartitioningResult`] Class representing the parsed result of a combinatorial problem involving a graph, in particular the graph partitioning problem
+    [:class:`qat.opt.results.KCliqueResult`] Class representing the parsed result of a k-clique problem
+    [:class:`qat.opt.results.VertexCoverResult`] Class representing the parsed result of a vertex cover problem

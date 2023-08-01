@@ -1,0 +1,69 @@
+qat.comm.datamodel.ttypes.Op
+============================
+
+The main 'body' of a :class:`~qat.core.Circuit` is described as a list of operations -
+:class:`~qat.comm.datamodel.ttypes.Op`.
+
+.. autoclass:: qat.comm.datamodel.ttypes.Op
+
+More precisely the field `.type` in :class:`~qat.comm.datamodel.ttypes.Op` can be:
+
+.. program-output:: python3 -c "from qat.comm.datamodel.ttypes import OpType;print(list(dir(OpType))[:7])"
+
+Once the type is set, various attributes of the :class:`~qat.comm.datamodel.ttypes.Op` object
+are used to store relevant pieces of information.
+
+- **GATETYPE** corresponds to a quantum gate application (without classical control). In that case:
+
+    - `op.gate` will contain the name of the gate (see below the gate dictionary section for
+      detailed use of this name)
+    - `op.qbits` will contain the list of the target qubits
+
+- **CLASSICCTRL** corresponds to a quantum gate application with classical control.
+  In addition to the fields used in the **GATETYPE** case, here we also have:
+
+    - `op.cbits` will contain a list of size 1 with a single cbit to be used as control classical
+      bit
+
+- **MEASURE** corresponds to a measure operation:
+
+ - `op.qbits` will contain a list of qubits to measure
+ - `op.cbits` will contain a list of cbits to store the results. The two lists will have the
+   exact same size.
+
+- **BREAK** corresponds to a break operation:
+
+    - `op.formula` will contain a (prefix formatted) string containing a boolean formula to
+      evaluate over the current values of the cbits in order to determine if the computation should
+      be aborted or not. :func:`qat.core.formula_eval.evaluate` provides an implementation of
+      this evaluation, if required.
+
+    .. run-block:: python
+
+        from qat.core.formula_eval import evaluate
+
+        formula = "AND 1 OR 0 2"
+        cbit_values = [True, False, True]
+        evaluate(formula, cbit_values) #should return False
+
+- **RESET** corresponds to reset operations.
+
+    - `op.qbits` will contain a list of qubits to reset
+    - `op.cbits` will contain a list of cbits to reset
+
+- **REMAP** corresponds to classical remaps/rewiring of the qubits. These can be seen as
+  permutations of the index of the qubits.
+
+    - `op.qbits` will contain a list of qubits that are to be rewired
+    - `op.remap` will contain a list of integers describing the way the qubits are remapped
+
+- **CLASSIC** corresponds to a classical operation between cbits.
+
+    - `op.cbits` will contain the cbit receiving a new value
+    - `op.formula` will contain a (prefix formatted) string containing a boolean formula to
+      evaluate over the current values of the cbits
+
+All quantum gates names (the `op.gate` field) are in fact keys of a dictionary stored in the
+`circuit.gateDic` field of the circuit.
+
+Entries in this dictionary are of the type :class:`~qat.comm.datamodel.ttypes.GateDefinition`.

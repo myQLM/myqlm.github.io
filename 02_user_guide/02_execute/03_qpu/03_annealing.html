@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Annealing computing &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Make your own QPU" href="04_custom_qpu.html" />
+    <link rel="prev" title="Gate based computing" href="%3Amyqlm%3A01_gate_based.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../02_execute.html">Executing quantum programs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../01_job.html">Constructing one or multiple Jobs (using Batch)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_result.html">Result of a quantum program</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../03_qpu.html">Quantum Processing Unit (QPU)</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="%3Amyqlm%3A01_gate_based.html">Gate based computing</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Annealing computing</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id10">Inner workings</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="04_custom_qpu.html">Make your own QPU</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../04_plugin.html">Extending a QPU (by using Plugins)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_variational.html">Running variational algorithms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../../02_execute.html">Executing quantum programs</a> &raquo;</li>
+          <li><a href="../03_qpu.html">Quantum Processing Unit (QPU)</a> &raquo;</li>
+      <li>Annealing computing</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="annealing-computing">
+<h1>Annealing computing<a class="headerlink" href="#annealing-computing" title="Permalink to this heading"></a></h1>
+<p id="simulated-annealing">myQLM is equipped with a simulated annealer (SA), which can solve combinatorial problems encoded in an <a class="reference internal" href="../../01_write/03_annealing_problems/01_ising.html#ising-description"><span class="std std-ref">Ising</span></a> or Quadratic Unconstrained Binary Optimization (<a class="reference internal" href="../../01_write/03_annealing_problems/02_qubo.html#qubo-description"><span class="std std-ref">QUBO</span></a>) formalism - take a look at an
+<a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fintroduction_combinatorial_optimization_myqlm.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Introductory notebook</a>. It could also handle a general <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a> with clauses and variables, as long as each of its <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/clause.html#qat.opt.boolexpr.Clause" title="qat.opt.boolexpr.Clause"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clause</span></code></a> contains no more than two <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/var.html#qat.opt.boolexpr.Var" title="qat.opt.boolexpr.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a>, such that it is translatable to <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/ising.html#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> or <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/qubo.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a>.</p>
+<p>Albeit not quantum, the simulated annealing solver is wrapped with a Quantum Processing Unit (QPU) interface which is made to resemble the rest of the QPUs on myQLM. It therefore consists of an implementation of the submit method of <a class="reference internal" href="../../../04_api_reference/module_qat/module_qpus/%3Amyqlm%3Asimulatedannealing.html#qat.qpus.SimulatedAnnealing" title="qat.qpus.SimulatedAnnealing"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimulatedAnnealing</span></code></a>, which receives a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> and returns a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a>. The <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> is created via the <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/ising.html#qat.opt.Ising.to_job" title="qat.opt.Ising.to_job"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_job()</span></code></a> method of the special purpose <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/ising.html#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> or <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/qubo.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> classes (or <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a>, if applicable).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The full Qaptiva appliance includes the even more powerful Simulated Quantum Annealing (SQA) solver which has been tested on a variety of benchmarks for the <a class="reference internal" href="../../../combinatorial_optim_applic/01_np_probs_for_annealing.html#np-problems-annealing"><span class="std std-ref">NP problems</span></a> supported for annealing. The quality of the solutions is <span class="math notranslate nohighlight">\(&gt; 98 \%\)</span> - see
+<a class="reference internal" href="../../../combinatorial_optim_applic/01_np_probs_for_annealing.html#sqa-benchmarking"><span class="std std-ref">SQA benchmarking and performance</span></a> for more details.</p>
+</div>
+<section id="id10">
+<h2>Inner workings<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h2>
+<p>Simulated annealing (SA) is a well-known, historical heuristic for combinatorial optimization. It aims at finding low energy-states of a classical <a class="reference internal" href="../../01_write/03_annealing_problems/01_ising.html#ising-description"><span class="std std-ref">Ising</span></a> system with a Markov Chain over spin configurations, with decreasing stochasticity.</p>
+<p>Stochasticity is specified by a temperature. In practice, a decreasing temperature schedule is given to the algorithm. At the beginning of the execution, large temperature values allow to jump over energy barriers to escape local optima. When temperature settles to lower values, the Markov chain will hopefully settle to the global optimum of the cost function.</p>
+<p>Mathematically, simulated annealing tries to find, given <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(J\)</span>, the global minimum configuration of:</p>
+<div class="math notranslate nohighlight">
+\[H(s_{1},...,s_{n}) = -\sum_{i,j=1}^{n} J_{ij}s_{i}s_{j}-\sum_{i=1} h_{i}s_{i}\]</div>
+<p>It does so by first choosing a random configuration, which then evolves by applying updates. In the case of simulated annealing,
+an update consists in flipping the value <span class="math notranslate nohighlight">\(s_{i}\)</span> of a single spin.</p>
+<p>An update is accepted with probability:</p>
+<div class="math notranslate nohighlight">
+\[P_{flip} = min(1, e^{-\Delta H / T})\]</div>
+<p>with <span class="math notranslate nohighlight">\(\Delta H\)</span> is the energy change incurred by switching from <span class="math notranslate nohighlight">\(s_{i}\)</span> to <span class="math notranslate nohighlight">\(-s_{i}\)</span>. A change decreasing the energy of the system is always accepted, whereas a change which increases it needs a temperature high enough to have a non-negligible probability of being accepted.</p>
+<p>The following picture explains in pseudo-code how simulated annealing works.</p>
+<a class="reference internal image-reference" href="../../../images/simulated_annealing_algoritm_latex.png"><img alt="../../../images/simulated_annealing_algoritm_latex.png" class="align-center" src="../../../images/simulated_annealing_algoritm_latex.png" style="width: 600px;" /></a>
+<p>A basic example of the use of SA - to solve the Antiferromagnetic Ising Model, is presented in the notebook <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fgetting_started_with_sa.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Getting started with SA</a>. Some more involved examples where SA solves some of the <a class="reference internal" href="../../../combinatorial_optim_applic/01_np_probs_for_annealing.html#np-problems-annealing"><span class="std std-ref">NP-hard problems</span></a> have also been implemented in the following <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Foverview_combinatorial_optimization_myqlm.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">notebooks</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="%3Amyqlm%3A01_gate_based.html" class="btn btn-neutral float-left" title="Gate based computing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="04_custom_qpu.html" class="btn btn-neutral float-right" title="Make your own QPU" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

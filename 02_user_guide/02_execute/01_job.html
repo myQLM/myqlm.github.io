@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Constructing one or multiple Jobs (using Batch) &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../static/documentation_options.js"></script>
+        <script src="../../static/jquery.js"></script>
+        <script src="../../static/underscore.js"></script>
+        <script src="../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../static/doctools.js"></script>
+        <script src="../../static/sphinx_highlight.js"></script>
+        <script src="../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Sample Job" href="01_job/01_sample_job.html" />
+    <link rel="prev" title="Executing quantum programs" href="../02_execute.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../02_execute.html">Executing quantum programs</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Constructing one or multiple Jobs (using Batch)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="01_job/01_sample_job.html">Sample Job</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01_job/02_observable_job.html">Observable Job</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01_job/03_automated_batch_generation.html">Automated batch generation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="02_result.html">Result of a quantum program</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_qpu.html">Quantum Processing Unit (QPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="04_plugin.html">Extending a QPU (by using Plugins)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_variational.html">Running variational algorithms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../02_execute.html">Executing quantum programs</a> &raquo;</li>
+      <li>Constructing one or multiple Jobs (using Batch)</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="constructing-one-or-multiple-jobs-using-batch">
+<span id="job"></span><h1>Constructing one or multiple Jobs (using Batch)<a class="headerlink" href="#constructing-one-or-multiple-jobs-using-batch" title="Permalink to this heading"></a></h1>
+<p>In Qaptiva, the <a class="reference internal" href="../01_write/01_digital_circuit.html#circuit"><span class="std std-ref">quantum circuit</span></a> can be viewed as routines preparing a quantum memory in a particular state.
+When simulating the circuit, the user will need to describe the result that he want to obtain from the quantum state.
+This is achieved by specifying the <strong>final measurement</strong> to be carried out on the final state of the register, i.e on the
+wavefunction <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> that has been prepared by the quantum circuit.</p>
+<p><strong>Two types</strong> of final measurements are commonly used in quantum algorithms:</p>
+<ul>
+<li><p>“<strong>Sample</strong>”: Measuring the projection of the wavefunction on the computational basis (formally speaking, this means measuring
+qubits “along the Z axis”).</p>
+<p>For instance, if the final state is <span class="math notranslate nohighlight">\(|\psi\rangle=(|00\rangle+|11\rangle)/\sqrt{2}\)</span>, measuring
+“in the computational basis” will yield the bitstring “00” in 50% (<span class="math notranslate nohighlight">\(1/\sqrt{2}^2\)</span>) of cases, and “11” the rest of the time.
+Because of the statistical nature of the measurement, many repeated measurements on the computational basis, yielding many
+different bitstrings or “<strong>samples</strong>”, are necessary to get an accurate estimate of the frequencies of each computational basis
+state (“00”: 50%, “01”: 0%, “10”: 0%, “11”: 50% in our case). We will call “<strong>nbshots</strong>” the number of such repetitions
+(with a classical emulator, one can in general emulate an infinite number of shots since one has access to the exact frequencies).
+Of course, one may decide to measure only a subset of qubits.</p>
+</li>
+<li><p>“<strong>Observable</strong>”: Measuring the value of a quantum mechanical <strong>observable</strong> <span class="math notranslate nohighlight">\(O\)</span> in the final state.</p>
+<p>On average, such a value is given by the formula <span class="math notranslate nohighlight">\(\langle O \rangle = \langle \psi | O |\psi \rangle\)</span>. While this average value can directly be
+computed using a classical computer, on an actual QPU, only a limited set of observables can be measured. In practice, most QPUs
+provide only “Z-axis” measurements, i.e, as described above, the possibility to measure the projection of the wavefunction on
+computational basis states. In order to perform the estimation of the average value of an observable, one thus needs to convert
+the computation of <span class="math notranslate nohighlight">\(\langle O \rangle\)</span> into a series of Z axis measurements (with possible modifications of the circuit),
+estimate bitstrings frequencies as described above (with a given number of shots or repetitions), and combine those subresults back
+into an estimate of <span class="math notranslate nohighlight">\(\langle O \rangle\)</span>.</p>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>While the first final processing type is native to most actual QPUs, some QPUs do not have native support for the <code class="docutils literal notranslate"><span class="pre">OBS</span></code>
+processing type. In the absence of a native support, the <span class="xref std std-ref">ObservableSplitter</span> plugin of Qaptiva can
+enhance the QPU with an observable-processing capacity.</p>
+</div>
+<p>To contain these informations, the quantum jobs are wrapped in a <a class="reference internal" href="../../04_api_reference/module_qat/module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> class.
+In addition to the quantum circuit, the user can provide several options when constructing the quantum job:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The <strong>type of final measurement</strong> to perform: standard measurement in computational basis <code class="docutils literal notranslate"><span class="pre">SAMPLE</span></code> or sampling of an observable <code class="docutils literal notranslate"><span class="pre">OBS</span></code></p></li>
+<li><p>The <strong>number of shots</strong>, to perform</p></li>
+<li><p>The <strong>qubits</strong> to be measured</p></li>
+<li><p>The format of the returned result: whether to <strong>aggregate</strong> the samples</p></li>
+<li><p>The <strong>amplitude threshold</strong> of the final measurement: states with amplitude under the threshold will be considered null</p></li>
+<li><p>The <strong>initial quantum state</strong> of the simulation</p></li>
+<li><p>In case of a variational job, the value of all the <strong>binded variables</strong></p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, the processing type is <code class="docutils literal notranslate"><span class="pre">SAMPLE</span></code>, with all qubits being measured, and an infinite number of shots (i.e no statistical uncertainty).</p>
+</div>
+<p>In most cases, the job object is not meant to be constructed manually. Instead, it is generated from a <a class="reference internal" href="../../04_api_reference/module_qat/module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a>
+using the <a class="reference internal" href="../../04_api_reference/module_qat/module_core/circuit.html#qat.core.Circuit.to_job" title="qat.core.Circuit.to_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_job()</span></code></a> method. The job can then be sent to the <a class="reference internal" href="03_qpu.html#qpu"><span class="std std-ref">QPU</span></a> to be simulated.</p>
+<p>The <a class="reference internal" href="../../04_api_reference/module_qat/module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a> class contains a list of jobs, allowing several circuits to be sent to a QPU with only a single request.
+A batch can also include a <strong>meta_data</strong> field if the QPU accepts metadata so that it can be configured with batch related options.</p>
+<p>The code block below shows a simple example using a batch to simulate a circuit:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import a Quantum Processor Unit Factory (the default one)</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+
+<span class="c1"># Create a Quantum Processor Unit</span>
+<span class="n">qpu</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span>
+<span class="c1"># Create a job from a circuit</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">nbshots</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">qubits</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
+
+<span class="c1"># Submit the job</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A job (or a batch) can be serialized in a binary file, and be reconstructed later by loading the file, with the
+<a class="reference internal" href="../../04_api_reference/module_qat/module_core/job.html#qat.core.Job.dump" title="qat.core.Job.dump"><code class="xref py py-meth docutils literal notranslate"><span class="pre">dump()</span></code></a> and the <a class="reference internal" href="../../04_api_reference/module_qat/module_core/job.html#qat.core.Job.load" title="qat.core.Job.load"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load()</span></code></a> methods.</p>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-3 sd-row-cols-xs-3 sd-row-cols-sm-3 sd-row-cols-md-3 sd-row-cols-lg-3 sd-g-4 sd-g-xs-4 sd-g-sm-4 sd-g-md-4 sd-g-lg-4 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Sample Job</div>
+</div>
+<a class="sd-stretched-link reference internal" href="01_job/01_sample_job.html"><span class="doc"></span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Observable Job</div>
+</div>
+<a class="sd-stretched-link reference internal" href="01_job/02_observable_job.html"><span class="doc"></span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Automated batch generation</div>
+</div>
+<a class="sd-stretched-link reference internal" href="01_job/03_automated_batch_generation.html"><span class="doc"></span></a></div>
+</div>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../02_execute.html" class="btn btn-neutral float-left" title="Executing quantum programs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="01_job/01_sample_job.html" class="btn btn-neutral float-right" title="Sample Job" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing quantum programs &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../static/documentation_options.js"></script>
+        <script src="../static/jquery.js"></script>
+        <script src="../static/underscore.js"></script>
+        <script src="../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../static/doctools.js"></script>
+        <script src="../static/sphinx_highlight.js"></script>
+        <script src="../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Executing quantum programs" href="03_execute.html" />
+    <link rel="prev" title="myQLM Installation on MacOS" href="%3Amyqlm%3Amacos.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../01_getting_started.html">Getting started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="%3Amyqlm%3A01_install.html">Installing myQLM</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Writing quantum programs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example-of-a-grover-algorithm">Example of a grover algorithm</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-diffusion">The diffusion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-oracle">The oracle</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="03_execute.html">Executing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_variational.html">Variational algorithms with Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../02_user_guide.html">User guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../01_getting_started.html">Getting started</a> &raquo;</li>
+      <li>Writing quantum programs</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="writing-quantum-programs">
+<h1>Writing quantum programs<a class="headerlink" href="#writing-quantum-programs" title="Permalink to this heading"></a></h1>
+<p>This framework provides tools to <strong>write advanced quantum jobs</strong> using only few lines of code. Qaptiva supports several quantum paradigms,
+such as the <a class="reference internal" href="../02_user_guide/01_write/01_digital_circuit.html#circuit"><span class="std std-ref">gate-based paradigm</span></a>, the <a class="reference internal" href="../02_user_guide/01_write/02_analog_schedule.html#schedules-section"><span class="std std-ref">analog paradigm</span></a>, and
+the <a class="reference internal" href="../02_user_guide/01_write/03_annealing_problems.html#annealing-programming"><span class="std std-ref">quantum annealing paradigm</span></a>. All of these paradigms are detailed in the
+<a class="reference internal" href="../02_user_guide/01_write.html#writing"><span class="std std-ref">writing section, in user guide</span></a>.</p>
+<p>This page focus on the gate-based paradigm. Module <a class="reference internal" href="../04_api_reference/module_qat/module_lang.html#module-qat.lang" title="qat.lang"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.lang</span></code></a> contains all Python objects required to create these quantum
+circuits, which include:</p>
+<blockquote>
+<div><ul>
+<li><p>the native gates of Qaptiva framework</p></li>
+<li><p>a programming library to create a quantum <a class="reference internal" href="../04_api_reference/module_qat/module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> using these native gates. Programming a quantum circuit
+can rely on:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>a function - gates are added to the circuit using either <a class="reference internal" href="../04_api_reference/module_qat/module_lang/qrout.html#qat.lang.qrout" title="qat.lang.qrout"><code class="xref py py-func docutils literal notranslate"><span class="pre">qrout()</span></code></a> or <a class="reference internal" href="../04_api_reference/module_qat/module_lang/qfunc.html#qat.lang.qfunc" title="qat.lang.qfunc"><code class="xref py py-func docutils literal notranslate"><span class="pre">qfunc()</span></code></a> decorators</p></li>
+<li><p>the <a class="reference internal" href="../04_api_reference/module_qat/module_lang/program.html#qat.lang.Program" title="qat.lang.Program"><code class="xref py py-class docutils literal notranslate"><span class="pre">Program</span></code></a> class - gates are added to the circuit using <a class="reference internal" href="../04_api_reference/module_qat/module_lang/program.html#qat.lang.Program.apply" title="qat.lang.Program.apply"><code class="xref py py-meth docutils literal notranslate"><span class="pre">apply()</span></code></a> method</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<section id="example-of-a-grover-algorithm">
+<h2>Example of a grover algorithm<a class="headerlink" href="#example-of-a-grover-algorithm" title="Permalink to this heading"></a></h2>
+<p>Let’s write a simple Grover algorithm. Grover is a quantum search algorithm that can find an element in an unstructured search space
+quadratically faster than a randomized classical algorithm. In this search model, the problem is specified by an <strong>oracle</strong>,
+i.e a function <span class="math notranslate nohighlight">\(\mathcal{X}\rightarrow \{0, 1\}\)</span>, and we are looking for an element <span class="math notranslate nohighlight">\(x \in \mathcal{X}\)</span>
+such that <span class="math notranslate nohighlight">\(f(x) = 1\)</span>.</p>
+<p>The algorithm consists in alternating two operations <span class="math notranslate nohighlight">\(\pi \sqrt{\frac{1}{a}}/4\)</span> times where
+<span class="math notranslate nohighlight">\(a = \frac{|f^{-1}(\{1\})|}{|\mathcal{X}|}\)</span> is the probability of finding the searched element in the uniform distribution.</p>
+<p>These operations are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>an oracle <span class="math notranslate nohighlight">\(U_f: |x \rangle \mapsto (-1)^{f(x)}|x\rangle\)</span></p></li>
+<li><p>a diffusion <span class="math notranslate nohighlight">\(U_D = I - 2|s\rangle\langle s|\)</span> where <span class="math notranslate nohighlight">\(|s\rangle = \frac{1}{\sqrt{|\mathcal{X}|}} \sum_{x\in\mathcal{X}} |x\rangle\)</span></p></li>
+</ul>
+</div></blockquote>
+<p>Let’s dive in the details of their implementation for a simple search!</p>
+<section id="the-diffusion">
+<h3>The diffusion<a class="headerlink" href="#the-diffusion" title="Permalink to this heading"></a></h3>
+<p>To keep things simple we will consider the following search space: <span class="math notranslate nohighlight">\(\mathcal{X} = \{0, 1\}^{2k}\)</span>.
+In this setting, a diffusion can be implemented as follows:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>First, we will put all the qubits in the diagonal basis by applying a wall of H gates.</p></li>
+<li><p>We can then flip the amplitude of the <span class="math notranslate nohighlight">\(|0..0\rangle\)</span> state by flipping all qubits using a wall of <span class="math notranslate nohighlight">\(X\)</span> gates
+and applying a controlled <span class="math notranslate nohighlight">\(Z\)</span> gate on all qubits.</p></li>
+<li><p>Finally, we can undo our basis changes by applying a wall of <span class="math notranslate nohighlight">\(X\)</span> followed by a wall of <span class="math notranslate nohighlight">\(H\)</span></p></li>
+</ul>
+</div></blockquote>
+<p>We will write a python function that given a number <span class="math notranslate nohighlight">\(k\)</span> returns a diffusion routine over <span class="math notranslate nohighlight">\(2k\)</span> qubits:</p>
+<blockquote>
+<div><div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="functional_mode" for="sd-tab-item-0">
+Functional mode</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># everything we need to write a quantum circuit</span>
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># This is a standard implementation of Grover&#39;s diffusion</span>
+<span class="nd">@qrout</span><span class="p">(</span><span class="n">unroll</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">diffusion</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">wire</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span><span class="p">):</span>
+        <span class="n">H</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+    <span class="n">Z</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">wire</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span><span class="p">):</span>
+        <span class="n">X</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+        <span class="n">H</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="sequential_mode" for="sd-tab-item-1">
+Sequential mode</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># everything we need to write a quantum circuit</span>
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># This is a standard implementation of Grover&#39;s diffusion</span>
+<span class="k">def</span> <span class="nf">diffusion</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+    <span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+    <span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">wire</span> <span class="ow">in</span> <span class="n">wires</span><span class="p">:</span>
+        <span class="n">H</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+    <span class="n">Z</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)(</span><span class="n">wires</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">wire</span> <span class="ow">in</span> <span class="n">wires</span><span class="p">:</span>
+        <span class="n">X</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+        <span class="n">H</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">routine</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div></blockquote>
+<p>As you can see, we repeat a lot of code to do basis change and revert them. We can simplify the code by using a compute/uncompute block:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="functional_mode" for="sd-tab-item-2">
+Functional mode</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@qrout</span><span class="p">(</span><span class="n">unroll</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">diffusion</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">compute</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">wire</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span><span class="p">):</span>
+            <span class="n">H</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+            <span class="n">X</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+    <span class="n">Z</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>Notice how we don’t need to explicitely uncompute the H and X gates.
+These gates will be automatically uncomputed when exiting the routine.</p>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="sequential_mode" for="sd-tab-item-3">
+Sequential mode</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">diffusion</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+    <span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+    <span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">routine</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">wire</span> <span class="ow">in</span> <span class="n">wires</span><span class="p">:</span>
+            <span class="n">H</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+            <span class="n">X</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+    <span class="n">Z</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)(</span><span class="n">wires</span><span class="p">)</span>
+    <span class="n">routine</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">routine</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is clearer now: We have our walls of <span class="math notranslate nohighlight">\(H\)</span> and <span class="math notranslate nohighlight">\(X\)</span> gates, our controlled <span class="math notranslate nohighlight">\(Z\)</span> gate, and we undo our
+walls using the uncomputation.</p>
+</section>
+<section id="the-oracle">
+<h3>The oracle<a class="headerlink" href="#the-oracle" title="Permalink to this heading"></a></h3>
+<p>In this space, we will look for palindromes: bit strings that are their own mirrors.
+We will implement our oracle as follows (remember that we need to flip the sign of the amplitude of all palindromes):</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>First we will compute the xor of <span class="math notranslate nohighlight">\(b_1\)</span> and <span class="math notranslate nohighlight">\(b_{2k}\)</span>, <span class="math notranslate nohighlight">\(b_2\)</span> and <span class="math notranslate nohighlight">\(b_{2k-1}\)</span>, etc. We will</dt><dd><p>do these operations in place in the second half of the bit string.</p>
+</dd>
+</dl>
+</li>
+<li><p>Then we will flip the amplitude of our state if and only if its second half is <span class="math notranslate nohighlight">\(0...0\)</span>. To do so, we will
+flip all bits in the second half (using <span class="math notranslate nohighlight">\(X\)</span> gates) and perform a controlled <span class="math notranslate nohighlight">\(Z\)</span> gate on the second half,
+thus flipping the amplitude if and only if all qubits are set to <span class="math notranslate nohighlight">\(1\)</span>.</p></li>
+<li><p>Finally, we can revert to the original state by uncomputing the bit flips and xors (once again we will use a compute/uncompute block)</p></li>
+</ul>
+</div></blockquote>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="functional_mode" for="sd-tab-item-4">
+Functional mode</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@qrout</span><span class="p">(</span><span class="n">unroll</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">is_palindrome</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+    <span class="n">first_half</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+    <span class="n">second_half</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">k</span><span class="p">))</span>
+    <span class="k">with</span> <span class="n">compute</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">w1</span><span class="p">,</span> <span class="n">w2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">first_half</span><span class="p">,</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">second_half</span><span class="p">)):</span>
+            <span class="n">CNOT</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">w2</span> <span class="ow">in</span> <span class="n">second_half</span><span class="p">:</span>
+            <span class="n">X</span><span class="p">(</span><span class="n">w2</span><span class="p">)</span>
+    <span class="n">Z</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)(</span><span class="n">second_half</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="sequential_mode" for="sd-tab-item-5">
+Sequential mode</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_palindrome</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+    <span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
+    <span class="n">first_half</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="n">second_half</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">routine</span><span class="o">.</span><span class="n">compute</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">w1</span><span class="p">,</span> <span class="n">w2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">first_half</span><span class="p">,</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">second_half</span><span class="p">)):</span>
+            <span class="n">CNOT</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">w2</span> <span class="ow">in</span> <span class="n">second_half</span><span class="p">:</span>
+            <span class="n">X</span><span class="p">(</span><span class="n">w2</span><span class="p">)</span>
+    <span class="n">Z</span><span class="o">.</span><span class="n">ctrl</span><span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)(</span><span class="n">second_half</span><span class="p">)</span>
+    <span class="n">routine</span><span class="o">.</span><span class="n">uncompute</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">routine</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And this is it. We can now run a Grover algorithm to find palindromes!
+There are exactly <span class="math notranslate nohighlight">\(2^k\)</span> palindromes over <span class="math notranslate nohighlight">\(2k\)</span> bits, hence we will need to perform
+<span class="math notranslate nohighlight">\(\approx \pi\sqrt{2^k}/4\)</span> iterations to find a palindrome with good probability.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" data-sync-id="functional_mode" for="sd-tab-item-6">
+Functional mode</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">grover</span><span class="p">():</span>
+    <span class="n">qbits</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span><span class="p">))</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">diffusion</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="n">oracle</span> <span class="o">=</span> <span class="n">is_palindrome</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+    <span class="c1"># We start by a uniform superposition of bit strings:</span>
+    <span class="k">for</span> <span class="n">qbit</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
+        <span class="n">H</span><span class="p">(</span><span class="n">qbit</span><span class="p">)</span>
+
+    <span class="n">nsteps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">k</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsteps</span><span class="p">):</span>
+        <span class="n">oracle</span><span class="p">(</span><span class="n">qbits</span><span class="p">)</span>
+        <span class="n">diff</span><span class="p">(</span><span class="n">qbits</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">grover</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span><span class="mi">0000</span><span class="o">&gt;</span> <span class="mf">0.2499999999999995</span>
+<span class="o">|</span><span class="mi">0110</span><span class="o">&gt;</span> <span class="mf">0.2499999999999995</span>
+<span class="o">|</span><span class="mi">1001</span><span class="o">&gt;</span> <span class="mf">0.2499999999999995</span>
+<span class="o">|</span><span class="mi">1111</span><span class="o">&gt;</span> <span class="mf">0.2499999999999995</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" data-sync-id="sequential_mode" for="sd-tab-item-7">
+Sequential mode</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">grover</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">grover</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span><span class="p">)</span>
+<span class="n">diff</span> <span class="o">=</span> <span class="n">diffusion</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">is_palindrome</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+<span class="c1"># We start by a uniform superposition of bit strings:</span>
+<span class="k">for</span> <span class="n">qbit</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
+    <span class="n">H</span><span class="p">(</span><span class="n">qbit</span><span class="p">)</span>
+
+<span class="n">nsteps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">k</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsteps</span><span class="p">):</span>
+    <span class="n">oracle</span><span class="p">(</span><span class="n">qbits</span><span class="p">)</span>
+    <span class="n">diff</span><span class="p">(</span><span class="n">qbits</span><span class="p">)</span>
+
+<span class="c1"># Build a circuit</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">grover</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="c1"># Build a job</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+
+<span class="c1"># Evaluate the job and print the output probabilities</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span><span class="mi">0000</span><span class="o">&gt;</span> <span class="mf">0.2499999999999995</span>
+<span class="o">|</span><span class="mi">0110</span><span class="o">&gt;</span> <span class="mf">0.2499999999999995</span>
+<span class="o">|</span><span class="mi">1001</span><span class="o">&gt;</span> <span class="mf">0.2499999999999995</span>
+<span class="o">|</span><span class="mi">1111</span><span class="o">&gt;</span> <span class="mf">0.2499999999999995</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you can see, all the bit strings we can sample (with decently high probability) are palindromes!</p>
+<p>Of course, this example is not particularly helpful to solve practical problems, but this framework comes with high
+level constructs that can help you write more advanced oracles.
+If you are curious, you can have a look at the <a class="reference internal" href="../02_user_guide/01_write/01_digital_circuit/04_routines/03_oracles.html#oracles"><span class="std std-ref">oracles section</span></a> of the documentation
+to see how to write complicated oracles relying on custom data structures.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="%3Amyqlm%3Amacos.html" class="btn btn-neutral float-left" title="myQLM Installation on MacOS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="03_execute.html" class="btn btn-neutral float-right" title="Executing quantum programs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

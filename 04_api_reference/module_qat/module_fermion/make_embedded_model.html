@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.fermion.hamiltonians.make_embedded_model &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="qat.fermion.hamiltonians.make_hubbard_model" href="make_hubbard_model.html" />
+    <link rel="prev" title="qat.fermion.hamiltonians.make_anderson_model" href="make_anderson_model.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../module_comm.html">qat.comm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../module_fermion.html">qat.fermion</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="electronicstructurehamiltonian.html">qat.fermion.hamiltonians.ElectronicStructureHamiltonian</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spinhamiltonian.html">qat.fermion.hamiltonians.SpinHamiltonian</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_anderson_model.html">qat.fermion.hamiltonians.make_anderson_model</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">qat.fermion.hamiltonians.make_embedded_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_hubbard_model.html">qat.fermion.hamiltonians.make_hubbard_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="transform_to_bk_basis.html">qat.fermion.transforms.transform_to_bk_basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="transform_to_jw_basis.html">qat.fermion.transforms.transform_to_jw_basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="transform_to_parity_basis.html">qat.fermion.transforms.transform_to_parity_basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_compressed_ldca_circ.html">qat.fermion.circuits.make_compressed_ldca_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_general_hwe_circ.html">qat.fermion.circuits.make_general_hwe_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_ldca_circ.html">qat.fermion.circuits.make_ldca_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_mr_circ.html">qat.fermion.circuits.make_mr_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_mrep_circ.html">qat.fermion.circuits.make_mrep_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_shallow_circ.html">qat.fermion.circuits.make_shallow_circ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molecularhamiltonian.html">qat.fermion.chemistry.wrapper.MolecularHamiltonian</a></li>
+<li class="toctree-l4"><a class="reference internal" href="moleculeinfo.html">qat.fermion.chemistry.wrapper.MoleculeInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compute_active_space_integrals.html">qat.fermion.chemistry.ucc.compute_active_space_integrals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="construct_ucc_ansatz.html">qat.fermion.chemistry.ucc.construct_ucc_ansatz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="convert_to_h_integrals.html">qat.fermion.chemistry.ucc.convert_to_h_integrals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_cluster_ops.html">qat.fermion.chemistry.ucc.get_cluster_ops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_hf_ket.html">qat.fermion.chemistry.ucc.get_hf_ket</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guess_init_params.html">qat.fermion.chemistry.ucc.guess_init_params</a></li>
+<li class="toctree-l4"><a class="reference internal" href="select_active_orbitals.html">qat.fermion.chemistry.ucc.select_active_orbitals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="transform_integrals_to_new_basis.html">qat.fermion.chemistry.ucc.transform_integrals_to_new_basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apply_quantum_subspace_expansion.html">qat.fermion.chemistry.qse.apply_quantum_subspace_expansion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="perform_phase_estimation.html">qat.fermion.phase_estimation.perform_phase_estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="make_trotterisation_routine.html">qat.fermion.trotterisation.make_trotterisation_routine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="perform_pyscf_computation.html">qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../04_api_reference.html">API reference</a> &raquo;</li>
+          <li><a href="../../module_qat.html">qat</a> &raquo;</li>
+          <li><a href="../module_fermion.html">qat.fermion</a> &raquo;</li>
+      <li>qat.fermion.hamiltonians.make_embedded_model</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-fermion-hamiltonians-make-embedded-model">
+<h1>qat.fermion.hamiltonians.make_embedded_model<a class="headerlink" href="#qat-fermion-hamiltonians-make-embedded-model" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="qat.fermion.hamiltonians.make_embedded_model">
+<span class="sig-prename descclassname"><span class="pre">qat.fermion.hamiltonians.</span></span><span class="sig-name descname"><span class="pre">make_embedded_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_loc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int_kernel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grouping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'spins'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="electronicstructurehamiltonian.html#qat.fermion.hamiltonians.ElectronicStructureHamiltonian" title="qat.fermion.hamiltonians.ElectronicStructureHamiltonian"><span class="pre">ElectronicStructureHamiltonian</span></a></span></span><a class="headerlink" href="#qat.fermion.hamiltonians.make_embedded_model" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the canonical second quantized form</p>
+<div class="math notranslate nohighlight">
+\[H_{\mathrm{CSQ}} = \sum_{p,q} h_{pq} f_p^\dagger f_q + \frac{1}{2}\sum_{p,q,r,s} h_{pqrs} f_p^\dagger f_q^\dagger f_r f_s + c\mathbb{I}\]</div>
+<p>of an embedded hamiltonian</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_{\mathrm{emb}} = U \sum \limits_{i,j,k,l=1}^{2M} I_{ijkl} f^{\dagger}_i f_j f^{\dagger}_k f_l
+               - \mu \sum \limits_{i=1}^{M} f^{\dagger}_{i} f_{j}
+               + \sum \limits_{i, j=1}^{M} t^{\mathrm{loc}}_{ij} f^{\dagger}_i f_j \\
+               + \sum \limits_{i,j=1}^{M} (D_{ij} f^{\dagger}_{i} f_{M+j} + \mathrm{h.c.}) \\
+               + \sum \limits_{i,j=1}^{M} \lambda^c_{ij} f_{M+i} f^{\dagger}_{M+j}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(M\)</span> is the number of orbitals (imp+bath). Indices here correspond to the spin-orbitals ordering referred to as
+‘cluster’ (see below).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>U</strong> (<em>float</em>) – Onsite repulsion on impurity sites.</p></li>
+<li><p><strong>mu</strong> (<em>float</em>) – Chemical potential.</p></li>
+<li><p><strong>D</strong> (<em>np.ndarray</em>) – Hopping matrix (i.e. hybridization) between the correlated orbitals and the uncorrelated bath.</p></li>
+<li><p><strong>lambda_c</strong> (<em>np.ndarray</em>) – Hopping matrix of the uncorrelated sites.</p></li>
+<li><p><strong>t_loc</strong> (<em>Optional</em><em>[</em><em>np.ndarray</em><em>]</em>) – Hopping matrix of the correlated sites.</p></li>
+<li><p><strong>int_kernel</strong> (<em>Optional</em><em>[</em><em>np.ndarray</em><em>]</em>) – Array <span class="math notranslate nohighlight">\(I\)</span> with 1 at position <span class="math notranslate nohighlight">\(i, j, k, l\)</span> where <span class="math notranslate nohighlight">\(U\)</span> must be put
+(conv. for associated term: <span class="math notranslate nohighlight">\(c^{\dagger}c^{\dagger}cc\)</span>). Defaults to None,
+in which case <span class="math notranslate nohighlight">\(U\)</span> is put before terms <span class="math notranslate nohighlight">\(c^{\dagger}_{2i}c^{\dagger}_{2i+1}c_{2i}c_{2i+1}, i=1..M/2\)</span> if grouping is ‘clusters’, <span class="math notranslate nohighlight">\(c^{\dagger}_{i}c^{\dagger}_{i+M}c_{i}c_{i+M}, i=1..M/2\)</span> if grouping is ‘spins’.
+This array must be a 4D array.</p></li>
+<li><p><strong>grouping</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Defines how spin-orbitals indices are ordered (see below), defaults to ‘spins’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="electronicstructurehamiltonian.html#qat.fermion.hamiltonians.ElectronicStructureHamiltonian" title="qat.fermion.hamiltonians.ElectronicStructureHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElectronicStructureHamiltonian</span></code></a></p>
+</dd>
+</dl>
+<p>The two grouping strategies are the following:</p>
+<ul class="simple">
+<li><p><strong>“clusters”</strong>: the first <span class="math notranslate nohighlight">\(M\)</span> orbitals SO are <span class="math notranslate nohighlight">\((\uparrow, \mathrm{imp}_0), (\downarrow, \mathrm{imp}_0),..., (\uparrow, \mathrm{imp}_{M-1}), (\downarrow, \mathrm{imp}_{M-1})\)</span> and the last <span class="math notranslate nohighlight">\(M\)</span> orbitals are bath orbitals with similar ordering.</p></li>
+<li><p><strong>“spins”</strong>: the first <span class="math notranslate nohighlight">\(M\)</span> orbitals are <span class="math notranslate nohighlight">\((\uparrow, \mathrm{imp}_0), (\uparrow, \mathrm{imp}_1), ..., (\uparrow, \mathrm{bath}_{M-2}), (\uparrow, \mathrm{bath}_{M-1})\)</span> and the last <span class="math notranslate nohighlight">\(M\)</span> orbitals are down orbitals with similar ordering.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="make_anderson_model.html" class="btn btn-neutral float-left" title="qat.fermion.hamiltonians.make_anderson_model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="make_hubbard_model.html" class="btn btn-neutral float-right" title="qat.fermion.hamiltonians.make_hubbard_model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

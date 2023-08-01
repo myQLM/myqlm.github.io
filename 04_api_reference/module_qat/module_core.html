@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.core &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../static/documentation_options.js"></script>
+        <script src="../../static/jquery.js"></script>
+        <script src="../../static/underscore.js"></script>
+        <script src="../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../static/doctools.js"></script>
+        <script src="../../static/sphinx_highlight.js"></script>
+        <script src="../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="qat.core.application" href="module_core/module_application.html" />
+    <link rel="prev" title="qat.comm.shared.ttypes.ProcessingType" href="module_comm/module_shared/processingtype.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="module_comm.html">qat.comm</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">qat.core</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_core/module_application.html">qat.core.application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/module_circuit_builder.html">qat.core.circuit_builder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/module_gate_set.html">qat.core.gate_set</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/module_qpu.html">qat.core.qpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/module_spins.html">qat.core.spins</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/module_variables.html">qat.core.variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/batch.html">qat.core.Batch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/circuit.html">qat.core.Circuit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/job.html">qat.core.Job</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/schedule.html">qat.core.Schedule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/batchresult.html">qat.core.BatchResult</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/result.html">qat.core.Result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/sample.html">qat.core.Sample</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/state.html">qat.core.wrappers.result.State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/observable.html">qat.core.Observable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/term.html">qat.core.Term</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/hardwarespecs.html">qat.core.HardwareSpecs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/topology.html">qat.core.Topology</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/topologytype.html">qat.core.TopologyType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/parameter.html">qat.core.Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/variable.html">qat.core.Variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/aggregate_data.html">qat.core.wrappers.result.aggregate_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/assert_plugin.html">qat.core.assertion.assert_plugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/assert_qpu.html">qat.core.assertion.assert_qpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/display.html">qat.core.console.display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/evaluate.html">qat.core.formula_eval.evaluate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_core/plot_in_notebook.html">qat.core.printer.plot_in_notebook</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_plugins.html">qat.plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_quops.html">qat.quops</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../04_api_reference.html">API reference</a> &raquo;</li>
+          <li><a href="../module_qat.html">qat</a> &raquo;</li>
+      <li>qat.core</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="module-qat.core"></span><section id="qat-core">
+<h1>qat.core<a class="headerlink" href="#qat-core" title="Permalink to this heading"></a></h1>
+<p>This module provides the core data structures and functions needed in the framework.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="module_core/module_application.html">qat.core.application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_core/module_circuit_builder.html">qat.core.circuit_builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_core/module_gate_set.html">qat.core.gate_set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_core/module_qpu.html">qat.core.qpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_core/module_spins.html">qat.core.spins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_core/module_variables.html">qat.core.variables</a></li>
+</ul>
+</div>
+<section id="objects-for-writing-a-job">
+<h2>Objects for writing a job<a class="headerlink" href="#objects-for-writing-a-job" title="Permalink to this heading"></a></h2>
+<p>Following are used to send a circuit/schedule or a set of circuits/schedules to a plugin or to a
+QPU. The circuit is then compiled or executed. The <a class="reference internal" href="module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> class is used to send a
+single <a class="reference internal" href="module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> or <a class="reference internal" href="module_core/schedule.html#qat.core.Schedule" title="qat.core.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a> to a QPU whereas the
+<a class="reference internal" href="module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a> class is used to send several <a class="reference internal" href="module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> objects
+or several <a class="reference internal" href="module_core/schedule.html#qat.core.Schedule" title="qat.core.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a> objects at the same time.</p>
+<table class="colwidths-given docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Batch</span></code></a></p></td>
+<td><p>Collection of <a class="reference internal" href="module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> objects</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Circuit</span></code></a></p></td>
+<td><p>Quantum circuit describing a collection of gates</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Job</span></code></a></p></td>
+<td><p>Job that can be processed by a QPU</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_core/schedule.html#qat.core.Schedule" title="qat.core.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Schedule</span></code></a></p></td>
+<td><p>Encoding of time-dependent Hamiltonians</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="objects-for-parsing-a-job-result">
+<h2>Objects for parsing a job result<a class="headerlink" href="#objects-for-parsing-a-job-result" title="Permalink to this heading"></a></h2>
+<table class="colwidths-given docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_core/batchresult.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.BatchResult</span></code></a></p></td>
+<td><p>Collection of <a class="reference internal" href="module_core/result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a> objects</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_core/result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Result</span></code></a></p></td>
+<td><p>Result of a quantum processing</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_core/sample.html#qat.core.Sample" title="qat.core.Sample"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Sample</span></code></a></p></td>
+<td><p>One sample of the <a class="reference internal" href="module_core/result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a> of a quantum processing</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_core/state.html#qat.core.wrappers.result.State" title="qat.core.wrappers.result.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.wrappers.result.State</span></code></a></p></td>
+<td><p>Represents a <em>classical</em> state</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="observable-related-objects">
+<h2>Observable-related objects<a class="headerlink" href="#observable-related-objects" title="Permalink to this heading"></a></h2>
+<p>Observables are objects implementing the concept of a quantum mechanical observable <span class="math notranslate nohighlight">\(\hat{O}\)</span>.
+They can be written in qubit (Pauli matrices) representation as well as others (fermions, bosons).</p>
+<table class="colwidths-given docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Observable</span></code></a></p></td>
+<td><p>Describes an observable over the Hilbert space spanned by a list of qbits</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_core/term.html#qat.core.Term" title="qat.core.Term"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Term</span></code></a></p></td>
+<td><p>One term in the Pauli basis of an <a class="reference internal" href="module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="hardware-specifications">
+<h2>Hardware specifications<a class="headerlink" href="#hardware-specifications" title="Permalink to this heading"></a></h2>
+<p>Hardware specifications are described by the class <a class="reference internal" href="module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a>.</p>
+<table class="colwidths-given docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.HardwareSpecs</span></code></a></p></td>
+<td><p>Hardware specification of a quantum processor</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_core/topology.html#qat.core.Topology" title="qat.core.Topology"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Topology</span></code></a></p></td>
+<td><p>Describes the topology of a quantum processor</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_core/topologytype.html#qat.core.TopologyType" title="qat.core.TopologyType"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.TopologyType</span></code></a></p></td>
+<td><p>Enumeration describing the type of a <a class="reference internal" href="module_core/topology.html#qat.core.Topology" title="qat.core.Topology"><code class="xref py py-class docutils literal notranslate"><span class="pre">Topology</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="variables-and-parameters">
+<h2>Variables and Parameters<a class="headerlink" href="#variables-and-parameters" title="Permalink to this heading"></a></h2>
+<p>When defining a variational circuit, pyAQASM provides its own way to declare variables (via the
+<a class="reference internal" href="module_lang/program.html#qat.lang.Program.new_var" title="qat.lang.Program.new_var"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qat.lang.Program.new_var()</span></code></a> method). However, it is possible to turn most parts of a Job
+into a parametrized quantity using <a class="reference internal" href="module_core/variable.html#qat.core.Variable" title="qat.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> objects.</p>
+<table class="colwidths-given docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_core/parameter.html#qat.core.Parameter" title="qat.core.Parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Parameter</span></code></a></p></td>
+<td><p>Time-dependent parameter than can be included within a <a class="reference internal" href="module_core/schedule.html#qat.core.Schedule" title="qat.core.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_core/variable.html#qat.core.Variable" title="qat.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Variable</span></code></a></p></td>
+<td><p>Typed variable, which can <a class="reference internal" href="module_core/module_variables/arithexpression.html#qat.core.variables.ArithExpression" title="qat.core.variables.ArithExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithExpression</span></code></a> objects</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+<p>More utilities on <a class="reference internal" href="module_core/variable.html#qat.core.Variable" title="qat.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> objects are documented in <a class="reference internal" href="module_core/module_variables.html#module-qat.core.variables" title="qat.core.variables"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.core.variables</span></code></a>.</p>
+</section>
+<section id="misc-utilities">
+<h2>Misc. utilities<a class="headerlink" href="#misc-utilities" title="Permalink to this heading"></a></h2>
+<table class="colwidths-given docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_core/assert_plugin.html#qat.core.assertion.assert_plugin" title="qat.core.assertion.assert_plugin"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.assertion.assert_plugin()</span></code></a></p></td>
+<td><p>Ensure an assertion is valid (to be used in a Plugin)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_core/assert_qpu.html#qat.core.assertion.assert_qpu" title="qat.core.assertion.assert_qpu"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.assertion.assert_qpu()</span></code></a></p></td>
+<td><p>Ensure an assertion is valid (to be used in a QPU)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_core/display.html#qat.core.console.display" title="qat.core.console.display"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.console.display()</span></code></a></p></td>
+<td><p>Displays a circuit on the terminal using ASCII art</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_core/evaluate.html#qat.core.formula_eval.evaluate" title="qat.core.formula_eval.evaluate"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.formula_eval.evaluate()</span></code></a></p></td>
+<td><p>Evaluate a logical formula</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_core/plot_in_notebook.html#qat.core.printer.plot_in_notebook" title="qat.core.printer.plot_in_notebook"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.printer.plot_in_notebook()</span></code></a></p></td>
+<td><p>Displays a circuit inside a Jupyter notebook</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_core/aggregate_data.html#qat.core.wrappers.result.aggregate_data" title="qat.core.wrappers.result.aggregate_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.wrappers.result.aggregate_data()</span></code></a></p></td>
+<td><p>Aggregate data</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="module_comm/module_shared/processingtype.html" class="btn btn-neutral float-left" title="qat.comm.shared.ttypes.ProcessingType" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="module_core/module_application.html" class="btn btn-neutral float-right" title="qat.core.application" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

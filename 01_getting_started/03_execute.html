@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Executing quantum programs &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../static/documentation_options.js"></script>
+        <script src="../static/jquery.js"></script>
+        <script src="../static/underscore.js"></script>
+        <script src="../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../static/doctools.js"></script>
+        <script src="../static/sphinx_highlight.js"></script>
+        <script src="../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Variational algorithms with Qaptiva" href="04_variational.html" />
+    <link rel="prev" title="Writing quantum programs" href="02_write.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../01_getting_started.html">Getting started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="%3Amyqlm%3A01_install.html">Installing myQLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Executing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_variational.html">Variational algorithms with Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../02_user_guide.html">User guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../01_getting_started.html">Getting started</a> &raquo;</li>
+      <li>Executing quantum programs</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="executing-quantum-programs">
+<h1>Executing quantum programs<a class="headerlink" href="#executing-quantum-programs" title="Permalink to this heading"></a></h1>
+<p>This framework provides <a class="reference internal" href="../02_user_guide/02_execute/03_qpu.html#qpu"><span class="std std-ref">Quantum Processing Units (QPU)</span></a> to execute any quantum job. Our QPUs are listed in the <a class="reference internal" href="../04_api_reference/module_qat/module_qpus.html#module-qat.qpus" title="qat.qpus"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.qpus</span></code></a>
+module. Quantum <a class="reference internal" href="../04_api_reference/module_qat/module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a>, <a class="reference internal" href="../04_api_reference/module_qat/module_core/schedule.html#qat.core.Schedule" title="qat.core.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a>, etc. must be lifted into a quantum <a class="reference internal" href="../04_api_reference/module_qat/module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> by
+using their <a class="reference internal" href="../04_api_reference/module_qat/module_core/circuit.html#qat.core.Circuit.to_job" title="qat.core.Circuit.to_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_job()</span></code></a> method to be executable on the QPU. The job object (detailed in the <a class="reference internal" href="../02_user_guide/02_execute/01_job.html#job"><span class="std std-ref">job section</span></a>)
+contains additional information, such as:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>number of shots</p></li>
+<li><p>what should be measures (<strong>sampling</strong>, <strong>observable</strong>)</p></li>
+<li><p>etc.</p></li>
+</ul>
+</div></blockquote>
+<p>A job can be submitted to a QPU by:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>calling the <a class="reference internal" href="../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler.submit" title="qat.qpus.QPUHandler.submit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">submit()</span></code></a> method of the selected QPU</p></li>
+<li><p>calling the <a class="reference internal" href="../04_api_reference/module_qat/module_core/job.html#qat.core.Job.run" title="qat.core.Job.run"><code class="xref py py-meth docutils literal notranslate"><span class="pre">run()</span></code></a> method of the job (this method takes the selected QPU in argument, if no QPU is specified,
+the default QPU is selected)</p></li>
+</ul>
+</div></blockquote>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="submit" for="sd-tab-item-0">
+Submit method</label><div class="sd-tab-content docutils">
+<p>A job can be executed using the <a class="reference internal" href="../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler.submit" title="qat.qpus.QPUHandler.submit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">submit()</span></code></a> method of the selected QPU</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">CNOT</span>
+
+<span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">bell_pair</span><span class="p">():</span>
+    <span class="n">H</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">bell_pair</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span><span class="p">:</span> <span class="mf">0.4999999999999999</span>
+<span class="o">|</span><span class="mi">11</span><span class="o">&gt;</span><span class="p">:</span> <span class="mf">0.4999999999999999</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="run" for="sd-tab-item-1">
+Run method</label><div class="sd-tab-content docutils">
+<p>A job can be executed using the <a class="reference internal" href="../04_api_reference/module_qat/module_core/job.html#qat.core.Job.run" title="qat.core.Job.run"><code class="xref py py-meth docutils literal notranslate"><span class="pre">run()</span></code></a> method</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">CNOT</span>
+
+<span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">bell_pair</span><span class="p">():</span>
+    <span class="n">H</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">bell_pair</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>  <span class="c1"># Use default QPU</span>
+
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span><span class="p">:</span> <span class="mf">0.4999999999999999</span>
+<span class="o">|</span><span class="mi">11</span><span class="o">&gt;</span><span class="p">:</span> <span class="mf">0.4999999999999999</span>
+</pre></div>
+</div>
+<p>The QPU can be selected using a Python context</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">CLinalg</span>
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">CNOT</span>
+
+<span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">bell_pair</span><span class="p">():</span>
+    <span class="n">H</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">CNOT</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">bell_pair</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">CLinalg</span><span class="p">():</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span><span class="p">:</span> <span class="mf">0.4999999999999999</span>
+<span class="o">|</span><span class="mi">11</span><span class="o">&gt;</span><span class="p">:</span> <span class="mf">0.4999999999999999</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Any QPU of this framework can be extended using <a class="reference internal" href="../02_user_guide/02_execute/04_plugin.html#plugin"><span class="std std-ref">plugins</span></a>. A plugin will extend the capabilities of a QPU, and can be used,
+for instance:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>to compile jobs before running them on the QPU - the <em>extended QPU</em> won’t have any gate set limitation, topology limitation, etc.</p></li>
+<li><p>to support variational computing</p></li>
+<li><p>etc.</p></li>
+</ul>
+</div></blockquote>
+<p>This framework provides plugins to support Variational computing, such as <a class="reference internal" href="../04_api_reference/module_qat/module_plugins/scipyminimizeplugin.html#qat.plugins.ScipyMinimizePlugin" title="qat.plugins.ScipyMinimizePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScipyMinimizePlugin</span></code></a>. This plugin tries
+to minimize the average value of the observable</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="submit" for="sd-tab-item-2">
+Submit method</label><div class="sd-tab-content docutils">
+<p>A job can be executed using the <a class="reference internal" href="../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler.submit" title="qat.qpus.QPUHandler.submit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">submit()</span></code></a> method of the selected QPU</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+<span class="kn">from</span> <span class="nn">qat.plugins</span> <span class="kn">import</span> <span class="n">ScipyMinimizePlugin</span>
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">RX</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span>
+
+<span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="n">RX</span><span class="p">(</span><span class="n">theta</span><span class="p">)(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">Observable</span><span class="o">.</span><span class="n">z</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">qpu</span> <span class="o">=</span> <span class="n">ScipyMinimizePlugin</span><span class="p">()</span> <span class="o">|</span> <span class="n">get_default_qpu</span><span class="p">()</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average value:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Angles:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">parameter_map</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Average</span> <span class="n">value</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span>
+<span class="n">Angles</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;theta&#39;</span><span class="p">:</span> <span class="mf">3.141592648680871</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="run" for="sd-tab-item-3">
+Run method</label><div class="sd-tab-content docutils">
+<p>A job can be executed using the <a class="reference internal" href="../04_api_reference/module_qat/module_core/job.html#qat.core.Job.run" title="qat.core.Job.run"><code class="xref py py-meth docutils literal notranslate"><span class="pre">run()</span></code></a> method</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.plugins</span> <span class="kn">import</span> <span class="n">ScipyMinimizePlugin</span>
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">RX</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span>
+
+<span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="n">RX</span><span class="p">(</span><span class="n">theta</span><span class="p">)(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">Observable</span><span class="o">.</span><span class="n">z</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="k">with</span> <span class="n">ScipyMinimizePlugin</span><span class="p">():</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average value:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Angles:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">parameter_map</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Average</span> <span class="n">value</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span>
+<span class="n">Angles</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;theta&#39;</span><span class="p">:</span> <span class="mf">3.141592659964379</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="02_write.html" class="btn btn-neutral float-left" title="Writing quantum programs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="04_variational.html" class="btn btn-neutral float-right" title="Variational algorithms with Qaptiva" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

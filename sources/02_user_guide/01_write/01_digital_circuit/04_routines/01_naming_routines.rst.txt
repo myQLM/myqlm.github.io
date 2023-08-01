@@ -1,0 +1,101 @@
+Naming quantum routines
+=======================
+
+Lifting Python functions into quantum gates
+-------------------------------------------
+
+Even though the mechanics described in the :ref:`AbstractGate section<abstract_gate>` are very expressive when designing a library
+of quantum routines, it might still seem a bit clunky to have to define circuit generators and abstract gates separately.
+
+The :func:`~qat.lang.build_gate` decorator simplfies this step by allowing you to turn any Python function returning a
+:class:`~qat.lang.QRoutine` into an :class:`~qat.lang.AbstractGate`.
+
+.. run-block:: python
+
+    from qat.lang import QRoutine, H, build_gate, Program
+
+    @build_gate("WALSH_HADAMARD", [int], arity=lambda n: n)
+    def wht(nbqbits):
+        routine = QRoutine()
+        wires = routine.new_wires(nbqbits)
+        for wire in wires:
+            H(wire)
+        return routine
+
+    prog = Program()
+    qbits = prog.qalloc(4)
+    wht(4)(qbits)
+    # This circuit will contain a gate containing a subcircuit 
+    # of length 4
+    circuit = prog.to_circ()
+
+
+.. _linking_abstract_gates:
+
+Linking at circuit extraction
+-----------------------------
+
+In pyAQASM, it is possible to construct a :class:`~qat.lang.Program` object using :class:`~qat.lang.AQASM.gates.AbstractGate` objects representing subroutines, without specifying any implementation of the underlying subcircuit.
+
+Consider for instance the following program:
+
+.. run-block:: python
+
+    from qat.lang import Program, AbstractGate
+    
+    prog = Program()
+    qbits = prog.qalloc(2 * 10)
+    adder = AbstractGate("ADD", [int, int], arity=lambda n1, n2: n1 + n2)
+    adder(10, 10)(qbits)
+
+This code will run without error. The generated circuit (the result of :meth:`~qat.lang.Program.to_circ`) will contain a single gate without any subcircuit implementation. Therefore, attempting to
+execute this circuit on most QPUs will fail.
+
+Now, let's imagine that we have our very own implementation of an adder, lying in some Python namespace `foo`.
+Its definition will look like this:
+
+.. run-block:: python
+
+    from qat.lang import QRoutine, H, build_gate 
+
+    @build_gate("ADD", [int, int], arity=lambda n1, n2: n1 + n2)
+    def my_adder(length1, length2):
+        routine = QRoutine()
+        wires = routine.new_wires(length1 + length2)
+        
+        ## Here a proper addition is implemented
+
+        return routine
+
+What pyAQASM allows us to do is to use this definition of an adder and link it to the program above in order to attach a proper subcircuit implementation to the `ADD` gate.
+The linking is done inside the :meth:`~qat.lang.Program.to_circ` method of the :class:`~qat.lang.Program` via the `link` keyword.
+Lets update the first piece of code to link the implementation `foo.my_adder` to the `ADD` gate.
+
+.. code-block:: python
+
+    # This part stays the same
+    from qat.lang.AQASM import Program, AbstractGate
+
+    prog = Program()
+    qbits = prog.qalloc(2 * 10)
+    adder = AbstractGate("ADD", [int, int], arity=lambda n1, n2: n1 + n2)
+    adder(10, 10)(qbits)
+
+    import foo
+    circuit = prog.to_circ(link=[foo.my_adder])
+
+Now the `circuit` variable contains a circuit that will probably be executable (depending on your implementation of `my_adder`).
+Equivalently one could have linked the full namespace `foo`, if we had for instance, many definitions of subcircuits inside it:
+
+.. code-block:: python
+
+    # This part stays the same
+    from qat.lang.AQASM import Program, AbstractGate
+
+    prog = Program()
+    qbits = prog.qalloc(2 * 10)
+    adder = AbstractGate("ADD", [int, int], arity=lambda n1, n2: n1 + n2)
+    adder(10, 10)(qbits)
+
+    import foo
+    circuit = prog.to_circ(link=[foo])

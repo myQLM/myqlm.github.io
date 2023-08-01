@@ -1,0 +1,111 @@
+.. _max_cut_ann_prob:
+
+Max Cut
+=======
+
+Given an undirected graph with vertex set :math:`V` and edge set :math:`E`, the problem consists in partitioning the graph into two
+subgraphs connected by the maximum number of edges. Annealing the problem with the :class:`~qat.opt.max_cut.MaxCut` class (or 
+:class:`~qat.opt.generators.MaxCutGenerator` class) needs :math:`\#V` spins (one spin per vertex of the graph).
+
+.. only:: qlm
+
+    Solving this problem using the simulated quantum annealing method requires :class:`~qat.qpus.SQAQPU`.
+    
+.. only:: myqlm
+
+    Solving this problem using the simulated annealing method requires the :class:`~qat.qpus.SimulatedAnnealing` QPU.
+
+.. only:: qlm
+
+    .. run-block:: python
+
+        import networkx as nx
+        import numpy as np
+        from qat.opt import MaxCut
+        from qat.qpus import SQAQPU
+        from qat.core import Variable
+        from qat.core.spins import integer_to_spins
+
+        # Specify the graph 
+        graph = nx.full_rary_tree(2, 30)
+        max_cut_problem = MaxCut(graph)
+
+        # Extract parameters for SQA
+        problem_parameters_dict = max_cut_problem.get_best_parameters()
+        n_monte_carlo_updates = problem_parameters_dict["n_monte_carlo_updates"]
+        n_trotters = problem_parameters_dict["n_trotters"]
+        n_steps = int(n_monte_carlo_updates /
+                    (n_trotters * len(graph.nodes()))) # the last one is the number of spins, i.e. the problem size
+        temp_max = problem_parameters_dict["temp_max"]
+        temp_min = problem_parameters_dict["temp_min"]
+        gamma_max = problem_parameters_dict["gamma_max"]
+        gamma_min = problem_parameters_dict["gamma_min"]
+
+        # Create a temperature and a gamma schedule
+        tmax = 1.0
+        t = Variable("t", float)
+        temp_t = temp_min * (t / tmax) + temp_max * (1 - t / tmax)
+        gamma_t = gamma_min * (t / tmax) + gamma_max * (1 - t / tmax)
+
+        # Create a job and send it to a QPU
+        problem_job = max_cut_problem.to_job(gamma_t=gamma_t, tmax=tmax, nbshots=1)
+        sqa_qpu = SQAQPU(temp_t=temp_t, n_steps=n_steps, n_trotters=n_trotters)
+        problem_result = sqa_qpu.submit(problem_job)
+
+        # Extract and print solution configuration
+        state_int = problem_result.raw_data[0].state.int  # raw_data is a list of Samples - one per shot
+        solution_configuration = integer_to_spins(state_int, len(graph.nodes()))
+        print("Solution configuration: \n" + str(solution_configuration) + "\n")
+        indices_spin_1 = np.where(solution_configuration == 1)[0]
+        print("The nodes in the first subgraph:\n" + str(indices_spin_1) + "\n")
+        indices_spin_minus_1 = np.where(solution_configuration == -1)[0]
+        print("The nodes in the second subgraph:\n" + str(indices_spin_minus_1))
+
+.. only:: myqlm
+
+    .. run-block:: python
+
+        import networkx as nx
+        import numpy as np
+        from qat.opt import MaxCut
+        from qat.qpus import SimulatedAnnealing
+        from qat.simulated_annealing import integer_to_spins
+        from qat.core import Variable
+
+        # Specify the graph 
+        graph = nx.full_rary_tree(2, 30)
+        max_cut_problem = MaxCut(graph)
+
+
+        # Extract parameters for SA
+        problem_parameters_dict = max_cut_problem.get_best_parameters()
+        n_steps = problem_parameters_dict["n_steps"]
+        temp_max = problem_parameters_dict["temp_max"]
+        temp_min = problem_parameters_dict["temp_min"]
+
+        # Create a temperature schedule and a QPU
+        tmax = 1.0
+        t = Variable("t", float)
+        temp_t = temp_min * (t / tmax) + temp_max * (1 - t / tmax)
+        sa_qpu = SimulatedAnnealing(temp_t=temp_t, n_steps=n_steps)
+
+        # Create a job and send it to the QPU
+        problem_job = max_cut_problem.to_job(tmax=tmax)
+        problem_result = sa_qpu.submit(problem_job)
+
+        # Extract and print solution configuration
+        state = problem_result.raw_data[0].state.int  # raw_data is a list of Samples - one per computation
+        solution_configuration = integer_to_spins(state, len(graph.nodes()))
+        print("Solution configuration: \n" + str(solution_configuration) + "\n")
+        indices_spin_1 = np.where(solution_configuration == 1)[0]
+        print("The nodes in the first subgraph:\n" + str(indices_spin_1) + "\n")
+        indices_spin_minus_1 = np.where(solution_configuration == -1)[0]
+        print("The nodes in the second subgraph:\n" + str(indices_spin_minus_1))
+
+.. only:: qlm
+
+    This example is also detailed in this notebook on solving :notebook:`(Max Cut)[max_cut.ipynb]` problems with :ref:`SQA <simulated_quantum_annealing>`.
+
+.. only:: myqlm
+
+    This example is also detailed in this notebook on solving :notebook:`(Max Cut)[max_cut_myqlm.ipynb]` problems with :ref:`SA <simulated_annealing>`.

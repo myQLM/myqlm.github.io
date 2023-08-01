@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting information from the QPU &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../static/doctools.js"></script>
+        <script src="../../../static/sphinx_highlight.js"></script>
+        <script src="../../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Running variational algorithms" href="../05_variational.html" />
+    <link rel="prev" title="Make you own junction" href="02_custom_junction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../02_execute.html">Executing quantum programs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../01_job.html">Constructing one or multiple Jobs (using Batch)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_result.html">Result of a quantum program</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_qpu.html">Quantum Processing Unit (QPU)</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../04_plugin.html">Extending a QPU (by using Plugins)</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="01_custom_plugin.html">Make your own plugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="02_custom_junction.html">Make you own junction</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Getting information from the QPU</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#creating-custom-specifications">Creating custom specifications</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../05_variational.html">Running variational algorithms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../../02_execute.html">Executing quantum programs</a> &raquo;</li>
+          <li><a href="../04_plugin.html">Extending a QPU (by using Plugins)</a> &raquo;</li>
+      <li>Getting information from the QPU</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="getting-information-from-the-qpu">
+<span id="hardware-specs"></span><h1>Getting information from the QPU<a class="headerlink" href="#getting-information-from-the-qpu" title="Permalink to this heading"></a></h1>
+<p>QPUs define a set of specifications, stored in an object of type <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a>, which can be retrieved by <a class="reference internal" href="../../../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler.get_specs" title="qat.qpus.QPUHandler.get_specs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_specs()</span></code></a>. This set of specification defines
+what could be executed on the QPU, for instance:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>the <strong>number of qubits</strong> composing the QPU</p></li>
+<li><p>the <strong>topology</strong> of the QPU (i.e. pair of qubits on which a two qubit gate can be applied - this attribute is a graph of type <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/topology.html#qat.core.Topology" title="qat.core.Topology"><code class="xref py py-class docutils literal notranslate"><span class="pre">Topology</span></code></a>)</p></li>
+<li><p>the <strong>gateset</strong> of the QPU (i.e. supported gates)</p></li>
+<li><p>the <strong>processing types</strong> (i.e. if the QPU support <em>SAMPLE</em> measurement, <em>OBSERVABLE</em> measurement, or both)</p></li>
+<li><p>the <strong>description</strong> of the QPU</p></li>
+</ul>
+</div></blockquote>
+<p>These specifications can be used by plugins to adapt their <em>compilation stage</em>, to target the QPU</p>
+<section id="creating-custom-specifications">
+<h2>Creating custom specifications<a class="headerlink" href="#creating-custom-specifications" title="Permalink to this heading"></a></h2>
+<p>This sections provides an example explaning how to create custom hardware specs. In this example, will will consider a QPU capable of executing <em>RX</em>, <em>RZ</em> and <em>CNOT</em> gates. CNOT gates can only be applied
+between few pairs of qubits defined by the topology below. This QPU is assumed to support <em>SAMPLE</em> measurement</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../../images/topology.png"><img alt="../../../images/topology.png" src="../../../images/topology.png" style="width: 280px;" /></a>
+</figure>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>This topology can be created using networkx and casted into a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/topology.html#qat.core.Topology" title="qat.core.Topology"><code class="xref py py-class docutils literal notranslate"><span class="pre">Topology</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Topology</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)])</span>
+<span class="n">topology</span> <span class="o">=</span> <span class="n">Topology</span><span class="o">.</span><span class="n">from_nx</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The gate-set can be defined using gates defined in <a class="reference internal" href="../../../04_api_reference/module_qat/module_lang.html#module-qat.lang" title="qat.lang"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.lang</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.gate_set</span> <span class="kn">import</span> <span class="n">GateSet</span>
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">RX</span><span class="p">,</span> <span class="n">RZ</span><span class="p">,</span> <span class="n">CNOT</span>
+
+<span class="n">gateset</span> <span class="o">=</span> <span class="n">GateSet</span><span class="p">({</span><span class="s2">&quot;RX&quot;</span><span class="p">:</span> <span class="n">RX</span><span class="p">,</span> <span class="s2">&quot;RZ&quot;</span><span class="p">:</span> <span class="n">RZ</span><span class="p">,</span> <span class="s2">&quot;CNOT&quot;</span><span class="p">:</span> <span class="n">CNOT</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>Now, hardware specifications can be merged into a single object:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">HardwareSpecs</span>
+<span class="kn">from</span> <span class="nn">qat.comm.shared.ttypes</span> <span class="kn">import</span> <span class="n">ProcessingType</span>
+
+<span class="n">my_specs</span> <span class="o">=</span> <span class="n">HardwareSpecs</span><span class="p">(</span><span class="n">nbqbits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">topology</span><span class="o">=</span><span class="n">topology</span><span class="p">,</span> <span class="n">gateset</span><span class="o">=</span><span class="n">gateset</span><span class="p">,</span> <span class="n">processing_types</span><span class="o">=</span><span class="p">[</span><span class="n">ProcessingType</span><span class="o">.</span><span class="n">SAMPLE</span><span class="p">],</span>
+                         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Example of QPU specs&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="02_custom_junction.html" class="btn btn-neutral float-left" title="Make you own junction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../05_variational.html" class="btn btn-neutral float-right" title="Running variational algorithms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

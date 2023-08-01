@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenQASM Compiler &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../static/documentation_options.js"></script>
+        <script src="../static/jquery.js"></script>
+        <script src="../static/underscore.js"></script>
+        <script src="../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../static/doctools.js"></script>
+        <script src="../static/sphinx_highlight.js"></script>
+        <script src="../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Interoperability with annealing framework" href="../interoperability_annealing.html" />
+    <link rel="prev" title="ProjectQ interoperability" href="04_projectq.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../02_user_guide/01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02_user_guide/02_execute.html">Executing quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../fermion.html">Spin and fermionic systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../combinatorial_optim_applic.html">Combinatorial optimization</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html#available-binders">Available binders</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="01_qiskit.html">Qiskit interoperability</a></li>
+<li class="toctree-l5"><a class="reference internal" href="02_pyquil.html">PyQuil interoperability</a></li>
+<li class="toctree-l5"><a class="reference internal" href="03_cirq.html">Cirq interoperability</a></li>
+<li class="toctree-l5"><a class="reference internal" href="04_projectq.html">ProjectQ interoperability</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">OpenQASM Compiler</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#translating-quantum-circuits">Translating quantum circuits</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../interoperability_annealing.html">Interoperability with annealing framework</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a> &raquo;</li>
+      <li>OpenQASM Compiler</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="openqasm-compiler">
+<h1>OpenQASM Compiler<a class="headerlink" href="#openqasm-compiler" title="Permalink to this heading"></a></h1>
+<section id="translating-quantum-circuits">
+<h2>Translating quantum circuits<a class="headerlink" href="#translating-quantum-circuits" title="Permalink to this heading"></a></h2>
+<p>myQLM provides a script to translate a QASM file into a myQLM circuit file.
+For instance, the following bash command generate a file <code class="code docutils literal notranslate"><span class="pre">bell.circ</span></code>
+containing a myQLM circuit from a text file <code class="code docutils literal notranslate"><span class="pre">bell.qasm</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bash command</span>
+oqasm2circ<span class="w"> </span>bell.qasm<span class="w"> </span>bell.cirq
+</pre></div>
+</div>
+<p>The Python code corresponding to this translate uses the class
+<a class="reference internal" href="../04_api_reference/module_qat/%3Amyqlm%3Amodule_interop/module_openqasm/oqasmparser.html#qat.interop.openqasm.OqasmParser" title="qat.interop.openqasm.OqasmParser"><code class="xref py py-class docutils literal notranslate"><span class="pre">OqasmParser</span></code></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.interop.openqasm</span> <span class="kn">import</span> <span class="n">OqasmParser</span>
+
+<span class="c1"># Define a bell pair QASM circuit</span>
+<span class="n">bell_data</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">OPENQASM 2.0;</span>
+
+<span class="s2">// Allocate qubits and cbits</span>
+<span class="s2">qreg q[2];</span>
+<span class="s2">creg c[2];</span>
+
+<span class="s2">// Define the circuit</span>
+<span class="s2">h q[0];</span>
+<span class="s2">cx q[0],q[1];</span>
+
+<span class="s2">// Measure</span>
+<span class="s2">measure q[0] -&gt; c[0];</span>
+<span class="s2">measure q[1] -&gt; c[1];</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="c1"># Translate into a myQLM circuit</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">OqasmParser</span><span class="p">()</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">bell_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The circuit is composed of gates&quot;</span><span class="p">,</span>
+      <span class="nb">list</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">()))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">circuit</span> <span class="ow">is</span> <span class="n">composed</span> <span class="n">of</span> <span class="n">gates</span> <span class="p">[(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="s1">&#39;MEASURE&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s1">&#39;MEASURE&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The 2.0 version of OPENQASM is the only one fully supported, other versions might work flawlessly, but they haven’t been tested.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="04_projectq.html" class="btn btn-neutral float-left" title="ProjectQ interoperability" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../interoperability_annealing.html" class="btn btn-neutral float-right" title="Interoperability with annealing framework" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

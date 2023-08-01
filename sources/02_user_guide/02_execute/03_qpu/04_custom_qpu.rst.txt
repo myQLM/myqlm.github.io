@@ -1,0 +1,303 @@
+Make your own QPU
+=================
+In our Framework, a QPU class should inherit from :class:`qat.qpus.QPUHandler` which
+defines the following methods:
+
+.. only:: qlm
+
+     - Method :meth:`~qat.qpus.QPUHandler.submit_job()` *required*, this method takes a :class:`~qat.core.Job` and result a :class:`~qat.core.Result`
+
+     - Method :meth:`~qat.qpus.QPUHandler.get_specs()` *optional*, this method does not take any parameters and returns an :class:`qat.core.HardwareSpecs`. The output of this function
+       describes that hardware capabilities (e.g. maximal number of qubits, topology, gate set) and could be used by compilers to adapt a job for the current
+       QPU (more information on the :class:`qat.core.HardwareSpecs` can be found in the :ref:`in the plugin section <hardware-specs>`). If not implemented,
+       a default :class:`qat.core.HardwareSpecs` object will be returned
+
+     - Method :meth:`~qat.qpus.QPUHandler.estimate_resources_for_batch()` *optional*, this methods takes a :class:`~qat.core.Batch` (i.e. a list of :class:`~qat.core.Job`) and returns a
+       :class:`~qat.comm.resource.ttypes.ResourceModel`. If defined, the :ref:`Qaptiva Resource Manager <resource-manager>` will lock some resources to avoid resource conflict.
+       If not implemented, the Resource Manager won't do anything. If this method returns :code:`None`, the Resource Manager won't do anything neither
+
+     - Method :meth:`~qat.qpus.QPUHandler.apply_resource_consumption_limits()` *optional*, this methods takes a :class:`~qat.comm.resource.ttypes.AllocationModel`. This method is called once the Resource Manager
+       has locked resource. Please note that this method is **required** if the method :meth:`~qat.qpus.QPUHandler.estimate_resources_for_batch()` is implemented
+
+.. only:: myqlm
+
+     - Method :meth:`~qat.qpus.QPUHandler.submit_job()` *required*, this method takes a :class:`~qat.core.Job` and result a :class:`~qat.core.Result`
+
+     - Method :meth:`~qat.qpus.QPUHandler.get_specs()` *optional*, this method does not take any parameters and returns an :class:`qat.core.HardwareSpecs`. The output of this function
+       describes that hardware capabilities (e.g. maximal number of qubits, topology, gate set) and could be used by compilers to adapt a job for the current
+       QPU (more information on the :class:`qat.core.HardwareSpecs` can be found in the :ref:`in the plugin section <hardware-specs>`). If not implemented,
+       a default :class:`qat.core.HardwareSpecs` object will be returned
+
+     - Some additional methods can be added to better integrate your QPU within the Qaptiva Appliance
+
+.. dropdown:: Raising exception in the code
+
+    A QPU can raise :class:`~qat.comm.exceptions.ttypes.QPUException`. A QPU can be accessed remotly (using :ref:`Qaptiva Access <qaptiva_access>` or by starting the QPU in server
+    mode). This exception can be serialized and re-raised on the client side
+
+    A :class:`~qat.comm.exceptions.ttypes.QPUException` can be raised using :func:`~qat.core.assertion.assert_qpu`
+
+    .. code-block:: python
+
+        from qat.core.assertion import assert_qpu
+
+        # If my_condition() returns False:  raises a QPUException
+        # If my_condition() returns True: do nothing
+        assert_qpu(my_condition(), "Error message")
+
+.. warning::
+
+    If your QPU implements its own constructor, please ensure the parent constructor is called
+
+    .. run-block:: python
+
+        from qat.core.qpu import QPUHandler
+
+        class MyQPU(QPUHandler):
+            def __init__(self, parameter):
+                super().__init__()  # Please ensure parents constructor is called
+                self._parameter = parameter
+
+            def submit_job(self, job):
+                ...
+
+Method submit_job
+-----------------
+The :meth:`~qat.qpus.QPUHandler.submit_job()` method is the only required method. This function takes one or
+two parameters:
+
+  - a *required* argument of type :class:`~qat.core.Job`. This argument defines *what to execute* and *what to return*. Attributes of this
+    class are defined on the :ref:`job page <job>`
+
+  - an *optional* argument of type :code:`dict[str, str]` (optional means that this argument can be removed, i.e. :code:`def submit_job(self, job): ...` is a valid
+    method), this argument containing the meta-data of the :class:`~qat.core.Batch`
+
+    .. card:: A good practise
+
+        Meta-data could be used to override temporarly the parameter used to instantiate a QPU (the name of the QPU corresponds to
+        the key of this dictionary, and the associated value contains the value to override). Multiple components (like
+        :ref:`plugins <plugin>`) can interact with this QPU by sending :class:`~qat.core.Batch`. Implementing this "good practise"
+        can improve the interaction between these components and the QPU.
+
+        For instance, to override the :code:`parameter` argument defined in the example above, the submit function shall look like:
+
+        .. run-block:: python
+
+            import json
+            from qat.core.qpu import QPUHandler
+
+            class MyQPU(QPUHandler):
+                def __init__(self, parameter):
+                    super().__init__()  # Please ensure parents constructor is called
+                    self._parameter = parameter
+                    self._default_options = {"parameter": parameter}
+
+                def _override(self, options):
+                    if "parameter" in options:
+                        self._parameter = options["parameter"]
+
+                def submit_job(self, job, meta_data=None):
+                    # Override "self._parameter"
+                    if meta_data:
+                        options = json.loads(meta_data.get("MyQPU", "{}"))
+                        self._override(options)
+
+                    ... # Perform execution
+
+                    self._override(self._default_options)
+                    return ...  # Return result
+
+This method is often splitted in 3 main steps:
+
+ - **Step 1:** ensures the quantum job can be executed "as it is". This steps ensure the number of shot is valid, the processing type
+   (e.g. circuit, schedule, etc.) is valid regarding the QPU, the final measurement is correct, etc.
+ - **Step 2:** exceutes the quantum job *nbshots* times (0 shots corresponds to the maximal number of shots supported by the QPU - this
+   value is valid)
+
+    - if the quantum job contains a **circuit**, gates are executed one by one. Method :meth:`~qat.core.Circuit.iterate_simple` can
+      be used to list all the gates composing the circuit
+    - if the quantum jobs contains a **scheduler**, the quantum simulation should be executed accordingly
+
+ - **Step 3:** builds and cleans result. Samples are added using the :meth:`~qat.core.Result.add_sample` method, the average value
+   of the observable is set by updating the attribute :code:`value` of :class:`~qat.core.Result`. In sample mode, the result
+   can be clean-up using function :func:`~qat.core.wrappers.result.aggregate_data`
+
+The card underneath provides a skeleton for a QPU executing quantum circuits in sample mode
+
+.. dropdown:: A skeleton for a custom QPU
+
+    .. run-block:: python
+
+        from qat.core import Result
+        from qat.core.qpu import QPUHandler
+        from qat.core.assertion import assert_qpu
+        from qat.core.wrappers.result import aggregate_data
+
+        MAX_NB_SHOTS = 1024
+
+
+        class QPUSkeleton(QPUHandler):
+            """
+            Skeleton of a custom QPU
+
+            This skeleton execute a circuit, by running gates one by one. This skeleton also returns
+            a result
+            """
+            def submit_job(self, job) -> Result:
+                """
+                Execute a job
+                The job should contain a circuit (neither a analog job, nor a annealing job)
+
+                Args:
+                    job: the job to execute
+
+                Returns:
+                    Result: result of the computation
+                """
+                # Check job
+                nb_shots = job.nbshots or MAX_NB_SHOTS
+
+                assert_qpu(job.circuit is not None, "This skeleton can only execute a circuit job")
+                assert_qpu(0 < nb_shots <= MAX_NB_SHOTS, "Invalid number of shots")
+                assert_qpu(job.type == ProcessingType.SAMPLE, "This QPU does not support OBSERVABLE measurement")
+
+                # Initialize result
+                result = Result()
+
+                # Measured qubits: qubits which should be measured at the end
+                # The "qubits" attribute is either:
+                #   - a list of qubits (list of integer)
+                #   - None (all qubits should be measured)
+                measured_qubits = job.qubits or list(range(job.circuit.nbqbits))
+
+                # Execute the circuit several time
+                for shot in range(nb_shots):
+                    for gate in job.circuit.iterate_simple():
+                        ... # TODO: execute gate
+
+                    state = ... # TODO: measure qubits listed in "measured_qubits"
+                    result.add_sample(state)
+
+                # Aggregate data
+                # If set to True, the output will be compressed. The list of sample will be caster into a shorter
+                # list of tuple [state, probability]
+                if job.aggregate_data:
+                    # The "threshold" parameter is used to remove state having a probability lower than this value
+                    # are removed
+                    aggregate_data(result, threshold=job.threshold)
+
+                # Return result
+                return result
+
+
+Method get_specs
+----------------
+This method does not take any parameter and returns a description of the hardware. The output of this function is used by compilers
+to update a quantum jobs, to make it executable by the QPU.
+
+This hardware description defines:
+
+ - the number of qubits composing the QPU
+ - the topology of the hardware
+ - a gate set
+ - if the QPU supports SAMPLE measurements or the OBSERVABLE measurements
+ - a description of the hardware
+
+This method is already implemented by :class:`~qat.qpus.QPUHandler` but could be overrided. If not implemented, the QPU is assumed
+to support any size of quantum jobs (in term of qubits), all to all interaction, can execute any gate, support *SAMPLE* and *OBSERVABLE*
+measurements
+
+.. run-block:: python
+
+    from qat.core import HardwareSpecs
+    from qat.core.qpu import QPUHandler
+
+    def MyQPU(QPUHandler):
+        def get_specs(self):
+            """
+            Returns a description of the hardware
+            """
+            return HardwareSpecs(...)
+
+Class :class:`~qat.core.HardwareSpecs` is detailed on this :ref:`in the plugin section <hardware-specs>`
+
+
+.. only:: qlm
+
+    Estimate and apply resource
+    ---------------------------
+
+    Methods :meth:`~qat.qpus.QPUHandler.estimate_resources_for_batch()` and :meth:`~qat.qpus.QPUHandler.apply_resource_consumption_limits()` are used to
+    reserve resources and get the list of reserved resources. These functions are called before submitting a job.
+
+    .. note::
+
+        Function :meth:`~qat.qpus.QPUHandler.estimate_resources_for_batch()` is optional. If not set, or if this method returns :code:`None`, resource won't be reserved
+        by the Qaptiva Resource Manager. Not locking resource could lead to resource conflict
+
+    The first method takes a batch (i.e. a list of job) and returns a :class:`~qat.comm.resource.ttypes.ResourceModel`. This data-structure defines
+    few attributes:
+
+     - a qpu giving the name of the Python class (**required string** - *used for logging*)
+     - the nunber of qubits giving the number of qubits used to execute the batch (**required integer** - *used for logging*)
+     - the number of jobs composing the batch (*used for logging*)
+     - the memory (in MB) required to execute a job (**integer**)
+     - the number of wished threads - resource manager can allocate less threads (**integer**)
+     - a list of :class:`~qat.comm.resource.ttypes.Device` - a device describes either a QPU hardware or a GPU. A device can be used by a single job at a time
+
+    .. dropdown:: Reserving a device
+
+        A device is defined by 4 parameters:
+
+         - a type (QPU or GPU)
+         - an **optional** manufacturer (e.g. :code:`"Eviden"`)
+         - an **optional** model (e.g. :code:`"Qaptiva-QPU"`)
+         - an **optional** identifier. The identifier is a unique identifier used to differentiate the differente devices. This identifier will be used by 
+           :meth:`~qat.qpus.QPUHandler.apply_resource_consumption_limits()` to target the right device.
+
+        An attribute is considered to be not defined if the attribute above is not defined. 
+
+        .. tab-set::
+
+            .. tab-item:: Requesting a QPU
+
+                Requesting a QPU can be done using the following sample of code
+
+                .. run-block:: python
+
+                    from qat.comm.resource.ttypes import Device, DeviceType
+
+                    # Requesting a QPU device
+                    Device(type=DeviceType.QPU)
+
+            .. tab-item:: Requesting a QPU built by Eviden
+
+                Requestion a QPU built by Eviden can be done using the following sample of code. Please note that Eviden does not build QPU, this example
+                is used for illustration purpose only
+
+                .. run-block:: python
+
+                    from qat.comm.resource.ttypes import Device, DeviceType
+
+                    # Requesting a QPU device built by Eviden
+                    Device(type=DeviceType.QPU, manufacturer="eviden")
+
+            .. tab-item:: Requisint the Qaptiva-QPU built by Eviden
+
+                Requesting a Qaptiva QPU can be done using the following sample of code. Please note that the Qaptiva QPU
+                does not exist and is used for illustration purpose only
+
+                .. run-block:: python
+
+                    from qat.comm.resource.ttypes import Device, DeviceType
+
+                    # Requesting the Qaptiva QPU
+                    Device(type=DeviceType.QPU, manufacturer="eviden", model="qaptiva")
+
+        .. warning::
+
+            Only QPUs registered to the resource manager are bookable. These QPUs can be defined in the resource manager config file
+
+    Once resource granted by the resource manager, method :meth:`~qat.qpus.QPUHandler.apply_resource_consumption_limits()` is called. This method is called
+    if and only if resources have been granted. This function takes a single argument of type :class:`~qat.comm.resource.ttypes.AllocationModel`, the QPU should look at this
+    object to target the right resource

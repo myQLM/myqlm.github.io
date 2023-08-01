@@ -1,0 +1,19 @@
+qat.plugins.AbstractPlugin
+==========================
+
+.. autoclass:: qat.plugins.AbstractPlugin
+    :members: compile, do_post_processing, serve
+
+    .. method:: post_process(batch_result)
+
+        A plugin can **optionally** post-process a result. Post-processing consists of editing
+        the :class:`~qat.core.BatchResult` object returned by the QPU
+
+        .. note::
+
+            If your plugin does not require prost-processing, not defining this method would lead to
+            better performances
+
+        :param BatchResult batch_result: object to be post-processed
+        :return: post-processed :class:`~qat.core.BatchResult`
+        :rtype: :class:`~qat.core.BatchResult`

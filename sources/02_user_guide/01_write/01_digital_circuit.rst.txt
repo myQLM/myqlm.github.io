@@ -1,0 +1,106 @@
+.. _circuit:
+
+Gate-based programming
+======================
+
+.. only:: qlm
+
+    The Qaptiva 800s provides a **powerful semantic** to create your own quantum circuit / job. Qaptiva defines several type of objects one could use
+    to define a quantum circuit, these tools are accessible from the :mod:`qat.lang` module:
+
+.. only:: myqlm
+
+    myQLM provides a **powerful semantic** to create your own quantum circuit / job. It defines several type of objects one could use
+    to define a quantum circuit, these tools are accessible from the :mod:`qat.lang` module:
+
+- The :class:`~qat.lang.QRoutine` class defines a sequence of pure quantum gates. These quantum routines can be used to build another
+  :class:`~qat.lang.QRoutine` or a :class:`~qat.lang.Program`. A routine can also be built by using the :func:`~qat.lang.qrout`
+  decorator
+
+- The :class:`~qat.lang.Program` class defines a sequence of instructions that will be executed on the QPU. These instructions can be purely
+  quantum (a quantum gate), hybrid (e.g. intermediate measurement returning a classical value, a quantum gate controlled by a classical bit)
+  or purely classical (e.g. bit operations)
+
+- The :func:`~qat.lang.qfunc` decorator defines a quantum job wrapped inside a function. This decorator is used to create a quantum routine
+  by using the same syntax as a Python function
+
+Quantum Programs (and Quantum Routines built without the :func:`~qat.lang.qrout` decorator) must be compiled into a
+:class:`~qat.core.Circuit` object. The :class:`~qat.core.Circuit` class provides a nice API to manipulate the sequence of instructions.
+Usually, :class:`~qat.core.Circuit` are directly fed to QPUs via a Python interface
+
+Please note that this framework can be used to define a :ref:`combinatorial problems <combinatorial_problem_description>` from which QAOA instances can be generated. This
+feature is discussed in another section of the documentation
+
+.. card:: Creating a custom quantum circuit
+
+    .. tab-set::
+
+        .. tab-item:: Defining a Quantum Routine
+            :selected:
+
+            A pure quantum circuit is a Quantum Routine. These objects can be built using :class:`~qat.lang.QRoutine` or the :func:`~qat.lang.qrout`
+            decorator.
+
+            This decorator is used to build a quantum routine using a Python function. This Python function executes the quantum gates one by one. For instance,
+            a Bell pair can be created using:
+
+            .. run-block-mem:: python bell-qrout
+
+                from qat.lang import qrout, H, CNOT
+
+                @qrout
+                def bell_pair():
+                    H(0)
+                    CNOT(0, 1)
+
+            This quantum routine can then be displayed, as any quantum circuit:
+
+            .. run-block-mem:: python bell-qrout
+
+                bell_pair.display(batchmode=True)
+
+        .. tab-item:: Defining a Quantum Program
+
+            A quantum program provides tools to create advanced quantum circuits. These circuits can be composed of intermediate measurement, classical instructions,
+            etc. Quantum bits and Classical bits must be allocated manually. For instance:
+
+            .. run-block:: python
+
+                from qat.lang import Program, H, CNOT
+
+                prog = Program()
+                qbits = prog.qalloc(2)  # Allocate 2 qubits
+                H(qbits[0])
+                CNOT(qbits[0], qbits[1])
+
+                circ = prog.to_circ()
+                circ.display(batchmode=True)
+
+        .. tab-item:: Defining a Quantum Function
+
+            A quantum circuit can be wrapped into a Python function. This Python function executes the quantum gates one by one and returns a list of qubits or an
+            :class:`~qat.core.Observable` (if a list of qubits is returned, these qubits are sampled; if an :class:`~qat.core.Observable` is returned, this observable is measured)
+
+            .. run-block:: python
+
+                from qat.lang import qfunc, H, CNOT
+
+                @qfunc
+                def bell_pair():
+                    H(0)
+                    CNOT(0, 1)
+
+                    return [0, 1]
+
+                for sample in bell_pair():
+                    print(f"State {sample.state} amplitude {sample.amplitude}")
+
+            In this example, this function performs a call to the default QPU to simulate the quantum circuit
+
+.. autocard::
+
+Some submodules of the pyAQASM library provide high-level routines or algorithms:
+
+- :mod:`~qat.lang.AQASM.qftarith` provides QFT-based implementation of various arithmetic operations (including QFT itself)
+- :mod:`~qat.lang.AQASM.classarith` provides carry-arithmetic operations
+- :mod:`~qat.lang.AQASM.arithmetic` provides a unified interface for all arithmetic operations

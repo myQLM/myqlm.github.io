@@ -1,0 +1,42 @@
+.. _comb_prob_description:
+
+General Combinatorial Problems
+==============================
+
+The most general way to specify a combinatorial problem is by explicitly declaring boolean variables (:class:`~qat.opt.boolexpr.Var`) and  clauses (:class:`~qat.opt.boolexpr.Clause`) combining these variables. This is achieved via the :class:`qat.opt.CombinatorialProblem` class. While :ref:`Ising <ising_description>` and :ref:`QUBO <qubo_description>` effectively accept only up to two-variable terms, one can define clauses in :class:`~qat.opt.CombinatorialProblem` with as many variables as desired. Here is an example of encoding a simple instance of the famous 3-SAT NP-hard problem:
+
+.. run-block:: python
+
+    from qat.opt import CombinatorialProblem
+
+    # Create a problem
+    comb_prob = CombinatorialProblem("3-SAT")
+
+    # Declare five variables
+    x0, x1, x2, x3, x4 = comb_prob.new_vars(5)
+
+    # Add (weighted) clauses between variables - for 3-SAT they will only contain <= 3 variables
+    comb_prob.add_clause( x0 &  x2 ^ ~x3 , weight=0.75)
+    comb_prob.add_clause(~x1 ^  x3 ^  x4 , weight=1.12)
+    comb_prob.add_clause( x4 & (x0 ^ ~x1), weight=0.86)
+
+    print(comb_prob, "\n")
+
+    # Can translate to an Observable for a gate-based manipulation
+    comb_prob_obs = comb_prob.get_observable()
+    print("As Observable:")
+    print(comb_prob_obs)
+
+.. only:: qlm
+
+    .. note::
+
+        * Only for the case of no more than two variables, a translation to the :ref:`Ising <ising_description>` and :ref:`QUBO <qubo_description>` formulations is available (via the :meth:`~qat.opt.CombinatorialProblem.to_ising` and :meth:`~qat.opt.CombinatorialProblem.to_qubo` methods) and hence can be solved with :ref:`Simulated Quantum Annealing (SQA) <simulated_quantum_annealing>`.
+        * However, Combinatorial problems with more than 2-variable clauses **can** still be translated to a gate-based :class:`~qat.core.Observable` (as exemplified above) and solved via the Quantum Approximate Optimization Algorithm (:ref:`QAOA <qaoa>`) or the analog Quantum Annealing (:ref:`QA <quantum_annealing>`) as we describe in the :ref:`Combinatorial Optimization <combinatorial_optimization>` section.
+
+.. only:: myqlm
+
+    .. note::
+
+        * Only for the case of no more than two variables per clause, a translation to the :ref:`Ising <ising_description>` and :ref:`QUBO <qubo_description>` formulations is available (via the :meth:`~qat.opt.CombinatorialProblem.to_ising` and :meth:`~qat.opt.CombinatorialProblem.to_qubo` methods) and hence can be solved with :ref:`Simulated Annealing (SA) <simulated_annealing>`.
+        * However, Combinatorial problems with more than 2-variable clauses **can** still be translated to a gate-based :class:`~qat.core.Observable` (as exemplified above) and e.g. solved via the Quantum Approximate Optimization Algorithm (:ref:`QAOA <qaoa>`) as we describe in the :ref:`Combinatorial Optimization <combinatorial_optimization>` section.

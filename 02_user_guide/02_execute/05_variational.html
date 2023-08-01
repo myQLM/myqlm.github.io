@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Running variational algorithms &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../static/documentation_options.js"></script>
+        <script src="../../static/jquery.js"></script>
+        <script src="../../static/underscore.js"></script>
+        <script src="../../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../static/doctools.js"></script>
+        <script src="../../static/sphinx_highlight.js"></script>
+        <script src="../../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Spin and fermionic systems" href="../../fermion.html" />
+    <link rel="prev" title="Getting information from the QPU" href="04_plugin/03_hardware_specs.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                myQLM-1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../02_execute.html">Executing quantum programs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="01_job.html">Constructing one or multiple Jobs (using Batch)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_result.html">Result of a quantum program</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_qpu.html">Quantum Processing Unit (QPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="04_plugin.html">Extending a QPU (by using Plugins)</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Running variational algorithms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#extending-a-qpu-to-support-variational-jobs">Extending a QPU to support variational jobs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#differentiating-jobs">Differentiating jobs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#testing-for-several-initializations-of-the-parameters">Testing for several initializations of the parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../02_execute.html">Executing quantum programs</a> &raquo;</li>
+      <li>Running variational algorithms</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="running-variational-algorithms">
+<span id="running-variational"></span><h1>Running variational algorithms<a class="headerlink" href="#running-variational-algorithms" title="Permalink to this heading"></a></h1>
+<p>This framework comes with a collection of tools to efficiently describe and run variational quantum algorithm.
+This page introduces the basic mechanics allowing you to write variational schemes.</p>
+<p>Writing <a class="reference internal" href="../01_write/01_digital_circuit/02_variational.html#gate-based-variational"><span class="std std-ref">variational circuits</span></a> is discussed in another section.</p>
+<section id="extending-a-qpu-to-support-variational-jobs">
+<h2>Extending a QPU to support variational jobs<a class="headerlink" href="#extending-a-qpu-to-support-variational-jobs" title="Permalink to this heading"></a></h2>
+<p>The simplest way to run a variational algorithm is to use a <a class="reference internal" href="04_plugin.html#plugin"><span class="std std-ref">dedicated Plugin</span></a> that will take care of the energy
+minimization.</p>
+<p>The default variational Plugin wraps the <cite>scipy.optimize.minimize</cite> function: <a class="reference internal" href="../../04_api_reference/module_qat/module_plugins/scipyminimizeplugin.html#qat.plugins.ScipyMinimizePlugin" title="qat.plugins.ScipyMinimizePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScipyMinimizePlugin</span></code></a>. This plugin
+extends an exisiting QPU by using the “|” operator</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.plugins</span> <span class="kn">import</span> <span class="n">ScipyMinimizePlugin</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+
+<span class="n">qpu</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">ScipyMinimizePlugin</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;COBYLA&quot;</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;maxiter&quot;</span><span class="p">:</span> <span class="mi">150</span><span class="p">})</span>
+    <span class="o">|</span> <span class="n">get_default_qpu</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This new QPU will optimize the abstract variable parametrizing the submitted job, to minimize the measured average value of the
+<a class="reference internal" href="../01_write/03_observable.html#observable"><span class="std std-ref">observable</span></a> attached to the job.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
+
+<span class="c1"># Define the observable</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># Define the Ansatz</span>
+<span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">ansatz</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="s2">&quot; Dummy Ansatz&quot;</span>
+    <span class="k">for</span> <span class="n">qbit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">RY</span><span class="p">(</span><span class="n">theta</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
+        <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
+
+<span class="c1"># Define job and submit it</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">ansatz</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;final energy:&#39;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;best parameters:&#39;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">parameter_map</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;trace:&#39;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">meta_data</span><span class="p">[</span><span class="s1">&#39;optimization_trace&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">final</span> <span class="n">energy</span><span class="p">:</span> <span class="o">-</span><span class="mf">11.159205436404164</span>
+<span class="n">best</span> <span class="n">parameters</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">4.116873765517227</span><span class="p">,</span> <span class="s1">&#39;theta&#39;</span><span class="p">:</span> <span class="mf">0.8404612837693991</span><span class="p">}</span>
+<span class="n">trace</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.4875720430303865</span><span class="p">,</span> <span class="mf">0.49368293745518443</span><span class="p">,</span> <span class="mf">0.21193092700900396</span><span class="p">,</span> <span class="mf">0.5255995130962899</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.503085045148301</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.13283140536854712</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.783491230255</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.4963870341353935</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.6511498167500664</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.1440021430681515</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.8171750052724285</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5046598921615995</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0254856418037264</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.072842964674157</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.190588476859089</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.262023402059351</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.019509843534917</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.417677820966498</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.4552969099544995</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.153972324577925</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.6214895824968028</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.7004846705456536</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.8582757431947896</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.966351356267941</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.113214690042543</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.243079964104541</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.3792708539389675</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.516055756229239</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.653724745157091</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.791146883177052</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.926719950778997</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0629723398429824</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.199320763414942</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.332988805110594</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.462155741538632</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.598882245669733</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.738105495967989</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.872102827343351</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.009426417970143</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.145771480226587</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.28195158328494</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.415878828390888</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.553437265716839</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.685939255440046</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.822761526466617</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.94969398850521</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.0633905475046195</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.201377564340534</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.349511422575376</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.469225684190021</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.614047125838164</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.717184466902699</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.843975108090747</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.891305424536656</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0224717429579</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.798401084484717</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.954914041779761</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.06989428172971</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.057518070954664</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.094341205134276</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.133095526988358</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.159957294953603</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.194981308664083</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.228962116044245</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.263042769608344</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.297086532809052</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.33117273462552</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.36524188910162</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.399316194788115</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.433388827476708</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.46745245977281</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.501524727708635</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.535587226687738</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.56956237416871</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.603630495174656</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.637641158964426</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.6717079062579</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.70575215213419</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.739830532904783</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.77388957692592</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.807969447598555</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.842040618905571</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.87611732945243</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.910193494642503</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.944268830665825</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.97834502405204</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.012420831852639</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.046496821185517</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.080572807908595</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.1146487891836</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.148724751646075</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.182800558252941</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.216873869604193</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.250950195625395</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.285026550259149</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.319102614730358</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.353178595847206</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.387254569450858</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.42133025950167</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.45540632594907</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.489482345280285</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.523558315252052</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.557634321850617</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.591710310868367</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.62578630994125</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.65986230638379</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.693937533999009</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.728013779043426</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.762089481530925</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.79616552120957</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.830241542771287</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.864317495496795</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.898393508155115</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.932469488892357</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.966545488882044</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.000621490605049</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.034697489274947</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.0687734876366</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.102849486307537</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.136925485209787</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.17100147744967</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.20507747790505</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.239153474236344</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.273229473933888</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.307305472024225</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.341381471135714</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.375457470075453</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.409533466869052</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.443609466071157</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.47768546428261</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.511761463348861</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.54583746212234</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.57991346000216</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.613989459197738</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.648065458064831</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.682141456977407</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.716217455678049</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.750293454383293</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.784369453352266</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.81844544893474</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.852521448960252</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.886597445985455</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.92067344545519</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.954749444041585</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.98882544303125</span><span class="p">,</span> <span class="o">-</span><span class="mf">11.022901441109802</span><span class="p">,</span> <span class="o">-</span><span class="mf">11.056977440212009</span><span class="p">,</span> <span class="o">-</span><span class="mf">11.09105343868252</span><span class="p">,</span> <span class="o">-</span><span class="mf">11.125129437556055</span><span class="p">,</span> <span class="o">-</span><span class="mf">11.159205436404164</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This plugin also supports a nice feature: it can read optimization parameters directly from the job’s meta data or directly from the
+result. This allows you to build a stack with no particular choice of optimization parameters and attach these parameters
+directly to the job when submitting it. In this setting, the previous example becomes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">qat.plugins</span> <span class="kn">import</span> <span class="n">ScipyMinimizePlugin</span>
+<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
+
+<span class="n">qpu</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">ScipyMinimizePlugin</span><span class="p">()</span>
+    <span class="o">|</span> <span class="n">get_default_qpu</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
+<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
+
+<span class="c1"># Define the observable</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># Define the Ansatz</span>
+<span class="nd">@qrout</span>
+<span class="k">def</span> <span class="nf">ansatz</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="s2">&quot; Dummy Ansatz&quot;</span>
+    <span class="k">for</span> <span class="n">qbit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">RY</span><span class="p">(</span><span class="n">theta</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
+        <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
+
+<span class="c1"># Define job and submit it</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">ansatz</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">)</span>
+
+<span class="n">optimizer_args</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;COBYLA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tol&quot;</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">,</span>
+    <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;maxiter&quot;</span><span class="p">:</span> <span class="mi">150</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">meta_data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;ScipyMinimizePlugin&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">optimizer_args</span><span class="p">)})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;final energy:&#39;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;best parameters:&#39;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">parameter_map</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;trace:&#39;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">meta_data</span><span class="p">[</span><span class="s1">&#39;optimization_trace&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">final</span> <span class="n">energy</span><span class="p">:</span> <span class="o">-</span><span class="mf">9.924742059663798</span>
+<span class="n">best</span> <span class="n">parameters</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="mf">5.550830483778759</span><span class="p">,</span> <span class="s1">&#39;theta&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.8404614115759171</span><span class="p">}</span>
+<span class="n">trace</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.08401976200658699</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08233517771074313</span><span class="p">,</span> <span class="mf">0.6023529598891653</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.510297905323923</span><span class="p">,</span> <span class="mf">0.5270533247845244</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5012324382343425</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.30591502486654626</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5915100608247061</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.420341031419571</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.3064088466525914</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.8333537124918893</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.084143741987277</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.3577462014919113</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.6335185795945693</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.910626176991359</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.1826109492883172</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.4557371317152255</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.7282737673307222</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.9950970012463753</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.250717090332203</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.529612996795096</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.8004745749716955</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.064438588821647</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.22063066070576</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.541316031156243</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.415847840857058</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.514822139372984</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.406582435467088</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.557441676285006</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.444165643837258</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.649661481602026</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.6830690201901675</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.75970716474425</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.827333567670686</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.894869930425053</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.9624861812159295</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.030590552756527</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.095814611979874</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.160178561068972</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.225886363398013</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.286841950138058</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.240164248113073</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.329262330987829</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.2282712459346055</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.366790039198461</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.401466687689834</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.4318019215609326</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.466071912216181</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.500157937561308</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.534084850806664</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.56762644356643</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.596292035207991</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.632184184513294</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.664558440467622</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.698634866658601</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.732595618919122</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.766360013676194</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.79903680834121</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.82293121633197</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.856757488674391</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.890871226675827</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.925195563589001</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.959692272813623</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.994264472127922</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.028743634689009</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.0630336457149845</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.097163165981084</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.130954257247035</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.165166851027995</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.199025973089443</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.233127404744561</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.2672025414684205</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.301278417430586</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.335334100126067</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.369396188486896</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.403465702367088</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.437524007094742</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.471419568188592</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.505537800492096</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.539530677851376</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.573621555045166</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.607700840065992</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.641777098320204</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.675850239008805</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.709769863770611</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.743878185175871</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.777961536127528</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.812028214016097</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.846105546879409</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.880182461751119</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.914258500082366</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.948334460345512</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.982410403604176</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.016486048021566</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.050562099698244</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.084638138616288</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.118714129397544</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.15279012522775</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.186866123876827</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.220942122217203</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.255018115791025</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.289094115094318</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.323170111044984</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.357246110509834</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.391322108687456</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.425398107733841</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.459474106670234</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.49355010550492</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.527626104459138</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.561702103363714</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.595778102289177</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.629854101213533</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.663930100135078</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.69800609903912</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.7320820979627</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.766158096859286</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.800234095494872</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.83431009442576</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.868386093170585</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.90246209211436</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.93653809096394</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.970614089913257</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.004690088823562</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.038766087750549</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.072842086677817</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.106918085605432</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.140994084533599</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.175070083462455</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.209146082391307</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.24322208131911</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.2772980802465</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.311374079172726</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.345450078098143</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.37952607702562</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.413602075952976</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.447678074880178</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.481754073806732</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.515830072733879</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.54990607166</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.583982070575955</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.618058069502641</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.652134068421383</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.686210067346781</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.72028606626867</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.754362065193266</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.788438064116454</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.822514063022329</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.856590061937453</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.89066606084476</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.924742059663798</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>An alternative is the <a class="reference internal" href="../../04_api_reference/module_qat/module_plugins/seqoptim.html#qat.plugins.SeqOptim" title="qat.plugins.SeqOptim"><code class="xref py py-class docutils literal notranslate"><span class="pre">SeqOptim</span></code></a> Plugin, which only works for a certain class of circuits but stands out for its
+shot-noise resilience.</p>
+</section>
+<section id="differentiating-jobs">
+<h2>Differentiating jobs<a class="headerlink" href="#differentiating-jobs" title="Permalink to this heading"></a></h2>
+<p>Many variational algorithms require computing the gradient of the cost function <span class="math notranslate nohighlight">\(E(\vec{\theta}) = \langle \psi(\vec{\theta}) | H | \psi(\vec{\theta})\rangle\)</span>.
+The gradient can be used in gradient-based optimization methods.
+Qaptiva jobs come with methods to compute the derivative of <span class="math notranslate nohighlight">\(E(\vec{\theta})\)</span> automically: <a class="reference internal" href="../../04_api_reference/module_qat/module_core/job.html#qat.core.Job.differentiate" title="qat.core.Job.differentiate"><code class="xref py py-func docutils literal notranslate"><span class="pre">differentiate()</span></code></a> and <a class="reference internal" href="../../04_api_reference/module_qat/module_core/job.html#qat.core.Job.gradient" title="qat.core.Job.gradient"><code class="xref py py-func docutils literal notranslate"><span class="pre">gradient()</span></code></a>.</p>
+<p>Examples of use of this feature are given in <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Flang%2Fdifferentiating_jobs.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">the "differentiating jobs" notebook</a>.</p>
+</section>
+<section id="testing-for-several-initializations-of-the-parameters">
+<h2>Testing for several initializations of the parameters<a class="headerlink" href="#testing-for-several-initializations-of-the-parameters" title="Permalink to this heading"></a></h2>
+<p>Variational optimization tends to be sensitive to the initial parameters it started from. You can insert the
+<a class="reference internal" href="../../04_api_reference/module_qat/module_plugins/multiplelaunchesanalyzer.html#qat.plugins.MultipleLaunchesAnalyzer" title="qat.plugins.MultipleLaunchesAnalyzer"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleLaunchesAnalyzer</span></code></a> Plugin before a VQE optimizer to automatically perform several VQE
+runs and keep the lowest-energy result. This is illustrated in the notebook
+<a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fdigital_quantum_simulations_spin_fermion%2Fqat_fermion_multiple_launches_analyzer_plugin.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Making several VQE runs and keeping the best result with the MultipleLaunchesAnalyzer plugin</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="04_plugin/03_hardware_specs.html" class="btn btn-neutral float-left" title="Getting information from the QPU" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../fermion.html" class="btn btn-neutral float-right" title="Spin and fermionic systems" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2023.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

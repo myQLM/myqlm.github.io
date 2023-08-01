@@ -1,0 +1,19 @@
+Quantum routines (and Oracles)
+==============================
+A quantum routine is a sequence of pure quantum gate. It can be compiled into a :class:`~qat.core.Circuit`, or used
+as any quantum gate, to build a quantum program or another quantum routine. 
+
+Quantum routines provide a set of features simplifying the creation of a circuit:
+
+ - **Naming quantum routines:** naming a quantum routine is used to wrap a :class:`~qat.lang.QRoutine` into an :class:`~qat.lang.AbstractGate`. The :class:`~qat.lang.QRoutine`
+   class provides advanced feature (e.g. ancilla management, compute scope) which can simplify the creation of an :class:`~qat.lang.AbstractGate`. Moreover, naming routines
+   can be used to :ref:`link the implementation <linking_abstract_gates>` of a gate at compile time
+
+ - **Ancillae management and compute scopes:** :class:`~qat.lang.QRoutine` manages ancilla qubits (an ancilla qubit is a qubit initialized
+   at :math:`|0\rangle` state and reset to :math:`|0\rangle` at the end of the routine). :class:`~qat.lang.QRoutine` can flag these
+   qubits to reuse them inside another quantum routine. In addition, :class:`~qat.lang.QRoutine` provides scopes to compute
+   a sequence of gates, to uncompute this sequence later
+
+ - **Oracles and quantum types:** quantum registers can be typed to simplify the design of a quantum oracle
+
+.. autocard::

@@ -5,6 +5,7 @@
 
 /* Define all colors of the Eviden color scheme */
 * {
+    --eviden-orange-raw: 255, 109, 67;
     --eviden-orange: rgb(255, 109, 67);
     --eviden-deepblue: rgb(0, 45, 60);
     --eviden-gray: rgb(236, 236, 237);
@@ -36,6 +37,12 @@
 .wy-side-nav-search > div.version {
     color: var(--eviden-deepblue);
     opacity: 0.7;
+}
+
+/* Remove the max-width limit from the doc - ensure the doc fill the whole page */
+.wy-nav-content {
+    max-width: none !important;
+    min-height: 100vh;
 }
 
 
@@ -94,7 +101,7 @@ details.related-notebooks > div > a > i {
 }
 
 .qlmaas-link:hover::after {
-    content: "This QLMaaS documentation does not support notebooks for now.\AIt can however be opened from the QLM documentation if you have access to it.";
+    content: "This QLMaaS documentation does not support notebooks for now.\AIt can however be opened from the Qaptiva documentation if you have access to it.";
     white-space: break-spaces;
     display: block;
     position: absolute;
@@ -105,4 +112,14 @@ details.related-notebooks > div > a > i {
     border-left: 5px solid salmon;
     box-shadow: 1px 1px 4px black;
     z-index: 2;
+}
+
+
+/**
+ * Add a new CSS class used to display a use case. This style changes the background
+ * of the card, by using a nice gradient color
+ */
+.qaptiva-use-case {
+    background: linear-gradient(45deg, rgba(var(--eviden-orange-raw), 0.5), rgba(var(--eviden-orange-raw), 0.2));
+    border: 0 !important;
 }

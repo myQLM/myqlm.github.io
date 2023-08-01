@@ -1,0 +1,26 @@
+.. module:: qat.hardware
+
+qat.hardware
+============
+
+This module contains classes to describe a *hardware model*.
+A hardware model contains information about the hardware specificities and imperfections, such as the list of available gates, the time they take to be applied, noisy state preparation and readout, as well as noise channels caused by the coupling to the environment.
+
+It is advised to first read the user guide on noise models in :ref:`noise_models`.
+
+Hardware model and gates specifications
+---------------------------------------
+
+.. autoapi::
+
+   [:class:`qat.hardware.GatesSpecification`] Specify the gates of a quantum hardware independently of its environment
+   [:class:`qat.hardware.DefaultGatesSpecification`] GatesSpecification with perfect noise model for standard gates
+   [:class:`qat.hardware.HardwareModel`] Object containing all the necessary elements to describe a quantum hardware (gates and environment)
+   [:class:`qat.hardware.DefaultHardwareModel`] Default hardware model with perfect gates
+
+Predefined hardware models
+--------------------------
+
+.. autoapi::
+
+   [:func:`qat.hardware.make_depolarizing_hardware_model`] Generate depolarizing noise hardware models
