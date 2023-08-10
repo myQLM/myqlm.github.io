@@ -40,7 +40,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.9.2
+                myQLM-1.9.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -180,31 +180,20 @@ procedure as a python function. This is what <cite>qfunc</cite> allows:</p>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The energy for theta = </span><span class="si">{</span><span class="n">some_random_point</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">my_function</span><span class="p">(</span><span class="n">some_random_point</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="c1"># Since there is a job and a circuit underneath this function, one can also plot it:</span>
-<span class="n">my_function</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+<span class="n">my_function</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">batchmode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># The proper variational job that was built at decoration can be found here:</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">my_function</span><span class="o">.</span><span class="n">qlm_obj</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[?1049h[22;0;0t[1;24r(B[m[4l[?7h[H[2J[?1l&gt;The energy for theta = 0.5230234618785184 is 0.8663129051900285
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>The energy for theta = 6.096599484046194 is 0.9826433257112905
+ ┌─────────┐
+─┤RX[theta]├
+ └─────────┘
+            
+
+&lt;class &#39;qat.core.wrappers.job.Job&#39;&gt;
 No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
-Traceback (most recent call last):
-  File &quot;/usr/lib64/python3.9/curses/__init__.py&quot;, line 78, in wrapper
-    cbreak()
-_curses.error: cbreak() returned ERR
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 15, in &lt;module&gt;
-  File &quot;decorator.py&quot;, line 104, in qat.lang.decorator.JobEvaluator.display
-    argspec = getfullargspec(func)
-  File &quot;circuit.py&quot;, line 712, in qat.core.wrappers.circuit.Circuit.display
-  File &quot;console.py&quot;, line 648, in qat.core.console.display
-  File &quot;console.py&quot;, line 521, in qat.core.console._display_curses
-  File &quot;/usr/lib64/python3.9/curses/__init__.py&quot;, line 100, in wrapper
-    nocbreak()
-_curses.error: nocbreak() returned ERR
 </pre></div>
 </div>
 </dd></dl>
