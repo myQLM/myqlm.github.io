@@ -28,7 +28,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Sample Job" href="01_job/01_sample_job.html" />
-    <link rel="prev" title="Executing quantum programs" href="../02_execute.html" /> 
+    <link rel="prev" title="Executing / Simulating quantum programs" href="../02_execute.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,7 +40,7 @@
             <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.9.3
+                myQLM-1.9.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -56,7 +56,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../02_user_guide.html">User guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../01_write.html">Writing quantum programs</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../02_execute.html">Executing quantum programs</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../02_execute.html">Executing / Simulating quantum programs</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Constructing one or multiple Jobs (using Batch)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="01_job/01_sample_job.html">Sample Job</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01_job/02_observable_job.html">Observable Job</a></li>
@@ -101,7 +101,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../../02_user_guide.html">User guide</a> &raquo;</li>
-          <li><a href="../02_execute.html">Executing quantum programs</a> &raquo;</li>
+          <li><a href="../02_execute.html">Executing / Simulating quantum programs</a> &raquo;</li>
       <li>Constructing one or multiple Jobs (using Batch)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -150,23 +150,27 @@ In addition to the quantum circuit, the user can provide several options when co
 <blockquote>
 <div><ul class="simple">
 <li><p>The <strong>type of final measurement</strong> to perform: standard measurement in computational basis <code class="docutils literal notranslate"><span class="pre">SAMPLE</span></code> or sampling of an observable <code class="docutils literal notranslate"><span class="pre">OBS</span></code></p></li>
-<li><p>The <strong>number of shots</strong>, to perform</p></li>
+<li><p>The <strong>number of shots</strong> to perform</p></li>
 <li><p>The <strong>qubits</strong> to be measured</p></li>
 <li><p>The format of the returned result: whether to <strong>aggregate</strong> the samples</p></li>
-<li><p>The <strong>amplitude threshold</strong> of the final measurement: states with amplitude under the threshold will be considered null</p></li>
+<li><p>The <strong>amplitude threshold</strong> of the final measurement: states with amplitude having a norm lower than this threshold will be considered null</p></li>
 <li><p>The <strong>initial quantum state</strong> of the simulation</p></li>
 <li><p>In case of a variational job, the value of all the <strong>binded variables</strong></p></li>
 </ul>
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>By default, the processing type is <code class="docutils literal notranslate"><span class="pre">SAMPLE</span></code>, with all qubits being measured, and an infinite number of shots (i.e no statistical uncertainty).</p>
+<p>By default, the processing type is <code class="docutils literal notranslate"><span class="pre">SAMPLE</span></code>, with all qubits being measured, and a maximal number of shots (infinite
+number of shots / no statistical uncertainty when using a simulated QPU)</p>
+<p>Having a <strong>number of shots</strong> equals to <code class="docutils literal notranslate"><span class="pre">0</span></code> means that the maximal number of shots
+will be performed on the QPU. If a simulated QPU is used, an infinite number of
+shots will be performed (i.e. no statistical uncertainty).</p>
 </div>
 <p>In most cases, the job object is not meant to be constructed manually. Instead, it is generated from a <a class="reference internal" href="../../04_api_reference/module_qat/module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a>
 using the <a class="reference internal" href="../../04_api_reference/module_qat/module_core/circuit.html#qat.core.Circuit.to_job" title="qat.core.Circuit.to_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_job()</span></code></a> method. The job can then be sent to the <a class="reference internal" href="03_qpu.html#qpu"><span class="std std-ref">QPU</span></a> to be simulated.</p>
 <p>The <a class="reference internal" href="../../04_api_reference/module_qat/module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a> class contains a list of jobs, allowing several circuits to be sent to a QPU with only a single request.
 A batch can also include a <strong>meta_data</strong> field if the QPU accepts metadata so that it can be configured with batch related options.</p>
-<p>The code block below shows a simple example using a batch to simulate a circuit:</p>
+<p>The code block below shows a simple example using a job to simulate a circuit:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import a Quantum Processor Unit Factory (the default one)</span>
 <span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
 
@@ -224,7 +228,7 @@ Automated batch generation</div>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../02_execute.html" class="btn btn-neutral float-left" title="Executing quantum programs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../02_execute.html" class="btn btn-neutral float-left" title="Executing / Simulating quantum programs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="01_job/01_sample_job.html" class="btn btn-neutral float-right" title="Sample Job" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

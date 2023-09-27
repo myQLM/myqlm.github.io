@@ -1,0 +1,26 @@
+qat.core.variables.get_item
+===========================
+
+.. function:: qat.core.variables.get_item(list, index)
+
+    A Symbol allowing the extraction of an element from a list by its index.
+    The list may contain integers, real or complex numbers, but not objects of
+    other types.
+
+    .. run-block:: python
+
+        from qat.core.variables import get_item, Variable
+
+        my_list = [1, 2.3, -3.45 + 6j]
+        idx_var = Variable("i")
+        get_item_expr = get_item(my_list, idx_var)
+        print(get_item_expr(i=2))
+
+    :param list: a list of integers, real or complex numbers
+    :type list: list
+
+    :param index: integer number
+    :type index: :class:`~qat.core.Variable` or :class:`~qat.core.variables.ArithExpression` or number
+
+    :return: the list element
+    :rtype: integer, real or complex number

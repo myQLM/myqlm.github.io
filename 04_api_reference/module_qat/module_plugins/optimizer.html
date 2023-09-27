@@ -38,7 +38,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.9.3
+                myQLM-1.9.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -152,20 +152,61 @@ binding method of the job. E.g gate set, matrix generation parameters, etc.</p><
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="qat.plugins.Optimizer.compile">
-<span class="sig-name descname"><span class="pre">compile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.wrappers.batch.Batch"><span class="pre">Batch</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.wrappers.batch.Batch"><span class="pre">Batch</span></a></span></span><a class="headerlink" href="#qat.plugins.Optimizer.compile" title="Permalink to this definition"></a></dt>
-<dd><p>Loops a batch through all the plugins present inside the QPU.</p>
+<dt class="sig sig-object py" id="qat.plugins.Optimizer.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.Optimizer.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Bind variables into the abstract job/batch, execute the job/batch and return the
+“value” field of the returned Result object or the sum of the result values if a
+BatchResult is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>batch</strong> (<a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><em>Batch</em></a>) – a batch of jobs. If a single job is provided, the
-job is embedded into a Batch, compiled, and the first result is
-returned.</p>
+<dd class="field-odd"><p><strong>values</strong> (<em>dict</em>) – a dictionary of values (str, float)</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a batch of jobs</p>
+<dd class="field-even"><p>a floating point number or a complex, depending
+on the structure of the Job</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(<a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.Batch">Batch</a>)</p>
+<dd class="field-odd"><p>float or complex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.plugins.Optimizer.optimize">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">optimize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.Optimizer.optimize" title="Permalink to this definition"></a></dt>
+<dd><p>This function will be called upon the reception of a fresh
+abstract QLM object (e.g a Job or a Batch depending the Junction
+configuration).</p>
+<p>Upon reception of a fresh QLM object (Job, Batch), the object is stored
+in the <cite>self.job</cite> attribute, and this method is called with as single argument
+the list of all the variables appearing inside the object.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is an abstract method with no default implementation.
+You should build your own optimizer by inheriting from this class
+and implementing your own <cite>.optimize</cite> method.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>var_names</strong> (<em>list</em>) – the list of variables to optimize upon</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>this method should return a triplet of
+values with:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>the optimal value found (this will correspond to the .value field in the
+final result object)</p></li>
+<li><p>the optimal values of the parameters (these will be stored in the meta_data
+using the “parameters” key in the final result object)</p></li>
+<li><p>any additional information (these will be also stored in the meta_data field
+using the “optimizer_data” key)</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(float, list/np.ndarray, object)</p>
 </dd>
 </dl>
 </dd></dl>

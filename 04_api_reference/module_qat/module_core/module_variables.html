@@ -38,7 +38,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                myQLM-1.9.3
+                myQLM-1.9.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -67,6 +67,19 @@
 <li class="toctree-l4 current"><a class="current reference internal" href="#">qat.core.variables</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="module_variables/arithexpression.html">qat.core.variables.ArithExpression</a></li>
 <li class="toctree-l5"><a class="reference internal" href="module_variables/symbol.html">qat.core.variables.Symbol</a></li>
+<li class="toctree-l5"><a class="reference internal" href="module_variables/abso.html">qat.core.variables.abso</a></li>
+<li class="toctree-l5"><a class="reference internal" href="module_variables/angle.html">qat.core.variables.angle</a></li>
+<li class="toctree-l5"><a class="reference internal" href="module_variables/atan2.html">qat.core.variables.atan2</a></li>
+<li class="toctree-l5"><a class="reference internal" href="module_variables/cos.html">qat.core.variables.cos</a></li>
+<li class="toctree-l5"><a class="reference internal" href="module_variables/exp.html">qat.core.variables.exp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="module_variables/get_item.html">qat.core.variables.get_item</a></li>
+<li class="toctree-l5"><a class="reference internal" href="module_variables/heaviside.html">qat.core.variables.heaviside</a></li>
+<li class="toctree-l5"><a class="reference internal" href="module_variables/imag.html">qat.core.variables.imag</a></li>
+<li class="toctree-l5"><a class="reference internal" href="module_variables/ln.html">qat.core.variables.ln</a></li>
+<li class="toctree-l5"><a class="reference internal" href="module_variables/real.html">qat.core.variables.real</a></li>
+<li class="toctree-l5"><a class="reference internal" href="module_variables/sin.html">qat.core.variables.sin</a></li>
+<li class="toctree-l5"><a class="reference internal" href="module_variables/sqrt.html">qat.core.variables.sqrt</a></li>
+<li class="toctree-l5"><a class="reference internal" href="module_variables/vmax.html">qat.core.variables.vmax</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="batch.html">qat.core.Batch</a></li>
@@ -162,48 +175,65 @@
 </table>
 <div class="toctree-wrapper compound">
 </div>
-<p>It is possible to extend the set of symbols supported by this abstract expression mechanics by
-extending the list of a symbols with a new <a class="reference internal" href="module_variables/symbol.html#qat.core.variables.Symbol" title="qat.core.variables.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">Symbol</span></code></a>. The only constraint
-is that the new symbols should have a fixed arity that is known in advance.</p>
-<p>Defined symbols can be accessed via the <cite>ALL_SYMBOLS</cite> module variable:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.variables</span> <span class="kn">import</span> <span class="n">ALL_SYMBOLS</span>
-
-<span class="k">for</span> <span class="n">token</span><span class="p">,</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">ALL_SYMBOLS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">symbol</span><span class="o">.</span><span class="n">evaluator</span><span class="p">,</span> <span class="n">symbol</span><span class="o">.</span><span class="n">arity</span><span class="p">)</span>
-</pre></div>
+<p>This framework provides a set of symbols:</p>
+<table class="colwidths-given docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_variables/abso.html#qat.core.variables.abso" title="qat.core.variables.abso"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.variables.abso()</span></code></a></p></td>
+<td><p>Absolute value of a (complex) number</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_variables/angle.html#qat.core.variables.angle" title="qat.core.variables.angle"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.variables.angle()</span></code></a></p></td>
+<td><p>Angle in the complex plane of a complex number</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_variables/atan2.html#qat.core.variables.atan2" title="qat.core.variables.atan2"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.variables.atan2()</span></code></a></p></td>
+<td><p>The atan2 function from the <cite>math</cite> library</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_variables/cos.html#qat.core.variables.cos" title="qat.core.variables.cos"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.variables.cos()</span></code></a></p></td>
+<td><p>Cosinus function</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_variables/exp.html#qat.core.variables.exp" title="qat.core.variables.exp"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.variables.exp()</span></code></a></p></td>
+<td><p>Natural exponential function</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_variables/get_item.html#qat.core.variables.get_item" title="qat.core.variables.get_item"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.variables.get_item()</span></code></a></p></td>
+<td><p>A function extracting a number by its position in an array</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_variables/heaviside.html#qat.core.variables.heaviside" title="qat.core.variables.heaviside"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.variables.heaviside()</span></code></a></p></td>
+<td><p>Heaviside function</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_variables/imag.html#qat.core.variables.imag" title="qat.core.variables.imag"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.variables.imag()</span></code></a></p></td>
+<td><p>Imaginary part extraction function</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_variables/ln.html#qat.core.variables.ln" title="qat.core.variables.ln"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.variables.ln()</span></code></a></p></td>
+<td><p>Natural logarithm function</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_variables/real.html#qat.core.variables.real" title="qat.core.variables.real"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.variables.real()</span></code></a></p></td>
+<td><p>Real part extraction function</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_variables/sin.html#qat.core.variables.sin" title="qat.core.variables.sin"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.variables.sin()</span></code></a></p></td>
+<td><p>Sinus function</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_variables/sqrt.html#qat.core.variables.sqrt" title="qat.core.variables.sqrt"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.variables.sqrt()</span></code></a></p></td>
+<td><p>Square root function</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_variables/vmax.html#qat.core.variables.vmax" title="qat.core.variables.vmax"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.variables.vmax()</span></code></a></p></td>
+<td><p>Maximum of two numbers</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x1480ca801ba0</span><span class="o">&gt;</span> <span class="mi">2</span>
-<span class="o">*</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x1480ca801d40</span><span class="o">&gt;</span> <span class="mi">2</span>
-<span class="o">-</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x1480ca801ee0</span><span class="o">&gt;</span> <span class="mi">2</span>
-<span class="n">UMINUS</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x1480ca80c110</span><span class="o">&gt;</span> <span class="mi">1</span>
-<span class="o">/</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x1480ca80c2b0</span><span class="o">&gt;</span> <span class="mi">2</span>
-<span class="o">**</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x1480ca80c450</span><span class="o">&gt;</span> <span class="mi">2</span>
-<span class="n">cos</span> <span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">&#39;cos&#39;</span><span class="o">&gt;</span> <span class="mi">1</span>
-<span class="n">sin</span> <span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">&#39;sin&#39;</span><span class="o">&gt;</span> <span class="mi">1</span>
-<span class="n">exp</span> <span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">&#39;exp&#39;</span><span class="o">&gt;</span> <span class="mi">1</span>
-<span class="n">sqrt</span> <span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">&#39;sqrt&#39;</span><span class="o">&gt;</span> <span class="mi">1</span>
-<span class="n">heaviside</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x1480ca80c930</span><span class="o">&gt;</span> <span class="mi">3</span>
-<span class="nb">max</span> <span class="o">&lt;</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">function</span> <span class="nb">max</span><span class="o">&gt;</span> <span class="mi">2</span>
-<span class="n">ln</span> <span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">&#39;log&#39;</span><span class="o">&gt;</span> <span class="mi">1</span>
-<span class="n">real</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">real</span> <span class="n">at</span> <span class="mh">0x1480cb283a60</span><span class="o">&gt;</span> <span class="mi">1</span>
-<span class="n">imag</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">imag</span> <span class="n">at</span> <span class="mh">0x1480cb283c10</span><span class="o">&gt;</span> <span class="mi">1</span>
-<span class="n">angle</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">angle</span> <span class="n">at</span> <span class="mh">0x1480cb1d03a0</span><span class="o">&gt;</span> <span class="mi">1</span>
-<span class="nb">abs</span> <span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">&#39;absolute&#39;</span><span class="o">&gt;</span> <span class="mi">1</span>
-<span class="n">atan2</span> <span class="o">&lt;</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">function</span> <span class="n">atan2</span><span class="o">&gt;</span> <span class="mi">2</span>
-<span class="n">get_item</span> <span class="o">&lt;</span><span class="n">cyfunction</span> <span class="o">&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x1480ca80cad0</span><span class="o">&gt;</span> <span class="mi">2</span>
-</pre></div>
-</div>
-<p>For instance, the following piece of code adds a new symbol that represents the min between two numeric values.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.variables</span> <span class="kn">import</span> <span class="n">Variable</span><span class="p">,</span> <span class="n">Symbol</span><span class="p">,</span> <span class="n">ALL_SYMBOLS</span>
+<p>User defined symbols can be created using the class <a class="reference internal" href="module_variables/symbol.html#qat.core.variables.Symbol" title="qat.core.variables.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">Symbol</span></code></a>.
+For instance, the following piece of code adds a new symbol that represents the min between two numeric values.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.variables</span> <span class="kn">import</span> <span class="n">Variable</span><span class="p">,</span> <span class="n">Symbol</span>
 
 <span class="c1"># token will &quot;min&quot;</span>
 <span class="c1"># underlying function is the standard `min`</span>
 <span class="c1"># it has arity 2</span>
 <span class="c1"># it is not an infix operator</span>
 <span class="n">my_min</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="nb">min</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">infix</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="c1"># This step is necessary if we want to be able to bind variables in expressions containing min</span>
-<span class="n">ALL_SYMBOLS</span><span class="p">[</span><span class="s2">&quot;min&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">my_min</span>
 
 <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">),</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
 
@@ -223,7 +253,44 @@ is that the new symbols should have a fixed arity that is known in advance.</p>
 <p>If you create a Symbol in your environment, but choose to send it for evaluation to a remote Qaptiva appliance,
 the remote environment will not be aware of this new Symbol and the expression evaluation might fail.</p>
 </div>
-</section>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Listing defined symbols and getting their arity<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Defined symbols can be accessed via the <cite>ALL_SYMBOLS</cite> module variable. The only constraint
+is that the new symbols should have a fixed arity that is known in advance.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core.variables</span> <span class="kn">import</span> <span class="n">ALL_SYMBOLS</span>
+
+<span class="k">for</span> <span class="n">token</span><span class="p">,</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">ALL_SYMBOLS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Symbol </span><span class="si">{</span><span class="n">token</span><span class="si">!r}</span><span class="s2"> takes </span><span class="si">{</span><span class="n">symbol</span><span class="o">.</span><span class="n">arity</span><span class="si">}</span><span class="s2"> argument(s)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Symbol</span> <span class="s1">&#39;+&#39;</span> <span class="n">takes</span> <span class="mi">2</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;*&#39;</span> <span class="n">takes</span> <span class="mi">2</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;-&#39;</span> <span class="n">takes</span> <span class="mi">2</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;UMINUS&#39;</span> <span class="n">takes</span> <span class="mi">1</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;/&#39;</span> <span class="n">takes</span> <span class="mi">2</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;**&#39;</span> <span class="n">takes</span> <span class="mi">2</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;cos&#39;</span> <span class="n">takes</span> <span class="mi">1</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;sin&#39;</span> <span class="n">takes</span> <span class="mi">1</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;exp&#39;</span> <span class="n">takes</span> <span class="mi">1</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;sqrt&#39;</span> <span class="n">takes</span> <span class="mi">1</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;heaviside&#39;</span> <span class="n">takes</span> <span class="mi">3</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;max&#39;</span> <span class="n">takes</span> <span class="mi">2</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;ln&#39;</span> <span class="n">takes</span> <span class="mi">1</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;real&#39;</span> <span class="n">takes</span> <span class="mi">1</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;imag&#39;</span> <span class="n">takes</span> <span class="mi">1</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;angle&#39;</span> <span class="n">takes</span> <span class="mi">1</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;abs&#39;</span> <span class="n">takes</span> <span class="mi">1</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;atan2&#39;</span> <span class="n">takes</span> <span class="mi">2</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Symbol</span> <span class="s1">&#39;get_item&#39;</span> <span class="n">takes</span> <span class="mi">2</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details></section>
 
 
            </div>

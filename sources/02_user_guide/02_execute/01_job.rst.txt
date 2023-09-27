@@ -41,16 +41,22 @@ To contain these informations, the quantum jobs are wrapped in a :class:`~qat.co
 In addition to the quantum circuit, the user can provide several options when constructing the quantum job:
     
     - The **type of final measurement** to perform: standard measurement in computational basis ``SAMPLE`` or sampling of an observable ``OBS``
-    - The **number of shots**, to perform
+    - The **number of shots** to perform
     - The **qubits** to be measured
     - The format of the returned result: whether to **aggregate** the samples
-    - The **amplitude threshold** of the final measurement: states with amplitude under the threshold will be considered null
+    - The **amplitude threshold** of the final measurement: states with amplitude having a norm lower than this threshold will be considered null
     - The **initial quantum state** of the simulation
     - In case of a variational job, the value of all the **binded variables**
 
 
 .. note::
-    By default, the processing type is ``SAMPLE``, with all qubits being measured, and an infinite number of shots (i.e no statistical uncertainty).
+
+    By default, the processing type is ``SAMPLE``, with all qubits being measured, and a maximal number of shots (infinite
+    number of shots / no statistical uncertainty when using a simulated QPU)
+
+    Having a **number of shots** equals to ``0`` means that the maximal number of shots
+    will be performed on the QPU. If a simulated QPU is used, an infinite number of
+    shots will be performed (i.e. no statistical uncertainty).
 
 
 In most cases, the job object is not meant to be constructed manually. Instead, it is generated from a :class:`~qat.core.Circuit` 
@@ -60,7 +66,7 @@ The :class:`~qat.core.Batch` class contains a list of jobs, allowing several cir
 A batch can also include a **meta_data** field if the QPU accepts metadata so that it can be configured with batch related options. 
  
 
-The code block below shows a simple example using a batch to simulate a circuit:
+The code block below shows a simple example using a job to simulate a circuit:
 
 
 .. code-block:: python
