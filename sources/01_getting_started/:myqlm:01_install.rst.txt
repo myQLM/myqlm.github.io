@@ -44,24 +44,30 @@ Please install myQLM by typing the following command in a Windows, :ref:`MacOS <
 
 .. tab-set::
 
-    .. tab-item:: Using pip
+    .. tab-item:: CPython
 
         .. code-block::
 
             pip install myqlm
 
-    .. tab-item:: Using conda
+            # For python < 3.11
+            pip install dill==0.3.5.1
+
+    .. tab-item:: Conda
 
         .. code-block::
 
             conda install -c myqlm myqlm
 
-For CPython, the command above installs all dependency packages needed for myqlm to work, but not under Conda.
-The Conda enviromnent resolver can take an infinite time to complete, and will likely fail because it does not have all myqlm requirements.
+            # For python < 3.11
+            conda install -c conda-forge dill=0.3.5.1
+
+For CPython, the commands above install all dependency packages needed for myqlm to work, but not under Conda.
+The Conda environment resolver can take an infinite time to complete, and will likely fail because it does not have all myqlm requirements.
 Consequently, all dependency packages have not been included in the bz2 files.
-Instead, it is expected to install them manually before using myqlm. Some of them will need to be installed using pip because
-conda-forge will not have the required packages (such as thrift 0.16).
-Finally, make sure that you keep a clean base environment to avoid packages conflict and also do a conda clean --all if needed.
+Instead, it is expected to install them manually before using myqlm. Some of them will need to be installed using pip from from pypi.org
+because conda-forge does not have all required packages (such as thrift 0.16).
+Finally, make sure that you keep a clean base environment to avoid packages conflict, and use `conda clean --all` as needed.
 
 .. tab-set::
 
@@ -71,9 +77,6 @@ Finally, make sure that you keep a clean base environment to avoid packages conf
 
             conda install -c conda-forge bitstring qutip cvxpy anytree pydoe svgwrite
             pip install thrift==0.16.0 jax[cpu] pyOpenSSL wand
-
-            # For python < 3.11
-            conda install -c conda-forge dill=0.3.5.1
 
     .. tab-item:: Conda supplementary packages on Windows
 
