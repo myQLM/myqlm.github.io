@@ -40,7 +40,7 @@ Install
 Install myQLM package
 *********************
 
-Please install myQLM by typing the following command in a Windows, :ref:`MacOS <macos>` or Linux prompt:
+Please install myQLM by typing the following commands in a Windows, :ref:`MacOS <macos>` or Linux prompt:
 
 .. tab-set::
 
@@ -62,27 +62,32 @@ Please install myQLM by typing the following command in a Windows, :ref:`MacOS <
             # For python < 3.11
             conda install -c conda-forge dill=0.3.5.1
 
-For CPython, the commands above install all dependency packages needed for myqlm to work, but not under Conda.
-The Conda environment resolver can take an infinite time to complete, and will likely fail because it does not have all myqlm requirements.
-Consequently, all dependency packages have not been included in the bz2 files.
-Instead, it is expected to install them manually before using myqlm. Some of them will need to be installed using pip from from pypi.org
-because conda-forge does not have all required packages (such as thrift 0.16).
-Finally, make sure that you keep a clean base environment to avoid packages conflict, and use `conda clean --all` as needed.
+        For CPython, the commands above install all dependency packages needed for myqlm to work, but not under Conda.
+        The Conda environment resolver can take an infinite time to complete, and will likely fail because it does not have all myqlm requirements.
+        Consequently, all dependency packages have not been included in the bz2 files.
+        Instead, it is expected to install them manually before using myqlm. Some of them will need to be installed using pip from from pypi.org
+        because conda-forge does not have all required packages (such as thrift 0.16).
+        Finally, make sure that you keep a clean base environment to avoid packages conflict, and use `conda clean --all` as needed.
 
-.. tab-set::
+        .. tab-set::
 
-    .. tab-item:: Conda supplementary packages common to all platforms
+            .. tab-item:: Conda supplementary packages common to all platforms
 
-        .. code-block::
+                .. code-block::
 
-            conda install -c conda-forge bitstring qutip cvxpy anytree pydoe svgwrite
-            pip install thrift==0.16.0 jax[cpu] pyOpenSSL wand
+                    conda install -c conda-forge bitstring qutip cvxpy anytree pydoe svgwrite
+                    pip install thrift==0.16.0 jax[cpu] pyOpenSSL wand
 
-    .. tab-item:: Conda supplementary packages on Windows
+            .. tab-item:: Conda supplementary packages on Windows
 
-        .. code-block::
+                .. code-block::
 
-            pip install windows-curses
+                    pip install windows-curses
+
+.. warning::
+
+    There are a couple other dependencies that will likely need to be installed using brew on MacOS, please have a
+    look at the page on :ref:`installing myQLM on MacOS <macos>`.
 
 .. _install-magics:
 
@@ -95,9 +100,13 @@ Finally, make sure that you keep a clean base environment to avoid packages conf
      - **Install Jupyter:** myQLM notebooks are designed to work with jupyter. You can install
        jupyter by typing the following command:
 
-        .. code-block::
+       .. code-block::
 
            pip install jupyter
+
+     - **Install ImageMagick for wand:** myQLM uses *wand* library to display quantum circuits. Please follow
+       `the wand installation guide <http://docs.wand-py.org/en/0.6.10/guide/install.html>`_ to install
+       this python library
 
      - **Install Ghostscript for PDF:** myQLM can display circuit in PDF format. If Ghostscript is not already
        installed, please follow `the Ghostscript download page <https://www.ghostscript.com/releases/gsdnld.html>`_
