@@ -1,9 +1,11 @@
+.. _custom_qpu_sec:
+
 Make your own QPU
 =================
 In our Framework, a QPU class should inherit from :class:`qat.qpus.QPUHandler` which
 defines the following methods:
 
-.. only:: qlm
+.. parseonly:: qlm
 
      - Method :meth:`~qat.qpus.QPUHandler.submit_job()` *required*, this method takes a :class:`~qat.core.Job` and result a :class:`~qat.core.Result`
 
@@ -13,13 +15,23 @@ defines the following methods:
        a default :class:`qat.core.HardwareSpecs` object will be returned
 
      - Method :meth:`~qat.qpus.QPUHandler.estimate_resources_for_batch()` *optional*, this methods takes a :class:`~qat.core.Batch` (i.e. a list of :class:`~qat.core.Job`) and returns a
-       :class:`~qat.comm.resource.ttypes.ResourceModel`. If defined, the :ref:`Qaptiva Resource Manager <resource-manager>` will lock some resources to avoid resource conflict.
-       If not implemented, the Resource Manager won't do anything. If this method returns :code:`None`, the Resource Manager won't do anything neither
+       list of :class:`~qat.comm.resource.ttypes.ResourceModel`. Currently, the resource management only supports a single type of resource for a job, so the list should only be
+       comprised of a single :class:`~qat.comm.resource.ttypes.ResourceModel` object. If defined, the :ref:`Qaptiva Resource Manager <resource-manager>` will lock some resources to avoid
+       resource conflict. If not implemented, the Resource Manager won't do anything. If this method returns :code:`None`, the Resource Manager won't do anything neither
 
      - Method :meth:`~qat.qpus.QPUHandler.apply_resource_consumption_limits()` *optional*, this methods takes a :class:`~qat.comm.resource.ttypes.AllocationModel`. This method is called once the Resource Manager
        has locked resource. Please note that this method is **required** if the method :meth:`~qat.qpus.QPUHandler.estimate_resources_for_batch()` is implemented
 
-.. only:: myqlm
+.. parseonly:: distributed
+
+     - Method :meth:`~qat.qpus.QPUHandler.submit_job()` *required*, this method takes a :class:`~qat.core.Job` and result a :class:`~qat.core.Result`
+
+     - Method :meth:`~qat.qpus.QPUHandler.get_specs()` *optional*, this method does not take any parameters and returns an :class:`qat.core.HardwareSpecs`. The output of this function
+       describes that hardware capabilities (e.g. maximal number of qubits, topology, gate set) and could be used by compilers to adapt a job for the current
+       QPU (more information on the :class:`qat.core.HardwareSpecs` can be found in the :ref:`in the plugin section <hardware-specs>`). If not implemented,
+       a default :class:`qat.core.HardwareSpecs` object will be returned
+
+.. parseonly:: myqlm
 
      - Method :meth:`~qat.qpus.QPUHandler.submit_job()` *required*, this method takes a :class:`~qat.core.Job` and result a :class:`~qat.core.Result`
 
@@ -32,8 +44,17 @@ defines the following methods:
 
 .. dropdown:: Raising exception in the code
 
-    A QPU can raise :class:`~qat.comm.exceptions.ttypes.QPUException`. A QPU can be accessed remotly (using :ref:`Qaptiva Access <qaptiva_access>` or by starting the QPU in server
-    mode). This exception can be serialized and re-raised on the client side
+    .. parseonly:: myqlm distributed
+
+        A QPU can raise :class:`~qat.comm.exceptions.ttypes.QPUException`. A QPU can be accessed remotely (using Qaptiva Access or by starting the QPU in server
+        mode). This exception can be serialized and re-raised on the client side
+
+
+    .. parseonly:: qlm
+
+        A QPU can raise :class:`~qat.comm.exceptions.ttypes.QPUException`. A QPU can be accessed remotely (using :ref:`Qaptiva Access <qaptiva_access>` or by starting the QPU in server
+        mode). This exception can be serialized and re-raised on the client side
+
 
     A :class:`~qat.comm.exceptions.ttypes.QPUException` can be raised using :func:`~qat.core.assertion.assert_qpu`
 
@@ -72,7 +93,7 @@ two parameters:
   - an *optional* argument of type :code:`dict[str, str]` (optional means that this argument can be removed, i.e. :code:`def submit_job(self, job): ...` is a valid
     method), this argument containing the meta-data of the :class:`~qat.core.Batch`
 
-    .. card:: A good practise
+    .. card:: A good practice
 
         Meta-data could be used to override temporarly the parameter used to instantiate a QPU (the name of the QPU corresponds to
         the key of this dictionary, and the associated value contains the value to override). Multiple components (like
@@ -222,7 +243,7 @@ measurements
 Class :class:`~qat.core.HardwareSpecs` is detailed on this :ref:`in the plugin section <hardware-specs>`
 
 
-.. only:: qlm
+.. parseonly:: qlm distributed
 
     Estimate and apply resource
     ---------------------------
@@ -230,12 +251,25 @@ Class :class:`~qat.core.HardwareSpecs` is detailed on this :ref:`in the plugin s
     Methods :meth:`~qat.qpus.QPUHandler.estimate_resources_for_batch()` and :meth:`~qat.qpus.QPUHandler.apply_resource_consumption_limits()` are used to
     reserve resources and get the list of reserved resources. These functions are called before submitting a job.
 
-    .. note::
+    .. parseonly:: qlm
 
-        Function :meth:`~qat.qpus.QPUHandler.estimate_resources_for_batch()` is optional. If not set, or if this method returns :code:`None`, resource won't be reserved
-        by the Qaptiva Resource Manager. Not locking resource could lead to resource conflict
+        .. note::
 
-    The first method takes a batch (i.e. a list of job) and returns a :class:`~qat.comm.resource.ttypes.ResourceModel`. This data-structure defines
+            Function :meth:`~qat.qpus.QPUHandler.estimate_resources_for_batch()` is optional. If not set, or if this method returns :code:`None`, resource won't be reserved
+            by the Qaptiva Resource Manager. Not locking resource could lead to resource conflict
+
+    
+    .. parseonly:: distributed
+        
+        .. note::
+
+            Function :meth:`~qat.qpus.QPUHandler.estimate_resources_for_batch()` is optional. If not set, or if this method returns
+            :code:`None`, resource won't be reserved by the Qaptiva Resource Manager. Not locking resource could lead to resource conflict.
+            In the case of a distributed QPU, it should be used to calculate the resources needed by a job, and the resource reservation
+            should be done internally in the QPU (Qaptiva Resource Manager is not available on commodity HPC nodes).
+
+    The first method takes a batch (i.e. a list of job) and returns a list of :class:`~qat.comm.resource.ttypes.ResourceModel`. Currently, the resource management only
+    supports a single type of resource, so this list should comprised of a single :class:`~qat.comm.resource.ttypes.ResourceModel` object. This data-structure defines
     few attributes:
 
      - a qpu giving the name of the Python class (**required string** - *used for logging*)
@@ -243,6 +277,8 @@ Class :class:`~qat.core.HardwareSpecs` is detailed on this :ref:`in the plugin s
      - the number of jobs composing the batch (*used for logging*)
      - the memory (in MB) required to execute a job (**integer**)
      - the number of wished threads - resource manager can allocate less threads (**integer**)
+     - the number of nodes to be reserved - must be set to 1 for mono-node simulation, defaults to 1 (**integer**)
+     - the type of nodes to be reserved - defaults to NodeType.QAPTIVA (0) (:class:`~qat.comm.resource.ttypes.NodeType`)
      - a list of :class:`~qat.comm.resource.ttypes.Device` - a device describes either a QPU hardware or a GPU. A device can be used by a single job at a time
 
     .. dropdown:: Reserving a device
@@ -282,7 +318,7 @@ Class :class:`~qat.core.HardwareSpecs` is detailed on this :ref:`in the plugin s
                     # Requesting a QPU device built by Eviden
                     Device(type=DeviceType.QPU, manufacturer="eviden")
 
-            .. tab-item:: Requisint the Qaptiva-QPU built by Eviden
+            .. tab-item:: Requesting the Qaptiva-QPU built by Eviden
 
                 Requesting a Qaptiva QPU can be done using the following sample of code. Please note that the Qaptiva QPU
                 does not exist and is used for illustration purpose only
@@ -298,6 +334,15 @@ Class :class:`~qat.core.HardwareSpecs` is detailed on this :ref:`in the plugin s
 
             Only QPUs registered to the resource manager are bookable. These QPUs can be defined in the resource manager config file
 
-    Once resource granted by the resource manager, method :meth:`~qat.qpus.QPUHandler.apply_resource_consumption_limits()` is called. This method is called
-    if and only if resources have been granted. This function takes a single argument of type :class:`~qat.comm.resource.ttypes.AllocationModel`, the QPU should look at this
-    object to target the right resource
+    .. parseonly:: qlm
+
+        Once resource granted by the resource manager, method :meth:`~qat.qpus.QPUHandler.apply_resource_consumption_limits()` is called. This method is called
+        if and only if resources have been granted. This function takes a single argument of type :class:`~qat.comm.resource.ttypes.AllocationModel`, the QPU should look at this
+        object to target the right resource
+
+    .. parseonly:: distributed
+
+        Once resource granted by the resource manager, method :meth:`~qat.qpus.QPUHandler.apply_resource_consumption_limits()` is called. This method is called
+        if and only if resources have been granted. This function takes a single argument of type :class:`~qat.comm.resource.ttypes.AllocationModel`, the QPU should look at this
+        object to target the right resource. In the case of a custom distributed QPU designed to run on HPC nodes, this function can be set to 
+        raise an exception since it should never be called if the Qaptiva Resource Manager is not available.

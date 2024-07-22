@@ -38,7 +38,7 @@
             <img src="../../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -89,11 +89,14 @@
 <li class="toctree-l4"><a class="reference internal" href="../assert_qpu.html">qat.core.assertion.assert_qpu</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../display.html">qat.core.console.display</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../evaluate.html">qat.core.formula_eval.evaluate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../load_state_vector_from_bin.html">qat.core.util.load_state_vector_from_bin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../plot_in_notebook.html">qat.core.printer.plot_in_notebook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../wavefunction.html">qat.core.simutil.wavefunction</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../module_devices.html">qat.devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../module_generators.html">qat.generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../module_hardware.html">qat.hardware</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
@@ -149,14 +152,21 @@
 <h1>qat.core.application.RemoteApplication<a class="headerlink" href="#qat-core-application-remoteapplication" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.core.application.RemoteApplication">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.core.application.</span></span><span class="sig-name descname"><span class="pre">RemoteApplication</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">unicode</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.application.RemoteApplication" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.core.application.</span></span><span class="sig-name descname"><span class="pre">RemoteApplication</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_cert</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_server_cert</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.application.RemoteApplication" title="Permalink to this definition"></a></dt>
 <dd><p>RemoteApplications are built from a port and an IP
 address</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>port</strong> (<em>int</em><em>, </em><em>optional</em>) – a port to connect to</p></li>
-<li><p><strong>ip</strong> (<em>str</em><em>, </em><em>optional</em>) – IP address to connect to</p></li>
+<li><p><strong>port</strong> (<em>int</em>) – port number of the QPU server</p></li>
+<li><p><strong>ip</strong> (<em>str</em><em>, </em><em>optional</em>) – QPU server IP
+Default: None</p></li>
+<li><p><strong>ssl_cert</strong> (<em>str</em><em>, </em><em>optional</em>) – path to the client SSL certificate
+Default: None</p></li>
+<li><p><strong>ssl_key</strong> (<em>str</em><em>, </em><em>optional</em>) – path to the client SSL key, use SSL if provided
+Default: None</p></li>
+<li><p><strong>check_server_cert</strong> (<em>bool</em><em>, </em><em>optional</em>) – check the server certificate if True and in SSL mode</p></li>
+<li><p><strong>connection</strong> (<em>optional Thrift connection</em>) – for internal use</p></li>
 </ul>
 </dd>
 </dl>

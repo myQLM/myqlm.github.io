@@ -40,7 +40,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -175,7 +175,7 @@ Here, we will submit three jobs, each with a different number of shots <code cla
 <span class="k">for</span> <span class="n">nbshots</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">]:</span>
     <span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">nbshots</span><span class="o">=</span><span class="n">nbshots</span><span class="p">)</span>
 
-    <span class="c1"># The QPU is stacked with ObservableSplitter, as the default myQLM QPU does not support</span>
+    <span class="c1"># The QPU is stacked with ObservableSplitter, as the default QPU does not support</span>
     <span class="c1"># a finite number of shots for observable sampling</span>
     <span class="kn">from</span> <span class="nn">qat.plugins</span> <span class="kn">import</span> <span class="n">ObservableSplitter</span>
     <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">ObservableSplitter</span><span class="p">()</span> <span class="o">|</span> <span class="n">get_default_qpu</span><span class="p">())</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
@@ -183,9 +183,9 @@ Here, we will submit three jobs, each with a different number of shots <code cla
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;O&gt; (</span><span class="si">{</span><span class="n">nbshots</span><span class="si">}</span><span class="s2"> shots) = </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">100</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.01999999999999999</span> <span class="o">+/-</span> <span class="mf">0.10048367875913829</span>
-<span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">1000</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.03600000000000003</span> <span class="o">+/-</span> <span class="mf">0.03161809139881318</span>
-<span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">10000</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.010599999999999998</span> <span class="o">+/-</span> <span class="mf">0.00999993819362838</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">100</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.13999999999999999</span> <span class="o">+/-</span> <span class="mf">0.09951397039124861</span>
+<span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">1000</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.03</span> <span class="o">+/-</span> <span class="mf">0.03162435928362976</span>
+<span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">10000</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.020399999999999974</span> <span class="o">+/-</span> <span class="mf">0.009998418916913004</span>
 </pre></div>
 </div>
 <p>We can see that the expectation <code class="docutils literal notranslate"><span class="pre">value</span></code> <span class="math notranslate nohighlight">\(\langle O \rangle\)</span> of the result differs from the ideal one due to “shot noise”.

@@ -40,7 +40,7 @@
             <img src="../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -154,11 +154,11 @@ module</p>
 <section id="defining-a-hamiltonian">
 <span id="qat-fermion-hamiltonian"></span><h2>Defining a Hamiltonian<a class="headerlink" href="#defining-a-hamiltonian" title="Permalink to this heading"></a></h2>
 <p>Many problems in physics are defined by their Hamiltonians. The basic objects we will manipulate are
-<a class="reference internal" href="../04_api_reference/module_qat/module_fermion/spinhamiltonian.html#qat.fermion.hamiltonians.SpinHamiltonian" title="qat.fermion.hamiltonians.SpinHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpinHamiltonian</span></code></a> and <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionichamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian" title="qat.fermion.hamiltonians.FermionHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">FermionHamiltonian</span></code></a>.
+<a class="reference internal" href="../04_api_reference/module_qat/module_fermion/spinhamiltonian.html#qat.fermion.hamiltonians.SpinHamiltonian" title="qat.fermion.hamiltonians.SpinHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpinHamiltonian</span></code></a> and <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionhamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian" title="qat.fermion.hamiltonians.FermionHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">FermionHamiltonian</span></code></a>.
 These classes can be seen as an <a class="reference internal" href="../04_api_reference/module_qat/module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a> constructor, of which they inherit,
 while containing additional methods.</p>
 <p>Let us see in more details how to define a <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/spinhamiltonian.html#qat.fermion.hamiltonians.SpinHamiltonian" title="qat.fermion.hamiltonians.SpinHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpinHamiltonian</span></code></a> and a
-<a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionichamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian" title="qat.fermion.hamiltonians.FermionHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">FermionHamiltonian</span></code></a>.</p>
+<a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionhamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian" title="qat.fermion.hamiltonians.FermionHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">FermionHamiltonian</span></code></a>.</p>
 <section id="spin-hamiltonians">
 <h3>Spin Hamiltonians<a class="headerlink" href="#spin-hamiltonians" title="Permalink to this heading"></a></h3>
 <p>The <strong>spin Hamiltonian</strong> acting on 2 qubits <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span> defined by <span class="math notranslate nohighlight">\(H = 0.3 X_{0} - 0.4 Z_{0}Y_{1}\)</span> can be written:</p>
@@ -201,11 +201,9 @@ should write:</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<blockquote>
-<div><p>When compatible, <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionichamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian" title="qat.fermion.hamiltonians.FermionHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">FermionHamiltonian</span></code></a> can be transformed to</p>
-</div></blockquote>
-<p><a class="reference internal" href="../04_api_reference/module_qat/module_fermion/electronicstructurehamiltonian.html#qat.fermion.hamiltonians.ElectronicStructureHamiltonian" title="qat.fermion.hamiltonians.ElectronicStructureHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElectronicStructureHamiltonian</span></code></a> via the method
-<a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionichamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian.to_electronic" title="qat.fermion.hamiltonians.FermionHamiltonian.to_electronic"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_electronic()</span></code></a>.</p>
+<p>When compatible, <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionhamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian" title="qat.fermion.hamiltonians.FermionHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">FermionHamiltonian</span></code></a> can be transformed to
+<a class="reference internal" href="../04_api_reference/module_qat/module_fermion/electronicstructurehamiltonian.html#qat.fermion.hamiltonians.ElectronicStructureHamiltonian" title="qat.fermion.hamiltonians.ElectronicStructureHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElectronicStructureHamiltonian</span></code></a> via the method
+<a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionhamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian.to_electronic" title="qat.fermion.hamiltonians.FermionHamiltonian.to_electronic"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_electronic()</span></code></a>.</p>
 </div>
 </section>
 <section id="fermionic-hamiltonian-using-one-and-two-electrons-integrals">
@@ -237,11 +235,11 @@ accepts the one and two-body terms <span class="math notranslate nohighlight">\(
 </pre></div>
 </div>
 <p><a class="reference internal" href="../04_api_reference/module_qat/module_fermion/electronicstructurehamiltonian.html#qat.fermion.hamiltonians.ElectronicStructureHamiltonian" title="qat.fermion.hamiltonians.ElectronicStructureHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElectronicStructureHamiltonian</span></code></a> can be transformed to
-<a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionichamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian" title="qat.fermion.hamiltonians.FermionHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">FermionHamiltonian</span></code></a> via the method
+<a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionhamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian" title="qat.fermion.hamiltonians.FermionHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">FermionHamiltonian</span></code></a> via the method
 <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/electronicstructurehamiltonian.html#qat.fermion.hamiltonians.ElectronicStructureHamiltonian.to_fermion" title="qat.fermion.hamiltonians.ElectronicStructureHamiltonian.to_fermion"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_fermion()</span></code></a>.</p>
 <p>The <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/electronicstructurehamiltonian.html#qat.fermion.hamiltonians.ElectronicStructureHamiltonian" title="qat.fermion.hamiltonians.ElectronicStructureHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElectronicStructureHamiltonian</span></code></a> inherits from the
-<a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionichamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian" title="qat.fermion.hamiltonians.FermionHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">FermionHamiltonian</span></code></a> class, and thus contains every method implemented in
-<a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionichamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian" title="qat.fermion.hamiltonians.FermionHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">FermionHamiltonian</span></code></a>.</p>
+<a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionhamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian" title="qat.fermion.hamiltonians.FermionHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">FermionHamiltonian</span></code></a> class, and thus contains every method implemented in
+<a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionhamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian" title="qat.fermion.hamiltonians.FermionHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">FermionHamiltonian</span></code></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>An alternative definition for the electronic-structure Hamiltonian is :</p>
@@ -260,7 +258,7 @@ accepts the one and two-body terms <span class="math notranslate nohighlight">\(
 </section>
 <section id="the-get-matrix-method">
 <span id="qat-fermion-get-matrix"></span><h3>The get_matrix() method<a class="headerlink" href="#the-get-matrix-method" title="Permalink to this heading"></a></h3>
-<p>The objects <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/spinhamiltonian.html#qat.fermion.hamiltonians.SpinHamiltonian" title="qat.fermion.hamiltonians.SpinHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpinHamiltonian</span></code></a>, <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionichamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian" title="qat.fermion.hamiltonians.FermionHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">FermionHamiltonian</span></code></a> and
+<p>The objects <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/spinhamiltonian.html#qat.fermion.hamiltonians.SpinHamiltonian" title="qat.fermion.hamiltonians.SpinHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpinHamiltonian</span></code></a>, <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionhamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian" title="qat.fermion.hamiltonians.FermionHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">FermionHamiltonian</span></code></a> and
 <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/electronicstructurehamiltonian.html#qat.fermion.hamiltonians.ElectronicStructureHamiltonian" title="qat.fermion.hamiltonians.ElectronicStructureHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElectronicStructureHamiltonian</span></code></a> allow for the direct usage of the underlying Hamiltonian matrix.
 Bare in mind that this method should not be used for big Hamiltonians, as the memory cost might be too much to handle on your machine.
 You can access the Hamiltonian matrix by using the <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/spinhamiltonian.html#qat.fermion.hamiltonians.SpinHamiltonian.get_matrix" title="qat.fermion.hamiltonians.SpinHamiltonian.get_matrix"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_matrix()</span></code></a> method of the
@@ -283,7 +281,7 @@ Hamiltonian classes.</p>
 <section id="fermionic-to-spin-representation">
 <span id="qat-fermion-transforms"></span><h2>Fermionic to spin representation<a class="headerlink" href="#fermionic-to-spin-representation" title="Permalink to this heading"></a></h2>
 <p>A problem formulated in fermionic representation often needs to be converted to a spin representation, so that it can be handled by
-a quantum computer. To do so, one can use the <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionichamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian.to_spin" title="qat.fermion.hamiltonians.FermionHamiltonian.to_spin"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_spin()</span></code></a> method.</p>
+a quantum computer. To do so, one can use the <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/fermionhamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian.to_spin" title="qat.fermion.hamiltonians.FermionHamiltonian.to_spin"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_spin()</span></code></a> method.</p>
 <p>Three transforms are available:</p>
 <blockquote>
 <div><ul class="simple">

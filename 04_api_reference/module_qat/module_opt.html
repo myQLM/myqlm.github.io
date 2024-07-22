@@ -38,7 +38,7 @@
             <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -61,6 +61,7 @@
 <li class="toctree-l3"><a class="reference internal" href="module_core.html">qat.core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="module_devices.html">qat.devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="module_generators.html">qat.generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="module_hardware.html">qat.hardware</a></li>
 <li class="toctree-l3"><a class="reference internal" href="%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
@@ -72,6 +73,7 @@
 <li class="toctree-l4"><a class="reference internal" href="module_opt/combinatorialproblem.html">qat.opt.CombinatorialProblem</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_opt/var.html">qat.opt.boolexpr.Var</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_opt/ising.html">qat.opt.Ising</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_opt/mwis.html">qat.opt.MWIS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_opt/qubo.html">qat.opt.QUBO</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_opt/bilp.html">qat.opt.BILP</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_opt/graphcolouring.html">qat.opt.GraphColouring</a></li>
@@ -163,7 +165,7 @@
 </section>
 <section id="quadratic-problems-ising-and-qubo">
 <h2>Quadratic problems: Ising and QUBO<a class="headerlink" href="#quadratic-problems-ising-and-qubo" title="Permalink to this heading"></a></h2>
-<p>Classes for the <a class="reference internal" href="../../02_user_guide/01_write/03_annealing_problems/01_ising.html#ising-description"><span class="std std-ref">Ising</span></a> and <a class="reference internal" href="../../02_user_guide/01_write/03_annealing_problems/02_qubo.html#qubo-description"><span class="std std-ref">QUBO</span></a> formulations of combinatorial problems, solved via annealing (or <a class="reference internal" href="../../combinatorial_optim_applic/02_qaoa.html#qaoa"><span class="std std-ref">gate-based</span></a> or <a class="reference internal" href="../../combinatorial_optim_applic/03_qa.html#quantum-annealing"><span class="std std-ref">analog</span></a> approaches).</p>
+<p>Classes for the <a class="reference internal" href="../../02_user_guide/01_write/03_annealing_problems/01_ising.html#ising-description"><span class="std std-ref">Ising</span></a> and <a class="reference internal" href="../../02_user_guide/01_write/03_annealing_problems/02_qubo.html#qubo-description"><span class="std std-ref">QUBO</span></a> formulations of combinatorial problems, solved via annealing (or <a class="reference internal" href="../../combinatorial_optim_applic/02_qaoa.html#qaoa"><span class="std std-ref">gate-based</span></a> or <a class="reference internal" href="../../combinatorial_optim_applic/03_aqo.html#aqo-sec"><span class="std std-ref">analog</span></a> approaches).</p>
 <table class="colwidths-given docutils align-center" style="width: 80%">
 <colgroup>
 <col style="width: 30%" />
@@ -173,7 +175,10 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="module_opt/ising.html#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.Ising</span></code></a></p></td>
 <td><p>The class to represent Ising Hamiltonians</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="module_opt/qubo.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.QUBO</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="module_opt/mwis.html#qat.opt.MWIS" title="qat.opt.MWIS"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.MWIS</span></code></a></p></td>
+<td><p>The class encoding Maximum Weighted Independent Set (MWIS) problems</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_opt/qubo.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.QUBO</span></code></a></p></td>
 <td><p>The class encoding Quadratic Unconstrained Binary Optimization (QUBO) problems</p></td>
 </tr>
 </tbody>
@@ -182,7 +187,7 @@
 </div>
 </section>
 <section id="classes-for-the-supported-np-hard-problems">
-<h2>Classes for the supported NP-Hard problems<a class="headerlink" href="#classes-for-the-supported-np-hard-problems" title="Permalink to this heading"></a></h2>
+<span id="np-hard-problems-code"></span><h2>Classes for the supported NP-Hard problems<a class="headerlink" href="#classes-for-the-supported-np-hard-problems" title="Permalink to this heading"></a></h2>
 <p>Each of the following inherits from either <a class="reference internal" href="module_opt/ising.html#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> or <a class="reference internal" href="module_opt/qubo.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a>.</p>
 <table class="colwidths-given docutils align-center" style="width: 80%">
 <colgroup>
@@ -225,13 +230,13 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="module_opt/mixingfactory.html#qat.opt.MixingFactory" title="qat.opt.MixingFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.MixingFactory</span></code></a></p></td>
-<td><p>A class with methods to generate custom mixing Hamiltonians for analog <a class="reference internal" href="../../combinatorial_optim_applic/03_qa.html#quantum-annealing"><span class="std std-ref">Quantum Annealing</span></a></p></td>
+<td><p>A class with methods to generate custom mixing Hamiltonians for analog <a class="reference internal" href="../../combinatorial_optim_applic/03_aqo.html#aqo-sec"><span class="std std-ref">Adiabatic Quantum Optimization</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="module_opt/circuitgenerator.html#qat.opt.circuit_generator.CircuitGenerator" title="qat.opt.circuit_generator.CircuitGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.circuit_generator.CircuitGenerator</span></code></a></p></td>
 <td><p>An interface from which <a class="reference internal" href="module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a> / <a class="reference internal" href="module_opt/ising.html#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> / <a class="reference internal" href="module_opt/qubo.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> inherit allowing classes to generate ready to run <a class="reference internal" href="../../combinatorial_optim_applic/02_qaoa.html#qaoa"><span class="std std-ref">QAOA</span></a> jobs</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="module_opt/schedulegenerator.html#qat.opt.schedule_generator.ScheduleGenerator" title="qat.opt.schedule_generator.ScheduleGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.schedule_generator.ScheduleGenerator</span></code></a></p></td>
-<td><p>An interface from which  <a class="reference internal" href="module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a> / <a class="reference internal" href="module_opt/ising.html#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> / <a class="reference internal" href="module_opt/qubo.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a>  inherit allowing classes to generate <a class="reference internal" href="../../combinatorial_optim_applic/03_qa.html#quantum-annealing"><span class="std std-ref">Quantum Annealing</span></a> jobs</p></td>
+<td><p>An interface from which  <a class="reference internal" href="module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a> / <a class="reference internal" href="module_opt/ising.html#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> / <a class="reference internal" href="module_opt/qubo.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a>  inherit allowing classes to generate <a class="reference internal" href="../../combinatorial_optim_applic/03_aqo.html#aqo-sec"><span class="std std-ref">Adiabatic Quantum Optimization</span></a> jobs</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="module_opt/ansatzfactory.html#qat.vsolve.ansatz.AnsatzFactory" title="qat.vsolve.ansatz.AnsatzFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.vsolve.ansatz.AnsatzFactory</span></code></a></p></td>
 <td><p>A class allowing to produce variational circuits for <a class="reference internal" href="../../combinatorial_optim_applic/02_qaoa.html#qaoa"><span class="std std-ref">QAOA</span></a> from a target Hamiltonian</p></td>

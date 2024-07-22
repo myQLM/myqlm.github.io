@@ -38,7 +38,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -61,6 +61,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../module_generators.html">qat.generators</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="combinatorialoptimizergenerator.html">qat.generators.CombinatorialOptimizerGenerator</a></li>
 <li class="toctree-l4"><a class="reference internal" href="graphcolouringgenerator.html">qat.generators.GraphColouringGenerator</a></li>
@@ -127,15 +128,22 @@
 The usage of a remote generator is detailed in <a class="reference internal" href="../../../02_user_guide/02_execute/01_job/03_automated_batch_generation.html#remote-generator"><span class="std std-ref">the executing section</span></a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.generators.RemoteBatchGenerator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.generators.</span></span><span class="sig-name descname"><span class="pre">RemoteBatchGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">unicode</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.generators.RemoteBatchGenerator" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.generators.</span></span><span class="sig-name descname"><span class="pre">RemoteBatchGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_cert</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_server_cert</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.generators.RemoteBatchGenerator" title="Permalink to this definition"></a></dt>
 <dd><p>Remote batch generator. This batch generator creates connection
 between you and a remote <a class="reference internal" href="abstractgenerator.html#qat.generators.AbstractGenerator" title="qat.generators.AbstractGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGenerator</span></code></a>
 started in server mode (c.f. <a class="reference internal" href="abstractgenerator.html#qat.generators.AbstractGenerator.serve" title="qat.generators.AbstractGenerator.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>port</strong> (<em>int</em><em>, </em><em>optional</em>) – a port to connect to</p></li>
-<li><p><strong>ip</strong> (<em>str</em><em>, </em><em>optional</em>) – the IP address to connect to</p></li>
+<li><p><strong>port</strong> (<em>int</em>) – port number of the QPU server</p></li>
+<li><p><strong>ip</strong> (<em>str</em><em>, </em><em>optional</em>) – QPU server IP
+Default: None</p></li>
+<li><p><strong>ssl_cert</strong> (<em>str</em><em>, </em><em>optional</em>) – path to the client SSL certificate
+Default: None</p></li>
+<li><p><strong>ssl_key</strong> (<em>str</em><em>, </em><em>optional</em>) – path to the client SSL key, use SSL if provided
+Default: None</p></li>
+<li><p><strong>check_server_cert</strong> (<em>bool</em><em>, </em><em>optional</em>) – check the server certificate if True and in SSL mode</p></li>
+<li><p><strong>connection</strong> (<em>optional Thrift connection</em>) – for internal use</p></li>
 </ul>
 </dd>
 </dl>
@@ -148,8 +156,8 @@ generator object</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>specs</strong> (<a class="reference internal" href="../module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a>) – hardware specs</p></li>
-<li><p><strong>*args</strong> (<a href="#id1"><span class="problematic" id="id2">*</span></a>any) – additional arguments passed to the generator</p></li>
-<li><p><strong>**kwargs</strong> (<a href="#id3"><span class="problematic" id="id4">**</span></a>any) – additional keyword arguments passed to the generator</p></li>
+<li><p><strong>*args</strong> (<code class="docutils literal notranslate"><span class="pre">*any</span></code>) – additional arguments passed to the generator</p></li>
+<li><p><strong>**kwargs</strong> (<code class="docutils literal notranslate"><span class="pre">**any</span></code>) – additional keyword arguments passed to the generator</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

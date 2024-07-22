@@ -38,7 +38,7 @@
             <img src="../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -142,10 +142,10 @@ Please check the compatibility matrix displayed bellow to see if your installati
 </colgroup>
 <tbody>
 <tr class="row-odd"><td rowspan="2"><p><strong>OS \ Python (64-bit)</strong></p></td>
-<td colspan="2"><p><strong>3.8</strong></p></td>
 <td colspan="2"><p><strong>3.9</strong></p></td>
 <td colspan="2"><p><strong>3.10</strong></p></td>
 <td colspan="2"><p><strong>3.11</strong></p></td>
+<td colspan="2"><p><strong>3.12</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>CPython</p></td>
 <td><p>Conda</p></td>
@@ -158,7 +158,7 @@ Please check the compatibility matrix displayed bellow to see if your installati
 </tr>
 <tr class="row-odd"><td><p><strong>Linux x86_64</strong></p></td>
 <td><p>✓</p></td>
-<td></td>
+<td><p>✓</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
@@ -168,7 +168,7 @@ Please check the compatibility matrix displayed bellow to see if your installati
 </tr>
 <tr class="row-even"><td><p><strong>Windows x86_64</strong></p></td>
 <td><p>✓</p></td>
-<td></td>
+<td><p>✓</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
@@ -188,7 +188,7 @@ Please check the compatibility matrix displayed bellow to see if your installati
 </tr>
 <tr class="row-even"><td><p><strong>macOS Arm64</strong> <a class="footnote-reference brackets" href="#id3" id="id2">1</a></p></td>
 <td><p>✓</p></td>
-<td></td>
+<td><p>✓</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
@@ -222,9 +222,6 @@ CPython</label><div class="sd-tab-content docutils">
 </input><label class="sd-tab-label" for="sd-tab-item-1">
 Conda</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">myqlm</span> <span class="n">myqlm</span>
-
-<span class="c1"># For python &lt; 3.11</span>
-<span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">dill</span><span class="o">=</span><span class="mf">0.3.5.1</span>
 </pre></div>
 </div>
 <p>For CPython, the commands above install all dependency packages needed for myqlm to work, but not under Conda.
@@ -238,7 +235,7 @@ Finally, make sure that you keep a clean base environment to avoid packages conf
 </input><label class="sd-tab-label" for="sd-tab-item-2">
 Conda supplementary packages common to all platforms</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">bitstring</span> <span class="n">qutip</span> <span class="n">cvxpy</span> <span class="n">anytree</span> <span class="n">pydoe</span> <span class="n">svgwrite</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="n">thrift</span><span class="o">==</span><span class="mf">0.16.0</span> <span class="n">jax</span><span class="p">[</span><span class="n">cpu</span><span class="p">]</span> <span class="n">pyOpenSSL</span> <span class="n">wand</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">thrift</span><span class="o">==</span><span class="mf">0.20.0</span> <span class="n">jax</span><span class="p">[</span><span class="n">cpu</span><span class="p">]</span> <span class="n">pyOpenSSL</span> <span class="n">wand</span>
 </pre></div>
 </div>
 </div>
@@ -295,10 +292,38 @@ content of all our tutorials.</p>
 </details></section>
 <section id="interoperability">
 <span id="install-interop"></span><h3>Interoperability<a class="headerlink" href="#interoperability" title="Permalink to this heading"></a></h3>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Interoperability packages are deprecated for Python versions 3.6 and 3.7</p>
-</div>
+<p><strong>Supported Interop products and their versions</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Library</p></th>
+<th class="head"><p>Python 3.9 to 3.11</p></th>
+<th class="head"><p>Python 3.12</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Cirq</p></td>
+<td><p>1.3.0</p></td>
+<td><p>1.4.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>ProjectQ</p></td>
+<td><p>0.8.0</p></td>
+<td><p>0.8.0</p></td>
+</tr>
+<tr class="row-even"><td><p>PyQuil</p></td>
+<td><p>3.5.4</p></td>
+<td><p>4.1.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Qiskit</p></td>
+<td><p>0.43.1</p></td>
+<td><p>1.0.2</p></td>
+</tr>
+</tbody>
+</table>
 <p>This package enables access to other quantum programming environments such as
 Qiskit, ProjectQ, PyQuil, Cirq …
 This package will not automatically install dependency packages because someone who

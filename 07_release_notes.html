@@ -22,6 +22,8 @@
         <script src="static/sphinx_highlight.js"></script>
         <script src="static/design-tabs.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -37,7 +39,7 @@
             <img src="static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,60 +66,71 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-9-9">What’s new in myQLM 1.9.9</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-10-3">What’s new in myQLM 1.10.3</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#main-package">Main Package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dependant-packages">Dependant Packages</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-9-6">What’s new in myQLM 1.9.6</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">Main Package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">Dependant Packages</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-9-5">What’s new in myQLM 1.9.5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id3">Main Package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">Dependant Packages</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-9-4">What’s new in myQLM 1.9.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id5">Main Package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">Dependant Packages</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-9-3">What’s new in myQLM 1.9.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id7">Main Package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">Dependant Packages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#other-packages">Other Packages</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-9-2">What’s new in myQLM 1.9.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id9">Main Package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id10">Dependant Packages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id11">Other Packages</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-9-1">What’s new in myQLM 1.9.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id12">Main Package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id13">Dependant Packages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">Other Packages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#defining-quantum-circuits-jobs-using-a-python-function">Defining quantum circuits / jobs using a Python function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-packages">Other Packages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#solving-combinatorial-problem-on-rydberg-atom-quantum-devices">Solving combinatorial problem on Rydberg atom quantum devices</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#updated-features">Updated features</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fixes">Fixes</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-9-9">What’s new in myQLM 1.9.9</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Main Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Dependant Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-9-6">What’s new in myQLM 1.9.6</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Main Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Dependant Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-9-5">What’s new in myQLM 1.9.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Main Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Dependant Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-9-4">What’s new in myQLM 1.9.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Main Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Dependant Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-9-3">What’s new in myQLM 1.9.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Main Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Dependant Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Other Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-9-2">What’s new in myQLM 1.9.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Main Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Dependant Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Other Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-9-1">What’s new in myQLM 1.9.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id15">Main Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Dependant Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">Other Packages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#defining-quantum-circuits-jobs-using-a-python-function">Defining quantum circuits / jobs using a Python function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id18">Updated features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id19">Fixes</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-7-3">What’s new in myQLM 1.7.3</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#main-fixes">Main Fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id15">Dependant Packages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id16">Other Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id20">Dependant Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id21">Other Packages</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-7-2">What’s new in myQLM 1.7.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id17">Main Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id22">Main Fixes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#deprecation-warnings">Deprecation warnings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id18">Dependant Packages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id19">Other Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id23">Dependant Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id24">Other Packages</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-7-1">What’s new in myQLM 1.7.1</a><ul>
@@ -125,27 +138,27 @@
 <li class="toctree-l3"><a class="reference internal" href="#tools-for-fermionic-computations-myqlm-fermion">Tools for fermionic computations (myQLM-fermion)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#batch-generators-in-myqlm">Batch generators in myQLM</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#new-features">New features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id20">Updated features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id21">Fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id22">Dependant Packages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id23">Other Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id25">Updated features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id26">Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id27">Dependant Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id28">Other Packages</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-6-1">What’s new in myQLM 1.6.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id24">New features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id25">Updated features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id26">Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id29">New features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id30">Updated features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id31">Fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-5-1">What’s new in myQLM 1.5.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id27">New features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id28">Updated features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id29">Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id32">New features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id33">Updated features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id34">Fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-new-in-myqlm-1-4-0">What’s new in myQLM 1.4.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#myqlm-power-access">myQLM Power Access</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id30">New features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id35">New features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#known-problems">Known problems</a></li>
 </ul>
 </li>
@@ -178,11 +191,198 @@
              
   <section id="release-notes">
 <span id="release-note"></span><h1>Release notes<a class="headerlink" href="#release-notes" title="Permalink to this heading"></a></h1>
+<section id="what-s-new-in-myqlm-1-10-3">
+<h2>What’s new in myQLM 1.10.3<a class="headerlink" href="#what-s-new-in-myqlm-1-10-3" title="Permalink to this heading"></a></h2>
+<p>Released on July 2024</p>
+<section id="main-package">
+<h3>Main Package<a class="headerlink" href="#main-package" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Requires-Dist</p></th>
+<th class="head"><p>Version</p></th>
+<th class="head"><p>Status</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>myqlm</p></td>
+<td><p>1.10.3</p></td>
+<td><p>UPDATED</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dependant-packages">
+<h3>Dependant Packages<a class="headerlink" href="#dependant-packages" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Requires-Dist</p></th>
+<th class="head"><p>Version</p></th>
+<th class="head"><p>Status</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>myqlm-clinalg</p></td>
+<td><p>0.2.1</p></td>
+<td><p>UPDATED</p></td>
+</tr>
+<tr class="row-odd"><td><p>myqlm-contrib</p></td>
+<td><p>1.9.5</p></td>
+<td><p>UPDATED</p></td>
+</tr>
+<tr class="row-even"><td><p>myqlm-fermion</p></td>
+<td><p>1.1.4</p></td>
+<td><p>UPDATED</p></td>
+</tr>
+<tr class="row-odd"><td><p>myqlm-simulators</p></td>
+<td><p>1.9.5</p></td>
+<td><p>UPDATED</p></td>
+</tr>
+<tr class="row-even"><td><p>qat-anapli</p></td>
+<td><p>0.0.1</p></td>
+<td><p>UPDATED</p></td>
+</tr>
+<tr class="row-odd"><td><p>qat-comm</p></td>
+<td><p>1.6.0</p></td>
+<td><p>UPDATED</p></td>
+</tr>
+<tr class="row-even"><td><p>qat-core</p></td>
+<td><p>1.10.0</p></td>
+<td><p>UPDATED</p></td>
+</tr>
+<tr class="row-odd"><td><p>qat-devices</p></td>
+<td><p>0.3.0</p></td>
+<td><p>UPDATED</p></td>
+</tr>
+<tr class="row-even"><td><p>qat-fusion</p></td>
+<td><p>0.1.0</p></td>
+<td><p>UPDATED</p></td>
+</tr>
+<tr class="row-odd"><td><p>qat-hardware</p></td>
+<td><p>1.4.0</p></td>
+<td><p>UPDATED</p></td>
+</tr>
+<tr class="row-even"><td><p>qat-lang</p></td>
+<td><p>3.1.0</p></td>
+<td><p>UPDATED</p></td>
+</tr>
+<tr class="row-odd"><td><p>qat-quops</p></td>
+<td><p>1.3.4</p></td>
+<td><p>UPDATED</p></td>
+</tr>
+<tr class="row-even"><td><p>qat-variational</p></td>
+<td><p>1.5.0</p></td>
+<td><p>UPDATED</p></td>
+</tr>
+<tr class="row-odd"><td><p>qlmaas</p></td>
+<td><p>1.10.2</p></td>
+<td><p>UPDATED</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="other-packages">
+<h3>Other Packages<a class="headerlink" href="#other-packages" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Requires-Dist</p></th>
+<th class="head"><p>Version</p></th>
+<th class="head"><p>Status</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>myqlm-interop</p></td>
+<td><p>1.9.5</p></td>
+<td><p>UPDATED</p></td>
+</tr>
+</tbody>
+</table>
+<section id="solving-combinatorial-problem-on-rydberg-atom-quantum-devices">
+<h4>Solving combinatorial problem on Rydberg atom quantum devices<a class="headerlink" href="#solving-combinatorial-problem-on-rydberg-atom-quantum-devices" title="Permalink to this heading"></a></h4>
+<p>The <a class="reference internal" href="04_api_reference/module_qat/module_opt.html#module-qat.opt" title="qat.opt"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.opt</span></code></a> module has been enhanced to address combinatorial problems on Rydberg atom quantum devices.
+These devices are quantum processors that can execute jobs matching the following schedule:</p>
+<div class="math notranslate nohighlight">
+\[H = \sum_v \frac{\Omega_v}{2}\sigma_v^x - \sum_v \Delta_v n_v + \sum_{v, w}U_{vw}n_v n_w\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Omega_v\)</span> is the rabi frequency, <span class="math notranslate nohighlight">\(\Delta_v\)</span> the detuning and <span class="math notranslate nohighlight">\(U_{vw}\)</span> the elements of the
+coupling matrix between atoms.</p>
+<p>myQLM provides:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A generic method to embed <strong>Maximum Weighted Independent Set</strong> (MWIS) problems into the Rydberg atom platform
+(see <a class="reference internal" href="04_api_reference/module_qat/module_opt/mwis.html#qat.opt.MWIS" title="qat.opt.MWIS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MWIS</span></code></a>)</p></li>
+<li><p>A generic method to embed <strong>Quadratic Unconstrained Binary Optimization</strong> (QUBO) problems into the Rydberg atom platform
+(see <a class="reference internal" href="04_api_reference/module_qat/module_opt/qubo.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a>)</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">MaxCut</span>
+
+<span class="c1"># This graph is not unit disc so it can not be embedded</span>
+<span class="c1"># directly in a rydber atom device</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">circular_ladder_graph</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Generate Rydberg Schedule</span>
+<span class="n">pbm</span> <span class="o">=</span> <span class="n">MaxCut</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+<span class="n">schedule</span> <span class="o">=</span> <span class="n">pbm</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s2">&quot;ryd&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="updated-features">
+<h4>Updated features<a class="headerlink" href="#updated-features" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Aclinalg.html#qat.qpus.CLinalg" title="qat.qpus.CLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">CLinalg</span></code></a> uses <a class="reference internal" href="04_api_reference/module_qat/module_plugins/fusionplugin.html#qat.plugins.FusionPlugin" title="qat.plugins.FusionPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">FusionPlugin</span></code></a> to optimize circuits before a CPU emulation
+of at least 20 qubits, leading to better performances.
+This can be disabled by using the parameter <code class="code docutils literal notranslate"><span class="pre">fusion=False</span></code>.</p></li>
+<li><p><a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Aclinalg.html#qat.qpus.CLinalg" title="qat.qpus.CLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">CLinalg</span></code></a> can now emulate up to 30 qubits, and use up to 150 threads.</p></li>
+<li><p><a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Aclinalg.html#qat.qpus.CLinalg" title="qat.qpus.CLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">CLinalg</span></code></a> now accepts a <code class="code docutils literal notranslate"><span class="pre">seed</span></code> parameter.</p></li>
+<li><p><a class="reference internal" href="04_api_reference/module_qat/module_plugins/fusionplugin.html#qat.plugins.FusionPlugin" title="qat.plugins.FusionPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">FusionPlugin</span></code></a> now ignores non-compatible circuits, instead of raising an exception.</p></li>
+<li><p><a class="reference internal" href="04_api_reference/module_qat/module_plugins/fusionplugin.html#qat.plugins.FusionPlugin" title="qat.plugins.FusionPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">FusionPlugin</span></code></a> is now compatible with non-inlined circuits (but will inline them).</p></li>
+<li><p><a class="reference internal" href="04_api_reference/module_qat/module_plugins/fusionplugin.html#qat.plugins.FusionPlugin" title="qat.plugins.FusionPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">FusionPlugin</span></code></a> has a new option <code class="code docutils literal notranslate"><span class="pre">qbits_compilation_threshold</span></code> to specify a minimal number for compilation.
+Jobs having less qubits are not compiled.</p></li>
+<li><p><a class="reference internal" href="04_api_reference/module_qat/module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> has a new optional attribute <code class="code docutils literal notranslate"><span class="pre">meta_data</span></code> of type <code class="code docutils literal notranslate"><span class="pre">dict[str,</span> <span class="pre">str]</span></code>.</p></li>
+<li><p><a class="reference internal" href="04_api_reference/module_qat/module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a> has a new optional attribute <code class="code docutils literal notranslate"><span class="pre">meta_data</span></code> of type <code class="code docutils literal notranslate"><span class="pre">dict[str,</span> <span class="pre">str]</span></code>.</p></li>
+<li><p><a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Apylinalg.html#qat.qpus.PyLinalg" title="qat.qpus.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> and <a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Aclinalg.html#qat.qpus.CLinalg" title="qat.qpus.CLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">CLinalg</span></code></a> can no longer perform
+perfect simulations (<code class="code docutils literal notranslate"><span class="pre">nbshots</span> <span class="pre">=</span> <span class="pre">0</span></code>) with intermediate measures.</p></li>
+<li><p>Fix import of <code class="code docutils literal notranslate"><span class="pre">qat.clinalg</span></code> on Windows</p></li>
+<li><p>Fix imports of <a class="reference internal" href="04_api_reference/module_qat/module_qpus.html#module-qat.qpus" title="qat.qpus"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.qpus</span></code></a> and <a class="reference internal" href="04_api_reference/module_qat/module_plugins.html#module-qat.plugins" title="qat.plugins"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.plugins</span></code></a>.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="fixes">
+<h4>Fixes<a class="headerlink" href="#fixes" title="Permalink to this heading"></a></h4>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Apylinalg.html#qat.qpus.PyLinalg" title="qat.qpus.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> and <a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Aclinalg.html#qat.qpus.CLinalg" title="qat.qpus.CLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">CLinalg</span></code></a> can now aggregate results having intermediate measurements.</p></li>
+<li><p>An exception was raised when submitting a <a class="reference internal" href="04_api_reference/module_qat/module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a> having no
+meta_data to a QPU. This is now fixed [BRQ-1654].</p></li>
+<li><p>The “eager” merge startegy of <a class="reference internal" href="04_api_reference/module_qat/module_plugins/fusionplugin.html#qat.plugins.FusionPlugin" title="qat.plugins.FusionPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">FusionPlugin</span></code></a> has been fixed
+(if the gate qubits count is higher thant the qubits fusion limit).</p></li>
+<li><p><a class="reference internal" href="04_api_reference/module_qat/module_core/result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a> objects can store states composed of a larger number of qubits [BRQ-1571].</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+</section>
 <section id="what-s-new-in-myqlm-1-9-9">
 <h2>What’s new in myQLM 1.9.9<a class="headerlink" href="#what-s-new-in-myqlm-1-9-9" title="Permalink to this heading"></a></h2>
 <p>Released on February 2024</p>
-<section id="main-package">
-<h3>Main Package<a class="headerlink" href="#main-package" title="Permalink to this heading"></a></h3>
+<section id="id1">
+<h3>Main Package<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -203,8 +403,8 @@
 </tbody>
 </table>
 </section>
-<section id="dependant-packages">
-<h3>Dependant Packages<a class="headerlink" href="#dependant-packages" title="Permalink to this heading"></a></h3>
+<section id="id2">
+<h3>Dependant Packages<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -333,8 +533,8 @@ myqlm-interop compatibility table</label><div class="sd-tab-content docutils">
 <section id="what-s-new-in-myqlm-1-9-6">
 <h2>What’s new in myQLM 1.9.6<a class="headerlink" href="#what-s-new-in-myqlm-1-9-6" title="Permalink to this heading"></a></h2>
 <p>Released on December 2023</p>
-<section id="id1">
-<h3>Main Package<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<section id="id3">
+<h3>Main Package<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -355,8 +555,8 @@ myqlm-interop compatibility table</label><div class="sd-tab-content docutils">
 </tbody>
 </table>
 </section>
-<section id="id2">
-<h3>Dependant Packages<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<section id="id4">
+<h3>Dependant Packages<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -485,8 +685,8 @@ Arithmetic expression composed of invalid list are no longer constructible.</p>
 <section id="what-s-new-in-myqlm-1-9-5">
 <h2>What’s new in myQLM 1.9.5<a class="headerlink" href="#what-s-new-in-myqlm-1-9-5" title="Permalink to this heading"></a></h2>
 <p>Released on November 2023</p>
-<section id="id3">
-<h3>Main Package<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<section id="id5">
+<h3>Main Package<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -507,8 +707,8 @@ Arithmetic expression composed of invalid list are no longer constructible.</p>
 </tbody>
 </table>
 </section>
-<section id="id4">
-<h3>Dependant Packages<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<section id="id6">
+<h3>Dependant Packages<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -639,8 +839,8 @@ myqlm-interop compatibility table</label><div class="sd-tab-content docutils">
 <section id="what-s-new-in-myqlm-1-9-4">
 <h2>What’s new in myQLM 1.9.4<a class="headerlink" href="#what-s-new-in-myqlm-1-9-4" title="Permalink to this heading"></a></h2>
 <p>Released on September 2023</p>
-<section id="id5">
-<h3>Main Package<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<section id="id7">
+<h3>Main Package<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -661,8 +861,8 @@ myqlm-interop compatibility table</label><div class="sd-tab-content docutils">
 </tbody>
 </table>
 </section>
-<section id="id6">
-<h3>Dependant Packages<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<section id="id8">
+<h3>Dependant Packages<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -791,8 +991,8 @@ myqlm-interop compatibility table</label><div class="sd-tab-content docutils">
 <section id="what-s-new-in-myqlm-1-9-3">
 <h2>What’s new in myQLM 1.9.3<a class="headerlink" href="#what-s-new-in-myqlm-1-9-3" title="Permalink to this heading"></a></h2>
 <p>Released on August 2023</p>
-<section id="id7">
-<h3>Main Package<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
+<section id="id9">
+<h3>Main Package<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -813,8 +1013,8 @@ myqlm-interop compatibility table</label><div class="sd-tab-content docutils">
 </tbody>
 </table>
 </section>
-<section id="id8">
-<h3>Dependant Packages<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
+<section id="id10">
+<h3>Dependant Packages<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -879,8 +1079,8 @@ myqlm-interop compatibility table</label><div class="sd-tab-content docutils">
 </tbody>
 </table>
 </section>
-<section id="other-packages">
-<h3>Other Packages<a class="headerlink" href="#other-packages" title="Permalink to this heading"></a></h3>
+<section id="id11">
+<h3>Other Packages<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -909,8 +1109,8 @@ myqlm-interop compatibility table</label><div class="sd-tab-content docutils">
 <section id="what-s-new-in-myqlm-1-9-2">
 <h2>What’s new in myQLM 1.9.2<a class="headerlink" href="#what-s-new-in-myqlm-1-9-2" title="Permalink to this heading"></a></h2>
 <p>Released on August 2023</p>
-<section id="id9">
-<h3>Main Package<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
+<section id="id12">
+<h3>Main Package<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -931,8 +1131,8 @@ myqlm-interop compatibility table</label><div class="sd-tab-content docutils">
 </tbody>
 </table>
 </section>
-<section id="id10">
-<h3>Dependant Packages<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
+<section id="id13">
+<h3>Dependant Packages<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -997,8 +1197,8 @@ myqlm-interop compatibility table</label><div class="sd-tab-content docutils">
 </tbody>
 </table>
 </section>
-<section id="id11">
-<h3>Other Packages<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h3>
+<section id="id14">
+<h3>Other Packages<a class="headerlink" href="#id14" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -1024,8 +1224,8 @@ myqlm-interop compatibility table</label><div class="sd-tab-content docutils">
 <section id="what-s-new-in-myqlm-1-9-1">
 <h2>What’s new in myQLM 1.9.1<a class="headerlink" href="#what-s-new-in-myqlm-1-9-1" title="Permalink to this heading"></a></h2>
 <p>Released on July 2023</p>
-<section id="id12">
-<h3>Main Package<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h3>
+<section id="id15">
+<h3>Main Package<a class="headerlink" href="#id15" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -1046,8 +1246,8 @@ myqlm-interop compatibility table</label><div class="sd-tab-content docutils">
 </tbody>
 </table>
 </section>
-<section id="id13">
-<h3>Dependant Packages<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h3>
+<section id="id16">
+<h3>Dependant Packages<a class="headerlink" href="#id16" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -1112,8 +1312,8 @@ myqlm-interop compatibility table</label><div class="sd-tab-content docutils">
 </tbody>
 </table>
 </section>
-<section id="id14">
-<h3>Other Packages<a class="headerlink" href="#id14" title="Permalink to this heading"></a></h3>
+<section id="id17">
+<h3>Other Packages<a class="headerlink" href="#id17" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -1171,8 +1371,8 @@ are selected using the scope syntax of Python:</p>
 </div>
 <p>This feature is detailed in the ticket [BRQ-1487]</p>
 </section>
-<section id="updated-features">
-<h4>Updated features<a class="headerlink" href="#updated-features" title="Permalink to this heading"></a></h4>
+<section id="id18">
+<h4>Updated features<a class="headerlink" href="#id18" title="Permalink to this heading"></a></h4>
 <blockquote>
 <div><ul class="simple">
 <li><p><a class="reference internal" href="04_api_reference/module_qat/module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a> has been internally redesigned to store <a class="reference internal" href="04_api_reference/module_qat/module_core/term.html#qat.core.Term" title="qat.core.Term"><code class="xref py py-class docutils literal notranslate"><span class="pre">Term</span></code></a> is a more efficient way. Manipulating
@@ -1191,8 +1391,8 @@ view of the object. This feature is detailed in the ticket [BRQ-1485]</p></li>
 </ul>
 </div></blockquote>
 </section>
-<section id="fixes">
-<h4>Fixes<a class="headerlink" href="#fixes" title="Permalink to this heading"></a></h4>
+<section id="id19">
+<h4>Fixes<a class="headerlink" href="#id19" title="Permalink to this heading"></a></h4>
 <blockquote>
 <div><ul class="simple">
 <li><p>Fix an error in the evaluation of the gradient in <a class="reference internal" href="04_api_reference/module_qat/module_plugins/adaptvqeplugin.html#qat.plugins.AdaptVQEPlugin" title="qat.plugins.AdaptVQEPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdaptVQEPlugin</span></code></a></p></li>
@@ -1228,8 +1428,8 @@ view of the object. This feature is detailed in the ticket [BRQ-1485]</p></li>
 </li>
 </ul>
 </section>
-<section id="id15">
-<h3>Dependant Packages<a class="headerlink" href="#id15" title="Permalink to this heading"></a></h3>
+<section id="id20">
+<h3>Dependant Packages<a class="headerlink" href="#id20" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -1282,8 +1482,8 @@ view of the object. This feature is detailed in the ticket [BRQ-1485]</p></li>
 </tbody>
 </table>
 </section>
-<section id="id16">
-<h3>Other Packages<a class="headerlink" href="#id16" title="Permalink to this heading"></a></h3>
+<section id="id21">
+<h3>Other Packages<a class="headerlink" href="#id21" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -1310,8 +1510,8 @@ view of the object. This feature is detailed in the ticket [BRQ-1485]</p></li>
 <h2>What’s new in myQLM 1.7.2<a class="headerlink" href="#what-s-new-in-myqlm-1-7-2" title="Permalink to this heading"></a></h2>
 <p>Released January 03, 2023</p>
 <p>This is a maintenance release of 1.7.1.</p>
-<section id="id17">
-<h3>Main Fixes<a class="headerlink" href="#id17" title="Permalink to this heading"></a></h3>
+<section id="id22">
+<h3>Main Fixes<a class="headerlink" href="#id22" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><dl class="simple">
 <dt>qat-comm + qat-core</dt><dd><ul>
@@ -1356,8 +1556,8 @@ $HOME/.ipython/profile_default/startup/nowarning.py
 </div>
 <p>Restart Jupyter</p>
 </section>
-<section id="id18">
-<h3>Dependant Packages<a class="headerlink" href="#id18" title="Permalink to this heading"></a></h3>
+<section id="id23">
+<h3>Dependant Packages<a class="headerlink" href="#id23" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -1410,8 +1610,8 @@ $HOME/.ipython/profile_default/startup/nowarning.py
 </tbody>
 </table>
 </section>
-<section id="id19">
-<h3>Other Packages<a class="headerlink" href="#id19" title="Permalink to this heading"></a></h3>
+<section id="id24">
+<h3>Other Packages<a class="headerlink" href="#id24" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -1439,7 +1639,7 @@ $HOME/.ipython/profile_default/startup/nowarning.py
 <p>Released October 31, 2022</p>
 <section id="a-new-simulated-qpu-in-myqlm">
 <h3>A new simulated QPU in myQLM<a class="headerlink" href="#a-new-simulated-qpu-in-myqlm" title="Permalink to this heading"></a></h3>
-<p>myQLM provides a new QPU, <a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Aclinalg.html#qat.qpus.CLinalg" title="qat.qpus.CLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">CLinalg</span></code></a>, written in C++. This new linear-algebra simulatation has been designed as a faster alternative to <a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Apylinalg.html#qat.qpus.PyLinalg" title="qat.qpus.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> (written in Python) and its basic interface and features are very similar. The documentation for this simulator can be found <span class="xref std std-ref">here</span>.</p>
+<p>myQLM provides a new QPU, <a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Aclinalg.html#qat.qpus.CLinalg" title="qat.qpus.CLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">CLinalg</span></code></a>, written in C++. This new linear-algebra simulatation has been designed as a faster alternative to <a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Apylinalg.html#qat.qpus.PyLinalg" title="qat.qpus.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> (written in Python) and its basic interface and features are very similar. The documentation for this simulator can be found <a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Aclinalg.html#qat-clinalg"><span class="std std-ref">here</span></a>.</p>
 <p>This new QPU provides also a low-level API to manipulate the statevector</p>
 </section>
 <section id="tools-for-fermionic-computations-myqlm-fermion">
@@ -1476,8 +1676,8 @@ $HOME/.ipython/profile_default/startup/nowarning.py
 </ul>
 </div></blockquote>
 </section>
-<section id="id20">
-<h3>Updated features<a class="headerlink" href="#id20" title="Permalink to this heading"></a></h3>
+<section id="id25">
+<h3>Updated features<a class="headerlink" href="#id25" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p><a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Apylinalg.html#qat.qpus.PyLinalg" title="qat.qpus.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> should now throw a cleaner exception (<a class="reference internal" href="04_api_reference/module_qat/module_comm/module_exceptions/qpuexception.html#qat.comm.exceptions.ttypes.QPUException" title="qat.comm.exceptions.ttypes.QPUException"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUException</span></code></a>) when failing to retrieve the matrix of a gate</p></li>
@@ -1486,8 +1686,8 @@ $HOME/.ipython/profile_default/startup/nowarning.py
 </ul>
 </div></blockquote>
 </section>
-<section id="id21">
-<h3>Fixes<a class="headerlink" href="#id21" title="Permalink to this heading"></a></h3>
+<section id="id26">
+<h3>Fixes<a class="headerlink" href="#id26" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p>Fix <a class="reference internal" href="04_api_reference/module_qat/module_plugins/junction.html#qat.plugins.Junction" title="qat.plugins.Junction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Junction</span></code></a> plugins when a Batch object having no meta data is submitted</p></li>
@@ -1497,8 +1697,8 @@ $HOME/.ipython/profile_default/startup/nowarning.py
 </ul>
 </div></blockquote>
 </section>
-<section id="id22">
-<h3>Dependant Packages<a class="headerlink" href="#id22" title="Permalink to this heading"></a></h3>
+<section id="id27">
+<h3>Dependant Packages<a class="headerlink" href="#id27" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 67%" />
@@ -1540,8 +1740,8 @@ $HOME/.ipython/profile_default/startup/nowarning.py
 </tbody>
 </table>
 </section>
-<section id="id23">
-<h3>Other Packages<a class="headerlink" href="#id23" title="Permalink to this heading"></a></h3>
+<section id="id28">
+<h3>Other Packages<a class="headerlink" href="#id28" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 67%" />
@@ -1564,8 +1764,8 @@ $HOME/.ipython/profile_default/startup/nowarning.py
 <section id="what-s-new-in-myqlm-1-6-1">
 <h2>What’s new in myQLM 1.6.1<a class="headerlink" href="#what-s-new-in-myqlm-1-6-1" title="Permalink to this heading"></a></h2>
 <p>Released April 25, 2022</p>
-<section id="id24">
-<h3>New features<a class="headerlink" href="#id24" title="Permalink to this heading"></a></h3>
+<section id="id29">
+<h3>New features<a class="headerlink" href="#id29" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p><a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Apylinalg.html#qat.qpus.PyLinalg" title="qat.qpus.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> now supports efficient implementation of controlled gates. It now supports simulation of circuits generated with the <code class="code docutils literal notranslate"><span class="pre">submatrices_only</span></code> keyword argument set to <code class="code docutils literal notranslate"><span class="pre">True</span></code> (<code class="code docutils literal notranslate"><span class="pre">prog.to_circ(submatrices_only=True)</span></code>)</p></li>
@@ -1574,8 +1774,8 @@ $HOME/.ipython/profile_default/startup/nowarning.py
 </ul>
 </div></blockquote>
 </section>
-<section id="id25">
-<h3>Updated features<a class="headerlink" href="#id25" title="Permalink to this heading"></a></h3>
+<section id="id30">
+<h3>Updated features<a class="headerlink" href="#id30" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p><a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Apylinalg.html#qat.qpus.PyLinalg" title="qat.qpus.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> should now throw a cleaner exception (<a class="reference internal" href="04_api_reference/module_qat/module_comm/module_exceptions/qpuexception.html#qat.comm.exceptions.ttypes.QPUException" title="qat.comm.exceptions.ttypes.QPUException"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUException</span></code></a>) when failing to retrieve the matrix of a gate</p></li>
@@ -1584,8 +1784,8 @@ $HOME/.ipython/profile_default/startup/nowarning.py
 </ul>
 </div></blockquote>
 </section>
-<section id="id26">
-<h3>Fixes<a class="headerlink" href="#id26" title="Permalink to this heading"></a></h3>
+<section id="id31">
+<h3>Fixes<a class="headerlink" href="#id31" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p>Fix <a class="reference internal" href="04_api_reference/module_qat/module_plugins/junction.html#qat.plugins.Junction" title="qat.plugins.Junction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Junction</span></code></a> plugins when a Batch object having no meta data is submitted</p></li>
@@ -1598,8 +1798,8 @@ $HOME/.ipython/profile_default/startup/nowarning.py
 <section id="what-s-new-in-myqlm-1-5-1">
 <h2>What’s new in myQLM 1.5.1<a class="headerlink" href="#what-s-new-in-myqlm-1-5-1" title="Permalink to this heading"></a></h2>
 <p>Released December 6, 2021</p>
-<section id="id27">
-<h3>New features<a class="headerlink" href="#id27" title="Permalink to this heading"></a></h3>
+<section id="id32">
+<h3>New features<a class="headerlink" href="#id32" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p><a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Apylinalg.html#qat.qpus.PyLinalg" title="qat.qpus.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> now supports efficient implementation of controlled gates. It now supports simulation of circuits generated with the <code class="code docutils literal notranslate"><span class="pre">submatrices_only</span></code> keyword argument set to <code class="code docutils literal notranslate"><span class="pre">True</span></code> (<code class="code docutils literal notranslate"><span class="pre">prog.to_circ(submatrices_only=True)</span></code>)</p></li>
@@ -1608,8 +1808,8 @@ $HOME/.ipython/profile_default/startup/nowarning.py
 </ul>
 </div></blockquote>
 </section>
-<section id="id28">
-<h3>Updated features<a class="headerlink" href="#id28" title="Permalink to this heading"></a></h3>
+<section id="id33">
+<h3>Updated features<a class="headerlink" href="#id33" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p><a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Apylinalg.html#qat.qpus.PyLinalg" title="qat.qpus.PyLinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyLinalg</span></code></a> should now throw a cleaner exception (<a class="reference internal" href="04_api_reference/module_qat/module_comm/module_exceptions/qpuexception.html#qat.comm.exceptions.ttypes.QPUException" title="qat.comm.exceptions.ttypes.QPUException"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUException</span></code></a>) when failing to retrieve the matrix of a gate</p></li>
@@ -1618,8 +1818,8 @@ $HOME/.ipython/profile_default/startup/nowarning.py
 </ul>
 </div></blockquote>
 </section>
-<section id="id29">
-<h3>Fixes<a class="headerlink" href="#id29" title="Permalink to this heading"></a></h3>
+<section id="id34">
+<h3>Fixes<a class="headerlink" href="#id34" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p>Fix <a class="reference internal" href="04_api_reference/module_qat/module_plugins/junction.html#qat.plugins.Junction" title="qat.plugins.Junction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Junction</span></code></a> plugins when a Batch object having no meta data is submitted</p></li>
@@ -1644,8 +1844,8 @@ $HOME/.ipython/profile_default/startup/nowarning.py
 </pre></div>
 </div>
 </section>
-<section id="id30">
-<h3>New features<a class="headerlink" href="#id30" title="Permalink to this heading"></a></h3>
+<section id="id35">
+<h3>New features<a class="headerlink" href="#id35" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p>Support for Python 3.9 for Linux, Windows and macOS</p></li>
@@ -1654,7 +1854,7 @@ $HOME/.ipython/profile_default/startup/nowarning.py
 <li><p>It is now possible to generate the partial derivatives - <a class="reference internal" href="04_api_reference/module_qat/module_core/job.html#qat.core.Job.differentiate" title="qat.core.Job.differentiate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">differentiate()</span></code></a> and the gradient of a Job - <a class="reference internal" href="04_api_reference/module_qat/module_core/job.html#qat.core.Job.gradient" title="qat.core.Job.gradient"><code class="xref py py-meth docutils literal notranslate"><span class="pre">gradient()</span></code></a>. These methods return jobs collections whose energies can be summed in order to evaluate the derivatives/gradient. They rely on shift-rule or Hadamard tests (see their documentation).</p></li>
 <li><p>The partial derivative works also for multivariable ArithExpressions - <a class="reference internal" href="04_api_reference/module_qat/module_core/module_variables/arithexpression.html#qat.core.variables.ArithExpression.differentiate" title="qat.core.variables.ArithExpression.differentiate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">differentiate()</span></code></a>. It can be applied to the usual arithmetic operations between functions, as well to functions to the power of other functions!</p></li>
 <li><p>Added a <a class="reference internal" href="04_api_reference/module_qat/module_core/circuit.html#qat.core.Circuit.dag" title="qat.core.Circuit.dag"><code class="xref py py-meth docutils literal notranslate"><span class="pre">dag()</span></code></a> method for circuit objects</p></li>
-<li><p>Added an implementation of <span class="xref std std-ref">Kerenidis-PrakashQRAM/State preparation</span> - <a class="reference internal" href="04_api_reference/module_qat/module_lang/kptree.html#qat.lang.models.KPTree" title="qat.lang.models.KPTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">KPTree</span></code></a>.</p></li>
+<li><p>Added an implementation of <a class="reference internal" href="04_api_reference/module_qat/module_lang/kptree.html#state-pre-and-qram"><span class="std std-ref">Kerenidis-PrakashQRAM/State preparation</span></a> - <a class="reference internal" href="04_api_reference/module_qat/module_lang/kptree.html#qat.lang.models.KPTree" title="qat.lang.models.KPTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">KPTree</span></code></a>.</p></li>
 <li><p>Updated documentation of <a class="reference internal" href="04_api_reference/module_qat/module_comm/module_datamodel/op.html#qat.comm.datamodel.ttypes.Op" title="qat.comm.datamodel.ttypes.Op"><code class="xref py py-class docutils literal notranslate"><span class="pre">Op</span></code></a></p></li>
 <li><p>Link the documentation to their corresponding notebooks when possible</p></li>
 <li><p>One can now create a job ready to run on the <a class="reference internal" href="04_api_reference/module_qat/module_qpus/%3Amyqlm%3Asimulatedannealing.html#qat.qpus.SimulatedAnnealing" title="qat.qpus.SimulatedAnnealing"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimulatedAnnealing</span></code></a> QPU via the <a class="reference internal" href="04_api_reference/module_qat/module_opt/ising.html#qat.opt.Ising.to_job" title="qat.opt.Ising.to_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_job()</span></code></a> method of the <a class="reference internal" href="04_api_reference/module_qat/module_opt/ising.html#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> and <a class="reference internal" href="04_api_reference/module_qat/module_opt/qubo.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> classes.</p></li>

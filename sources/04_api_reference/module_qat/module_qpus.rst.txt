@@ -5,12 +5,12 @@ qat.qpus
 
 :ref:`QPUs <qpu>` are objects to execute quantum :class:`~qat.core.Job`, and return a :class:`~qat.core.Result`.
 
-.. only:: qlm
+.. parseonly:: qlm
 
     Currently, the following QPUs are offered to the users in Qaptiva.
 
-.. only:: myqlm
-    
+.. parseonly:: myqlm
+
     Currently, the following QPUs are offered to the users in myQLM.
 
 Gate-based QPUs
@@ -30,9 +30,10 @@ Gate-based QPUs
    [:class:`qat.qpus.MPSLegacy`] Legacy QPU for MPS
    [:class:`qat.qpus.CLinalg`] C++ linear-algebra-based simulator
    [:class:`qat.qpus.PyLinalg`] Python linear-algebra-based simulator
+   [:class:`qat.qpus.DLinAlg`] C++ distributed linear-algebra-based simulator with MPI communication
 
 
-.. only:: qlm
+.. parseonly:: qlm
 
     Analog Quantum Simulators
     -------------------------
@@ -41,6 +42,7 @@ Gate-based QPUs
 
         [:class:`qat.qpus.QutipQPU`] Analog simulator using *Boost.odeint*
         [:class:`qat.qpus.AnalogQPU`] Analog simulator based on the *QuTiP* library
+        [:class:`qat.qpus.MPSTraj`] Tensor Network based analog simulator
 
 
 Simulated Annealing

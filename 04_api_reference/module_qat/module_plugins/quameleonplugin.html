@@ -38,7 +38,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -61,6 +61,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
@@ -68,6 +69,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../module_plugins.html">qat.plugins</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="circuitinliner.html">qat.plugins.CircuitInliner</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fusionplugin.html">qat.plugins.FusionPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="observablesplitter.html">qat.plugins.ObservableSplitter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="costfunctionplugin.html">qat.plugins.CostFunctionPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="psominimizeplugin.html">qat.plugins.PSOMinimizePlugin</a></li>
@@ -135,8 +137,8 @@
 <h1>qat.plugins.QuameleonPlugin<a class="headerlink" href="#qat-plugins-quameleonplugin" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.plugins.QuameleonPlugin">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">QuameleonPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">specs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gate_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plugins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.QuameleonPlugin" title="Permalink to this definition"></a></dt>
-<dd><p>A QPU overriding the Hardware specs of a QPU, thus producing a QPU with custom
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">QuameleonPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">specs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gate_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.QuameleonPlugin" title="Permalink to this definition"></a></dt>
+<dd><p>A Plugin overriding the Hardware specs of a QPU, thus producing a QPU with custom
 Hardware specs.</p>
 <p>The main usage of this Plugin is to emulate a QPU with a particular hardware
 specs, while still benefiting
@@ -174,25 +176,26 @@ compliant with the specs provided at construction.</p>
 topology of the specs to emulate</p></li>
 <li><p><strong>gate_set</strong> (optional, <a class="reference internal" href="../module_core/module_gate_set/gateset.html#qat.core.gate_set.GateSet" title="qat.core.gate_set.GateSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateSet</span></code></a>) – the gate set of the specs
 to emulate</p></li>
-<li><p><strong>qpu</strong> (optional, <a class="reference internal" href="../module_qpus/qpuhandler.html#qat.qpus.QPUHandler" title="qat.qpus.QPUHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUHandler</span></code></a>) – the underlying qpu.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.plugins.QuameleonPlugin.compile">
-<span class="sig-name descname"><span class="pre">compile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.wrappers.batch.Batch"><span class="pre">Batch</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.wrappers.batch.Batch"><span class="pre">Batch</span></a></span></span><a class="headerlink" href="#qat.plugins.QuameleonPlugin.compile" title="Permalink to this definition"></a></dt>
-<dd><p>Loops a batch through all the plugins present inside the QPU.</p>
+<span class="sig-name descname"><span class="pre">compile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.QuameleonPlugin.compile" title="Permalink to this definition"></a></dt>
+<dd><p>Compiles a job. This function ensure all the job composing the batch
+are compliant with the specs</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>batch</strong> (<a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><em>Batch</em></a>) – a batch of jobs. If a single job is provided, the
-job is embedded into a Batch, compiled, and the first result is
-returned.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch</strong> (<a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) – batch</p></li>
+<li><p><strong>specs</strong> (<a class="reference internal" href="../module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a>) – hardware specifications</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a batch of jobs</p>
+<dd class="field-even"><p>same batch as the one passed as input</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(<a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.Batch">Batch</a>)</p>
+<dd class="field-odd"><p><a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>

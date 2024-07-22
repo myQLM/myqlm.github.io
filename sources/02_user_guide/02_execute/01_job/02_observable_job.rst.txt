@@ -42,13 +42,13 @@ this computation with Qaptiva and verify the result.
             print("<O> = ", result.value)
 
         We verify that the expectation ``value`` :math:`\langle O \rangle` of the result is 0.
-        
+
     .. tab-item:: Finite number of shots, all qubits
 
         We now look at the effect of shot noise. In practice one can only repeat the measurement a finite number of times.
         Here, we will submit three jobs, each with a different number of shots ``nbshots``, to the QPU.
 
-        .. only:: qlm
+        .. parseonly:: qlm
 
             .. run-block:: python
 
@@ -72,8 +72,7 @@ this computation with Qaptiva and verify the result.
                     result = get_default_qpu().submit(job)
                     print(f"<O> ({nbshots} shots) = {result.value} +/- {result.error}")
 
-        
-        .. only:: myqlm
+        .. parseonly:: myqlm distributed
 
             .. run-block:: python
 
@@ -95,12 +94,12 @@ this computation with Qaptiva and verify the result.
                 for nbshots in [100, 1000, 10000]:
                     job = circuit.to_job(observable=obs, nbshots=nbshots)
 
-                    # The QPU is stacked with ObservableSplitter, as the default myQLM QPU does not support
+                    # The QPU is stacked with ObservableSplitter, as the default QPU does not support
                     # a finite number of shots for observable sampling
                     from qat.plugins import ObservableSplitter
                     result = (ObservableSplitter() | get_default_qpu()).submit(job)
 
                     print(f"<O> ({nbshots} shots) = {result.value} +/- {result.error}")
-        
+
         We can see that the expectation ``value`` :math:`\langle O \rangle` of the result differs from the ideal one due to "shot noise".
         The ``error`` field contains the standard error of the estimated expectation value.

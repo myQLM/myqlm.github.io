@@ -7,15 +7,15 @@ Given an undirected graph with vertex set :math:`V` and edge set :math:`E`, the 
 a complete subgraph of size :math:`K`. Annealing the problem with the help of our :class:`~qat.opt.k_clique.KClique` class (or 
 :class:`~qat.opt.generators.KCliqueGenerator` class) requires :math:`\#V` spins (one spin per vertex).
 
-.. only:: qlm
+.. parseonly:: qlm
 
     Solving this problem using the simulated quantum annealing method requires :class:`~qat.qpus.SQAQPU`.
-    
-.. only:: myqlm
+
+.. parseonly:: myqlm distributed
 
     Solving this problem using the simulated annealing method requires the :class:`~qat.qpus.SimulatedAnnealing` QPU.
 
-.. only:: qlm
+.. parseonly:: qlm
 
     .. run-block:: python
 
@@ -26,7 +26,7 @@ a complete subgraph of size :math:`K`. Annealing the problem with the help of ou
         from qat.core import Variable
         from qat.core.spins import integer_to_spins
 
-        # Specify the graph 
+        # Specify the graph
         graph = nx.Graph()
         graph.add_nodes_from(np.arange(5))
         graph.add_edges_from([(0, 1), (0, 2), (0, 3), (0, 4),
@@ -57,7 +57,7 @@ a complete subgraph of size :math:`K`. Annealing the problem with the help of ou
         gamma_t = gamma_min * (t / tmax) + gamma_max * (1 - t / tmax)
 
         # Create a job and send it to a QPU
-        problem_job = kclique_problem.to_job(gamma_t=gamma_t, tmax=tmax, nbshots=1)
+        problem_job = kclique_problem.to_job('sqa', gamma_t=gamma_t, tmax=tmax, nbshots=1)
         sqa_qpu = SQAQPU(temp_t=temp_t, n_steps=n_steps, n_trotters=n_trotters)
         problem_result = sqa_qpu.submit(problem_job)
 
@@ -68,7 +68,7 @@ a complete subgraph of size :math:`K`. Annealing the problem with the help of ou
         indices_spin_1 = np.where(solution_configuration == 1)[0]
         print("The nodes of the complete subgraph are:\n" + str(indices_spin_1) + "\n")
 
-.. only:: myqlm
+.. parseonly:: myqlm distributed
 
     .. run-block:: python
 
@@ -79,7 +79,7 @@ a complete subgraph of size :math:`K`. Annealing the problem with the help of ou
         from qat.simulated_annealing import integer_to_spins
         from qat.core import Variable
 
-        # Specify the graph 
+        # Specify the graph
         graph = nx.Graph()
         graph.add_nodes_from(np.arange(5))
         graph.add_edges_from([(0, 1), (0, 2), (0, 3), (0, 4),
@@ -105,7 +105,7 @@ a complete subgraph of size :math:`K`. Annealing the problem with the help of ou
         sa_qpu = SimulatedAnnealing(temp_t=temp_t, n_steps=n_steps)
 
         # Create a job and send it to the QPU
-        problem_job = kclique_problem.to_job(tmax=tmax)
+        problem_job = kclique_problem.to_job('sqa', tmax=tmax)
         problem_result = sa_qpu.submit(problem_job)
 
         # Extract and print the solution configuration
@@ -115,10 +115,14 @@ a complete subgraph of size :math:`K`. Annealing the problem with the help of ou
         indices_spin_1 = np.where(solution_configuration == 1)[0]
         print("The nodes of the complete subgraph are:\n" + str(indices_spin_1) + "\n")
 
-.. only:: qlm
+.. parseonly:: qlm
 
     This example is also detailed in this notebook on solving :notebook:`(K-Clique)[k_clique.ipynb]` problems with :ref:`SQA <simulated_quantum_annealing>`.
 
-.. only:: myqlm
+.. parseonly:: distributed
+
+    This example is also detailed in this notebook on solving :notebook:`(K-Clique)[k_clique_distributed.ipynb]` problems with :ref:`SA <simulated_annealing>`.
+
+.. parseonly:: myqlm
 
     This example is also detailed in this notebook on solving :notebook:`(K-Clique)[k_clique_myqlm.ipynb]` problems with :ref:`SA <simulated_annealing>`.

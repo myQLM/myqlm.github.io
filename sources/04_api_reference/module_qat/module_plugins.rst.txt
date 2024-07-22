@@ -7,12 +7,12 @@ qat.plugins
 
 :ref:`Plugins <plugin>` are objects to manipulate quantum jobs (circuits, observables) prior to execution and post-process the results.
 
-.. only:: qlm
+.. parseonly:: qlm distributed
 
     Currently, the following plugins are offered to the users in |qaptiva|.
 
-.. only:: myqlm
-    
+.. parseonly:: myqlm
+
     Currently, the following plugins are offered to the users in myQLM.
 
 
@@ -23,6 +23,7 @@ _________________________
 
     [:class:`qat.plugins.Nnizer`] Plugin solving the SWAP insertion problem
     [:class:`qat.plugins.FusionPlugin`] Merge quantum gates together to reduce the number of gates
+    [:class:`qat.plugins.Localizer`] Insert swap gates to localize remote qubits involved in remote operations
     [:class:`qat.plugins.Remap`] Unused qubits remover
     [:class:`qat.plugins.PatternManager`] High-level plugin applying rewriting rules following a meta-heuristic
     [:class:`qat.plugins.GateRewriter`] Replace some gates by a pattern in a circuit
@@ -34,7 +35,7 @@ _________________________
     [:class:`qat.plugins.BaseChanger`] Split observable job into smaller diagonal observable jobs
 
 
-.. only:: qlm
+.. parseonly:: qlm
 
     Circuit synthesis plugins
     _________________________
@@ -45,6 +46,8 @@ _________________________
         [:class:`qat.plugins.InitialMapping`] Plugin wrapping various remapping methods
         [:class:`qat.plugins.NISQCompiler`] Generic compiler for NISQ quantum circuits
 
+
+.. _variational-programs:
 
 Variational optimization plugins
 ________________________________
@@ -68,6 +71,25 @@ ____________________________
     [:class:`qat.plugins.SeqOptim`] Iteratively transform into Natural Orbitals basis
     [:class:`qat.plugins.TransformObservable`] Plugin performing a transformation on the Observable
     [:class:`qat.plugins.ZeroNoiseExtrapolator`] Plugin performing Zero-Noise Extrapolation
+
+
+.. parseonly:: qlm
+
+    Plugins for projective quantum eigensolver
+    __________________________________________
+
+    These plugins allow performing projective quantum eigensolving (PQE, `Stair et al. <https://doi.org/10.1103/PRXQuantum.2.030301>`_ ) on Qaptiva.
+    PQE is an alternative to variational quantum eigensolving (VQE) that, instead of minimizing a variational energy, attempts to find
+    the zeros of the "residues" of the parametric wavefunction. By so doing, one hopes to get a faster and more noise-robust
+    convergence to the ground state of the problem.
+
+    PQE is implemented through two plugins: the first plugin iteratively generates the ansatz, while the second performs the quasi-Newton optimization of the parameters:
+
+    .. autoapi::
+
+        [:class:`qat.plugins.SPQEPlugin`] PQE plugin for ansatz preparation
+        [:class:`qat.plugins.PQEOptimizationPlugin`] PQE plugin for quasi-Newton optimization
+
 
 
 Plugin utilities

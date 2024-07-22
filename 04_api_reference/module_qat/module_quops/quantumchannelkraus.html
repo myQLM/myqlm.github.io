@@ -40,7 +40,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -63,6 +63,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
@@ -170,18 +171,18 @@
 <span class="kn">from</span> <span class="nn">qat.quops</span> <span class="kn">import</span> <span class="n">QuantumChannelKraus</span>
 
 <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.15</span>
-<span class="n">chan1</span> <span class="o">=</span> <span class="n">QuantumChannelKraus</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">p1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p1</span><span class="p">)],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]])</span>
-<span class="n">chan2</span> <span class="o">=</span> <span class="n">QuantumChannelKraus</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">p2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p2</span><span class="p">)],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]])</span>
+<span class="n">chan1</span> <span class="o">=</span> <span class="n">QuantumChannelKraus</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">p1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p1</span><span class="p">)],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]])])</span>
+<span class="n">chan2</span> <span class="o">=</span> <span class="n">QuantumChannelKraus</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">p2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p2</span><span class="p">)],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]])])</span>
 
 <span class="n">chan3</span> <span class="o">=</span> <span class="n">chan1</span> <span class="o">*</span> <span class="n">chan2</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">chan3</span><span class="o">.</span><span class="n">kraus_operators</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">6</span>
-    <span class="n">chan2</span> <span class="o">=</span> <span class="n">QuantumChannelKraus</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">p2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p2</span><span class="p">)],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]])</span>
-    <span class="o">^</span>
-<span class="ne">SyntaxError</span><span class="p">:</span> <span class="n">invalid</span> <span class="n">syntax</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.82462113</span><span class="p">,</span> <span class="mf">0.</span>        <span class="p">],</span>
+       <span class="p">[</span><span class="mf">0.</span>        <span class="p">,</span> <span class="mf">0.82462113</span><span class="p">]]),</span> <span class="n">array</span><span class="p">([[</span><span class="mf">0.</span>        <span class="p">,</span> <span class="mf">0.34641016</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">0.</span>        <span class="p">,</span> <span class="mf">0.</span>        <span class="p">]]),</span> <span class="n">array</span><span class="p">([[</span><span class="mf">0.</span>        <span class="p">,</span> <span class="mf">0.41231056</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">0.</span>        <span class="p">,</span> <span class="mf">0.</span>        <span class="p">]])]</span>
 </pre></div>
 </div>
 <dl class="py attribute">
@@ -203,17 +204,6 @@
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>string</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="qat.quops.QuantumChannelKraus.kraus_rank">
-<span class="sig-name descname"><span class="pre">kraus_rank</span></span><a class="headerlink" href="#qat.quops.QuantumChannelKraus.kraus_rank" title="Permalink to this definition"></a></dt>
-<dd><p>Kraus rank <span class="math notranslate nohighlight">\(K\)</span> (number of Kraus operators)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -261,8 +251,8 @@ channel to. Defaults to None, in which case: direct matrix product (sizes have t
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">kraus_rank</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="qat.quops.QuantumChannelKraus.kraus_rank">
+<span class="sig-name descname"><span class="pre">kraus_rank</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.quops.QuantumChannelKraus.kraus_rank" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the Kraus rank of the quantum channel</p>

@@ -40,7 +40,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -63,6 +63,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
@@ -74,6 +75,7 @@
 <li class="toctree-l4 current"><a class="current reference internal" href="#">qat.opt.CombinatorialProblem</a></li>
 <li class="toctree-l4"><a class="reference internal" href="var.html">qat.opt.boolexpr.Var</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ising.html">qat.opt.Ising</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mwis.html">qat.opt.MWIS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="qubo.html">qat.opt.QUBO</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bilp.html">qat.opt.BILP</a></li>
 <li class="toctree-l4"><a class="reference internal" href="graphcolouring.html">qat.opt.GraphColouring</a></li>
@@ -181,7 +183,7 @@ and <a class="reference internal" href="#qat.opt.CombinatorialProblem.add_clause
 <span class="n">var1</span><span class="p">,</span> <span class="n">var2</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">new_vars</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">problem</span><span class="o">.</span><span class="n">add_clause</span><span class="p">(</span><span class="n">var1</span> <span class="o">&amp;</span> <span class="n">var2</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
-<span class="n">obs</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">get_observable</span><span class="p">()</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">get_observable</span><span class="p">(</span><span class="s2">&quot;terms&quot;</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
 </pre></div>
@@ -225,25 +227,94 @@ Hamiltonian. Default to false.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="qat.opt.CombinatorialProblem.aqo_job">
+<span class="sig-name descname"><span class="pre">aqo_job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mixing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.CombinatorialProblem.aqo_job" title="Permalink to this definition"></a></dt>
+<dd><p>Generates an Adiabatic Quantum Optimization (AQO) job performing a linear
+interpolation between an initial mixing Hamiltonian and the problem’s
+Hamiltonian.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.opt.CombinatorialProblem.decode_rydberg">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">decode_rydberg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.CombinatorialProblem.decode_rydberg" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the MWIS simulation result of the input graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job</strong> (<a class="reference internal" href="../module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a>) – generated job</p></li>
+<li><p><strong>result</strong> (<a class="reference internal" href="../module_core/result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a>) – result of the simulation of the crossing
+lattice graph.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>MWIS simulation result of the input graph.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../module_core/result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.opt.CombinatorialProblem.decode_rydberg_meta_data">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">decode_rydberg_meta_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.CombinatorialProblem.decode_rydberg_meta_data" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the MWIS simulation result of the input graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>meta_data</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – generated job meta_data</p></li>
+<li><p><strong>result</strong> (<a class="reference internal" href="../module_core/result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a>) – result of the simulation of the crossing
+lattice graph</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>MWIS simulation result of the input graph</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../module_core/result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="qat.opt.CombinatorialProblem.get_observable">
-<span class="sig-name descname"><span class="pre">get_observable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.CombinatorialProblem.get_observable" title="Permalink to this definition"></a></dt>
-<dd><p>Generates a cost Hamiltonian for the problem.</p>
-<p>The cost Hamiltonian is diagonal and associate to each bitstring <span class="math notranslate nohighlight">\(|s\rangle\)</span> an
+<span class="sig-name descname"><span class="pre">get_observable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.CombinatorialProblem.get_observable" title="Permalink to this definition"></a></dt>
+<dd><p>Returns an ising- or a terms-type of <a class="reference internal" href="../module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a> from the
+<a class="reference internal" href="#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a>.
+For an ‘ising’ Observable, the Ising problem will first be translated to
+an <a class="reference internal" href="ising.html#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> problem.</p>
+<p>In the case of a ‘terms’ <a class="reference internal" href="../module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a>, a diagonal cost Hamiltonian is
+generated. It associates to each bitstring <span class="math notranslate nohighlight">\(|s\rangle\)</span> an
 energy <span class="math notranslate nohighlight">\(\sum_\alpha w_\alpha C_\alpha(s)\)</span> where <span class="math notranslate nohighlight">\(C_\alpha\)</span> are the clauses
 of the problem, seen as <span class="math notranslate nohighlight">\(\{0, 1\}\)</span> valued functions
 and <span class="math notranslate nohighlight">\(w_\alpha\)</span> their corresponding weights.</p>
 <p>This encoding is done recursively and is described in the documentation of the
 <a class="reference internal" href="clause.html#qat.opt.boolexpr.Clause" title="qat.opt.boolexpr.Clause"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clause</span></code></a> class.</p>
 <p>If the problem is specified as a maximization problem, the sign of the cost
-Hamiltonian if flipped.
+Hamiltonian is flipped.
 This means that the “best” solution is always encoded in the ground state of the returned
 Hamiltonian.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>a cost Hamiltonian</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obs_type</strong> (<em>string</em>) – <p>The type of <a class="reference internal" href="../module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a> to be returned:
+<code class="code docutils literal notranslate"><span class="pre">'ising'</span></code> or <code class="code docutils literal notranslate"><span class="pre">'terms'</span></code>.</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">'ising'</span></code> observables can be used to create a
+<a class="reference internal" href="../module_core/schedule.html#qat.core.Schedule" title="qat.core.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a> (by also providing <cite>gamma_t</cite> if <code class="code docutils literal notranslate"><span class="pre">SQAQPU</span></code> in the
+full Qaptiva appliance will be used) and consecutively produce a <a class="reference internal" href="../module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a>
+to be sent for Simulated Quantum Annealing.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">'terms'</span></code> observables can be used for gate-based quantum computations with a
+<a class="reference internal" href="../module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> or analog quantum computations, also with a
+<a class="reference internal" href="../module_core/schedule.html#qat.core.Schedule" title="qat.core.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a>.</p></li>
+</ul>
+</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="../module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a></p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an Ising Observable or an Observable with terms
+representing the problem</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -280,6 +351,107 @@ Hamiltonian.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="qat.opt.CombinatorialProblem.qaoa_job">
+<span class="sig-name descname"><span class="pre">qaoa_job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">depth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'coloring'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_circ_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.CombinatorialProblem.qaoa_job" title="Permalink to this definition"></a></dt>
+<dd><p>Generates a QAOA Ansatz Job for gate-based computations
+using the cost observable returned by the abstract method
+<code class="code docutils literal notranslate"><span class="pre">get_observable</span></code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When setting the <cite>cnots</cite> option to False, the circuit might make
+use of generalized many-qubits Z rotations. In that case,
+you might want to instantiate your variational plugins using
+a gate set that contains definition of these gates. If not,
+some matrices in the circuit structure
+will be missing and some QPUs may not be able to handle the circuit.</p>
+<p>The following piece of code should allow you to link the correct gate
+set to a variational plugin:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.plugins</span> <span class="kn">import</span> <span class="n">ScipyMinimizePlugin</span>
+<span class="kn">from</span> <span class="nn">qat.vsolve.ansatz</span> <span class="kn">import</span> <span class="n">get_qaoa_gate_set</span>
+
+<span class="c1"># This plugin will no be able to bind variables inside a</span>
+<span class="c1"># job generated with cnot set to False!</span>
+<span class="n">my_plugin</span> <span class="o">=</span> <span class="n">ScipyMinimizePlugin</span><span class="p">()</span>
+
+<span class="c1"># This plugin can now be used with job generated with the</span>
+<span class="c1"># cnots option sets to False!</span>
+<span class="n">my_plugin</span> <span class="o">=</span> <span class="n">ScipyMinimizePlugin</span><span class="p">(</span><span class="n">gate_set</span><span class="o">=</span><span class="n">get_qaoa_gate_set</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>depth</strong> (<em>int</em>) – the depth of the Ansatz</p></li>
+<li><p><strong>strategy</strong> (<em>str</em>) – the strategy to adopt to generate the circuit. Possible
+strategies are “default” or “coloring”. The “coloring” strategy uses
+a greedy coloring heuristics to try to optimize the overall depth of the
+Ansatz. Default is “default” which synthesize the circuit without optimizing
+the term ordering.</p></li>
+<li><p><strong>cnots</strong> (<em>optional</em><em>, </em><em>bool</em>) – If set to True the Ansatz will only use CNOT
+gates. If set to False, some abstract gates will be used to
+generate collective pauli rotations, resulting in a lower gate count.
+Defaults to True.</p></li>
+<li><p><strong>**kwargs</strong> – optional arguments that will be transfered to the
+job’s constructor (e.g nbshots, etc).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a Qaptiva job, ready to run</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.opt.CombinatorialProblem.ryd_job">
+<span class="sig-name descname"><span class="pre">ryd_job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_budget_sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.CombinatorialProblem.ryd_job" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a ryd-type job for the problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>optimize</strong> (<em>bool</em>) – if True, the node overhead will be reduced.</p></li>
+<li><p><strong>time_budget_sec</strong> (<em>float</em>) – time budget allocated for the core part of the optimization function.</p></li>
+<li><p><strong>tmax</strong> (<em>float</em>) – time duration of the adiabatic simulation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a ryd-type job ready to run on an analog QPU.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.opt.CombinatorialProblem.sqa_job">
+<span class="sig-name descname"><span class="pre">sqa_job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gamma_t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.CombinatorialProblem.sqa_job" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a sqa-type of Job for the problem (if it is not quadratic, it might raise
+an exception). The problem is ready to run on a QPU for simulated annealing
+(<a class="reference internal" href="../../../02_user_guide/02_execute/03_qpu/03_annealing.html#simulated-annealing"><span class="std std-ref">SA</span></a>) or simulated quantum anealing (SQA). The
+second one comes in the full Qaptiva. The optional <code class="code docutils literal notranslate"><span class="pre">gamma_t</span></code> argument is only used for SQA.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tmax</strong> (<em>float</em><em>, </em><em>optional</em>) – time duration of the annealing. Default is 1.</p></li>
+<li><p><strong>gamma_t</strong> (<a class="reference internal" href="../module_core/module_variables/arithexpression.html#qat.core.variables.ArithExpression" title="qat.core.variables.ArithExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithExpression</span></code></a>, optional) – a function
+specifying the time dependence of Gamma. It should be produced using the variable
+‘t’ created by the class <a class="reference internal" href="../module_core/variable.html#qat.core.Variable" title="qat.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a ready to run sqa-type of Job for the problem</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="qat.opt.CombinatorialProblem.to_bqm">
 <span class="sig-name descname"><span class="pre">to_bqm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.CombinatorialProblem.to_bqm" title="Permalink to this definition"></a></dt>
 <dd><p>Transforms a Combinatorial problem to DWave’s <em>Binary Quadratic Model</em> from
@@ -305,6 +477,39 @@ if the problem is not quadratic.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="ising.html#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.opt.CombinatorialProblem.to_job">
+<span class="sig-name descname"><span class="pre">to_job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_type</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.CombinatorialProblem.to_job" title="Permalink to this definition"></a></dt>
+<dd><p>A general method allowing the creation of an aqo-, qaoa- or sqa-type of
+Job from a problem description - ready to run on the respective QPU.</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">'aqo'</span></code> is for Adiabatic Quantum Optimization (with analog QPUs). Internally, method <a class="reference internal" href="#qat.opt.CombinatorialProblem.aqo_job" title="qat.opt.CombinatorialProblem.aqo_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">aqo_job()</span></code></a>
+is used to generate the job.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">'qaoa'</span></code> is for using the Quantum Approximate Optimization Algorithm (with gate-based QPUs). Internally,
+method <a class="reference internal" href="#qat.opt.CombinatorialProblem.qaoa_job" title="qat.opt.CombinatorialProblem.qaoa_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qaoa_job()</span></code></a> is used to generate the job.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">'sqa'</span></code> is for Simulated Quantum Annealing to be used with SQAQPU in Qaptiva, also being able to
+be run with <a class="reference internal" href="../module_qpus/%3Amyqlm%3Asimulatedannealing.html#qat.qpus.SimulatedAnnealing" title="qat.qpus.SimulatedAnnealing"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimulatedAnnealing</span></code></a> (<a class="reference internal" href="../../../02_user_guide/02_execute/03_qpu/03_annealing.html#simulated-annealing"><span class="std std-ref">SA</span></a>) for myQLM. Internally, method
+<a class="reference internal" href="#qat.opt.CombinatorialProblem.sqa_job" title="qat.opt.CombinatorialProblem.sqa_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sqa_job()</span></code></a> is used to generate the job.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">'ryd'</span></code> is for Rydberg. Internally, method <a class="reference internal" href="#qat.opt.CombinatorialProblem.ryd_job" title="qat.opt.CombinatorialProblem.ryd_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ryd_job()</span></code></a> is used to generate the job.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job_type</strong> (<em>string</em>) – The type of job to be returned: <code class="code docutils literal notranslate"><span class="pre">'aqo'</span></code>, <code class="code docutils literal notranslate"><span class="pre">'qaoa'</span></code>, <code class="code docutils literal notranslate"><span class="pre">'sqa'</span></code>, or <code class="code docutils literal notranslate"><span class="pre">'ryd'</span></code>.</p></li>
+<li><p><strong>*args</strong> – additional arguments passed to <a class="reference internal" href="#qat.opt.CombinatorialProblem.aqo_job" title="qat.opt.CombinatorialProblem.aqo_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">aqo_job()</span></code></a>, <a class="reference internal" href="#qat.opt.CombinatorialProblem.qaoa_job" title="qat.opt.CombinatorialProblem.qaoa_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qaoa_job()</span></code></a>, <a class="reference internal" href="#qat.opt.CombinatorialProblem.sqa_job" title="qat.opt.CombinatorialProblem.sqa_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sqa_job()</span></code></a>, or <a class="reference internal" href="#qat.opt.CombinatorialProblem.ryd_job" title="qat.opt.CombinatorialProblem.ryd_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ryd_job()</span></code></a>.</p></li>
+<li><p><strong>**kwargs</strong> – additional keyword arguments passed to <a class="reference internal" href="#qat.opt.CombinatorialProblem.aqo_job" title="qat.opt.CombinatorialProblem.aqo_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">aqo_job()</span></code></a>, <a class="reference internal" href="#qat.opt.CombinatorialProblem.qaoa_job" title="qat.opt.CombinatorialProblem.qaoa_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qaoa_job()</span></code></a>,
+<a class="reference internal" href="#qat.opt.CombinatorialProblem.sqa_job" title="qat.opt.CombinatorialProblem.sqa_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sqa_job()</span></code></a>, or <a class="reference internal" href="#qat.opt.CombinatorialProblem.ryd_job" title="qat.opt.CombinatorialProblem.ryd_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ryd_job()</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a ready to run Job for the respective type of problem</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>

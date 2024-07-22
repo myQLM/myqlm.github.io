@@ -38,7 +38,7 @@
             <img src="../../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -63,6 +63,7 @@
 <li class="toctree-l4 current"><a class="reference internal" href="../module_resource.html">qat.comm.resource</a><ul class="current">
 <li class="toctree-l5 current"><a class="current reference internal" href="#">qat.comm.resource.ttypes.AllocationModel</a></li>
 <li class="toctree-l5"><a class="reference internal" href="device.html">qat.comm.resource.ttypes.Device</a></li>
+<li class="toctree-l5"><a class="reference internal" href="nodetype.html">qat.comm.resource.ttypes.NodeType</a></li>
 <li class="toctree-l5"><a class="reference internal" href="resourcemodel.html">qat.comm.resource.ttypes.ResourceModel</a></li>
 </ul>
 </li>
@@ -72,6 +73,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../module_core.html">qat.core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../module_devices.html">qat.devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../module_generators.html">qat.generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../module_hardware.html">qat.hardware</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
@@ -127,42 +129,23 @@
 <h1>qat.comm.resource.ttypes.AllocationModel<a class="headerlink" href="#qat-comm-resource-ttypes-allocationmodel" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.comm.resource.ttypes.AllocationModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.comm.resource.ttypes.</span></span><span class="sig-name descname"><span class="pre">AllocationModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">devices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequential_round_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel_job_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allocated_thread_count_per_job</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allocated_total_memory_mb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimated_batch_completion_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reservation_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.comm.resource.ttypes.AllocationModel" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">-</span> <span class="pre">devices</span></span></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">-</span> <span class="pre">sequential_round_count</span></span></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">-</span> <span class="pre">parallel_job_count</span></span></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">-</span> <span class="pre">allocated_thread_count_per_job</span></span></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">-</span> <span class="pre">allocated_total_memory_mb</span></span></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">-</span> <span class="pre">estimated_batch_completion_time</span></span></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">-</span> <span class="pre">reservation_id</span></span></dt>
-<dd></dd></dl>
-
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.comm.resource.ttypes.</span></span><span class="sig-name descname"><span class="pre">AllocationModel</span></span><a class="headerlink" href="#qat.comm.resource.ttypes.AllocationModel" title="Permalink to this definition"></a></dt>
+<dd><p>Structure describing the resources allocated by the Resource Manager to execute
+a job on the Qaptiva machine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>devices</strong> (<em>list</em><em>[</em><a class="reference internal" href="device.html#qat.comm.resource.ttypes.Device" title="qat.comm.resource.ttypes.Device"><em>Device</em></a><em>]</em>) – list of allocated devices</p></li>
+<li><p><strong>sequential_round_count</strong> (<em>int</em><em>, </em><em>optional</em>) – number of rounds required to complete the batch,
+assuming the upcoming parameter <em>parallel_job_count</em> is considered.</p></li>
+<li><p><strong>parallel_job_count</strong> (<em>int</em><em>, </em><em>optional</em>) – number of concurrent jobs executed in parallel</p></li>
+<li><p><strong>allocated_thread_count_per_job</strong> (<em>int</em><em>, </em><em>optional</em>) – number of concurrent threads allocated per concurrent job.</p></li>
+<li><p><strong>allocated_total_memory_mb</strong> (<em>int</em><em>, </em><em>optional</em>) – reserved memory, in MB</p></li>
+<li><p><strong>estimated_batch_completion_time</strong> (<em>float</em><em>, </em><em>optional</em>) – estimated execution time</p></li>
+<li><p><strong>reservation_id</strong> (<em>str</em><em>, </em><em>optional</em>) – unique reservation ID</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

@@ -40,7 +40,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -87,11 +87,14 @@
 <li class="toctree-l4"><a class="reference internal" href="assert_qpu.html">qat.core.assertion.assert_qpu</a></li>
 <li class="toctree-l4"><a class="reference internal" href="display.html">qat.core.console.display</a></li>
 <li class="toctree-l4"><a class="reference internal" href="evaluate.html">qat.core.formula_eval.evaluate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load_state_vector_from_bin.html">qat.core.util.load_state_vector_from_bin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plot_in_notebook.html">qat.core.printer.plot_in_notebook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wavefunction.html">qat.core.simutil.wavefunction</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
@@ -146,23 +149,25 @@
 <h1>qat.core.wrappers.result.aggregate_data<a class="headerlink" href="#qat-core-wrappers-result-aggregate-data" title="Permalink to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="qat.core.wrappers.result.aggregate_data">
-<span class="sig-prename descclassname"><span class="pre">qat.core.wrappers.result.</span></span><span class="sig-name descname"><span class="pre">aggregate_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.wrappers.result.aggregate_data" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">qat.core.wrappers.result.</span></span><span class="sig-name descname"><span class="pre">aggregate_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_intermeas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.wrappers.result.aggregate_data" title="Permalink to this definition"></a></dt>
 <dd><p>Aggregate the data in result.raw_data, i.e compute
 frequency of each state and corresponding error bar,
 and add “nbshots” to result.meta_data</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>result</strong> (<em>ThriftResult</em>) – the result</p></li>
+<li><p><strong>result</strong> (<a class="reference internal" href="result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a>) – the result</p></li>
 <li><p><strong>threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – if its frequency is under this threshold,
 we do not report the corresponding state. Defaults to 1e-10.</p></li>
+<li><p><strong>keep_intermeas</strong> (<em>bool</em><em>, </em><em>optional</em>) – if False, intermediate measurements will be discarded
+Default: True</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>the result with aggregated data</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>ThriftResult</p>
+<dd class="field-odd"><p><a class="reference internal" href="result.html#qat.core.Result" title="qat.core.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a></p>
 </dd>
 </dl>
 <div class="admonition note">

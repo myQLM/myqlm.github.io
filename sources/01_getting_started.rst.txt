@@ -5,21 +5,29 @@
 Getting started
 ===============
 
-.. only:: qlm
+.. parseonly:: qlm
 
     The |qaptiva| Appliance contains tools for **writing**, **compiling**, **optimizing** and **simulating** quantum programs.
     These tools are packaged in a **Python library** named :mod:`qat`, for *Qaptiva Application Toolset*.
 
-.. only:: myqlm
+.. parseonly:: myqlm
 
     myQLM contains tools for **writing**, **optimizing** and **simulating** quantum programs. These tools are packaged
     in a **Python library** named :mod:`qat`, for *Qaptiva Application Toolset*.
 
     myQLM also interfaces with the |qaptiva| Appliance, the quantum programming appliance of Eviden.
 
+.. parseonly:: distributed
+
+    The Distributed |qaptiva| Appliance contains tools for **writing**, **compiling**, **optimizing** and **simulating** quantum programs.
+    The appliance is meant to be deployed in a High Performance Computing (HPC) environment with distributed resources, offering
+    a highly optimized quantum circuit simulation with multithreading and state vector distribution. These tools are packaged in 
+    a **Python library** named :mod:`qat`, for *Qaptiva Application Toolset*. 
+    
 This library provides powerful semantics for creating quantum circuits, analog schedules, and quantum annealing jobs. These objects can be parametrized
 with abstract parameters (for variational quantum computing) and composed of user defined items (custom gates in a circuit, custom time-dependent coefficients
 in an analog schedule, etc.)
+
 
 .. card:: Quantum Hello World
 
@@ -40,7 +48,7 @@ in an analog schedule, etc.)
                 def bell_pair():
                     H(0)
                     CNOT(0, 1)
-                
+
                 result = bell_pair().run()
 
                 for sample in result:

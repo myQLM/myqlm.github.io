@@ -1,13 +1,19 @@
-Annealing computing
-===================
+SQA computing
+=============
 
-.. only:: qlm
+.. parseonly:: qlm
 
     .. _simulated_quantum_annealing:
 
-    Qaptiva is equipped with a simulated quantum annealer (SQA), which can solve combinatorial optimization problems encoded in an :ref:`Ising <ising_description>` or Quadratic Unconstrained Binary Optimization (:ref:`QUBO <qubo_description>`) formalism - take a look at an :notebook:`(Introductory notebook)[introduction_combinatorial_optimization.ipynb]`. It can also handle a general :ref:`Combinatorial Problem <comb_prob_description>` with clauses and variables, as long as each of its :class:`~qat.opt.boolexpr.Clause` contains no more than two :class:`~qat.opt.boolexpr.Var`, such that it is translatable to :class:`~qat.opt.Ising` or :class:`~qat.opt.QUBO`.
+    Qaptiva is equipped with a simulated quantum annealer (SQA), which can solve combinatorial optimization problems encoded in an
+    :ref:`Ising <ising_description>` or Quadratic Unconstrained Binary Optimization (:ref:`QUBO <qubo_description>`) formalism - take
+    a look at an :notebook:`(Introductory notebook)[introduction_combinatorial_optimization.ipynb]`. It can also handle a general
+    :ref:`Combinatorial Problem <comb_prob_description>` with clauses and variables, as long as each of its :class:`~qat.opt.boolexpr.Clause`
+    contains no more than two :class:`~qat.opt.boolexpr.Var`, such that it is translatable to :class:`~qat.opt.Ising` or :class:`~qat.opt.QUBO`.
 
-    The SQA solver is inside the class :class:`~qat.qpus.SQAQPU` which receives a :class:`~qat.core.Job` created via the :func:`~qat.opt.Ising.to_job()` method of the special purpose :class:`~qat.opt.Ising` or :class:`~qat.opt.QUBO` classes (or :class:`~qat.opt.CombinatorialProblem`, if applicable).
+    The SQA solver is inside the class :class:`~qat.qpus.SQAQPU` which receives a :class:`~qat.core.Job` created via the
+    :func:`~qat.opt.Ising.to_job()` method of the special purpose :class:`~qat.opt.Ising` or :class:`~qat.opt.QUBO` classes (or
+    :class:`~qat.opt.CombinatorialProblem`, if applicable).
 
     Inner workings
     --------------
@@ -15,8 +21,9 @@ Annealing computing
     SQA is built upon a heuristic which aims to minimize quantum :ref:`Ising Hamiltonians <ising_description>`.
 
     The questions of whether SQA performs such minimizations more efficiently than physical quantum annealing machines, and whether SQA
-    can be called 'emulation' of those machines is still under scientific discussion with some more recent advances being :cite:`konz_2021`, :cite:`bando_nishimori_2021`, :cite:`king_and_many_2021`, along with :cite:`ronnow2014defining`,
-    :cite:`denchev2016computational`, :cite:`hen2015probing` or :cite:`andriyash2017can`, for instance.
+    can be called 'emulation' of those machines is still under scientific discussion with some more recent advances being :cite:`konz_2021`,
+    :cite:`bando_nishimori_2021`, :cite:`king_and_many_2021`, along with :cite:`ronnow2014defining`, :cite:`denchev2016computational`,
+    :cite:`hen2015probing` or :cite:`andriyash2017can`, for instance.
 
     Formally, our SQA implementation is based on a discrete-time path integral Monte Carlo formulation of quantum annealing, as derived
     in :cite:`martovnak2002quantum`.
@@ -33,7 +40,8 @@ Annealing computing
 
         H = -\sum_{k=1}^{n_{trotters}}\left( \sum_{i,j} J_{i,j} s_{i}^{k}s_{j}^{k} + \sum_{i} h_{i} s_{i}^{k} + J^{\perp}s_{l}^{k}s_{l}^{k+1} \right) 
 
-    with :math:`J^{\perp} = - n_{trotters}\cdot \log\left(\tanh(\frac{\Gamma}{n_{trotters}T})\right)` and :math:`n` quantum spins are replaced with :math:`n_{trotters}\times n` classical spins.
+    with :math:`J^{\perp} = - \frac{n_{trotters}T}{2}\cdot \log\left(\tanh(\frac{\Gamma}{n_{trotters}T})\right)` and :math:`n` quantum spins 
+    are replaced with :math:`n_{trotters}\times n` classical spins.
 
     In quantum annealing, :math:`\Gamma` is typically gradually decreased
     from a high value to :math:`0`, such that, if the system is prepared in the
@@ -64,12 +72,19 @@ Annealing computing
     .. bibliography:: biblio_annealing.bib
 
 
-.. only:: myqlm
+.. parseonly:: myqlm distributed
 
     .. _simulated_annealing:
 
-    myQLM is equipped with a simulated annealer (SA), which can solve combinatorial problems encoded in an :ref:`Ising <ising_description>` or Quadratic Unconstrained Binary Optimization (:ref:`QUBO <qubo_description>`) formalism - take a look at an 
-    :notebook:`(Introductory notebook)[introduction_combinatorial_optimization_myqlm.ipynb]`. It could also handle a general :class:`~qat.opt.CombinatorialProblem` with clauses and variables, as long as each of its :class:`~qat.opt.boolexpr.Clause` contains no more than two :class:`~qat.opt.boolexpr.Var`, such that it is translatable to :class:`~qat.opt.Ising` or :class:`~qat.opt.QUBO`.
+    .. parseonly:: myqlm
+
+        myQLM is equipped with a simulated annealer (SA), which can solve combinatorial problems encoded in an :ref:`Ising <ising_description>` or Quadratic Unconstrained Binary Optimization (:ref:`QUBO <qubo_description>`) formalism - take a look at an 
+        :notebook:`(Introductory notebook)[introduction_combinatorial_optimization_myqlm.ipynb]`. It could also handle a general :class:`~qat.opt.CombinatorialProblem` with clauses and variables, as long as each of its :class:`~qat.opt.boolexpr.Clause` contains no more than two :class:`~qat.opt.boolexpr.Var`, such that it is translatable to :class:`~qat.opt.Ising` or :class:`~qat.opt.QUBO`.
+
+    .. parseonly:: distributed
+
+        Distributed Qaptiva is equipped with a simulated annealer (SA), which can solve combinatorial problems encoded in an :ref:`Ising <ising_description>` or Quadratic Unconstrained Binary Optimization (:ref:`QUBO <qubo_description>`) formalism - take a look at an 
+        :notebook:`(Introductory notebook)[introduction_combinatorial_optimization_distributed.ipynb]`. It could also handle a general :class:`~qat.opt.CombinatorialProblem` with clauses and variables, as long as each of its :class:`~qat.opt.boolexpr.Clause` contains no more than two :class:`~qat.opt.boolexpr.Var`, such that it is translatable to :class:`~qat.opt.Ising` or :class:`~qat.opt.QUBO`.
 
     Albeit not quantum, the simulated annealing solver is wrapped with a Quantum Processing Unit (QPU) interface which is made to resemble the rest of the QPUs on myQLM. It therefore consists of an implementation of the submit method of :class:`~qat.qpus.SimulatedAnnealing`, which receives a :class:`~qat.core.Job` and returns a :class:`~qat.core.Result`. The :class:`~qat.core.Job` is created via the :func:`~qat.opt.Ising.to_job()` method of the special purpose :class:`~qat.opt.Ising` or :class:`~qat.opt.QUBO` classes (or :class:`~qat.opt.CombinatorialProblem`, if applicable).
 
@@ -109,4 +124,11 @@ Annealing computing
         :width: 600px
         :align: center
 
-    A basic example of the use of SA - to solve the Antiferromagnetic Ising Model, is presented in the notebook :notebook:`(Getting started with SA)[getting_started_with_sa.ipynb]`. Some more involved examples where SA solves some of the :ref:`NP-hard problems <np_problems_annealing>` have also been implemented in the following :notebook:`(notebooks)[overview_combinatorial_optimization_myqlm.ipynb]`.
+
+    .. parseonly:: myqlm
+
+        A basic example of the use of SA - to solve the Antiferromagnetic Ising Model, is presented in the notebook :notebook:`(Getting started with SA)[getting_started_with_sa.ipynb]`. Some more involved examples where SA solves some of the :ref:`NP-hard problems <np_problems_annealing>` have also been implemented in the following :notebook:`(notebooks)[overview_combinatorial_optimization_myqlm.ipynb]`.
+    
+    .. parseonly:: distributed
+
+        A basic example of the use of SA - to solve the Antiferromagnetic Ising Model, is presented in the notebook :notebook:`(Getting started with SA)[getting_started_with_sa.ipynb]`. Some more involved examples where SA solves some of the :ref:`NP-hard problems <np_problems_annealing>` have also been implemented in the following :notebook:`(notebooks)[overview_combinatorial_optimization_distributed.ipynb]`.

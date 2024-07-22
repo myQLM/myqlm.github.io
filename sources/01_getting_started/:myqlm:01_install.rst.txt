@@ -56,8 +56,6 @@ Please install myQLM by typing the following commands in a Windows, :ref:`MacOS 
 
             conda install -c myqlm myqlm
 
-            # For python < 3.11
-            conda install -c conda-forge dill=0.3.5.1
 
         For CPython, the commands above install all dependency packages needed for myqlm to work, but not under Conda.
         The Conda environment resolver can take an infinite time to complete, and will likely fail because it does not have all myqlm requirements.
@@ -73,7 +71,7 @@ Please install myQLM by typing the following commands in a Windows, :ref:`MacOS 
                 .. code-block::
 
                     conda install -c conda-forge bitstring qutip cvxpy anytree pydoe svgwrite
-                    pip install thrift==0.16.0 jax[cpu] pyOpenSSL wand
+                    pip install thrift==0.20.0 jax[cpu] pyOpenSSL wand
 
             .. tab-item:: Conda supplementary packages on Windows
 
@@ -125,9 +123,26 @@ Please install myQLM by typing the following commands in a Windows, :ref:`MacOS 
 Interoperability
 ****************
 
-.. warning::
+**Supported Interop products and their versions**
 
-    Interoperability packages are deprecated for Python versions 3.6 and 3.7
+.. list-table::
+    :header-rows: 1
+
+    * - Library
+      - Python 3.9 to 3.11
+      - Python 3.12
+    * - Cirq
+      - 1.3.0    
+      - 1.4.0
+    * - ProjectQ
+      - 0.8.0
+      - 0.8.0
+    * - PyQuil
+      - 3.5.4
+      - 4.1.1
+    * - Qiskit
+      - 0.43.1
+      - 1.0.2
 
 This package enables access to other quantum programming environments such as
 Qiskit, ProjectQ, PyQuil, Cirq ...

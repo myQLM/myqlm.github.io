@@ -1,9 +1,9 @@
 User guide
 ==========
 
-.. only:: qlm
+.. parseonly:: qlm
 
-    These part of the document clarifies main concepts, and the design of Qaptiva 800s. This **user guide** is devided in 3 main sections:
+    These part of the document clarifies main concepts, and the design of Qaptiva 800s. This **user guide** is divided in 3 main sections:
 
      - **writing quantum programs** provides the keys to creating quantum algorithms, using different quantum paradigm (gate-based, analog, quantum annealing)
      - **executing quantum programs** describe the design of this framework. It explains the procedure to execute quantum algorithms on a QPU, and describes how
@@ -11,9 +11,18 @@ User guide
      - **compiling and rewriting quantum circuits** describes all the tool available to rewrite, reduce the gate count, and transpile a quantum circuit, to
        make it runnable on any quantum hardware
 
-.. only:: myqlm
 
-    These part of the document clarifies main concepts, and the design of myQLM. This **user guide** is devided in 3 main sections:
+.. parseonly:: distributed
+
+    These part of the document clarifies main concepts, and the design of Distributed Qaptiva. This **user guide** is divided in 3 main sections:
+
+     - **writing quantum programs** provides the keys to creating quantum algorithms, using different quantum paradigm (gate-based, analog, quantum annealing)
+     - **executing quantum programs** describe the design of this framework. It explains the procedure to execute quantum algorithms on a QPU, and describes how
+       a QPU can be extended to support advanced computation (e.g. variational)
+
+.. parseonly:: myqlm
+
+    These part of the document clarifies main concepts, and the design of myQLM. This **user guide** is divided in 3 main sections:
 
      - **writing quantum programs** provides the keys to creating quantum algorithms, using different quantum paradigm (gate-based, analog, quantum annealing)
      - **executing quantum programs** describe the design of this framework. It explains the procedure to execute quantum algorithms on a QPU, and describes how
@@ -37,7 +46,7 @@ Some libraries have been built upon this framework, to extend its capabilities, 
     :myqlm::myqlm:interoperability
     interoperability_annealing
 
-.. only:: qlm
+.. parseonly:: qlm
 
     .. grid:: 1 2 2 3
         :gutter: 4
@@ -54,7 +63,21 @@ Some libraries have been built upon this framework, to extend its capabilities, 
         .. grid-item-card:: Interoperability - Annealing
             :link: interoperability_annealing.rst
 
-.. only:: myqlm
+.. parseonly:: distributed
+
+    .. grid:: 1 2 2 3
+        :gutter: 4
+
+        .. grid-item-card:: Spin and fermionic systems
+            :link: fermion.rst
+
+        .. grid-item-card:: Combinatorial Optimization
+            :link: combinatorial_optim_applic.rst
+
+        .. grid-item-card:: Interoperability - Annealing
+            :link: interoperability_annealing.rst
+
+.. parseonly:: myqlm
 
     .. grid:: 1 2 2 3
         :gutter: 4

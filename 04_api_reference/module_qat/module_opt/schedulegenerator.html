@@ -38,7 +38,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -61,6 +61,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
@@ -72,6 +73,7 @@
 <li class="toctree-l4"><a class="reference internal" href="combinatorialproblem.html">qat.opt.CombinatorialProblem</a></li>
 <li class="toctree-l4"><a class="reference internal" href="var.html">qat.opt.boolexpr.Var</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ising.html">qat.opt.Ising</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mwis.html">qat.opt.MWIS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="qubo.html">qat.opt.QUBO</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bilp.html">qat.opt.BILP</a></li>
 <li class="toctree-l4"><a class="reference internal" href="graphcolouring.html">qat.opt.GraphColouring</a></li>
@@ -136,22 +138,23 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.opt.schedule_generator.ScheduleGenerator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.opt.schedule_generator.</span></span><span class="sig-name descname"><span class="pre">ScheduleGenerator</span></span><a class="headerlink" href="#qat.opt.schedule_generator.ScheduleGenerator" title="Permalink to this definition"></a></dt>
-<dd><p>Interface for problems that can be solved by a quantum annealing.</p>
+<dd><p>Interface for problems that can be solved by adiabatic quantum optimization.</p>
 <p>It requires the implementation of method that returns an Hamiltonian
 formulation of the target cost function.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="qat.opt.schedule_generator.ScheduleGenerator.annealing_job">
-<span class="sig-name descname"><span class="pre">annealing_job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mixing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.schedule_generator.ScheduleGenerator.annealing_job" title="Permalink to this definition"></a></dt>
-<dd><p>Generates a Quantum Annealing job performing a linear interpolation
-between an initial mixing Hamiltonian and the problem’s Hamiltonian.</p>
+<dt class="sig sig-object py" id="qat.opt.schedule_generator.ScheduleGenerator.aqo_job">
+<span class="sig-name descname"><span class="pre">aqo_job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mixing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.schedule_generator.ScheduleGenerator.aqo_job" title="Permalink to this definition"></a></dt>
+<dd><p>Generates an Adiabatic Quantum Optimization (AQO) job performing a linear
+interpolation between an initial mixing Hamiltonian and the problem’s
+Hamiltonian.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.opt.schedule_generator.ScheduleGenerator.get_observable">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_observable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.schedule_generator.ScheduleGenerator.get_observable" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_observable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.opt.schedule_generator.ScheduleGenerator.get_observable" title="Permalink to this definition"></a></dt>
 <dd><p>Generates a cost Hamiltonian encoding a problem or a cost function.
-This cost Hamiltonian will be used as the final Hamiltonian in a
-quantum annealing.</p>
+This cost Hamiltonian will be used as the final Hamiltonian in an
+adiabatic quantum optimization.</p>
 </dd></dl>
 
 </dd></dl>

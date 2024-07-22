@@ -11,36 +11,48 @@ As we hinted in the :ref:`Annealing programming <annealing_programming>` section
 
     combinatorial_optim_applic/01_np_probs_for_annealing.rst
     combinatorial_optim_applic/02_qaoa.rst
-    combinatorial_optim_applic/03_qa.rst
-    combinatorial_optim_applic/04_np_problem_generators.rst
+    combinatorial_optim_applic/03_aqo.rst
+    combinatorial_optim_applic/04_crossing_lattice.rst
+    combinatorial_optim_applic/05_np_problem_generators.rst
 
-.. only:: qlm
+.. parseonly:: qlm
 
     .. grid:: 1 2 2 2
 
         .. grid-item-card:: NP-hard problems for Simulated Quantum Annealing
             :link: combinatorial_optim_applic/01_np_probs_for_annealing.rst
 
-.. only:: myqlm
+.. parseonly:: myqlm distributed
 
     .. grid:: 1 2 2 2
 
         .. grid-item-card:: NP-hard problems for Simulated Annealing
             :link: combinatorial_optim_applic/01_np_probs_for_annealing.rst
 
-However, it is not only annealing that allows us to encode and tackle such minimization or maximization problems. In fact, one can also use the :ref:`gate-based <circuit>` and :ref:`analog computing <schedules_section>` approaches to create custom circuits or custom schedules, which, when executed, should also give us the desired lowest energy, hence best answer. Here we present techniques achieving exactly that - the Quantum Approximate Optimization Algorithm (:ref:`QAOA <qaoa>`) relying on gate-based computation and Quantum Annealing (:ref:`QA <quantum_annealing>`) - on analog computation.
+However, it is not only annealing that allows us to encode and tackle such minimization or maximization problems. In fact, one can also use the
+:ref:`gate-based <circuit>` and :ref:`analog computing <schedules_section>` approaches to create custom circuits or custom schedules, which, when
+executed, should also give us the desired lowest energy, hence best answer. |product| provides:
 
-.. grid:: 1 2 2 2
+ - Quantum Approximate Optimization Algorithm (:ref:`QAOA <qaoa>`) relying on gate-based computation
+ - Adiabatic Quantum Optimization (:ref:`AQO <aqo_sec>`) relying on analog computation
+ - Adiabatic Quantum Optimization for Rydberg quantum devices (:ref:`RYD <crossing-lattice>`), relying on the Crossing Lattice
+   embedding technique to target Rydberg atom devices
+
+.. grid:: 1 2 2 3
+    :gutter: 4
 
     .. grid-item-card:: Gate-Based simulation - QAOA
         :link: combinatorial_optim_applic/02_qaoa.rst
 
-    .. grid-item-card:: Analog simulation - Quantum Annealing (QA)
-        :link: combinatorial_optim_applic/03_qa.rst
+    .. grid-item-card:: Analog simulation - AQO
+        :link: combinatorial_optim_applic/03_aqo.rst
+
+    .. grid-item-card:: Analog simulation for Rydberg QPU - RYD
+        :link: combinatorial_optim_applic/04_crossing_lattice.rst
 
 Since using all the three quantum computation paradigmes above leads to solving the same general task, the NP-hard problems representations were abstracted to allow a seamless shift in generating such gate-based, analog or annealing problems - the so-called *NP-hard problems generators*.
 
 .. grid:: 1 2 2 2
 
     .. grid-item-card:: NP-hard problems for the 3 types of quantum computation
-        :link: combinatorial_optim_applic/04_np_problem_generators.rst
+        :link: combinatorial_optim_applic/05_np_problem_generators.rst

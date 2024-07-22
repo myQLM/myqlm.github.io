@@ -19,6 +19,13 @@ A QPU can be a Quantum Emulator (a classical software emulating the behavior of 
 
  - Annealing QPUs: These QPUs execute a job containing an :ref:`Ising Hamiltonian <ising_description>`.  The :class:`~qat.opt.Ising` is wrapped into a job by using the respective :meth:`~qat.opt.Ising.to_job` method.
 
+.. parseonly:: distributed
+
+    .. note::
+
+        In addition to the QPUs that can be found in Qaptiva Appliance, Distributed Qaptiva also offers a distributed QPU :class:`~qat.qpus.DLinAlg`,
+        which is documented :ref:`here <distributed_qpu>`.
+
 .. _remote_qpu:
 
 .. dropdown:: Creating a remote QPU and accessing it
@@ -27,7 +34,7 @@ A QPU can be a Quantum Emulator (a classical software emulating the behavior of 
     Qaptiva Appliance, using a synchronous connection. This section explains the creation of a server and also how
     to connect to a remote QPU
 
-    .. only:: qlm
+    .. parseonly:: qlm
 
         .. note::
 
@@ -41,7 +48,7 @@ A QPU can be a Quantum Emulator (a classical software emulating the behavior of 
             Any QPU has a method :func:`~qat.qpus.QPUHandler.serve` to start this QPU in
             server mode. This method takes the PORT and the IP as arguments. For instance:
 
-            .. only:: qlm
+            .. parseonly:: qlm
 
                 .. code-block:: python
 
@@ -55,7 +62,7 @@ A QPU can be a Quantum Emulator (a classical software emulating the behavior of 
                     qpu = LinAlg()
                     qpu.serve(PORT, IP)
 
-            .. only:: myqlm
+            .. parseonly:: myqlm
 
                 .. code-block:: python
 
@@ -90,6 +97,10 @@ A QPU can be a Quantum Emulator (a classical software emulating the behavior of 
             .. warning::
 
                 The connection is synchronous, therefore, if the client is disconnected during the execution
-                of a Batch/Job, result of the execution is lost
+                of a Batch/Job, the result of the execution would be lost
+
+.. warning::
+
+    Executing a :class:`~qat.core.Job` (or a :class:`~qat.core.Batch`) on any of the available QPUs (even for :ref:`custom-made <custom_qpu_sec>` ones) should be performed by calling the :meth:`~qat.qpus.QPUHandler.submit()` function (inherited from the parent class :class:`~qat.qpus.QPUHandler`) thus not circumventing any beneficial pre- or post-processing.
 
 .. autocard::

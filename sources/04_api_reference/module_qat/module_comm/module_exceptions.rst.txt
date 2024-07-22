@@ -19,7 +19,7 @@ Some additional information is packed inside the exception, taking the form of a
 line number. Additionally, exceptions come with an error code that characterizes the type of error
 that appeared inside the Plugin/QPU:
 
-.. only:: qlm
+.. parseonly:: qlm
 
     .. run-block:: python
 
@@ -38,12 +38,12 @@ that appeared inside the Plugin/QPU:
         except QPUException as excp:
             print(excp)
 
-.. only:: myqlm
+.. parseonly:: myqlm distributed
 
     .. run-block:: python
 
         from qat.lang.AQASM import Program, RZ
-        from qat.qpus import PyLinalg
+        from qat.qpus import CLinalg
         from qat.comm.exceptions.ttypes import QPUException
 
         prog = Program()
@@ -53,7 +53,7 @@ that appeared inside the Plugin/QPU:
         job = circuit.to_job()
 
         try:
-            result = PyLinalg().submit(job)
+            result = CLinalg().submit(job)
         except QPUException as excp:
             print(excp)
 
@@ -63,46 +63,23 @@ no matrix).
 
 Another useful code is the one raised when a break instruction is triggered:
 
-.. only:: qlm
+.. run-block:: python
 
-    .. run-block:: python
+    from qat.lang.AQASM import Program
+    from qat.qpus import get_default_qpu
+    from qat.comm.exceptions.ttypes import QPUException
 
-        from qat.lang.AQASM import Program
-        from qat.qpus import LinAlg
-        from qat.comm.exceptions.ttypes import QPUException
+    prog = Program()
+    qbits = prog.qalloc(1)
+    cbits = prog.calloc(1)
+    prog.measure(qbits[0], cbits[0])
+    prog.cbreak(~cbits[0])
+    circuit = prog.to_circ()
+    job = circuit.to_job()
 
-        prog = Program()
-        qbits = prog.qalloc(1)
-        cbits = prog.calloc(1)
-        prog.measure(qbits[0], cbits[0])
-        prog.cbreak(~cbits[0])
-        circuit = prog.to_circ()
-        job = circuit.to_job()
-
-        try:
-            result = LinAlg().submit(job)
-        except QPUException as excp:
-            print(excp)
-
-.. only:: myqlm
-
-    .. run-block:: python
-
-        from qat.lang.AQASM import Program
-        from qat.qpus import PyLinalg
-        from qat.comm.exceptions.ttypes import QPUException
-
-        prog = Program()
-        qbits = prog.qalloc(1)
-        cbits = prog.calloc(1)
-        prog.measure(qbits[0], cbits[0])
-        prog.cbreak(~cbits[0])
-        circuit = prog.to_circ()
-        job = circuit.to_job()
-
-        try:
-            result = PyLinalg().submit(job)
-        except QPUException as excp:
-            print(excp)
+    try:
+        result = get_default_qpu().submit(job)
+    except QPUException as excp:
+        print(excp)
 
 Code :math:`10` will always refer to a triggered break instruction.

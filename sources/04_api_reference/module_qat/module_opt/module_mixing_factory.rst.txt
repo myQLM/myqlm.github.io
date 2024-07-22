@@ -6,11 +6,11 @@ qat.opt.mixing_factory
 Creating custom Quantum Annealing Jobs
 _______________________________________
 
-One can define their own mixing by specifying the initial state of the analog schedule for :ref:`Quantum Annealing <quantum_annealing>`.
-This is done by the following (very straightforward) :class:`~qat.opt.mixing_factory.InitialStateBuilder` interface and the classes :class:`~qat.opt.mixing_factory.SimpleInitialState` and :class:`~qat.opt.mixing_factory.IndependentAnnealing` are examples of its possible specializations.
+One can define their own mixing by specifying the initial state of the analog schedule for :ref:`Adiabatic Quantum Computation <aqo_sec>`.
+This is done by the following (very straightforward) :class:`~qat.opt.mixing_factory.InitialStateBuilder` interface and the classes :class:`~qat.opt.mixing_factory.SimpleInitialState` and :class:`~qat.opt.mixing_factory.IndependentAQO` are examples of its possible specializations.
 
 .. autoapi::
 
     [:class:`qat.opt.mixing_factory.InitialStateBuilder`] The interface allowing one to start from a custom initial state for analog Quantum Annealing
     [:class:`qat.opt.mixing_factory.SimpleInitialState`] A state builder forcing the initial state to some value - a specialization of :class:`~qat.opt.mixing_factory.InitialStateBuilder`
-    [:class:`qat.opt.mixing_factory.IndependentAnnealing`] A specialization of :class:`~qat.opt.mixing_factory.InitialStateBuilder` allowing for an annealing preparing an initial state to be prepended to the current one
+    [:class:`qat.opt.mixing_factory.IndependentAQO`] A specialization of :class:`~qat.opt.mixing_factory.InitialStateBuilder` allowing for an annealing preparing an initial state to be prepended to the current one

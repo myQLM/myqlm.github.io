@@ -3,16 +3,23 @@
 NP-hard problems
 ----------------
 
-.. only:: qlm
+.. parseonly:: qlm
 
-    Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are the NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (refer to :ref:`Annealing programming <annealing_programming>` and this :notebook:`(notebook)[introduction_combinatorial_optimization.ipynb]`).
+    Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are the NP-hard problems. Real quantum annealers have been dedicated to tackle such problems, when represented in an Ising or QUBO form (refer to :ref:`Annealing programming <annealing_programming>` and this :notebook:`(notebook)[introduction_combinatorial_optimization.ipynb]`).
     Some of them, like :ref:`Max Cut <max_cut_ann_prob>`, :ref:`Graph Colouring <graph_colouring_ann_prob>`, :ref:`Number Partitioning <number_partitioning_ann_prob>`, etc. could be easily formulated in these ways using the Qaptiva tools.
     A description of these problems can be found below and the respective helper classes for each problem are given in the :ref:`API <np_hard_problems_code>`.
     An example notebook for each problem could be found in the :notebook:`(overview)[overview_combinatorial_optimization.ipynb]`.
 
-.. only:: myqlm
+.. parseonly:: distributed
 
-    Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are the NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (refer to :ref:`Annealing programming <annealing_programming>` and this :notebook:`(notebook)[introduction_combinatorial_optimization_myqlm.ipynb]`).
+    Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are the NP-hard problems. Real quantum annealers have been dedicated to tackle such problems, when represented in an Ising or QUBO form (refer to :ref:`Annealing programming <annealing_programming>` and this :notebook:`(notebook)[introduction_combinatorial_optimization_distributed.ipynb]`).
+    Some of them, like :ref:`Max Cut <max_cut_ann_prob>`, :ref:`Vertex Cover <vertex_cover_ann_prob>`, :ref:`Number Partitioning <number_partitioning_ann_prob>`, etc. could be easily formulated in these ways using Qaptiva tools.
+    A description of these problems can be found below and the respective helper classes for each problem are given in the :ref:`API <np_hard_problems_code>`.
+    An example notebook for each problem could be found in the :notebook:`(overview)[overview_combinatorial_optimization_distributed.ipynb]`.
+
+.. parseonly:: myqlm
+
+    Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are the NP-hard problems. Real quantum annealers have been dedicated to tackle such problems, when represented in an Ising or QUBO form (refer to :ref:`Annealing programming <annealing_programming>` and this :notebook:`(notebook)[introduction_combinatorial_optimization_myqlm.ipynb]`).
     Some of them, like :ref:`Max Cut <max_cut_ann_prob>`, :ref:`Vertex Cover <vertex_cover_ann_prob>`, :ref:`Number Partitioning <number_partitioning_ann_prob>`, etc. could be easily formulated in these ways using myQLM tools.
     A description of these problems can be found below and the respective helper classes for each problem are given in the :ref:`API <np_hard_problems_code>`.
     An example notebook for each problem could be found in the :notebook:`(overview)[overview_combinatorial_optimization_myqlm.ipynb]`.
@@ -41,9 +48,12 @@ These problems concern graphs for which any output result is valid. In other wor
 Constrained Graph Problems
 __________________________
 
-.. only:: qlm
+.. parseonly:: qlm
 
-    A graph problem is constrained when the output solution needs to obey some conditions in order to be valid. For example, :ref:`Graph Colouring <graph_colouring_ann_prob>` requires that every two nodes connected by an edge are coloured differently - so if the solution graph does not have this property, it is not valid. Therefore, we call *constrained* all problems with conditional correctness on their solution.
+    A graph problem is constrained when the output solution needs to obey some conditions in order to be valid. For example,
+    :ref:`Graph Colouring <graph_colouring_ann_prob>` requires that every two nodes connected by an edge are coloured differently - so
+    if the solution graph does not have this property, it is not valid. Therefore, we call *constrained* all problems with conditional
+    correctness on their solution.
 
     .. toctree::
         :hidden:
@@ -51,7 +61,7 @@ __________________________
 
         01_np_probs_for_annealing/kclique_ann_prob.rst
         01_np_probs_for_annealing/vertex_cover_ann_prob.rst
-        01_np_probs_for_annealing/graph_colouring_ann_prob.rst
+        01_np_probs_for_annealing/:qlm:graph_colouring_ann_prob.rst
 
     .. grid:: 1 2 2 3
         :gutter: 4
@@ -63,12 +73,15 @@ __________________________
             :link: 01_np_probs_for_annealing/vertex_cover_ann_prob.rst
 
         .. grid-item-card:: Graph Colouring
-            :link: 01_np_probs_for_annealing/graph_colouring_ann_prob.rst
+            :link: 01_np_probs_for_annealing/:qlm:graph_colouring_ann_prob.rst
 
-.. only:: myqlm
+.. parseonly:: myqlm distributed
 
-    A graph problem is constrained when the output solution needs to obey some conditions in order to be valid. For example, :ref:`Vertex Cover <vertex_cover_ann_prob>` requires that every edge is connected by at least one coloured node - so if the solution graph does not have this property, it is not valid. Therefore, we call *constrained* all problems with conditional correctness on their solution.
-    
+    A graph problem is constrained when the output solution needs to obey some conditions in order to be valid. For example,
+    :ref:`Vertex Cover <vertex_cover_ann_prob>` requires that every edge is connected by at least one coloured node - so if the
+    solution graph does not have this property, it is not valid. Therefore, we call *constrained* all problems with conditional
+    correctness on their solution.
+
     .. toctree::
         :hidden:
         :maxdepth: 1
@@ -88,16 +101,18 @@ __________________________
 Other problems
 ______________
 
-.. only:: qlm
+.. parseonly:: qlm
 
-    Some problems are more numbers-oriented, like :ref:`Number Partitioning <number_partitioning_ann_prob>` and Binary Integer Linear Programming (:ref:`BILP <bilp_ann_prob>`). These also belong to NP-hard and can be solved via Simulated Quantum Annealing (:ref:`SQA <simulated_quantum_annealing>`).
+    Some problems are more numbers-oriented, like :ref:`Number Partitioning <number_partitioning_ann_prob>` and Binary Integer Linear
+    Programming (:ref:`BILP <bilp_ann_prob>`). These also belong to NP-hard and can be solved via Simulated Quantum Annealing
+    (:ref:`SQA <simulated_quantum_annealing>`).
 
     .. toctree::
         :hidden:
         :maxdepth: 1
 
         01_np_probs_for_annealing/number_partitioning_ann_prob.rst
-        01_np_probs_for_annealing/bilp_ann_prob.rst
+        01_np_probs_for_annealing/:qlm:bilp_ann_prob.rst
 
     .. grid:: 1 2 2 2
         :gutter: 4
@@ -106,11 +121,12 @@ ______________
             :link: 01_np_probs_for_annealing/number_partitioning_ann_prob.rst
 
         .. grid-item-card:: Binary Integer Linear Programming (BILP)
-            :link: 01_np_probs_for_annealing/bilp_ann_prob.rst
+            :link: 01_np_probs_for_annealing/:qlm:bilp_ann_prob.rst
 
-.. only:: myqlm
+.. parseonly:: myqlm distributed
 
-    Some problems are more numbers-oriented, like :ref:`Number Partitioning <number_partitioning_ann_prob>`, which also belongs to NP-hard and can be well solved via Simulated Annealing (:ref:`SA <simulated_annealing>`).
+    Some problems are more numbers-oriented, like :ref:`Number Partitioning <number_partitioning_ann_prob>`, which also belongs
+    to NP-hard and can be well solved via Simulated Annealing (:ref:`SA <simulated_annealing>`).
 
     .. toctree::
         :hidden:
@@ -124,11 +140,19 @@ ______________
         .. grid-item-card:: Number Partitioning
             :link: 01_np_probs_for_annealing/number_partitioning_ann_prob.rst
 
-.. only:: qlm
+.. parseonly:: qlm
 
-    For all the problems above we provide a set of fine tuned parameters which :class:`~qat.qpus.SQAQPU` would need. The solver was tested with various benchmarks and the respective performances were recorded. Along with the problem size and annealing times, the results are presented in the benchmarking section below.
+    For all the problems above we provide a set of fine tuned parameters which :class:`~qat.qpus.SQAQPU` would need. The solver
+    was tested with various benchmarks and the respective performances were recorded. Along with the problem size and annealing times,
+    the results are presented in the benchmarking section below.
 
-.. only:: myqlm
+.. parseonly:: distributed
+
+    For all the problems above a set of fine tuned parameters which can be used with the :code:`SQAQPU` available in the
+    full Qaptiva Appliance. The solver was tested with various benchmarks and the respective performances were recorded. Along with
+    the problem size and annealing times, the results are presented in the benchmarking section below.
+
+.. parseonly:: myqlm
 
     For all the problems above we provide a set of fine tuned parameters which Simulated Quantum Annealing that is offered in the full
     Qaptiva Appliance would need. The solver was tested with various benchmarks and the respective performances were recorded. Along
@@ -139,27 +163,32 @@ ______________
         Many of these parameters showed overall good performances with Simulated Annealing as well.
 
 
-.. _sqa_benchmarking: 
+.. _sqa_benchmarking:
 
 Simulated Quantum Annealing Benchmarking and Performance
 ________________________________________________________
 
-.. only:: qlm
+.. parseonly:: qlm
 
-    To solve each of the NP problems with Simulated Quantum Annealing (:ref:`SQA <simulated_quantum_annealing>`) we need to feed the solver in :class:`~qat.qpus.SQAQPU` with parameters tailored for the specific problem. We provide such fine tuned parameters for a given set of instances for each problem class. They can be accessed from the ``get_best_parameters`` method of the respective problem class.
+    To solve each of the NP problems with Simulated Quantum Annealing (:ref:`SQA <simulated_quantum_annealing>`) we need to feed the
+    solver in :class:`~qat.qpus.SQAQPU` with parameters tailored for the specific problem. We provide such fine tuned parameters for
+    a given set of instances for each problem class. They can be accessed from the ``get_best_parameters`` method of the respective problem class.
 
-    Below, we present the benchmark sources and the performances we obtain with the parameters found. We also show the range of spins of these instances, together with the average execution times.
+    Below, we present the benchmark sources and the performances we obtain with the parameters found. We also show the range of spins
+    of these instances, together with the average execution times.
 
-.. only:: myqlm
+.. parseonly:: myqlm distributed
 
-    Although Simulated Quantum Annealing is only provided in Qaptiva, we present here its performance for some of the different NP problems to hint on its capabilities. Below are shown the benchmark sources, the range of spins for the problem instances, together with the average execution times.
+    Although Simulated Quantum Annealing is only provided in the full Qaptiva Appliance, we present here its performance for some of the different NP
+    problems to hint on its capabilities. Below are shown the benchmark sources, the range of spins for the problem instances, together
+    with the average execution times.
 
 .. tab-set::
 
     .. tab-item:: Max Cut
 
             - **Performance optimized**: :math:`\frac {\text{number of Max Cut edges found}} {\text{best number of Max Cut edges}}`
-            - **Problem instances**: 
+            - **Problem instances**:
 
                 - **Benchmarks**: 9 planar and random graphs from the `Gset benchmark dataset <http://web.stanford.edu/~yyye/yyye/Gset/>`_
                 - **Others**: > 20 random trees

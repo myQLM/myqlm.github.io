@@ -10,6 +10,7 @@ what could be executed on the QPU, for instance:
  - the **gateset** of the QPU (i.e. supported gates)
  - the **processing types** (i.e. if the QPU support *SAMPLE* measurement, *OBSERVABLE* measurement, or both)
  - the **description** of the QPU
+ - any **meta_data** that the QPU provides to the user, which can be any custom data, represented in a dictionary that maps strings to strings
 
 These specifications can be used by plugins to adapt their *compilation stage*, to target the QPU
 
@@ -51,4 +52,4 @@ Now, hardware specifications can be merged into a single object:
     from qat.comm.shared.ttypes import ProcessingType
 
     my_specs = HardwareSpecs(nbqbits=5, topology=topology, gateset=gateset, processing_types=[ProcessingType.SAMPLE],
-                             description="Example of QPU specs")
+                             description="Example of QPU specs", meta_data={ "last calibration date": "2024-03-18 15:50:00" })

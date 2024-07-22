@@ -40,7 +40,7 @@
             <img src="../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -79,8 +79,9 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="02_qaoa.html">Quantum Approximate Optimization Algorithm (QAOA)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="03_qa.html">Quantum Annealing (QA)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="04_np_problem_generators.html">Problem generators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="03_aqo.html">Adiabatic Quantum Optimization (AQO)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="04_crossing_lattice.html">Crossing lattice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="05_np_problem_generators.html">Problem generators</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a></li>
@@ -130,9 +131,9 @@
              
   <section id="np-hard-problems">
 <span id="np-problems-annealing"></span><h1>NP-hard problems<a class="headerlink" href="#np-hard-problems" title="Permalink to this heading"></a></h1>
-<p>Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are the NP-hard problems. Quantum annealing machines have been dedicated to tackle such problems, when represented in an Ising or QUBO form (refer to <a class="reference internal" href="../02_user_guide/01_write/03_annealing_problems.html#annealing-programming"><span class="std std-ref">Annealing programming</span></a> and this <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fintroduction_combinatorial_optimization_myqlm.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">notebook</a>).
+<p>Among all the combinatorial problems, the ones with highest practical importance and repeated appearance are the NP-hard problems. Real quantum annealers have been dedicated to tackle such problems, when represented in an Ising or QUBO form (refer to <a class="reference internal" href="../02_user_guide/01_write/03_annealing_problems.html#annealing-programming"><span class="std std-ref">Annealing programming</span></a> and this <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Fintroduction_combinatorial_optimization_myqlm.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">notebook</a>).
 Some of them, like <a class="reference internal" href="01_np_probs_for_annealing/max_cut_ann_prob.html#max-cut-ann-prob"><span class="std std-ref">Max Cut</span></a>, <a class="reference internal" href="01_np_probs_for_annealing/vertex_cover_ann_prob.html#vertex-cover-ann-prob"><span class="std std-ref">Vertex Cover</span></a>, <a class="reference internal" href="01_np_probs_for_annealing/number_partitioning_ann_prob.html#number-partitioning-ann-prob"><span class="std std-ref">Number Partitioning</span></a>, etc. could be easily formulated in these ways using myQLM tools.
-A description of these problems can be found below and the respective helper classes for each problem are given in the <span class="xref std std-ref">API</span>.
+A description of these problems can be found below and the respective helper classes for each problem are given in the <a class="reference internal" href="../04_api_reference/module_qat/module_opt.html#np-hard-problems-code"><span class="std std-ref">API</span></a>.
 An example notebook for each problem could be found in the <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcombinatorial_optimization%2Foverview_combinatorial_optimization_myqlm.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">overview</a>.</p>
 <section id="unconstrained-graph-problems">
 <h2>Unconstrained Graph Problems<a class="headerlink" href="#unconstrained-graph-problems" title="Permalink to this heading"></a></h2>
@@ -162,7 +163,10 @@ Graph Partitioning</div>
 </section>
 <section id="constrained-graph-problems">
 <h2>Constrained Graph Problems<a class="headerlink" href="#constrained-graph-problems" title="Permalink to this heading"></a></h2>
-<p>A graph problem is constrained when the output solution needs to obey some conditions in order to be valid. For example, <a class="reference internal" href="01_np_probs_for_annealing/vertex_cover_ann_prob.html#vertex-cover-ann-prob"><span class="std std-ref">Vertex Cover</span></a> requires that every edge is connected by at least one coloured node - so if the solution graph does not have this property, it is not valid. Therefore, we call <em>constrained</em> all problems with conditional correctness on their solution.</p>
+<p>A graph problem is constrained when the output solution needs to obey some conditions in order to be valid. For example,
+<a class="reference internal" href="01_np_probs_for_annealing/vertex_cover_ann_prob.html#vertex-cover-ann-prob"><span class="std std-ref">Vertex Cover</span></a> requires that every edge is connected by at least one coloured node - so if the
+solution graph does not have this property, it is not valid. Therefore, we call <em>constrained</em> all problems with conditional
+correctness on their solution.</p>
 <div class="toctree-wrapper compound">
 </div>
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
@@ -188,7 +192,8 @@ Vertex Cover</div>
 </section>
 <section id="other-problems">
 <h2>Other problems<a class="headerlink" href="#other-problems" title="Permalink to this heading"></a></h2>
-<p>Some problems are more numbers-oriented, like <a class="reference internal" href="01_np_probs_for_annealing/number_partitioning_ann_prob.html#number-partitioning-ann-prob"><span class="std std-ref">Number Partitioning</span></a>, which also belongs to NP-hard and can be well solved via Simulated Annealing (<a class="reference internal" href="../02_user_guide/02_execute/03_qpu/03_annealing.html#simulated-annealing"><span class="std std-ref">SA</span></a>).</p>
+<p>Some problems are more numbers-oriented, like <a class="reference internal" href="01_np_probs_for_annealing/number_partitioning_ann_prob.html#number-partitioning-ann-prob"><span class="std std-ref">Number Partitioning</span></a>, which also belongs
+to NP-hard and can be well solved via Simulated Annealing (<a class="reference internal" href="../02_user_guide/02_execute/03_qpu/03_annealing.html#simulated-annealing"><span class="std std-ref">SA</span></a>).</p>
 <div class="toctree-wrapper compound">
 </div>
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
@@ -213,7 +218,9 @@ with the problem size and annealing times, the results are presented in the benc
 </section>
 <section id="simulated-quantum-annealing-benchmarking-and-performance">
 <span id="sqa-benchmarking"></span><h2>Simulated Quantum Annealing Benchmarking and Performance<a class="headerlink" href="#simulated-quantum-annealing-benchmarking-and-performance" title="Permalink to this heading"></a></h2>
-<p>Although Simulated Quantum Annealing is only provided in Qaptiva, we present here its performance for some of the different NP problems to hint on its capabilities. Below are shown the benchmark sources, the range of spins for the problem instances, together with the average execution times.</p>
+<p>Although Simulated Quantum Annealing is only provided in the full Qaptiva Appliance, we present here its performance for some of the different NP
+problems to hint on its capabilities. Below are shown the benchmark sources, the range of spins for the problem instances, together
+with the average execution times.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 </input><label class="sd-tab-label" for="sd-tab-item-0">

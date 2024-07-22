@@ -40,7 +40,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -60,6 +60,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../02_analog_schedule.html">Analog programming</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../03_annealing_problems.html">Annealing programming</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Ising Hamiltonians</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#ising-observables">Ising Observables</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#bibliography">Bibliography</a></li>
 </ul>
 </li>
@@ -139,7 +140,10 @@ function</strong>:</p>
 <p>Quantum annealing machines are typically designed to try and reach the <strong>minimum energy state
 of Ising Hamiltonians</strong>, also called <strong>ground state</strong>, relying on the <strong>Adiabatic Theorem</strong>.
 See for instance <span id="id1">[<a class="reference internal" href="#id3" title="Tameem Albash and Daniel A Lidar. Adiabatic quantum computation. Reviews of Modern Physics, 90(1):015002, 2018. URL: https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.90.015002.">AL18</a>]</span> for a general reference on adiabatic quantum computation.</p>
-<p><strong>Classical annealing codes</strong> like Simulated Quantum Annealing (<a class="reference internal" href="../../02_execute/03_qpu/03_annealing.html#simulated-annealing"><span class="std std-ref">SA</span></a>) try and do the same thing: Given <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(J\)</span> as input, they will, starting from a random configuration, try to apply <strong>updates</strong>, as part of <strong>Markov chain over the configuration space</strong>, in order to look for <strong>low energy states</strong>, where “energy” is defined by the formulas above.</p>
+<p><strong>Classical annealing codes</strong> like Simulated Quantum Annealing (<a class="reference internal" href="../../02_execute/03_qpu/03_annealing.html#simulated-annealing"><span class="std std-ref">SA</span></a>) try and do the same thing:
+Given <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(J\)</span> as input, they will, starting from a random configuration, try to apply <strong>updates</strong>, as part of
+<strong>Markov chain over the configuration space</strong>, in order to look for <strong>low energy states</strong>, where “energy” is defined by the
+formulas above.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>A coupling value <span class="math notranslate nohighlight">\(J &gt; 0\)</span> between two spins <span class="math notranslate nohighlight">\(\sigma_{i}\)</span> and
@@ -181,8 +185,12 @@ making it closer to its <strong>ground state</strong>.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">problem_Ising</span><span class="o">.</span><span class="n">j_coupling_matrix</span><span class="p">)</span>
 
 <span class="c1"># Create a job</span>
-<span class="n">problem_Ising_job</span> <span class="o">=</span> <span class="n">problem_Ising</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">gamma_t</span><span class="o">=</span><span class="n">gamma_t_fun</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="n">tmax</span><span class="p">)</span>
+<span class="n">problem_Ising_job</span> <span class="o">=</span> <span class="n">problem_Ising</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s2">&quot;sqa&quot;</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="n">tmax</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">An Ising Job has been created - ready to run on an annealing QPU.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create an Ising Observable</span>
+<span class="n">problem_Ising_obs</span> <span class="o">=</span> <span class="n">problem_Ising</span><span class="o">.</span><span class="n">get_observable</span><span class="p">(</span><span class="s2">&quot;ising&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;An Ising Observable has also been created - to be fed in a Schedule from which a Job can also be produced.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Magnetic</span> <span class="n">field</span> <span class="n">h</span><span class="p">:</span>
@@ -197,10 +205,22 @@ making it closer to its <strong>ground state</strong>.</p>
  <span class="p">[</span><span class="mf">0.53659164</span> <span class="mf">0.67301865</span> <span class="mf">0.68663996</span> <span class="mf">0.78961076</span> <span class="mf">0.38143552</span> <span class="mf">0.</span>        <span class="p">]]</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
   <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">30</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">NameError</span><span class="p">:</span> <span class="n">name</span> <span class="s1">&#39;gamma_t_fun&#39;</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
+<span class="ne">NameError</span><span class="p">:</span> <span class="n">name</span> <span class="s1">&#39;tmax&#39;</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
 </pre></div>
 </div>
 <p>It is also possible to translate the Ising problem to <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/qubo.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.QUBO</span></code></a> via <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/ising.html#qat.opt.Ising.to_qubo" title="qat.opt.Ising.to_qubo"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_qubo()</span></code></a> or to <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a> via <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/ising.html#qat.opt.Ising.to_combinatorial_problem" title="qat.opt.Ising.to_combinatorial_problem"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_combinatorial_problem()</span></code></a>.</p>
+<p>Ising problems can be further converted to both <a class="reference internal" href="#ising-obs-sec"><span class="std std-ref">ising Observables</span></a> and <a class="reference internal" href="../03_observable.html#observable"><span class="std std-ref">terms Observables</span></a>, the second being used for <a class="reference internal" href="../01_digital_circuit.html#circuit"><span class="std std-ref">gate-based</span></a> or <a class="reference internal" href="../02_analog_schedule.html#schedules-section"><span class="std std-ref">analog quantum computations</span></a>.</p>
+<section id="ising-observables">
+<span id="ising-obs-sec"></span><h2>Ising Observables<a class="headerlink" href="#ising-observables" title="Permalink to this heading"></a></h2>
+<p>Ising problems come with a special <em>ising</em>-type of <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a> (not to be confused with
+<a class="reference internal" href="../03_observable.html#observable"><span class="std std-ref">terms-type of Observables</span></a>). Such an Observable can be created using the <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/ising.html#qat.opt.Ising.get_observable" title="qat.opt.Ising.get_observable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_observable()</span></code></a>
+method of Ising (or the respective ones of <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/qubo.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a> and <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a>). It can then enter
+a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/schedule.html#qat.core.Schedule" title="qat.core.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a> to be converted to a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> for <a class="reference internal" href="../../02_execute/03_qpu/03_annealing.html#simulated-annealing"><span class="std std-ref">Simulated Annealing</span></a>.</p>
+<p>As long as two Ising Observables act on the same number of qubits, one can apply any of the basic arithmetic operations between them
+(just like for <em>terms</em> Observables) like addition, subtraction or multiplication and division by a factor. In each case the magnetic
+field, the J-coupling and the energy offset are treated separately. This further allows the aforementioned to be directly given to an
+Ising Observable.</p>
+</section>
 <section id="bibliography">
 <h2>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this heading"></a></h2>
 <div class="docutils container" id="id2">
