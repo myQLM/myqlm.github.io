@@ -22,6 +22,8 @@
         <script src="../../../static/sphinx_highlight.js"></script>
         <script src="../../../static/design-tabs.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -38,7 +40,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -61,6 +63,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../module_hardware.html">qat.hardware</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="defaultgatesspecification.html">qat.hardware.DefaultGatesSpecification</a></li>
@@ -199,6 +202,36 @@ fed to an analog QPU.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>list&lt;Observable&gt;</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.hardware.DefaultHardwareModel.cleanup_jump_operators">
+<span class="sig-name descname"><span class="pre">cleanup_jump_operators</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.hardware.DefaultHardwareModel.cleanup_jump_operators" title="Permalink to this definition"></a></dt>
+<dd><p>Remove constant jump operators, if any, since they don’t affect the dynamics</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.hardware.DefaultHardwareModel.shift_jump_operators">
+<span class="sig-name descname"><span class="pre">shift_jump_operators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">complex</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">complex</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../module_core/observable.html#qat.core.Observable" title="qat.core.wrappers.observable.Observable"><span class="pre">Observable</span></a></span></span><a class="headerlink" href="#qat.hardware.DefaultHardwareModel.shift_jump_operators" title="Permalink to this definition"></a></dt>
+<dd><p>Shift jump operators <span class="math notranslate nohighlight">\(L_k\)</span> by complex numbers <span class="math notranslate nohighlight">\(\alpha_k\)</span>:
+<span class="math notranslate nohighlight">\(L_k \rightarrow L_k - \alpha_k\)</span>.</p>
+<p>To maintain the same Lindblad equation, the hamiltonian must be
+compensated: <span class="math notranslate nohighlight">\(H \rightarrow H + \tilde H\)</span> with</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shift</strong> (<em>complex</em><em> or </em><em>list&lt;complex&gt;</em>) – a complex scalar shift (same for
+all jump operators) or a list of such (one for each jump operator)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>compensation to the hamiltonian <span class="math notranslate nohighlight">\(\tilde H\)</span>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../module_core/observable.html#qat.core.Observable" title="qat.core.Observable">Observable</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if no jump operator</p>
 </dd>
 </dl>
 </dd></dl>

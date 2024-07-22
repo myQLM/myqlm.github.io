@@ -5,15 +5,15 @@ Writing quantum programs
 
 The process of designing quantum algorithms mainly consists in writing a sequence of quantum instructions in a way that is comprehensible
 by :ref:`Quantum Processing Units (QPUs) <qpu>` so that they can be executed. In quantum programming, different paradigms are available to describe the quantum
-:class:`~qat.lang.Program`, each of them dedicated to be used by a different quantum system and for various use cases. 
+:class:`~qat.lang.Program`, each of them dedicated to be used by a different quantum system and for various use cases.
 
-.. only:: qlm
+.. parseonly:: qlm distributed
 
     The Qaptiva framework offers a collection of tools to help express these quantum algorithms using high-level constructs. The main
     objects are mostly wrapped under the :mod:`qat.core` module, while the higher level interface is defined in the :mod:`qat.lang`
     module.
 
-.. only:: myqlm
+.. parseonly:: myqlm
 
     myQLM offers a collection of tools to help express these quantum algorithms using high-level constructs. The main
     objects are mostly wrapped under the :mod:`qat.core` module, while the higher level interface is defined in the :mod:`qat.lang`
@@ -21,7 +21,7 @@ by :ref:`Quantum Processing Units (QPUs) <qpu>` so that they can be executed. In
 
 Three main paradigms to design quantum algorithms are provided in the framework, namely:
 
-- :ref:`Gate-based Programming <circuit>` - A series of quantum gates are applied to manipulate the quantum system. 
+- :ref:`Gate-based Programming <circuit>` - A series of quantum gates are applied to manipulate the quantum system.
 
 - :ref:`Analog Quantum Programming <schedules_section>` - Evolves a quantum schedule encoding a Hamiltonian in an analog Quantum Processing Unit
 
@@ -31,10 +31,10 @@ In addition to defining the quantum algorithm, it is often necessary to describe
 after the execution. An :ref:`observable sampling <observable>` feature is also available in the framework, allowing us to declare
 observables to be sampled on the final state in the QPU.
 
-.. only:: qlm
+.. parseonly:: qlm distributed
 
     To respond to the needs of the current state of quantum computing, which are referred to as the Noisy intermediate-scale quantum
-    (NISQ) era, some tools are also provided in the framework to :ref:`construct noise models <noise_models>`. This allows for 
+    (NISQ) era, some tools are also provided in the framework to :ref:`construct noise models <noise_models>`. This allows for
     stochastic simulation which includes the noises introduced during the simulation, to understand and predict their effects.
 
 .. autocard::

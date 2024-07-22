@@ -27,8 +27,8 @@
     <script src="../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Quantum Annealing (QA)" href="03_qa.html" />
-    <link rel="prev" title="Binary Integer Linear Programming (BILP)" href="01_np_probs_for_annealing/bilp_ann_prob.html" /> 
+    <link rel="next" title="Adiabatic Quantum Optimization (AQO)" href="03_aqo.html" />
+    <link rel="prev" title="Number Partitioning" href="01_np_probs_for_annealing/number_partitioning_ann_prob.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,7 +40,7 @@
             <img src="../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -65,8 +65,9 @@
 <li class="toctree-l5"><a class="reference internal" href="#bibliography">Bibliography</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="03_qa.html">Quantum Annealing (QA)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="04_np_problem_generators.html">Problem generators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="03_aqo.html">Adiabatic Quantum Optimization (AQO)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="04_crossing_lattice.html">Crossing lattice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="05_np_problem_generators.html">Problem generators</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a></li>
@@ -124,7 +125,7 @@
 <p>where <span class="math notranslate nohighlight">\(H_0 = - \sum_i \sigma_x^i\)</span>, and <span class="math notranslate nohighlight">\(H_C\)</span> is an (efficiently generated) classical cost Hamiltonian that encodes the cost function to optimize. The propagator <span class="math notranslate nohighlight">\(e^{i\gamma H_C}\)</span> is usually simple to implement from a problem specification. <span class="math notranslate nohighlight">\(e^{i\beta H_0}\)</span> simply corresponds to a collection of <span class="math notranslate nohighlight">\(R_X\)</span> rotations of angle <span class="math notranslate nohighlight">\(2\beta\)</span>.</p>
 <p>Once such a circuit is produced, one can use a QPU, along with a classical optimizer, to minimize the quantity:
 <span class="math notranslate nohighlight">\(\langle 0|C(\gamma, \beta)^\dagger H_C C(\gamma, \beta)|0 \rangle\)</span>
-in order to produce a quantum state with the lowest possible energy (i.e that overlaps well with the proper ground state of <span class="math notranslate nohighlight">\(H_C\)</span>, which, by construction, corresponds to the optimal solution of our problem). This can be handled via a <span class="xref std std-ref">variational plugin</span> on Qaptiva.</p>
+in order to produce a quantum state with the lowest possible energy (i.e that overlaps well with the proper ground state of <span class="math notranslate nohighlight">\(H_C\)</span>, which, by construction, corresponds to the optimal solution of our problem). This can be handled via a <a class="reference internal" href="../04_api_reference/module_qat/module_plugins.html#variational-programs"><span class="std std-ref">variational plugin</span></a> on Qaptiva.</p>
 <p>As you can see, the circuit is also parametrized by a depth <span class="math notranslate nohighlight">\(d\)</span> corresponding to the number of alternating variational layers. The larger the depth, the better the approximation of the solution (at least in theory). In practice, increasing this parameter yields a larger circuit with greater number of parameters to optimize, which can slow down the convergence of the algorithm (which is fully described in <span id="id1">[<a class="reference internal" href="#id3" title="Edward Farhi, Jeffrey Goldstone, and Sam Gutmann. A quantum approximate optimization algorithm. 2014. arXiv:1411.4028.">FGG14</a>]</span>).</p>
 <p>It is possible to directly generate ready to run QAOA jobs (containing an Ansatz and the target Hamiltonian) from an instance of <a class="reference internal" href="../04_api_reference/module_qat/module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a>/<a class="reference internal" href="../04_api_reference/module_qat/module_opt/qubo.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a>/<a class="reference internal" href="../04_api_reference/module_qat/module_opt/ising.html#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> via the <a class="reference internal" href="../04_api_reference/module_qat/module_opt/circuitgenerator.html#qat.opt.circuit_generator.CircuitGenerator" title="qat.opt.circuit_generator.CircuitGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">CircuitGenerator</span></code></a> class from which they inherit. In that case Qaptiva will take care of generating a cost Hamiltonian for the problem (depending on how it is specified).</p>
 <p>If you need a lower level interface, the <a class="reference internal" href="../04_api_reference/module_qat/module_opt/ansatzfactory.html#qat.vsolve.ansatz.AnsatzFactory" title="qat.vsolve.ansatz.AnsatzFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnsatzFactory</span></code></a> provides a recipe to produce such a variational circuit from a target Hamiltonian. In both cases, the Ansatz factory allows you to pick between (at least) three different circuit synthesis strategies, yielding functionally equivalent circuits with different shapes.</p>
@@ -144,8 +145,8 @@ in order to produce a quantum state with the lowest possible energy (i.e that ov
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="01_np_probs_for_annealing/bilp_ann_prob.html" class="btn btn-neutral float-left" title="Binary Integer Linear Programming (BILP)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="03_qa.html" class="btn btn-neutral float-right" title="Quantum Annealing (QA)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="01_np_probs_for_annealing/number_partitioning_ann_prob.html" class="btn btn-neutral float-left" title="Number Partitioning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="03_aqo.html" class="btn btn-neutral float-right" title="Adiabatic Quantum Optimization (AQO)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

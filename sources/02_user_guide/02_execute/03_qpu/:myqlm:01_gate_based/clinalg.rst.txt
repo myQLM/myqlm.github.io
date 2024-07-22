@@ -4,12 +4,30 @@ CLinalg: C++ Linear-algebra-based simulator
 Proposed as a faster alternative to :class:`~qat.qpus.PyLinalg`, :class:`~qat.qpus.CLinalg` is a
 Linear-algebra simulator written in C++, with a python (pybind11) interface.
 
-It is the default simulator of myQLM.
+.. parseonly:: myqlm
 
-For a general description of linear-algebra-based simulators, please refer to the
-:ref:`PyLinalg documentation page<reference_qat_qpus_pylinalg>`.
+    It is the default simulator of myQLM.
 
-**miscellanous remarks about the simulator**:
+    For a general description of linear-algebra-based simulators, please refer to the
+    :ref:`PyLinalg documentation page<reference_qat_qpus_pylinalg>`.
+
+.. parseonly:: distributed
+
+    The quantum state is stored as a complex valued vector of length :math:`2^{N}`,
+    with each element being the complex amplitude of the particular state:
+
+    .. math::
+
+        \vert\psi\rangle = \sum_{i=0}^{2^{N}}a_{i}|i\rangle
+
+
+    where :math:`|i\rangle` represents a computational basis state.
+
+    Quantum gates are manipulated as complex valued matrices.
+    Applying a gate consists in selecting the groups of :math:`2^{arity}` amplitudes in the state vector,
+    and doing a dot product of each group with the matrix representing the gate.
+
+**Miscellanous remarks about the simulator**:
 
  * it accepts any gate, of any arity.
  * it works with the entire amplitude vector. Any information is available.

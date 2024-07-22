@@ -40,7 +40,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -87,11 +87,14 @@
 <li class="toctree-l4"><a class="reference internal" href="assert_qpu.html">qat.core.assertion.assert_qpu</a></li>
 <li class="toctree-l4"><a class="reference internal" href="display.html">qat.core.console.display</a></li>
 <li class="toctree-l4"><a class="reference internal" href="evaluate.html">qat.core.formula_eval.evaluate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load_state_vector_from_bin.html">qat.core.util.load_state_vector_from_bin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plot_in_notebook.html">qat.core.printer.plot_in_notebook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wavefunction.html">qat.core.simutil.wavefunction</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
@@ -152,9 +155,14 @@ of a Hamiltonian with a <a class="reference internal" href="schedule.html#qat.co
 <p>For example, imagine we want to encode the parameter
 <span class="math notranslate nohighlight">\(\alpha(t) = 5 + \cos(t) + g(t)\)</span>, where <span class="math notranslate nohighlight">\(g(t)\)</span> is a
 stochastic signal. This signal can have a Power spectral density (PSD) function
-<span class="math notranslate nohighlight">\(\tilde{g}(f) = \frac{1}{1+f^2}\)</span> for a frequency <span class="math notranslate nohighlight">\(f\)</span>. One can represent
-this expression via <code class="code docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">=</span> <span class="pre">Parameter(value=5,</span> <span class="pre">func=cos_expr,</span> <span class="pre">psd=psd_expr)</span></code>, where
-<code class="code docutils literal notranslate"><span class="pre">cos_expr</span></code> and <code class="code docutils literal notranslate"><span class="pre">psd_expr</span></code> are of type <a class="reference internal" href="module_variables/arithexpression.html#qat.core.variables.ArithExpression" title="qat.core.variables.ArithExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithExpression</span></code></a>.
+<span class="math notranslate nohighlight">\(\tilde{G}(f) = \frac{1}{1+f^2}\)</span> for a frequency <span class="math notranslate nohighlight">\(f\)</span>. The PSD is related to the
+stochastic signal via <span class="math notranslate nohighlight">\(\tilde{G}(f) = \frac{1}{t_f} \left \langle |G(f)|^2 \right \rangle\)</span>
+where <span class="math notranslate nohighlight">\(G(f)\)</span> is the Fourier transform of <span class="math notranslate nohighlight">\(g(t)\)</span>, <span class="math notranslate nohighlight">\(\langle \dots \rangle\)</span>
+denotes the average over many noise realizations and <span class="math notranslate nohighlight">\(t_f\)</span> defines the time window
+<span class="math notranslate nohighlight">\([0, t_f]\)</span> over which <span class="math notranslate nohighlight">\(\tilde{G}(f)\)</span> is considered.</p>
+<p>One can represent the expression above for <span class="math notranslate nohighlight">\(\alpha(t)\)</span>
+via <code class="code docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">=</span> <span class="pre">Parameter(value=5,</span> <span class="pre">func=cos_expr,</span> <span class="pre">psd=psd_expr)</span></code>,
+where <code class="code docutils literal notranslate"><span class="pre">cos_expr</span></code> and <code class="code docutils literal notranslate"><span class="pre">psd_expr</span></code> are of type <a class="reference internal" href="module_variables/arithexpression.html#qat.core.variables.ArithExpression" title="qat.core.variables.ArithExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithExpression</span></code></a>.
 and are defined with the <a class="reference internal" href="variable.html#qat.core.Variable" title="qat.core.variables.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> <code class="code docutils literal notranslate"><span class="pre">t</span></code> and <code class="code docutils literal notranslate"><span class="pre">f</span></code>,
 respectively:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Variable</span>
@@ -171,7 +179,7 @@ respectively:</p>
 </div>
 <p>If one wants to investigate the parameter on its own, for example via plotting it
 versus time, one needs to create the noise <span class="math notranslate nohighlight">\(g(t)\)</span> corresponding to the PSD
-<span class="math notranslate nohighlight">\(\tilde{g}(f)\)</span> via the method <a class="reference internal" href="#qat.core.Parameter.generate_noise" title="qat.core.Parameter.generate_noise"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate_noise()</span></code></a>.</p>
+<span class="math notranslate nohighlight">\(\tilde{G}(f)\)</span> via the method <a class="reference internal" href="#qat.core.Parameter.generate_noise" title="qat.core.Parameter.generate_noise"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate_noise()</span></code></a>.</p>
 <p>However, generating the noise is not needed if the <a class="reference internal" href="#qat.core.Parameter" title="qat.core.Parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parameter</span></code></a>
 is passed to a <a class="reference internal" href="../module_hardware/hardwaremodel.html#qat.hardware.HardwareModel" title="qat.hardware.HardwareModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareModel</span></code></a> which will enter the analog QPU.</p>
 <dl class="field-list simple">

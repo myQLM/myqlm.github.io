@@ -22,21 +22,38 @@ The most general way to specify a combinatorial problem is by explicitly declari
 
     print(comb_prob, "\n")
 
-    # Can translate to an Observable for a gate-based manipulation
-    comb_prob_obs = comb_prob.get_observable()
-    print("As Observable:")
+    # Can translate to a terms Observable for a gate-based or analog manipulation
+    comb_prob_obs = comb_prob.get_observable("terms")
+    print("As terms Observable:")
     print(comb_prob_obs)
 
-.. only:: qlm
+    # If the problem had only two variables, one could also translate to an
+    # ising Observable for an annealing manipulation
+    # comb_prob_obs = comb_prob.get_observable("ising")
+
+.. parseonly:: qlm
 
     .. note::
 
-        * Only for the case of no more than two variables, a translation to the :ref:`Ising <ising_description>` and :ref:`QUBO <qubo_description>` formulations is available (via the :meth:`~qat.opt.CombinatorialProblem.to_ising` and :meth:`~qat.opt.CombinatorialProblem.to_qubo` methods) and hence can be solved with :ref:`Simulated Quantum Annealing (SQA) <simulated_quantum_annealing>`.
-        * However, Combinatorial problems with more than 2-variable clauses **can** still be translated to a gate-based :class:`~qat.core.Observable` (as exemplified above) and solved via the Quantum Approximate Optimization Algorithm (:ref:`QAOA <qaoa>`) or the analog Quantum Annealing (:ref:`QA <quantum_annealing>`) as we describe in the :ref:`Combinatorial Optimization <combinatorial_optimization>` section.
+        * Only for the case of no more than two variables, a translation to the :ref:`Ising <ising_description>` and
+          :ref:`QUBO <qubo_description>` formulations is available (via the :meth:`~qat.opt.CombinatorialProblem.to_ising` and
+          :meth:`~qat.opt.CombinatorialProblem.to_qubo` methods). This includes a translation to an :ref:`ising Observable <ising_obs_sec>`,
+          via :meth:`~qat.opt.CombinatorialProblem.get_observable`, hence the problem can be solved with
+          :ref:`Simulated Quantum Annealing (SQA) <simulated_quantum_annealing>`.
+        * However, Combinatorial problems with more than 2-variable clauses **can** still be translated to :ref:`terms Observables <observable>`
+          (as exemplified above) and solved via the Quantum Approximate Optimization Algorithm (:ref:`QAOA <qaoa>`) or the analog
+          Adiabatic Quantum Optimization (:ref:`AQO <aqo_sec>`) as we describe in the 
+          :ref:`Combinatorial Optimization <combinatorial_optimization>` section.
 
-.. only:: myqlm
+.. parseonly:: myqlm distributed
 
     .. note::
 
-        * Only for the case of no more than two variables per clause, a translation to the :ref:`Ising <ising_description>` and :ref:`QUBO <qubo_description>` formulations is available (via the :meth:`~qat.opt.CombinatorialProblem.to_ising` and :meth:`~qat.opt.CombinatorialProblem.to_qubo` methods) and hence can be solved with :ref:`Simulated Annealing (SA) <simulated_annealing>`.
-        * However, Combinatorial problems with more than 2-variable clauses **can** still be translated to a gate-based :class:`~qat.core.Observable` (as exemplified above) and e.g. solved via the Quantum Approximate Optimization Algorithm (:ref:`QAOA <qaoa>`) as we describe in the :ref:`Combinatorial Optimization <combinatorial_optimization>` section.
+        * Only for the case of no more than two variables per clause, a translation to the :ref:`Ising <ising_description>` and
+          :ref:`QUBO <qubo_description>` formulations is available (via the :meth:`~qat.opt.CombinatorialProblem.to_ising` and
+          :meth:`~qat.opt.CombinatorialProblem.to_qubo` methods). This includes a translation to an :ref:`ising Observable <ising_obs_sec>`,
+          via :meth:`~qat.opt.CombinatorialProblem.get_observable`, hence the problem can be solved with
+          :ref:`Simulated Annealing (SA) <simulated_annealing>`.
+        * However, Combinatorial problems with more than 2-variable clauses **can** still be translated to :ref:`terms Observables <observable>`
+          (as exemplified above) and e.g. solved via the Quantum Approximate Optimization Algorithm (:ref:`QAOA <qaoa>`) as we describe
+          in the :ref:`Combinatorial Optimization <combinatorial_optimization>` section.

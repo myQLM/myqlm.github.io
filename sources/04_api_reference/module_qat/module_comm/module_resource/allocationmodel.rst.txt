@@ -1,4 +1,16 @@
 qat.comm.resource.ttypes.AllocationModel
 ========================================
 
-.. autoclass:: qat.comm.resource.ttypes.AllocationModel
+.. class:: qat.comm.resource.ttypes.AllocationModel
+
+    Structure describing the resources allocated by the Resource Manager to execute
+    a job on the Qaptiva machine.
+
+    :ivar list[Device] devices: list of allocated devices
+    :ivar int, optional sequential_round_count: number of rounds required to complete the batch,
+        assuming the upcoming parameter *parallel_job_count* is considered.
+    :ivar int, optional parallel_job_count: number of concurrent jobs executed in parallel
+    :ivar int, optional allocated_thread_count_per_job: number of concurrent threads allocated per concurrent job.
+    :ivar int, optional allocated_total_memory_mb: reserved memory, in MB
+    :ivar float, optional estimated_batch_completion_time: estimated execution time
+    :ivar str, optional reservation_id: unique reservation ID

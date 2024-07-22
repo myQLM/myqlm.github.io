@@ -1,0 +1,16 @@
+.. module:: qat.fusion
+
+qat.fusion
+==========
+
+This module provides all the necessary utilities used by the :class:`~qat.plugins.FusionPlugin`,
+a plugin used to group gates for faster simulation.
+
+.. autoapi::
+
+    [:class:`qat.fusion.strategies.EagerStrategy`] Eagerly merge gates in groups
+    [:class:`qat.fusion.strategies.NaiveStrategy`] Naively merge gates until a maximum size is reached
+    [:class:`qat.fusion.strategies.AdjacentStrategy`] Merge adjacent gates, without increasing the gate size
+    [:class:`qat.fusion.strategies.PartialEagerStrategy`] Eagerly merge non-blacklisted gates
+    [:class:`qat.fusion.strategies.DiagonalStrategy`] Merge diagonal gates
+    [:class:`qat.fusion.strategies.ControlStrategy`] Merge controlled gates

@@ -25,7 +25,7 @@
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="qat.opt.mixing_factory.IndependentAnnealing" href="module_mixing_factory/independentannealing.html" />
+    <link rel="next" title="qat.opt.mixing_factory.IndependentAQO" href="module_mixing_factory/independentaqo.html" />
     <link rel="prev" title="qat.opt" href="../module_opt.html" /> 
 </head>
 
@@ -38,7 +38,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -61,13 +61,14 @@
 <li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_lang.html">qat.lang</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../module_opt.html">qat.opt</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">qat.opt.mixing_factory</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="module_mixing_factory/independentannealing.html">qat.opt.mixing_factory.IndependentAnnealing</a></li>
+<li class="toctree-l5"><a class="reference internal" href="module_mixing_factory/independentaqo.html">qat.opt.mixing_factory.IndependentAQO</a></li>
 <li class="toctree-l5"><a class="reference internal" href="module_mixing_factory/initialstatebuilder.html">qat.opt.mixing_factory.InitialStateBuilder</a></li>
 <li class="toctree-l5"><a class="reference internal" href="module_mixing_factory/simpleinitialstate.html">qat.opt.mixing_factory.SimpleInitialState</a></li>
 </ul>
@@ -77,6 +78,7 @@
 <li class="toctree-l4"><a class="reference internal" href="combinatorialproblem.html">qat.opt.CombinatorialProblem</a></li>
 <li class="toctree-l4"><a class="reference internal" href="var.html">qat.opt.boolexpr.Var</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ising.html">qat.opt.Ising</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mwis.html">qat.opt.MWIS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="qubo.html">qat.opt.QUBO</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bilp.html">qat.opt.BILP</a></li>
 <li class="toctree-l4"><a class="reference internal" href="graphcolouring.html">qat.opt.GraphColouring</a></li>
@@ -140,15 +142,15 @@
 <h1>qat.opt.mixing_factory<a class="headerlink" href="#qat-opt-mixing-factory" title="Permalink to this heading"></a></h1>
 <section id="creating-custom-quantum-annealing-jobs">
 <h2>Creating custom Quantum Annealing Jobs<a class="headerlink" href="#creating-custom-quantum-annealing-jobs" title="Permalink to this heading"></a></h2>
-<p>One can define their own mixing by specifying the initial state of the analog schedule for <a class="reference internal" href="../../../combinatorial_optim_applic/03_qa.html#quantum-annealing"><span class="std std-ref">Quantum Annealing</span></a>.
-This is done by the following (very straightforward) <a class="reference internal" href="module_mixing_factory/initialstatebuilder.html#qat.opt.mixing_factory.InitialStateBuilder" title="qat.opt.mixing_factory.InitialStateBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">InitialStateBuilder</span></code></a> interface and the classes <a class="reference internal" href="module_mixing_factory/simpleinitialstate.html#qat.opt.mixing_factory.SimpleInitialState" title="qat.opt.mixing_factory.SimpleInitialState"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleInitialState</span></code></a> and <a class="reference internal" href="module_mixing_factory/independentannealing.html#qat.opt.mixing_factory.IndependentAnnealing" title="qat.opt.mixing_factory.IndependentAnnealing"><code class="xref py py-class docutils literal notranslate"><span class="pre">IndependentAnnealing</span></code></a> are examples of its possible specializations.</p>
+<p>One can define their own mixing by specifying the initial state of the analog schedule for <a class="reference internal" href="../../../combinatorial_optim_applic/03_aqo.html#aqo-sec"><span class="std std-ref">Adiabatic Quantum Computation</span></a>.
+This is done by the following (very straightforward) <a class="reference internal" href="module_mixing_factory/initialstatebuilder.html#qat.opt.mixing_factory.InitialStateBuilder" title="qat.opt.mixing_factory.InitialStateBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">InitialStateBuilder</span></code></a> interface and the classes <a class="reference internal" href="module_mixing_factory/simpleinitialstate.html#qat.opt.mixing_factory.SimpleInitialState" title="qat.opt.mixing_factory.SimpleInitialState"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleInitialState</span></code></a> and <a class="reference internal" href="module_mixing_factory/independentaqo.html#qat.opt.mixing_factory.IndependentAQO" title="qat.opt.mixing_factory.IndependentAQO"><code class="xref py py-class docutils literal notranslate"><span class="pre">IndependentAQO</span></code></a> are examples of its possible specializations.</p>
 <table class="colwidths-given docutils align-center" style="width: 80%">
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 70%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="module_mixing_factory/independentannealing.html#qat.opt.mixing_factory.IndependentAnnealing" title="qat.opt.mixing_factory.IndependentAnnealing"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.mixing_factory.IndependentAnnealing</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_mixing_factory/independentaqo.html#qat.opt.mixing_factory.IndependentAQO" title="qat.opt.mixing_factory.IndependentAQO"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.mixing_factory.IndependentAQO</span></code></a></p></td>
 <td><p>A specialization of <a class="reference internal" href="module_mixing_factory/initialstatebuilder.html#qat.opt.mixing_factory.InitialStateBuilder" title="qat.opt.mixing_factory.InitialStateBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">InitialStateBuilder</span></code></a> allowing for an annealing preparing an initial state to be prepended to the current one</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="module_mixing_factory/initialstatebuilder.html#qat.opt.mixing_factory.InitialStateBuilder" title="qat.opt.mixing_factory.InitialStateBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.mixing_factory.InitialStateBuilder</span></code></a></p></td>
@@ -169,7 +171,7 @@ This is done by the following (very straightforward) <a class="reference interna
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../module_opt.html" class="btn btn-neutral float-left" title="qat.opt" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="module_mixing_factory/independentannealing.html" class="btn btn-neutral float-right" title="qat.opt.mixing_factory.IndependentAnnealing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="module_mixing_factory/independentaqo.html" class="btn btn-neutral float-right" title="qat.opt.mixing_factory.IndependentAQO" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

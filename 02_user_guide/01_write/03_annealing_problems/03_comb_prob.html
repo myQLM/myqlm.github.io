@@ -38,7 +38,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -127,16 +127,20 @@
 
 <span class="nb">print</span><span class="p">(</span><span class="n">comb_prob</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="c1"># Can translate to an Observable for a gate-based manipulation</span>
-<span class="n">comb_prob_obs</span> <span class="o">=</span> <span class="n">comb_prob</span><span class="o">.</span><span class="n">get_observable</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;As Observable:&quot;</span><span class="p">)</span>
+<span class="c1"># Can translate to a terms Observable for a gate-based or analog manipulation</span>
+<span class="n">comb_prob_obs</span> <span class="o">=</span> <span class="n">comb_prob</span><span class="o">.</span><span class="n">get_observable</span><span class="p">(</span><span class="s2">&quot;terms&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;As terms Observable:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">comb_prob_obs</span><span class="p">)</span>
+
+<span class="c1"># If the problem had only two variables, one could also translate to an</span>
+<span class="c1"># ising Observable for an annealing manipulation</span>
+<span class="c1"># comb_prob_obs = comb_prob.get_observable(&quot;ising&quot;)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span><span class="o">-</span><span class="n">SAT</span><span class="p">:</span>
  <span class="mi">5</span> <span class="n">variables</span><span class="p">,</span> <span class="mi">3</span> <span class="n">clauses</span> 
 
-<span class="n">As</span> <span class="n">Observable</span><span class="p">:</span>
+<span class="n">As</span> <span class="n">terms</span> <span class="n">Observable</span><span class="p">:</span>
 <span class="mf">1.1500000000000001</span> <span class="o">*</span> <span class="n">I</span><span class="o">^</span><span class="mi">5</span> <span class="o">+</span>
 <span class="mf">0.1875</span> <span class="o">*</span> <span class="p">(</span><span class="n">Z</span><span class="o">|</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">+</span>
 <span class="mf">0.1875</span> <span class="o">*</span> <span class="p">(</span><span class="n">ZZ</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="o">+</span>
@@ -151,8 +155,14 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p>Only for the case of no more than two variables per clause, a translation to the <a class="reference internal" href="01_ising.html#ising-description"><span class="std std-ref">Ising</span></a> and <a class="reference internal" href="02_qubo.html#qubo-description"><span class="std std-ref">QUBO</span></a> formulations is available (via the <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem.to_ising" title="qat.opt.CombinatorialProblem.to_ising"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_ising()</span></code></a> and <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem.to_qubo" title="qat.opt.CombinatorialProblem.to_qubo"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_qubo()</span></code></a> methods) and hence can be solved with <a class="reference internal" href="../../02_execute/03_qpu/03_annealing.html#simulated-annealing"><span class="std std-ref">Simulated Annealing (SA)</span></a>.</p></li>
-<li><p>However, Combinatorial problems with more than 2-variable clauses <strong>can</strong> still be translated to a gate-based <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a> (as exemplified above) and e.g. solved via the Quantum Approximate Optimization Algorithm (<a class="reference internal" href="../../../combinatorial_optim_applic/02_qaoa.html#qaoa"><span class="std std-ref">QAOA</span></a>) as we describe in the <a class="reference internal" href="../../../combinatorial_optim_applic.html#combinatorial-optimization"><span class="std std-ref">Combinatorial Optimization</span></a> section.</p></li>
+<li><p>Only for the case of no more than two variables per clause, a translation to the <a class="reference internal" href="01_ising.html#ising-description"><span class="std std-ref">Ising</span></a> and
+<a class="reference internal" href="02_qubo.html#qubo-description"><span class="std std-ref">QUBO</span></a> formulations is available (via the <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem.to_ising" title="qat.opt.CombinatorialProblem.to_ising"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_ising()</span></code></a> and
+<a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem.to_qubo" title="qat.opt.CombinatorialProblem.to_qubo"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_qubo()</span></code></a> methods). This includes a translation to an <a class="reference internal" href="01_ising.html#ising-obs-sec"><span class="std std-ref">ising Observable</span></a>,
+via <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem.get_observable" title="qat.opt.CombinatorialProblem.get_observable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_observable()</span></code></a>, hence the problem can be solved with
+<a class="reference internal" href="../../02_execute/03_qpu/03_annealing.html#simulated-annealing"><span class="std std-ref">Simulated Annealing (SA)</span></a>.</p></li>
+<li><p>However, Combinatorial problems with more than 2-variable clauses <strong>can</strong> still be translated to <a class="reference internal" href="../03_observable.html#observable"><span class="std std-ref">terms Observables</span></a>
+(as exemplified above) and e.g. solved via the Quantum Approximate Optimization Algorithm (<a class="reference internal" href="../../../combinatorial_optim_applic/02_qaoa.html#qaoa"><span class="std std-ref">QAOA</span></a>) as we describe
+in the <a class="reference internal" href="../../../combinatorial_optim_applic.html#combinatorial-optimization"><span class="std std-ref">Combinatorial Optimization</span></a> section.</p></li>
 </ul>
 </div>
 </section>

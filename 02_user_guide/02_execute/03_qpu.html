@@ -38,7 +38,7 @@
             <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -59,7 +59,7 @@
 <li class="toctree-l3"><a class="reference internal" href="02_result.html">Result of a quantum program</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Quantum Processing Unit (QPU)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="03_qpu/%3Amyqlm%3A01_gate_based.html">Gate based computing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="03_qpu/03_annealing.html">Annealing computing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="03_qpu/03_annealing.html">SQA computing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="03_qpu/04_custom_qpu.html">Make your own QPU</a></li>
 </ul>
 </li>
@@ -178,12 +178,16 @@ Assuming the server is listening to the port <code class="code docutils literal 
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p class="sd-card-text">The connection is synchronous, therefore, if the client is disconnected during the execution
-of a Batch/Job, result of the execution is lost</p>
+of a Batch/Job, the result of the execution would be lost</p>
 </div>
 </div>
 </div>
 </div>
-</details><div class="toctree-wrapper compound">
+</details><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Executing a <a class="reference internal" href="../../04_api_reference/module_qat/module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> (or a <a class="reference internal" href="../../04_api_reference/module_qat/module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) on any of the available QPUs (even for <a class="reference internal" href="03_qpu/04_custom_qpu.html#custom-qpu-sec"><span class="std std-ref">custom-made</span></a> ones) should be performed by calling the <a class="reference internal" href="../../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler.submit" title="qat.qpus.QPUHandler.submit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">submit()</span></code></a> function (inherited from the parent class <a class="reference internal" href="../../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler" title="qat.qpus.QPUHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUHandler</span></code></a>) thus not circumventing any beneficial pre- or post-processing.</p>
+</div>
+<div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
 </div>
@@ -203,7 +207,7 @@ Gate based computing</div>
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
 <div class="sd-card-body docutils">
 <div class="sd-card-title sd-font-weight-bold docutils">
-Annealing computing</div>
+SQA computing</div>
 </div>
 <a class="sd-stretched-link reference internal" href="03_qpu/03_annealing.html"><span class="doc"></span></a></div>
 </div>

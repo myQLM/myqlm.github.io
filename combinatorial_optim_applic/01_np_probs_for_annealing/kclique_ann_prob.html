@@ -40,7 +40,7 @@
             <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -72,8 +72,9 @@
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../02_qaoa.html">Quantum Approximate Optimization Algorithm (QAOA)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../03_qa.html">Quantum Annealing (QA)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../04_np_problem_generators.html">Problem generators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../03_aqo.html">Adiabatic Quantum Optimization (AQO)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../04_crossing_lattice.html">Crossing lattice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../05_np_problem_generators.html">Problem generators</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a></li>
@@ -161,7 +162,7 @@ a complete subgraph of size <span class="math notranslate nohighlight">\(K\)</sp
 <span class="n">sa_qpu</span> <span class="o">=</span> <span class="n">SimulatedAnnealing</span><span class="p">(</span><span class="n">temp_t</span><span class="o">=</span><span class="n">temp_t</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="n">n_steps</span><span class="p">)</span>
 
 <span class="c1"># Create a job and send it to the QPU</span>
-<span class="n">problem_job</span> <span class="o">=</span> <span class="n">kclique_problem</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">tmax</span><span class="o">=</span><span class="n">tmax</span><span class="p">)</span>
+<span class="n">problem_job</span> <span class="o">=</span> <span class="n">kclique_problem</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="s1">&#39;sqa&#39;</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="n">tmax</span><span class="p">)</span>
 <span class="n">problem_result</span> <span class="o">=</span> <span class="n">sa_qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">problem_job</span><span class="p">)</span>
 
 <span class="c1"># Extract and print the solution configuration</span>

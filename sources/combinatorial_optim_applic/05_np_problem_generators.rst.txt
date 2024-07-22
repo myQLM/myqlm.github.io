@@ -1,0 +1,251 @@
+.. _generators:
+
+Problem generators
+==================
+
+
+.. parseonly:: qlm distributed
+
+    Qaptiva provides batch generators used to both generate a quantum job (used to
+    solve a combinatorial problem) and parse the result to return a user-friendly structure.
+
+.. parseonly:: myqlm
+
+    myQLM provides batch generators used to both generate a quantum job (used to solve a combintorial
+    problem) and parse the result to return a user friendly data-structure.
+
+These batch generators can generate different types of job, to be compatible with different types of QPUs. The different types of jobs are:
+
+.. tab-set::
+
+    .. tab-item:: QAOA jobs
+
+        .. parseonly:: qlm
+
+            These jobs are generated using the method :meth:`~qat.opt.circuit_generator.CircuitGenerator.qaoa_job` of :class:`~qat.opt.circuit_generator.CircuitGenerator` by passing :code:`job_type="qaoa"` to the constructor of the generator and are designed to be executed on a :ref:`digital QPU <digital_qpus_UG_qlm>`. Two jobs will be submitted to the QPU:
+
+        .. parseonly:: distributed
+
+            These jobs are generated using the method :meth:`~qat.opt.circuit_generator.CircuitGenerator.qaoa_job` of :class:`~qat.opt.circuit_generator.CircuitGenerator` by passing :code:`job_type="qaoa"` to the constructor of the generator and are designed to be executed on a :ref:`digital QPU <digital_qpus_UG_distributed>`. Two jobs will be submitted to the QPU:
+
+        .. parseonly:: myqlm
+
+            These jobs are generated using the method :meth:`~qat.opt.circuit_generator.CircuitGenerator.qaoa_job` of :class:`~qat.opt.circuit_generator.CircuitGenerator` by passing :code:`job_type="qaoa"` to the constructor of the generator and are designed to be executed on a :ref:`digital QPU <digital_qpus_UG_myqlm>`. Two jobs will be submitted to the QPU:
+
+        #. a variational job to determine the best parameters
+
+        #. a sampling job to find an actual solution to the combinatorial problem
+
+        For instance, the following example uses :class:`~qat.opt.generators.MaxCutGenerator` to generate jobs solving
+        the NP-Hard problem Max Cut on a graph given to this generator:
+
+        .. run-block:: python
+
+            import networkx as nx
+            from qat.generators import MaxCutGenerator
+
+            graph = nx.full_rary_tree(3, 6)
+
+            # The job_type here can also be "aqo" or "sqa"
+            batches = MaxCutGenerator(job_type="qaoa").generate(None, graph)
+
+        This generator can be piped to a computation stack of plugins and a QPU, creating an :class:`~qat.core.application.Application`. The Max Cut problem can then be solved by calling the :meth:`~qat.core.application.Application.execute` method.
+
+        .. run-block:: python
+
+            import networkx as nx
+            from qat.generators import MaxCutGenerator
+            from qat.plugins import ScipyMinimizePlugin
+            from qat.qpus import get_default_qpu
+
+            graph = nx.full_rary_tree(3, 6)
+
+            max_cut_application = (
+                    MaxCutGenerator(job_type="qaoa")
+                    | ScipyMinimizePlugin(method="COBYLA", tol=1e-5, options={"maxiter": 200})
+                    | get_default_qpu()
+            )
+            combinatorial_result = max_cut_application.execute(graph)
+
+            print(combinatorial_result.subsets)
+            print(combinatorial_result.cost)
+
+        The parsed combinatorial result can also be displayed with NetworkX:
+
+        .. code-block:: python
+
+            combinatorial_result.display()
+
+        .. figure:: max_cut_generator_result.png
+            :scale: 100 %
+
+
+    .. tab-item:: SQA jobs
+
+        .. parseonly:: qlm
+
+            These jobs are generated using the method :meth:`~qat.opt.Ising.to_job` of :class:`~qat.opt.Ising` by passing :code:`job_type="sqa"` to the constructor of the generator and are designed to be executed with :class:`~qat.qpus.SQAQPU`.
+
+        .. parseonly:: myqlm distributed
+
+            These jobs are generated using the method :meth:`~qat.opt.Ising.to_job` of :class:`~qat.opt.Ising` by passing :code:`job_type="sqa"` to the constructor of the generator and are designed to be executed with :class:`~qat.qpus.SimulatedAnnealing`.
+
+        For instance, the following example uses :class:`~qat.opt.generators.MaxCutGenerator` to generate jobs solving the NP-Hard problem Max Cut on a graph given to this generator:
+
+        .. run-block:: python
+
+            import networkx as nx
+            from qat.generators import MaxCutGenerator
+
+            graph = nx.full_rary_tree(3, 6)
+
+            # The job_type here can also be "qaoa" or "aqo"
+            batches = MaxCutGenerator(job_type="sqa").generate(None, graph)
+
+        This generator can be piped to a computation stack of plugins and a QPU, creating an :class:`~qat.core.application.Application`. The Max Cut problem can then be solved by calling the :meth:`~qat.core.application.Application.execute` method.
+
+       .. parseonly:: qlm
+
+            .. run-block:: python
+
+                import networkx as nx
+                from qat.generators import MaxCutGenerator
+                from qat.qpus import SQAQPU
+
+                graph = nx.full_rary_tree(3, 6)
+
+                max_cut_application = (
+                        MaxCutGenerator(job_type="sqa")
+                        | SQAQPU()
+                )
+                combinatorial_result = max_cut_application.execute(graph)
+
+                print(combinatorial_result.subsets)
+                print(combinatorial_result.cost)
+
+        .. parseonly:: myqlm distributed
+
+            .. run-block:: python
+
+                import networkx as nx
+                from qat.generators import MaxCutGenerator
+                from qat.qpus import SimulatedAnnealing
+
+                graph = nx.full_rary_tree(3, 6)
+
+                max_cut_application = (
+                        MaxCutGenerator(job_type="sqa")
+                        | SimulatedAnnealing()
+                )
+                combinatorial_result = max_cut_application.execute(graph)
+
+                print(combinatorial_result.subsets)
+                print(combinatorial_result.cost)
+
+
+        The parsed combinatorial result can also be displayed with NetworkX:
+
+        .. code-block:: python
+
+            combinatorial_result.display()
+
+        .. figure:: max_cut_generator_result.png
+            :scale: 100 %
+
+
+    .. tab-item:: AQO jobs
+
+        .. parseonly:: myqlm
+            
+            These jobs are generated by passing :code:`job_type="aqo"` to the constructor of the generator
+            and are designed to be executed on an analog QPU (or :code:`job_type="ryd"` for Rydberg atom QPU).
+
+            .. note::
+
+                Analog QPUs are currently not available in myQLM. Instead, they can be found in the full Qaptiva appliance.
+
+        .. parseonly:: distributed
+            
+            These jobs are generated by passing :code:`job_type="aqo"` to the constructor of the generator
+            and are designed to be executed on an analog QPU (or :code:`job_type="ryd"` for Rydberg atom QPU).
+
+            .. note::
+
+                Analog QPUs are currently not available in Distributed Qaptiva. Instead, they can be found in the full Qaptiva appliance.
+
+        .. parseonly:: qlm
+            
+            These jobs are generated by passing :code:`job_type="aqo"` to the constructor of the generator
+            and are designed to be executed on an :ref:`analog QPU <analog_qpus>` (or :code:`job_type="ryd"` for Rydberg atom QPU).
+
+            For instance, the following example uses :class:`~qat.opt.generators.MaxCutGenerator` to generate jobs solving the NP-Hard problem Max Cut on a graph given to this generator:
+
+            .. run-block:: python
+
+                import networkx as nx
+                from qat.generators import MaxCutGenerator
+
+                graph = nx.full_rary_tree(3, 6)
+
+                # The job_type here can also be "qaoa" or "sqa"
+                batches = MaxCutGenerator(job_type="aqo").generate(None, graph)
+
+            This generator can be piped to a computation stack of plugins and a QPU, creating an :class:`~qat.core.application.Application`. The Max Cut problem
+            can then be solved by calling the :meth:`~qat.core.application.Application.execute` method.
+
+            .. run-block:: python
+
+                import networkx as nx
+                from qat.generators import MaxCutGenerator
+                from qat.qpus import AnalogQPU
+
+                graph = nx.full_rary_tree(3, 6)
+
+                max_cut_application = (
+                        MaxCutGenerator(job_type="aqo")
+                        | AnalogQPU()
+                )
+                combinatorial_result = max_cut_application.execute(graph)
+
+                print(combinatorial_result.subsets)
+                print(combinatorial_result.cost)
+
+            The parsed combinatorial result can also be displayed with NetworkX:
+
+            .. code-block:: python
+
+                combinatorial_result.display()
+
+            .. figure:: max_cut_generator_result.png
+                :scale: 100 %
+
+NP-hard problems generators
+---------------------------
+
+.. toctree::
+    :hidden:
+    :maxdepth: 1
+
+    05_np_problem_generators/01_max_cut_generator.rst
+    05_np_problem_generators/02_graph_partitioning_generator.rst
+    05_np_problem_generators/03_kclique_generator.rst
+    05_np_problem_generators/04_vertex_cover_generator.rst
+    05_np_problem_generators/05_graph_colouring_generator.rst
+
+.. grid:: 1 2 2 3
+    :gutter: 4
+
+    .. grid-item-card:: Max Cut generator
+        :link: 05_np_problem_generators/01_max_cut_generator.rst
+
+    .. grid-item-card:: Graph Partitioning generator
+        :link: 05_np_problem_generators/02_graph_partitioning_generator.rst
+
+    .. grid-item-card:: K-Clique generator
+        :link: 05_np_problem_generators/03_kclique_generator.rst
+
+    .. grid-item-card:: Vertex Cover generator
+        :link: 05_np_problem_generators/04_vertex_cover_generator.rst
+
+    .. grid-item-card:: Graph Colouring generator
+        :link: 05_np_problem_generators/05_graph_colouring_generator.rst

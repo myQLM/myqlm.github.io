@@ -38,7 +38,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -85,11 +85,14 @@
 <li class="toctree-l4"><a class="reference internal" href="assert_qpu.html">qat.core.assertion.assert_qpu</a></li>
 <li class="toctree-l4"><a class="reference internal" href="display.html">qat.core.console.display</a></li>
 <li class="toctree-l4"><a class="reference internal" href="evaluate.html">qat.core.formula_eval.evaluate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load_state_vector_from_bin.html">qat.core.util.load_state_vector_from_bin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plot_in_notebook.html">qat.core.printer.plot_in_notebook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wavefunction.html">qat.core.simutil.wavefunction</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
@@ -156,6 +159,7 @@ hardware</p></li>
 <li><p><strong>description</strong> (str): description of the hardware</p></li>
 <li><p><strong>processing_types</strong> (list&lt;<a class="reference internal" href="../module_comm/module_shared/processingtype.html#qat.comm.shared.ttypes.ProcessingType" title="qat.comm.shared.ttypes.ProcessingType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessingType</span></code></a>&gt;): list
 of supported processing types</p></li>
+<li><p><strong>meta_data</strong> (dict&lt;str, str&gt;): meta data to provide some custom data of the QPU to users</p></li>
 </ul>
 </dd>
 </dl>
@@ -195,7 +199,10 @@ the device’s connectivity for easy inclusion in a QLM stack</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QuameleonPlugin</span> <span class="o">|</span> <span class="n">ScipyMinimizePlugin</span> <span class="o">|</span> <span class="n">CLinalg</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">6</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+  <span class="n">File</span> <span class="s2">&quot;qpu.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">403</span><span class="p">,</span> <span class="ow">in</span> <span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">qpu</span><span class="o">.</span><span class="n">CommonQPU</span><span class="o">.</span><span class="fm">__str__</span>
+<span class="ne">AttributeError</span><span class="p">:</span> <span class="s1">&#39;QuameleonPlugin&#39;</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s1">&#39;plugins&#39;</span>
 </pre></div>
 </div>
 <dl class="field-list simple">

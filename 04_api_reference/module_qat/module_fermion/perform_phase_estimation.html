@@ -40,7 +40,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -64,6 +64,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../module_fermion.html">qat.fermion</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="electronicstructurehamiltonian.html">qat.fermion.hamiltonians.ElectronicStructureHamiltonian</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fermionhamiltonian.html">qat.fermion.hamiltonians.FermionHamiltonian</a></li>
 <li class="toctree-l4"><a class="reference internal" href="spinhamiltonian.html">qat.fermion.hamiltonians.SpinHamiltonian</a></li>
 <li class="toctree-l4"><a class="reference internal" href="make_anderson_model.html">qat.fermion.hamiltonians.make_anderson_model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="make_embedded_model.html">qat.fermion.hamiltonians.make_embedded_model</a></li>
@@ -93,6 +94,7 @@
 <li class="toctree-l4"><a class="reference internal" href="perform_pyscf_computation.html">qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
@@ -196,6 +198,7 @@ bound of the energy.</p></li>
 into a <a class="reference internal" href="spinhamiltonian.html#qat.fermion.hamiltonians.SpinHamiltonian" title="qat.fermion.hamiltonians.SpinHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.fermion.hamiltonians.SpinHamiltonian</span></code></a>: one can use the “jordan-wigner” (default),
 “bravyi-kitaev” or “parity” transformations.</p></li>
 <li><p><strong>qpu</strong> (<em>Optional</em><em>[</em><em>QPU</em><em>]</em>) – QPU to use for computation. Will use by default the default installed QPU.</p></li>
+<li><p><strong>n_shots</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Number of shots used for the estimation (default is 0).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -209,6 +212,13 @@ into a <a class="reference internal" href="spinhamiltonian.html#qat.fermion.hami
 <dd class="field-odd"><p>Tuple[float, float]</p>
 </dd>
 </dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Leaving the <em>n_shots</em> parameter to its default value (0) may result in a QPUException, for simulators, if
+<em>nb_adiab_steps &gt; 0</em>. Indeed, the generated circuit comprises intermediate measurements, typically
+not supported for perfect simulation (nbshots=0) by Qaptiva simulators.
+Please change the <em>n_shots</em> value in that case.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Usually, energies lie outside the range <span class="math notranslate nohighlight">\((-\frac{2\pi}{t}, 0)\)</span>. However, this range can be adjusted

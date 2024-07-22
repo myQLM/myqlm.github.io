@@ -38,7 +38,7 @@
             <img src="../../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -61,6 +61,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../module_core.html">qat.core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../module_devices.html">qat.devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../module_generators.html">qat.generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../module_hardware.html">qat.hardware</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../../%3Amyqlm%3Amodule_interop.html">qat.interop</a><ul class="current">
@@ -130,6 +131,11 @@
 <dt class="sig sig-object py" id="qat.interop.pyquil.qlm_to_pyquil">
 <span class="sig-prename descclassname"><span class="pre">qat.interop.pyquil.</span></span><span class="sig-name descname"><span class="pre">qlm_to_pyquil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qlm_circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">program_pragma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.pyquil.qlm_to_pyquil" title="Permalink to this definition"></a></dt>
 <dd><p>Converts a QLM circuit to a pyquil circuit</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Only circuit parametrized with float numbers can be translated to PyQuil.
+Thus, variational circuits cannot be translated to PyQuil</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>qlm_circuit</strong> – QLM circuit to convert</p>

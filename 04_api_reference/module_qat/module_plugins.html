@@ -38,7 +38,7 @@
             <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -61,6 +61,7 @@
 <li class="toctree-l3"><a class="reference internal" href="module_core.html">qat.core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="module_devices.html">qat.devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="module_generators.html">qat.generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="module_hardware.html">qat.hardware</a></li>
 <li class="toctree-l3"><a class="reference internal" href="%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
@@ -68,6 +69,7 @@
 <li class="toctree-l3"><a class="reference internal" href="module_opt.html">qat.opt</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">qat.plugins</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="module_plugins/circuitinliner.html">qat.plugins.CircuitInliner</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/fusionplugin.html">qat.plugins.FusionPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_plugins/observablesplitter.html">qat.plugins.ObservableSplitter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_plugins/costfunctionplugin.html">qat.plugins.CostFunctionPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_plugins/psominimizeplugin.html">qat.plugins.PSOMinimizePlugin</a></li>
@@ -145,7 +147,10 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="module_plugins/circuitinliner.html#qat.plugins.CircuitInliner" title="qat.plugins.CircuitInliner"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.CircuitInliner</span></code></a></p></td>
 <td><p>Inlining circuit inside a stack</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="module_plugins/observablesplitter.html#qat.plugins.ObservableSplitter" title="qat.plugins.ObservableSplitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.ObservableSplitter</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="module_plugins/fusionplugin.html#qat.plugins.FusionPlugin" title="qat.plugins.FusionPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.FusionPlugin</span></code></a></p></td>
+<td><p>Merge quantum gates together to reduce the number of gates</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_plugins/observablesplitter.html#qat.plugins.ObservableSplitter" title="qat.plugins.ObservableSplitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.ObservableSplitter</span></code></a></p></td>
 <td><p>Turning observable sampling into qubit sampling</p></td>
 </tr>
 </tbody>
@@ -154,7 +159,7 @@
 </div>
 </section>
 <section id="variational-optimization-plugins">
-<h2>Variational optimization plugins<a class="headerlink" href="#variational-optimization-plugins" title="Permalink to this heading"></a></h2>
+<span id="variational-programs"></span><h2>Variational optimization plugins<a class="headerlink" href="#variational-optimization-plugins" title="Permalink to this heading"></a></h2>
 <table class="colwidths-given docutils align-center" style="width: 80%">
 <colgroup>
 <col style="width: 30%" />

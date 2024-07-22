@@ -1,0 +1,112 @@
+qat.plugins.FusionPlugin
+========================
+
+The :class:`~qat.plugins.FusionPlugin` is designed to be used as is, in front of a linear algebra simulator.
+It should improve the simulation time of supremacy-like quantum circuits, that is, dense random circuits. Notice that it can
+**degrade** simulation performances for some other types of circuits, such as QAOA circuits!
+
+.. note::
+
+    .. parseonly:: qlm
+
+        As of version 1.10, FusionPlugin is used by default by :class:`qat.qpus.LinAlg` for jobs of at least 20 qubits (CPU),
+        23 qubits (GPU).
+
+    .. parseonly:: distributed myqlm
+
+        As of version 1.10, FusionPlugin is used by default by :class:`qat.qpus.CLinalg` for jobs of at least 20 qubits
+
+
+.. autoclass:: qat.plugins.FusionPlugin
+    :members: compile
+
+
+This plugin can be configured with different strategies, described in the :mod:`qat.fusion` module.
+
+
+Example
+-------
+
+Let us try and run this Plugin on some simple random circuit.
+
+.. note::
+
+    As of version 1.10, we pass fusion=False for this example, as the QPU uses FusionPlugin by default.
+
+.. parseonly:: qlm
+
+    .. run-block:: python
+
+        import time
+        import numpy as np
+        from qat.plugins import FusionPlugin
+        from qat.qpus import LinAlg
+        from qat.lang.AQASM import Program, RZ, RX, CNOT
+
+
+        def random_circuit(nbqbits, depth):
+            """Generates a random circuit"""
+            prog = Program()
+            qbits = prog.qalloc(nbqbits)
+            for _ in range(depth):
+                for qbit in qbits:
+                    RZ(np.random.random() * 2 * np.pi)(qbit)
+                    RX(np.random.random() * 2 * np.pi)(qbit)
+                    RZ(np.random.random() * 2 * np.pi)(qbit)
+                for i in range(nbqbits // 2):
+                    CNOT(qbits[2 * i], qbits[2 * i + 1])
+                for i in range(1, nbqbits // 2):
+                    CNOT(qbits[2 * i], qbits[2 * i - 1])
+            return prog.to_circ()
+
+
+        plugin = FusionPlugin()
+        stack_default = LinAlg(fusion=False)
+        stack_improved = plugin | LinAlg(fusion=False)
+
+        job = random_circuit(20, 80).to_job()
+        start = time.perf_counter()
+        stack_default.submit(job)
+        print("Time LinAlg only:  ", time.perf_counter() - start)
+        start = time.perf_counter()
+        stack_improved.submit(job)
+        print("Time Fusion+LinAlg:", time.perf_counter() - start)
+
+.. parseonly:: distributed myqlm
+
+    .. run-block:: python
+
+        import time
+        import numpy as np
+        from qat.plugins import FusionPlugin
+        from qat.qpus import CLinalg
+        from qat.lang.AQASM import Program, RZ, RX, CNOT
+
+
+        def random_circuit(nbqbits, depth):
+            """Generates a random circuit"""
+            prog = Program()
+            qbits = prog.qalloc(nbqbits)
+            for _ in range(depth):
+                for qbit in qbits:
+                    RZ(np.random.random() * 2 * np.pi)(qbit)
+                    RX(np.random.random() * 2 * np.pi)(qbit)
+                    RZ(np.random.random() * 2 * np.pi)(qbit)
+                for i in range(nbqbits // 2):
+                    CNOT(qbits[2 * i], qbits[2 * i + 1])
+                for i in range(1, nbqbits // 2):
+                    CNOT(qbits[2 * i], qbits[2 * i - 1])
+            return prog.to_circ()
+
+
+        plugin = FusionPlugin()
+        stack_default = CLinalg(fusion=False)
+        stack_improved = plugin | CLinalg(fusion=False)
+
+        job = random_circuit(20, 80).to_job()
+        start = time.perf_counter()
+        stack_default.submit(job)
+        print("Time CLinalg only:  ", time.perf_counter() - start)
+        start = time.perf_counter()
+        stack_improved.submit(job)
+        print("Time Fusion+CLinalg:", time.perf_counter() - start)

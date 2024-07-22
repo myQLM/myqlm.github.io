@@ -10,7 +10,7 @@ form:
 
     H = - \sum_{i=1}^{n} h_{i}\sigma_{z}^{i} - \sum_{i,j=1}^{n} J_{ij}\sigma_{z}^{i}\sigma_{z}^{j}
 
-where :math:`\sigma_{z}^{i} = \begin{pmatrix}1 & 0 \\ 0 & -1 \end{pmatrix}`, 
+where :math:`\sigma_{z}^{i} = \begin{pmatrix}1 & 0 \\ 0 & -1 \end{pmatrix}`,
 :math:`h` is a vector of real coefficients usually referred to as the **local magnetic field**,
 and :math:`J` is a **real symmetric matrix with a zero diagonal**, usually referred to as the **coupling matrix**.
 
@@ -35,26 +35,32 @@ Quantum annealing machines are typically designed to try and reach the **minimum
 of Ising Hamiltonians**, also called **ground state**, relying on the **Adiabatic Theorem**.
 See for instance :cite:`albash2018adiabatic` for a general reference on adiabatic quantum computation.
 
-.. only:: qlm
+.. parseonly:: qlm
 
-    Our **classical annealing codes** (see :ref:`Simulated Quantum Annealing (SQA) <simulated_quantum_annealing>`) try and do the same thing: Given :math:`h` and :math:`J` as input, they will, starting from a random configuration,  try to apply **updates**, as part of **Markov chain over the configuration space**, in order to look for **low energy states**, where "energy" is defined by the formulas above.
+    Our **classical annealing codes** (see :ref:`Simulated Quantum Annealing (SQA) <simulated_quantum_annealing>`) try and do the
+    same thing: Given :math:`h` and :math:`J` as input, they will, starting from a random configuration,  try to apply **updates**,
+    as part of **Markov chain over the configuration space**, in order to look for **low energy states**, where "energy" is defined
+    by the formulas above.
 
-.. only:: myqlm
+.. parseonly:: myqlm distributed
 
-    **Classical annealing codes** like Simulated Quantum Annealing (:ref:`SA <simulated_annealing>`) try and do the same thing: Given :math:`h` and :math:`J` as input, they will, starting from a random configuration, try to apply **updates**, as part of **Markov chain over the configuration space**, in order to look for **low energy states**, where "energy" is defined by the formulas above.
+    **Classical annealing codes** like Simulated Quantum Annealing (:ref:`SA <simulated_annealing>`) try and do the same thing:
+    Given :math:`h` and :math:`J` as input, they will, starting from a random configuration, try to apply **updates**, as part of
+    **Markov chain over the configuration space**, in order to look for **low energy states**, where "energy" is defined by the
+    formulas above.
 
 .. note::
 
-    A coupling value :math:`J > 0` between two spins :math:`\sigma_{i}` and 
+    A coupling value :math:`J > 0` between two spins :math:`\sigma_{i}` and
     :math:`\sigma_{j}` can sometimes be called, in our convention, a **ferromagnetic coupling**,
     as the alignment of the two spins onto a same value will tend to **lower the energy** of the system
     making it closer to its **ground state**.
 
-.. only:: qlm
+.. parseonly:: qlm
 
     In other words, **quantum annealing machines** and, consequently, **classical annealing codes**, :ref:`SQA <simulated_quantum_annealing>`, aim at tackling the following optimization problem:
 
-.. only:: myqlm
+.. parseonly:: myqlm distributed
 
     In other words, **quantum annealing machines** and, consequently, **classical annealing codes**, :ref:`SA <simulated_annealing>`, aim at tackling the following optimization problem:
 
@@ -66,7 +72,7 @@ given :math:`h` and :math:`J` as input.
 
 To produce such Ising-formulated problems, one can use the :class:`qat.opt.Ising` class:
 
-.. only:: qlm
+.. parseonly:: qlm
 
     .. run-block:: python
 
@@ -104,11 +110,14 @@ To produce such Ising-formulated problems, one can use the :class:`qat.opt.Ising
         tmax = 1.23
         gamma_max = 170.89 # it is usually problem-specific
         gamma_t_fun = gamma_max * (1 - t_var / tmax)  # linear decrease to 0 at t=tmax
-        problem_Ising_job = problem_Ising.to_job(gamma_t=gamma_t_fun, tmax=tmax)
-
+        problem_Ising_job = problem_Ising.to_job(job_type="sqa", gamma_t=gamma_t_fun, tmax=tmax)
         print("\nAn Ising Job has been created - ready to run on an annealing QPU.")
 
-.. only:: myqlm
+        # Create an Ising Observable
+        problem_Ising_obs = problem_Ising.get_observable("ising")
+        print("An Ising Observable has also been created - to be fed in a Schedule (together with gamma_t) from which a Job can also be produced.")
+
+.. parseonly:: myqlm distributed
 
     .. run-block:: python
 
@@ -141,11 +150,43 @@ To produce such Ising-formulated problems, one can use the :class:`qat.opt.Ising
         print(problem_Ising.j_coupling_matrix)
 
         # Create a job
-        problem_Ising_job = problem_Ising.to_job(gamma_t=gamma_t_fun, tmax=tmax)
+        problem_Ising_job = problem_Ising.to_job(job_type="sqa", tmax=tmax)
         print("\nAn Ising Job has been created - ready to run on an annealing QPU.")
+
+        # Create an Ising Observable
+        problem_Ising_obs = problem_Ising.get_observable("ising")
+        print("An Ising Observable has also been created - to be fed in a Schedule from which a Job can also be produced.")
 
 
 It is also possible to translate the Ising problem to :class:`qat.opt.QUBO` via :meth:`~qat.opt.Ising.to_qubo` or to :class:`~qat.opt.CombinatorialProblem` via :meth:`~qat.opt.Ising.to_combinatorial_problem`.
+
+Ising problems can be further converted to both :ref:`ising Observables <ising_obs_sec>` and :ref:`terms Observables <observable>`, the second being used for :ref:`gate-based <circuit>` or :ref:`analog quantum computations <schedules_section>`.
+
+.. _ising_obs_sec:
+
+Ising Observables
+_________________
+
+.. parseonly:: qlm
+
+    Ising problems come with a special *ising*-type of :class:`~qat.core.Observable` (not to be confused with
+    :ref:`terms-type of Observables <observable>`). Such an Observable can be created using the :meth:`~qat.opt.Ising.get_observable`
+    method of Ising (or the respective ones of :class:`~qat.opt.QUBO` and :class:`~qat.opt.CombinatorialProblem`). It can then enter
+    a :class:`~qat.core.Schedule` (together with a :code:`gamma_t` for :class:`~qat.qpus.SQAQPU`) to be converted to a
+    :class:`~qat.core.Job` for :ref:`Simulated Quantum Annealing <simulated_quantum_annealing>`.
+
+.. parseonly:: myqlm distributed
+
+    Ising problems come with a special *ising*-type of :class:`~qat.core.Observable` (not to be confused with
+    :ref:`terms-type of Observables <observable>`). Such an Observable can be created using the :meth:`~qat.opt.Ising.get_observable`
+    method of Ising (or the respective ones of :class:`~qat.opt.QUBO` and :class:`~qat.opt.CombinatorialProblem`). It can then enter
+    a :class:`~qat.core.Schedule` to be converted to a :class:`~qat.core.Job` for :ref:`Simulated Annealing <simulated_annealing>`.
+
+As long as two Ising Observables act on the same number of qubits, one can apply any of the basic arithmetic operations between them
+(just like for *terms* Observables) like addition, subtraction or multiplication and division by a factor. In each case the magnetic
+field, the J-coupling and the energy offset are treated separately. This further allows the aforementioned to be directly given to an
+Ising Observable.
+
 
 Bibliography
 ____________

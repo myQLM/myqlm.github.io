@@ -38,7 +38,7 @@
             <img src="../../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.9.9
+                1.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -71,6 +71,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../module_core.html">qat.core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../module_devices.html">qat.devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module_fusion.html">qat.fusion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../module_generators.html">qat.generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../module_hardware.html">qat.hardware</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
@@ -126,23 +127,25 @@
 <h1>qat.comm.datamodel.ttypes.GateDefinition<a class="headerlink" href="#qat-comm-datamodel-ttypes-gatedefinition" title="Permalink to this heading"></a></h1>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
-Example: <a class="reference internal" href="#qat.comm.datamodel.ttypes.GateDefinition" title="qat.comm.datamodel.ttypes.GateDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateDefinition</span></code></a> of gate H
-.. run-block:: python<div class="sd-summary-down docutils">
+Example: <a class="reference internal" href="#qat.comm.datamodel.ttypes.GateDefinition" title="qat.comm.datamodel.ttypes.GateDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateDefinition</span></code></a> of gate H<div class="sd-summary-down docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
 <div class="sd-summary-up docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
-<blockquote>
-<div><p class="sd-card-text">from qat.lang.AQASM import Program
-prog = Program()
-circuit = prog.to_circ()
-print(circuit.gateDic[“H”])</p>
-</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span>
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">gateDic</span><span class="p">[</span><span class="s2">&quot;H&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GateDefinition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">arity</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">matrix</span><span class="o">=</span><span class="n">Matrix</span><span class="p">(</span><span class="n">nRows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nCols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">ComplexNumber</span><span class="p">(</span><span class="n">re</span><span class="o">=</span><span class="mf">0.7071067811865475</span><span class="p">,</span> <span class="n">im</span><span class="o">=</span><span class="mf">0.0</span><span class="p">),</span> <span class="n">ComplexNumber</span><span class="p">(</span><span class="n">re</span><span class="o">=</span><span class="mf">0.7071067811865475</span><span class="p">,</span> <span class="n">im</span><span class="o">=</span><span class="mf">0.0</span><span class="p">),</span> <span class="n">ComplexNumber</span><span class="p">(</span><span class="n">re</span><span class="o">=</span><span class="mf">0.7071067811865475</span><span class="p">,</span> <span class="n">im</span><span class="o">=</span><span class="mf">0.0</span><span class="p">),</span> <span class="n">ComplexNumber</span><span class="p">(</span><span class="n">re</span><span class="o">=-</span><span class="mf">0.7071067811865475</span><span class="p">,</span> <span class="n">im</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)]),</span> <span class="n">is_ctrl</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_dag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_trans</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_conj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subgate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">syntax</span><span class="o">=</span><span class="n">GSyntax</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="p">[]),</span> <span class="n">nbctrls</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">circuit_implementation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </details><div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Class <a class="reference internal" href="#qat.comm.datamodel.ttypes.GateDefinition" title="qat.comm.datamodel.ttypes.GateDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateDefinition</span></code></a> is not designed to be instantiated manually.
-Please refer to the <span class="xref std std-ref">Writting quantum circuits</span> section or the
+Please refer to the <a class="reference internal" href="../../../../02_user_guide/01_write.html#writing"><span class="std std-ref">Writing quantum circuits</span></a> section or the
 <a class="reference internal" href="../../module_lang.html#module-qat.lang" title="qat.lang"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.lang</span></code></a> module to create your own circuits</p>
 </div>
 <dl class="py class">
@@ -157,8 +160,9 @@ by:</p>
 <li><p>a subcircuit</p></li>
 </ul>
 </div></blockquote>
-<dl>
-<dt>Instance attributes:</dt><dd><ul>
+<p><strong>Instance attributes:</strong></p>
+<blockquote>
+<div><ul>
 <li><p><strong>matrix</strong> (<em>optional</em>): the matrix implementation of the gate. A matrix
 is defined with the following attributes:</p>
 <blockquote>
@@ -199,8 +203,7 @@ by the following attributes:</p>
 </div></blockquote>
 </li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 </dd></dl>
 
 <p><strong>There are three different ways to define the implementation of a gate:</strong></p>

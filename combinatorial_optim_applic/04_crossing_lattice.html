@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crossing lattice &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
+    <link rel="shortcut icon" href="../static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../static/documentation_options.js"></script>
+        <script src="../static/jquery.js"></script>
+        <script src="../static/underscore.js"></script>
+        <script src="../static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../static/doctools.js"></script>
+        <script src="../static/sphinx_highlight.js"></script>
+        <script src="../static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Problem generators" href="05_np_problem_generators.html" />
+    <link rel="prev" title="Adiabatic Quantum Optimization (AQO)" href="03_aqo.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> myQLM documentation
+            <img src="../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.10.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../02_user_guide/01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02_user_guide/02_execute.html">Executing / Simulating quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../fermion.html">Spin and fermionic systems</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../combinatorial_optim_applic.html">Combinatorial optimization</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="01_np_probs_for_annealing.html">NP-hard problems</a></li>
+<li class="toctree-l4"><a class="reference internal" href="02_qaoa.html">Quantum Approximate Optimization Algorithm (QAOA)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="03_aqo.html">Adiabatic Quantum Optimization (AQO)</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Crossing lattice</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#maximum-weighted-independent-set-mwis">Maximum Weighted Independent Set (MWIS)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#quadratic-unconstrained-binary-optimization-qubo">Quadratic Unconstrained Binary Optimization (QUBO)</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="05_np_problem_generators.html">Problem generators</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interoperability_annealing.html">Interoperability with annealing framework</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../02_user_guide.html">User guide</a> &raquo;</li>
+          <li><a href="../combinatorial_optim_applic.html">Combinatorial optimization</a> &raquo;</li>
+      <li>Crossing lattice</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="crossing-lattice">
+<span id="id1"></span><h1>Crossing lattice<a class="headerlink" href="#crossing-lattice" title="Permalink to this heading"></a></h1>
+<p>The crossing lattice is an embedding technique used to solve combinatorial problems on Rydberg atom devices. There is a wide range
+of optimization problems which can be mapped on Rydberg atom devices using the crossing lattice. This section focuses on the
+<em>Maximum Weighted Independent Set</em> (MWIS) and <em>Quadratic Unconstrained Binary Optimization</em> (QUBO).</p>
+<section id="maximum-weighted-independent-set-mwis">
+<h2>Maximum Weighted Independent Set (MWIS)<a class="headerlink" href="#maximum-weighted-independent-set-mwis" title="Permalink to this heading"></a></h2>
+<p>Given a graph <span class="math notranslate nohighlight">\(G\)</span> with a vertex set <span class="math notranslate nohighlight">\(V\)</span>, an edge set <span class="math notranslate nohighlight">\(E\)</span> and weight map <span class="math notranslate nohighlight">\(f\)</span>, the problem consists on
+finding the weightiest Independent set of the graph.</p>
+<p>The idea of the crossing lattice is to use ancillary nodes to map the graph on a triangular lattice. The latter can be seen as
+an extension of the triangular upper part of the adjacency matrix of the input graph.</p>
+<p>If we take the sample graph:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)])</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<figure class="align-center">
+<img alt="../images/sample_graph.png" src="../images/sample_graph.png" />
+</figure>
+<p>A higher level representation of the crossing lattice embedding of the graph below is the following:</p>
+<figure class="align-center">
+<img alt="../images/crossing_lattice_rep.png" src="../images/crossing_lattice_rep.png" />
+</figure>
+<p>Each part of this diagram (lines, white boxes, black boxes) are group of nodes (connected in a specific way) denoted <em>gadgets</em>.
+With such an embedding of the graph, we keep the connectivity of the initial graph. By choosing the weights of the crossing
+lattice graph in a specific way, we can show that the <em>MWIS</em> of the crossing lattice graph corresponds to that of the initial graphs.</p>
+<p>To use the crossing lattice embedding for MWIS/MIS problems one can use the methods <a class="reference internal" href="../04_api_reference/module_qat/module_opt/mwis.html#qat.opt.MWIS.to_job" title="qat.opt.MWIS.to_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_job()</span></code></a> or
+<a class="reference internal" href="../04_api_reference/module_qat/module_opt/mwis.html#qat.opt.MWIS.ryd_job" title="qat.opt.MWIS.ryd_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ryd_job()</span></code></a> of <a class="reference internal" href="../04_api_reference/module_qat/module_opt/mwis.html#qat.opt.MWIS" title="qat.opt.MWIS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MWIS</span></code></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">MWIS</span>
+
+<span class="n">pbm</span> <span class="o">=</span> <span class="n">MWIS</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">pbm</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="s2">&quot;ryd&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After executing this job, the result can be decoded using <a class="reference internal" href="../04_api_reference/module_qat/module_opt/mwis.html#qat.opt.MWIS.decode_rydberg" title="qat.opt.MWIS.decode_rydberg"><code class="xref py py-meth docutils literal notranslate"><span class="pre">decode_rydberg()</span></code></a>.</p>
+</section>
+<section id="quadratic-unconstrained-binary-optimization-qubo">
+<h2>Quadratic Unconstrained Binary Optimization (QUBO)<a class="headerlink" href="#quadratic-unconstrained-binary-optimization-qubo" title="Permalink to this heading"></a></h2>
+<p>Quadratic Unconstrained Binary Optimization (QUBO) consists in, given a real symmetric matrix <span class="math notranslate nohighlight">\(Q\)</span>, minimizing the following
+cost function:</p>
+<div class="math notranslate nohighlight">
+\[H = -x^TQx = -\sum_{i, j} J_{ij}s_i s_j - \sum_i h_i s_i\]</div>
+<p>Please refer to <a class="reference internal" href="../02_user_guide/01_write/03_annealing_problems/02_qubo.html#qubo-description"><span class="std std-ref">our page describing the QUBO formalism</span></a> for more information on this equality.
+We can encode such a problem by exploiting the structure of the crossing lattice:</p>
+<figure class="align-center">
+<img alt="../images/qubo_crossing_lattice.png" src="../images/qubo_crossing_lattice.png" />
+</figure>
+<p>Here, <span class="math notranslate nohighlight">\(w_{ij} = J_{ij}\)</span> and <span class="math notranslate nohighlight">\(w_i = h_i\)</span>. With such an encoding we can prove that the Maximum Weighted Independent Set of
+the corresponding graph corresponds to the mimimum of <span class="math notranslate nohighlight">\(H\)</span></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">QUBO</span>
+
+<span class="c1"># QUBO matrix</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+   <span class="p">[</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+   <span class="p">[</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+   <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="n">pbm</span> <span class="o">=</span> <span class="n">QUBO</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">pbm</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="s2">&quot;ryd&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After executing this job, the result can be decoded using <a class="reference internal" href="../04_api_reference/module_qat/module_opt/qubo.html#qat.opt.QUBO.decode_rydberg" title="qat.opt.QUBO.decode_rydberg"><code class="xref py py-meth docutils literal notranslate"><span class="pre">decode_rydberg()</span></code></a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="03_aqo.html" class="btn btn-neutral float-left" title="Adiabatic Quantum Optimization (AQO)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="05_np_problem_generators.html" class="btn btn-neutral float-right" title="Problem generators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2024.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

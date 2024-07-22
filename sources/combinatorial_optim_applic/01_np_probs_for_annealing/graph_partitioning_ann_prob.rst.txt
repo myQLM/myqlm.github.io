@@ -7,18 +7,18 @@ Given an undirected graph with vertex set :math:`V` and edge set :math:`E`, the 
 equally-sized subgraphs connected by the minimal number of edges. Annealing the problem with the :class:`~qat.opt.graph_partitioning.GraphPartitioning` 
 class (or :class:`~qat.opt.generators.GraphPartitioningGenerator` class) needs :math:`\#V` spins (one spin for each individual vertex).
 
-.. only:: qlm
+.. parseonly:: qlm
 
     Solving this problem using the simulated quantum annealing method requires :class:`~qat.qpus.SQAQPU`.
-    
-.. only:: myqlm
+
+.. parseonly:: myqlm distributed
 
     Solving this problem using the simulated annealing method requires the :class:`~qat.qpus.SimulatedAnnealing` QPU.
 
-.. only:: qlm
+.. parseonly:: qlm
 
     .. run-block:: python
-        
+
         import networkx as nx
         import numpy as np
         from qat.opt import GraphPartitioning
@@ -26,12 +26,12 @@ class (or :class:`~qat.opt.generators.GraphPartitioningGenerator` class) needs :
         from qat.core import Variable
         from qat.core.spins import integer_to_spins
 
-        # Specify the graph 
+        # Specify the graph
         graph = nx.Graph()
         graph.add_nodes_from(np.arange(10))
-        graph.add_edges_from([(0, 1), (0, 4), (0, 6), (1, 2), (1, 4), 
-                            (1, 7), (2, 3), (2, 5), (2, 8), (3, 5), 
-                            (3, 9), (4, 6), (4, 7), (5, 8), (5, 9), 
+        graph.add_edges_from([(0, 1), (0, 4), (0, 6), (1, 2), (1, 4),
+                            (1, 7), (2, 3), (2, 5), (2, 8), (3, 5),
+                            (3, 9), (4, 6), (4, 7), (5, 8), (5, 9),
                             (6, 7), (7, 8), (8, 9)])
         B = 1
         A = 3
@@ -55,7 +55,7 @@ class (or :class:`~qat.opt.generators.GraphPartitioningGenerator` class) needs :
         gamma_t = gamma_min * (t / tmax) + gamma_max * (1 - t / tmax)
 
         # Create a job and send it to a QPU
-        problem_job = graph_partitioning_problem.to_job(gamma_t=gamma_t, tmax=tmax, nbshots=1)
+        problem_job = graph_partitioning_problem.to_job('sqa', gamma_t=gamma_t, tmax=tmax, nbshots=1)
         sqa_qpu = SQAQPU(temp_t=temp_t, n_steps=n_steps, n_trotters=n_trotters)
         problem_result = sqa_qpu.submit(problem_job)
 
@@ -71,10 +71,10 @@ class (or :class:`~qat.opt.generators.GraphPartitioningGenerator` class) needs :
         indices_spin_minus_1 = np.where(solution_configuration == -1)[0]
         print("The nodes in the second subgraph:\n" + str(indices_spin_minus_1))
 
-.. only:: myqlm
+.. parseonly:: myqlm distributed
 
     .. run-block:: python
-        
+
         import networkx as nx
         import numpy as np
         from qat.opt import GraphPartitioning
@@ -85,9 +85,9 @@ class (or :class:`~qat.opt.generators.GraphPartitioningGenerator` class) needs :
         # Specify the graph
         graph = nx.Graph()
         graph.add_nodes_from(np.arange(10))
-        graph.add_edges_from([(0, 1), (0, 4), (0, 6), (1, 2), (1, 4), 
-                            (1, 7), (2, 3), (2, 5), (2, 8), (3, 5), 
-                            (3, 9), (4, 6), (4, 7), (5, 8), (5, 9), 
+        graph.add_edges_from([(0, 1), (0, 4), (0, 6), (1, 2), (1, 4),
+                            (1, 7), (2, 3), (2, 5), (2, 8), (3, 5),
+                            (3, 9), (4, 6), (4, 7), (5, 8), (5, 9),
                             (6, 7), (7, 8), (8, 9)])
 
         # Impose constraints for the right encoding
@@ -108,7 +108,7 @@ class (or :class:`~qat.opt.generators.GraphPartitioningGenerator` class) needs :
         sa_qpu = SimulatedAnnealing(temp_t=temp_t, n_steps=n_steps)
 
         # Create a job and send it to the QPU
-        problem_job = graph_partitioning_problem.to_job(tmax=tmax)
+        problem_job = graph_partitioning_problem.to_job('sqa', tmax=tmax)
         problem_result = sa_qpu.submit(problem_job)
 
         # Extract and print the solution configuration
@@ -122,11 +122,15 @@ class (or :class:`~qat.opt.generators.GraphPartitioningGenerator` class) needs :
 
         indices_spin_minus_1 = np.where(solution_configuration == -1)[0]
         print("The nodes in the second subgraph:\n" + str(indices_spin_minus_1))
-        
-.. only:: qlm
+
+.. parseonly:: qlm
 
     This example is also detailed in this notebook on solving :notebook:`(Graph Partitioning)[graph_partitioning.ipynb]` problems with :ref:`SQA <simulated_quantum_annealing>`.
 
-.. only:: myqlm
+.. parseonly:: distributed
+
+    This example is also detailed in this notebook on solving :notebook:`(Graph Partitioning)[graph_partitioning_distributed.ipynb]` problems with :ref:`SA <simulated_annealing>`.
+
+.. parseonly:: myqlm
 
     This example is also detailed in this notebook on solving :notebook:`(Graph Partitioning)[graph_partitioning_myqlm.ipynb]` problems with :ref:`SA <simulated_annealing>`.

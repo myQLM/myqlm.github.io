@@ -7,15 +7,15 @@ Given a set of real and potentially repeating numbers, the problem consists in p
 of the numbers in both of them is equal (or as close as possible). To obtain an answer, we would need to use our 
 :class:`~qat.opt.number_partitioning.NumberPartitioning` class and anneal :math:`N` spins, where :math:`N` is the size of the set of numbers.
 
-.. only:: qlm
-    
+.. parseonly:: qlm
+
     Solving this problem using the simulated quantum annealing method requires :class:`~qat.qpus.SQAQPU`.
-    
-.. only:: myqlm
+
+.. parseonly:: myqlm distributed
 
     Solving this problem using the simulated annealing method requires the :class:`~qat.qpus.SimulatedAnnealing` QPU.
 
-.. only:: qlm
+.. parseonly:: qlm
 
     .. run-block:: python
 
@@ -50,7 +50,7 @@ of the numbers in both of them is equal (or as close as possible). To obtain an 
         gamma_t = gamma_min * (t / tmax) + gamma_max * (1 - t / tmax)
 
         # Create a job and send it to a QPU
-        problem_job = number_partitioning_problem.to_job(gamma_t=gamma_t, tmax=tmax, nbshots=1)
+        problem_job = number_partitioning_problem.to_job('sqa', gamma_t=gamma_t, tmax=tmax, nbshots=1)
         sqa_qpu = SQAQPU(temp_t=temp_t, n_steps=n_steps, n_trotters=n_trotters)
         problem_result = sqa_qpu.submit(problem_job)
 
@@ -68,7 +68,7 @@ of the numbers in both of them is equal (or as close as possible). To obtain an 
         spin_minus_1_subset = [numbers_set[i] for i in indices_spin_minus_1]
         print("The second subset has the numbers:\n" + str(spin_minus_1_subset))
 
-.. only:: myqlm
+.. parseonly:: myqlm distributed
 
     .. run-block:: python
 
@@ -98,7 +98,7 @@ of the numbers in both of them is equal (or as close as possible). To obtain an 
         sa_qpu = SimulatedAnnealing(temp_t=temp_t, n_steps=n_steps)
 
         # Create a job and send it to the QPU
-        problem_job = number_partitioning_problem.to_job(tmax=tmax)
+        problem_job = number_partitioning_problem.to_job('sqa', tmax=tmax)
         problem_result = sa_qpu.submit(problem_job)
 
         # Extract and print the solution configuration
@@ -115,10 +115,14 @@ of the numbers in both of them is equal (or as close as possible). To obtain an 
         spin_minus_1_subset = [numbers_set[i] for i in indices_spin_minus_1]
         print("The second subset has the numbers:\n" + str(spin_minus_1_subset))
 
-.. only:: qlm
+.. parseonly:: qlm
 
     This example is also detailed in this notebook on solving :notebook:`(Number Partitioning)[number_partitioning.ipynb]` problems with :ref:`SQA <simulated_quantum_annealing>`.
 
-.. only:: myqlm
+.. parseonly:: distributed
+
+    This example is also detailed in this notebook on solving :notebook:`(Number Partitioning)[number_partitioning_distributed.ipynb]` problems with :ref:`SA <simulated_annealing>`.
+
+.. parseonly:: myqlm
 
     This example is also detailed in this notebook on solving :notebook:`(Number Partitioning)[number_partitioning_myqlm.ipynb]` problems with :ref:`SA <simulated_annealing>`.
