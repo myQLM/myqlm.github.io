@@ -38,7 +38,7 @@
             <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.10.3
+                1.10.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -115,12 +115,12 @@
              
   <section id="getting-information-from-the-qpu">
 <span id="hardware-specs"></span><h1>Getting information from the QPU<a class="headerlink" href="#getting-information-from-the-qpu" title="Permalink to this heading"></a></h1>
-<p>QPUs define a set of specifications, stored in an object of type <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a>, which can be retrieved by <a class="reference internal" href="../../../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler.get_specs" title="qat.qpus.QPUHandler.get_specs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_specs()</span></code></a>. This set of specification defines
+<p>QPUs define a set of specifications, stored in an object of type <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a>, which can be retrieved by <a class="reference internal" href="../../../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler.get_specs" title="qat.qpus.QPUHandler.get_specs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_specs()</span></code></a>. This set of specifications defines
 what could be executed on the QPU, for instance:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>the <strong>number of qubits</strong> composing the QPU</p></li>
-<li><p>the <strong>topology</strong> of the QPU (i.e. pair of qubits on which a two qubit gate can be applied - this attribute is a graph of type <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/topology.html#qat.core.Topology" title="qat.core.Topology"><code class="xref py py-class docutils literal notranslate"><span class="pre">Topology</span></code></a>)</p></li>
+<li><p>the <strong>topology</strong> of the QPU (i.e. pair of qubits on which a two-qubit gate can be applied - this attribute is a graph of type <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/topology.html#qat.core.Topology" title="qat.core.Topology"><code class="xref py py-class docutils literal notranslate"><span class="pre">Topology</span></code></a>)</p></li>
 <li><p>the <strong>gateset</strong> of the QPU (i.e. supported gates)</p></li>
 <li><p>the <strong>processing types</strong> (i.e. if the QPU support <em>SAMPLE</em> measurement, <em>OBSERVABLE</em> measurement, or both)</p></li>
 <li><p>the <strong>description</strong> of the QPU</p></li>
@@ -130,15 +130,15 @@ what could be executed on the QPU, for instance:</p>
 <p>These specifications can be used by plugins to adapt their <em>compilation stage</em>, to target the QPU</p>
 <section id="creating-custom-specifications">
 <h2>Creating custom specifications<a class="headerlink" href="#creating-custom-specifications" title="Permalink to this heading"></a></h2>
-<p>This sections provides an example explaning how to create custom hardware specs. In this example, will will consider a QPU capable of executing <em>RX</em>, <em>RZ</em> and <em>CNOT</em> gates. CNOT gates can only be applied
-between few pairs of qubits defined by the topology below. This QPU is assumed to support <em>SAMPLE</em> measurement</p>
+<p>This section provides an example explaining how to create custom hardware specs. In this example, we will consider a QPU capable of executing <em>RX</em>, <em>RZ</em> and <em>CNOT</em> gates. CNOT gates can only be applied
+between a few pairs of qubits defined by the topology below. This QPU is assumed to support <em>SAMPLE</em> measurement</p>
 <figure class="align-center">
 <a class="reference internal image-reference" href="../../../images/topology.png"><img alt="../../../images/topology.png" src="../../../images/topology.png" style="width: 280px;" /></a>
 </figure>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>This topology can be created using networkx and casted into a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/topology.html#qat.core.Topology" title="qat.core.Topology"><code class="xref py py-class docutils literal notranslate"><span class="pre">Topology</span></code></a>:</p>
+<p>This topology can be created using networkx and cast into a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/topology.html#qat.core.Topology" title="qat.core.Topology"><code class="xref py py-class docutils literal notranslate"><span class="pre">Topology</span></code></a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Topology</span>
 
