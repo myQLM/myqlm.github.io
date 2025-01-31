@@ -1,0 +1,233 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nnizer: Swap Insertion Solver &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=ccfc9eea" />
+      <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+      <script src="../../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Rewriting quantum circuits" href="../02_rewrite.html" />
+    <link rel="prev" title="InitialMapping: a qubit placement optimization plugin" href="02_mapping.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02_execute.html">Executing / Simulating quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../03_compile.html">Compiling and rewriting quantum circuits</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../01_compilers.html">Compiling quantum jobs using plugins</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../01_compilers.html#all-in-one-compiler">All-in-one compiler</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../01_compilers.html#other-compilers">Other compilers</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="01_lazy.html">LazySynthesis: quantum circuit compilation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="02_mapping.html">InitialMapping: a qubit placement optimization plugin</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">Nnizer: Swap Insertion Solver</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../02_rewrite.html">Rewriting quantum circuits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_compile.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../02_user_guide.html">User guide</a></li>
+          <li class="breadcrumb-item"><a href="../../03_compile.html">Compiling and rewriting quantum circuits</a></li>
+          <li class="breadcrumb-item"><a href="../01_compilers.html">Compiling quantum jobs using plugins</a></li>
+      <li class="breadcrumb-item active">Nnizer: Swap Insertion Solver</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nnizer-swap-insertion-solver">
+<span id="compile-nnize"></span><h1>Nnizer: Swap Insertion Solver<a class="headerlink" href="#nnizer-swap-insertion-solver" title="Link to this heading"></a></h1>
+<p>A lot of quantum chips have connectivity constraints. For instance two-qubit
+gates may only be applicable between some pairs of qubits, but not all.</p>
+<p>This module provides a plugin which solves the SWAP insertion problem, i.e the
+problem of inserting SWAPs into a circuit to fit it into any hardware topology.</p>
+<p>This plugin is contained in the class <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/nnizer.html#qat.plugins.Nnizer" title="qat.plugins.Nnizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Nnizer</span></code></a>, which
+will add SWAP gates in a circuit to make it compliant with the connectivity
+constraints of a hardware. The specifications of a hardware (including
+connectivity constraints / topology) are defined by an instance of the class
+<a class="reference internal" href="../../../04_api_reference/module_qat/module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a>.</p>
+<p>The following example defines a QPU which has a limited connectivity. The
+use of the <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/nnizer.html#qat.plugins.Nnizer" title="qat.plugins.Nnizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Nnizer</span></code></a> plugin transforms this QPU into
+a QPU accepting any circuit:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuameleonPlugin</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.qpus</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinAlg</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">HardwareSpecs</span><span class="p">,</span> <span class="n">Topology</span><span class="p">,</span> <span class="n">TopologyType</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">Nnizer</span>
+
+<span class="c1"># Defines a QPU with a limited connectivity (LNN connectivity)</span>
+<span class="n">specs</span> <span class="o">=</span> <span class="n">HardwareSpecs</span><span class="p">(</span><span class="n">topology</span><span class="o">=</span><span class="n">Topology</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">TopologyType</span><span class="o">.</span><span class="n">LNN</span><span class="p">))</span>
+<span class="n">qpu</span> <span class="o">=</span> <span class="n">QuameleonPlugin</span><span class="p">(</span><span class="n">specs</span><span class="o">=</span><span class="n">specs</span><span class="p">)</span> <span class="o">|</span> <span class="n">LinAlg</span><span class="p">()</span>
+
+<span class="c1"># The &#39;qpu&#39; object is a QPU with a limited connectivity.</span>
+<span class="c1"># Adding the Nnizer plugin remove the connectivity constraint</span>
+<span class="c1"># by solving the &quot;swap insertion problem&quot;. Circuits processed by</span>
+<span class="c1"># the Nnizer have a connectivity compliant with the QPU</span>
+<span class="n">final_qpu</span> <span class="o">=</span> <span class="n">Nnizer</span><span class="p">()</span> <span class="o">|</span> <span class="n">qpu</span>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang.AQASM</span><span class="w"> </span><span class="kn">import</span> <span class="n">Program</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang.AQASM.qftarith</span><span class="w"> </span><span class="kn">import</span> <span class="n">QFT</span>
+
+<span class="c1"># Define a All to All circuit (not compliant with LNN constraints)</span>
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">QFT</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">(</span><span class="n">inline</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+
+<span class="c1"># Submit to QPU</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">final_qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+
+
+<span class="c1"># Sending circuit directly to the QPU may raise an error</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.comm.exceptions.ttypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">PluginException</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="n">PluginException</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The job (not processed by the Nnizer) can&#39;t be &quot;</span> <span class="o">+</span>
+          <span class="s2">&quot;executed by the QPU:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">exception</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 2, in &lt;module&gt;
+ImportError: cannot import name &#39;LinAlg&#39; from &#39;qat.qpus&#39; (/var/lib/jenkins/workspace/myqlm-tutorial-doc_rc/runtime_linux-x86_64_cpython_python312/usr/local/lib64/python3.12/qaptiva-packages/qat/modules/__init__.so). Did you mean: &#39;CLinalg&#39;?
+</pre></div>
+</div>
+<p>Jupyter notebook <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcircuit_optimization%2Fsatisfying_connectivity_constraints.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Satisfying Connectivity Constaint</a>
+explains how to use the <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/nnizer.html#qat.plugins.Nnizer" title="qat.plugins.Nnizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Nnizer</span></code></a> plugin</p>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<div class="docutils container" id="id1">
+<div role="list" class="citation-list">
+<div class="citation" id="id3" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>LDX19<span class="fn-bracket">]</span></span>
+<p>Gushu Li, Yufei Ding, and Yan Xie. Tackling the qubit mapping problem for nisq-era quantum devices. In <em>ASPLOS: Architectural Support for Programming Languages and Operating Systems</em>, 1001–1014. April 2019. URL: <a class="reference external" href="https://doi.org/10.1145/3297858.3304023">https://doi.org/10.1145/3297858.3304023</a>.</p>
+</div>
+<div class="citation" id="id5" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>SWD11<span class="fn-bracket">]</span></span>
+<p>Mehdi Saeedi, Robert Wille, and Rolf Drechsler. Synthesis of quantum circuits for linear nearest neighbor architectures. <em>Quantum Information Processing</em>, 10(3):355–377, Jun 2011. URL: <a class="reference external" href="https://doi.org/10.1007/s11128-010-0201-2">https://doi.org/10.1007/s11128-010-0201-2</a>, <a class="reference external" href="https://doi.org/10.1007/s11128-010-0201-2">doi:10.1007/s11128-010-0201-2</a>.</p>
+</div>
+<div class="citation" id="id2" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>HirataNakanishiYamashitaNakashima09<span class="fn-bracket">]</span></span>
+<p>Y. Hirata, M. Nakanishi, S. Yamashita, and Y. Nakashima. An efficient method to convert arbitrary quantum circuits to ones on a linear nearest neighbor architecture. In <em>2009 Third International Conference on Quantum, Nano and Micro Technologies</em>, 26–33. 2009. URL: <a class="reference external" href="https://ieeexplore.ieee.org/document/4782917">https://ieeexplore.ieee.org/document/4782917</a>.</p>
+</div>
+<div class="citation" id="id4" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>ZulehnerPalerWille18<span class="fn-bracket">]</span></span>
+<p>A. Zulehner, A. Paler, and R. Wille. Efficient mapping of quantum circuits to the ibm qx architectures. In <em>2018 Design, Automation Test in Europe Conference Exhibition (DATE)</em>, 1135–1138. 2018. URL: <a class="reference external" href="https://ieeexplore.ieee.org/document/8342181">https://ieeexplore.ieee.org/document/8342181</a>.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="02_mapping.html" class="btn btn-neutral float-left" title="InitialMapping: a qubit placement optimization plugin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../02_rewrite.html" class="btn btn-neutral float-right" title="Rewriting quantum circuits" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2025.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

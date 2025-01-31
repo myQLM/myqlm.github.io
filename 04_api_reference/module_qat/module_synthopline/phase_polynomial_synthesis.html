@@ -1,0 +1,276 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.synthopline.phase_polynomial_synthesis &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=ccfc9eea" />
+      <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+      <script src="../../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="qat.synthopline.linear_synthesis.extract_linear_operator" href="extract_linear_operator.html" />
+    <link rel="prev" title="qat.synthopline.linear_operator_synthesis" href="linear_operator_synthesis.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../module_comm.html">qat.comm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fusion.html">qat.fusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_nnize.html">qat.nnize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_pbo.html">qat.pbo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../module_synthopline.html">qat.synthopline</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cliffordnormalizer.html">qat.synthopline.clifford_normalizer.CliffordNormalizer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generate_trotter_ansatz.html">qat.synthopline.generate_trotter_ansatz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="linear_operator_synthesis.html">qat.synthopline.linear_operator_synthesis</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">qat.synthopline.phase_polynomial_synthesis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="extract_linear_operator.html">qat.synthopline.linear_synthesis.extract_linear_operator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="extract_pauli_rotations.html">qat.synthopline.util.extract_pauli_rotations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="extract_phase_polynomial.html">qat.synthopline.phase_polynomials.extract_phase_polynomial</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generate_random_observable.html">qat.synthopline.pauli_synth.generate_random_observable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="random_linear_operator.html">qat.synthopline.linear_synthesis.random_linear_operator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="random_phase_polynomial.html">qat.synthopline.phase_polynomials.random_phase_polynomial</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frequency_mapping.html">qat.synthopline.initial_mapping.frequency_mapping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="greedy_mapping.html">qat.synthopline.initial_mapping.greedy_mapping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="codiagonalize_with_architecture.html">qat.synthopline.co_diagonalization.codiagonalize_with_architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="conjugate_observable_tableau.html">qat.synthopline.util.conjugate_observable_tableau</a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthesize_stabilizer_state.html">qat.synthopline.co_diagonalization.synthesize_stabilizer_state</a></li>
+<li class="toctree-l4"><a class="reference internal" href="operatortableau.html">qat.synthopline.interface.OperatorTableau</a></li>
+<li class="toctree-l4"><a class="reference internal" href="weyloperator.html">qat.synthopline.interface.WeylOperator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../04_api_reference.html">API reference</a></li>
+          <li class="breadcrumb-item"><a href="../../module_qat.html">qat</a></li>
+          <li class="breadcrumb-item"><a href="../module_synthopline.html">qat.synthopline</a></li>
+      <li class="breadcrumb-item active">qat.synthopline.phase_polynomial_synthesis</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-synthopline-phase-polynomial-synthesis">
+<h1>qat.synthopline.phase_polynomial_synthesis<a class="headerlink" href="#qat-synthopline-phase-polynomial-synthesis" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="qat.synthopline.phase_polynomial_synthesis">
+<span class="sig-prename descclassname"><span class="pre">qat.synthopline.</span></span><span class="sig-name descname"><span class="pre">phase_polynomial_synthesis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phase_polynomial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gray_synth'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synthesize_final</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_operator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.synthopline.phase_polynomial_synthesis" title="Link to this definition"></a></dt>
+<dd><p>Produces a quantum circuit implementing a phase polynomial.</p>
+<p>Phase polynomials are a subset of unitary operators that can be described as:</p>
+<p><span class="math notranslate nohighlight">\(|x\rangle \mapsto e^{2i\pi f(x)}|x\rangle\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(f\)</span> is a linear real valued function:
+<span class="math notranslate nohighlight">\(f(x) = \sum_{y\in \mathbb{F}_2^n} \hat{f}(y).(x_1 y_1
+\oplus x_2 y_2 \oplus \cdots \oplus x_n y_n)\)</span>
+with Fourier coefficients <span class="math notranslate nohighlight">\(\hat{f}(y)\)</span>.</p>
+<p>In practice, the input phase polynomial is described by a map <span class="math notranslate nohighlight">\(y \mapsto \hat{f}(y)\)</span>
+mapping bitrings (parities) to non-zero real values (angles) (thus ommitting entries that
+have 0 as Fourier coefficient).</p>
+<p>The method is also able to handle abstract fourier coefficient described
+by variables or arithmetic expressions. In that case,
+the output circuit will be a parametrized circuit.</p>
+<p>This method is a binder to lower level c++ methods. The synthesis method can be chosen via the
+<cite>method</cite> parameter. Some methods have additional required parameters that can be
+passed via the <cite>kwargs</cite> argument (see below).</p>
+<dl>
+<dt>Algorithms:</dt><dd><p><strong>gray_synth</strong>: GraySynth is an algorithm introduced by Amy et al in <span id="id1">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id6" title="Matthew Amy, Parsiad Azimzadeh, and Michele Mosca. On the controlled-not complexity of controlled-not–phase circuits. Quantum Science and Technology, 4(1):015002, Sep 2018. doi:10.1088/2058-9565/aad8ca.">AAM18</a>]</span>.
+It is provably optimal when <span class="math notranslate nohighlight">\(f\)</span> is full.</p>
+<p><strong>gray_synth_on_graph</strong>: An extension of GraySynth to limited connectivity. The heuristics
+is developed in <span id="id2">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id7" title="Arianne Meijer-van de Griend and Ross Duncan. Architecture-aware synthesis of phase polynomials for nisq devices. 2020. arXiv:2004.06052.">dGD20</a>]</span>
+and adopts the same recursive formulation as <span id="id3">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id6" title="Matthew Amy, Parsiad Azimzadeh, and Michele Mosca. On the controlled-not complexity of controlled-not–phase circuits. Quantum Science and Technology, 4(1):015002, Sep 2018. doi:10.1088/2058-9565/aad8ca.">AAM18</a>]</span>
+with additional constraints on the pivot choices.</p>
+<p><strong>lazy_synth</strong>: A lazy linear operator synthesis algorithm that greedily generates
+pieces of circuit in order to insert phase gates. The algorithm depends on a depth
+parameter to perform local exhaustive search.
+This parameter influences a lot the runtime and the quality of the final circuit
+(the higher, the longer the synthesis and the better the circuit). This method
+usually yields better results than <cite>gray_synth_on_graph</cite> for depth 2+.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phase_polynomial</strong> (<em>dict</em>) – a dictionary mapping 0/1 value tuples of length n
+(the number of qubits) to a rotation parameter
+(a numeric type and/or an <a class="reference internal" href="../module_core/module_variables/arithexpression.html#qat.core.variables.ArithExpression" title="qat.core.variables.ArithExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithExpression</span></code></a>).</p></li>
+<li><p><strong>method</strong> (<em>str</em>) – the synthesis method to use. Default method is <strong>greedy</strong>.</p></li>
+<li><p><strong>synthesize_final</strong> (<em>optional</em><em>, </em><em>bool</em>) – if set to True, the final basis change is
+also synthesized via
+<a class="reference internal" href="linear_operator_synthesis.html#qat.synthopline.linear_operator_synthesis" title="qat.synthopline.linear_operator_synthesis"><code class="xref py py-meth docutils literal notranslate"><span class="pre">linear_operator_synthesis()</span></code></a>.
+In that case, the output table can safely expected to be a permutation.
+If this is set, the method used for the linear synthesis can be specified
+via the <cite>linear_method</cite> kwarg (see below).
+Defaults to True.</p></li>
+<li><p><strong>linear_operator</strong> (<em>optional</em><em>,  </em><em>np.ndarray</em>) – if set and <cite>synthesize_final</cite> is set to
+True, the operator will be synthesized and appended and the end of the circuit.</p></li>
+<li><p><strong>kwargs</strong> – additional parameters passed to the synthesis routine.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Additional parameters:</dt><dd><dl class="simple">
+<dt>All methods:</dt><dd><ul class="simple">
+<li><p>linear_method (str): the linear operator synthesis method to use in
+order to synthesize the final basis change (used only if <cite>synthesize_final</cite>
+is set to True). Any additional parameters for this final synthesis can
+be passed inside the kwargs.</p></li>
+</ul>
+</dd>
+<dt>gray-synth on graph:</dt><dd><ul class="simple">
+<li><p>graph (nx.Graph): a networkx graph describing the chip connectivity. This
+parameter is required and the method will raise an exception if it is
+not set</p></li>
+</ul>
+</dd>
+<dt>lazy synthesis:</dt><dd><ul class="simple">
+<li><p>graph (nx.Graph): a networkx graph describing the chip connectivity. If
+no graph is provided, the algorithm assumes all-to-all connectivity.</p></li>
+<li><p>any parameter accepted by the <a class="reference internal" href="../module_plugins/lazysynthesis.html#qat.plugins.LazySynthesis" title="qat.plugins.LazySynthesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazySynthesis</span></code></a> plugin.
+If no <cite>strategy</cite> keyword is provided, the “clifford” strategy is employed, with
+the <cite>reorder</cite> keyword set to True. This implies a runtime that is
+quadratic in the number of parities. Set <cite>reorder</cite> to False in order
+to go back to a linear runtime.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a pair (circuit, table) such that
+<cite>circuit</cite> implements the phase polynomial and <cite>table</cite> describes the output
+parities of <cite>circuit</cite></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a>, np.ndarray</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The second output argument is not to be neglected, even when the <cite>synthesize_final</cite>
+argument is set to True. Depending on the method used to synthesize the final table,
+the output table might be a permutation remapping the output wires of the circuit,
+and thus should be taken into account when composed with another circuit.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method is available as an application in Qaptiva Access.</p>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="linear_operator_synthesis.html" class="btn btn-neutral float-left" title="qat.synthopline.linear_operator_synthesis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="extract_linear_operator.html" class="btn btn-neutral float-right" title="qat.synthopline.linear_synthesis.extract_linear_operator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2025.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

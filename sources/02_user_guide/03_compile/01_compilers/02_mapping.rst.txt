@@ -1,0 +1,122 @@
+.. _init_mapping:
+
+InitialMapping: a qubit placement optimization plugin
+=====================================================
+
+Mappings
+--------
+
+The `qat.synthopline.initial_mapping` module provides two basic functions that try to optimize
+the initial qubit mapping:
+
+ - **greedy mapping** defined by :func:`~qat.synthopline.initial_mapping.greedy_mapping`
+ - **frequency mapping** defined by :func:`~qat.synthopline.initial_mapping.frequency_mapping`
+
+These methods can sometimes help reduce the entangling gate count of the circuit when used
+before a routing/synthesis algorithm. 
+Keep in mind that they do not provide definite improvements and can sometimes hinder the quality of the
+final circuit when used improperly!
+
+Both these methods are wrapped in the :class:`~qat.plugins.InitialMapping` plugin
+
+Examples
+--------
+
+Let's first remap a circuit using the greedy method.
+
+.. run-block:: python
+
+    from qat.lang.AQASM import Program, CNOT
+
+    # Let us build a simple circuit
+
+    prog = Program()
+    qbits = prog.qalloc(4)
+    CNOT(qbits[0], qbits[2])
+    CNOT(qbits[2], qbits[1])
+    CNOT(qbits[1], qbits[3])
+    CNOT(qbits[3], qbits[0])
+    circuit = prog.to_circ()
+
+    import networkx as nx
+
+    path_graph = nx.generators.path_graph(4)
+
+    from qat.synthopline.initial_mapping import greedy_mapping
+    mapping, new_circuit = greedy_mapping(circuit, path_graph, remap_circuit=True)
+    print(mapping)
+    for op in new_circuit.iterate_simple():
+        print(op)
+
+
+The frequency mapping will start by mapping pairs of qubits that interact more frequently
+in the circuit. For instance, we can double up on the last gate of our circuit.
+As a consequence the pair (0, 3) will be mapped first, which will result in a different mapping.
+In the present example, this leads to a worse mapping.
+
+.. run-block:: python
+
+    from qat.lang.AQASM import Program, CNOT
+
+    # Let us build a simple circuit
+
+    prog = Program()
+    qbits = prog.qalloc(4)
+    CNOT(qbits[0], qbits[2])
+    CNOT(qbits[2], qbits[1])
+    CNOT(qbits[1], qbits[3])
+    CNOT(qbits[3], qbits[0])
+    CNOT(qbits[3], qbits[0])
+    circuit = prog.to_circ()
+
+    import networkx as nx
+
+    path_graph = nx.generators.path_graph(4)
+
+    from qat.synthopline.initial_mapping import frequency_mapping
+    mapping, new_circuit = frequency_mapping(circuit, path_graph, remap_circuit=True)
+    print(mapping)
+    for op in new_circuit.iterate_simple():
+        print(op)
+
+This illustrates the fact that these mapping methods should be used carefully since
+their behavior might be hard to predict.
+
+
+These method can be used directly inside a compilation stack in order to minimize compilation overhead.
+For instance, we can use it together with a :class:`~qat.plugins.Nnizer` plugin:
+
+.. run-block:: python
+
+    from qat.opt import MaxCut
+    import networkx as nx
+
+    instance = nx.generators.erdos_renyi_graph(16, 0.5)
+    problem = MaxCut(instance)
+    job = problem.to_job("qaoa", 2)  # '2' is the depth
+
+    from qat.plugins import InitialMapping, Nnizer
+
+    stack1 = Nnizer()
+    stack2 = InitialMapping("frequency") | Nnizer()
+
+    from qat.devices import GridDevice
+
+    device = GridDevice(4, 4)
+
+    from qat.core import Batch
+
+    batch = Batch(jobs=[job])
+    batch1 = stack1.compile(batch, device)
+    batch2 = stack2.compile(batch, device)
+
+    print(
+        "Without remap:", 
+        sum(1 for op in batch1.jobs[0].circuit.iterate_simple() if op[0] == "SWAP"),
+        "inserted"
+    )
+    print(
+        "With remap:", 
+        sum(1 for op in batch2.jobs[0].circuit.iterate_simple() if op[0] == "SWAP"),
+        "inserted"
+    )

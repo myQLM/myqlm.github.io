@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Low-level optimization &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=ccfc9eea" />
+      <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+      <script src="../../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="High-level optimization" href="02_high_level.html" />
+    <link rel="prev" title="Rewriting quantum circuits" href="../02_rewrite.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02_execute.html">Executing / Simulating quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../03_compile.html">Compiling and rewriting quantum circuits</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../01_compilers.html">Compiling quantum jobs using plugins</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../02_rewrite.html">Rewriting quantum circuits</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Low-level optimization</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#advanced-matching">Advanced matching</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#targeting-patterns-through-their-index">Targeting patterns through their index</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#patterns-specific-to-the-beginning-end-of-a-circuit">Patterns specific to the beginning/end of a circuit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="02_high_level.html">High-level optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="03_kak.html">Compressing single qubit gates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="04_patterns.html">Writing patterns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="05_collections.html">Pattern collections (to be used with PatternManager)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_compile.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../02_user_guide.html">User guide</a></li>
+          <li class="breadcrumb-item"><a href="../../03_compile.html">Compiling and rewriting quantum circuits</a></li>
+          <li class="breadcrumb-item"><a href="../02_rewrite.html">Rewriting quantum circuits</a></li>
+      <li class="breadcrumb-item active">Low-level optimization</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="low-level-optimization">
+<span id="low-level"></span><h1>Low-level optimization<a class="headerlink" href="#low-level-optimization" title="Link to this heading"></a></h1>
+<p>The <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo.html#module-qat.pbo" title="qat.pbo"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.pbo</span></code></a> module provides different tools to optimize a quantum circuit
+using rule-based rewriting. This page presents a low level optimization tool,
+<a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/graphcircuit.html#qat.pbo.GraphCircuit" title="qat.pbo.GraphCircuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphCircuit</span></code></a>. On this page, only simple patterns are used.
+Nevertheless, this tool accepts complex patterns: to learn more about patterns,
+please refer to <a class="reference internal" href="04_patterns.html#patterns"><span class="std std-ref">Writing patterns</span></a>.</p>
+<p>The notebook <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcircuit_optimization%2Fgraph_circuit.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Replacing patterns in a circuit</a>
+may help to better understand our syntax to describe a <em>pattern</em>, and how to use
+a <em>pattern</em> with <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/graphcircuit.html#qat.pbo.GraphCircuit" title="qat.pbo.GraphCircuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphCircuit</span></code></a> tool.
+<a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcircuit_optimization%2Fgraph_circuit.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">This notebook</a> optimizes a circuit by replacing
+some <em>patterns</em> by equivalent ones.</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>The rewriting procedure is described via definitions and rewriting rules.
+A rule is composed of a left-hand side pattern and a right-hand side pattern.
+A pattern is a simple (i.e. small) subcircuit and is defined by a list of
+gates (a gate is defined by a tuple composed of a <em>name</em>, a <em>list of qubits</em>
+on which the gate acts and [optionally] <em>parameters</em>). The class
+<a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/graphcircuit.html#qat.pbo.GraphCircuit" title="qat.pbo.GraphCircuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphCircuit</span></code></a> will look for the left pattern in the
+circuit and replace it by the right one.</p>
+<p>For instance, the following code is used to remove consecutive H gates:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.pbo</span><span class="w"> </span><span class="kn">import</span> <span class="n">GraphCircuit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang.AQASM</span><span class="w"> </span><span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">X</span>
+
+<span class="c1">#</span>
+<span class="c1"># Write circuit</span>
+<span class="c1">#</span>
+
+<span class="c1"># Define initial circuit (X - H - H circuit)</span>
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qubit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">qubit</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qubit</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qubit</span><span class="p">)</span>
+<span class="n">circ</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="c1">#</span>
+<span class="c1"># Optimize circuit</span>
+<span class="c1">#</span>
+
+<span class="c1"># Create a graph object and load circuit</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">GraphCircuit</span><span class="p">()</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">load_circuit</span><span class="p">(</span><span class="n">circ</span><span class="p">)</span>
+
+<span class="c1"># Define two patterns</span>
+<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Replace left_pattern by right_pattern, i.e. the old one by the new one</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">(</span><span class="n">left_pattern</span><span class="p">,</span> <span class="n">right_pattern</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The pattern <code class="code docutils literal notranslate"><span class="pre">left_pattern</span></code> describes a pattern composed of two
+<code class="code docutils literal notranslate"><span class="pre">&quot;H&quot;</span></code> gates acting on the same qubit - qubit <em>0</em>.</p>
+<p>The first found subcircuit of the initial circuit matching with
+<code class="code docutils literal notranslate"><span class="pre">left_pattern</span></code> will be replaced by <code class="code docutils literal notranslate"><span class="pre">right_pattern</span></code> thanks to
+the method <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/graphcircuit.html#qat.pbo.GraphCircuit.replace_pattern" title="qat.pbo.GraphCircuit.replace_pattern"><code class="xref py py-func docutils literal notranslate"><span class="pre">replace_pattern()</span></code></a>. The pattern can
+be found on any qubit of the circuit (not only the qubit <em>0</em>).</p>
+<p>Method <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/graphcircuit.html#qat.pbo.GraphCircuit.replace_pattern" title="qat.pbo.GraphCircuit.replace_pattern"><code class="xref py py-func docutils literal notranslate"><span class="pre">replace_pattern()</span></code></a> will replace only the
+first occurence of <code class="code docutils literal notranslate"><span class="pre">left_pattern</span></code> (and return <code class="code docutils literal notranslate"><span class="pre">True</span></code> if the
+pattern has been found). To replace all occurences of <code class="code docutils literal notranslate"><span class="pre">left_pattern</span></code>,
+one can use:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">(</span><span class="n">left_pattern</span><span class="p">,</span> <span class="n">right_pattern</span><span class="p">):</span>
+    <span class="k">continue</span>
+</pre></div>
+</div>
+<p>The method <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/graphcircuit.html#qat.pbo.GraphCircuit.to_circ" title="qat.pbo.GraphCircuit.to_circ"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_circ()</span></code></a> can be used to transform
+a <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/graphcircuit.html#qat.pbo.GraphCircuit" title="qat.pbo.GraphCircuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphCircuit</span></code></a> back into a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the optimized circuit</span>
+<span class="n">optimized_circ</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The function <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/graphcircuit.html#qat.pbo.GraphCircuit.to_circ" title="qat.pbo.GraphCircuit.to_circ"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_circ()</span></code></a> only works if
+all gates composing the graph can be cast into a known quantum gate. To add
+your own quantum gate, please use <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/graphcircuit.html#qat.pbo.GraphCircuit.add_abstract_gate" title="qat.pbo.GraphCircuit.add_abstract_gate"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_abstract_gate()</span></code></a>.
+See code block below for an example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang.AQASM</span><span class="w"> </span><span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">H</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.pbo</span><span class="w"> </span><span class="kn">import</span> <span class="n">GraphCircuit</span>
+
+<span class="c1"># Define program</span>
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">qbit</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qbit</span><span class="p">)</span>
+<span class="n">circ</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="c1"># Replace pattern</span>
+<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;HZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">GraphCircuit</span><span class="p">()</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">load_circuit</span><span class="p">(</span><span class="n">circ</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">(</span><span class="n">left_pattern</span><span class="p">,</span> <span class="n">right_pattern</span><span class="p">)</span>
+
+<span class="c1"># graph.to_circ() won&#39;t work since &quot;HZ&quot; gate is not known</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang.AQASM</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbstractGate</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_abstract_gate</span><span class="p">(</span><span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;HZ&quot;</span><span class="p">,</span> <span class="p">[],</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># graph.to_circ() is now working</span>
+<span class="n">optimized_circ</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In the previous code, a gate <code class="code docutils literal notranslate"><span class="pre">&quot;HZ&quot;</span></code> is used to replace the <span class="math notranslate nohighlight">\(X - H\)</span>
+pattern. The gate <code class="code docutils literal notranslate"><span class="pre">&quot;HZ&quot;</span></code> is not a common gate, so
+<a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/graphcircuit.html#qat.pbo.GraphCircuit" title="qat.pbo.GraphCircuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphCircuit</span></code></a> cannot transform this name into a real quantum
+gate. One needs to define an abstract gate called <code class="code docutils literal notranslate"><span class="pre">&quot;HZ&quot;</span></code> to help
+<a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/graphcircuit.html#qat.pbo.GraphCircuit" title="qat.pbo.GraphCircuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphCircuit</span></code></a> to cast <code class="code docutils literal notranslate"><span class="pre">&quot;HZ&quot;</span></code> into a quantum gate.</p>
+</section>
+<section id="advanced-matching">
+<h2>Advanced matching<a class="headerlink" href="#advanced-matching" title="Link to this heading"></a></h2>
+<section id="targeting-patterns-through-their-index">
+<h3>Targeting patterns through their index<a class="headerlink" href="#targeting-patterns-through-their-index" title="Link to this heading"></a></h3>
+<p>All instances of <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/graphcircuit.html#qat.pbo.GraphCircuit" title="qat.pbo.GraphCircuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphCircuit</span></code></a> are graphs where each node
+corresponds to a gate. Each node / gate has an index. Using these indices,
+one can select which pattern should be replaced.</p>
+<p>The method <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/graphcircuit.html#qat.pbo.GraphCircuit.find_pattern" title="qat.pbo.GraphCircuit.find_pattern"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_pattern()</span></code></a> must be used to find
+patterns in a graph. This function returns a list of indices for this pattern.
+When a pattern is composed of several gates, its corresponds to the index of the first 
+gate composing it.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang.AQASM</span><span class="w"> </span><span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.pbo</span><span class="w"> </span><span class="kn">import</span> <span class="n">GraphCircuit</span>
+
+<span class="c1"># Define program</span>
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Pattern H - H on qubit 0</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># Pattern H - H on qubit 1</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Init graph</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">GraphCircuit</span><span class="p">()</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">load_circuit</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">())</span>
+
+<span class="c1"># Find pattern</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">find_pattern</span><span class="p">([(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+<span class="c1"># Possible output -&gt; [1, 3]</span>
+</pre></div>
+</div>
+<p>Pattern indices can be used, in a few different ways, to select which pattern one may want to replace.
+See code block below, for instance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<span class="c1"># Remove a single pattern</span>
+<span class="c1">#</span>
+
+<span class="c1"># Remove the first found pattern (pattern of index 1)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">([(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="p">[],</span> <span class="n">pos</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Remove the second found pattern (pattern of index 3)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">([(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="p">[],</span> <span class="n">pos</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1">#</span>
+<span class="c1"># Remove all patterns</span>
+<span class="c1">#</span>
+
+<span class="c1"># Case 1</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">([(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="p">[],</span> <span class="n">pos</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="c1"># Case 2</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">([(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="p">[],</span> <span class="n">pos</span><span class="o">=</span><span class="nb">all</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>On the previous example, please execute each line separately. If you
+execute several lines, you may ask the optimizer to remove several
+times the same pattern: it will not work.</p>
+</div>
+</section>
+<section id="patterns-specific-to-the-beginning-end-of-a-circuit">
+<h3>Patterns specific to the beginning/end of a circuit<a class="headerlink" href="#patterns-specific-to-the-beginning-end-of-a-circuit" title="Link to this heading"></a></h3>
+<p>Not all circuit simplification patterns concern unitary gates in the middle
+of a circuit. Some patterns may be only valid at the beginning, for instance,
+because of the specific <span class="math notranslate nohighlight">\(|0\rangle ^ {\otimes n}\)</span> value of all qubits.  
+For instance, when the initial state of a circuit is
+<span class="math notranslate nohighlight">\(|0\rangle ^ {\otimes n}\)</span>, swap gates present at the beginning of the
+circuit are useless. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang.AQASM</span><span class="w"> </span><span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">SWAP</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.pbo</span><span class="w"> </span><span class="kn">import</span> <span class="n">GraphCircuit</span>
+
+<span class="c1"># Create a circuit</span>
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">SWAP</span><span class="p">,</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">SWAP</span><span class="p">,</span> <span class="n">qbits</span><span class="p">)</span>
+<span class="n">circ</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+
+<span class="c1"># Remove useless SWAP at the beginning of the circuit</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">GraphCircuit</span><span class="p">()</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">load_circuit</span><span class="p">(</span><span class="n">circ</span><span class="p">)</span>
+
+<span class="c1"># Select pattern connected to the beginning of the circuit on qubits</span>
+<span class="c1"># 0 and 1</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">([(</span><span class="s2">&quot;SWAP&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])],</span> <span class="p">[],</span> <span class="n">begin</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>On this example, only patterns composed of a single <code class="code docutils literal notranslate"><span class="pre">&quot;SWAP&quot;</span></code> connected
+to the beginning of the circuit are removed.</p>
+<p>The keyword <code class="code docutils literal notranslate"><span class="pre">end</span></code> can be used to select patterns connected to the
+ending of the circuit.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../02_rewrite.html" class="btn btn-neutral float-left" title="Rewriting quantum circuits" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="02_high_level.html" class="btn btn-neutral float-right" title="High-level optimization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2025.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

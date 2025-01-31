@@ -24,6 +24,7 @@ _________________________
     [:class:`qat.plugins.Nnizer`] Plugin solving the SWAP insertion problem
     [:class:`qat.plugins.FusionPlugin`] Merge quantum gates together to reduce the number of gates
     [:class:`qat.plugins.Localizer`] Insert swap gates to localize remote qubits involved in remote operations
+    [:class:`qat.plugins.RepairPermutation`] Insert swap gates to reset the qubits to their initial permutation
     [:class:`qat.plugins.Remap`] Unused qubits remover
     [:class:`qat.plugins.PatternManager`] High-level plugin applying rewriting rules following a meta-heuristic
     [:class:`qat.plugins.GateRewriter`] Replace some gates by a pattern in a circuit
@@ -35,16 +36,14 @@ _________________________
     [:class:`qat.plugins.BaseChanger`] Split observable job into smaller diagonal observable jobs
 
 
-.. parseonly:: qlm
+Circuit synthesis plugins
+_________________________
 
-    Circuit synthesis plugins
-    _________________________
+.. autoapi::
 
-    .. autoapi::
-
-        [:class:`qat.plugins.LazySynthesis`] Lazy circuit synthesis based on nnization algorithm
-        [:class:`qat.plugins.InitialMapping`] Plugin wrapping various remapping methods
-        [:class:`qat.plugins.NISQCompiler`] Generic compiler for NISQ quantum circuits
+    [:class:`qat.plugins.LazySynthesis`] Lazy circuit synthesis based on nnization algorithm
+    [:class:`qat.plugins.InitialMapping`] Plugin wrapping various remapping methods
+    [:class:`qat.plugins.NISQCompiler`] Generic compiler for NISQ quantum circuits
 
 
 .. _variational-programs:

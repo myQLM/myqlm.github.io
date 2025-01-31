@@ -1,0 +1,31 @@
+.. _rewriting:
+
+Rewriting quantum circuits
+==========================
+The module :class:`~qat.pbo` (for *Pattern Based Opimization*) provides an interface to efficiently manipulate
+quantum circuits via rule-based rewriting.
+
+For instance, this module could automatically rewrite
+
+.. figure:: images/xhh.svg
+
+into:
+
+.. figure:: images/x.svg
+
+using only few lines of code. This example could be implemented by using defining the rule *H-H pattern is equivalent to the identity*. Such rewriting can optimize a quantum circuit, by
+reducing the number of gates composing the circuit, or transpile a circuit by changing the gate set.
+
+This module provides 3 main tools:
+
+ - **A low level rewriter** named :class:`~qat.pbo.GraphCircuit`, taking two patterns (*left pattern* and *right pattern*) and replacing the first occurence
+   of *left pattern* by *right pattern*
+ - **An high-level rewriter** named :class:`~qat.plugins.PatternManager`, taking a set of patterns and applying them automatically to minimize
+   a cost function
+ - **A KAK compression plugin**, named :class:`~qat.plugins.KAKCompression`, merging the consecutive one qubit gates into a temporary unitary matrix, and
+   decomposing this temporary matrix using a pattern
+
+These tools are parametrized by patterns. This module provides collections of pattern (to be used with :class:`~qat.plugins.PatternManager`) but user defined patterns
+are also available
+
+.. autocard::

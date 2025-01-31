@@ -1,0 +1,405 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing patterns &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=ccfc9eea" />
+      <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+      <script src="../../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Pattern collections (to be used with PatternManager)" href="05_collections.html" />
+    <link rel="prev" title="Compressing single qubit gates" href="03_kak.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02_execute.html">Executing / Simulating quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../03_compile.html">Compiling and rewriting quantum circuits</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../01_compilers.html">Compiling quantum jobs using plugins</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../02_rewrite.html">Rewriting quantum circuits</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="01_low_level.html">Low-level optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="02_high_level.html">High-level optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="03_kak.html">Compressing single qubit gates</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Writing patterns</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#parameters-in-pattern">Parameters in pattern:</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#qubits-of-a-gate">Qubits of a gate:</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#name-of-a-gate">Name of a gate:</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="05_collections.html">Pattern collections (to be used with PatternManager)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_compile.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../02_user_guide.html">User guide</a></li>
+          <li class="breadcrumb-item"><a href="../../03_compile.html">Compiling and rewriting quantum circuits</a></li>
+          <li class="breadcrumb-item"><a href="../02_rewrite.html">Rewriting quantum circuits</a></li>
+      <li class="breadcrumb-item active">Writing patterns</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="writing-patterns">
+<span id="patterns"></span><h1>Writing patterns<a class="headerlink" href="#writing-patterns" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your pattern works for <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/graphcircuit.html#qat.pbo.GraphCircuit" title="qat.pbo.GraphCircuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphCircuit</span></code></a>, you can
+use this pattern for <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a> and vice versa.</p>
+</div>
+<p>A pattern is a list of gates.
+A gate is composed of:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>name</strong>: name of the gate</p></li>
+<li><p><strong>qubits</strong>: list of qubits on which the gate acts</p></li>
+<li><p><strong>parameters</strong> (<em>optional</em>): some gates are defined by parameters,
+such as rotation angles</p></li>
+</ul>
+</div></blockquote>
+<p>A gate is defined by a tuple of 2 or more arguments. For instance, the following
+gate can be used in a pattern definition:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">pi</span>
+
+<span class="c1"># H gate</span>
+<span class="n">H_gate</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># PH gate</span>
+<span class="n">PH_gate</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;PH&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<details class="related-notebooks"><summary>There are 2 related notebooks</summary><div><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcircuit_optimization%2Fgraph_circuit.ipynb" target="_blank" rel="noreferrer noopener"><i class="icon icon-book"></i><p>graph_circuit.ipynb</p></a><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcircuit_optimization%2Fpattern_manager.ipynb" target="_blank" rel="noreferrer noopener"><i class="icon icon-book"></i><p>pattern_manager.ipynb</p></a></div></details><section id="parameters-in-pattern">
+<h2>Parameters in pattern:<a class="headerlink" href="#parameters-in-pattern" title="Link to this heading"></a></h2>
+<p>Parameters can be added to the pattern. For instance,
+<a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/graphcircuit.html#qat.pbo.GraphCircuit" title="qat.pbo.GraphCircuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphCircuit</span></code></a> may replace all <span class="math notranslate nohighlight">\(R_Z(\pi)\)</span> by a
+<span class="math notranslate nohighlight">\(Z\)</span> gate.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import pi</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">pi</span>
+
+<span class="c1"># Define two patterns</span>
+<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pi</span><span class="p">)]</span>
+<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;Z&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+
+<span class="c1"># Replace all patterns</span>
+<span class="k">while</span> <span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">(</span><span class="n">left_pattern</span><span class="p">,</span> <span class="n">right_pattern</span><span class="p">):</span>
+    <span class="k">continue</span>
+</pre></div>
+</div>
+<p>In our example, all <span class="math notranslate nohighlight">\(R_Z(\pi)\)</span> gates are replaced by a <span class="math notranslate nohighlight">\(Z\)</span>
+gate. Our pattern is only matching with a gate having the same parameter
+<span class="math notranslate nohighlight">\(\pi\)</span>. The use of abstract variable can be useful to match a pattern
+with any parameter. The class <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/var.html#qat.pbo.VAR" title="qat.pbo.VAR"><code class="xref py py-class docutils literal notranslate"><span class="pre">VAR</span></code></a> is used
+to match with any parameter. For instance, the following code is used to
+merge two rotation gates using abstract parameters. The rule is
+<span class="math notranslate nohighlight">\(R_Z(x) - R_Z(y) = R_Z(x + y)\)</span>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import VAR</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.pbo</span><span class="w"> </span><span class="kn">import</span> <span class="n">VAR</span>
+
+<span class="c1"># Create VAR objects</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">VAR</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">VAR</span><span class="p">()</span>
+
+<span class="c1"># Define two patterns</span>
+<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">)]</span>
+<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)]</span>
+
+<span class="c1"># Replace all patterns</span>
+<span class="k">while</span> <span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">(</span><span class="n">left_pattern</span><span class="p">,</span> <span class="n">right_pattern</span><span class="p">):</span>
+    <span class="k">continue</span>
+</pre></div>
+</div>
+<p>In the previous example, any rotation will match with the abstract
+variable.</p>
+<p>Moreover, an abstract variable can be used several times in the same pattern. The
+following code is used to remove patterns <span class="math notranslate nohighlight">\(R_Z(x) - R_Z(-x)\)</span>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import VAR</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.pbo</span><span class="w"> </span><span class="kn">import</span> <span class="n">VAR</span>
+
+<span class="c1"># Create VAR objects</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">VAR</span><span class="p">()</span>
+
+<span class="c1"># Define two patterns</span>
+<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">x</span><span class="p">)]</span>
+<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Replace all patterns</span>
+<span class="k">while</span> <span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">(</span><span class="n">left_pattern</span><span class="p">,</span> <span class="n">right_pattern</span><span class="p">):</span>
+    <span class="k">continue</span>
+</pre></div>
+</div>
+<p>You can apply any function on your abstract variable, but the function
+should be casted into a function accepting abstract variables. The method
+<a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/var.html#qat.pbo.VAR.add_function" title="qat.pbo.VAR.add_function"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.pbo.VAR.add_function()</span></code></a> can be used to cast any function into a
+function accepting abstract variables:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import VAR</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.pbo</span><span class="w"> </span><span class="kn">import</span> <span class="n">VAR</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">pi</span>
+
+<span class="c1"># Define function to update the angle</span>
+<span class="nd">@VAR</span><span class="o">.</span><span class="n">add_function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_angle</span><span class="p">(</span><span class="n">angle</span><span class="p">):</span>
+    <span class="k">while</span> <span class="n">angle</span> <span class="o">&gt;</span> <span class="n">pi</span><span class="p">:</span>
+        <span class="n">angle</span> <span class="o">-=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span>
+
+    <span class="k">while</span> <span class="n">angle</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">pi</span><span class="p">:</span>
+        <span class="n">angle</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span>
+
+    <span class="k">return</span> <span class="n">angle</span>
+
+<span class="c1"># Define pattern</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">VAR</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">VAR</span><span class="p">()</span>
+
+<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">)]</span>
+<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">update_angle</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">))]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When you use an instance of <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a>, each
+pattern can be a left-hand side pattern. If the pattern cannot be
+a left hand-side pattern (i.e. if this pattern does not respect
+constraints of a left-hand side pattern), this pattern will never
+be replaced.</p>
+</div>
+<p>If you use variables for the left-hand side pattern, the optimizer should be
+able to set trivially a value for each parameter. A <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/var.html#qat.pbo.VAR" title="qat.pbo.VAR"><code class="xref py py-class docutils literal notranslate"><span class="pre">VAR</span></code></a> object
+is either a root or a formula:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>if the variable is created using the default constructor (i.e. the code
+used is <code class="code docutils literal notranslate"><span class="pre">my_var</span> <span class="pre">=</span> <span class="pre">VAR()</span></code>), the variable is a root.</p></li>
+<li><p>otherwise, if the variable is created using an expression (i.e. the code
+used looks like <code class="code docutils literal notranslate"><span class="pre">my_var</span> <span class="pre">=</span> <span class="pre">f(x_1,</span> <span class="pre">...)</span></code>), the variable is a
+formula. In our example, our formula depends on <code class="code docutils literal notranslate"><span class="pre">x_1,</span> <span class="pre">...</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<p>The optimizer can set trivially a value for each parameter <strong>if and only</strong>
+if each root parameter from which the pattern depends appears in the
+pattern. For instance, the following code defines compliant left-hand side
+patterns and not compliant ones.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.pbo</span><span class="w"> </span><span class="kn">import</span> <span class="n">VAR</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">log</span>
+
+<span class="c1"># Create VAR object</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">VAR</span><span class="p">()</span>
+<span class="n">log_var</span> <span class="o">=</span> <span class="n">VAR</span><span class="o">.</span><span class="n">add_function</span><span class="p">(</span><span class="n">log</span><span class="p">)</span>
+
+<span class="c1"># Accepted pattern (left_pattern)</span>
+<span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">)]</span>
+<span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">log_var</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span> <span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">)]</span>
+
+<span class="c1"># Not accepted pattern (left_pattern)</span>
+<span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">log_var</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span> <span class="c1"># The optimizer will not be able to set a value</span>
+                          <span class="c1"># to x</span>
+<span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">x</span><span class="p">)]</span> <span class="c1"># The optimizer will not be able to set a value to x</span>
+                  <span class="c1"># -x is seen as f(x) by the optimizer</span>
+</pre></div>
+</div>
+<p>Some values may be prohibited. For instance, if a hardware accepts only
+<span class="math notranslate nohighlight">\(R_X(x), \; \forall x \in \{ \pm \pi ; \pm \frac{\pi}{2} \}\)</span>,
+then other <span class="math notranslate nohighlight">\(R_X\)</span> gates have to be replaced. To perform these changes,
+some values are going to be prohibited.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.pbo</span><span class="w"> </span><span class="kn">import</span> <span class="n">VAR</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">pi</span>
+
+<span class="c1"># Define a VAR object</span>
+<span class="n">prohibited_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">pi</span><span class="p">,</span> <span class="o">-</span><span class="n">pi</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">VAR</span><span class="p">()</span>
+
+<span class="c1"># Prohibit values</span>
+<span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="n">prohibited_values</span><span class="p">:</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">add_prohibited_value</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+
+<span class="c1"># Define two patterns</span>
+<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;RX&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">)]</span>
+<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+
+<span class="c1"># Replace all patterns</span>
+<span class="k">while</span> <span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">(</span><span class="n">left_pattern</span><span class="p">,</span> <span class="n">right_pattern</span><span class="p">):</span>
+    <span class="k">continue</span>
+</pre></div>
+</div>
+<p>In our example, the left-hand side pattern will match with any
+<code class="code docutils literal notranslate"><span class="pre">&quot;RX&quot;</span></code> having an angle different from <span class="math notranslate nohighlight">\(\pm \pi\)</span> and
+<span class="math notranslate nohighlight">\(\pm \frac{\pi}{2}\)</span>.</p>
+</section>
+<section id="qubits-of-a-gate">
+<h2>Qubits of a gate:<a class="headerlink" href="#qubits-of-a-gate" title="Link to this heading"></a></h2>
+<p>The qubits of a gate are defined by a list or a set of integers. In most
+of the cases, the order of the qubits is very important, so a list must be used. In
+few cases, the order of qubits does not matter (for instance, a SWAP gate
+acting on qubit 0 and 1 is equal to a SWAP gate acting on qubit 1 and 0).
+If the order of qubits does not matter, please use a set.</p>
+<p>When the qubits are defined by a <code class="code docutils literal notranslate"><span class="pre">set</span></code>, the complexity of searching
+a pattern is multiplied by <span class="math notranslate nohighlight">\(q!\)</span> (where <span class="math notranslate nohighlight">\(q\)</span> is the number of
+qubits) so please try limit the number of <code class="code docutils literal notranslate"><span class="pre">set</span></code> is the pattern.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Non-optimal left pattern</span>
+<span class="p">[(</span><span class="s2">&quot;SWAP&quot;</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}),</span> <span class="p">(</span><span class="s2">&quot;SWAP&quot;</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})]</span>
+
+<span class="c1"># Optimal left pattern</span>
+<span class="p">[(</span><span class="s2">&quot;SWAP&quot;</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}),</span> <span class="p">(</span><span class="s2">&quot;SWAP&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])]</span>
+</pre></div>
+</div>
+<p>In our example, the two patterns are equivalent but since the second pattern
+uses only one <code class="code docutils literal notranslate"><span class="pre">set</span></code>, searching the second pattern is faster than
+searching the first one.</p>
+<p>If a gate can be used for different arities (e.g. a QFT can be used for any
+size of register), you can use <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/abstractregister.html#qat.pbo.AbstractRegister" title="qat.pbo.AbstractRegister"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractRegister</span></code></a> to match
+with any size of register. The use of an abstract register increases the
+complexity. By default, abstract registers are disjoint.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The use of <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/abstractregister.html#qat.pbo.AbstractRegister" title="qat.pbo.AbstractRegister"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractRegister</span></code></a> is only working for
+<a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/graphcircuit.html#qat.pbo.GraphCircuit" title="qat.pbo.GraphCircuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphCircuit</span></code></a>. Using an abstract register with
+<a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a> raises errors.</p>
+</div>
+</section>
+<section id="name-of-a-gate">
+<h2>Name of a gate:<a class="headerlink" href="#name-of-a-gate" title="Link to this heading"></a></h2>
+<p>A gate is defined using the name of the gate. In our pattern data model,
+the name is a string. One can add prefix to this gate to control or to get
+the dagger of this gate. For instance, the gate <code class="code docutils literal notranslate"><span class="pre">&quot;PH&quot;</span></code> is a phase
+gate, the gate <code class="code docutils literal notranslate"><span class="pre">&quot;C-PH&quot;</span></code> is a controlled phase gate. The following
+prefixes are defined:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">&quot;C-&quot;</span></code> - controlled gate</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">&quot;D-&quot;</span></code> - dagger of the gate</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">&quot;T-&quot;</span></code> - transposed gate</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">&quot;S-&quot;</span></code> - conjugated gate</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code class="code docutils literal notranslate"><span class="pre">&quot;C-X&quot;</span></code> will not match with <code class="code docutils literal notranslate"><span class="pre">&quot;CNOT&quot;</span></code>. If a gate has a name,
+the name will not be decomposed. <code class="code docutils literal notranslate"><span class="pre">&quot;CNOT&quot;</span></code> is a correct name, so the
+name will not be decomposed into <code class="code docutils literal notranslate"><span class="pre">&quot;C-X&quot;</span></code>.</p>
+</div>
+<p>Regular expressions could be used to match any gates. For instance, a user may
+want to merge two controlled phase gates:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.pbo</span><span class="w"> </span><span class="kn">import</span> <span class="n">GateName</span><span class="p">,</span> <span class="n">AbstractRegister</span><span class="p">,</span> <span class="n">VAR</span>
+
+<span class="c1"># Define name</span>
+<span class="n">ctrl_phase</span> <span class="o">=</span> <span class="n">GateName</span><span class="p">(</span><span class="s2">&quot;(C-)*PH&quot;</span><span class="p">)</span>
+<span class="n">register</span> <span class="o">=</span> <span class="n">AbstractRegister</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">VAR</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">VAR</span><span class="p">()</span>
+
+<span class="c1"># Define left and right patterns</span>
+<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="n">ctrl_phase</span><span class="p">,</span> <span class="n">register</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">ctrl_phase</span><span class="p">,</span> <span class="n">register</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="n">ctrl_phase</span><span class="p">,</span> <span class="n">register</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)]</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="03_kak.html" class="btn btn-neutral float-left" title="Compressing single qubit gates" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="05_collections.html" class="btn btn-neutral float-right" title="Pattern collections (to be used with PatternManager)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2025.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

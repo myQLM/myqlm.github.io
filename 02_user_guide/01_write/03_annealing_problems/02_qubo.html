@@ -1,29 +1,28 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quadratic Unconstrained Binary Optimization (QUBO) &mdash; myQLM documentation  documentation</title>
-      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
-      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-    <link rel="shortcut icon" href="../../../static/favicon.png"/>
-  <!--[if lt IE 9]>
-    <script src="../../../static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=ccfc9eea" />
+      <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
+
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
-        <script src="../../../static/jquery.js"></script>
-        <script src="../../../static/underscore.js"></script>
-        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../static/doctools.js"></script>
-        <script src="../../../static/sphinx_highlight.js"></script>
-        <script src="../../../static/design-tabs.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+      <script src="../../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -36,15 +35,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
-            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                1.10.6
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -68,6 +68,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../02_execute.html">Executing / Simulating quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03_compile.html">Compiling and rewriting quantum circuits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
 </ul>
 </li>
@@ -98,11 +99,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../../02_user_guide.html">User guide</a> &raquo;</li>
-          <li><a href="../../01_write.html">Writing quantum programs</a> &raquo;</li>
-          <li><a href="../03_annealing_problems.html">Annealing programming</a> &raquo;</li>
-      <li>Quadratic Unconstrained Binary Optimization (QUBO)</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../02_user_guide.html">User guide</a></li>
+          <li class="breadcrumb-item"><a href="../../01_write.html">Writing quantum programs</a></li>
+          <li class="breadcrumb-item"><a href="../03_annealing_problems.html">Annealing programming</a></li>
+      <li class="breadcrumb-item active">Quadratic Unconstrained Binary Optimization (QUBO)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -112,7 +113,7 @@
            <div itemprop="articleBody">
              
   <section id="quadratic-unconstrained-binary-optimization-qubo">
-<span id="qubo-description"></span><h1>Quadratic Unconstrained Binary Optimization (QUBO)<a class="headerlink" href="#quadratic-unconstrained-binary-optimization-qubo" title="Permalink to this heading"></a></h1>
+<span id="qubo-description"></span><h1>Quadratic Unconstrained Binary Optimization (QUBO)<a class="headerlink" href="#quadratic-unconstrained-binary-optimization-qubo" title="Link to this heading"></a></h1>
 <p><strong>Quadratic Unconstrained Binary Optimization (QUBO)</strong> consists in, given a <strong>real symmetric matrix</strong>
 <span class="math notranslate nohighlight">\(Q\)</span>, <strong>minimizing</strong> the following cost function <span class="math notranslate nohighlight">\(q\)</span>:</p>
 <div class="math notranslate nohighlight">
@@ -144,8 +145,8 @@ one can indeed write:</p>
 <p>with <span class="math notranslate nohighlight">\(h_{i}=\sum_{j}\frac{Q_{i,j}}{2}\)</span>, <span class="math notranslate nohighlight">\(J_{ij}=\frac{Q_{i,j}}{4}\)</span>
 and an <strong>offset term</strong> <span class="math notranslate nohighlight">\(o=- \sum_{i,j=1}^{n} \frac{Q_{i,j}}{4} - \sum_{i=1}^{n} \frac{Q_{i,i}}{4}\)</span>.</p>
 <p>To produce such QUBO-formulated problems, one can use the <a class="reference internal" href="../../../04_api_reference/module_qat/module_opt/qubo.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.opt.QUBO</span></code></a> class:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">qat.opt</span> <span class="kn">import</span> <span class="n">QUBO</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.opt</span><span class="w"> </span><span class="kn">import</span> <span class="n">QUBO</span>
 
 <span class="n">problem_size</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># number of qubits for annealing, can reach to 100s even 1000s</span>
 
@@ -182,7 +183,7 @@ and an <strong>offset term</strong> <span class="math notranslate nohighlight">\
  <span class="p">[</span><span class="mf">0.74898502</span> <span class="mf">0.46931252</span> <span class="mf">0.73200663</span> <span class="mf">0.63773675</span> <span class="mf">0.28187286</span><span class="p">]]</span>
 
 <span class="n">A</span> <span class="n">QUBO</span> <span class="n">Job</span> <span class="n">has</span> <span class="n">been</span> <span class="n">created</span> <span class="o">-</span> <span class="n">ready</span> <span class="n">to</span> <span class="n">run</span> <span class="n">on</span> <span class="n">an</span> <span class="n">annealing</span> <span class="n">QPU</span><span class="o">.</span>
-<span class="n">An</span> <span class="n">Ising</span> <span class="n">Observable</span> <span class="n">has</span> <span class="n">also</span> <span class="n">been</span> <span class="n">created</span> <span class="o">-</span> <span class="n">to</span> <span class="n">be</span> <span class="n">fed</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">Schedule</span> <span class="kn">from</span> <span class="nn">which</span> <span class="n">a</span> <span class="n">Job</span> <span class="n">can</span> <span class="n">also</span> <span class="n">be</span> <span class="n">produced</span><span class="o">.</span>
+<span class="n">An</span> <span class="n">Ising</span> <span class="n">Observable</span> <span class="n">has</span> <span class="n">also</span> <span class="n">been</span> <span class="n">created</span> <span class="o">-</span> <span class="n">to</span> <span class="n">be</span> <span class="n">fed</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">Schedule</span> <span class="kn">from</span><span class="w"> </span><span class="nn">which</span> <span class="n">a</span> <span class="n">Job</span> <span class="n">can</span> <span class="n">also</span> <span class="n">be</span> <span class="n">produced</span><span class="o">.</span>
 <span class="o">&lt;</span><span class="n">stdin</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">22</span><span class="p">:</span> <span class="ne">UserWarning</span><span class="p">:</span> <span class="n">If</span> <span class="n">SQAQPU</span> <span class="ow">is</span> <span class="n">used</span><span class="p">,</span> <span class="n">gamma_t</span> <span class="n">will</span> <span class="n">be</span> <span class="n">needed</span><span class="o">.</span>
 </pre></div>
 </div>
@@ -201,7 +202,7 @@ and an <strong>offset term</strong> <span class="math notranslate nohighlight">\
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Eviden 2016-2024.</p>
+    <p>&#169; Copyright Eviden 2016-2025.</p>
   </div>
 
    

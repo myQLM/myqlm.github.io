@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.plugins.Nnizer &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=ccfc9eea" />
+      <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+      <script src="../../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="qat.plugins.ObservableSplitter" href="observablesplitter.html" />
+    <link rel="prev" title="qat.plugins.KAKCompression" href="kakcompression.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../module_comm.html">qat.comm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fusion.html">qat.fusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_nnize.html">qat.nnize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_pbo.html">qat.pbo</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../module_plugins.html">qat.plugins</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="circuitinliner.html">qat.plugins.CircuitInliner</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fusionplugin.html">qat.plugins.FusionPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gaterewriter.html">qat.plugins.GateRewriter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kakcompression.html">qat.plugins.KAKCompression</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">qat.plugins.Nnizer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="observablesplitter.html">qat.plugins.ObservableSplitter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="patternmanager.html">qat.plugins.PatternManager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remap.html">qat.plugins.Remap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="initialmapping.html">qat.plugins.InitialMapping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lazysynthesis.html">qat.plugins.LazySynthesis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nisqcompiler.html">qat.plugins.NISQCompiler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="costfunctionplugin.html">qat.plugins.CostFunctionPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="psominimizeplugin.html">qat.plugins.PSOMinimizePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scipyminimizeplugin.html">qat.plugins.ScipyMinimizePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spsaminimizeplugin.html">qat.plugins.SPSAMinimizePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="adaptvqeplugin.html">qat.plugins.AdaptVQEPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gradientdescentoptimizer.html">qat.plugins.GradientDescentOptimizer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="multiplelaunchesanalyzer.html">qat.plugins.MultipleLaunchesAnalyzer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="seqoptim.html">qat.plugins.SeqOptim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="transformobservable.html">qat.plugins.TransformObservable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zeronoiseextrapolator.html">qat.plugins.ZeroNoiseExtrapolator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="abstractplugin.html">qat.plugins.AbstractPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="display.html">qat.plugins.Display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="junction.html">qat.plugins.Junction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="optimizer.html">qat.plugins.Optimizer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="quameleonplugin.html">qat.plugins.QuameleonPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remoteplugin.html">qat.plugins.RemotePlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_synthopline.html">qat.synthopline</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../04_api_reference.html">API reference</a></li>
+          <li class="breadcrumb-item"><a href="../../module_qat.html">qat</a></li>
+          <li class="breadcrumb-item"><a href="../module_plugins.html">qat.plugins</a></li>
+      <li class="breadcrumb-item active">qat.plugins.Nnizer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-plugins-nnizer">
+<h1>qat.plugins.Nnizer<a class="headerlink" href="#qat-plugins-nnizer" title="Link to this heading"></a></h1>
+<p>This plugin solves the SWAP Insertion Problem before submitting the circuit to any QPU. This plugin adds SWAP gates into the initial circuit, to make
+it match the QPU topology. The usage of this plugin is detailed in the <a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers/03_nnize.html#compile-nnize"><span class="std std-ref">compilation section of the documentation</span></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.plugins.Nnizer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">Nnizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method='atos'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_large_gates=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_initial_order=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iteration=250</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature=1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric=&lt;libcpp_nnize.QuantumCostMetric</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.Nnizer" title="Link to this definition"></a></dt>
+<dd><p>Swap insertion problem solver.</p>
+<p>This plugin can use different algorithms to nnize your quantum
+circuit. The following algorithms are implemented:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>atos</strong>: Atos algorithm (strict generalization of <span id="id1">[<a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers/03_nnize.html#id2" title="Y. Hirata, M. Nakanishi, S. Yamashita, and Y. Nakashima. An efficient method to convert arbitrary quantum circuits to ones on a linear nearest neighbor architecture. In 2009 Third International Conference on Quantum, Nano and Micro Technologies, 26-33. 2009. URL: https://ieeexplore.ieee.org/document/4782917.">HirataNakanishiYamashitaNakashima09</a>]</span>)</p></li>
+<li><p><strong>sabre</strong>: Sabre algorithm (implementation of <span id="id2">[<a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers/03_nnize.html#id3" title="Gushu Li, Yufei Ding, and Yan Xie. Tackling the qubit mapping problem for nisq-era quantum devices. In ASPLOS: Architectural Support for Programming Languages and Operating Systems, 1001-1014. April 2019. URL: https://doi.org/10.1145/3297858.3304023.">LDX19</a>]</span>)</p></li>
+<li><p><strong>bka</strong>: Best Known Algorithm (High Complexity)
+(implementation of <span id="id3">[<a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers/03_nnize.html#id4" title="A. Zulehner, A. Paler, and R. Wille. Efficient mapping of quantum circuits to the ibm qx architectures. In 2018 Design, Automation Test in Europe Conference Exhibition (DATE), 1135-1138. 2018. URL: https://ieeexplore.ieee.org/document/8342181.">ZulehnerPalerWille18</a>]</span>)</p></li>
+<li><p><strong>pbn</strong>: Pattern Based Optimizer (strict generalization of <span id="id4">[<a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers/03_nnize.html#id5" title="Mehdi Saeedi, Robert Wille, and Rolf Drechsler. Synthesis of quantum circuits for linear nearest neighbor architectures. Quantum Information Processing, 10(3):355-377, Jun 2011. URL: https://doi.org/10.1007/s11128-010-0201-2, doi:10.1007/s11128-010-0201-2.">SWD11</a>]</span>)</p></li>
+</ul>
+</div></blockquote>
+<p>Each method can be parametrized. A list of
+parameters for each algorithm is displayed in the following table:</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>atos</p></td>
+<td><p>sabre</p></td>
+<td><p>bka</p></td>
+<td><p>pbn</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>metric</p></li>
+<li><p>window_size</p></li>
+</ul>
+</td>
+<td><ul class="simple">
+<li><p>basic_heuristic</p></li>
+<li><p>weight</p></li>
+<li><p>delta</p></li>
+<li><p>window_size</p></li>
+</ul>
+</td>
+<td><ul class="simple">
+<li><p>size_slice</p></li>
+<li><p>use_sum_heurisitic</p></li>
+</ul>
+</td>
+<td><ul class="simple">
+<li><p>metric</p></li>
+<li><p>rewriting_method</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The initial mapping of qubits can be set automatically using one
+of the following methods:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>None (initial order is kept)</p></li>
+<li><p>“annealing” which can be parametrized by</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>metric</p></li>
+<li><p>max_iteration</p></li>
+<li><p>temperature</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>“reverse” which can be parametrized by</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>metric</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This plugin can compile jobs having less than 20 qubits. To compile bigger jobs, please use
+the equivalent Qaptiva plugin.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – name of the algorithm used to solve
+the swap insertion problem (“atos”, “sabre”, “bka” or “pbn”)</p></li>
+<li><p><strong>metric</strong> (<em>fun&lt;Circuit -&gt; score&gt;</em><em>, </em><em>optional</em>) – score function this nnizer
+will try to maximize (used only by “atos” and “pbn”)</p></li>
+<li><p><strong>window_size</strong> (<em>int</em><em>, </em><em>optional</em>) – window size. The higher the value is,
+the higher the complexity is (used only by “atos” and “sabre”)</p></li>
+<li><p><strong>basic_heuristic</strong> (<em>bool</em><em>, </em><em>optional</em>) – use the basic heuristic for
+sabre (used only by “sabre”)</p></li>
+<li><p><strong>weight</strong> (<em>float</em><em>, </em><em>optional</em>) – weight of the second layer for sabre
+(used only by “sabre”)</p></li>
+<li><p><strong>delta</strong> (<em>float</em><em>, </em><em>optional</em>) – decay parameter (used only by “sabre”)</p></li>
+<li><p><strong>size_slice</strong> (<em>int</em><em>, </em><em>optional</em>) – maximal number of gates per slice
+(used only by “bka”)</p></li>
+<li><p><strong>use_sum_heuristic</strong> (<em>bool</em><em>, </em><em>optional</em>) – select the heuristic used
+by bka (only used by “bka”)</p></li>
+<li><p><strong>update_initial_order</strong> (<em>&quot;annealing&quot;</em><em>, </em><em>&quot;reverse&quot;</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – update the initial mapping of qubits to optimize the final
+nnization. Optimizing the initial order uses a metric,
+please use <code class="code docutils literal notranslate"><span class="pre">metric</span></code> keyword to set the metric</p></li>
+<li><p><strong>rewriting_method</strong> (<em>&quot;gradient&quot;</em><em> or </em><em>&quot;annealing&quot;</em><em>, </em><em>optional</em>) – PBN
+uses <a class="reference internal" href="patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a> to optimized the nnized
+circuit. Please use this argument to select the optimization
+method used by <a class="reference internal" href="patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a></p></li>
+<li><p><strong>max_iteration</strong> (<em>int</em><em>, </em><em>optional</em>) – maximal number of iterations
+done by the simulated annealing to find an initial mapping</p></li>
+<li><p><strong>temperature</strong> (<em>float</em><em>, </em><em>optional</em>) – initial temperature of the simulated
+annealing used to find the initial mapping</p></li>
+<li><p><strong>**kwargs</strong> (<em>optional</em>) – extra arguments passed to pattern manager
+(only used by “pbn”)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.plugins.Nnizer.compile">
+<span class="sig-name descname"><span class="pre">compile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.Nnizer.compile" title="Link to this definition"></a></dt>
+<dd><p>Compiles the batch using the specifications of the hardware.
+The resulting circuit is compliant with the topological
+constraints of the hardware.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch</strong> (<a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><em>Batch</em></a>) – batch to optimize</p></li>
+<li><p><strong>specs</strong> (<a class="reference internal" href="../module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><em>HardwareSpecs</em></a>) – hardware specifications (including
+connectivity constraints)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="kakcompression.html" class="btn btn-neutral float-left" title="qat.plugins.KAKCompression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="observablesplitter.html" class="btn btn-neutral float-right" title="qat.plugins.ObservableSplitter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2025.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

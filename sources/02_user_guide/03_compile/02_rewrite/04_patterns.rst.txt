@@ -1,0 +1,273 @@
+.. _patterns:
+
+Writing patterns
+================
+.. note::
+
+    If your pattern works for :class:`~qat.pbo.GraphCircuit`, you can
+    use this pattern for :class:`~qat.plugins.PatternManager` and vice versa.
+
+A pattern is a list of gates.
+A gate is composed of:
+
+ - **name**: name of the gate
+ - **qubits**: list of qubits on which the gate acts
+ - **parameters** (*optional*): some gates are defined by parameters,
+   such as rotation angles
+
+A gate is defined by a tuple of 2 or more arguments. For instance, the following
+gate can be used in a pattern definition:
+
+.. code-block:: python
+
+    from math import pi
+
+    # H gate
+    H_gate = ("H", [0])
+
+    # PH gate
+    PH_gate = ("PH", [0], pi / 2)
+
+
+.. autonotebook:: pattern
+
+
+Parameters in pattern:
+**********************
+Parameters can be added to the pattern. For instance,
+:class:`~qat.pbo.GraphCircuit` may replace all :math:`R_Z(\pi)` by a
+:math:`Z` gate.
+
+.. code-block:: python
+
+    # Import pi
+    from numpy import pi
+
+    # Define two patterns
+    left_pattern = [("RZ", [0], pi)]
+    right_pattern = [("Z", [0])]
+
+    # Replace all patterns
+    while graph.replace_pattern(left_pattern, right_pattern):
+        continue
+
+In our example, all :math:`R_Z(\pi)` gates are replaced by a :math:`Z`
+gate. Our pattern is only matching with a gate having the same parameter
+:math:`\pi`. The use of abstract variable can be useful to match a pattern
+with any parameter. The class :class:`~qat.pbo.VAR` is used
+to match with any parameter. For instance, the following code is used to
+merge two rotation gates using abstract parameters. The rule is
+:math:`R_Z(x) - R_Z(y) = R_Z(x + y)`.
+
+.. code-block:: python
+
+    # Import VAR
+    from qat.pbo import VAR
+
+    # Create VAR objects
+    x = VAR()
+    y = VAR()
+
+    # Define two patterns
+    left_pattern = [("RZ", [0], x), ("RZ", [0], y)]
+    right_pattern = [("RZ", [0], x + y)]
+
+    # Replace all patterns
+    while graph.replace_pattern(left_pattern, right_pattern):
+        continue
+
+In the previous example, any rotation will match with the abstract
+variable.
+
+Moreover, an abstract variable can be used several times in the same pattern. The
+following code is used to remove patterns :math:`R_Z(x) - R_Z(-x)`.
+
+.. code-block:: python
+
+    # Import VAR
+    from qat.pbo import VAR
+
+    # Create VAR objects
+    x = VAR()
+
+    # Define two patterns
+    left_pattern = [("RZ", [0], x), ("RZ", [0], -x)]
+    right_pattern = []
+
+    # Replace all patterns
+    while graph.replace_pattern(left_pattern, right_pattern):
+        continue
+
+You can apply any function on your abstract variable, but the function
+should be casted into a function accepting abstract variables. The method
+:func:`qat.pbo.VAR.add_function` can be used to cast any function into a
+function accepting abstract variables:
+
+.. code-block:: python
+
+    # Import VAR
+    from qat.pbo import VAR
+    from math import pi
+
+    # Define function to update the angle
+    @VAR.add_function
+    def update_angle(angle):
+        while angle > pi:
+            angle -= 2 * pi
+
+        while angle < -pi:
+            angle += 2 * pi
+
+        return angle
+
+    # Define pattern
+    x = VAR()
+    y = VAR()
+
+    left_pattern = [("RZ", [0], x), ("RZ", [0], y)]
+    right_pattern = [("RZ", [0], update_angle(x + y))]
+
+.. note::
+
+    When you use an instance of :class:`~qat.plugins.PatternManager`, each
+    pattern can be a left-hand side pattern. If the pattern cannot be
+    a left hand-side pattern (i.e. if this pattern does not respect
+    constraints of a left-hand side pattern), this pattern will never
+    be replaced.
+
+If you use variables for the left-hand side pattern, the optimizer should be
+able to set trivially a value for each parameter. A :class:`~qat.pbo.VAR` object
+is either a root or a formula:
+
+ - if the variable is created using the default constructor (i.e. the code
+   used is :code:`my_var = VAR()`), the variable is a root.
+ - otherwise, if the variable is created using an expression (i.e. the code
+   used looks like :code:`my_var = f(x_1, ...)`), the variable is a
+   formula. In our example, our formula depends on :code:`x_1, ...`.
+
+The optimizer can set trivially a value for each parameter **if and only**
+if each root parameter from which the pattern depends appears in the
+pattern. For instance, the following code defines compliant left-hand side
+patterns and not compliant ones.
+
+.. code-block:: python
+
+    # Import
+    from qat.pbo import VAR
+    from math import log
+
+    # Create VAR object
+    x = VAR()
+    log_var = VAR.add_function(log)
+
+    # Accepted pattern (left_pattern)
+    [("RZ", [0], -x), ("RZ", [0], x)]
+    [("RZ", [0], log_var(x)), "RZ", [0], x)]
+
+    # Not accepted pattern (left_pattern)
+    [("RZ", [0], log_var(x))] # The optimizer will not be able to set a value
+                              # to x
+    [("RZ", [0], -x)] # The optimizer will not be able to set a value to x
+                      # -x is seen as f(x) by the optimizer
+
+Some values may be prohibited. For instance, if a hardware accepts only
+:math:`R_X(x), \; \forall x \in \{ \pm \pi ; \pm \frac{\pi}{2} \}`,
+then other :math:`R_X` gates have to be replaced. To perform these changes,
+some values are going to be prohibited.
+
+.. code-block:: python
+
+    # Import
+    from qat.pbo import VAR
+    from numpy import pi
+
+    # Define a VAR object
+    prohibited_values = [pi, -pi, pi/2, -pi/2]
+    x = VAR()
+
+    # Prohibit values
+    for angle in prohibited_values:
+        x.add_prohibited_value(angle)
+
+    # Define two patterns
+    left_pattern = [("RX", [0], x)]
+    right_pattern = [("H", [0]), ("RZ", [0], x), ("H", [0])]
+
+    # Replace all patterns
+    while graph.replace_pattern(left_pattern, right_pattern):
+        continue
+
+In our example, the left-hand side pattern will match with any
+:code:`"RX"` having an angle different from :math:`\pm \pi` and
+:math:`\pm \frac{\pi}{2}`.
+
+Qubits of a gate:
+*****************
+The qubits of a gate are defined by a list or a set of integers. In most
+of the cases, the order of the qubits is very important, so a list must be used. In
+few cases, the order of qubits does not matter (for instance, a SWAP gate
+acting on qubit 0 and 1 is equal to a SWAP gate acting on qubit 1 and 0).
+If the order of qubits does not matter, please use a set.
+
+When the qubits are defined by a :code:`set`, the complexity of searching
+a pattern is multiplied by :math:`q!` (where :math:`q` is the number of
+qubits) so please try limit the number of :code:`set` is the pattern.
+
+.. code-block:: python
+
+    # Non-optimal left pattern
+    [("SWAP", {0, 1}), ("SWAP", {0, 1})]
+
+    # Optimal left pattern
+    [("SWAP", {0, 1}), ("SWAP", [0, 1])]
+
+In our example, the two patterns are equivalent but since the second pattern
+uses only one :code:`set`, searching the second pattern is faster than
+searching the first one.
+
+If a gate can be used for different arities (e.g. a QFT can be used for any
+size of register), you can use :class:`~qat.pbo.AbstractRegister` to match
+with any size of register. The use of an abstract register increases the
+complexity. By default, abstract registers are disjoint.
+
+.. warning::
+
+    The use of :class:`~qat.pbo.AbstractRegister` is only working for
+    :class:`~qat.pbo.GraphCircuit`. Using an abstract register with
+    :class:`~qat.plugins.PatternManager` raises errors.
+
+Name of a gate:
+***************
+A gate is defined using the name of the gate. In our pattern data model,
+the name is a string. One can add prefix to this gate to control or to get
+the dagger of this gate. For instance, the gate :code:`"PH"` is a phase
+gate, the gate :code:`"C-PH"` is a controlled phase gate. The following
+prefixes are defined:
+
+ - :code:`"C-"` - controlled gate
+ - :code:`"D-"` - dagger of the gate
+ - :code:`"T-"` - transposed gate
+ - :code:`"S-"` - conjugated gate
+
+.. warning::
+
+    :code:`"C-X"` will not match with :code:`"CNOT"`. If a gate has a name,
+    the name will not be decomposed. :code:`"CNOT"` is a correct name, so the
+    name will not be decomposed into :code:`"C-X"`.
+
+Regular expressions could be used to match any gates. For instance, a user may
+want to merge two controlled phase gates:
+
+.. code-block:: python
+
+    from qat.pbo import GateName, AbstractRegister, VAR
+
+    # Define name
+    ctrl_phase = GateName("(C-)*PH")
+    register = AbstractRegister()
+    x = VAR()
+    y = VAR()
+
+    # Define left and right patterns
+    left_pattern = [(ctrl_phase, register, x), (ctrl_phase, register, y]
+    right_pattern = [(ctrl_phase, register, x + y)]

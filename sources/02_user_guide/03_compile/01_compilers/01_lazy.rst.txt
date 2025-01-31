@@ -1,0 +1,113 @@
+
+
+.. _lazy_synth:
+
+
+LazySynthesis: quantum circuit compilation
+__________________________________________
+
+
+The base algorithm/plugin
+-------------------------
+
+The :class:`qat.plugins.LazySynthesis` plugin uses in-house meta-heuristics that strictly generalize the standard SWAP insertion techniques in order to generate connectivity compliant circuit.
+It works by lazily synthesizing pieces of linear boolean operators using sub-circuits matching the hardware connectivity. 
+The algorithm itself is detailed in :cite:`martiel2020architecture`.
+
+Additionally, since it is a Plugin, :class:`~qat.plugins.LazySynthesis` is able to skip the synthesis of the final CNOTs and store the final linear operator
+in order to post-process samples or alter the compiled job's observable to an equivalent one.
+This feature might save up a large number of CNOTs depending on the connectivity and/or the circuit.
+In practice, everything happens inside the Plugin and is transparent for the user.
+
+
+.. note::
+
+    The purpose of this plugin is by no means, to replace the :class:`~qat.plugins.Nnizer` plugin. SWAP insertion plugins might behave better for some type of circuits. A good rule of thumb is the density of Clifford gates in the initial quantum circuit.
+    If the circuit contains very few Clifford gates, Nnizer might behave better. On the contrary, for large Clifford densities the :class:`~qat.plugins.LazySynthesis` plugin will probably even prune some gates during the compilation, leading to a shorter, architecture compliant circuit.
+
+
+Additional features
+-------------------
+
+The main algorithm inside the :class:`~qat.synthopline.clifford_normalizer.CliffordNormalizer` plugin works by rewriting a quantum circuit :math:`U` into a new circuit :math:`U'` and a Clifford operator :math:`C` such that:
+
+.. math::
+
+    U = C \cdot U'
+
+Having access to such a black box, one can perform several direct and reverse passes on a quantum circuit in order to rewrite it as 
+
+.. math::
+
+    U = C_2 \cdot U' \cdot C_1
+
+where :math:`C_1` and :math:`C_2` are Clifford operators. One can then deal with :math:`C_1` and :math:`C_2` by performing stabilizer states synthesis.
+
+This concept is described through the concept :class:`~qat.synthopline.clifford_normalizer.CliffordNormalizer` 
+that is implemented by :class:`~qat.plugins.LazySynthesis`.
+
+This means that any construction argument of the :class:`~qat.synthopline.clifford_normalizer.CliffordNormalizer` can also be passed to the :class:`~qat.synthopline.clifford_normalizer.CliffordNormalizer` plugin.
+
+We list here the few features that this :class:`~qat.synthopline.clifford_normalizer.CliffordNormalizer` provides.
+
+Bidirectional Clifford re-normalization
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Bidirectional normalization (in this setting of Clifford based synthesis) consists in iterating several time forward and backward passes of :class:`~qat.plugins.LazySynthesis` calls.
+These passes might change operators :math:`C_1`, :math:`C_2`, and :math:`U'` in the formula above, and thus their entangling gates requirements.
+
+In this meta-heuristics, we simply iterate the passes several times and pick the iteration that led to the least number of entangling gates.
+
+.. run-block:: python
+
+    from qat.plugins import LazySynthesis
+    from qat.lang.AQASM import *
+
+    prog = Program()
+    qbits = prog.qalloc(10)
+    for i in range(9):
+        CNOT(qbits[i], qbits[i+1])
+    RZ(0.2311)(qbits[9])
+    for i in range(9):
+        CNOT(qbits[i], qbits[i+1])
+    circuit = prog.to_circ()
+    job = circuit.to_job()
+    from qat.devices import LineDevice
+    print("Without renormalization:")
+    new_job, _ = LazySynthesis(bidirectional=False).compile_job(job, LineDevice(10))
+    for gate in new_job.circuit.iterate_simple():
+        print(gate)
+    print("With renormalization:")
+    new_job, _ = LazySynthesis(bidirectional=True, max_iter=3).compile_job(job, LineDevice(10))
+    for gate in new_job.circuit.iterate_simple():
+        print(gate)
+
+In this example, the renormalization process basically stripped all Clifford gates out of the circuit. This is of course an extreme example.
+In any case, this optimization can never degrade the entangling count performance of the main synthesis algorithm.
+
+
+Initial gate optimization
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+One can ask :class:`~qat.synthopline.clifford_normalizer.CliffordNormalizer` (or  :class:`~qat.plugins.LazySynthesis`) to simplify the start of the output quantum circuit.
+This optimization assumes that the quantum computation starts in state :math:`|0\rangle`.
+
+.. run-block:: python
+    
+    from qat.plugins import LazySynthesis
+    from qat.lang.AQASM import *
+
+    prog = Program()
+    qbits = prog.qalloc(2)
+    CNOT(qbits)
+    RZ(0.2311)(qbits[1])
+    CNOT(qbits)
+    circuit = prog.to_circ()
+    job = circuit.to_job()
+
+    new_job, _ = LazySynthesis(optimize_initial=True, verbose=True).compile_job(job, None)
+    for gate in new_job.circuit.iterate_simple():
+        print(gate)
+
+Indeed, in this example, the circuit does strictly nothing when applied to state :math:`|0\rangle` (since it contains a single ZZ rotations, and operator ZZ stabilizes :math:`|0\rangle`).
+A :class:`~qat.synthopline.clifford_normalizer.CliffordNormalizer` is able to notice that and remove the rotation, leaving an (almost) empty circuit.

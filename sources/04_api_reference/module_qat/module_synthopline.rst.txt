@@ -1,0 +1,77 @@
+.. module:: qat.synthopline
+
+qat.synthopline
+===============
+
+Abstract plugin
+---------------
+
+This module provides an abstract plugin class from which inherit most of our compilers. Classes inheriting from this class
+should override the :meth:`~qat.synthopline.clifford_normalizer.CliffordNormalizer.compile_circuit` method
+
+.. autoapi::
+
+    [:class:`qat.synthopline.clifford_normalizer.CliffordNormalizer`] Abstract plugin class
+
+Synthesis methods
+-----------------
+
+.. autoapi::
+
+    [:func:`qat.synthopline.linear_operator_synthesis`] Linear operator synthesis
+    [:func:`qat.synthopline.phase_polynomial_synthesis`] Phase polynomila synthesis
+    [:func:`qat.synthopline.generate_trotter_ansatz`] Generate Trotter Ansatz
+
+
+Operator extraction
+-------------------
+
+.. autoapi::
+
+    [:func:`qat.synthopline.linear_synthesis.extract_linear_operator`] Extract linear operator
+    [:func:`qat.synthopline.phase_polynomials.extract_phase_polynomial`] Extract phase polynomial
+    [:func:`qat.synthopline.util.extract_pauli_rotations`] Extract Pauli rotations
+
+
+Random generation methods
+-------------------------
+
+.. autoapi::
+
+    [:func:`qat.synthopline.linear_synthesis.random_linear_operator`] Random linear operator
+    [:func:`qat.synthopline.phase_polynomials.random_phase_polynomial`] Random phase polynomial
+    [:func:`qat.synthopline.pauli_synth.generate_random_observable`] Random observable
+
+
+Mappings
+--------
+
+.. autoapi::
+
+    [:func:`qat.synthopline.initial_mapping.greedy_mapping`] Greedy mapping
+    [:func:`qat.synthopline.initial_mapping.frequency_mapping`] Frequency mapping
+
+
+Utility methods
+---------------
+
+.. autoapi::
+
+    [:func:`qat.synthopline.util.conjugate_observable_tableau`] Conjugate observable tableau
+    [:func:`qat.synthopline.co_diagonalization.synthesize_stabilizer_state`] Synthesize stabilizer state
+    [:func:`qat.synthopline.co_diagonalization.codiagonalize_with_architecture`] Codiagonalize with architecture
+
+
+Some compilers introduced in this module use a low level representation of Clifford operators called Tableaux. Our Tableau
+implementation is based on :cite:`debeaudrap2012linearized` (specialized for qubits). The corresponding class is a
+C++ object published in python via pybind11:
+
+.. autoapi::
+
+    [:class:`qat.synthopline.interface.OperatorTableau`] Operator tableau
+
+This class interacts closely with another class used to represent Weyl operators:
+
+.. autoapi::
+
+    [:class:`qat.synthopline.interface.WeylOperator`] Weyl operator

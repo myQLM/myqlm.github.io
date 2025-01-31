@@ -1,29 +1,28 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Creating variational circuits &mdash; myQLM documentation  documentation</title>
-      <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../static/css/custom.css" type="text/css" />
-      <link rel="stylesheet" href="../../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-    <link rel="shortcut icon" href="../../../static/favicon.png"/>
-  <!--[if lt IE 9]>
-    <script src="../../../static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=ccfc9eea" />
+      <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
+
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../static/documentation_options.js"></script>
-        <script src="../../../static/jquery.js"></script>
-        <script src="../../../static/underscore.js"></script>
-        <script src="../../../static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../static/doctools.js"></script>
-        <script src="../../../static/sphinx_highlight.js"></script>
-        <script src="../../../static/design-tabs.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+      <script src="../../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -36,15 +35,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> myQLM documentation
-            <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                1.10.6
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -74,6 +74,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../02_execute.html">Executing / Simulating quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03_compile.html">Compiling and rewriting quantum circuits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
 </ul>
 </li>
@@ -104,11 +105,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../../02_user_guide.html">User guide</a> &raquo;</li>
-          <li><a href="../../01_write.html">Writing quantum programs</a> &raquo;</li>
-          <li><a href="../01_digital_circuit.html">Gate-based programming</a> &raquo;</li>
-      <li>Creating variational circuits</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../02_user_guide.html">User guide</a></li>
+          <li class="breadcrumb-item"><a href="../../01_write.html">Writing quantum programs</a></li>
+          <li class="breadcrumb-item"><a href="../01_digital_circuit.html">Gate-based programming</a></li>
+      <li class="breadcrumb-item active">Creating variational circuits</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -118,24 +119,24 @@
            <div itemprop="articleBody">
              
   <section id="creating-variational-circuits">
-<span id="gate-based-variational"></span><h1>Creating variational circuits<a class="headerlink" href="#creating-variational-circuits" title="Permalink to this heading"></a></h1>
+<span id="gate-based-variational"></span><h1>Creating variational circuits<a class="headerlink" href="#creating-variational-circuits" title="Link to this heading"></a></h1>
 <p>The Qaptiva framework comes with a collection of tools to efficiently describe and run variational quantum algorithm.
 This page introduces the basic mechanics allowing you to write variational schemes.</p>
 <p>For a more advanced usage, <a class="reference internal" href="../../../combinatorial_optim_applic.html#combinatorial-optimization"><span class="std std-ref">combinatorial optimization</span></a> defines a high-level interface to describe
 combinatorial optimization problems and automatically generate parametrized Ansätze.</p>
 <section id="variational-jobs">
-<h2>Variational jobs<a class="headerlink" href="#variational-jobs" title="Permalink to this heading"></a></h2>
+<h2>Variational jobs<a class="headerlink" href="#variational-jobs" title="Link to this heading"></a></h2>
 <p>When running a variational quantum algorithm, we are, most of the time, interested in minimizing the energy of some observable <span class="math notranslate nohighlight">\(H\)</span> over some
 parametrized quantum state <span class="math notranslate nohighlight">\(|\psi(\theta)\rangle\)</span>, i.e minimizing <span class="math notranslate nohighlight">\(\langle \psi(\theta)| H |\psi(\theta) \rangle\)</span>.</p>
 <p>We can build a variational quantum circuit by introducing open parameters in a pyAQASM <cite>Program</cite>:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="functional" for="sd-tab-item-0">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="functional" for="sd-tab-item-0">
 Functional mode</label><div class="sd-tab-content docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang</span><span class="w"> </span><span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
 
 <span class="nd">@qrout</span>
-<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">circuit</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
     <span class="n">RY</span><span class="p">(</span><span class="n">theta</span><span class="p">)(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)(</span><span class="mi">0</span><span class="p">)</span>
 
@@ -151,9 +152,9 @@ Functional mode</label><div class="sd-tab-content docutils">
 </div>
 </div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="sequential" for="sd-tab-item-1">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="sequential" for="sd-tab-item-1">
 Sequential mode</label><div class="sd-tab-content docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang</span><span class="w"> </span><span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
 
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -179,9 +180,9 @@ Sequential mode</label><div class="sd-tab-content docutils">
 <p>Additionally, the sampled observable itself can have parametrized coefficients:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="functional" for="sd-tab-item-2">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="functional" for="sd-tab-item-2">
 Functional mode</label><div class="sd-tab-content docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
 
 <span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
 
@@ -193,10 +194,10 @@ Functional mode</label><div class="sd-tab-content docutils">
 <span class="nb">print</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Observable variables:&quot;</span><span class="p">,</span> <span class="n">obs</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
 
-<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang</span><span class="w"> </span><span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
 
 <span class="nd">@qrout</span>
-<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">circuit</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">qbit_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
         <span class="n">RY</span><span class="p">(</span><span class="n">theta</span><span class="p">)(</span><span class="n">qbit_idx</span><span class="p">)</span>
         <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)(</span><span class="n">qbit_idx</span><span class="p">)</span>
@@ -217,9 +218,9 @@ Functional mode</label><div class="sd-tab-content docutils">
 </div>
 </div>
 <input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="sequential" for="sd-tab-item-3">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="sequential" for="sd-tab-item-3">
 Sequential mode</label><div class="sd-tab-content docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
 
 <span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
 
@@ -231,7 +232,7 @@ Sequential mode</label><div class="sd-tab-content docutils">
 <span class="nb">print</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Observable variables:&quot;</span><span class="p">,</span> <span class="n">obs</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
 
-<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang</span><span class="w"> </span><span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
 
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -262,15 +263,15 @@ Sequential mode</label><div class="sd-tab-content docutils">
 <p>This offers the possiblity to have layered parametrized optimization, or even compilation tradeoffs where some variational parameters end up in the sampled observable.</p>
 </section>
 <section id="binding-variables">
-<h2>Binding variables<a class="headerlink" href="#binding-variables" title="Permalink to this heading"></a></h2>
+<h2>Binding variables<a class="headerlink" href="#binding-variables" title="Link to this heading"></a></h2>
 <p>Once we’ve built a parametrized job, its variables can be instantiated using the overloaded <cite>__call__</cite> operator:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="functional" for="sd-tab-item-4">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="functional" for="sd-tab-item-4">
 Functional mode</label><div class="sd-tab-content docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
-<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang</span><span class="w"> </span><span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
 
 <span class="c1"># Step 1: defining observable</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
@@ -281,7 +282,7 @@ Functional mode</label><div class="sd-tab-content docutils">
 
 <span class="c1"># Step 2: defining circuit</span>
 <span class="nd">@qrout</span>
-<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">circuit</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">qbit_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
         <span class="n">RY</span><span class="p">(</span><span class="n">theta</span><span class="p">)(</span><span class="n">qbit_idx</span><span class="p">)</span>
         <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)(</span><span class="n">qbit_idx</span><span class="p">)</span>
@@ -302,24 +303,24 @@ Functional mode</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
 <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
 <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="mf">0.7417652664744875</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
-<span class="mf">0.7417652664744875</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
-<span class="mf">0.7417652664744875</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.840632159792299</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">3.362528639169196</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.840632159792299</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">3.362528639169196</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.840632159792299</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">3.362528639169196</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="mf">0.730772526384053</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.730772526384053</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.730772526384053</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.8216441895730773</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">3.286576758292309</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.8216441895730773</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">3.286576758292309</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.8216441895730773</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">3.286576758292309</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="sequential" for="sd-tab-item-5">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="sequential" for="sd-tab-item-5">
 Sequential mode</label><div class="sd-tab-content docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">qat.lang</span> <span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
-<span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang</span><span class="w"> </span><span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
 
 <span class="c1"># Step 1: defining observable</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
@@ -353,15 +354,15 @@ Sequential mode</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
 <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
 <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="mf">0.555755435605076</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
-<span class="mf">0.555755435605076</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
-<span class="mf">0.555755435605076</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.34802875156509516</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.3921150062603806</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.34802875156509516</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.3921150062603806</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.34802875156509516</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.3921150062603806</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="mf">0.17172379196270415</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.17172379196270415</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.17172379196270415</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5885081566948556</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.3540326267794223</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5885081566948556</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.3540326267794223</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5885081566948556</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.3540326267794223</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -380,7 +381,7 @@ Sequential mode</label><div class="sd-tab-content docutils">
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Eviden 2016-2024.</p>
+    <p>&#169; Copyright Eviden 2016-2025.</p>
   </div>
 
    

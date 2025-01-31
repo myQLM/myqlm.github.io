@@ -1,0 +1,400 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>High-level optimization &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=ccfc9eea" />
+      <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+      <script src="../../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Compressing single qubit gates" href="03_kak.html" />
+    <link rel="prev" title="Low-level optimization" href="01_low_level.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02_execute.html">Executing / Simulating quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../03_compile.html">Compiling and rewriting quantum circuits</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../01_compilers.html">Compiling quantum jobs using plugins</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../02_rewrite.html">Rewriting quantum circuits</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="01_low_level.html">Low-level optimization</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">High-level optimization</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#introduction">Introduction</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#behavior-of-the-optimizer">Behavior of the optimizer</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#flagging-patterns-to-remove">Flagging patterns to remove</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#advanced-optimization">Advanced optimization</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#example-of-an-optimization-circuit-execution-time">Example of an optimization: circuit execution time</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#implementation-of-the-example">Implementation of the example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="03_kak.html">Compressing single qubit gates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="04_patterns.html">Writing patterns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="05_collections.html">Pattern collections (to be used with PatternManager)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_compile.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../02_user_guide.html">User guide</a></li>
+          <li class="breadcrumb-item"><a href="../../03_compile.html">Compiling and rewriting quantum circuits</a></li>
+          <li class="breadcrumb-item"><a href="../02_rewrite.html">Rewriting quantum circuits</a></li>
+      <li class="breadcrumb-item active">High-level optimization</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="high-level-optimization">
+<span id="high-level"></span><h1>High-level optimization<a class="headerlink" href="#high-level-optimization" title="Link to this heading"></a></h1>
+<p>The <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo.html#module-qat.pbo" title="qat.pbo"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.pbo</span></code></a> module provides different tools to optimize a quantum
+circuit using rule-based rewriting. This page presents a high-level
+optimization tool, <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a>. On this page, only
+simple patterns are used. Nevertheless, this tool accepts complex
+patterns: to learn more about patterns, please refer to <a class="reference internal" href="04_patterns.html#patterns"><span class="std std-ref">Writing patterns</span></a>.</p>
+<p>The notebook <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcircuit_optimization%2Fpattern_manager.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Circuit optimization using PatternManager</a>
+may help to better understand our syntax to describe a <em>pattern</em>, and how to use
+a <em>pattern</em> with <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a> plugin.
+<a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcircuit_optimization%2Fpattern_manager.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">This notebook</a> tries to minimize the depth of a QAOA
+circuit using commutation rules defined by a set of <em>patterns</em>.</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>The class <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a> is a plugin used to replace
+patterns automatically. Rewriting rules are applied to maximize a
+<em>score function</em> defined by the user. Patterns are grouped, each group being
+composed of equivalent patterns (a pattern can be replaced by any pattern
+of the same group).</p>
+<p>For instance, the following two patterns are equals. A group composed of these
+two patterns could be defined.</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><figure class="align-default">
+<a class="reference internal image-reference" href="../../../images/group1.png"><img alt="../../../images/group1.png" src="../../../images/group1.png" style="width: 289.5px; height: 177.5px;" />
+</a>
+</figure>
+</td>
+<td><figure class="align-default">
+<a class="reference internal image-reference" href="../../../images/group2.png"><img alt="../../../images/group2.png" src="../../../images/group2.png" style="width: 289.5px; height: 177.5px;" />
+</a>
+</figure>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This code can be used to define a group composed of these two patterns.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">PatternManager</span>
+
+<span class="c1"># Define manager</span>
+<span class="n">manager</span> <span class="o">=</span> <span class="n">PatternManager</span><span class="p">()</span>
+
+<span class="c1"># Create group</span>
+<span class="n">group</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">new_group</span><span class="p">()</span>
+<span class="n">group</span><span class="o">.</span><span class="n">add_pattern</span><span class="p">([(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])])</span>
+<span class="n">group</span><span class="o">.</span><span class="n">add_pattern</span><span class="p">([(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
+</pre></div>
+</div>
+<p>The optimizer is allowed to replace a pattern by any pattern of the same group.
+The pattern <code class="code docutils literal notranslate"><span class="pre">[(&quot;CNOT&quot;,</span> <span class="pre">[0,</span> <span class="pre">1]),</span> <span class="pre">(&quot;CNOT&quot;,</span> <span class="pre">[0,</span> <span class="pre">2])]</span></code> can be replaced by
+the pattern <code class="code docutils literal notranslate"><span class="pre">[(&quot;CNOT&quot;,</span> <span class="pre">[0,</span> <span class="pre">2]),</span> <span class="pre">(&quot;CNOT&quot;,</span> <span class="pre">[0,</span> <span class="pre">1])]</span></code> and vice-versa.</p>
+<section id="behavior-of-the-optimizer">
+<h3>Behavior of the optimizer<a class="headerlink" href="#behavior-of-the-optimizer" title="Link to this heading"></a></h3>
+<p>This optimizer has two types of optimization. These optimization types are
+combined (these two optimizations are performed simultaneously) and are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>local optimization</strong>: this optimization is used to optimize a sub-circuit
+(each sub-circuit is replaced by an equivalent sub-circuit strictly
+better)</p></li>
+<li><p><strong>global optimization</strong>: this optimization is used to optimize the whole
+circuit</p></li>
+</ul>
+</div></blockquote>
+<p>Since <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a> is a high-level optimizer, metrics
+(or <em>score functions</em>) could be set to allow the optimizer to select
+rules to apply. There are two kind of metrics (one metric per optimization
+type):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>local_metric</strong> (<em>optional</em>): this function takes a circuit and returns
+a score. This function is used to select best patterns for each group. Each
+pattern is replaced by a pattern (of the same group) having a better local
+score.</p></li>
+<li><p><strong>global_metric</strong> (<em>optional</em>): this function takes a circuit and returns
+a score. This optimizer will apply rules to maximize this metric. This
+function is used to compare two circuits.</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please use the <code class="code docutils literal notranslate"><span class="pre">local_metric</span></code> <strong>if and only if</strong> each pattern can be
+trivially cast into a <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> (i.e. if the pattern
+is not composed of abstract name neither abstract register).</p>
+</div>
+<p>See the next section, <a class="reference internal" href="#advanced-optim"><span class="std std-ref">Advanced optimization</span></a> for more details concerning
+the meaning and use of these metrics.</p>
+</section>
+<section id="flagging-patterns-to-remove">
+<h3>Flagging patterns to remove<a class="headerlink" href="#flagging-patterns-to-remove" title="Link to this heading"></a></h3>
+<p>If a pattern is trivially worse than other patterns of its group, this pattern
+can be flagged with <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/patterngroup.html#qat.pbo.PatternGroup.pattern_to_remove" title="qat.pbo.PatternGroup.pattern_to_remove"><code class="xref py py-func docutils literal notranslate"><span class="pre">pattern_to_remove()</span></code></a>.
+The optimizer will always replace this pattern by a non-flagged pattern of the
+same group.</p>
+<p>For instance, defining a plugin which remove patterns composed of two
+<code class="code docutils literal notranslate"><span class="pre">&quot;H&quot;</span></code> gates can be done using few lines of code.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">PatternManager</span>
+
+<span class="c1"># Define manager</span>
+<span class="n">manager</span> <span class="o">=</span> <span class="n">PatternManager</span><span class="p">()</span>
+
+<span class="c1"># Define group</span>
+<span class="n">group</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">new_group</span><span class="p">()</span>
+<span class="n">group</span><span class="o">.</span><span class="n">add_pattern</span><span class="p">([])</span>
+<span class="n">group</span><span class="o">.</span><span class="n">pattern_to_remove</span><span class="p">([(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+
+<span class="c1"># The plugin &quot;manager&quot; removes H - H patterns.</span>
+</pre></div>
+</div>
+<p>The plugin <code class="code docutils literal notranslate"><span class="pre">&quot;manager&quot;</span></code> is composed of a single group composed of two
+patterns. One of these patterns (the <span class="math notranslate nohighlight">\(H - H\)</span> pattern) is clearly worse
+than the other one, so this plugin will replace each occurrence of the worse
+pattern by the best equivalent pattern (here <code class="code docutils literal notranslate"><span class="pre">[]</span></code>).</p>
+</section>
+</section>
+<section id="advanced-optimization">
+<span id="advanced-optim"></span><h2>Advanced optimization<a class="headerlink" href="#advanced-optimization" title="Link to this heading"></a></h2>
+<p>Metrics should be used to perform non-trivial optimization. A
+<em>global metric</em> is used to optimize the whole circuit by doing local changes.
+A <em>local metric</em> can be used to force some rewriting rules.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>A local metric allows the optimizer to select quickly the best patterns
+in a group. Since the use of a local metric imposes extra constraints
+on patterns (patterns should be trivially castable into circuit),
+the use of <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a> may become harder. If
+you know which pattern is the best one, please rather use
+the method <a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/patterngroup.html#qat.pbo.PatternGroup.add_pattern" title="qat.pbo.PatternGroup.add_pattern"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_pattern()</span></code></a> to
+add an optimal pattern in a group and the method
+<a class="reference internal" href="../../../04_api_reference/module_qat/module_pbo/patterngroup.html#qat.pbo.PatternGroup.pattern_to_remove" title="qat.pbo.PatternGroup.pattern_to_remove"><code class="xref py py-func docutils literal notranslate"><span class="pre">pattern_to_remove()</span></code></a> to
+add a non-optimal pattern in a group.</p>
+</div>
+<p>Since the corresponding optimization problem is hard to solve, one has to
+resort to heuristics. Two heuristics have been implemented in this module.
+They are valid for any circuit:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“annealing”: a simulated annealing is used to optimize the circuit</p></li>
+<li><p>“gradient”: a gradient descent is used to optimize the circuit</p></li>
+</ul>
+</div></blockquote>
+<section id="example-of-an-optimization-circuit-execution-time">
+<h3>Example of an optimization: circuit execution time<a class="headerlink" href="#example-of-an-optimization-circuit-execution-time" title="Link to this heading"></a></h3>
+<p>In this section, an example of optimization is given. As a global metric, we
+take the overall <strong>execution time</strong> of the circuit.</p>
+<p>The following circuit will be optimized. We assume that the duration of
+computation of any quantum gate is 1 unit of time. The duration of our
+circuit is then 3 units of time.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../../../images/non-optimal.png"><img alt="../../../images/non-optimal.png" src="../../../images/non-optimal.png" style="width: 394.0px; height: 196.5px;" />
+</a>
+</figure>
+<p>The class <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a> may be used to optimize this
+program by doing permutation between gates. Since two CNOT gates can commute
+if these gates share the same control qubit, the following group may be
+defined (group of two equivalent patterns):</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><figure class="align-default">
+<a class="reference internal image-reference" href="../../../images/group1.png"><img alt="../../../images/group1.png" src="../../../images/group1.png" style="width: 289.5px; height: 177.5px;" />
+</a>
+</figure>
+</td>
+<td><figure class="align-default">
+<a class="reference internal image-reference" href="../../../images/group2.png"><img alt="../../../images/group2.png" src="../../../images/group2.png" style="width: 289.5px; height: 177.5px;" />
+</a>
+</figure>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Using this rule, our optimizer can perform local changes to get the following
+optimal circuit (the duration has been reduced to 2 units of time):</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../../../images/optimal.png"><img alt="../../../images/optimal.png" src="../../../images/optimal.png" style="width: 318.0px; height: 196.5px;" />
+</a>
+</figure>
+</section>
+<section id="implementation-of-the-example">
+<h3>Implementation of the example<a class="headerlink" href="#implementation-of-the-example" title="Link to this heading"></a></h3>
+<p>Here, it just happens that the <em>overall duration</em> metric is already implemented
+in <a class="reference internal" href="../../../04_api_reference/module_qat/module_nnize.html#module-qat.nnize" title="qat.nnize"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.nnize</span></code></a> (this because qat-nnize tries to minimize the same metric
+when inserting SWAP gates), so we will import it from there.</p>
+<p>Since the goal of this optimization is to minimize the duration of the circuit,
+the metric will compute the opposite of the duration (so the
+goal of this optimization is to maximize this metric).</p>
+<p>The optimization can then be done using only few lines of code:</p>
+<p><strong>First</strong>, we define our non-optimal circuit using the <a class="reference internal" href="../../../04_api_reference/module_qat/module_lang.html#module-qat.lang" title="qat.lang"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.lang</span></code></a> module.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang.AQASM</span><span class="w"> </span><span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">CNOT</span><span class="p">,</span> <span class="n">H</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">PatternManager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.nnize.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">DurationMetric</span>
+
+<span class="c1">#</span>
+<span class="c1"># Defining program</span>
+<span class="c1">#</span>
+<span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+<span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">CNOT</span><span class="p">,</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">CNOT</span><span class="p">,</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">circ</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Then</strong>, we define a metric. The optimizer will have to maximize this
+metric. We can check that our initial circuit has a duration of 3 units
+of time.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<span class="c1"># Define metric to minimize overall time</span>
+<span class="c1">#</span>
+
+<span class="c1"># Define metric</span>
+<span class="n">metric</span> <span class="o">=</span> <span class="n">DurationMetric</span><span class="p">()</span>
+
+<span class="c1"># Set duration of each gate equal to 1 unit of time</span>
+<span class="n">metric</span><span class="o">.</span><span class="n">set_gate_time</span><span class="p">({</span><span class="s2">&quot;-DEFAULT-&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+
+<span class="c1"># Adapt metric to minimize duration of the circuit</span>
+<span class="n">metric</span><span class="o">.</span><span class="n">minimize_overall_time</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Finally</strong>, we define an optimizer to minimize the overall duration of
+our circuit. Our optimizer is composed of a metric and of a group of two
+equivalent patterns. The optimizer will use this rule to maximize our metric
+(i.e. minimize the duration of the circuit).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<span class="c1"># Define optimizer</span>
+<span class="c1">#</span>
+<span class="n">manager</span> <span class="o">=</span> <span class="n">PatternManager</span><span class="p">(</span><span class="n">global_metric</span><span class="o">=</span><span class="n">metric</span><span class="p">)</span>
+
+<span class="c1"># Define group</span>
+<span class="n">group</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">new_group</span><span class="p">()</span>
+<span class="n">group</span><span class="o">.</span><span class="n">add_pattern</span><span class="p">([(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])])</span>
+<span class="n">group</span><span class="o">.</span><span class="n">add_pattern</span><span class="p">([(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
+
+<span class="c1"># Optimize</span>
+<span class="n">opt_circ</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">(</span><span class="n">circ</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Final duration: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="o">-</span><span class="n">metric</span><span class="p">(</span><span class="n">opt_circ</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The circuit has been optimized.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="01_low_level.html" class="btn btn-neutral float-left" title="Low-level optimization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="03_kak.html" class="btn btn-neutral float-right" title="Compressing single qubit gates" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2025.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

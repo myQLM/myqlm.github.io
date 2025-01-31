@@ -1,29 +1,28 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quantum application (including Ansätze and state preparation) &mdash; myQLM documentation  documentation</title>
-      <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../static/css/custom.css" type="text/css" />
-      <link rel="stylesheet" href="../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-    <link rel="shortcut icon" href="../static/favicon.png"/>
-  <!--[if lt IE 9]>
-    <script src="../static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=ccfc9eea" />
+      <link rel="stylesheet" type="text/css" href="../static/sphinx-design.min.css?v=95c83b7e" />
+
   
-        <script data-url_root="../" id="documentation_options" src="../static/documentation_options.js"></script>
-        <script src="../static/jquery.js"></script>
-        <script src="../static/underscore.js"></script>
-        <script src="../static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../static/doctools.js"></script>
-        <script src="../static/sphinx_highlight.js"></script>
-        <script src="../static/design-tabs.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../static/favicon.png"/>
+      <script src="../static/jquery.js?v=5d32c60e"></script>
+      <script src="../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../static/doctools.js?v=9bcbadda"></script>
+      <script src="../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -36,15 +35,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> myQLM documentation
-            <img src="../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                1.10.6
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -57,6 +57,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../02_user_guide.html">User guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../02_user_guide/01_write.html">Writing quantum programs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02_user_guide/02_execute.html">Executing / Simulating quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02_user_guide/03_compile.html">Compiling and rewriting quantum circuits</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="../fermion.html">Spin and fermionic systems</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="01_hamiltonians.html">Creating and manipulating Hamiltonians</a></li>
@@ -112,10 +113,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../02_user_guide.html">User guide</a> &raquo;</li>
-          <li><a href="../fermion.html">Spin and fermionic systems</a> &raquo;</li>
-      <li>Quantum application (including Ansätze and state preparation)</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../02_user_guide.html">User guide</a></li>
+          <li class="breadcrumb-item"><a href="../fermion.html">Spin and fermionic systems</a></li>
+      <li class="breadcrumb-item active">Quantum application (including Ansätze and state preparation)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -125,9 +126,9 @@
            <div itemprop="articleBody">
              
   <section id="quantum-application-including-ansatze-and-state-preparation">
-<h1>Quantum application (including Ansätze and state preparation)<a class="headerlink" href="#quantum-application-including-ansatze-and-state-preparation" title="Permalink to this heading"></a></h1>
+<h1>Quantum application (including Ansätze and state preparation)<a class="headerlink" href="#quantum-application-including-ansatze-and-state-preparation" title="Link to this heading"></a></h1>
 <p>This page explains how to create quantum application using the <a class="reference internal" href="../04_api_reference/module_qat/module_fermion.html#module-qat.fermion" title="qat.fermion"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.fermion</span></code></a> module.</p>
-<div class="contents local topic" id="table-of-contents">
+<nav class="contents local" id="table-of-contents">
 <p class="topic-title">Table of Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#variational-quantum-eigensolver-vqe" id="id1">Variational Quantum Eigensolver (VQE)</a></p></li>
@@ -142,9 +143,9 @@
 <li><p><a class="reference internal" href="#trotterization-tools" id="id7">Trotterization tools</a></p></li>
 <li><p><a class="reference internal" href="#quantum-subspace-expansion" id="id8">Quantum subspace expansion</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="variational-quantum-eigensolver-vqe">
-<span id="qat-fermion-vqe"></span><h2>Variational Quantum Eigensolver (VQE)<a class="headerlink" href="#variational-quantum-eigensolver-vqe" title="Permalink to this heading"></a></h2>
+<span id="qat-fermion-vqe"></span><h2>Variational Quantum Eigensolver (VQE)<a class="headerlink" href="#variational-quantum-eigensolver-vqe" title="Link to this heading"></a></h2>
 <p>The VQE is one of the flagship algorithms using near-term quantum computers. We present in this section how to do a simple VQE using
 <a class="reference internal" href="../04_api_reference/module_qat/module_fermion.html#module-qat.fermion" title="qat.fermion"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.fermion</span></code></a>.</p>
 <p>We will define manually a Hubbard Hamiltonian, using one- and two-body integrals, and use them to initialize an
@@ -157,11 +158,11 @@ function <a class="reference internal" href="../04_api_reference/module_qat/modu
 this kind of Hamiltonian</p>
 </div>
 <p>Let us define the Hubbard model:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">qat.fermion</span> <span class="kn">import</span> <span class="n">ElectronicStructureHamiltonian</span>
-<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">H</span><span class="p">,</span> <span class="n">RX</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">CNOT</span><span class="p">,</span> <span class="n">Program</span>
-<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
-<span class="kn">from</span> <span class="nn">qat.plugins</span> <span class="kn">import</span> <span class="n">ScipyMinimizePlugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.fermion</span><span class="w"> </span><span class="kn">import</span> <span class="n">ElectronicStructureHamiltonian</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang.AQASM</span><span class="w"> </span><span class="kn">import</span> <span class="n">H</span><span class="p">,</span> <span class="n">RX</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">CNOT</span><span class="p">,</span> <span class="n">Program</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.qpus</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_default_qpu</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScipyMinimizePlugin</span>
 
 <span class="n">nqbits</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">u</span> <span class="o">=</span> <span class="mf">2.0</span>
@@ -224,7 +225,7 @@ this kind of Hamiltonian</p>
 </div>
 </section>
 <section id="quantum-chemistry-tools-for-vqe">
-<span id="qat-fermion-tools-for-vqe"></span><h2>Quantum Chemistry tools for VQE<a class="headerlink" href="#quantum-chemistry-tools-for-vqe" title="Permalink to this heading"></a></h2>
+<span id="qat-fermion-tools-for-vqe"></span><h2>Quantum Chemistry tools for VQE<a class="headerlink" href="#quantum-chemistry-tools-for-vqe" title="Link to this heading"></a></h2>
 <p>Various methods are available to quantum chemists for the study of atomic and molecular systems:</p>
 <blockquote>
 <div><ul class="simple">
@@ -250,7 +251,7 @@ Jupyter notebooks.</p>
 you prefer. For simplicity’s sake, we provide a basic function based on <a class="reference external" href="https://pyscf.org/">the package PySCF</a> <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/perform_pyscf_computation.html#qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation" title="qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation"><code class="xref py py-func docutils literal notranslate"><span class="pre">perform_pyscf_computation()</span></code></a>
 which collects the information we need.</p>
 <p>We start by inputting the geometry, the basis, the spin and the charge of the molecule.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.fermion.chemistry.pyscf_tools</span> <span class="kn">import</span> <span class="n">perform_pyscf_computation</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.fermion.chemistry.pyscf_tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">perform_pyscf_computation</span>
 
 <span class="n">geometry</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;Li&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">))]</span>
 <span class="n">basis</span> <span class="o">=</span> <span class="s2">&quot;6-31g&quot;</span>
@@ -269,9 +270,9 @@ which collects the information we need.</p>
 </pre></div>
 </div>
 <section id="molecularhamiltonian">
-<h3>MolecularHamiltonian<a class="headerlink" href="#molecularhamiltonian" title="Permalink to this heading"></a></h3>
+<h3>MolecularHamiltonian<a class="headerlink" href="#molecularhamiltonian" title="Link to this heading"></a></h3>
 <p>From there, we can use the <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/molecularhamiltonian.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">MolecularHamiltonian</span></code></a> class.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.fermion.chemistry</span> <span class="kn">import</span> <span class="n">MolecularHamiltonian</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.fermion.chemistry</span><span class="w"> </span><span class="kn">import</span> <span class="n">MolecularHamiltonian</span>
 
 <span class="c1"># Define the molecular hamiltonian</span>
 <span class="n">mol_h</span> <span class="o">=</span> <span class="n">MolecularHamiltonian</span><span class="p">(</span><span class="n">one_body_integrals</span><span class="p">,</span> <span class="n">two_body_integrals</span><span class="p">,</span> <span class="n">nuclear_repulsion</span><span class="p">)</span>
@@ -302,7 +303,7 @@ It is defined using interaction integrals. You can convert it to an
 <p>To illustrate this, we will compute the natural orbitals occupation numbers (NOONs) as well as their basis transformation matrix.
 We will then use the <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/molecularhamiltonian.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian.transform_basis" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian.transform_basis"><code class="xref py py-meth docutils literal notranslate"><span class="pre">transform_basis()</span></code></a> method to change the basis of our
 <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/molecularhamiltonian.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">MolecularHamiltonian</span></code></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="c1"># Compute NOONs and the basis</span>
 <span class="n">noons</span><span class="p">,</span> <span class="n">basis_change</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">rdm1</span><span class="p">)</span>
@@ -345,7 +346,7 @@ We will then use the <a class="reference internal" href="../04_api_reference/mod
 </div>
 </section>
 <section id="moleculeinfo">
-<h3>MoleculeInfo<a class="headerlink" href="#moleculeinfo" title="Permalink to this heading"></a></h3>
+<h3>MoleculeInfo<a class="headerlink" href="#moleculeinfo" title="Link to this heading"></a></h3>
 <p>While the <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/molecularhamiltonian.html#qat.fermion.chemistry.wrapper.MolecularHamiltonian" title="qat.fermion.chemistry.wrapper.MolecularHamiltonian"><code class="xref py py-class docutils literal notranslate"><span class="pre">MolecularHamiltonian</span></code></a> brings simplicity, we can add another layer of simplicity by
 using the <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/moleculeinfo.html#qat.fermion.chemistry.wrapper.MoleculeInfo" title="qat.fermion.chemistry.wrapper.MoleculeInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">MoleculeInfo</span></code></a> class. When restricting the active space,
 <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/moleculeinfo.html#qat.fermion.chemistry.wrapper.MoleculeInfo" title="qat.fermion.chemistry.wrapper.MoleculeInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">MoleculeInfo</span></code></a> takes care of updating its attributes such as the active and occupied orbitals
@@ -354,7 +355,7 @@ indices, as well as the direct update of the NOONs and orbital energies.</p>
 </section>
 </section>
 <section id="fermionic-ansatz-circuits">
-<span id="qat-fermion-ansatz"></span><h2>Fermionic ansatz circuits<a class="headerlink" href="#fermionic-ansatz-circuits" title="Permalink to this heading"></a></h2>
+<span id="qat-fermion-ansatz"></span><h2>Fermionic ansatz circuits<a class="headerlink" href="#fermionic-ansatz-circuits" title="Link to this heading"></a></h2>
 <p>We also provide some circuits useful in a context of VQE on fermionic systems:</p>
 <ul class="simple">
 <li><p><strong>Low-Depth Circuit Ansatz (LDCA):</strong> a general ansatz for correlated fermionic systems - using <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/make_ldca_circ.html#qat.fermion.circuits.make_ldca_circ" title="qat.fermion.circuits.make_ldca_circ"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_ldca_circ()</span></code></a></p></li>
@@ -366,12 +367,12 @@ indices, as well as the direct update of the NOONs and orbital energies.</p>
 </ul>
 </section>
 <section id="quantum-phase-estimation">
-<span id="qat-fermion-phase-estimation"></span><h2>Quantum phase estimation<a class="headerlink" href="#quantum-phase-estimation" title="Permalink to this heading"></a></h2>
+<span id="qat-fermion-phase-estimation"></span><h2>Quantum phase estimation<a class="headerlink" href="#quantum-phase-estimation" title="Link to this heading"></a></h2>
 <p>The quantum phase space estimation algorithm allows for the estimation of the eigenvalue associated
 with a given eigenvector. Let us see how to use this algorithm with a simple example.</p>
 <p>We will first define a Hubbard model, and find its exact eigenenergies via direct diagonalization.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">qat.fermion.hamiltonians</span> <span class="kn">import</span> <span class="n">make_hubbard_model</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.fermion.hamiltonians</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_hubbard_model</span>
 
 <span class="c1"># Define the Hubbard model</span>
 <span class="n">U</span> <span class="o">=</span> <span class="mf">1.0</span>
@@ -387,8 +388,8 @@ with a given eigenvector. Let us see how to use this algorithm with a simple exa
 
 <span class="c1"># Now we know the exact eigenenergies, let us find them once again using the quantum phase estimation algorithm.</span>
 
-<span class="kn">from</span> <span class="nn">qat.qpus</span> <span class="kn">import</span> <span class="n">get_default_qpu</span>
-<span class="kn">from</span> <span class="nn">qat.fermion.phase_estimation</span> <span class="kn">import</span> <span class="n">perform_phase_estimation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.qpus</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_default_qpu</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.fermion.phase_estimation</span><span class="w"> </span><span class="kn">import</span> <span class="n">perform_phase_estimation</span>
 
 <span class="n">qpu</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span>
 
@@ -417,14 +418,14 @@ with a given eigenvector. Let us see how to use this algorithm with a simple exa
 <p>More information is available in the <a class="reference internal" href="../04_api_reference/module_qat/module_fermion.html#qat-fermion-source-qpe"><span class="std std-ref">source code documentation</span></a> and in the notebook <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fdigital_quantum_simulations_spin_fermion%2Fqat_fermion_qpe_hubbard_molecule.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">on quantum phase estimation on the Hubbard molecule</a>.</p>
 </section>
 <section id="trotterization-tools">
-<span id="qat-fermion-trotter"></span><h2>Trotterization tools<a class="headerlink" href="#trotterization-tools" title="Permalink to this heading"></a></h2>
+<span id="qat-fermion-trotter"></span><h2>Trotterization tools<a class="headerlink" href="#trotterization-tools" title="Link to this heading"></a></h2>
 <p>You can trotterize any Hamiltonian using our trotterization tools.</p>
 <p>Here is an example.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">qat.lang.AQASM</span> <span class="kn">import</span> <span class="n">Program</span>
-<span class="kn">from</span> <span class="nn">qat.fermion.trotterisation</span> <span class="kn">import</span> <span class="n">make_trotterisation_routine</span>
-<span class="kn">from</span> <span class="nn">qat.fermion.hamiltonians</span> <span class="kn">import</span> <span class="n">make_hubbard_model</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang.AQASM</span><span class="w"> </span><span class="kn">import</span> <span class="n">Program</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.fermion.trotterisation</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_trotterisation_routine</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.fermion.hamiltonians</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_hubbard_model</span>
 
 <span class="c1"># Define the Hubbard model</span>
 <span class="n">U</span> <span class="o">=</span> <span class="mf">1.0</span>
@@ -447,13 +448,14 @@ with a given eigenvector. Let us see how to use this algorithm with a simple exa
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">circ</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../images/qat-fermion_trotter.png"><img alt="../images/qat-fermion_trotter.png" src="../images/qat-fermion_trotter.png" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="../images/qat-fermion_trotter.png"><img alt="../images/qat-fermion_trotter.png" src="../images/qat-fermion_trotter.png" style="width: 800px;" />
+</a>
 <p>For more information, see the <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/make_trotterisation_routine.html#qat.fermion.trotterisation.make_trotterisation_routine" title="qat.fermion.trotterisation.make_trotterisation_routine"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_trotterisation_routine()</span></code></a> function documentation.
 The trotterization is used for the UCC ansatz construction in our UCC VQE notebooks,
 see <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fdigital_quantum_simulations_spin_fermion%2Fqat_fermion_vqe_ucc_example_1_h2.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">here</a> for the <span class="math notranslate nohighlight">\(H_2\)</span> molecule, and <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fdigital_quantum_simulations_spin_fermion%2Fqat_fermion_vqe_ucc_example_2_lih.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">here</a> for the <span class="math notranslate nohighlight">\(LiH\)</span> molecule.</p>
 </section>
 <section id="quantum-subspace-expansion">
-<span id="qat-fermion-qse"></span><h2>Quantum subspace expansion<a class="headerlink" href="#quantum-subspace-expansion" title="Permalink to this heading"></a></h2>
+<span id="qat-fermion-qse"></span><h2>Quantum subspace expansion<a class="headerlink" href="#quantum-subspace-expansion" title="Link to this heading"></a></h2>
 <p>The quantum subspace expansion is a method that can allow to reach a better precision at the cost of doing additional measurements.
 You will find more details directly in the <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/apply_quantum_subspace_expansion.html#qat.fermion.chemistry.qse.apply_quantum_subspace_expansion" title="qat.fermion.chemistry.qse.apply_quantum_subspace_expansion"><code class="xref py py-func docutils literal notranslate"><span class="pre">apply_quantum_subspace_expansion()</span></code></a> documentation.
 See how to use it in <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fdigital_quantum_simulations_spin_fermion%2Fqat_fermion_quantum_subspace_expansion_h2.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">the quantum subspace expansion notebook</a>.</p>
@@ -471,7 +473,7 @@ See how to use it in <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/H
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Eviden 2016-2024.</p>
+    <p>&#169; Copyright Eviden 2016-2025.</p>
   </div>
 
    

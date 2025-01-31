@@ -1,0 +1,129 @@
+.. _kak_compression:
+
+Compressing single qubit gates
+==============================
+
+The :class:`~qat.plugins.KAKCompression` plugin can be used to automatically compress sequences of consecutive single qubit gates
+into a fixed universal pattern of your choice. In practice, it can be used after various compilation stages in order to optimally reduce
+the number of single qubit gates in a circuit.
+
+Predefined patterns
+*******************
+The plugin comes with predefined universal patterns:
+- :math:`RZ-RX-RZ` (called `ZXZ`)
+- :math:`RX-RZ-RX` (called `XZX`)
+- :math:`RZ-RY-RZ` (called `ZYZ`)
+- :math:`RZ - RX(\pi/2) - RZ - RX(\pi/2) - RZ` (called `ions` or `rx+`)
+- :math:`U3`` (called `u3` or `ibm`)
+
+One can directly construct a :class:`~qat.plugins.KAKCompression` from one of these patterns using a known pattern (i.e. a pattern
+listed by :func:`~qat.pbo.kak.list_decompositions`):
+
+.. run-block:: python
+
+    # declaring a circuit
+    from qat.pbo.kak import list_decompositions
+    from qat.plugins import KAKCompression
+    from qat.lang import H, RX, RZ, CNOT, qrout
+
+    @qrout
+    def circuit():
+        "Create a quantum circuit"
+        H(0)
+        RX(0.232)(0)
+        CNOT(0, 1)
+        RZ(1.89)(1)
+        H(1)
+
+    print("== Initial circuit ==")
+    for op in circuit.iterate_simple():
+        print(op)
+
+    job = circuit.to_job()
+
+    for decomposition in list_decompositions():
+        with KAKCompression(decomposition=decomposition):
+            compiled_job = job.compile()
+
+        print(f"\n== Circuit compiled with {decomposition!r} ==")
+        for op in compiled_job.circuit.iterate_simple():
+            print(op)
+
+Declaring custom patterns
+*************************
+It is also possible to declare custom decompositions.
+In order to do so we need to specify:
+
+- the universal pattern to used
+
+- a way to compute the angles to feed to this pattern given the coefficient of a :math:`SU(2)` matrix
+
+Let us give an example where we would like to use the following patter:
+
+.. math::
+
+    X - RZ(\alpha) - RX(\beta) - RZ(\gamma) - X
+
+It is easy to see that our pattern is pretty close from a ZXZ decomposition except that we need to flip the sign of the two Z rotations.
+We need to know how to compute values for :math:`\alpha, \beta, \gamma` given the entries of the matrix to decompose.
+Luckily, we can import method :func:`qat.pbo.decompositions.decompositions.get_euler_angles` that, given values for the 4 coefficient of a unitary matrix
+returns the value of angles for a :math:`ZXZ` decomposition.
+
+
+.. run-block-mem:: python kak_1
+
+    from qat.pbo.decompositions.decompositions import get_euler_angles
+
+    def my_angles(a, b, c, d): # here a,b,c,d are the coefficient of the matrix to decompose
+        d, e, f = get_euler_angles(a, b, c, d)
+        return -d, e, -f
+
+We can now declare our plugin. We need to declare 4 variables that will correspond to the 4 entries of the matrix, and build a pattern that uses these variables (thanks to our function):
+
+.. run-block-mem:: python kak_1
+
+    from qat.pbo import VAR
+
+    matrix = [VAR() for _ in range(4)]
+    alpha, beta, gamma = my_angles(*matrix)
+    pattern = [('X', [0]), ('RZ', [0], alpha), ('RX', [0], beta), ('RZ', [0], gamma), ('X', [0])]
+
+
+We can now safely declare our plugin:
+
+.. run-block-mem:: python kak_1
+
+    from qat.plugins import KAKCompression
+
+    plugin = KAKCompression(variables=matrix, pattern=pattern)
+
+
+And run it on the previous example:
+
+.. run-block-mem:: python kak_1
+
+    # declaring a circuit
+    from qat.plugins import KAKCompression
+    from qat.lang import H, RX, RZ, CNOT, qrout
+
+    @qrout
+    def circuit():
+        "Create a quantum circuit"
+        H(0)
+        RX(0.232)(0)
+        CNOT(0, 1)
+        RZ(1.89)(1)
+        H(1)
+
+    print("== Initial circuit ==")
+    for op in circuit.iterate_simple():
+        print(op)
+
+    job = circuit.to_job()
+
+    with plugin:
+        compiled_job = job.compile()
+
+    print("\n== Compiled circuit ==")
+    for op in compiled_job.circuit.iterate_simple():
+        print(op)

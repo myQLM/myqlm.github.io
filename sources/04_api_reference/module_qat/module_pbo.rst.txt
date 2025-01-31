@@ -1,0 +1,52 @@
+.. module:: qat.pbo
+
+qat.pbo
+=======
+
+The :mod:`qat.pbo` module, for *Pattern Based Optimization*, provides an interface to
+efficiently manipulate quantum circuit via rule-based rewriting.
+
+A dedicated section, in user guide, explains the :ref:`rewriting quantum circuits mechanism <rewriting>`.
+
+
+Automated rewriting
+-------------------
+
+This module provides automated rules to rewrite circuits
+
+.. autosubmodules::
+
+These decompositions can be used with :class:`~qat.plugins.KAKCompression`, collections are designed to
+be used with :class:`~qat.plugins.PatternManager`
+
+List of decompositions is returned by :func:`~qat.pbo.kak.list_decompositions`
+
+.. autoapi::
+
+    [:func:`qat.pbo.kak.list_decompositions`] List available decompositions
+
+
+Defining patterns
+-----------------
+
+Some structure are designed to simplify the definition of a pattern
+
+.. autoapi::
+
+    [:class:`qat.pbo.GateName`] Gate name placeholder, to define a pattern
+    [:class:`qat.pbo.AbstractRegister`] Register placeholder, to define a pattern
+    [:class:`qat.pbo.VAR`] Variable placeholder, to define a pattern
+
+
+Manipulating patterns
+---------------------
+:class:`~qat.pbo.GraphCircuit` provides an API to replace manually a pattern present in a circuit by
+an equivalent pattern
+
+:class:`~qat.pbo.PatternGroup` defines a group of equivalent pattern. This group can be used as input
+of :class:`~qat.plugins.PatternManager` to replace automatically patterns in a circuit
+
+.. autoapi::
+
+    [:class:`qat.pbo.GraphCircuit`] A low-level circuit rewriter
+    [:class:`qat.pbo.PatternGroup`] Group of equivalent patterns

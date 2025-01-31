@@ -1,0 +1,201 @@
+.. _nisq_compiler:
+
+Compiling quantum jobs using plugins
+====================================
+|product| comes with a lot of tools to perform quantum circuit compilation, transpilation, and optimization.
+However, these tools, due to their generality and expressivity, require a lot of configuring and fine tuning.
+
+All-in-one compiler
+-------------------
+The :class:`~qat.plugins.NISQCompiler` plugin provides a unified interface that calls several |product| plugins 
+(such as :class:`~qat.plugins.LazySynthesis`, :class:`~qat.plugins.Nnizer`, :class:`~qat.plugins.PatternManager`, :class:`~qat.plugins.KAKCompression`, etc).
+
+It basically proceeds in three stages:
+ 1. The input quantum circuit is transpiled into CNOT and local gates (see below the list of transpilation patterns)
+ 2. The circuit is then compiled and adapted to the target device's connectivity. This stage is done via either :class:`~qat.plugins.LazySynthesis` or :class:`~qat.plugins.Nnizer`.
+ 3. The compiled circuit is compressed using a :class:`~qat.plugins.KAKCompression` and transpiled to the target gate set.
+
+
+Step 2. is trivial in the sense that is simply corresponds to a call to a :class:`~qat.plugins.LazySynthesis` or a :class:`~qat.plugins.Nnizer`
+plugin. In the following sections, we detail steps 1. and 2.
+
+
+Initial transpilation
+.....................
+
+The goal of this stage is to break down large gates in the input circuit in order to express the circuit using only CNOT and local gates.
+The plugins handles the decomposition of the following gates (all in the default gate set of the :mod:`qat.lang`): CCNOT, iSWAP, SQRTSWAP.
+Additionally, it can handle controlled phase gates. All other gates in the standard |product| gate set are natively supported by the reste of the compiler.
+
+.. run-block-mem:: python patterns_first_transpilation
+
+    from qat.synthopline.compiler import EXPANSION_COLLECTION
+    from qat.pbo import PatternManager
+    from qat.core import Batch
+    plugin = PatternManager(collections=[EXPANSION_COLLECTION])
+
+    from qat.lang.AQASM import *
+
+    def display_pattern(gate):
+        print("=" * 30)
+        prog = Program()
+        qbits = prog.qalloc(gate.arity)
+        gate(qbits)
+        job = prog.to_circ().to_job()
+        print("Before:")
+        job.circuit.display(batchmode=True)
+        print("After:")
+        new_circuit = plugin.compile(Batch(jobs=[job]), None).jobs[0].circuit
+        new_circuit.display(batchmode=True)
+
+    for gate in [CCNOT, ISWAP, SQRTSWAP, PH(0.5).ctrl()]:
+        display_pattern(gate)
+
+Final transpilation and possible target gate sets
+.................................................
+
+This last step starts by replacing entangling gates into equivalent patterns that use a single type of Clifford entangling gate among: 
+CNOT, CZ/CSIGN, ZZ(:math:`\pi/2`), XX(:math:`\pi/2`)
+The rewriting is done using the following rewriting strategy:
+
+.. image:: images/rewriting_entangling.png
+    :width: 450px
+    :align: center
+
+|
+
+For instance, if the target gate set contains the entangling gate ZZ(:math:`\pi/2`), this last step will first rewrite all CNOT gates into CZ gates, and
+then all CZ gates into ZZ(:math:`\pi/2`). 
+Since step 1. and step 2. can only produce CNOT gates, this strategy guarantees that any gate in CNOT, CZ/CSIGN, ZZ(:math:`\pi/2`), XX(:math:`\pi/2`)
+can be reached.
+
+This rewriting will insert a large number of single qubit gates in the output circuit. To counteract this, the compiler uses :class:`~qat.plugins.KAKCompression`
+in order to compress large sequences of single qubit gates. This also allows to target a particular set of single qubit gates.
+
+
+The possible entangling gates are CNOT, CSIGN/CZ, ZZ (for ZZ(:math:`\pi/2`)), XX (for XX(:math:`\pi/2`))
+
+The possible single qubit gates are RZ, RX, RX+ (for X(:math:`\pi/2`)), U3
+
+There is also the possibility to specify the gate set via a preset.
+
+.. run-block:: python
+
+    from qat.plugins import NISQCompiler
+    print(NISQCompiler.GATE_SETS)
+
+Examples
+........
+
+.. dropdown:: Trapped ion architecture
+
+    Let us assume that we have access to a trapped ion QPU that comes with the following hardware constraints:
+
+     - the hardware supports up to 5 qubits
+     - the qubits are connected via a all-to-all connectivity
+     - the hardware supports gates: XX(:math:`\pi/2`), RZ(:math:`\theta`), RX(:math:`\pi/2`)
+
+    One will declare the plugin as follows:
+
+    .. run-block-mem:: python example_compiler_ions
+
+        from qat.plugins import NISQCompiler
+        from qat.devices import AllToAll
+
+        compiler = NISQCompiler(
+            compiler_options={'optimize_initial': True, 'bidirectional': True, 'depth': 3}, 
+            target_gate_set=['XX', 'RX+', 'RZ']
+        )
+        device = AllToAll(5)
+
+    We can now try to compile a job with this compiler plugin:
+
+    .. run-block-mem:: python example_compiler_ions
+
+        from qat.lang import qrout, H, T, CNOT
+
+        @qrout
+        def circuit():
+            " Create a circuit "
+            nbqbits = 5
+
+            for qb in range(nbqbits):
+                H(qb)
+
+            for qb in range(nbqbits - 1):
+                CNOT(qb, qb + 1)
+                T(qb + 1)
+
+        # Create job and compile it
+        initial_job = circuit.to_job()
+
+        with compiler:
+            compiled_job = initial_job.compile(specs=device)
+
+        # Print output
+        print("Input circuit:")
+        initial_job.circuit.display(batchmode=True)
+
+        print("Output circuit:")
+        compiled_job.circuit.display(batchmode=True)
+
+    As we can see, the output circuit contains only gates in the target gate set. Notice also that the compiler was able to lower
+    the total number of entangling gates. This reduction happened during the second step of the compilation process.
+
+.. dropdown:: Superconducting architecture
+
+    Let us now assume that we have access to a superconducting architecture with a 3x2 grid-like qubit connectivity and a gate set comprising
+    CNOT and U3 gates.
+
+    We would declare the compiler as follows:
+
+    .. run-block-mem:: python example_compiler_supra
+
+        from qat.plugins import NISQCompiler
+        from qat.devices import GridDevice
+
+        compiler = NISQCompiler(
+            compiler_options={'optimize_initial': True, 'bidirectional': True, 'depth': 3}, 
+            target_gate_set=['CNOT', 'U3']
+        )
+        device = GridDevice(3, 2)
+
+    We can now try to compile a job with this compiler plugin:
+
+    .. run-block-mem:: python example_compiler_supra
+
+        from qat.lang import qrout, H, T, CNOT
+
+        @qrout
+        def circuit():
+            " Create a circuit "
+            nbqbits = 5
+
+            for qb in range(nbqbits):
+                H(qb)
+
+            for qb in range(nbqbits - 1):
+                CNOT(qb, qb + 1)
+                T(qb + 1)
+
+        # Create job and compile it
+        initial_job = circuit.to_job()
+
+        with compiler:
+            compiled_job = initial_job.compile(specs=device)
+
+        # Print output
+        print("Input circuit:")
+        initial_job.circuit.display(batchmode=True)
+
+        print("Output circuit:")
+        compiled_job.circuit.display(batchmode=True)
+
+    Notice that the output circuit is quite similar to the one in the previous example, except that the number of one qubit gates 
+    is lower (due to the fact that the gates can handle 3 parameters).
+
+Other compilers
+---------------
+The |product| "all-in-one" compiler relies on sub-plugins which can be also used intepently. These plugins can be used independantly.
+
+.. autocard::

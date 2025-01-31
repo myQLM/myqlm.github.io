@@ -1,27 +1,26 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Creating observables &mdash; myQLM documentation  documentation</title>
-      <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../static/css/custom.css" type="text/css" />
-      <link rel="stylesheet" href="../../static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-    <link rel="shortcut icon" href="../../static/favicon.png"/>
-  <!--[if lt IE 9]>
-    <script src="../../static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=ccfc9eea" />
+      <link rel="stylesheet" type="text/css" href="../../static/sphinx-design.min.css?v=95c83b7e" />
+
   
-        <script data-url_root="../../" id="documentation_options" src="../../static/documentation_options.js"></script>
-        <script src="../../static/jquery.js"></script>
-        <script src="../../static/underscore.js"></script>
-        <script src="../../static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../static/doctools.js"></script>
-        <script src="../../static/sphinx_highlight.js"></script>
-        <script src="../../static/design-tabs.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="shortcut icon" href="../../static/favicon.png"/>
+      <script src="../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -34,15 +33,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> myQLM documentation
-            <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                1.10.6
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -67,6 +67,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../02_execute.html">Executing / Simulating quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03_compile.html">Compiling and rewriting quantum circuits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
 </ul>
 </li>
@@ -97,10 +98,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../02_user_guide.html">User guide</a> &raquo;</li>
-          <li><a href="../01_write.html">Writing quantum programs</a> &raquo;</li>
-      <li>Creating observables</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../02_user_guide.html">User guide</a></li>
+          <li class="breadcrumb-item"><a href="../01_write.html">Writing quantum programs</a></li>
+      <li class="breadcrumb-item active">Creating observables</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -110,18 +111,18 @@
            <div itemprop="articleBody">
              
   <section id="creating-observables">
-<span id="observable"></span><h1>Creating observables<a class="headerlink" href="#creating-observables" title="Permalink to this heading"></a></h1>
+<span id="observable"></span><h1>Creating observables<a class="headerlink" href="#creating-observables" title="Link to this heading"></a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This page considers Observables specified either via a list of Pauli <a class="reference internal" href="../../04_api_reference/module_qat/module_core/term.html#qat.core.Term" title="qat.core.Term"><code class="xref py py-class docutils literal notranslate"><span class="pre">Term</span></code></a> or a matrix - for <a class="reference internal" href="01_digital_circuit.html#circuit"><span class="std std-ref">gate-based</span></a> or <a class="reference internal" href="02_analog_schedule.html#schedules-section"><span class="std std-ref">analog quantum computations</span></a>.
 For <em>ising</em>-type of Observables please refer to the <a class="reference internal" href="03_annealing_problems/01_ising.html#ising-obs-sec"><span class="std std-ref">Ising Observables</span></a> section.</p>
 </div>
 <section id="observables">
-<h2>Observables<a class="headerlink" href="#observables" title="Permalink to this heading"></a></h2>
+<h2>Observables<a class="headerlink" href="#observables" title="Link to this heading"></a></h2>
 <p>As mentioned in the <a class="reference internal" href="../02_execute/01_job.html#job"><span class="std std-ref">job section</span></a>, it is possible to construct a <a class="reference internal" href="../../04_api_reference/module_qat/module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a>
 requiring the sampling of some observable on the final state produced by a quantum circuit.
 The <a class="reference internal" href="../../04_api_reference/module_qat/module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a> class provides a basic interface to declare observables.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
 
 <span class="n">my_observable</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="c1"># A 4 qubits observable</span>
                            <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span>
@@ -141,16 +142,12 @@ The <a class="reference internal" href="../../04_api_reference/module_qat/module
 </div>
 </section>
 <section id="observables-operations">
-<h2>Observables operations<a class="headerlink" href="#observables-operations" title="Permalink to this heading"></a></h2>
+<h2>Observables operations<a class="headerlink" href="#observables-operations" title="Link to this heading"></a></h2>
 <p>Observables can be added and multiplied by a scalar:</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
-Observable basic arithmetic<div class="sd-summary-down docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
-<div class="sd-summary-up docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
-</summary><div class="sd-summary-content sd-card-body docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
+<span class="sd-summary-text">Observable basic arithmetic</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
 
 <span class="n">obs1</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;ZZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])],</span> <span class="n">constant_coeff</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
 <span class="n">obs2</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="n">constant_coeff</span><span class="o">=</span><span class="mf">2.</span><span class="p">)</span>
@@ -163,7 +160,7 @@ Observable basic arithmetic<div class="sd-summary-down docutils">
 <span class="mf">1.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
 
 <span class="n">obs1</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;ZZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
 
@@ -177,12 +174,8 @@ Observable basic arithmetic<div class="sd-summary-down docutils">
 </details><p>They can be composed via tensor product using the <cite>^</cite> <cite>__xor__</cite> operator:</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
-Observable composition<div class="sd-summary-down docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
-<div class="sd-summary-up docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
-</summary><div class="sd-summary-content sd-card-body docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
+<span class="sd-summary-text">Observable composition</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
 
 <span class="n">obs1</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;ZZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
 <span class="n">obs2</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
@@ -197,12 +190,8 @@ Observable composition<div class="sd-summary-down docutils">
 </details><p>The commutator of two observables can be computed using the <cite>|</cite> <cite>__or__</cite> operator:</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
-Observable commutation<div class="sd-summary-down docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
-<div class="sd-summary-up docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
-</summary><div class="sd-summary-content sd-card-body docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
+<span class="sd-summary-text">Observable commutation</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
 
 <span class="n">obs1</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;ZZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
 <span class="n">obs2</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
@@ -216,21 +205,17 @@ Observable commutation<div class="sd-summary-down docutils">
 </div>
 </details></section>
 <section id="single-term-observables">
-<h2>Single term observables<a class="headerlink" href="#single-term-observables" title="Permalink to this heading"></a></h2>
+<h2>Single term observables<a class="headerlink" href="#single-term-observables" title="Link to this heading"></a></h2>
 <p>Simple observables containing only one Pauli terms can be created with the <cite>sigma_x</cite>, <cite>sigma_y</cite> and
 <cite>sigma_z</cite> class methods (or equivalently, <cite>x</cite>, <cite>y</cite> and <cite>z</cite>):</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
-Shorthand single Pauli term notation<div class="sd-summary-down docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
-<div class="sd-summary-up docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
-</summary><div class="sd-summary-content sd-card-body docutils">
+<span class="sd-summary-text">Shorthand single Pauli term notation</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-0">
+<label class="sd-tab-label" for="sd-tab-item-0">
 sigma_{x, y, z} notation</label><div class="sd-tab-content docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span>
 
 <span class="n">obs1</span> <span class="o">=</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">obs2</span> <span class="o">=</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -248,9 +233,9 @@ sigma_{x, y, z} notation</label><div class="sd-tab-content docutils">
 </div>
 </div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-1">
+<label class="sd-tab-label" for="sd-tab-item-1">
 {x, y, z} notation</label><div class="sd-tab-content docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span>
 
 <span class="n">obs1</span> <span class="o">=</span> <span class="n">Observable</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">obs2</span> <span class="o">=</span> <span class="n">Observable</span><span class="o">.</span><span class="n">y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -270,7 +255,7 @@ sigma_{x, y, z} notation</label><div class="sd-tab-content docutils">
 </div>
 <p class="sd-card-text">Of course those simple observable can be composed by using previously seen operators in order
 to get more complex ones.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span>
 
 <span class="n">obs1</span> <span class="o">=</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_z</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">obs2</span> <span class="o">=</span> <span class="n">Observable</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -285,10 +270,10 @@ to get more complex ones.</p>
 </div>
 </details></section>
 <section id="using-an-observable">
-<h2>Using an observable<a class="headerlink" href="#using-an-observable" title="Permalink to this heading"></a></h2>
+<h2>Using an observable<a class="headerlink" href="#using-an-observable" title="Link to this heading"></a></h2>
 <p>Once written, observables can be attached to a circuit to form an observable sampling job
 (see the <a class="reference internal" href="../02_execute/01_job.html#job"><span class="std std-ref">job section</span></a> for more examples):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qat.core</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
 
 <span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;ZZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
 <span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">nbshots</span><span class="o">=</span><span class="mi">2048</span><span class="p">)</span>
@@ -308,7 +293,7 @@ to get more complex ones.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Eviden 2016-2024.</p>
+    <p>&#169; Copyright Eviden 2016-2025.</p>
   </div>
 
    

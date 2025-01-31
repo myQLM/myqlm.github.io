@@ -1,0 +1,405 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.plugins.PatternManager &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=ccfc9eea" />
+      <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+      <script src="../../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="qat.plugins.Remap" href="remap.html" />
+    <link rel="prev" title="qat.plugins.ObservableSplitter" href="observablesplitter.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../module_comm.html">qat.comm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fusion.html">qat.fusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_nnize.html">qat.nnize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_pbo.html">qat.pbo</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../module_plugins.html">qat.plugins</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="circuitinliner.html">qat.plugins.CircuitInliner</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fusionplugin.html">qat.plugins.FusionPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gaterewriter.html">qat.plugins.GateRewriter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kakcompression.html">qat.plugins.KAKCompression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nnizer.html">qat.plugins.Nnizer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="observablesplitter.html">qat.plugins.ObservableSplitter</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">qat.plugins.PatternManager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remap.html">qat.plugins.Remap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="initialmapping.html">qat.plugins.InitialMapping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lazysynthesis.html">qat.plugins.LazySynthesis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nisqcompiler.html">qat.plugins.NISQCompiler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="costfunctionplugin.html">qat.plugins.CostFunctionPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="psominimizeplugin.html">qat.plugins.PSOMinimizePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scipyminimizeplugin.html">qat.plugins.ScipyMinimizePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spsaminimizeplugin.html">qat.plugins.SPSAMinimizePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="adaptvqeplugin.html">qat.plugins.AdaptVQEPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gradientdescentoptimizer.html">qat.plugins.GradientDescentOptimizer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="multiplelaunchesanalyzer.html">qat.plugins.MultipleLaunchesAnalyzer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="seqoptim.html">qat.plugins.SeqOptim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="transformobservable.html">qat.plugins.TransformObservable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zeronoiseextrapolator.html">qat.plugins.ZeroNoiseExtrapolator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="abstractplugin.html">qat.plugins.AbstractPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="display.html">qat.plugins.Display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="junction.html">qat.plugins.Junction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="optimizer.html">qat.plugins.Optimizer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="quameleonplugin.html">qat.plugins.QuameleonPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remoteplugin.html">qat.plugins.RemotePlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_synthopline.html">qat.synthopline</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../04_api_reference.html">API reference</a></li>
+          <li class="breadcrumb-item"><a href="../../module_qat.html">qat</a></li>
+          <li class="breadcrumb-item"><a href="../module_plugins.html">qat.plugins</a></li>
+      <li class="breadcrumb-item active">qat.plugins.PatternManager</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-plugins-patternmanager">
+<h1>qat.plugins.PatternManager<a class="headerlink" href="#qat-plugins-patternmanager" title="Link to this heading"></a></h1>
+<p>This plugin can compile or optimize quantum circuits by replacing a subcircuit by an equivalent subcircuit. This plugin needs to be configured to perform the
+right changes in the circuit. A <a class="reference internal" href="../../../02_user_guide/03_compile/02_rewrite/02_high_level.html#high-level"><span class="std std-ref">dedicated section in the user guide</span></a> explains how to configure this plugin.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.plugins.PatternManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">PatternManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.PatternManager" title="Link to this definition"></a></dt>
+<dd><p>Defines an instance of Pattern Manager.
+A <a class="reference internal" href="#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a> will update any circuit to maximize
+a metric.</p>
+<p>A <code class="code docutils literal notranslate"><span class="pre">local_metric</span></code> will be used to calculate the local score of any
+pattern. The first step of this manager is to replace a
+pattern by an equivalent pattern having a strict better local score.</p>
+<p>Then, if some patterns have the same best local score, a
+<code class="code docutils literal notranslate"><span class="pre">global_metric</span></code> will be used to select the pattern which
+maximize the global score of the circuit</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This plugin can compile jobs having less than 20 qubits. To compile bigger jobs, please use
+the equivalent Qaptiva plugin.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_metric</strong> (<em>fun&lt;Circuit -&gt; float&gt;</em><em>, </em><em>optional</em>) – local metric</p></li>
+<li><p><strong>global_metric</strong> (<em>fun&lt;Circuit -&gt; float&gt;</em><em>, </em><em>optional</em>) – global metric</p></li>
+<li><p><strong>groups</strong> (list&lt;<a class="reference internal" href="../module_pbo/patterngroup.html#qat.pbo.PatternGroup" title="qat.pbo.PatternGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternGroup</span></code></a>&gt;, optional) – list of
+groups to link to this pattern manager</p></li>
+<li><p><strong>collections</strong> (list&lt;<em>collections</em>&gt;, optional) – list of collections
+to link to this pattern manager. A collection is a
+list of <a class="reference internal" href="../module_pbo/patterngroup.html#qat.pbo.PatternGroup" title="qat.pbo.PatternGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternGroup</span></code></a></p></li>
+<li><p><strong>gate_set</strong> (<a class="reference internal" href="../module_core/module_gate_set/gateset.html#qat.core.gate_set.GateSet" title="qat.core.gate_set.GateSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateSet</span></code></a>, optional) – Gate set
+used to cast <a class="reference internal" href="../module_pbo/graphcircuit.html#qat.pbo.GraphCircuit" title="qat.pbo.GraphCircuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphCircuit</span></code></a> objects used internally
+into <a class="reference internal" href="../module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> objects</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.plugins.PatternManager.add_abstract_gate">
+<span class="sig-name descname"><span class="pre">add_abstract_gate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abstract_gate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constructor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.PatternManager.add_abstract_gate" title="Link to this definition"></a></dt>
+<dd><p>Internally, the <a class="reference internal" href="#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a> does not manipulate
+<a class="reference internal" href="../module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> objects. During the optimization, the
+<a class="reference internal" href="#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a> must be able to cast data structures
+used internally into <a class="reference internal" href="../module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> (to compute metrics or to
+return a <a class="reference internal" href="../module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> at the end of the optimization).</p>
+<p>This method is used to define gates that are not part of the default gate
+set (to use these gates in some patterns):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang.AQASM</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbstractGate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.pbo</span><span class="w"> </span><span class="kn">import</span> <span class="n">PatternManager</span>
+
+<span class="c1"># Define an abstract gate</span>
+<span class="n">my_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;MY_GATE&quot;</span><span class="p">,</span> <span class="p">[],</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Define a manager</span>
+<span class="n">manager</span> <span class="o">=</span> <span class="n">PatternManager</span><span class="p">()</span>
+<span class="n">manager</span><span class="o">.</span><span class="n">add_abstract_gate</span><span class="p">(</span><span class="n">my_gate</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The gate &#39;MY_GATE&#39; can now be used in patterns of &#39;manager&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">gate</span> <span class="s1">&#39;MY_GATE&#39;</span> <span class="n">can</span> <span class="n">now</span> <span class="n">be</span> <span class="n">used</span> <span class="ow">in</span> <span class="n">patterns</span> <span class="n">of</span> <span class="s1">&#39;manager&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The constructor of <a class="reference internal" href="#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a> accepts a
+<a class="reference internal" href="../module_core/module_gate_set/gateset.html#qat.core.gate_set.GateSet" title="qat.core.gate_set.GateSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">GateSet</span></code></a> in argument. Passing a gate
+set in argument or adding abstract gates one by one are equivalent</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>abstract_gate</strong> (<a class="reference internal" href="../module_lang/abstractgate.html#qat.lang.AbstractGate" title="qat.lang.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a>) – abstract
+gate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.plugins.PatternManager.compile">
+<span class="sig-name descname"><span class="pre">compile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.PatternManager.compile" title="Link to this definition"></a></dt>
+<dd><p>Compile a <a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>. This method will call the method
+<a class="reference internal" href="#qat.plugins.PatternManager.replace_pattern" title="qat.plugins.PatternManager.replace_pattern"><code class="xref py py-func docutils literal notranslate"><span class="pre">replace_pattern()</span></code></a> to optimize each job
+composing the batch (to override the default arguments of this method,
+please refer to <a class="reference internal" href="#qat.plugins.PatternManager.set_compile_attributes" title="qat.plugins.PatternManager.set_compile_attributes"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_compile_attributes()</span></code></a>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch</strong> (<a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) – batch to optimize</p></li>
+<li><p><strong>specs</strong> (<a class="reference internal" href="../module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a>) – specs of the QPU that this
+plugin will optimize for</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>optimized batch</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.plugins.PatternManager.new_group">
+<span class="sig-name descname"><span class="pre">new_group</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.PatternManager.new_group" title="Link to this definition"></a></dt>
+<dd><p>Return a <a class="reference internal" href="../module_pbo/patterngroup.html#qat.pbo.PatternGroup" title="qat.pbo.PatternGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternGroup</span></code></a> linked to this
+<a class="reference internal" href="#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a>. A group is a set of equivalent patterns.
+Created groups are used to perform local changes in circuits to
+optimize them. Please refer the method
+<a class="reference internal" href="#qat.plugins.PatternManager.replace_pattern" title="qat.plugins.PatternManager.replace_pattern"><code class="xref py py-func docutils literal notranslate"><span class="pre">replace_pattern()</span></code></a> for further information.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.pbo</span><span class="w"> </span><span class="kn">import</span> <span class="n">PatternManager</span>
+
+<span class="n">manager</span> <span class="o">=</span> <span class="n">PatternManager</span><span class="p">()</span>
+
+<span class="c1"># Define a a group of equivalent patterns</span>
+<span class="n">group</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">new_group</span><span class="p">()</span>
+<span class="n">group</span><span class="o">.</span><span class="n">add_pattern</span><span class="p">([(</span><span class="s2">&quot;SWAP&quot;</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})])</span>
+<span class="n">group</span><span class="o">.</span><span class="n">add_pattern</span><span class="p">([(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../module_pbo/patterngroup.html#qat.pbo.PatternGroup" title="qat.pbo.PatternGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternGroup</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.plugins.PatternManager.replace_pattern">
+<span class="sig-name descname"><span class="pre">replace_pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gradient'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">250</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.PatternManager.replace_pattern" title="Link to this definition"></a></dt>
+<dd><p>Replace some patterns in a circuit by an equivalent one with
+to improve the circuit</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>circ</strong> (<a class="reference internal" href="../module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Circuit</span></code></a> or <a class="reference internal" href="../module_pbo/graphcircuit.html#qat.pbo.GraphCircuit" title="qat.pbo.GraphCircuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.pbo.GraphCircuit</span></code></a>)</p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – <p>heuristic used to optimize globally. Two
+heuristics are implemented:</p>
+<blockquote>
+<div><ul>
+<li><p>”gradient” (default) -&gt; Gradient Descent</p></li>
+<li><p>”annealing” -&gt; Simulated annealing</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+<li><p><strong>window_size</strong> (<em>int</em><em>, </em><em>optional</em>) – size of the window for the global
+optimization - used if <code class="code docutils literal notranslate"><span class="pre">method</span> <span class="pre">==</span> <span class="pre">&quot;gradient&quot;</span></code>
+(<em>Default value: 1</em>)</p></li>
+<li><p><strong>max_iterations</strong> (<em>int</em><em>, </em><em>optional</em>) – maximum number of iteration for
+the global optimization - used if <code class="code docutils literal notranslate"><span class="pre">method</span> <span class="pre">==</span> <span class="pre">&quot;annealing&quot;</span></code>
+(<em>Default value: 250</em>)</p></li>
+<li><p><strong>temperature</strong> (<em>int</em><em>, </em><em>optional</em>) – temperature of the simulated
+annealing - used if <code class="code docutils literal notranslate"><span class="pre">method</span> <span class="pre">==</span> <span class="pre">&quot;annealing&quot;</span></code>
+(<em>Default value: 1000</em>)</p></li>
+<li><p><strong>trace</strong> (<em>list</em><em>, </em><em>optional</em>) – if a list is given, values of the
+metric will be inserted at each step</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>Resulting circuit.
+The result is either a <a class="reference internal" href="../module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.Circuit</span></code></a> or <code class="code docutils literal notranslate"><span class="pre">None</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If a circuit was given in argument: the result is an
+optimized equivalent circuit</p></li>
+<li><p>If a graph was given in argument: the optimal circuit is
+contained in the GraphCircuit object given in argument</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a> or <code class="code docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qat.plugins.PatternManager.set_compile_attributes">
+<span class="sig-name descname"><span class="pre">set_compile_attributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.PatternManager.set_compile_attributes" title="Link to this definition"></a></dt>
+<dd><p>The <a class="reference internal" href="#qat.plugins.PatternManager.compile" title="qat.plugins.PatternManager.compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">compile()</span></code></a> method will call the method
+<a class="reference internal" href="#qat.plugins.PatternManager.replace_pattern" title="qat.plugins.PatternManager.replace_pattern"><code class="xref py py-func docutils literal notranslate"><span class="pre">replace_pattern()</span></code></a> to optimize each job
+composing the batch.
+This method will override the default arguments used by the method
+<a class="reference internal" href="#qat.plugins.PatternManager.replace_pattern" title="qat.plugins.PatternManager.replace_pattern"><code class="xref py py-func docutils literal notranslate"><span class="pre">replace_pattern()</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">PatternManager</span>
+
+<span class="n">manager</span> <span class="o">=</span> <span class="n">PatternManager</span><span class="p">()</span>
+<span class="n">manager</span><span class="o">.</span><span class="n">set_compile_attributes</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;annealing&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The &#39;compile&#39; method will use the &#39;annealing&#39; method to optimize &quot;</span>
+      <span class="s2">&quot;the batches&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="s1">&#39;compile&#39;</span> <span class="n">method</span> <span class="n">will</span> <span class="n">use</span> <span class="n">the</span> <span class="s1">&#39;annealing&#39;</span> <span class="n">method</span> <span class="n">to</span> <span class="n">optimize</span> <span class="n">the</span> <span class="n">batches</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Parameters used for the optimization could be overrided for a
+specific batch, by updating the meta-data of this batch</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">json</span><span class="w"> </span><span class="kn">import</span> <span class="n">dumps</span> <span class="k">as</span> <span class="n">json_dumps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Batch</span>
+
+<span class="c1"># Define a batch</span>
+<span class="n">batch</span> <span class="o">=</span> <span class="n">Batch</span><span class="p">(</span><span class="n">jobs</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">])</span>
+
+<span class="c1"># Define the options to optimize this batch</span>
+<span class="n">options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;gradient&quot;</span><span class="p">,</span> <span class="n">window_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">meta_data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;PatternManager&quot;</span><span class="p">:</span> <span class="n">json_dumps</span><span class="p">(</span><span class="n">options</span><span class="p">)}</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – optimization method (cf.
+<a class="reference internal" href="#qat.plugins.PatternManager.replace_pattern" title="qat.plugins.PatternManager.replace_pattern"><code class="xref py py-func docutils literal notranslate"><span class="pre">replace_pattern()</span></code></a> for more information)</p></li>
+<li><p><strong>window_size</strong> (<em>int</em><em>, </em><em>optional</em>) – size of windows used during optimization
+(cf. <a class="reference internal" href="#qat.plugins.PatternManager.replace_pattern" title="qat.plugins.PatternManager.replace_pattern"><code class="xref py py-func docutils literal notranslate"><span class="pre">replace_pattern()</span></code></a> for more information)</p></li>
+<li><p><strong>max_iterations</strong> (<em>int</em><em>, </em><em>optional</em>) – maximal number of iteration (cf.
+<a class="reference internal" href="#qat.plugins.PatternManager.replace_pattern" title="qat.plugins.PatternManager.replace_pattern"><code class="xref py py-func docutils literal notranslate"><span class="pre">replace_pattern()</span></code></a> for more information)</p></li>
+<li><p><strong>temparature</strong> (<em>int</em><em>, </em><em>optional</em>) – temperature used for the simulated annealing
+(cf. <a class="reference internal" href="#qat.plugins.PatternManager.replace_pattern" title="qat.plugins.PatternManager.replace_pattern"><code class="xref py py-func docutils literal notranslate"><span class="pre">replace_pattern()</span></code></a> for more information)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="observablesplitter.html" class="btn btn-neutral float-left" title="qat.plugins.ObservableSplitter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="remap.html" class="btn btn-neutral float-right" title="qat.plugins.Remap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2025.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

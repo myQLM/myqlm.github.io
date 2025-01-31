@@ -1,0 +1,325 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.synthopline &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=ccfc9eea" />
+      <link rel="stylesheet" type="text/css" href="../../static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="shortcut icon" href="../../static/favicon.png"/>
+      <script src="../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="qat.synthopline.clifford_normalizer.CliffordNormalizer" href="module_synthopline/cliffordnormalizer.html" />
+    <link rel="prev" title="qat.quops.math_util.partial_trace" href="module_quops/partial_trace.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="module_comm.html">qat.comm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_core.html">qat.core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_fusion.html">qat.fusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_nnize.html">qat.nnize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_pbo.html">qat.pbo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_plugins.html">qat.plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_qpus.html">qat.qpus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_quops.html">qat.quops</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">qat.synthopline</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/cliffordnormalizer.html">qat.synthopline.clifford_normalizer.CliffordNormalizer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/generate_trotter_ansatz.html">qat.synthopline.generate_trotter_ansatz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/linear_operator_synthesis.html">qat.synthopline.linear_operator_synthesis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/phase_polynomial_synthesis.html">qat.synthopline.phase_polynomial_synthesis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/extract_linear_operator.html">qat.synthopline.linear_synthesis.extract_linear_operator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/extract_pauli_rotations.html">qat.synthopline.util.extract_pauli_rotations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/extract_phase_polynomial.html">qat.synthopline.phase_polynomials.extract_phase_polynomial</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/generate_random_observable.html">qat.synthopline.pauli_synth.generate_random_observable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/random_linear_operator.html">qat.synthopline.linear_synthesis.random_linear_operator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/random_phase_polynomial.html">qat.synthopline.phase_polynomials.random_phase_polynomial</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/frequency_mapping.html">qat.synthopline.initial_mapping.frequency_mapping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/greedy_mapping.html">qat.synthopline.initial_mapping.greedy_mapping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/codiagonalize_with_architecture.html">qat.synthopline.co_diagonalization.codiagonalize_with_architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/conjugate_observable_tableau.html">qat.synthopline.util.conjugate_observable_tableau</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/synthesize_stabilizer_state.html">qat.synthopline.co_diagonalization.synthesize_stabilizer_state</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/operatortableau.html">qat.synthopline.interface.OperatorTableau</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_synthopline/weyloperator.html">qat.synthopline.interface.WeylOperator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../04_api_reference.html">API reference</a></li>
+          <li class="breadcrumb-item"><a href="../module_qat.html">qat</a></li>
+      <li class="breadcrumb-item active">qat.synthopline</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-synthopline">
+<span id="module-qat.synthopline"></span><h1>qat.synthopline<a class="headerlink" href="#qat-synthopline" title="Link to this heading"></a></h1>
+<section id="abstract-plugin">
+<h2>Abstract plugin<a class="headerlink" href="#abstract-plugin" title="Link to this heading"></a></h2>
+<p>This module provides an abstract plugin class from which inherit most of our compilers. Classes inheriting from this class
+should override the <a class="reference internal" href="module_synthopline/cliffordnormalizer.html#qat.synthopline.clifford_normalizer.CliffordNormalizer.compile_circuit" title="qat.synthopline.clifford_normalizer.CliffordNormalizer.compile_circuit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compile_circuit()</span></code></a> method</p>
+<table class="docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_synthopline/cliffordnormalizer.html#qat.synthopline.clifford_normalizer.CliffordNormalizer" title="qat.synthopline.clifford_normalizer.CliffordNormalizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.synthopline.clifford_normalizer.CliffordNormalizer</span></code></a></p></td>
+<td><p>Abstract plugin class</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="synthesis-methods">
+<h2>Synthesis methods<a class="headerlink" href="#synthesis-methods" title="Link to this heading"></a></h2>
+<table class="docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_synthopline/generate_trotter_ansatz.html#qat.synthopline.generate_trotter_ansatz" title="qat.synthopline.generate_trotter_ansatz"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.synthopline.generate_trotter_ansatz()</span></code></a></p></td>
+<td><p>Generate Trotter Ansatz</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_synthopline/linear_operator_synthesis.html#qat.synthopline.linear_operator_synthesis" title="qat.synthopline.linear_operator_synthesis"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.synthopline.linear_operator_synthesis()</span></code></a></p></td>
+<td><p>Linear operator synthesis</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_synthopline/phase_polynomial_synthesis.html#qat.synthopline.phase_polynomial_synthesis" title="qat.synthopline.phase_polynomial_synthesis"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.synthopline.phase_polynomial_synthesis()</span></code></a></p></td>
+<td><p>Phase polynomila synthesis</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="operator-extraction">
+<h2>Operator extraction<a class="headerlink" href="#operator-extraction" title="Link to this heading"></a></h2>
+<table class="docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_synthopline/extract_linear_operator.html#qat.synthopline.linear_synthesis.extract_linear_operator" title="qat.synthopline.linear_synthesis.extract_linear_operator"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.synthopline.linear_synthesis.extract_linear_operator()</span></code></a></p></td>
+<td><p>Extract linear operator</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_synthopline/extract_phase_polynomial.html#qat.synthopline.phase_polynomials.extract_phase_polynomial" title="qat.synthopline.phase_polynomials.extract_phase_polynomial"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.synthopline.phase_polynomials.extract_phase_polynomial()</span></code></a></p></td>
+<td><p>Extract phase polynomial</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_synthopline/extract_pauli_rotations.html#qat.synthopline.util.extract_pauli_rotations" title="qat.synthopline.util.extract_pauli_rotations"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.synthopline.util.extract_pauli_rotations()</span></code></a></p></td>
+<td><p>Extract Pauli rotations</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="random-generation-methods">
+<h2>Random generation methods<a class="headerlink" href="#random-generation-methods" title="Link to this heading"></a></h2>
+<table class="docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_synthopline/random_linear_operator.html#qat.synthopline.linear_synthesis.random_linear_operator" title="qat.synthopline.linear_synthesis.random_linear_operator"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.synthopline.linear_synthesis.random_linear_operator()</span></code></a></p></td>
+<td><p>Random linear operator</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_synthopline/generate_random_observable.html#qat.synthopline.pauli_synth.generate_random_observable" title="qat.synthopline.pauli_synth.generate_random_observable"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.synthopline.pauli_synth.generate_random_observable()</span></code></a></p></td>
+<td><p>Random observable</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_synthopline/random_phase_polynomial.html#qat.synthopline.phase_polynomials.random_phase_polynomial" title="qat.synthopline.phase_polynomials.random_phase_polynomial"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.synthopline.phase_polynomials.random_phase_polynomial()</span></code></a></p></td>
+<td><p>Random phase polynomial</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="mappings">
+<h2>Mappings<a class="headerlink" href="#mappings" title="Link to this heading"></a></h2>
+<table class="docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_synthopline/frequency_mapping.html#qat.synthopline.initial_mapping.frequency_mapping" title="qat.synthopline.initial_mapping.frequency_mapping"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.synthopline.initial_mapping.frequency_mapping()</span></code></a></p></td>
+<td><p>Frequency mapping</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_synthopline/greedy_mapping.html#qat.synthopline.initial_mapping.greedy_mapping" title="qat.synthopline.initial_mapping.greedy_mapping"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.synthopline.initial_mapping.greedy_mapping()</span></code></a></p></td>
+<td><p>Greedy mapping</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="utility-methods">
+<h2>Utility methods<a class="headerlink" href="#utility-methods" title="Link to this heading"></a></h2>
+<table class="docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_synthopline/codiagonalize_with_architecture.html#qat.synthopline.co_diagonalization.codiagonalize_with_architecture" title="qat.synthopline.co_diagonalization.codiagonalize_with_architecture"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.synthopline.co_diagonalization.codiagonalize_with_architecture()</span></code></a></p></td>
+<td><p>Codiagonalize with architecture</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_synthopline/synthesize_stabilizer_state.html#qat.synthopline.co_diagonalization.synthesize_stabilizer_state" title="qat.synthopline.co_diagonalization.synthesize_stabilizer_state"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.synthopline.co_diagonalization.synthesize_stabilizer_state()</span></code></a></p></td>
+<td><p>Synthesize stabilizer state</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_synthopline/conjugate_observable_tableau.html#qat.synthopline.util.conjugate_observable_tableau" title="qat.synthopline.util.conjugate_observable_tableau"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.synthopline.util.conjugate_observable_tableau()</span></code></a></p></td>
+<td><p>Conjugate observable tableau</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+<p>Some compilers introduced in this module use a low level representation of Clifford operators called Tableaux. Our Tableau
+implementation is based on <span id="id1">[<a class="reference internal" href="../../02_user_guide/03_compile.html#id4" title="Niel de Beaudrap. A linearized stabilizer formalism for systems of finite dimension. 2012. arXiv:1102.3354.">dB12</a>]</span> (specialized for qubits). The corresponding class is a
+C++ object published in python via pybind11:</p>
+<table class="docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_synthopline/operatortableau.html#qat.synthopline.interface.OperatorTableau" title="qat.synthopline.interface.OperatorTableau"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.synthopline.interface.OperatorTableau</span></code></a></p></td>
+<td><p>Operator tableau</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+<p>This class interacts closely with another class used to represent Weyl operators:</p>
+<table class="docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_synthopline/weyloperator.html#qat.synthopline.interface.WeylOperator" title="qat.synthopline.interface.WeylOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.synthopline.interface.WeylOperator</span></code></a></p></td>
+<td><p>Weyl operator</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="module_quops/partial_trace.html" class="btn btn-neutral float-left" title="qat.quops.math_util.partial_trace" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="module_synthopline/cliffordnormalizer.html" class="btn btn-neutral float-right" title="qat.synthopline.clifford_normalizer.CliffordNormalizer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2025.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+.. _pattern_collections:
+
+Pattern collections (to be used with PatternManager)
+====================================================
+This page summarizes the different pre-defined pattern collections
+that can be used to easily construct rewriting plugins
+
+Entangling gates rewriting patterns
+-----------------------------------
+These collections are dynamically generated thanks to the :meth:`~qat.pbo.collections.collection_from_target` method.
+They are used by the :class:`~qat.plugins.NISQCompiler` to rewrite the output quantum circuits in a target gate set.
+The generated patterns are detailed below
+
+.. pbo-entangle::
+
+Involutions and trivial simplifications
+---------------------------------------
+This collection performs trivial simplifications of involutive gates (such as H or CNOT) and gates that trivially reduce to the identity
+(such as :math:`RZ(0)`).
+All the patterns in this collection are mapped to the empty circuit (and thus any occurence of them will be removed from the circuit).
+
+
+.. run-block:: python
+
+    from qat.pbo.collections import INVOLUTIONS
+    from qat.pbo import PatternManager
+
+
+    plugin = PatternManager(collections=[INVOLUTIONS])
+
+.. pbo-involution::
+
+Gate expansion
+--------------
+This collection aims at expanding some gates into the CNOT + H + RZ + RX gate set.
+It is used by the :class:`~qat.plugins.NISQCompiler` plugin in order to pre-process the input circuit before compiling it.
+
+.. run-block:: python
+
+    from qat.pbo.collections import EXPANSION_COLLECTION
+    from qat.pbo import PatternManager
+
+
+    plugin = PatternManager(collections=[EXPANSION_COLLECTION])
+
+.. pbo-expansion::
+
+Rotation merging
+----------------
+This collection provides patterns that merge consecutive Pauli rotations with the same axis.
+It is used by the :class:`~qat.plugins.NISQCompiler` plugin in order to post-process the input circuit after compiling it.
+
+.. run-block:: python
+
+    from qat.pbo.collections import MERGING_PATTERNS
+    from qat.pbo import PatternManager
+
+
+    plugin = PatternManager(collections=[MERGING_PATTERNS])
+
+.. pbo-merging::
+
+Trivial commutations
+--------------------
+These collections commutes local rotations to the left of entangling gates.
+This is used by the :class:`~qat.plugins.NISQCompiler` plugin in order to further reduce the single qubit gate count
+(in conjunction with the merging patterns from above).
+
+They are stored in a map and supports the following entangling gates: CNOT, CZ/CSIGN, ZZ, and XX
+
+.. pbo-commutation::
+
+.. include:: ./collection-examples.inc

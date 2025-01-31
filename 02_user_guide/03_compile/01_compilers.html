@@ -1,0 +1,583 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compiling quantum jobs using plugins &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=ccfc9eea" />
+      <link rel="stylesheet" type="text/css" href="../../static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="shortcut icon" href="../../static/favicon.png"/>
+      <script src="../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="LazySynthesis: quantum circuit compilation" href="01_compilers/01_lazy.html" />
+    <link rel="prev" title="Compiling and rewriting quantum circuits" href="../03_compile.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02_execute.html">Executing / Simulating quantum programs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../03_compile.html">Compiling and rewriting quantum circuits</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Compiling quantum jobs using plugins</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#all-in-one-compiler">All-in-one compiler</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#initial-transpilation">Initial transpilation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#final-transpilation-and-possible-target-gate-sets">Final transpilation and possible target gate sets</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#other-compilers">Other compilers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="01_compilers/01_lazy.html">LazySynthesis: quantum circuit compilation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="01_compilers/02_mapping.html">InitialMapping: a qubit placement optimization plugin</a></li>
+<li class="toctree-l5"><a class="reference internal" href="01_compilers/03_nnize.html">Nnizer: Swap Insertion Solver</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="02_rewrite.html">Rewriting quantum circuits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_compile.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../02_user_guide.html">User guide</a></li>
+          <li class="breadcrumb-item"><a href="../03_compile.html">Compiling and rewriting quantum circuits</a></li>
+      <li class="breadcrumb-item active">Compiling quantum jobs using plugins</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="compiling-quantum-jobs-using-plugins">
+<span id="nisq-compiler"></span><h1>Compiling quantum jobs using plugins<a class="headerlink" href="#compiling-quantum-jobs-using-plugins" title="Link to this heading"></a></h1>
+<p>myQLM comes with a lot of tools to perform quantum circuit compilation, transpilation, and optimization.
+However, these tools, due to their generality and expressivity, require a lot of configuring and fine tuning.</p>
+<section id="all-in-one-compiler">
+<h2>All-in-one compiler<a class="headerlink" href="#all-in-one-compiler" title="Link to this heading"></a></h2>
+<p>The <a class="reference internal" href="../../04_api_reference/module_qat/module_plugins/nisqcompiler.html#qat.plugins.NISQCompiler" title="qat.plugins.NISQCompiler"><code class="xref py py-class docutils literal notranslate"><span class="pre">NISQCompiler</span></code></a> plugin provides a unified interface that calls several myQLM plugins
+(such as <a class="reference internal" href="../../04_api_reference/module_qat/module_plugins/lazysynthesis.html#qat.plugins.LazySynthesis" title="qat.plugins.LazySynthesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazySynthesis</span></code></a>, <a class="reference internal" href="../../04_api_reference/module_qat/module_plugins/nnizer.html#qat.plugins.Nnizer" title="qat.plugins.Nnizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Nnizer</span></code></a>, <a class="reference internal" href="../../04_api_reference/module_qat/module_plugins/patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a>, <a class="reference internal" href="../../04_api_reference/module_qat/module_plugins/kakcompression.html#qat.plugins.KAKCompression" title="qat.plugins.KAKCompression"><code class="xref py py-class docutils literal notranslate"><span class="pre">KAKCompression</span></code></a>, etc).</p>
+<dl class="simple">
+<dt>It basically proceeds in three stages:</dt><dd><ol class="arabic simple">
+<li><p>The input quantum circuit is transpiled into CNOT and local gates (see below the list of transpilation patterns)</p></li>
+<li><p>The circuit is then compiled and adapted to the target device’s connectivity. This stage is done via either <a class="reference internal" href="../../04_api_reference/module_qat/module_plugins/lazysynthesis.html#qat.plugins.LazySynthesis" title="qat.plugins.LazySynthesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazySynthesis</span></code></a> or <a class="reference internal" href="../../04_api_reference/module_qat/module_plugins/nnizer.html#qat.plugins.Nnizer" title="qat.plugins.Nnizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Nnizer</span></code></a>.</p></li>
+<li><p>The compiled circuit is compressed using a <a class="reference internal" href="../../04_api_reference/module_qat/module_plugins/kakcompression.html#qat.plugins.KAKCompression" title="qat.plugins.KAKCompression"><code class="xref py py-class docutils literal notranslate"><span class="pre">KAKCompression</span></code></a> and transpiled to the target gate set.</p></li>
+</ol>
+</dd>
+</dl>
+<p>Step 2. is trivial in the sense that is simply corresponds to a call to a <a class="reference internal" href="../../04_api_reference/module_qat/module_plugins/lazysynthesis.html#qat.plugins.LazySynthesis" title="qat.plugins.LazySynthesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazySynthesis</span></code></a> or a <a class="reference internal" href="../../04_api_reference/module_qat/module_plugins/nnizer.html#qat.plugins.Nnizer" title="qat.plugins.Nnizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Nnizer</span></code></a>
+plugin. In the following sections, we detail steps 1. and 2.</p>
+<section id="initial-transpilation">
+<h3>Initial transpilation<a class="headerlink" href="#initial-transpilation" title="Link to this heading"></a></h3>
+<p>The goal of this stage is to break down large gates in the input circuit in order to express the circuit using only CNOT and local gates.
+The plugins handles the decomposition of the following gates (all in the default gate set of the <a class="reference internal" href="../../04_api_reference/module_qat/module_lang.html#module-qat.lang" title="qat.lang"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.lang</span></code></a>): CCNOT, iSWAP, SQRTSWAP.
+Additionally, it can handle controlled phase gates. All other gates in the standard myQLM gate set are natively supported by the reste of the compiler.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.synthopline.compiler</span><span class="w"> </span><span class="kn">import</span> <span class="n">EXPANSION_COLLECTION</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.pbo</span><span class="w"> </span><span class="kn">import</span> <span class="n">PatternManager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Batch</span>
+<span class="n">plugin</span> <span class="o">=</span> <span class="n">PatternManager</span><span class="p">(</span><span class="n">collections</span><span class="o">=</span><span class="p">[</span><span class="n">EXPANSION_COLLECTION</span><span class="p">])</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang.AQASM</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">display_pattern</span><span class="p">(</span><span class="n">gate</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
+    <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="n">gate</span><span class="o">.</span><span class="n">arity</span><span class="p">)</span>
+    <span class="n">gate</span><span class="p">(</span><span class="n">qbits</span><span class="p">)</span>
+    <span class="n">job</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">)</span>
+    <span class="n">job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">batchmode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">)</span>
+    <span class="n">new_circuit</span> <span class="o">=</span> <span class="n">plugin</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">Batch</span><span class="p">(</span><span class="n">jobs</span><span class="o">=</span><span class="p">[</span><span class="n">job</span><span class="p">]),</span> <span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">jobs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">circuit</span>
+    <span class="n">new_circuit</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">batchmode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">gate</span> <span class="ow">in</span> <span class="p">[</span><span class="n">CCNOT</span><span class="p">,</span> <span class="n">ISWAP</span><span class="p">,</span> <span class="n">SQRTSWAP</span><span class="p">,</span> <span class="n">PH</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()]:</span>
+    <span class="n">display_pattern</span><span class="p">(</span><span class="n">gate</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>==============================
+Before:
+    
+──●─
+  │ 
+  │ 
+  │ 
+──●─
+  │ 
+  │ 
+ ┌┴┐
+─┤X├
+ └─┘
+    
+
+After:
+ ┌───────┐                                                           
+─┤PH[π/4]├─────────────────●────────────────────────●─●────────────●─
+ └───────┘                 │                        │ │            │ 
+                           │                        │ │            │ 
+ ┌───────┐                 │                        │┌┴┐┌────────┐┌┴┐
+─┤PH[π/4]├────●────────────┼───────────●────────────┼┤X├┤PH[-π/4]├┤X├
+ └───────┘    │            │           │            │└─┘└────────┘└─┘
+              │            │           │            │                
+ ┌─┐┌───────┐┌┴┐┌────────┐┌┴┐┌───────┐┌┴┐┌────────┐┌┴┐┌─┐            
+─┤H├┤PH[π/4]├┤X├┤PH[-π/4]├┤X├┤PH[π/4]├┤X├┤PH[-π/4]├┤X├┤H├────────────
+ └─┘└───────┘└─┘└────────┘└─┘└───────┘└─┘└────────┘└─┘└─┘            
+                                                                     
+
+==============================
+Before:
+ ┌─────┐
+─┤ISWAP├
+ │     │
+ │     │
+ │     │
+─┤     ├
+ └─────┘
+        
+
+After:
+    ┌─┐           
+──●─┤X├─────────●─
+  │ └┬┘         │ 
+  │  │          │ 
+ ┌┴┐ │┌───────┐┌┴┐
+─┤X├─●┤PH[π/2]├┤X├
+ └─┘  └───────┘└─┘
+                  
+
+==============================
+Before:
+ ┌────────┐
+─┤SQRTSWAP├
+ │        │
+ │        │
+ │        │
+─┤        ├
+ └────────┘
+           
+
+After:
+ ┌─┐┌───────┐                     ┌─┐
+─┤X├┤PH[π/4]├───●────────────●────┤X├
+ └┬┘└───────┘   │            │    └┬┘
+  │             │            │     │ 
+  │┌─┐┌───────┐┌┴┐┌────────┐┌┴┐┌─┐ │ 
+──●┤H├┤PH[π/4]├┤X├┤PH[-π/4]├┤X├┤H├─●─
+   └─┘└───────┘└─┘└────────┘└─┘└─┘   
+                                     
+
+==============================
+Before:
+           
+──●────────
+  │        
+  │        
+ ┌┴───────┐
+─┤PH[0.50]├
+ └────────┘
+           
+
+After:
+                 ┌────────┐ 
+──●─────────────●┤RZ[0.25]├─
+  │             │└────────┘ 
+  │             │           
+ ┌┴┐┌─────────┐┌┴┐┌────────┐
+─┤X├┤RZ[-0.25]├┤X├┤RZ[0.25]├
+ └─┘└─────────┘└─┘└────────┘
+                            
+
+</pre></div>
+</div>
+</section>
+<section id="final-transpilation-and-possible-target-gate-sets">
+<h3>Final transpilation and possible target gate sets<a class="headerlink" href="#final-transpilation-and-possible-target-gate-sets" title="Link to this heading"></a></h3>
+<p>This last step starts by replacing entangling gates into equivalent patterns that use a single type of Clifford entangling gate among:
+CNOT, CZ/CSIGN, ZZ(<span class="math notranslate nohighlight">\(\pi/2\)</span>), XX(<span class="math notranslate nohighlight">\(\pi/2\)</span>)
+The rewriting is done using the following rewriting strategy:</p>
+<a class="reference internal image-reference" href="../../images/rewriting_entangling.png"><img alt="../../images/rewriting_entangling.png" class="align-center" src="../../images/rewriting_entangling.png" style="width: 450px;" />
+</a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>For instance, if the target gate set contains the entangling gate ZZ(<span class="math notranslate nohighlight">\(\pi/2\)</span>), this last step will first rewrite all CNOT gates into CZ gates, and
+then all CZ gates into ZZ(<span class="math notranslate nohighlight">\(\pi/2\)</span>).
+Since step 1. and step 2. can only produce CNOT gates, this strategy guarantees that any gate in CNOT, CZ/CSIGN, ZZ(<span class="math notranslate nohighlight">\(\pi/2\)</span>), XX(<span class="math notranslate nohighlight">\(\pi/2\)</span>)
+can be reached.</p>
+<p>This rewriting will insert a large number of single qubit gates in the output circuit. To counteract this, the compiler uses <a class="reference internal" href="../../04_api_reference/module_qat/module_plugins/kakcompression.html#qat.plugins.KAKCompression" title="qat.plugins.KAKCompression"><code class="xref py py-class docutils literal notranslate"><span class="pre">KAKCompression</span></code></a>
+in order to compress large sequences of single qubit gates. This also allows to target a particular set of single qubit gates.</p>
+<p>The possible entangling gates are CNOT, CSIGN/CZ, ZZ (for ZZ(<span class="math notranslate nohighlight">\(\pi/2\)</span>)), XX (for XX(<span class="math notranslate nohighlight">\(\pi/2\)</span>))</p>
+<p>The possible single qubit gates are RZ, RX, RX+ (for X(<span class="math notranslate nohighlight">\(\pi/2\)</span>)), U3</p>
+<p>There is also the possibility to specify the gate set via a preset.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">NISQCompiler</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">NISQCompiler</span><span class="o">.</span><span class="n">GATE_SETS</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;IBM&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="s1">&#39;U3&#39;</span><span class="p">],</span> <span class="s1">&#39;IQM&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;CZ&#39;</span><span class="p">,</span> <span class="s1">&#39;RX+&#39;</span><span class="p">,</span> <span class="s1">&#39;RZ&#39;</span><span class="p">],</span> <span class="s1">&#39;IONS&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;XX&#39;</span><span class="p">,</span> <span class="s1">&#39;RX+&#39;</span><span class="p">,</span> <span class="s1">&#39;RZ&#39;</span><span class="p">]}</span>
+</pre></div>
+</div>
+</section>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h3>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Trapped ion architecture</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Let us assume that we have access to a trapped ion QPU that comes with the following hardware constraints:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p class="sd-card-text">the hardware supports up to 5 qubits</p></li>
+<li><p class="sd-card-text">the qubits are connected via a all-to-all connectivity</p></li>
+<li><p class="sd-card-text">the hardware supports gates: XX(<span class="math notranslate nohighlight">\(\pi/2\)</span>), RZ(<span class="math notranslate nohighlight">\(\theta\)</span>), RX(<span class="math notranslate nohighlight">\(\pi/2\)</span>)</p></li>
+</ul>
+</div></blockquote>
+<p class="sd-card-text">One will declare the plugin as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">NISQCompiler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">AllToAll</span>
+
+<span class="n">compiler</span> <span class="o">=</span> <span class="n">NISQCompiler</span><span class="p">(</span>
+    <span class="n">compiler_options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;optimize_initial&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;bidirectional&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+    <span class="n">target_gate_set</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;XX&#39;</span><span class="p">,</span> <span class="s1">&#39;RX+&#39;</span><span class="p">,</span> <span class="s1">&#39;RZ&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">AllToAll</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">We can now try to compile a job with this compiler plugin:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang</span><span class="w"> </span><span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">CNOT</span>
+
+<span class="nd">@qrout</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">circuit</span><span class="p">():</span>
+    <span class="s2">&quot; Create a circuit &quot;</span>
+    <span class="n">nbqbits</span> <span class="o">=</span> <span class="mi">5</span>
+
+    <span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">):</span>
+        <span class="n">H</span><span class="p">(</span><span class="n">qb</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbqbits</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">CNOT</span><span class="p">(</span><span class="n">qb</span><span class="p">,</span> <span class="n">qb</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">T</span><span class="p">(</span><span class="n">qb</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Create job and compile it</span>
+<span class="n">initial_job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">compiler</span><span class="p">:</span>
+    <span class="n">compiled_job</span> <span class="o">=</span> <span class="n">initial_job</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">specs</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># Print output</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input circuit:&quot;</span><span class="p">)</span>
+<span class="n">initial_job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">batchmode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Output circuit:&quot;</span><span class="p">)</span>
+<span class="n">compiled_job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">batchmode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+Input circuit:
+ ┌─┐                        
+─┤H├─●──────────────────────
+ └─┘ │                      
+     │                      
+ ┌─┐┌┴┐┌─┐                  
+─┤H├┤X├┤T├─●────────────────
+ └─┘└─┘└─┘ │                
+           │                
+ ┌─┐      ┌┴┐┌─┐            
+─┤H├──────┤X├┤T├─●──────────
+ └─┘      └─┘└─┘ │          
+                 │          
+ ┌─┐            ┌┴┐┌─┐      
+─┤H├────────────┤X├┤T├─●────
+ └─┘            └─┘└─┘ │    
+                       │    
+ ┌─┐                  ┌┴┐┌─┐
+─┤H├──────────────────┤X├┤T├
+ └─┘                  └─┘└─┘
+                            
+
+Output circuit:
+ ┌───────┐┌───────┐┌───────┐┌───────┐                                          &gt;
+─┤RX[π/2]├┤RZ[π/2]├┤RX[π/2]├┤RZ[π/4]├───────────────────────────────────────── &gt;
+ └───────┘└───────┘└───────┘└───────┘                                          &gt;
+                                                                               &gt;
+ ┌───────┐┌───────┐┌───────┐                                                   &gt;
+─┤RX[π/2]├┤RZ[π/2]├┤RX[π/2]├────────────────────────────────────────────────── &gt;
+ └───────┘└───────┘└───────┘                                                   &gt;
+                                                                               &gt;
+ ┌───────┐┌───────┐┌───────┐┌───────┐                                          &gt;
+─┤RX[π/2]├┤RZ[π/2]├┤RX[π/2]├┤RZ[π/4]├───────────────────────────────────────── &gt;
+ └───────┘└───────┘└───────┘└───────┘                                          &gt;
+                                                                               &gt;
+ ┌───────┐┌───────┐┌───────┐         ┌──┐┌────────┐┌───────┐┌─────┐┌───────┐┌─ &gt;
+─┤RX[π/2]├┤RZ[π/4]├┤RX[π/2]├─────────┤XX├┤RZ[4.45]├┤RX[π/2]├┤RZ[π]├┤RX[π/2]├┤R &gt;
+ └───────┘└───────┘└───────┘         │  │└────────┘└───────┘└─────┘└───────┘└─ &gt;
+                                     │  │                                      &gt;
+ ┌───────┐┌───────┐┌───────┐┌───────┐│  │┌───────┐┌───────┐┌───────┐           &gt;
+─┤RX[π/2]├┤RZ[π/2]├┤RX[π/2]├┤RZ[π/2]├┤  ├┤RX[π/2]├┤RZ[π/2]├┤RX[π/2]├────────── &gt;
+ └───────┘└───────┘└───────┘└───────┘└──┘└───────┘└───────┘└───────┘           &gt;
+                                                                               &gt;
+
+         
+─────────
+         
+         
+         
+─────────
+         
+         
+         
+─────────
+         
+         
+────────┐
+Z[-0.52]├
+────────┘
+         
+         
+─────────
+         
+         
+
+</pre></div>
+</div>
+<p class="sd-card-text">As we can see, the output circuit contains only gates in the target gate set. Notice also that the compiler was able to lower
+the total number of entangling gates. This reduction happened during the second step of the compilation process.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Superconducting architecture</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Let us now assume that we have access to a superconducting architecture with a 3x2 grid-like qubit connectivity and a gate set comprising
+CNOT and U3 gates.</p>
+<p class="sd-card-text">We would declare the compiler as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">NISQCompiler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridDevice</span>
+
+<span class="n">compiler</span> <span class="o">=</span> <span class="n">NISQCompiler</span><span class="p">(</span>
+    <span class="n">compiler_options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;optimize_initial&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;bidirectional&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+    <span class="n">target_gate_set</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="s1">&#39;U3&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">GridDevice</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">We can now try to compile a job with this compiler plugin:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang</span><span class="w"> </span><span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">CNOT</span>
+
+<span class="nd">@qrout</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">circuit</span><span class="p">():</span>
+    <span class="s2">&quot; Create a circuit &quot;</span>
+    <span class="n">nbqbits</span> <span class="o">=</span> <span class="mi">5</span>
+
+    <span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">):</span>
+        <span class="n">H</span><span class="p">(</span><span class="n">qb</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbqbits</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">CNOT</span><span class="p">(</span><span class="n">qb</span><span class="p">,</span> <span class="n">qb</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">T</span><span class="p">(</span><span class="n">qb</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Create job and compile it</span>
+<span class="n">initial_job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">compiler</span><span class="p">:</span>
+    <span class="n">compiled_job</span> <span class="o">=</span> <span class="n">initial_job</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">specs</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># Print output</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input circuit:&quot;</span><span class="p">)</span>
+<span class="n">initial_job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">batchmode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Output circuit:&quot;</span><span class="p">)</span>
+<span class="n">compiled_job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">batchmode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+Input circuit:
+ ┌─┐                        
+─┤H├─●──────────────────────
+ └─┘ │                      
+     │                      
+ ┌─┐┌┴┐┌─┐                  
+─┤H├┤X├┤T├─●────────────────
+ └─┘└─┘└─┘ │                
+           │                
+ ┌─┐      ┌┴┐┌─┐            
+─┤H├──────┤X├┤T├─●──────────
+ └─┘      └─┘└─┘ │          
+                 │          
+ ┌─┐            ┌┴┐┌─┐      
+─┤H├────────────┤X├┤T├─●────
+ └─┘            └─┘└─┘ │    
+                       │    
+ ┌─┐                  ┌┴┐┌─┐
+─┤H├──────────────────┤X├┤T├
+ └─┘                  └─┘└─┘
+                            
+
+Output circuit:
+ ┌───────────────┐                              
+─┤U3[π/2, π/4, π]├──────────────────────────────
+ └───────────────┘                              
+                                                
+ ┌────────────────┐                             
+─┤U3[π/2, 0.00, π]├─────────────────────────────
+ └────────────────┘                             
+                                                
+ ┌───────────────┐                              
+─┤U3[π/2, π/4, π]├──────────────────────────────
+ └───────────────┘                              
+                                                
+ ┌───────────────┐    ┌─┐┌─────────────────────┐
+─┤U3[π/2, π/4, π]├────┤X├┤U3[0.00, 3.30, -2.52]├
+ └───────────────┘    └┬┘└─────────────────────┘
+                       │                        
+ ┌────────────────┐    │                        
+─┤U3[π/2, 0.00, π]├─●──┼────────────────────────
+ └────────────────┘ │  │                        
+                    │  │                        
+                   ┌┴┐ │                        
+───────────────────┤X├─●────────────────────────
+                   └─┘                          
+                                                
+
+</pre></div>
+</div>
+<p class="sd-card-text">Notice that the output circuit is quite similar to the one in the previous example, except that the number of one qubit gates
+is lower (due to the fact that the gates can handle 3 parameters).</p>
+</div>
+</details></section>
+</section>
+<section id="other-compilers">
+<h2>Other compilers<a class="headerlink" href="#other-compilers" title="Link to this heading"></a></h2>
+<p>The myQLM “all-in-one” compiler relies on sub-plugins which can be also used intepently. These plugins can be used independantly.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-3 sd-g-4 sd-g-xs-4 sd-g-sm-4 sd-g-md-4 sd-g-lg-4 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+LazySynthesis: quantum circuit compilation</div>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="01_compilers/01_lazy.html"><span class="doc">01_compilers/01_lazy.rst</span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+InitialMapping: a qubit placement optimization plugin</div>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="01_compilers/02_mapping.html"><span class="doc">01_compilers/02_mapping.rst</span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Nnizer: Swap Insertion Solver</div>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="01_compilers/03_nnize.html"><span class="doc">01_compilers/03_nnize.rst</span></a></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../03_compile.html" class="btn btn-neutral float-left" title="Compiling and rewriting quantum circuits" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="01_compilers/01_lazy.html" class="btn btn-neutral float-right" title="LazySynthesis: quantum circuit compilation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2025.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
