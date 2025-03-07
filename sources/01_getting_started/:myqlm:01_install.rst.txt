@@ -60,9 +60,9 @@ Please install myQLM by typing the following commands in a Windows, :ref:`MacOS 
         For CPython, the commands above install all dependency packages needed for myqlm to work, but not under Conda.
         The Conda environment resolver can take an infinite time to complete, and will likely fail because it does not have all myqlm requirements.
         Consequently, all dependency packages have not been included in the bz2 files.
-        Instead, it is expected to install them manually before using myqlm. Some of them will need to be installed using pip from from pypi.org
-        because conda-forge does not have all required packages (such as thrift 0.16).
-        Finally, make sure that you keep a clean base environment to avoid packages conflict, and use `conda clean --all` as needed.
+        Instead, it is expected to install them manually before using myqlm. They will need to be installed using pip from from pypi.org
+        because anaconda does not have all required packages.
+        Finally, make sure that you keep a clean base environment to avoid packages conflict, and use `conda clean --all` as needed. If problems occur, you can also remove the pip cache.
 
         .. tab-set::
 
@@ -70,14 +70,13 @@ Please install myQLM by typing the following commands in a Windows, :ref:`MacOS 
 
                 .. code-block::
 
-                    conda install -c conda-forge bitstring qutip cvxpy anytree pydoe svgwrite
-                    pip install thrift==0.20.0 jax[cpu] pyOpenSSL wand
+                    pip3 install anytree bitstring cvxpy dill jax[cpu] pyDOE pyOpenSSL qutip rich stim svgwrite thrift==0.21.0 wand
 
             .. tab-item:: Conda supplementary packages on Windows
 
                 .. code-block::
 
-                    pip install windows-curses
+                    pip3 install windows-curses
 
 .. warning::
 
@@ -132,7 +131,7 @@ Interoperability
       - Python 3.9 to 3.11
       - Python 3.12
     * - Cirq
-      - 1.3.0    
+      - 1.3.0
       - 1.4.0
     * - ProjectQ
       - 0.8.0

@@ -218,22 +218,21 @@ Conda</label><div class="sd-tab-content docutils">
 <p>For CPython, the commands above install all dependency packages needed for myqlm to work, but not under Conda.
 The Conda environment resolver can take an infinite time to complete, and will likely fail because it does not have all myqlm requirements.
 Consequently, all dependency packages have not been included in the bz2 files.
-Instead, it is expected to install them manually before using myqlm. Some of them will need to be installed using pip from from pypi.org
-because conda-forge does not have all required packages (such as thrift 0.16).
-Finally, make sure that you keep a clean base environment to avoid packages conflict, and use <cite>conda clean –all</cite> as needed.</p>
+Instead, it is expected to install them manually before using myqlm. They will need to be installed using pip from from pypi.org
+because anaconda does not have all required packages.
+Finally, make sure that you keep a clean base environment to avoid packages conflict, and use <cite>conda clean –all</cite> as needed. If problems occur, you can also remove the pip cache.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-2">
 Conda supplementary packages common to all platforms</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">bitstring</span> <span class="n">qutip</span> <span class="n">cvxpy</span> <span class="n">anytree</span> <span class="n">pydoe</span> <span class="n">svgwrite</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="n">thrift</span><span class="o">==</span><span class="mf">0.20.0</span> <span class="n">jax</span><span class="p">[</span><span class="n">cpu</span><span class="p">]</span> <span class="n">pyOpenSSL</span> <span class="n">wand</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">anytree</span> <span class="n">bitstring</span> <span class="n">cvxpy</span> <span class="n">dill</span> <span class="n">jax</span><span class="p">[</span><span class="n">cpu</span><span class="p">]</span> <span class="n">pyDOE</span> <span class="n">pyOpenSSL</span> <span class="n">qutip</span> <span class="n">rich</span> <span class="n">stim</span> <span class="n">svgwrite</span> <span class="n">thrift</span><span class="o">==</span><span class="mf">0.21.0</span> <span class="n">wand</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-3">
 Conda supplementary packages on Windows</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">windows</span><span class="o">-</span><span class="n">curses</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">windows</span><span class="o">-</span><span class="n">curses</span>
 </pre></div>
 </div>
 </div>
