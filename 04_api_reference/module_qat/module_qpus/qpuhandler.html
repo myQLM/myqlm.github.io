@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="qat.qpus.RemoteQPU" href="remoteqpu.html" />
-    <link rel="prev" title="qat.qpus.get_default_qpu" href="get_default_qpu.html" /> 
+    <link rel="prev" title="qat.qpus.get_noisy_qpu" href="get_noisy_qpu.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -71,13 +71,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../module_pbo.html">qat.pbo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qiskit.html">qat.qiskit</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../module_qpus.html">qat.qpus</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="%3Amyqlm%3Aclinalg.html">qat.qpus.CLinalg</a></li>
 <li class="toctree-l4"><a class="reference internal" href="classicalqpu.html">qat.qpus.ClassicalQPU</a></li>
 <li class="toctree-l4"><a class="reference internal" href="%3Amyqlm%3Apylinalg.html">qat.qpus.PyLinalg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qutipqpu.html">qat.qpus.QutipQPU</a></li>
 <li class="toctree-l4"><a class="reference internal" href="%3Amyqlm%3Asimulatedannealing.html">qat.qpus.SimulatedAnnealing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="get_current_qpu.html">qat.qpus.get_current_qpu</a></li>
 <li class="toctree-l4"><a class="reference internal" href="get_default_qpu.html">qat.qpus.get_default_qpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_noisy_qpu.html">qat.qpus.get_noisy_qpu</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">qat.qpus.QPUHandler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="remoteqpu.html">qat.qpus.RemoteQPU</a></li>
 </ul>
@@ -176,7 +179,9 @@ starts a new thread</p></li>
 <li><p>”pool”: multi-thread server, each connection runs
 in a thread, with a maximum of 10 running threads</p></li>
 <li><p>”fork”: multi-process server, each connection runs
-in a new process</p></li>
+in a new process (UNIX-only)</p></li>
+<li><p>”stoppable”: custom server based on “fork”, but server processes will be killed
+after a keepalive timeout is reached (UNIX-only)</p></li>
 </ul>
 </div></blockquote>
 </p></li>
@@ -242,7 +247,7 @@ compiled/optimized.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="get_default_qpu.html" class="btn btn-neutral float-left" title="qat.qpus.get_default_qpu" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="get_noisy_qpu.html" class="btn btn-neutral float-left" title="qat.qpus.get_noisy_qpu" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="remoteqpu.html" class="btn btn-neutral float-right" title="qat.qpus.RemoteQPU" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

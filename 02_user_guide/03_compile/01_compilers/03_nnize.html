@@ -131,13 +131,13 @@ connectivity constraints / topology) are defined by an instance of the class
 use of the <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/nnizer.html#qat.plugins.Nnizer" title="qat.plugins.Nnizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Nnizer</span></code></a> plugin transforms this QPU into
 a QPU accepting any circuit:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuameleonPlugin</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">qat.qpus</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinAlg</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.qpus</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_default_qpu</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">HardwareSpecs</span><span class="p">,</span> <span class="n">Topology</span><span class="p">,</span> <span class="n">TopologyType</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">Nnizer</span>
 
 <span class="c1"># Defines a QPU with a limited connectivity (LNN connectivity)</span>
 <span class="n">specs</span> <span class="o">=</span> <span class="n">HardwareSpecs</span><span class="p">(</span><span class="n">topology</span><span class="o">=</span><span class="n">Topology</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">TopologyType</span><span class="o">.</span><span class="n">LNN</span><span class="p">))</span>
-<span class="n">qpu</span> <span class="o">=</span> <span class="n">QuameleonPlugin</span><span class="p">(</span><span class="n">specs</span><span class="o">=</span><span class="n">specs</span><span class="p">)</span> <span class="o">|</span> <span class="n">LinAlg</span><span class="p">()</span>
+<span class="n">qpu</span> <span class="o">=</span> <span class="n">QuameleonPlugin</span><span class="p">(</span><span class="n">specs</span><span class="o">=</span><span class="n">specs</span><span class="p">)</span> <span class="o">|</span> <span class="n">get_default_qpu</span><span class="p">()</span>
 
 <span class="c1"># The &#39;qpu&#39; object is a QPU with a limited connectivity.</span>
 <span class="c1"># Adding the Nnizer plugin remove the connectivity constraint</span>
@@ -170,9 +170,8 @@ a QPU accepting any circuit:</p>
           <span class="s2">&quot;executed by the QPU:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">exception</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 2, in &lt;module&gt;
-ImportError: cannot import name &#39;LinAlg&#39; from &#39;qat.qpus&#39; (/var/lib/jenkins/workspace/myqlm-tutorial-doc_rc/runtime_linux-x86_64_cpython_python312/usr/local/lib64/python3.12/qaptiva-packages/qat/modules/__init__.so). Did you mean: &#39;CLinalg&#39;?
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">job</span> <span class="p">(</span><span class="ow">not</span> <span class="n">processed</span> <span class="n">by</span> <span class="n">the</span> <span class="n">Nnizer</span><span class="p">)</span> <span class="n">can</span><span class="s1">&#39;t be executed by the QPU:</span>
+<span class="n">Hardware</span> <span class="n">topology</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">support</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="n">interactions</span>
 </pre></div>
 </div>
 <p>Jupyter notebook <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcircuit_optimization%2Fsatisfying_connectivity_constraints.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">Satisfying Connectivity Constaint</a>

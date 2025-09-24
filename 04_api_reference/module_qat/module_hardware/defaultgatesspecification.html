@@ -80,6 +80,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../module_pbo.html">qat.pbo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qiskit.html">qat.qiskit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_qpus.html">qat.qpus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_synthopline.html">qat.synthopline</a></li>
@@ -128,7 +129,7 @@
 <h1>qat.hardware.DefaultGatesSpecification<a class="headerlink" href="#qat-hardware-defaultgatesspecification" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.hardware.DefaultGatesSpecification">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.hardware.</span></span><span class="sig-name descname"><span class="pre">DefaultGatesSpecification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gate_times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_prep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predef_generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_repr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ChannelRepresentations.KRAUS</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.hardware.DefaultGatesSpecification" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.hardware.</span></span><span class="sig-name descname"><span class="pre">DefaultGatesSpecification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gate_times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_prep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predef_generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_repr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ChannelRepresentations.KRAUS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_noiseless</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.hardware.DefaultGatesSpecification" title="Link to this definition"></a></dt>
 <dd><p>GatesSpecification with perfect noise model for usual gates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -196,6 +197,18 @@ operation is a two-outcome POVM <span class="math notranslate nohighlight">\(\lb
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>array or dict&lt;int, array&gt;, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="qat.hardware.DefaultGatesSpecification.is_noiseless">
+<span class="sig-name descname"><span class="pre">is_noiseless</span></span><a class="headerlink" href="#qat.hardware.DefaultGatesSpecification.is_noiseless" title="Link to this definition"></a></dt>
+<dd><p>boolean describing if the gates are perfect, noiseless gates. Set to False unless the GatesSpecifiation
+is generated by DefaultGatesSpecification with perfect gates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>

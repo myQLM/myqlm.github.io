@@ -1,0 +1,61 @@
+.. _bosonic_h:
+
+Bosonic simulations
+===================
+
+Apart from evolving Hamiltonians acting on two-level quantum systems (qubits), |product| and in particular :class:`~qat.qpus.QutipQPU` allows us to simulate **bosonic Hamiltonians** containing quantum systems of more than two levels. This bosonic formalism may be helpful if one wishes to describe the presence of environmental degrees of freedom (via harmonic oscillators) and consequentially, the leakage of the qubit wavefunction to the bosonic levels.
+
+When considering bosons, we will likely work with the creation and annihilation operators - :math:`a^\dagger` and :math:`a`. These are represented in a :class:`~qat.core.Term` by the letters :code:`A` and :code:`a`, respectively and comprise the only syntactic differences required to encode a bosonic Hamiltonian. Just like for qubit systems, the problem is wrapped with a :class:`~qat.core.Schedule`, transformed to a :class:`~qat.core.Job` and send to an analog QPU for simulation (:class:`~qat.qpus.QutipQPU` in this case, in *deterministic* mode). For example, one can encode the Simple Harmonic Oscillator:
+
+.. math::
+
+    H = \hbar\omega \left(a^\dagger a + \frac12 \right)
+
+acting on the initial number (or Fock) state :math:`\left|n\right> = \left|2\right>` via the following code snippet:
+
+.. run-block:: python
+
+    import numpy as np
+    from qat.core import Observable, Term, Schedule
+    from qat.qpus import QutipQPU
+
+    # Encode the SHO Hamiltonian in a Schedule
+    omega = 1.0
+    hamiltonian = Observable(1, pauli_terms=[Term(1, "Aa", [0, 0])], constant_coeff=1 / 2)
+    drive_sho = 1 * omega * hamiltonian  # taking h bar as 1
+    schedule = Schedule(drive=drive_sho,
+                        tmax=1.0)
+
+    # Define the the number of modes and their respective
+    # excitations in a list of tuples
+    n_modes = 1
+    n_excitations = 6
+    bosonic_levels = [(n_modes, n_excitations)]
+
+    # Define the inital state of the boson
+    psi_0 = np.zeros(n_excitations)
+    n_state = 2 # the initial number (or Fock) state of the boson
+    psi_0[n_state] = 1
+
+    # A Job to find the value of the SHO observable
+    job_observable = schedule.to_job(job_type="OBS",
+                                     observable=hamiltonian,
+                                     psi_0=psi_0)
+
+    # Call the QPU by supplying with the Hilbert spaces
+    qpu = QutipQPU(bosonic_levels=bosonic_levels)
+
+    # Submit the job and print the result
+    res_value = qpu.submit(job_observable)
+    print("Computed observable value:", res_value.value)
+
+We would expect :math:`\left<n\right|H\left|n\right> = 2.5` as :math:`a^\dagger a` is the number operator :math:`n` and the state :math:`\left|n\right>` is its eigenstate. Hence (with :math:`\hbar = \omega = 1`)
+
+.. math::
+
+    H\left|2\right> = \left(n + \frac12 \right)\left|2\right> = \left(2 + \frac12 \right)\left|2\right> = 2.5 * \left|2\right>.
+
+This example has been expanded in the following :notebook:`(bosonic notebook)[bosonic_hamiltonians.ipynb]`. It shows how to evolve a Hamiltonian for the interaction of qubits in a bosonic field. 
+
+.. note::
+    Bosonic simulations are currently available only for :class:`~qat.qpus.QutipQPU`.

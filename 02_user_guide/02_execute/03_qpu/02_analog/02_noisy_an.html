@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noisy simulations &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=bee1f38e" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="shortcut icon" href="../../../../static/favicon.png"/>
+      <script src="../../../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Jump operators" href="02_noisy_an/01_jump_ops.html" />
+    <link rel="prev" title="Noiseless simulations" href="01_noiseless_an.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../02_user_guide.html">User guide</a></li>
+          <li class="breadcrumb-item"><a href="../../../02_execute.html">Executing / Simulating quantum programs</a></li>
+          <li class="breadcrumb-item"><a href="../../03_qpu.html">Quantum Processing Unit (QPU)</a></li>
+          <li class="breadcrumb-item"><a href="../02_analog.html">Analog computing</a></li>
+      <li class="breadcrumb-item active">Noisy simulations</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="noisy-simulations">
+<span id="analog-intro-sec"></span><h1>Noisy simulations<a class="headerlink" href="#noisy-simulations" title="Link to this heading"></a></h1>
+<p>Noise models for analog quantum computers differ from those of digital quantum computers in that they describe the action of the environment in a <em>continuous time</em> fashion.</p>
+<p>Generically, noise can be described as the coupling of the environment to the quantum system of interest via the general Hamiltonian</p>
+<div class="math notranslate nohighlight">
+\[H_\mathrm{tot} = H + H_\mathrm{env} + H_\mathrm{coupling}\]</div>
+<p>with <span class="math notranslate nohighlight">\(H\)</span>, <span class="math notranslate nohighlight">\(H_\mathrm{env}\)</span> and <span class="math notranslate nohighlight">\(H_\mathrm{coupling}\)</span> as the Hamiltonians of the system, the environment and the coupling, respectively. On myQLM we can take two distinct paths to specify this joint Hamiltonian - either with the <code class="code docutils literal notranslate"><span class="pre">jump_operators</span></code>, or the stochastic <code class="code docutils literal notranslate"><span class="pre">params_specification</span></code> field of the analog QPU:</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-4 sd-g-xs-4 sd-g-sm-4 sd-g-md-4 sd-g-lg-4 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Jump operators</div>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="02_noisy_an/01_jump_ops.html"><span class="doc">02_noisy_an/01_jump_ops.rst</span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Stochastic noise</div>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="02_noisy_an/02_stoch_noise.html"><span class="doc">02_noisy_an/02_stoch_noise.rst</span></a></div>
+</div>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="01_noiseless_an.html" class="btn btn-neutral float-left" title="Noiseless simulations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="02_noisy_an/01_jump_ops.html" class="btn btn-neutral float-right" title="Jump operators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2025.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

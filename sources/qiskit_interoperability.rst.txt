@@ -1,0 +1,74 @@
+
+
+Qiskit 2.0 interoperability with qat-qiskit
+============================================
+
+Because IBM's qiskit is the most widely used API in quantum computing, with :mod:`qat.qiskit` it is now possible to use a qiskit 
+wrapper that uses qaptiva qpus and computations before returning results in the form of qiskit basic data structures. 
+It is possible to run either a :class:`qat.qiskit.Sampler` or a :class:`qat.qiskit.Estimator`. 
+Both have basically the same API and inherit from qiskit base classes. The qaptiva backend is accessed through 
+the :class:`qat.qiskit.QaptivaService` class.
+
+.. warning::
+
+    For the moment, both the Sampler and the Estimator require a connection with a Qaptiva Access server to get access
+    to the backend. It would not run without it. 
+
+First, here is an example of a sampler
+
+.. code-block:: python
+
+    from qiskit import ClassicalRegister, QuantumCircuit, QuantumRegister
+    from qat.qiskit import QaptivaService, Sampler
+
+
+    def bell_pair():
+        qr = QuantumRegister(2, 'q')
+        cr = ClassicalRegister(2, 'c')
+        circuit = QuantumCircuit(qr, cr)
+        circuit.h(qr[0])
+        circuit.cx(qr[0], qr[1])
+        circuit.measure(qr, cr)
+        return circuit
+    
+    circuit = bell_pair()
+    service = QaptivaService()
+    backend = service.backend("LinAlg")
+    sampler = Sampler(backend)
+    job = sampler.run([circuit], shots=10)
+    print(job.status())
+    print(job.result())
+
+
+Next, here is an example with an Estimator:
+
+.. code-block:: python
+
+    from qiskit import QuantumCircuit
+
+    from qiskit.circuit import Parameter
+    from qiskit.quantum_info import SparsePauliOp
+    from qat.qiskit import QaptivaService, Estimator
+
+    observable = SparsePauliOp.from_list(
+        [("II", 2), ("XX", -2), ("YY", 3), ("ZZ", -3)]
+    )
+
+    theta = Parameter('θ')
+    phi = Parameter('φ')
+
+    quantum_circuit = QuantumCircuit(2)
+    quantum_circuit.rx(theta, 0)
+    quantum_circuit.ry(phi, 1)
+
+    param_dict = {theta: 1.57, phi: 3.14}
+    qiskit_pub =  (quantum_circuit, observable, param_dict)
+
+    service = QaptivaService()
+    backend = service.backend("LinAlg")
+    estimator = Estimator(backend)
+    job = estimator.run([qiskit_pub], shots=10)
+    print(job)
+    print(job.status())
+    print(job.result())
+

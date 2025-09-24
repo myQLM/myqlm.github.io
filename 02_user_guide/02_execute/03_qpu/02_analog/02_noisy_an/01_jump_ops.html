@@ -1,0 +1,180 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jump operators &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../../static/css/custom.css?v=bee1f38e" />
+      <link rel="stylesheet" type="text/css" href="../../../../../static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="shortcut icon" href="../../../../../static/favicon.png"/>
+      <script src="../../../../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../../../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="Stochastic noise" href="02_stoch_noise.html" />
+    <link rel="prev" title="Noisy simulations" href="../02_noisy_an.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../../02_user_guide.html">User guide</a></li>
+          <li class="breadcrumb-item"><a href="../../../../02_execute.html">Executing / Simulating quantum programs</a></li>
+          <li class="breadcrumb-item"><a href="../../../03_qpu.html">Quantum Processing Unit (QPU)</a></li>
+          <li class="breadcrumb-item"><a href="../../02_analog.html">Analog computing</a></li>
+          <li class="breadcrumb-item"><a href="../02_noisy_an.html">Noisy simulations</a></li>
+      <li class="breadcrumb-item active">Jump operators</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="jump-operators">
+<span id="jump-op-and-stoch-noise"></span><h1>Jump operators<a class="headerlink" href="#jump-operators" title="Link to this heading"></a></h1>
+<p>Let’s imagine that the environmental noise is weakly coupled to our system, described by <span class="math notranslate nohighlight">\(H\)</span>, and satisfies the so-called Markov and Born approximations. In that case one can write down a particular type of Master equation to describe the time evolution of the density matrix <span class="math notranslate nohighlight">\(\rho\)</span> of the system. It is called the Lindblad equation and reads:</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\rho}{dt}=-i\left[H,\rho\right]-\frac{1}{2}\sum_{m}\left[\left\{ L_{m}^{\dagger}L_{m},\rho\right\} -2 L_{m}\rho L_{m}^{\dagger}\right].\]</div>
+<p>with the <span class="math notranslate nohighlight">\(L_m\)</span> operators usually called the Lindblad or quantum jump operators. For instance, a dephasing noise corresponds to <span class="math notranslate nohighlight">\(L = \sqrt{\gamma} \sigma_z\)</span> with <span class="math notranslate nohighlight">\(\gamma\)</span> as the dephasing rate and <span class="math notranslate nohighlight">\(\sigma_z\)</span> as the usual Pauli operator.</p>
+<p>Let’s see what happens when a simple rotation by 180° is applied to a qubit initially in state <span class="math notranslate nohighlight">\(\left|0\right&gt;\)</span> and the qubit experiences dephasing noise. The Hamiltonian in this case can look like <span class="math notranslate nohighlight">\(H(t) = \alpha(t) \sigma^x_0\)</span> with <span class="math notranslate nohighlight">\(\alpha(t) = \pi * t\)</span> and <code class="code docutils literal notranslate"><span class="pre">tmax</span></code> = 1. The following code will perform the simulation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.qpus</span><span class="w"> </span><span class="kn">import</span> <span class="n">QutipQPU</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Schedule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.core.variables</span><span class="w"> </span><span class="kn">import</span> <span class="n">Variable</span><span class="p">,</span> <span class="n">sin</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.hardware</span><span class="w"> </span><span class="kn">import</span> <span class="n">HardwareModel</span>
+
+<span class="c1"># Define a time Variable</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+
+<span class="c1"># Define the Hamiltonian in a drive to enter the Schedule</span>
+<span class="n">alpha_t</span> <span class="o">=</span> <span class="n">t</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="c1"># when this is integrated w.r.t time and t=1, we&#39;ll get a rotation of np.pi</span>
+<span class="n">drive</span> <span class="o">=</span> <span class="n">alpha_t</span> <span class="o">*</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+<span class="n">schedule</span> <span class="o">=</span> <span class="n">Schedule</span><span class="p">(</span><span class="n">drive</span><span class="o">=</span><span class="n">drive</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+
+<span class="c1"># Create a Job - in SAMPLE mode by default</span>
+<span class="n">job_sample</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
+
+<span class="c1"># Define a noisy QPU</span>
+<span class="n">qpu</span> <span class="o">=</span> <span class="n">QutipQPU</span><span class="p">(</span><span class="n">hardware_model</span><span class="o">=</span><span class="n">HardwareModel</span><span class="p">(</span><span class="n">jump_operators</span><span class="o">=</span><span class="p">[</span><span class="n">Observable</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[(</span><span class="n">Term</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]))])]),</span>
+               <span class="n">nsteps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="c1"># can specify the number of time steps for the integration</span>
+               <span class="n">sim_method</span><span class="o">=</span><span class="s2">&quot;deterministic&quot;</span><span class="p">)</span>
+
+<span class="c1"># Send the job for simulation and output the results</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job_sample</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="p">]</span> <span class="n">Cythonizing</span> <span class="n">qtcoeff_215454d98b7325a10fc2e32716cac7</span><span class="o">.</span><span class="n">pyx</span>
+<span class="n">running</span> <span class="n">build_ext</span>
+<span class="n">building</span> <span class="s1">&#39;qtcoeff_215454d98b7325a10fc2e32716cac7&#39;</span> <span class="n">extension</span>
+<span class="n">g</span><span class="o">++</span> <span class="o">-</span><span class="n">fno</span><span class="o">-</span><span class="n">strict</span><span class="o">-</span><span class="n">overflow</span> <span class="o">-</span><span class="n">Wsign</span><span class="o">-</span><span class="n">compare</span> <span class="o">-</span><span class="n">DNDEBUG</span> <span class="o">-</span><span class="n">g</span> <span class="o">-</span><span class="n">O3</span> <span class="o">-</span><span class="n">Wall</span> <span class="o">-</span><span class="n">I</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib64</span><span class="o">/</span><span class="n">openmpi</span><span class="o">/../../</span><span class="n">include</span><span class="o">/</span><span class="n">openmpi</span><span class="o">-</span><span class="n">x86_64</span> <span class="o">-</span><span class="n">fPIC</span> <span class="o">-</span><span class="n">I</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">jenkins</span><span class="o">/</span><span class="n">workspace</span><span class="o">/</span><span class="n">orial</span><span class="o">-</span><span class="n">doc_release_myqlm</span><span class="o">-</span><span class="mf">1.12.0_2</span><span class="o">/</span><span class="n">qat</span><span class="o">-</span><span class="n">tutorial</span><span class="o">/</span><span class="n">build_linux</span><span class="o">-</span><span class="n">x86_64_cpython_python312</span><span class="o">/</span><span class="n">venv</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">qutip</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">data</span> <span class="o">-</span><span class="n">I</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">jenkins</span><span class="o">/</span><span class="n">workspace</span><span class="o">/</span><span class="n">orial</span><span class="o">-</span><span class="n">doc_release_myqlm</span><span class="o">-</span><span class="mf">1.12.0_2</span><span class="o">/</span><span class="n">qat</span><span class="o">-</span><span class="n">tutorial</span><span class="o">/</span><span class="n">build_linux</span><span class="o">-</span><span class="n">x86_64_cpython_python312</span><span class="o">/</span><span class="n">venv</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="n">_core</span><span class="o">/</span><span class="n">include</span> <span class="o">-</span><span class="n">I</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">jenkins</span><span class="o">/</span><span class="n">workspace</span><span class="o">/</span><span class="n">orial</span><span class="o">-</span><span class="n">doc_release_myqlm</span><span class="o">-</span><span class="mf">1.12.0_2</span><span class="o">/</span><span class="n">qat</span><span class="o">-</span><span class="n">tutorial</span><span class="o">/</span><span class="n">build_linux</span><span class="o">-</span><span class="n">x86_64_cpython_python312</span><span class="o">/</span><span class="n">venv</span><span class="o">/</span><span class="n">include</span> <span class="o">-</span><span class="n">I</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span> <span class="o">-</span><span class="n">c</span> <span class="n">qtcoeff_215454d98b7325a10fc2e32716cac7</span><span class="o">.</span><span class="n">cpp</span> <span class="o">-</span><span class="n">o</span> <span class="n">build</span><span class="o">/</span><span class="n">temp</span><span class="o">.</span><span class="n">linux</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">cpython</span><span class="o">-</span><span class="mi">312</span><span class="o">/</span><span class="n">qtcoeff_215454d98b7325a10fc2e32716cac7</span><span class="o">.</span><span class="n">o</span> <span class="o">-</span><span class="n">w</span> <span class="o">-</span><span class="n">O3</span> <span class="o">-</span><span class="n">funroll</span><span class="o">-</span><span class="n">loops</span>
+<span class="n">g</span><span class="o">++</span> <span class="o">-</span><span class="n">fno</span><span class="o">-</span><span class="n">strict</span><span class="o">-</span><span class="n">overflow</span> <span class="o">-</span><span class="n">Wsign</span><span class="o">-</span><span class="n">compare</span> <span class="o">-</span><span class="n">DNDEBUG</span> <span class="o">-</span><span class="n">g</span> <span class="o">-</span><span class="n">O3</span> <span class="o">-</span><span class="n">Wall</span> <span class="o">-</span><span class="n">I</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib64</span><span class="o">/</span><span class="n">openmpi</span><span class="o">/../../</span><span class="n">include</span><span class="o">/</span><span class="n">openmpi</span><span class="o">-</span><span class="n">x86_64</span> <span class="o">-</span><span class="n">shared</span> <span class="o">-</span><span class="n">L</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib64</span><span class="o">/</span><span class="n">openmpi</span><span class="o">/</span><span class="n">lib</span><span class="p">:</span><span class="o">-</span><span class="n">L</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">cuda</span><span class="o">/</span><span class="n">lib64</span> <span class="o">-</span><span class="n">I</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib64</span><span class="o">/</span><span class="n">openmpi</span><span class="o">/../../</span><span class="n">include</span><span class="o">/</span><span class="n">openmpi</span><span class="o">-</span><span class="n">x86_64</span> <span class="n">build</span><span class="o">/</span><span class="n">temp</span><span class="o">.</span><span class="n">linux</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">cpython</span><span class="o">-</span><span class="mi">312</span><span class="o">/</span><span class="n">qtcoeff_215454d98b7325a10fc2e32716cac7</span><span class="o">.</span><span class="n">o</span> <span class="o">-</span><span class="n">L</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span> <span class="o">-</span><span class="n">o</span> <span class="n">build</span><span class="o">/</span><span class="n">lib</span><span class="o">.</span><span class="n">linux</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">cpython</span><span class="o">-</span><span class="mi">312</span><span class="o">/</span><span class="n">qtcoeff_215454d98b7325a10fc2e32716cac7</span><span class="o">.</span><span class="n">cpython</span><span class="o">-</span><span class="mi">312</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">.</span><span class="n">so</span>
+<span class="n">copying</span> <span class="n">build</span><span class="o">/</span><span class="n">lib</span><span class="o">.</span><span class="n">linux</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">cpython</span><span class="o">-</span><span class="mi">312</span><span class="o">/</span><span class="n">qtcoeff_215454d98b7325a10fc2e32716cac7</span><span class="o">.</span><span class="n">cpython</span><span class="o">-</span><span class="mi">312</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">.</span><span class="n">so</span> <span class="o">-&gt;</span> 
+<span class="n">Done</span>
+<span class="n">Wrapping</span> <span class="n">results</span> <span class="n">using</span> <span class="mi">1</span> <span class="n">quantum</span> <span class="n">registers</span>
+<span class="n">Post</span> <span class="n">processing</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">results</span> <span class="n">of</span> <span class="n">length</span> <span class="mi">1</span>
+<span class="o">|</span><span class="mi">0</span><span class="o">&gt;</span> <span class="mf">0.11887096313892528</span>
+<span class="o">|</span><span class="mi">1</span><span class="o">&gt;</span> <span class="mf">0.8811290368610747</span>
+</pre></div>
+</div>
+<p>Without noise we would expect the final state of the qubit to be exactly <span class="math notranslate nohighlight">\(\left|1\right&gt;\)</span>. However, due to the dephasing present, the larger the noise, the higher the probability for the qubit to be found in the state <span class="math notranslate nohighlight">\(\left|0\right&gt;\)</span>. Hence, we get a superposition of the two states. An example with a more involved Hamiltonian is presented in the following <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fanalog_simulations%2Faqpu_getting_started.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">notebook</a>.</p>
+<p>In general, myQLM supports two ways of simulating noise described with jump operators. One is <em>deterministic</em>, which evolves the density matrix by numerically integrating the set of ODEs. The other is called <em>stochastic</em> and performs a Monte Carlo simulation. Simulations are faster for <em>deterministic</em> and less space-consuming for smaller systems, say a Hilbert space with 100 levels, whereas <em>stochastic</em> ones become increasingly more efficient as the size of the Hilbert space grows.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../02_noisy_an.html" class="btn btn-neutral float-left" title="Noisy simulations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="02_stoch_noise.html" class="btn btn-neutral float-right" title="Stochastic noise" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2025.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

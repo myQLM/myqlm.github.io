@@ -73,6 +73,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../module_pbo.html">qat.pbo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qiskit.html">qat.qiskit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_qpus.html">qat.qpus</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../module_quops.html">qat.quops</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="channelrepresentations.html">qat.quops.ChannelRepresentations</a></li>
@@ -154,7 +155,7 @@
 <h1>qat.quops.QuantumChannelKraus<a class="headerlink" href="#qat-quops-quantumchannelkraus" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.quops.QuantumChannelKraus">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.quops.</span></span><span class="sig-name descname"><span class="pre">QuantumChannelKraus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kraus_operators</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_trace_preserving</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_trace_reducing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.quops.QuantumChannelKraus" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.quops.</span></span><span class="sig-name descname"><span class="pre">QuantumChannelKraus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kraus_operators</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_trace_preserving</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_trace_reducing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbctrls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.quops.QuantumChannelKraus" title="Link to this definition"></a></dt>
 <dd><p>Implementation of a quantum channel with the Kraus representation</p>
 <div class="math notranslate nohighlight">
 \[\mathcal{E}(\rho)=\sum_{k=0}^{K-1} E_k \rho E_k^\dagger\]</div>
@@ -166,6 +167,8 @@
 <li><p><strong>name</strong> (<em>string</em><em>, </em><em>optional</em>) – name. Defaults to “”.</p></li>
 <li><p><strong>check_trace_preserving</strong> (<em>bool</em>) – If True, check for trace preservation of the Kraus operators. Default to False.</p></li>
 <li><p><strong>check_trace_reducing</strong> (<em>bool</em>) – If True, check if Kraus operators are physical. Default to False.</p></li>
+<li><p><strong>nbctrls</strong> (<em>int</em><em>, </em><em>optionnal</em>) – Keep track of the number of control qubits if the Kraus channel represents a perfect, controlled
+unitary gate. Default to None.</p></li>
 </ul>
 </dd>
 </dl>
@@ -207,6 +210,17 @@
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="qat.quops.QuantumChannelKraus.nbctrls">
+<span class="sig-name descname"><span class="pre">nbctrls</span></span><a class="headerlink" href="#qat.quops.QuantumChannelKraus.nbctrls" title="Link to this definition"></a></dt>
+<dd><p>number of control qubits in the case of a perfect controlled unitary gate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>

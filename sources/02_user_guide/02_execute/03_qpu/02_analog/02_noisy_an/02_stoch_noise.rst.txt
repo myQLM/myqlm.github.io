@@ -1,0 +1,55 @@
+Stochastic noise
+================
+
+Alternatively, one can handle the environmental degrees of freedom classically and end up with a system Hamiltonian that contains stochastic parameters. In the case of a harmonic environment, these parameters are Gaussian random processes, completely characterized by their Power Spectral Density (PSD). |product| allows for the definition of Hamiltonians with such stochastic parameters with an arbitrary PSD via the class :class:`~qat.core.Parameter`. Typically, a dephasing noise will be given by a stochastic term :math:`\delta \omega_0(t) \sigma_z`.
+
+To describe a simple Hamiltonian with :math:`H(t) = \delta \omega_0(t) \sigma_z` and its evolution on an analog QPU one could write:
+
+.. run-block:: python
+
+    import numpy as np
+    from qat.core import Observable, Term, Schedule, Parameter
+    from qat.core.variables import Variable, heaviside
+    from qat.qpus import QutipQPU
+    from qat.hardware import HardwareModel
+
+    # Define the frequency and noise variables
+    f = Variable("f", float) # a variable for the frequency
+    omega0 = Variable("omega0", float)
+
+    # Create a Parameter for white noise
+    intensity = 0.5
+    cutoff_frequency = 100
+    sampling_frequency = 2 * cutoff_frequency / (np.pi/4) # Obeying Nyquist criterion by also taking tmax (below) into account
+    psd = heaviside(f, -cutoff_frequency, cutoff_frequency) * intensity
+    omega_param = Parameter(value=0,
+                            psd=psd,
+                            sampling_frequency=sampling_frequency)
+
+    # Define the Parameter in a HardwareModel
+    hardware_model = HardwareModel(params_specification={"omega0": omega_param})
+
+    # Create the schedule
+    schedule = Schedule(drive=Observable(1, pauli_terms=[Term(omega0, "Z", [0])]),
+                        tmax=np.pi/4)
+
+    # Use QutipQPU in stochastic mode
+    qpu = QutipQPU(hardware_model=hardware_model,
+                   sim_method="stochastic",
+                   nsteps=100, # number of time steps
+                   n_samples=50) # number of noise realizations
+
+    # Create a job and use the submit method to simulate the Hamiltonian
+    job = schedule.to_job(job_type="OBS",
+                          observable=Observable(1, pauli_terms=[Term(1, "X", [0])]),
+                          psi_0=np.array([1, 1]) / np.sqrt(2)) # set an initial state
+    res = qpu.submit(job)
+    print(res.value)
+
+In the above example we start from the state :math:`\frac{\left|0\right> + \left|1\right>}{\sqrt2}`, we evolve it for time :math:`\frac{\pi}{4}` and we measure the observable :math:`\sigma_x`. With no noise and just :math:`H(t) = \sigma_z` this would correspond to a rotation :math:`R_z \left(\frac{\pi}{2}\right)` hence giving :math:`\left<\sigma_z\right> = 0`. But as we can see, the presence of noise changes this behaviour.
+
+.. parseonly: qlm distributed
+
+    This Hamiltonian has been further investigated with the method :meth:`~qat.analog.tomography.compute_superop_from_schedule` in the following :notebook:`(notebook)[stochastic_schedule_example.ipynb]`.
+
+A simple example of the capabilities of a :class:`~qat.core.Parameter` is also given :notebook:`(in this notebook)[parameter_getting_started.ipynb]`.

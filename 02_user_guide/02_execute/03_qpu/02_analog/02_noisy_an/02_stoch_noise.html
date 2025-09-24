@@ -1,0 +1,179 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stochastic noise &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../../static/css/custom.css?v=bee1f38e" />
+      <link rel="stylesheet" type="text/css" href="../../../../../static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="shortcut icon" href="../../../../../static/favicon.png"/>
+      <script src="../../../../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../../../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="Bosonic simulations" href="../03_bosonic.html" />
+    <link rel="prev" title="Jump operators" href="01_jump_ops.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../../02_user_guide.html">User guide</a></li>
+          <li class="breadcrumb-item"><a href="../../../../02_execute.html">Executing / Simulating quantum programs</a></li>
+          <li class="breadcrumb-item"><a href="../../../03_qpu.html">Quantum Processing Unit (QPU)</a></li>
+          <li class="breadcrumb-item"><a href="../../02_analog.html">Analog computing</a></li>
+          <li class="breadcrumb-item"><a href="../02_noisy_an.html">Noisy simulations</a></li>
+      <li class="breadcrumb-item active">Stochastic noise</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="stochastic-noise">
+<h1>Stochastic noise<a class="headerlink" href="#stochastic-noise" title="Link to this heading"></a></h1>
+<p>Alternatively, one can handle the environmental degrees of freedom classically and end up with a system Hamiltonian that contains stochastic parameters. In the case of a harmonic environment, these parameters are Gaussian random processes, completely characterized by their Power Spectral Density (PSD). myQLM allows for the definition of Hamiltonians with such stochastic parameters with an arbitrary PSD via the class <a class="reference internal" href="../../../../../04_api_reference/module_qat/module_core/parameter.html#qat.core.Parameter" title="qat.core.Parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parameter</span></code></a>. Typically, a dephasing noise will be given by a stochastic term <span class="math notranslate nohighlight">\(\delta \omega_0(t) \sigma_z\)</span>.</p>
+<p>To describe a simple Hamiltonian with <span class="math notranslate nohighlight">\(H(t) = \delta \omega_0(t) \sigma_z\)</span> and its evolution on an analog QPU one could write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Schedule</span><span class="p">,</span> <span class="n">Parameter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.core.variables</span><span class="w"> </span><span class="kn">import</span> <span class="n">Variable</span><span class="p">,</span> <span class="n">heaviside</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.qpus</span><span class="w"> </span><span class="kn">import</span> <span class="n">QutipQPU</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.hardware</span><span class="w"> </span><span class="kn">import</span> <span class="n">HardwareModel</span>
+
+<span class="c1"># Define the frequency and noise variables</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="c1"># a variable for the frequency</span>
+<span class="n">omega0</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;omega0&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+
+<span class="c1"># Create a Parameter for white noise</span>
+<span class="n">intensity</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">cutoff_frequency</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">sampling_frequency</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">cutoff_frequency</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># Obeying Nyquist criterion by also taking tmax (below) into account</span>
+<span class="n">psd</span> <span class="o">=</span> <span class="n">heaviside</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="o">-</span><span class="n">cutoff_frequency</span><span class="p">,</span> <span class="n">cutoff_frequency</span><span class="p">)</span> <span class="o">*</span> <span class="n">intensity</span>
+<span class="n">omega_param</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                        <span class="n">psd</span><span class="o">=</span><span class="n">psd</span><span class="p">,</span>
+                        <span class="n">sampling_frequency</span><span class="o">=</span><span class="n">sampling_frequency</span><span class="p">)</span>
+
+<span class="c1"># Define the Parameter in a HardwareModel</span>
+<span class="n">hardware_model</span> <span class="o">=</span> <span class="n">HardwareModel</span><span class="p">(</span><span class="n">params_specification</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;omega0&quot;</span><span class="p">:</span> <span class="n">omega_param</span><span class="p">})</span>
+
+<span class="c1"># Create the schedule</span>
+<span class="n">schedule</span> <span class="o">=</span> <span class="n">Schedule</span><span class="p">(</span><span class="n">drive</span><span class="o">=</span><span class="n">Observable</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="n">omega0</span><span class="p">,</span> <span class="s2">&quot;Z&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]),</span>
+                    <span class="n">tmax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># Use QutipQPU in stochastic mode</span>
+<span class="n">qpu</span> <span class="o">=</span> <span class="n">QutipQPU</span><span class="p">(</span><span class="n">hardware_model</span><span class="o">=</span><span class="n">hardware_model</span><span class="p">,</span>
+               <span class="n">sim_method</span><span class="o">=</span><span class="s2">&quot;stochastic&quot;</span><span class="p">,</span>
+               <span class="n">nsteps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="c1"># number of time steps</span>
+               <span class="n">n_samples</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="c1"># number of noise realizations</span>
+
+<span class="c1"># Create a job and use the submit method to simulate the Hamiltonian</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s2">&quot;OBS&quot;</span><span class="p">,</span>
+                      <span class="n">observable</span><span class="o">=</span><span class="n">Observable</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]),</span>
+                      <span class="n">psi_0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="c1"># set an initial state</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.35228436328670126</span>
+</pre></div>
+</div>
+<p>In the above example we start from the state <span class="math notranslate nohighlight">\(\frac{\left|0\right&gt; + \left|1\right&gt;}{\sqrt2}\)</span>, we evolve it for time <span class="math notranslate nohighlight">\(\frac{\pi}{4}\)</span> and we measure the observable <span class="math notranslate nohighlight">\(\sigma_x\)</span>. With no noise and just <span class="math notranslate nohighlight">\(H(t) = \sigma_z\)</span> this would correspond to a rotation <span class="math notranslate nohighlight">\(R_z \left(\frac{\pi}{2}\right)\)</span> hence giving <span class="math notranslate nohighlight">\(\left&lt;\sigma_z\right&gt; = 0\)</span>. But as we can see, the presence of noise changes this behaviour.</p>
+<p>A simple example of the capabilities of a <a class="reference internal" href="../../../../../04_api_reference/module_qat/module_core/parameter.html#qat.core.Parameter" title="qat.core.Parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parameter</span></code></a> is also given <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fanalog_simulations%2Fparameter_getting_started.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">in this notebook</a>.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="01_jump_ops.html" class="btn btn-neutral float-left" title="Jump operators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../03_bosonic.html" class="btn btn-neutral float-right" title="Bosonic simulations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2025.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

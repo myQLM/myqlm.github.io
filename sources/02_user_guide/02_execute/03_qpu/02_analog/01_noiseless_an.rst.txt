@@ -1,0 +1,58 @@
+Noiseless simulations
+=====================
+
+Let us take a look at how to encode a noiseless, yet time-dependent Hamiltonian of the following form: 
+
+.. math::
+
+    H(t) = \alpha \sigma^y_0 + \beta(t) * \sigma^x_1 \sigma^x_2
+
+where :math:`\alpha = \pi/2` to represent a rotation of the :math:`\left|0\right>` state of qubit :math:`0` around the :math:`Y` axis by :math:`\pi` and :math:`\beta(t) = 1.27 * \sin(t)` is some time-dependent function for :math:`\sigma^x_1 \sigma^x_2` acting on qubit :math:`1` and :math:`2`.
+
+The code snippet below performs a simulation of the evolution of this :math:`H(t)` for time :code:`tmax` = 1 both in :code:`SAMPLE` and :code:`OBS` mode:
+
+
+.. run-block:: python
+
+    import numpy as np
+    from qat.qpus import QutipQPU
+    from qat.core import Observable, Term, Schedule
+    from qat.core.variables import Variable, sin
+
+    # Define a time Variable
+    t = Variable("t", float)
+
+    # Define the Hamiltonian in a drive to enter the Schedule
+    alpha =  np.pi / 2
+    beta_t  = 1.27 * sin(t)
+    drive = [(alpha, Observable(3, pauli_terms=[Term(1, "Y", [0])])),
+             (beta_t, Observable(3, pauli_terms=[Term(1, "XX", [1, 2])]))]
+    schedule = Schedule(drive=drive, tmax=1.0) # tmax as the evolution duration from t=0
+
+    # Specify Observables to measure at the end
+    H_target_0 = Observable(3, pauli_terms=[Term(1, "Z", [0])])
+    H_target_12 = Observable(3, pauli_terms=[Term(1, "YX", [1, 2]),
+                                             Term(1.34, "ZZ", [1, 2])])
+    job_obs = schedule.to_job(job_type="OBS",
+                              observable=H_target_0,
+                              observables=[H_target_12])
+
+    # Jobs are in SAMPLE mode by default
+    job_sample = schedule.to_job()
+
+    # Create a QPU and send the jobs for simulation
+    qpu = QutipQPU()
+    res_obs = qpu.submit(job_obs)
+    res_sample = qpu.submit(job_sample)
+
+    # Output the results
+    print("<H_target_0> =", res_obs.value)
+    print("<H_target_12> =", res_obs.values[0])
+    for sample in res_sample:
+        if sample.probability > 1e-5:
+            print(sample.state, sample.amplitude)
+
+| If one measures the observable :math:`\sigma_z` on qubit :math:`0`, via :code:`H_target_0`, one should get :math:`-1`. At the same time, more involved observables can also be measured, e.g. :code:`H_target_12` on qubit :math:`1` and :math:`2`, and furthermore, during the same simulation - via the :code:`observables` field of :meth:`~qat.core.Schedule.to_job`.
+| When choosing :code:`SAMPLE` mode the final state of the system will be shown. In this case the first qubit will have changed to state :math:`\left|1\right>`, while the second and the third will be in some superposition of the states :math:`\left|00\right>` and :math:`\left|11\right>`.
+
+A more involved example with an imperfect QPU (for which we specify a hardware model) can be found in the following :notebook:`(Getting started)[aqpu_getting_started.ipynb]` notebook. The section on :ref:`analog computation <schedules_section>` gives a simple introduction to the class :class:`~qat.core.Schedule` along with examples on how to perform arithmetic and other operations with one or more instances of it.

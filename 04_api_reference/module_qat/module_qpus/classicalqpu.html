@@ -71,13 +71,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../module_pbo.html">qat.pbo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qiskit.html">qat.qiskit</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../module_qpus.html">qat.qpus</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="%3Amyqlm%3Aclinalg.html">qat.qpus.CLinalg</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">qat.qpus.ClassicalQPU</a></li>
 <li class="toctree-l4"><a class="reference internal" href="%3Amyqlm%3Apylinalg.html">qat.qpus.PyLinalg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qutipqpu.html">qat.qpus.QutipQPU</a></li>
 <li class="toctree-l4"><a class="reference internal" href="%3Amyqlm%3Asimulatedannealing.html">qat.qpus.SimulatedAnnealing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="get_current_qpu.html">qat.qpus.get_current_qpu</a></li>
 <li class="toctree-l4"><a class="reference internal" href="get_default_qpu.html">qat.qpus.get_default_qpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_noisy_qpu.html">qat.qpus.get_noisy_qpu</a></li>
 <li class="toctree-l4"><a class="reference internal" href="qpuhandler.html">qat.qpus.QPUHandler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="remoteqpu.html">qat.qpus.RemoteQPU</a></li>
 </ul>
@@ -165,15 +168,13 @@
 <span class="n">job</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
 
 <span class="n">qpu</span> <span class="o">=</span> <span class="n">ClassicalQPU</span><span class="p">(</span><span class="n">random</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">qpus</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
 <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">raw_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="c1"># The result will always have a simple sample</span>
 <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 12, in &lt;module&gt;
-NameError: name &#39;qpus&#39; is not defined. Did you mean: &#39;qpu&#39;?
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span><span class="mi">1111111111</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 </dd></dl>

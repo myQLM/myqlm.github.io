@@ -1,0 +1,48 @@
+.. _jump_op_and_stoch_noise:
+
+Jump operators
+==============
+
+Let's imagine that the environmental noise is weakly coupled to our system, described by :math:`H`, and satisfies the so-called Markov and Born approximations. In that case one can write down a particular type of Master equation to describe the time evolution of the density matrix :math:`\rho` of the system. It is called the Lindblad equation and reads:
+
+.. math::
+
+    \frac{d\rho}{dt}=-i\left[H,\rho\right]-\frac{1}{2}\sum_{m}\left[\left\{ L_{m}^{\dagger}L_{m},\rho\right\} -2 L_{m}\rho L_{m}^{\dagger}\right].
+
+with the :math:`L_m` operators usually called the Lindblad or quantum jump operators. For instance, a dephasing noise corresponds to :math:`L = \sqrt{\gamma} \sigma_z` with :math:`\gamma` as the dephasing rate and :math:`\sigma_z` as the usual Pauli operator.
+
+Let's see what happens when a simple rotation by 180° is applied to a qubit initially in state :math:`\left|0\right>` and the qubit experiences dephasing noise. The Hamiltonian in this case can look like :math:`H(t) = \alpha(t) \sigma^x_0` with :math:`\alpha(t) = \pi * t` and :code:`tmax` = 1. The following code will perform the simulation:
+
+.. run-block:: python
+
+    import numpy as np
+    from qat.qpus import QutipQPU
+    from qat.core import Observable, Term, Schedule
+    from qat.core.variables import Variable, sin
+    from qat.hardware import HardwareModel
+
+    # Define a time Variable
+    t = Variable("t", float)
+
+    # Define the Hamiltonian in a drive to enter the Schedule
+    alpha_t = t * np.pi # when this is integrated w.r.t time and t=1, we'll get a rotation of np.pi
+    drive = alpha_t * Observable(1, pauli_terms=[Term(1, "Y", [0])])
+    schedule = Schedule(drive=drive, tmax=1.0)
+
+    # Create a Job - in SAMPLE mode by default
+    job_sample = schedule.to_job()
+
+    # Define a noisy QPU
+    qpu = QutipQPU(hardware_model=HardwareModel(jump_operators=[Observable(1, pauli_terms=[(Term(0.6, 'Z', [0]))])]),
+                   nsteps=100, # can specify the number of time steps for the integration
+                   sim_method="deterministic")
+
+    # Send the job for simulation and output the results
+    res = qpu.submit(job_sample)
+    for sample in res:
+        print(sample.state, sample.probability)
+ 
+
+Without noise we would expect the final state of the qubit to be exactly :math:`\left|1\right>`. However, due to the dephasing present, the larger the noise, the higher the probability for the qubit to be found in the state :math:`\left|0\right>`. Hence, we get a superposition of the two states. An example with a more involved Hamiltonian is presented in the following :notebook:`(notebook)[aqpu_getting_started.ipynb]`.
+
+In general, |product| supports two ways of simulating noise described with jump operators. One is *deterministic*, which evolves the density matrix by numerically integrating the set of ODEs. The other is called *stochastic* and performs a Monte Carlo simulation. Simulations are faster for *deterministic* and less space-consuming for smaller systems, say a Hilbert space with 100 levels, whereas *stochastic* ones become increasingly more efficient as the size of the Hilbert space grows.

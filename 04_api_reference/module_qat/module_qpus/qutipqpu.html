@@ -1,0 +1,224 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qat.qpus.QutipQPU &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=bee1f38e" />
+      <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+      <script src="../../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="qat.qpus.SimulatedAnnealing" href="%3Amyqlm%3Asimulatedannealing.html" />
+    <link rel="prev" title="qat.qpus.PyLinalg" href="%3Amyqlm%3Apylinalg.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../04_api_reference.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../module_qat.html">qat</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../module_comm.html">qat.comm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_core.html">qat.core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_devices.html">qat.devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fermion.html">qat.fermion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_fusion.html">qat.fusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_generators.html">qat.generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_hardware.html">qat.hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_interop.html">qat.interop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_lang.html">qat.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_nnize.html">qat.nnize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_opt.html">qat.opt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_pbo.html">qat.pbo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_plugins.html">qat.plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_qiskit.html">qat.qiskit</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../module_qpus.html">qat.qpus</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="%3Amyqlm%3Aclinalg.html">qat.qpus.CLinalg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="classicalqpu.html">qat.qpus.ClassicalQPU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%3Amyqlm%3Apylinalg.html">qat.qpus.PyLinalg</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">qat.qpus.QutipQPU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%3Amyqlm%3Asimulatedannealing.html">qat.qpus.SimulatedAnnealing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_current_qpu.html">qat.qpus.get_current_qpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_default_qpu.html">qat.qpus.get_default_qpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_noisy_qpu.html">qat.qpus.get_noisy_qpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qpuhandler.html">qat.qpus.QPUHandler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remoteqpu.html">qat.qpus.RemoteQPU</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../module_quops.html">qat.quops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module_synthopline.html">qat.synthopline</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../04_api_reference.html">API reference</a></li>
+          <li class="breadcrumb-item"><a href="../../module_qat.html">qat</a></li>
+          <li class="breadcrumb-item"><a href="../module_qpus.html">qat.qpus</a></li>
+      <li class="breadcrumb-item active">qat.qpus.QutipQPU</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qat-qpus-qutipqpu">
+<h1>qat.qpus.QutipQPU<a class="headerlink" href="#qat-qpus-qutipqpu" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="qat.qpus.QutipQPU">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.qpus.</span></span><span class="sig-name descname"><span class="pre">QutipQPU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hardware_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sim_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'deterministic'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_procs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bosonic_levels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extract_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qutip_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.qpus.QutipQPU" title="Link to this definition"></a></dt>
+<dd><p>An analog QPU using the QuTiP library. It performs a time-dependent
+evolution of a quantum state under a Hamiltonian specified in a
+<a class="reference internal" href="../module_core/schedule.html#qat.core.Schedule" title="qat.core.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a>.</p>
+<p>The QPU supports executing various types of Hamiltonians like spin, bosonic
+and fermionic schedules and observables (spin and bosonic can be combined).
+It also includes schedules with stochastic parameters and, alternatively, a
+noise description of the environment in terms of Lindblad operators -
+take a look at the <a class="reference internal" href="../../../02_user_guide/02_execute/03_qpu/02_analog/02_noisy_an/01_jump_ops.html#jump-op-and-stoch-noise"><span class="std std-ref">‘Analog’ Noise models</span></a> section.</p>
+<p>For the noisy evolutions, a <cite>stochastic</cite> method of simulation is provided.
+It would need <cite>n_samples</cite> to be specified, i.e. the number of stochastic
+trajectories.</p>
+<p>When working with bosons, one should specify the number of modes and the number
+of their excitations as tuples in the <cite>bosonic_levels</cite> list. If one further wishes
+to specify the <code class="code docutils literal notranslate"><span class="pre">psi_0</span></code> entering the <a class="reference internal" href="../module_core/schedule.html#qat.core.Schedule.to_job" title="qat.core.Schedule.to_job"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_job()</span></code></a> of
+<a class="reference internal" href="../module_core/schedule.html#qat.core.Schedule" title="qat.core.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a>, the states of the systems should be ordered from
+belonging to modes with less to modes with more excitations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hardware_model</strong> (<a class="reference internal" href="../module_hardware/hardwaremodel.html#qat.hardware.HardwareModel" title="qat.hardware.HardwareModel"><em>HardwareModel</em></a><em>, </em><em>optional</em>) – a hardware model containing
+e.g jump operators or stochastic parameters, via <cite>jump_operators</cite>
+or <cite>params_specification</cite>, respectively. Defaults to None for noiseless
+simulations.</p></li>
+<li><p><strong>sim_method</strong> (<em>string</em><em>, </em><em>optional</em>) – <cite>deterministic</cite> (default) or <cite>stochastic</cite>.
+If the hardware model contains jump
+operators, <cite>deterministic</cite> will solve the Master equation with <cite>mesolve</cite>
+of QuTiP, whereas <cite>stochastic</cite> will do a Monte Carlo simulation with <cite>mcsolve</cite>.
+In the case of no jump operators <cite>deterministic</cite> will pass the problem straight to
+<cite>sesolve</cite>, while <cite>stochastic</cite> will mean that
+there is a user specified noise (using the <a class="reference internal" href="../module_core/parameter.html#qat.core.Parameter" title="qat.core.Parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parameter</span></code></a>
+class) which will be evaluated and averaged over <cite>n_samples</cite> number of times.</p></li>
+<li><p><strong>n_steps</strong> (<em>int</em><em>, </em><em>optional</em>) – number of simulation steps for <cite>mesolve</cite> and <cite>mcsolve</cite> of
+QuTiP. Default is 100.</p></li>
+<li><p><strong>n_samples</strong> (<em>int</em><em>, </em><em>optional</em>) – in <cite>stochastic</cite> mode - the number of trajectories for
+Monte Carlo simulation with jump operators
+or the number of noise realizations to average over for user-specified stochastic
+noise when a <a class="reference internal" href="../module_core/parameter.html#qat.core.Parameter" title="qat.core.Parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parameter</span></code></a> with a PSD in provided.</p></li>
+<li><p><strong>n_procs</strong> (<em>int</em><em>, </em><em>optional</em>) – in <cite>stochastic</cite> mode - the number of processes
+to run trajectories in parallel. Only for jump operators.</p></li>
+<li><p><strong>bosonic_levels</strong> (<em>list&lt;tuple&lt;int</em><em>, </em><em>int&gt;&gt;</em><em>, </em><em>optional</em>) – A list ot tuples for which the first value
+of each tuple is the number of modes, and the second - the number of their excitations.
+For example, if we have 10 modes, each with 50 excitations, this will be expressed as
+<code class="code docutils literal notranslate"><span class="pre">bosonic_levels</span> <span class="pre">=</span> <span class="pre">[(10,</span> <span class="pre">50)]</span></code>. In contrast, if we have 2 modes with 3 excitations
+and 1 mode with 5 excitations we would have for the total system
+<code class="code docutils literal notranslate"><span class="pre">bosonic_levels</span> <span class="pre">=</span> <span class="pre">[(2,</span> <span class="pre">3),</span> <span class="pre">(1,</span> <span class="pre">5)]</span></code>.
+Only needed if non-two-level systems are present (i.e. not qubits or fermions).
+Defaults to None.</p></li>
+<li><p><strong>extract_states</strong> (<em>list&lt;int&gt;</em><em>, </em><em>optional</em>) – list of states to restrict <cite>H_resource</cite>,
+<cite>H_target</cite>, <cite>jump_operators</cite>, <cite>psi_0</cite>. The list should include integers between
+0 for the first state and e.g. 2**N - 1 for the last one if one is working with N qubits.
+Defaults to None.</p></li>
+<li><p><strong>qutip_options</strong> (<em>dict</em><em>, </em><em>optional</em>) – extra options passed to the Qutip solver.</p></li>
+<li><p><strong>nsteps</strong> (<em>int</em><em>, </em><em>optional</em>) – alias for n_steps (legacy)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="%3Amyqlm%3Apylinalg.html" class="btn btn-neutral float-left" title="qat.qpus.PyLinalg" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="%3Amyqlm%3Asimulatedannealing.html" class="btn btn-neutral float-right" title="qat.qpus.SimulatedAnnealing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2025.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

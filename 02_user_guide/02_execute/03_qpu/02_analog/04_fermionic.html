@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fermionic simulations &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=bee1f38e" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="shortcut icon" href="../../../../static/favicon.png"/>
+      <script src="../../../../static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../../../../static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="SQA computing" href="../03_annealing.html" />
+    <link rel="prev" title="Bosonic simulations" href="03_bosonic.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../02_user_guide.html">User guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../02_user_guide.html">User guide</a></li>
+          <li class="breadcrumb-item"><a href="../../../02_execute.html">Executing / Simulating quantum programs</a></li>
+          <li class="breadcrumb-item"><a href="../../03_qpu.html">Quantum Processing Unit (QPU)</a></li>
+          <li class="breadcrumb-item"><a href="../02_analog.html">Analog computing</a></li>
+      <li class="breadcrumb-item active">Fermionic simulations</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="fermionic-simulations">
+<span id="fermionic-h"></span><h1>Fermionic simulations<a class="headerlink" href="#fermionic-simulations" title="Link to this heading"></a></h1>
+<p>A fermionic Hamiltonian is described in a similar fashion to bosons and spins - with an <a class="reference internal" href="../../../../04_api_reference/module_qat/module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a> (or many of them) in a <a class="reference internal" href="../../../../04_api_reference/module_qat/module_core/schedule.html#qat.core.Schedule" title="qat.core.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a>. The key difference lies within the operators used. The fermionic creation operator <span class="math notranslate nohighlight">\(c^\dagger\)</span> is encoded via the big letter <code class="code docutils literal notranslate"><span class="pre">C</span></code>, while the annihilation operator <span class="math notranslate nohighlight">\(c\)</span> - through the small letter <code class="code docutils literal notranslate"><span class="pre">c</span></code>.</p>
+<p>Let us look at the following simple Hamiltonian:</p>
+<div class="math notranslate nohighlight">
+\[H = c_0^\dagger c_1 + c_1^\dagger c_0\]</div>
+<p>Imagine we want to evolve <span class="math notranslate nohighlight">\(H\)</span> for time <span class="math notranslate nohighlight">\(\frac{\pi}{2}\)</span> starting from the state <span class="math notranslate nohighlight">\(\left|01\right&gt;\)</span> (i.e. only site <span class="math notranslate nohighlight">\(1\)</span> is occupied). If at the end we measure the occupation of site <span class="math notranslate nohighlight">\(0\)</span> via the <span class="math notranslate nohighlight">\(n_0 = c^\dagger_0 c_0\)</span> operator, we would expect that the ocupation of the two sites has swapped such that the state of the system is <span class="math notranslate nohighlight">\(\left|10\right&gt;\)</span> and <span class="math notranslate nohighlight">\(\left&lt;n_0\right&gt; = 1\)</span>. One way to simulate this behaviour would look like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.qpus</span><span class="w"> </span><span class="kn">import</span> <span class="n">QutipQPU</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Schedule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.core.variables</span><span class="w"> </span><span class="kn">import</span> <span class="n">Variable</span><span class="p">,</span> <span class="n">sin</span>
+
+<span class="c1"># Define a time Variable</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+
+<span class="c1"># Create the Schedule</span>
+<span class="n">drive</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Cc&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Cc&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])])</span>
+<span class="n">schedule</span> <span class="o">=</span> <span class="n">Schedule</span><span class="p">(</span><span class="n">drive</span><span class="o">=</span><span class="n">drive</span><span class="p">,</span>
+                    <span class="n">tmax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Construct a job with an observable to measure</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">psi_0</span><span class="o">=</span><span class="s2">&quot;01&quot;</span><span class="p">,</span> <span class="c1"># start from the 0th site unoccupied and the 1st - occupied</span>
+                      <span class="n">job_type</span><span class="o">=</span><span class="s2">&quot;OBS&quot;</span><span class="p">,</span>
+                      <span class="n">observable</span><span class="o">=</span><span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Cc&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])]))</span>
+
+<span class="c1"># Create a QPU and submit the job</span>
+<span class="n">qpu</span> <span class="o">=</span> <span class="n">QutipQPU</span><span class="p">(</span><span class="n">nsteps</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span> <span class="c1"># can specify the number of time steps for the integration</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&lt;n_0 (pi/2)&gt; =&quot;</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">n_0</span> <span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">&gt;</span> <span class="o">=</span> <span class="mf">0.9999999999993716</span>
+</pre></div>
+</div>
+<p>For a more involved Hamiltonian considering interactions between the fermions in a noisy setting, take a look at the following <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fanalog_simulations%2Fultracold_atoms_AQPU.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">fermionic notebook</a>.</p>
+<p>On myQLM there is also the module <a class="reference internal" href="../../../../04_api_reference/module_qat/module_fermion.html#module-qat.fermion" title="qat.fermion"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.fermion</span></code></a> specifically dedicated to spin and fermionic computations.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Fermionic simulations are currently only supported for <a class="reference internal" href="../../../../04_api_reference/module_qat/module_qpus/qutipqpu.html#qat.qpus.QutipQPU" title="qat.qpus.QutipQPU"><code class="xref py py-class docutils literal notranslate"><span class="pre">QutipQPU</span></code></a>.</p>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="03_bosonic.html" class="btn btn-neutral float-left" title="Bosonic simulations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../03_annealing.html" class="btn btn-neutral float-right" title="SQA computing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Eviden 2016-2025.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

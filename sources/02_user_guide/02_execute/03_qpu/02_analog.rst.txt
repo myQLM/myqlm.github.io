@@ -1,0 +1,131 @@
+Analog computing
+================
+
+.. _analog_qpus:
+
+Once a Hamiltonian is encoded and the :class:`~qat.core.Schedule` is converted to a :class:`~qat.core.Job`, one can perform a simulation by sending this Job to a dedicated analog QPU.
+
+.. parseonly:: qlm
+
+    Qaptiva is equipped with three such simulators - :class:`~qat.qpus.QutipQPU`, :class:`~qat.qpus.AnalogQPU` and :class:`~qat.qpus.MPSTraj` - which overlap to some degree in functionality with some key differences.
+
+    .. table:: Analog QPUs and simulation modes
+        :align: center
+
+        +---------------+------------------------------------------------------------+-----------------+-----------------+
+        |               |    .. centered::   Qubit simulations                       |                 |                 |
+        |               +-----------+------------------------------------------------+                 |                 |
+        |               |           |     .. centered::   Noisy                      |                 |                 |
+        |               |           +----------------------------+-------------------+                 |                 |
+        |               | Noiseless |     With jump operators    |                   || **Bosonic**    || **Fermionic**  |
+        |               |           |                            |   With stochastic || **simulations**|| **simulations**|
+        |               |           +---------------+------------+   noise           |                 |                 |
+        |               |           | deterministic | stochastic |                   |                 |                 |
+        +---------------+-----------+---------------+------------+-------------------+-----------------+-----------------+
+        | **QutipQPU**  |    Yes    |      Yes      |     Yes    |        Yes        |        Yes      |        Yes      |
+        +---------------+-----------+---------------+------------+-------------------+-----------------+-----------------+
+        | **AnalogQPU** |    Yes    |      Yes      |     No     |    Yes (slower)   |        No       |        No       |
+        +---------------+-----------+---------------+------------+-------------------+-----------------+-----------------+
+        | **MPSTRaj**   |    Yes    |      No       |     Yes    |      No           |        No       |        No       |
+        +---------------+-----------+---------------+------------+-------------------+-----------------+-----------------+
+
+
+    * :class:`~qat.qpus.AnalogQPU` uses the *Boost.odeint* library to perform simulations. Since the solvers are in C++/CUDA, the QPU is inherently faster. Apart from noiseless simulations of the Schrödinger equation with :code:`sim_method = deterministic`, the QPU is capable of evolving a Hamiltonian in the presence of an environment via Lindblad-type simulations, also in a *deterministic* manner.
+
+    * :class:`~qat.qpus.QutipQPU` is based on the *QuTiP* library. It is usually slower than :class:`~qat.qpus.AnalogQPU`. However, beyond the functionalities of :class:`~qat.qpus.AnalogQPU`, it can also simulate the evolution of **Bosonic Hamiltonians** (i.e. more than 2-level systems) in the presence (or not) of qubits, **Fermionic Hamiltonians**, as well as Hamiltonians with stochastic noise with an arbitrary user-specified Power Spectral Density (PSD).
+
+    * :class:`~qat.qpus.MPSTraj` compresses the quantum state in a Matrix Product State (MPS, a type of Tensor Network), and can thus potentially reach a higher number of qubits than QutipQPU or AnalogQPU. The lower the entanglement entropy of the state, the higher the number of qubits can be simulated. The time evolution is performed by Trotterization of the hamiltonian. Noise in the form of jump operators is treated stochastically, with one of several trajectory algorithms, the choice of which can impact performances.
+
+    The analog QPUs above are able to measure more than one :class:`~qat.core.Observable` per simulation. One can achieve this by passing a list of the other desired observables to be measured to the :code:`observables` argument of the :meth:`~qat.core.Schedule.to_job` method of the :class:`~qat.core.Schedule`.
+    Together with the final expectation values :math:`\left<O\right>(t_{f})` provided in the :class:`~qat.core.Result` fields :code:`value` and :code:`values` (for one and many observables, respectively), one can also access :math:`\left<O\right>(t)`, i.e. the measured values at all times via :code:`value_data` and :code:`values_data`.
+
+    .. note::
+        In the very particular case of :class:`~qat.qpus.AnalogQPU` with :code:`error_control=True` running with stochastic noise, i.e. averaging over different noise realizations, each such realization will be evaluated at different time points, hence :math:`\left<O\right>(t)` will not be accessible.
+
+
+    .. autocard::
+        :columns: 2
+
+
+.. parseonly:: distributed
+
+    Qaptiva-HPC is equipped with such simulators - :class:`~qat.qpus.DMPSTraj` and :class:`~qat.qpus.QutipQPU` -.
+
+    .. table:: Analog QPUs and simulation modes
+        :align: center
+
+        +---------------+------------------------------------------------------------+-----------------+-----------------+
+        |               |    .. centered::   Qubit simulations                       |                 |                 |
+        |               +-----------+------------------------------------------------+                 |                 |
+        |               |           |     .. centered::   Noisy                      |                 |                 |
+        |               |           +----------------------------+-------------------+                 |                 |
+        |               | Noiseless |     With jump operators    |                   || **Bosonic**    || **Fermionic**  |
+        |               |           |                            |   With stochastic || **simulations**|| **simulations**|
+        |               |           +---------------+------------+   noise           |                 |                 |
+        |               |           | deterministic | stochastic |                   |                 |                 |
+        +---------------+-----------+---------------+------------+-------------------+-----------------+-----------------+
+        | **DMPSTRaj**  |    Yes    |      No       |     Yes    |      No           |        No       |        No       |
+        +---------------+-----------+---------------+------------+-------------------+-----------------+-----------------+
+        | **QutipQPU**  |    Yes    |      Yes      |     Yes    |        Yes        |        Yes      |        Yes      |
+        +---------------+-----------+---------------+------------+-------------------+-----------------+-----------------+
+
+
+    * :class:`~qat.qpus.DMPSTraj` compresses the quantum state in a Matrix Product State (MPS, a type of Tensor Network), and can thus potentially reach a higher number of qubits than QutipQPU or AnalogQPU. The lower the entanglement entropy of the state, the higher the number of qubits can be simulated. The time evolution is performed by Trotterization of the hamiltonian. Noise in the form of jump operators is treated stochastically, with one of several trajectory algorithms, the choice of which can impact performances.
+
+    * :class:`~qat.qpus.QutipQPU` is based on the *QuTiP* library. It can simulate the evolution of **Bosonic Hamiltonians** (i.e. more than 2-level systems) in the presence (or not) of qubits, **Fermionic Hamiltonians**, as well as Hamiltonians with stochastic noise with an arbitrary user-specified Power Spectral Density (PSD).
+
+    The analog QPUs above are able to measure more than one :class:`~qat.core.Observable` per simulation. One can achieve this by passing a list of the other desired observables to be measured to the :code:`observables` argument of the :meth:`~qat.core.Schedule.to_job` method of the :class:`~qat.core.Schedule`.
+    Together with the final expectation values :math:`\left<O\right>(t_{f})` provided in the :class:`~qat.core.Result` fields :code:`value`, one can also access :math:`\left<O\right>(t)`, i.e. the measured values at all times via :code:`value_data`.
+
+
+    .. autocard::
+        :columns: 2
+
+
+.. parseonly:: myqlm
+    
+    myQLM is equipped with such a simulator - :class:`~qat.qpus.QutipQPU`.
+
+    .. table:: Analog QPUs and simulation modes
+        :align: center
+
+        +---------------+------------------------------------------------------------+-----------------+-----------------+
+        |               |    .. centered::   Qubit simulations                       |                 |                 |
+        |               +-----------+------------------------------------------------+                 |                 |
+        |               |           |     .. centered::   Noisy                      |                 |                 |
+        |               |           +----------------------------+-------------------+                 |                 |
+        |               | Noiseless |     With jump operators    |                   || **Bosonic**    || **Fermionic**  |
+        |               |           |                            |   With stochastic || **simulations**|| **simulations**|
+        |               |           +---------------+------------+   noise           |                 |                 |
+        |               |           | deterministic | stochastic |                   |                 |                 |
+        +---------------+-----------+---------------+------------+-------------------+-----------------+-----------------+
+        | **QutipQPU**  |    Yes    |      Yes      |     Yes    |        Yes        |        Yes      |        Yes      |
+        +---------------+-----------+---------------+------------+-------------------+-----------------+-----------------+
+
+    * :class:`~qat.qpus.QutipQPU` is based on the *QuTiP* library. It can simulate the evolution of **Bosonic Hamiltonians** (i.e. more than 2-level systems) in the presence (or not) of qubits, **Fermionic Hamiltonians**, as well as Hamiltonians with stochastic noise with an arbitrary user-specified Power Spectral Density (PSD).
+
+    The analog QPU above is able to measure more than one :class:`~qat.core.Observable` per simulation. One can achieve this by passing a list of the other desired observables to be measured to the :code:`observables` argument of the :meth:`~qat.core.Schedule.to_job` method of the :class:`~qat.core.Schedule`.
+    Together with the final expectation values :math:`\left<O\right>(t_{f})` provided in the :class:`~qat.core.Result` fields :code:`value` and :code:`values` (for one and many observables, respectively), one can also access :math:`\left<O\right>(t)`, i.e. the measured values at all times via :code:`value_data` and :code:`values_data`.
+
+    .. autocard::
+        :columns: 2
+
+.. _analog_applications_sec:
+
+We provide some of the key applications of analog quantum computations:
+
+
+.. parseonly:: myqlm
+    
+    * :notebook:`(Variational Quantum Simulation with analog QPUs)[aqpu_variational_quantum_simulation.ipynb]`
+
+
+.. parseonly:: qlm 
+    
+    * :notebook:`(Solving Hamiltonians with stochastic parameters)[stochastic_schedule_example.ipynb]`
+    * :notebook:`(Process tomography of a schedule on a noisy analog QPU)[superoperator_computations.ipynb]`
+
+
+.. parseonly::distributed
+    
+    * :notebook:`(Distributed phase transition rydbergs with DMPSTraj)[distributed_phase_transition_rydbergs_with_DMPSTraj.ipynb]`

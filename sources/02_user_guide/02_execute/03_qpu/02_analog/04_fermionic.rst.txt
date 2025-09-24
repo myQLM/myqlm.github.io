@@ -1,0 +1,46 @@
+.. _fermionic_h:
+
+Fermionic simulations
+=====================
+
+A fermionic Hamiltonian is described in a similar fashion to bosons and spins - with an :class:`~qat.core.Observable` (or many of them) in a :class:`~qat.core.Schedule`. The key difference lies within the operators used. The fermionic creation operator :math:`c^\dagger` is encoded via the big letter :code:`C`, while the annihilation operator :math:`c` - through the small letter :code:`c`.
+
+Let us look at the following simple Hamiltonian:
+
+.. math::
+
+    H = c_0^\dagger c_1 + c_1^\dagger c_0
+
+Imagine we want to evolve :math:`H` for time :math:`\frac{\pi}{2}` starting from the state :math:`\left|01\right>` (i.e. only site :math:`1` is occupied). If at the end we measure the occupation of site :math:`0` via the :math:`n_0 = c^\dagger_0 c_0` operator, we would expect that the ocupation of the two sites has swapped such that the state of the system is :math:`\left|10\right>` and :math:`\left<n_0\right> = 1`. One way to simulate this behaviour would look like:
+
+.. run-block:: python
+
+    import numpy as np
+    from qat.qpus import QutipQPU
+    from qat.core import Observable, Term, Schedule
+    from qat.core.variables import Variable, sin
+
+    # Define a time Variable
+    t = Variable("t", float)
+
+    # Create the Schedule
+    drive = Observable(2, pauli_terms=[Term(1, "Cc", [0, 1]), Term(1, "Cc", [1, 0])])
+    schedule = Schedule(drive=drive,
+                        tmax=np.pi / 2)
+
+    # Construct a job with an observable to measure
+    job = schedule.to_job(psi_0="01", # start from the 0th site unoccupied and the 1st - occupied
+                          job_type="OBS",
+                          observable=Observable(2, pauli_terms=[Term(1, 'Cc', [0, 0])]))
+
+    # Create a QPU and submit the job
+    qpu = QutipQPU(nsteps=200) # can specify the number of time steps for the integration
+    res = qpu.submit(job)
+    print("<n_0 (pi/2)> =", res.value)
+
+For a more involved Hamiltonian considering interactions between the fermions in a noisy setting, take a look at the following :notebook:`(fermionic notebook)[ultracold_atoms_AQPU.ipynb]`.
+
+On |product| there is also the module :mod:`qat.fermion` specifically dedicated to spin and fermionic computations.
+
+.. note::
+    Fermionic simulations are currently only supported for :class:`~qat.qpus.QutipQPU`.

@@ -1,0 +1,17 @@
+.. _analog_intro_sec:
+
+Noisy simulations
+=================
+
+Noise models for analog quantum computers differ from those of digital quantum computers in that they describe the action of the environment in a *continuous time* fashion.
+
+Generically, noise can be described as the coupling of the environment to the quantum system of interest via the general Hamiltonian
+
+.. math::
+
+    H_\mathrm{tot} = H + H_\mathrm{env} + H_\mathrm{coupling}
+
+with :math:`H`, :math:`H_\mathrm{env}` and :math:`H_\mathrm{coupling}` as the Hamiltonians of the system, the environment and the coupling, respectively. On |product| we can take two distinct paths to specify this joint Hamiltonian - either with the :code:`jump_operators`, or the stochastic :code:`params_specification` field of the analog QPU:
+
+.. autocard::
+   :columns: 2

@@ -20,30 +20,33 @@ Gate-based QPUs
 
    [:class:`qat.qpus.LinAlg`] Linear-algebra-based simulator
    [:class:`qat.qpus.MPS`] Matrix-product-states simulator
+   [:class:`qat.qpus.SPD`] Pauli-propagation-based simulator
    [:class:`qat.qpus.Stabs`] Clifford simulator
    [:class:`qat.qpus.Feynman`] Path-integral simulator
    [:class:`qat.qpus.Bdd`] QMDD-based simulator
    [:class:`qat.qpus.QPEG`] MPS-based simulator
    [:class:`qat.qpus.NoisyQProc`] Noisy simulator
+   [:class:`qat.qpus.NoisySPD`] Noisy Pauli-propagation-based simulator
    [:class:`qat.qpus.MPO`] Matrix product operator simulator
    [:class:`qat.qpus.ClassicalQPU`] Simulator only able to process non-quantum gates
    [:class:`qat.qpus.MPSLegacy`] Legacy QPU for MPS
    [:class:`qat.qpus.CLinalg`] C++ linear-algebra-based simulator
+   [:class:`qat.qpus.CNoisy`] Noisy C++ linear-algebra-based simulator
    [:class:`qat.qpus.PyLinalg`] Python linear-algebra-based simulator
    [:class:`qat.qpus.DLinAlg`] C++ distributed linear-algebra-based simulator with MPI communication
    [:class:`qat.qpus.DNoisy`] Noisy C++ distributed linear-algebra-based simulator with MPI communication
 
 
-.. parseonly:: qlm
 
-    Analog Quantum Simulators
-    -------------------------
+Analog Quantum Simulators
+-------------------------
+    
+.. autoapi::
 
-    .. autoapi::
-
-        [:class:`qat.qpus.QutipQPU`] Analog simulator using *Boost.odeint*
-        [:class:`qat.qpus.AnalogQPU`] Analog simulator based on the *QuTiP* library
-        [:class:`qat.qpus.MPSTraj`] Tensor Network based analog simulator
+    [:class:`qat.qpus.AnalogQPU`] Analog simulator using *Boost.odeint*
+    [:class:`qat.qpus.QutipQPU`] Analog simulator based on the *QuTiP* library
+    [:class:`qat.qpus.MPSTraj`] Tensor Network based analog simulator
+    [:class:`qat.qpus.DMPSTraj`] A distributed version of a Tensor Network based analog simulator
 
 
 Simulated Annealing
@@ -63,5 +66,6 @@ Abstract and utility QPU classes
     [:class:`qat.qpus.UploadedQPU`] QPU than can be uploaded with Qaptiva Access
     [:func:`qat.qpus.get_current_qpu`] Returns the QPU in the current context
     [:func:`qat.qpus.get_default_qpu`] Get the default QPU
+    [:func:`qat.qpus.get_noisy_qpu`] Get the default noisy QPU
     [:class:`qat.qpus.QPUHandler`] Abstract QPU interface
     [:class:`qat.qpus.RemoteQPU`] Interface for connecting to a QPU server
