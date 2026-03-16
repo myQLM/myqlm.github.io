@@ -2,16 +2,16 @@
 
 Constructing one or multiple Jobs (using Batch)
 ===============================================
-In Qaptiva, the :ref:`quantum circuit <circuit>` can be viewed as routines preparing a quantum memory in a particular state. 
-When simulating the circuit, the user will need to describe the result that he want to obtain from the quantum state. 
-This is achieved by specifying the **final measurement** to be carried out on the final state of the register, i.e on the 
+In Qaptiva, the :ref:`quantum circuit <circuit>` can be viewed as routines preparing a quantum memory in a particular state.
+When simulating the circuit, the user will need to describe the result that he want to obtain from the quantum state.
+This is achieved by specifying the **final measurement** to be carried out on the final state of the register, i.e on the
 wavefunction :math:`|\psi\rangle` that has been prepared by the quantum circuit.
 
 **Two types** of final measurements are commonly used in quantum algorithms:
 
 - "**Sample**": Measuring the projection of the wavefunction on the computational basis (formally speaking, this means measuring
-  qubits "along the Z axis"). 
-  
+  qubits "along the Z axis").
+
   For instance, if the final state is :math:`|\psi\rangle=(|00\rangle+|11\rangle)/\sqrt{2}`, measuring
   "in the computational basis" will yield the bitstring "00" in 50% (:math:`1/\sqrt{2}^2`) of cases, and "11" the rest of the time.
   Because of the statistical nature of the measurement, many repeated measurements on the computational basis, yielding many
@@ -32,14 +32,14 @@ wavefunction :math:`|\psi\rangle` that has been prepared by the quantum circuit.
 
 
 .. warning::
-    While the first final processing type is native to most actual QPUs, some QPUs do not have native support for the ``OBS`` 
-    processing type. In the absence of a native support, the :class:`~qat.plugins.ObservableSplitter` plugin of Qaptiva can 
+    While the first final processing type is native to most actual QPUs, some QPUs do not have native support for the ``OBS``
+    processing type. In the absence of a native support, the :class:`~qat.plugins.ObservableSplitter` plugin of Qaptiva can
     enhance the QPU with an observable-processing capacity.
 
 
-To contain these informations, the quantum jobs are wrapped in a :class:`~qat.core.Job` class. 
+To contain these informations, the quantum jobs are wrapped in a :class:`~qat.core.Job` class.
 In addition to the quantum circuit, the user can provide several options when constructing the quantum job:
-    
+
     - The **type of final measurement** to perform: standard measurement in computational basis ``SAMPLE`` or sampling of an observable ``OBS``
     - The **number of shots** to perform
     - The **qubits** to be measured
@@ -59,12 +59,12 @@ In addition to the quantum circuit, the user can provide several options when co
     shots will be performed (i.e. no statistical uncertainty).
 
 
-In most cases, the job object is not meant to be constructed manually. Instead, it is generated from a :class:`~qat.core.Circuit` 
+In most cases, the job object is not meant to be constructed manually. Instead, it is generated from a :class:`~qat.core.Circuit`
 using the :meth:`~qat.core.Circuit.to_job` method. The job can then be sent to the :ref:`QPU <qpu>` to be simulated.
 
 The :class:`~qat.core.Batch` class contains a list of jobs, allowing several circuits to be sent to a QPU with only a single request.
-A batch can also include a **meta_data** field if the QPU accepts metadata so that it can be configured with batch related options. 
- 
+A batch can also include a **meta_data** field if the QPU accepts metadata so that it can be configured with batch related options.
+
 
 The code block below shows a simple example using a job to simulate a circuit:
 
@@ -84,7 +84,7 @@ The code block below shows a simple example using a job to simulate a circuit:
 
 
 .. note::
-    A job (or a batch) can be serialized in a binary file, and be reconstructed later by loading the file, with the 
+    A job (or a batch) can be serialized in a binary file, and be reconstructed later by loading the file, with the
     :meth:`~qat.core.Job.dump` and the :meth:`~qat.core.Job.load` methods.
 
 

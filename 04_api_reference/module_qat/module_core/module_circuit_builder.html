@@ -8,12 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>qat.core.circuit_builder &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=bee1f38e" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
-    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+    <link rel="shortcut icon" href="../../../static/favicon.ico"/>
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
@@ -24,7 +24,7 @@
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="qat.core.circuit_builder.matrix_util.default_gate_set" href="module_circuit_builder/default_gate_set.html" />
+    <link rel="next" title="qat.core.circuit_builder.matrix_util.get_param_generator" href="module_circuit_builder/get_param_generator.html" />
     <link rel="prev" title="qat.core.application.RemoteApplication" href="module_application/remoteapplication.html" /> 
 </head>
 
@@ -38,7 +38,7 @@
           
           <a href="../../../index.html" class="icon icon-home">
             myQLM documentation
-              <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+              <img src="../../../static/doc-logo.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -61,7 +61,6 @@
 <li class="toctree-l3 current"><a class="reference internal" href="../module_core.html">qat.core</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="module_application.html">qat.core.application</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">qat.core.circuit_builder</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="module_circuit_builder/default_gate_set.html">qat.core.circuit_builder.matrix_util.default_gate_set</a></li>
 <li class="toctree-l5"><a class="reference internal" href="module_circuit_builder/get_param_generator.html">qat.core.circuit_builder.matrix_util.get_param_generator</a></li>
 <li class="toctree-l5"><a class="reference internal" href="module_circuit_builder/get_predef_generator.html">qat.core.circuit_builder.matrix_util.get_predef_generator</a></li>
 <li class="toctree-l5"><a class="reference internal" href="module_circuit_builder/variablenamenotavailable.html">qat.core.circuit_builder.builder.VariableNameNotAvailable</a></li>
@@ -82,6 +81,7 @@
 <li class="toctree-l4"><a class="reference internal" href="state.html">qat.core.wrappers.result.State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="observable.html">qat.core.Observable</a></li>
 <li class="toctree-l4"><a class="reference internal" href="term.html">qat.core.Term</a></li>
+<li class="toctree-l4"><a class="reference internal" href="default_gate_set.html">qat.core.default_gate_set</a></li>
 <li class="toctree-l4"><a class="reference internal" href="hardwarespecs.html">qat.core.HardwareSpecs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="topology.html">qat.core.Topology</a></li>
 <li class="toctree-l4"><a class="reference internal" href="topologytype.html">qat.core.TopologyType</a></li>
@@ -92,8 +92,10 @@
 <li class="toctree-l4"><a class="reference internal" href="assert_qpu.html">qat.core.assertion.assert_qpu</a></li>
 <li class="toctree-l4"><a class="reference internal" href="display.html">qat.core.console.display</a></li>
 <li class="toctree-l4"><a class="reference internal" href="evaluate.html">qat.core.formula_eval.evaluate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_substate.html">qat.core.simutil.get_substate</a></li>
 <li class="toctree-l4"><a class="reference internal" href="load_state_vector_from_bin.html">qat.core.util.load_state_vector_from_bin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plot_in_notebook.html">qat.core.printer.plot_in_notebook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qlmaas_warning.html">qat.core.qlmaas.qlmaas_warning</a></li>
 <li class="toctree-l4"><a class="reference internal" href="wavefunction.html">qat.core.simutil.wavefunction</a></li>
 </ul>
 </li>
@@ -165,13 +167,10 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="module_circuit_builder/variablenamenotavailable.html#qat.core.circuit_builder.builder.VariableNameNotAvailable" title="qat.core.circuit_builder.builder.VariableNameNotAvailable"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.core.circuit_builder.builder.VariableNameNotAvailable</span></code></a></p></td>
 <td><p>Exception raised when a variable is redefined using the same name.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="module_circuit_builder/default_gate_set.html#qat.core.circuit_builder.matrix_util.default_gate_set" title="qat.core.circuit_builder.matrix_util.default_gate_set"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.circuit_builder.matrix_util.default_gate_set()</span></code></a></p></td>
-<td><p>Generates a fresh default gate set</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="module_circuit_builder/get_param_generator.html#qat.core.circuit_builder.matrix_util.get_param_generator" title="qat.core.circuit_builder.matrix_util.get_param_generator"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.circuit_builder.matrix_util.get_param_generator()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="module_circuit_builder/get_param_generator.html#qat.core.circuit_builder.matrix_util.get_param_generator" title="qat.core.circuit_builder.matrix_util.get_param_generator"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.circuit_builder.matrix_util.get_param_generator()</span></code></a></p></td>
 <td><p>Returns a map containing the 4 default parametrized gates generators</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="module_circuit_builder/get_predef_generator.html#qat.core.circuit_builder.matrix_util.get_predef_generator" title="qat.core.circuit_builder.matrix_util.get_predef_generator"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.circuit_builder.matrix_util.get_predef_generator()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_circuit_builder/get_predef_generator.html#qat.core.circuit_builder.matrix_util.get_predef_generator" title="qat.core.circuit_builder.matrix_util.get_predef_generator"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.core.circuit_builder.matrix_util.get_predef_generator()</span></code></a></p></td>
 <td><p>Returns a map of all the matrices of constant gates in the default gate set</p></td>
 </tr>
 </tbody>
@@ -185,13 +184,13 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="module_application/remoteapplication.html" class="btn btn-neutral float-left" title="qat.core.application.RemoteApplication" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="module_circuit_builder/default_gate_set.html" class="btn btn-neutral float-right" title="qat.core.circuit_builder.matrix_util.default_gate_set" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="module_circuit_builder/get_param_generator.html" class="btn btn-neutral float-right" title="qat.core.circuit_builder.matrix_util.get_param_generator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Eviden 2016-2025.</p>
+    <p>&#169; Copyright Bull 2016-2026, Bull SAS - All rights reserved.</p>
   </div>
 
    

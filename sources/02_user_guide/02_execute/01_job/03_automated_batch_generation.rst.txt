@@ -1,4 +1,4 @@
-.. _batch_generators: 
+.. _batch_generators:
 
 Automated batch generation
 ==========================
@@ -7,12 +7,12 @@ Automated batch generation
     Grasping the concept of Batch Generators may require the understanding about :ref:`batches and jobs <job>`, :ref:`QPUs <qpu>`
     and :ref:`plugins <plugin>`
 
-In some cases, the design of a quantum application could require the submission of several batches to a :ref:`QPU <qpu>`. 
+In some cases, the design of a quantum application could require the submission of several batches to a :ref:`QPU <qpu>`.
 Moreover, the :class:`~qat.core.Result` object returned by the QPU does not always describe perfectly the solution of a problem,
 the result will then need to be parsed to return a user-friendly data-structure.
 
-The concept of **Batch Generators** has been introduced to help users to design quantum application, while keeping the flexibility 
-of :ref:`Plugins <plugin>` and :ref:`QPUs <qpu>`. A Batch Generator is a service designed to be inserted at the beginning of a 
+The concept of **Batch Generators** has been introduced to help users to design quantum application, while keeping the flexibility
+of :ref:`Plugins <plugin>` and :ref:`QPUs <qpu>`. A Batch Generator is a service designed to be inserted at the beginning of a
 Qaptiva computation stack:
 
 .. code-block:: python
@@ -74,7 +74,7 @@ specification of the hardware the generator is linked to).
         .. tab-item:: Iterative batch generator
 
             A batch generator can submit iteratively several batches of jobs using the *yield* operator (which will return the output of
-            each submission). The advantage of an iterative batch generator rather than submitting a batch consisting of several jobs 
+            each submission). The advantage of an iterative batch generator rather than submitting a batch consisting of several jobs
             is that each batch will be able to use the results of the previous batches as intermediate results in its jobs.
 
             This example tries to minimize the energy of an observable. Given an observable, this generator will create a dummy Ansatz that will
@@ -162,7 +162,7 @@ specification of the hardware the generator is linked to).
 
              - the *yield* operator in the function :meth:`~qat.generators.AbstractGenerator.generate` (i.e. the last *yield* item is
                returned to the user if this object in neither a :class:`~qat.core.Batch` nor a :class:`~qat.core.Job`)
-             - the `post_process` method (this function takes a :class:`~qat.core.BatchResult` or :class:`~qat.core.Result` - 
+             - the `post_process` method (this function takes a :class:`~qat.core.BatchResult` or :class:`~qat.core.Result` -
                depending on the object's type returned by the generate method - and return an object of any type)
 
             The following sample of code returns a parsed result:
@@ -247,7 +247,7 @@ See :ref:`generators` for a list of all available generators.
 
         .. tab-item:: Server side
 
-            Any generator has a method :meth:`~qat.generators.AbstractGenerator.serve` to start this generator in server mode. 
+            Any generator has a method :meth:`~qat.generators.AbstractGenerator.serve` to start this generator in server mode.
             This method takes the PORT and the IP as arguments. For instance:
 
             .. code-block:: python

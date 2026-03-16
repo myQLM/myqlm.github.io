@@ -41,7 +41,7 @@ Creating a stack using plugins is quite straightforward:
 
     my_stack = plugin1 | plugin2 | .. | my_qpu
 
-In this code, when a fresh batch or job is submitted, the batch will run through the *compile* of `plugin1`, the resulting batch will run through the *compile* of `plugin2`, etc. 
+In this code, when a fresh batch or job is submitted, the batch will run through the *compile* of `plugin1`, the resulting batch will run through the *compile* of `plugin2`, etc.
 When reaching `my_qpu` the execution will start, and the results will be processed in reversed order on their way back.
 
 Overall the information flow can be summed up as follows:
@@ -53,7 +53,7 @@ Overall the information flow can be summed up as follows:
 |
 
 **Plugins** can be used to perform a wide range of transformation, our library provides a set of plugins defined in :mod:`qat.plugins`
-module but one can define its own plugin 
+module but one can define its own plugin
 
 .. _remote_plugin:
 
@@ -63,7 +63,7 @@ module but one can define its own plugin
     This section explains the creation of a server and also how to connect to a remote Plugin
 
     .. note::
-        
+
         .. parseonly:: myqlm distributed
 
             Qaptiva Access provides advanced tools to create dynamically remote Plugins (and even more) and access it remotely, using an asynchronous connection
@@ -78,7 +78,7 @@ module but one can define its own plugin
 
         .. tab-item:: Server side
 
-            Any plugin has a method :meth:`~qat.plugins.AbstractPlugin.serve` to start this plugin in server mode. 
+            Any plugin has a method :meth:`~qat.plugins.AbstractPlugin.serve` to start this plugin in server mode.
             This method takes the PORT and the IP as arguments. For instance:
 
             .. code-block:: python

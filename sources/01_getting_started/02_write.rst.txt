@@ -29,7 +29,7 @@ The algorithm consists in alternating two operations :math:`\pi \sqrt{\frac{1}{a
 These operations are:
 
     * an oracle :math:`U_f: |x \rangle \mapsto (-1)^{f(x)}|x\rangle`
-    
+
     * a diffusion :math:`U_D = I - 2|s\rangle\langle s|` where :math:`|s\rangle = \frac{1}{\sqrt{|\mathcal{X}|}} \sum_{x\in\mathcal{X}} |x\rangle`
 
 Let's dive in the details of their implementation for a simple search!
@@ -39,7 +39,7 @@ The diffusion
 
 To keep things simple we will consider the following search space: :math:`\mathcal{X} = \{0, 1\}^{2k}`.
 In this setting, a diffusion can be implemented as follows:
-    
+
     * First, we will put all the qubits in the diagonal basis by applying a wall of H gates.
     * We can then flip the amplitude of the :math:`|0..0\rangle` state by flipping all qubits using a wall of :math:`X` gates
       and applying a controlled :math:`Z` gate on all qubits.
@@ -51,7 +51,7 @@ We will write a python function that given a number :math:`k` returns a diffusio
 
         .. tab-item:: Functional mode
             :sync: functional_mode
-        
+
             .. run-block-mem:: python ex_grover_palindromes_func
 
                 import numpy as np
@@ -100,7 +100,7 @@ As you can see, we repeat a lot of code to do basis change and revert them. We c
 
         .. tab-item:: Functional mode
             :sync: functional_mode
-        
+
             .. run-block-mem:: python ex_grover_palindromes_func
 
                 @qrout(unroll=False)
@@ -141,7 +141,7 @@ In this space, we will look for palindromes: bit strings that are their own mirr
 We will implement our oracle as follows (remember that we need to flip the sign of the amplitude of all palindromes):
 
     * First we will compute the xor of :math:`b_1` and :math:`b_{2k}`, :math:`b_2` and :math:`b_{2k-1}`, etc. We will
-	  do these operations in place in the second half of the bit string.
+      do these operations in place in the second half of the bit string.
     * Then we will flip the amplitude of our state if and only if its second half is :math:`0...0`. To do so, we will
       flip all bits in the second half (using :math:`X` gates) and perform a controlled :math:`Z` gate on the second half,
       thus flipping the amplitude if and only if all qubits are set to :math:`1`.
@@ -153,7 +153,7 @@ We will implement our oracle as follows (remember that we need to flip the sign 
             :sync: functional_mode
 
             .. run-block-mem:: python ex_grover_palindromes_func
-                
+
                 @qrout(unroll=False)
                 def is_palindrome(k):
                     first_half = list(range(k))
@@ -193,7 +193,7 @@ There are exactly :math:`2^k` palindromes over :math:`2k` bits, hence we will ne
 
         .. tab-item:: Functional mode
             :sync: functional_mode
-        
+
             .. run-block-mem:: python ex_grover_palindromes_func
 
                 k = 2
@@ -240,7 +240,7 @@ There are exactly :math:`2^k` palindromes over :math:`2k` bits, hence we will ne
 
                 # Build a circuit
                 circuit = grover.to_circ()
-                    
+
                 # Build a job
                 job = circuit.to_job()
 

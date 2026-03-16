@@ -1,5 +1,47 @@
 qat.interop.qiskit.AsyncBackendToQPU
 ====================================
 
-.. autoclass:: qat.interop.qiskit.AsyncBackendToQPU
-    :members: submit, retrieve_job
+.. class:: qat.interop.qiskit.AsyncBackendToQPU(backend=None, token=None, ibm_backend='ibm_brisbane')
+
+    Wrapper around any Qiskit simulator / quantum chip connection.
+    This class defines an asynchronous QPU. If you need a synchronous QPU, please use
+    :class:`~qat.interop.qiskit.BackendToQPU`.
+
+    This asynchronous QPU can be instantiated using:
+
+     - a Qiskit backend: please use the keyword argument :code:`backend`
+     - an IBM token and the name of the backend: please use the keyword arguments
+       :code:`token` and :code:`ibm_backend` (the default backend is
+       :code:`"ibm_brisbane"`)
+     - *no argument*: the :code:`"aer_simulator"` is used if no argment is specified
+
+    .. warning::
+
+        Since this QPU is asynchronous, plugins can't be piped to this QPU
+
+    :param backend: The Backend Qiskit object that is supposed to execute the circuit.
+    :param token: Qiskit IBM login token. If not supplied, it is loaded from the
+                 environment variable :code:`QISKIT_TOKEN`.
+    :type token: str
+
+    :param ibm_backend: Name of the backend. Defaults to 'ibm_brisbane'.
+    :type ibm_backend: str
+
+
+    .. method:: retrieve_job(file_name)
+
+      Retrieves a QiskitJob from a binary file in which the QLM Batch object
+      - from which the QiskitJob has been created - has been dumped.
+
+      :param file_name: Name of the binary file
+      :returns: :class:`~qat.interop.qiskit.QiskitJob` object
+
+
+    .. method:: submit(qlm_batch)
+
+      Submits a QLM batch of jobs and returns the corresponding QiskitJob.
+
+      :param qlm_batch: :class:`~qat.core.Batch` or :class:`~qat.core.Job`. If a single job is provided, a batch is
+                        created from this job.
+      :returns: :class:`~qat.interop.qiskit.QiskitJob` object with the same interface as a job derived from
+                JobV1 for the user to have information on their job execution

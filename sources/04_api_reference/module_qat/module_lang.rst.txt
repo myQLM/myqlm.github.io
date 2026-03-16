@@ -32,7 +32,7 @@ All classes describing unitary operators inherit from the :class:`~qat.lang.AQAS
     [:class:`qat.lang.AbstractGate`] User defined gate
     [:class:`qat.lang.QRoutine`] Subcircuit behaving as a gate object
     [:func:`qat.lang.build_gate`] Decorator creating a quantum gate
-    
+
 
 .. _quantum-types.rst:
 
@@ -142,7 +142,7 @@ The routines are separated into three distinct namespaces according to these thr
 
     The two behaviors are comparable, except that using the U notation allows to
     skip the inlining step when extracting the circuit (.to_circ method with
-    inline=False) and to link another implementation of gate U later on. Using (~U) will 
+    inline=False) and to link another implementation of gate U later on. Using (~U) will
     effectively inline the gate no matter what
 
 .. autosubmodules::
@@ -176,3 +176,12 @@ Additionally, the submodule `qat.lang.algorithms.amplification` contains some fu
     [:func:`qat.lang.algorithms.amplification.uniform_distribution`] Prepare a uniform distribution from state :math:`|0...0\rangle`
     [:func:`qat.lang.algorithms.amplification.householder`] Performs a Householder for any unitary
     [:func:`qat.lang.algorithms.amplification.grover_diffusion`] Grover diffusion
+
+
+External gate sets
+------------------
+|product| provides some gate set builder, corresponding to the gate set of known QPUs:
+
+.. autoapi::
+
+    [:func:`qat.lang.vendors.quobly_gate_set`] Generate a gate set corresponding to Quobly's hardware

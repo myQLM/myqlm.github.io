@@ -2,10 +2,21 @@
 
 
 qat.qiskit
-===========
+==========
 
-:mod:`qat.qiskit` is a module that allows to use the qaptiva backend with the qiskit 2.0 API. With it is possible
-to run Samplers and Estimators that can use a qaptiva backend and return qiskit data stuctures.
+.. parseonly:: myqlm
+
+    .. warning::
+
+        This module is not installed with myQLM by default. You can install this
+        package using the command:
+
+        .. code-block:: bash
+
+            pip install qat-qiskit
+
+:mod:`qat.qiskit` is a module that allows to use the Qaptiva backend with the Qiskit 2.0 API. With it is possible
+to run Samplers and Estimators that can use a Qaptiva backend and return Qiskit data stuctures.
 
 .. autoapi::
 
@@ -13,9 +24,11 @@ to run Samplers and Estimators that can use a qaptiva backend and return qiskit 
         [:class:`qat.qiskit.Estimator`] A high level qiskit Estimator that wraps qaptiva QPUs
         [:class:`qat.qiskit.QaptivaService`] Instantiate a qiskit backend and wraps it around a remote QPU
 
-Some relevant functions:
+Additional functions or classes can be used to translate a Qaptiva circuit into a Qiskit circuit, and vice versa:
 
 .. autoapi::
 
-        [:func:`qat.qiskit.converters.qiskit_to_qlm`] An internal function that converts qiskit circuits to qlm circuits
-        
+        [:class:`qat.qiskit.converters.QaptivaToQiskit`] A class converting Qaptiva circuits to Qiskit circuits
+        [:class:`qat.qiskit.converters.QiskitToQaptiva`] A class converting Qiskit circuits to Qaptiva circuits
+        [:func:`qat.qiskit.converters.qaptiva_to_qiskit`] A function that converts Qaptiva circuit to Qiskit circuits
+        [:func:`qat.qiskit.converters.qiskit_to_qaptiva`] A function that converts Qiskit circuits to Qaptiva circuits

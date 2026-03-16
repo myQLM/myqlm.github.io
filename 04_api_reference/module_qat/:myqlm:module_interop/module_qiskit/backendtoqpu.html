@@ -8,12 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>qat.interop.qiskit.BackendToQPU &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../../../static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=bee1f38e" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=749de493" />
       <link rel="stylesheet" type="text/css" href="../../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
-    <link rel="shortcut icon" href="../../../../static/favicon.png"/>
+    <link rel="shortcut icon" href="../../../../static/favicon.ico"/>
       <script src="../../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../../static/documentation_options.js?v=8a448e45"></script>
@@ -38,7 +38,7 @@
           
           <a href="../../../../index.html" class="icon icon-home">
             myQLM documentation
-              <img src="../../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+              <img src="../../../../static/doc-logo.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -137,51 +137,52 @@
 <h1>qat.interop.qiskit.BackendToQPU<a class="headerlink" href="#qat-interop-qiskit-backendtoqpu" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.interop.qiskit.BackendToQPU">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.interop.qiskit.</span></span><span class="sig-name descname"><span class="pre">BackendToQPU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plugins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ibm_backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ibm_brisbane'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.qiskit.BackendToQPU" title="Link to this definition"></a></dt>
-<dd><p>Wrapper around any Qiskit simulator / quantum chip connection.
-Despite the asynchronous nature of Qiskit’s backends, this class
-defines a synchronous QPU. If you need an asynchronous, please use
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.interop.qiskit.</span></span><span class="sig-name descname"><span class="pre">BackendToQPU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plugins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ibm_backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ibm_brisbane'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.qiskit.BackendToQPU" title="Link to this definition"></a></dt>
+<dd><p>Wrapper around any Qiskit simulator or quantum chip connection.
+Despite the asynchronous nature of Qiskit’s backends, this class defines a
+<strong>synchronous QPU</strong>. If you need an asynchronous QPU, please use
 <a class="reference internal" href="asyncbackendtoqpu.html#qat.interop.qiskit.AsyncBackendToQPU" title="qat.interop.qiskit.AsyncBackendToQPU"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncBackendToQPU</span></code></a>.</p>
-<p>This QPU can be instantiated
-using:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>a Qiskit backend: please use the keyword argument <code class="code docutils literal notranslate"><span class="pre">backend</span></code></p></li>
-<li><p>an IBM token and the name of the backend: please the keyword arguments
-<code class="code docutils literal notranslate"><span class="pre">token</span></code> and <code class="code docutils literal notranslate"><span class="pre">ibm_backend</span></code> (the default backend is
-<code class="code docutils literal notranslate"><span class="pre">&quot;ibm_brisbane&quot;</span></code>)</p></li>
-<li><p><em>no argument</em>: the <code class="code docutils literal notranslate"><span class="pre">&quot;aer_simulator&quot;</span></code> is used if no argment is specified</p></li>
+<p>This QPU can be instantiated using:</p>
+<ul class="simple">
+<li><p>A Qiskit backend: use the keyword argument <code class="code docutils literal notranslate"><span class="pre">backen</span></code></p></li>
+<li><p>An IBM token and the name of the backend: please use the keyword arguments
+<code class="code docutils literal notranslate"><span class="pre">token</span></code> and <code class="code docutils literal notranslate"><span class="pre">ibm_backend</span></code> (default backend is <code class="code docutils literal notranslate"><span class="pre">&quot;ibm_brisbane&quot;</span></code>)</p></li>
+<li><p>No argument: the <code class="code docutils literal notranslate"><span class="pre">&quot;aer_simulator&quot;</span></code> is used if no argument is specified</p></li>
 </ul>
-</div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>backend</strong> – The Backend Qiskit object that is supposed to execute
-the circuit.</p></li>
-<li><p><strong>plugins</strong> (<em>list</em>) – linked plugins</p></li>
-<li><p><strong>token</strong> (<em>str</em>) – Qiskit ibm login token. If not supplied, loaded from the environment
-variable <code class="code docutils literal notranslate"><span class="pre">QISKIT_TOKEN</span></code></p></li>
-<li><p><strong>ibm_backend</strong> (<em>str</em><em>, </em><em>optional</em>) – name of the backend. Defaults to ‘ibm_brisbane’.</p></li>
-<li><p><strong>optimization_level</strong> (<em>int</em><em>, </em><em>optional</em>) – 0: No optimization (Default).
-1: Light optimization. 2: Heavy optimization. 3: Highest optimization.</p></li>
+<li><p><strong>backend</strong> – The Backend Qiskit object that is supposed to execute the circuit.</p></li>
+<li><p><strong>plugins</strong> (<em>list</em>) – Linked plugins.</p></li>
+<li><p><strong>token</strong> (<em>str</em>) – Qiskit IBM login token. If not supplied, it is loaded from the
+environment variable <code class="code docutils literal notranslate"><span class="pre">QISKIT_TOKEN</span></code>.</p></li>
+<li><p><strong>ibm_backend</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the backend. Default to ‘ibm_brisbane’</p></li>
+<li><p><strong>optimization_level</strong> (<em>int</em><em>, </em><em>optional</em>) – <p>Optimization level applied to the circuit.</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">0</span></code>: No optimization (default),</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">1</span></code>: Light optimization,</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">2</span></code>: Heavy optimization,</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">3</span></code>: Highest optimization.</p></li>
+</ul>
+</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.interop.qiskit.BackendToQPU.submit">
-<span class="sig-name descname"><span class="pre">submit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../module_core/batch.html#qat.core.Batch" title="qat.core.wrappers.batch.Batch"><span class="pre">Batch</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../module_core/batchresult.html#qat.core.BatchResult" title="qat.core.wrappers.result.BatchResult"><span class="pre">BatchResult</span></a></span></span><a class="headerlink" href="#qat.interop.qiskit.BackendToQPU.submit" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">submit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><span class="pre">Batch</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../module_core/batchresult.html#qat.core.BatchResult" title="qat.core.BatchResult"><span class="pre">BatchResult</span></a></span></span><a class="headerlink" href="#qat.interop.qiskit.BackendToQPU.submit" title="Link to this definition"></a></dt>
 <dd><p>Executes a batch of jobs and returns the corresponding list of Results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>batch</strong> (<a class="reference internal" href="../../module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) – a batch of jobs. If a single job is provided, the
-job is embedded into a Batch, executed, and the first result
-is returned.</p>
+<dd class="field-odd"><p><strong>batch</strong> (<a class="reference internal" href="../../module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) – A batch of jobs. If a single job is provided, the job is
+embedded into a Batch, executed, and the first
+result is returned.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>a batch result</p>
+<dd class="field-even"><p>A batch result.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>(<a class="reference internal" href="../../module_core/batchresult.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a>)</p>
+<dd class="field-odd"><p><a class="reference internal" href="../../module_core/batchresult.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -201,7 +202,7 @@ is returned.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Eviden 2016-2025.</p>
+    <p>&#169; Copyright Bull 2016-2026, Bull SAS - All rights reserved.</p>
   </div>
 
    

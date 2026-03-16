@@ -1,4 +1,20 @@
 qat.interop.qiskit.qlm_to_qiskit
 ================================
 
-.. autofunction:: qat.interop.qiskit.qlm_to_qiskit
+.. function:: qat.interop.qiskit.qlm_to_qiskit(qlm_circuit, qubits=None)
+
+   Converts a QLM circuit to a Qiskit circuit.
+
+   The supported translatable gates are:
+
+   :code:`H`, :code:`X`, :code:`Y`, :code:`Z`, :code:`SWAP`, :code:`I`, :code:`S`, :code:`S.dag()`, :code:`T`,
+   :code:`T.dag()`, :code:`RX`, :code:`RY`, :code:`RZ`, :code:`H.ctrl()`, :code:`CNOT`,
+   :code:`Y.ctrl()`, :code:`CSIGN`, :code:`RZ.ctrl()`, :code:`CCNOT`, :code:`SWAP.ctrl()`,
+   :code:`U`, :code:`RXX`, :code:`RZZ`, :code:`Ri`, :code:`MS`.
+
+   :param qlm_circuit: The input QLM circuit to convert.
+   :param qubits: List of measured qubits.
+   :type qubits: list[int], optional
+
+   :returns: A Qiskit QuantumCircuit object resulting from the conversion.
+

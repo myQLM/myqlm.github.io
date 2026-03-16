@@ -8,12 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>qat.plugins.FusionPlugin &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=bee1f38e" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
-    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+    <link rel="shortcut icon" href="../../../static/favicon.ico"/>
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
@@ -38,7 +38,7 @@
           
           <a href="../../../index.html" class="icon icon-home">
             myQLM documentation
-              <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+              <img src="../../../static/doc-logo.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -156,7 +156,7 @@ It should improve the simulation time of supremacy-like quantum circuits, that i
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.plugins.FusionPlugin">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">FusionPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_compilation_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">strat_args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.FusionPlugin" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">FusionPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_compilation_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">strat_args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.FusionPlugin" title="Link to this definition"></a></dt>
 <dd><p>A plugin that can group adjacent gates into bigger gates.
 Its purpose is to form an equivalent circuit with less, but larger, gates.
 It is designed to improve performances of subsequent simulation via a linear algebra based simulator.
@@ -265,8 +265,8 @@ to first instantiate the parameters before compiling the circuit.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Time Fusion+CLinalg:&quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Time</span> <span class="n">CLinalg</span> <span class="n">only</span><span class="p">:</span>   <span class="mf">3.64564744499512</span>
-<span class="n">Time</span> <span class="n">Fusion</span><span class="o">+</span><span class="n">CLinalg</span><span class="p">:</span> <span class="mf">1.6936327789444476</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Time</span> <span class="n">CLinalg</span> <span class="n">only</span><span class="p">:</span>   <span class="mf">2.437811431940645</span>
+<span class="n">Time</span> <span class="n">Fusion</span><span class="o">+</span><span class="n">CLinalg</span><span class="p">:</span> <span class="mf">2.5091358707286417</span>
 </pre></div>
 </div>
 </section>
@@ -283,7 +283,7 @@ to first instantiate the parameters before compiling the circuit.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Eviden 2016-2025.</p>
+    <p>&#169; Copyright Bull 2016-2026, Bull SAS - All rights reserved.</p>
   </div>
 
    

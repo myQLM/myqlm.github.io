@@ -1,14 +1,14 @@
 .. _aqasm:
 
-Atos Quantum Assembler (AQASM)
-==============================
+Advanced Quantum Assembler (AQASM)
+==================================
 AQASM is a simple and non procedural circuit description language. It comes with a command-line compiler allowing to directly generate
 a circuit description and compile it into a :class:`~qat.core.Circuit` structure.
 
 .. note::
 
-    The purpose of this format is not to efficiently serialize or store quantum circuits. We 
-    strongly advise using the binary serialization of :class:`~qat.core.Circuit` 
+    The purpose of this format is not to efficiently serialize or store quantum circuits. We
+    strongly advise using the binary serialization of :class:`~qat.core.Circuit`
     objects (using the :meth:`~qat.core.Circuit.dump` method) for efficient serialization.
 
 The text format
@@ -27,7 +27,7 @@ The structure of an AQASM source file is rather simple:
 To sum up:
 
 .. code-block:: text
-    
+
     <HEADER>
     BEGIN
     qubits <N>
@@ -44,12 +44,12 @@ The header contains two types of declaration:
   The syntax is rather straightfoward:
 
 .. code-block:: text
-    
+
     DEFINE GATE <gate name> = <gate matrix>
 
 
 .. code-block:: text
-    
+
     DEFINE GATE my_z = [[(1,0) (0,0)] [(0,0) (-1,0)]]
 
 
@@ -65,17 +65,17 @@ The header contains two types of declaration:
 Here the argument types is a sequence of types in the list: int, float, string.
 
 .. code-block:: text
-    
-    DEFINE PARAM MY_RXRZ float float : 1 
+
+    DEFINE PARAM MY_RXRZ float float : 1
     DEFINE PARAM MY_QFT int : None
 
 
-Instructions 
+Instructions
 ^^^^^^^^^^^^
 After writing the ressource declaration as follows:
 
 .. code-block:: text
-    
+
     BEGIN
     qubits <N>
     [cbits <N>]
@@ -88,11 +88,11 @@ the body is constitued of a sequence of instructions:
 
         <gate> <qbit_list>
 
-    
+
     Qubits are referenced using the syntax:
 
     .. code-block:: text
-        
+
         q[0], q[9], ...
 
     Gates can be referenced:
@@ -100,7 +100,7 @@ the body is constitued of a sequence of instructions:
         * by name: either using a predefined gate (H, CNOT, etc) or using a constant gate declared in the heade
 
           .. code-block:: text
-            
+
             H q[0]
             CNOT q[0], q[1]
 
@@ -110,7 +110,7 @@ the body is constitued of a sequence of instructions:
         * using a gate operator: these are CTRL, DAG, CONJ, TRANS
 
           .. code-block:: text
-            
+
             CTRL(H) q[0], q[1]
             DAG(CTRL(Y)) q[2], q[3]
 
@@ -119,28 +119,28 @@ the body is constitued of a sequence of instructions:
         * using a parametrized gate: either using of of the predefined one (RX, RY, RZ, PH) or using one declared in the header
 
           .. code-block:: text
-            
+
             RZ[PI/2] q[0]
             CTRL(PH[PI/4]) q[0], q[1]
             MY_RXRZ[PI/2, PI/4] q[0]
 
         * using a matrix
-        
+
           .. code-block:: text
-            
+
             [[(1,0) (0,0)] [(0, 0) (0, -i)]] q[0]
 
 
 * **Measures** are specified using the following syntax:
 
   .. code-block:: text
-    
+
     MEAS <qbit list> [<cbit list>]
-   
+
   For instance:
-  
+
   .. code-block:: text
-    
+
     MEAS q[0], q[1] c[0], c[2]
 
   measures qbits 0 and 1 and store the results in cbits 0 and 2.
@@ -148,7 +148,7 @@ the body is constitued of a sequence of instructions:
   If no cbits are specified, the cbits with index correspond to the qbits indices will be used
 
   .. code-block:: text
-    
+
     MEAS q[0], q[1]
 
   measures qbits 0 and 1 and store the results in cbits 0 and 1.
@@ -190,7 +190,7 @@ the body is constitued of a sequence of instructions:
      LOGIC <cbit to update> <boolean formula>
 
   where *<boolean formula>* stands for any well constructed expression using &, \|, ^, ~ and cbits.
-    
+
   For instance:
 
   .. code-block:: text
@@ -205,6 +205,8 @@ the body is constitued of a sequence of instructions:
   .. code-block:: text
 
     BREAK <boolean formula>
+
+.. _list_gates:
 
 List of gates
 ^^^^^^^^^^^^^
@@ -238,7 +240,7 @@ Compiling .aqasm files
 The compilation of AQASM source files into circuits is done through the **aqasm2circ** executable.
 
 .. code-block:: bash
-    
+
     $ aqasm2circ <infile> [<outfile>]
 
 will compile an AQASM text file into a binary file containing a serialized version of the circuit.
@@ -270,8 +272,8 @@ Let us imagine that we wrote a Python file **my_lib.py** containing the followin
 
     from qat.lang.AQASM import QRoutine, H
     from qat.lang.AQASM.misc import build_gate
-    
-    # Notice the use of the function decorator 
+
+    # Notice the use of the function decorator
     # and the signature declared in the constructor of the decorator
     @build_gate("QFT", [int], lambda n: n)
     def my_qft(n):

@@ -8,12 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>qat.qiskit &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=bee1f38e" />
+      <link rel="stylesheet" type="text/css" href="../../static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=749de493" />
       <link rel="stylesheet" type="text/css" href="../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
-    <link rel="shortcut icon" href="../../static/favicon.png"/>
+    <link rel="shortcut icon" href="../../static/favicon.ico"/>
       <script src="../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../static/documentation_options.js?v=8a448e45"></script>
@@ -38,7 +38,7 @@
           
           <a href="../../index.html" class="icon icon-home">
             myQLM documentation
-              <img src="../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+              <img src="../../static/doc-logo.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -75,7 +75,10 @@
 <li class="toctree-l4"><a class="reference internal" href="module_qiskit/estimator.html">qat.qiskit.Estimator</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_qiskit/qaptivaservice.html">qat.qiskit.QaptivaService</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_qiskit/sampler.html">qat.qiskit.Sampler</a></li>
-<li class="toctree-l4"><a class="reference internal" href="module_qiskit/qiskit_to_qlm.html">qat.qiskit.converters.qiskit_to_qlm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_qiskit/qaptiva_to_qiskit.html">qat.qiskit.converters.qaptiva_to_qiskit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_qiskit/qaptivatoqiskit.html">qat.qiskit.converters.QaptivaToQiskit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_qiskit/qiskit_to_qaptiva.html">qat.qiskit.converters.qiskit_to_qaptiva</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_qiskit/qiskittoqaptiva.html">qat.qiskit.converters.QiskitToQaptiva</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="module_qpus.html">qat.qpus</a></li>
@@ -123,8 +126,16 @@
              
   <section id="qat-qiskit">
 <span id="module-qat.qiskit"></span><h1>qat.qiskit<a class="headerlink" href="#qat-qiskit" title="Link to this heading"></a></h1>
-<p><a class="reference internal" href="#module-qat.qiskit" title="qat.qiskit"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.qiskit</span></code></a> is a module that allows to use the qaptiva backend with the qiskit 2.0 API. With it is possible
-to run Samplers and Estimators that can use a qaptiva backend and return qiskit data stuctures.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This module is not installed with myQLM by default. You can install this
+package using the command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>qat-qiskit
+</pre></div>
+</div>
+</div>
+<p><a class="reference internal" href="#module-qat.qiskit" title="qat.qiskit"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.qiskit</span></code></a> is a module that allows to use the Qaptiva backend with the Qiskit 2.0 API. With it is possible
+to run Samplers and Estimators that can use a Qaptiva backend and return Qiskit data stuctures.</p>
 <table class="docutils align-center" style="width: 80%">
 <colgroup>
 <col style="width: 30.0%" />
@@ -144,15 +155,24 @@ to run Samplers and Estimators that can use a qaptiva backend and return qiskit 
 </table>
 <div class="toctree-wrapper compound">
 </div>
-<p>Some relevant functions:</p>
+<p>Additional functions or classes can be used to translate a Qaptiva circuit into a Qiskit circuit, and vice versa:</p>
 <table class="docutils align-center" style="width: 80%">
 <colgroup>
 <col style="width: 30.0%" />
 <col style="width: 70.0%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="module_qiskit/qiskit_to_qlm.html#qat.qiskit.converters.qiskit_to_qlm" title="qat.qiskit.converters.qiskit_to_qlm"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.qiskit.converters.qiskit_to_qlm()</span></code></a></p></td>
-<td><p>An internal function that converts qiskit circuits to qlm circuits</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_qiskit/qaptiva_to_qiskit.html#qat.qiskit.converters.qaptiva_to_qiskit" title="qat.qiskit.converters.qaptiva_to_qiskit"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.qiskit.converters.qaptiva_to_qiskit()</span></code></a></p></td>
+<td><p>A function that converts Qaptiva circuit to Qiskit circuits</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_qiskit/qaptivatoqiskit.html#qat.qiskit.converters.QaptivaToQiskit" title="qat.qiskit.converters.QaptivaToQiskit"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.qiskit.converters.QaptivaToQiskit</span></code></a></p></td>
+<td><p>A class converting Qaptiva circuits to Qiskit circuits</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_qiskit/qiskit_to_qaptiva.html#qat.qiskit.converters.qiskit_to_qaptiva" title="qat.qiskit.converters.qiskit_to_qaptiva"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.qiskit.converters.qiskit_to_qaptiva()</span></code></a></p></td>
+<td><p>A function that converts Qiskit circuits to Qaptiva circuits</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_qiskit/qiskittoqaptiva.html#qat.qiskit.converters.QiskitToQaptiva" title="qat.qiskit.converters.QiskitToQaptiva"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.qiskit.converters.QiskitToQaptiva</span></code></a></p></td>
+<td><p>A class converting Qiskit circuits to Qaptiva circuits</p></td>
 </tr>
 </tbody>
 </table>
@@ -171,7 +191,7 @@ to run Samplers and Estimators that can use a qaptiva backend and return qiskit 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Eviden 2016-2025.</p>
+    <p>&#169; Copyright Bull 2016-2026, Bull SAS - All rights reserved.</p>
   </div>
 
    

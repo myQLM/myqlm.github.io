@@ -70,7 +70,7 @@ Please install myQLM by typing the following commands in a Windows, :ref:`MacOS 
 
                 .. code-block::
 
-                    pip3 install anytree bitstring cvxpy dill jax[cpu] pyDOE pyOpenSSL qutip rich stim svgwrite thrift==0.21.0 wand
+                    pip3 install anytree bitstring cvxpy dill jax[cpu] pyDOE pyOpenSSL qutip rich stim svgwrite sympy thrift==0.21.0 wand websockets
 
             .. tab-item:: Conda supplementary packages on Windows
 
@@ -128,20 +128,25 @@ Interoperability
     :header-rows: 1
 
     * - Library
-      - Python 3.9 to 3.11
-      - Python 3.12
+      - Python 3.10
+      - Python 3.11 - 3.12
+      - Python 3.13 - 3.14
     * - Cirq
-      - 1.3.0
-      - 1.4.0
+      - 1.5.0
+      - 1.6.1
+      - 1.6.1
     * - ProjectQ
       - 0.8.0
       - 0.8.0
+      - N/A
     * - PyQuil
-      - 3.5.4
-      - 4.1.1
+      - 4.17.0
+      - 4.17.0
+      - N/A
     * - Qiskit
-      - 0.43.1
-      - 0.46.1
+      - 2.3.0
+      - 2.3.0
+      - 2.3.0
 
 This package enables access to other quantum programming environments such as
 Qiskit, ProjectQ, PyQuil, Cirq ...
@@ -152,6 +157,18 @@ quantum environment can be cherry-picked using the pip command:
 .. tab-set::
 
     .. tab-item:: Qiskit
+
+        The interoperability with Qiskit 2.0 is exposed through the module
+        :mod:`qat.qiskit`. The interoperability with Qiskit 1.0 is done using
+        the :mod:`qat.interop` module.
+
+        You can install the Qiskit 2.0 connector using the following command:
+
+        .. code-block:: bash
+
+            pip install qat-qiskit
+
+        The interoperability module for Qiskit 1.0 can be installed using:
 
         .. code-block::
 

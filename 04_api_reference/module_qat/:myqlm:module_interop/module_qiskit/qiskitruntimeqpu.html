@@ -8,12 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>qat.interop.qiskit.runtime.QiskitRuntimeQPU &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../../../static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=bee1f38e" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=749de493" />
       <link rel="stylesheet" type="text/css" href="../../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
-    <link rel="shortcut icon" href="../../../../static/favicon.png"/>
+    <link rel="shortcut icon" href="../../../../static/favicon.ico"/>
       <script src="../../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../../static/documentation_options.js?v=8a448e45"></script>
@@ -38,7 +38,7 @@
           
           <a href="../../../../index.html" class="icon icon-home">
             myQLM documentation
-              <img src="../../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+              <img src="../../../../static/doc-logo.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -137,52 +137,48 @@
 <h1>qat.interop.qiskit.runtime.QiskitRuntimeQPU<a class="headerlink" href="#qat-interop-qiskit-runtime-qiskitruntimeqpu" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.interop.qiskit.runtime.QiskitRuntimeQPU">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.interop.qiskit.runtime.</span></span><span class="sig-name descname"><span class="pre">QiskitRuntimeQPU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_transpilation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.qiskit.runtime.QiskitRuntimeQPU" title="Link to this definition"></a></dt>
-<dd><p>IBM Q-Experience QPU. This QPU uses IBM runtime to execute
-a quantum job. This QPU wraps both the <code class="code docutils literal notranslate"><span class="pre">Sampler</span></code> and
-<code class="code docutils literal notranslate"><span class="pre">Estimator</span></code> primitives, which means that this QPU can measure
-both:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>a list of qubits (i.e. sampling mode)</p></li>
-<li><p>an observable (i.e. observable mode)</p></li>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.interop.qiskit.runtime.</span></span><span class="sig-name descname"><span class="pre">QiskitRuntimeQPU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_transpilation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.qiskit.runtime.QiskitRuntimeQPU" title="Link to this definition"></a></dt>
+<dd><p>IBM Q-Experience QPU. This QPU uses IBM Runtime to execute quantum jobs.
+This QPU wraps both the <code class="code docutils literal notranslate"><span class="pre">Sampler</span></code> and <code class="code docutils literal notranslate"><span class="pre">Estimator</span></code> primitives,
+which means that this QPU can measure: both</p>
+<ul class="simple">
+<li><p>A list of qubits (i.e. sampling mode)</p></li>
+<li><p>An observable (i.e. observable mode)</p></li>
 </ul>
-</div></blockquote>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If a batch is composed of both sampling jobs and observable jobs,
-two requests will be done to the Runtime server</p>
+two requests will be sent to the Runtime server.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>backend_name</strong> (<em>str</em>) – Name of the IBM backend used to execute
-submitted jobs (e.g. <code class="code docutils literal notranslate"><span class="pre">&quot;ibmq_qasm_simulator&quot;</span></code>)</p></li>
-<li><p><strong>skip_transpilation</strong> (<em>bool</em><em>, </em><em>optional</em>) – Skip transpilation - if set to True,
-Qiskit runtime will not transpile circuits, otherwise, Qiskit runtime
-will transpile circuits
-Default: False (transpilation done by Qiskit runtime)</p></li>
-<li><p><strong>service</strong> (<em>Runtime service</em><em>, </em><em>optional</em>) – Service used to connect to IBM
-runtime
-Default: QiskitRuntimeService()</p></li>
+<li><p><strong>backend_name</strong> (<em>str</em>) – Name of the IBM backend used to execute submitted jobs
+(e.g. <code class="code docutils literal notranslate"><span class="pre">&quot;ibmq_qasm_simulator&quot;</span></code>).</p></li>
+<li><p><strong>skip_transpilation</strong> (<em>bool</em><em>, </em><em>optional</em>) – Skip transpilation. If set to <code class="code docutils literal notranslate"><span class="pre">True</span></code>, Qiskit
+Runtime will not transpile circuits. Otherwise,
+circuits are transpiled by Qiskit Runtime.
+(Default is <code class="code docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+<li><p><strong>service</strong> (<em>Runtime service</em><em>, </em><em>optional</em>) – Service used to connect to IBM Runtime.
+Default: <code class="code docutils literal notranslate"><span class="pre">QiskitRuntimeService()</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.interop.qiskit.runtime.QiskitRuntimeQPU.submit">
-<span class="sig-name descname"><span class="pre">submit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../module_core/batch.html#qat.core.Batch" title="qat.core.wrappers.batch.Batch"><span class="pre">Batch</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../module_core/batchresult.html#qat.core.BatchResult" title="qat.core.wrappers.result.BatchResult"><span class="pre">BatchResult</span></a></span></span><a class="headerlink" href="#qat.interop.qiskit.runtime.QiskitRuntimeQPU.submit" title="Link to this definition"></a></dt>
-<dd><p>Executes a batch of jobs and returns the corresponding list of Results.</p>
+<span class="sig-name descname"><span class="pre">submit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><span class="pre">Batch</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../module_core/batchresult.html#qat.core.BatchResult" title="qat.core.BatchResult"><span class="pre">BatchResult</span></a></span></span><a class="headerlink" href="#qat.interop.qiskit.runtime.QiskitRuntimeQPU.submit" title="Link to this definition"></a></dt>
+<dd><p>Executes a batch of jobs and returns the corresponding list of results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>batch</strong> (<a class="reference internal" href="../../module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) – a batch of jobs. If a single job is provided, the
-job is embedded into a Batch, executed, and the first result
-is returned.</p>
+<dd class="field-odd"><p><strong>batch</strong> (<a class="reference internal" href="../../module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) – A batch of jobs. If a single job is provided, the job is
+embedded into a Batch, executed, and the first
+result is returned.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>a batch result</p>
+<dd class="field-even"><p>A batch result.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>(<a class="reference internal" href="../../module_core/batchresult.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a>)</p>
+<dd class="field-odd"><p><a class="reference internal" href="../../module_core/batchresult.html#qat.core.BatchResult" title="qat.core.BatchResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchResult</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -202,7 +198,7 @@ is returned.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Eviden 2016-2025.</p>
+    <p>&#169; Copyright Bull 2016-2026, Bull SAS - All rights reserved.</p>
   </div>
 
    

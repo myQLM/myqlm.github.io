@@ -23,16 +23,16 @@ optimization of the parameters given the ansatz circuit and the observable to be
             # Here we specify that thetas is an array of length 2
             @qfunc(thetas=2)
             def energy(thetas):
-				# Quantum job
-				# Define Ansätz
+                # Quantum job
+                # Define Ansätz
                 RY(thetas[0])(0)
                 RY(thetas[1])(1)
                 CNOT(0, 1)
 
-				# Measure observable
+                # Measure observable
                 return (
-                    Obs.sigma_z(0) * Obs.sigma_z(1) 
-                    + Obs.sigma_x(0) * Obs.sigma_x(1) 
+                    Obs.sigma_z(0) * Obs.sigma_z(1)
+                    + Obs.sigma_x(0) * Obs.sigma_x(1)
                     + Obs.sigma_y(0) * Obs.sigma_y(1)
                 )
 
@@ -41,7 +41,7 @@ optimization of the parameters given the ansatz circuit and the observable to be
             res = minimize(energy, x0=np.array([1.8, 2.8]))
             print(res)
 
-            # Equivalently, one can delegate the minimization to the default qpu which is 
+            # Equivalently, one can delegate the minimization to the default qpu which is
             # equiped with a variational optimizer
             result = energy.run()
             print(f"Minimum VQE energy = {result.value}")
@@ -57,8 +57,8 @@ optimization of the parameters given the ansatz circuit and the observable to be
 
             # we instantiate the Hamiltonian we want to approximate the ground state energy of
             hamiltonian = (
-                Obs.sigma_z(0) * Obs.sigma_z(1) 
-                + Obs.sigma_x(0) * Obs.sigma_x(1) 
+                Obs.sigma_z(0) * Obs.sigma_z(1)
+                + Obs.sigma_x(0) * Obs.sigma_x(1)
                 + Obs.sigma_y(0) * Obs.sigma_y(1)
             )
 
@@ -88,6 +88,6 @@ optimization of the parameters given the ansatz circuit and the observable to be
             print(result.meta_data['optimizer_data'])
             print(f"Minimum VQE energy = {result.value}")
 
-For more information, the :ref:`writing section <writing>` explains how to create quantum :class:`~qat.core.Circuit`, 
+For more information, the :ref:`writing section <writing>` explains how to create quantum :class:`~qat.core.Circuit`,
 :class:`~qat.core.Observable`, or quantum :class:`~qat.core.Job`. In addition, the :ref:`running variational jobs section <running_variational>`
 explains how to execute variational algorithms using Qaptiva framework

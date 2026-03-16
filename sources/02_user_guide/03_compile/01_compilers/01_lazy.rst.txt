@@ -11,7 +11,7 @@ The base algorithm/plugin
 -------------------------
 
 The :class:`qat.plugins.LazySynthesis` plugin uses in-house meta-heuristics that strictly generalize the standard SWAP insertion techniques in order to generate connectivity compliant circuit.
-It works by lazily synthesizing pieces of linear boolean operators using sub-circuits matching the hardware connectivity. 
+It works by lazily synthesizing pieces of linear boolean operators using sub-circuits matching the hardware connectivity.
 The algorithm itself is detailed in :cite:`martiel2020architecture`.
 
 Additionally, since it is a Plugin, :class:`~qat.plugins.LazySynthesis` is able to skip the synthesis of the final CNOTs and store the final linear operator
@@ -35,7 +35,7 @@ The main algorithm inside the :class:`~qat.synthopline.clifford_normalizer.Cliff
 
     U = C \cdot U'
 
-Having access to such a black box, one can perform several direct and reverse passes on a quantum circuit in order to rewrite it as 
+Having access to such a black box, one can perform several direct and reverse passes on a quantum circuit in order to rewrite it as
 
 .. math::
 
@@ -43,7 +43,7 @@ Having access to such a black box, one can perform several direct and reverse pa
 
 where :math:`C_1` and :math:`C_2` are Clifford operators. One can then deal with :math:`C_1` and :math:`C_2` by performing stabilizer states synthesis.
 
-This concept is described through the concept :class:`~qat.synthopline.clifford_normalizer.CliffordNormalizer` 
+This concept is described through the concept :class:`~qat.synthopline.clifford_normalizer.CliffordNormalizer`
 that is implemented by :class:`~qat.plugins.LazySynthesis`.
 
 This means that any construction argument of the :class:`~qat.synthopline.clifford_normalizer.CliffordNormalizer` can also be passed to the :class:`~qat.synthopline.clifford_normalizer.CliffordNormalizer` plugin.
@@ -93,7 +93,7 @@ One can ask :class:`~qat.synthopline.clifford_normalizer.CliffordNormalizer` (or
 This optimization assumes that the quantum computation starts in state :math:`|0\rangle`.
 
 .. run-block:: python
-    
+
     from qat.plugins import LazySynthesis
     from qat.lang.AQASM import *
 

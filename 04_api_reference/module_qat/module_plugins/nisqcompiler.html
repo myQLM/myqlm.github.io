@@ -8,12 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>qat.plugins.NISQCompiler &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=bee1f38e" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
-    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+    <link rel="shortcut icon" href="../../../static/favicon.ico"/>
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
@@ -38,7 +38,7 @@
           
           <a href="../../../index.html" class="icon icon-home">
             myQLM documentation
-              <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+              <img src="../../../static/doc-logo.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -150,7 +150,7 @@
 <p>The usage of this plugin is detailed in the user guide, in the <a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers.html#nisq-compiler"><span class="std std-ref">compilation section</span></a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.plugins.NISQCompiler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">NISQCompiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">compiler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'LazySynthesis'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compiler_options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_gate_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.NISQCompiler" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">NISQCompiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">compiler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'LazySynthesis'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compiler_options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_gate_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.NISQCompiler" title="Link to this definition"></a></dt>
 <dd><p>A generic compiler for NISQ quantum circuits.</p>
 <p>It compiles the circuit in three stages:</p>
 <blockquote>
@@ -181,7 +181,7 @@ Possible values are “LazySynthesis” or “Nnizer”.</p></li>
 <li><p><strong>compiler_options</strong> (<em>optional</em><em>, </em><em>dict</em>) – the arguments passed to the “main” compilation engine.
 The default is a preset for LazySynthesis. Refer to the documentation of <a class="reference internal" href="lazysynthesis.html#qat.plugins.LazySynthesis" title="qat.plugins.LazySynthesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.LazySynthesis</span></code></a>
 or <a class="reference internal" href="nnizer.html#qat.plugins.Nnizer" title="qat.plugins.Nnizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.Nnizer</span></code></a> if you want to customize these options.</p></li>
-<li><p><strong>target_gate_set</strong> (<em>optional</em><em>, </em><em>str</em><em> or </em><em>list</em>) – Either a key in [‘IBM’, ‘IQM’, ‘IONS’] or a list of allowed gates.
+<li><p><strong>target_gate_set</strong> (<em>optional</em><em>, </em><em>str</em><em> or </em><em>list</em>) – Either a key in [‘IBM’, ‘IQM’, ‘IONS’, ‘QUOBLY’] or a list of allowed gates.
 See below for more information on that argument.</p></li>
 </ul>
 </dd>
@@ -196,6 +196,7 @@ See below for more information on that argument.</p></li>
 <li><p>“IBM”: CNOT + U3 where U3 is the tri-parametrized native gate of IBM’s processors</p></li>
 <li><p>“IQM”: CZ + RX(pi/2) + RZ</p></li>
 <li><p>“IONS”: XX(pi/2) + RX(pi/2) + RZ</p></li>
+<li><p>“QUOBLY”: ZZ(pi/2) + K + RZ where K is the rotation of pi/2 around axis [cos(phi), sin(phi), 0] native on Quobly’s chip</p></li>
 </ul>
 </div></blockquote>
 <p>The possible target gates (in the case you have specific needs) are:</p>
@@ -205,6 +206,7 @@ See below for more information on that argument.</p></li>
 <li><p>Pauli rotations XX(pi/2) and ZZ(pi/2) which are refered by names “XX” and “ZZ” respectively.</p></li>
 <li><p>RX(pi/2), refered by name “RX+”</p></li>
 <li><p>U3 for IBM’s U3 gate</p></li>
+<li><p>K for Quobly’s K gate</p></li>
 </ul>
 </div></blockquote>
 <p>For instance, if you wish to specify a gate set where you allow CNOT, CZ, RX(pi/2) and RZ gates, you would write:</p>
@@ -241,7 +243,7 @@ See below for more information on that argument.</p></li>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Eviden 2016-2025.</p>
+    <p>&#169; Copyright Bull 2016-2026, Bull SAS - All rights reserved.</p>
   </div>
 
    

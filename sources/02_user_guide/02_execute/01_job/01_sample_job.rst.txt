@@ -10,7 +10,7 @@ It is then fed to the QPU's ``submit`` method, which returns a :ref:`Result <res
 In ``SAMPLE`` mode, this result can be iterated on, yielding the various "samples", with each sample
 corresponding to a given bitstring (``state``) and its frequency of appearance (``probability``) upon
 conducting a Z measurement over the final state :math:`|\psi\rangle`. States with zero probability
-are not listed (one can set a threshold ``amp_threshold`` to filter out states below a certain probability amplitude). 
+are not listed (one can set a threshold ``amp_threshold`` to filter out states below a certain probability amplitude).
 
 
 .. tab-set::
@@ -90,6 +90,6 @@ are not listed (one can set a threshold ``amp_threshold`` to filter out states b
             for sample in result:
                 print("State %s: probability %s +/- %s" % (sample.state, sample.probability, sample.err))
 
-        As expected, the probability of measuring "0" on the second qubit is the same as the 
+        As expected, the probability of measuring "0" on the second qubit is the same as the
         probability of measuring "1". Here, ``err`` is ``None`` because we took an infinite number
         of shots.

@@ -1,5 +1,42 @@
 qat.interop.qiskit.runtime.QiskitRuntimeQPU
 ===========================================
 
-.. autoclass:: qat.interop.qiskit.runtime.QiskitRuntimeQPU
-    :members: submit
+.. class:: qat.interop.qiskit.runtime.QiskitRuntimeQPU(backend: str, skip_transpilation: bool = False, service=None)
+
+   IBM Q-Experience QPU. This QPU uses IBM Runtime to execute quantum jobs.
+   This QPU wraps both the :code:`Sampler` and :code:`Estimator` primitives,
+   which means that this QPU can measure: both
+
+   * A list of qubits (i.e. sampling mode)
+   * An observable (i.e. observable mode)
+
+   .. warning::
+
+      If a batch is composed of both sampling jobs and observable jobs,
+      two requests will be sent to the Runtime server.
+
+   :param backend_name: Name of the IBM backend used to execute submitted jobs
+                        (e.g. :code:`"ibmq_qasm_simulator"`).
+   :type backend_name: str
+
+   :param skip_transpilation: Skip transpilation. If set to :code:`True`, Qiskit
+                              Runtime will not transpile circuits. Otherwise,
+                              circuits are transpiled by Qiskit Runtime.
+                              (Default is :code:`False`)
+   :type skip_transpilation: bool, optional
+
+   :param service: Service used to connect to IBM Runtime.
+                   Default: :code:`QiskitRuntimeService()`.
+   :type service: Runtime service, optional
+
+   .. method:: submit(batch: Batch, meta_data: dict = None) -> BatchResult
+
+      Executes a batch of jobs and returns the corresponding list of results.
+
+      :param batch: A batch of jobs. If a single job is provided, the job is
+                    embedded into a Batch, executed, and the first
+                    result is returned.
+      :type batch: :class:`~qat.core.Batch`
+
+      :returns: A batch result.
+      :rtype: :class:`~qat.core.BatchResult`

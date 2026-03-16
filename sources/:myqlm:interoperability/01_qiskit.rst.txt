@@ -3,8 +3,24 @@ Qiskit interoperability
 
 Translating quantum circuits
 ----------------------------
-.. include-docstring:: qat.interop.qiskit.converters
 
+myQLM provides binders to translate quantum circuits from Qiskit to
+myQLM and vice-versa through the :func:`~qat.interop.qiskit.qiskit_to_qlm`
+and :func:`~qat.interop.qiskit.qlm_to_qiskit` functions:
+
+.. code-block:: python
+
+    from qat.interop.qiskit import qiskit_to_qlm
+
+    qlm_circuit = qiskit_to_qlm(your_qiskit_circuit)
+
+Or
+
+.. code-block:: python
+
+    from qat.interop.qiskit import qlm_to_qiskit
+
+    qiskit_circuit = qlm_to_qiskit(your_qlm_circuit)
 
 Connecting to a QPU/Backend
 ---------------------------
@@ -14,9 +30,46 @@ Connecting to a QPU/Backend
     .. tab-item:: Using Qiskit Runtime
         :sync: runtime
 
-        .. include-docstring:: qat.interop.qiskit.runtime
+        Qiskit Runtime QPUs can be used within myQLM by using the
+        :class:`~qat.interop.qiskit.runtime.QiskitRuntimeQPU` class. This class wraps both
+        the "Sampler" and the "Estimator" primitives, which means that this QPU can measure
+        either:
 
-    .. tab-item:: Using a Qiskit backend
+         - a list of qubits (i.e. sampling mode)
+         - an observable (i.e. an observable)
+
+        .. code-block:: python
+
+            from qat.interop.qiskit.runtime import QiskitRuntimeQPU
+
+            # Wraps Qiskit QPU within a myQLM QPU
+            qpu = QiskitRuntimeQPU(backend="ibmq_qasm_simulator")
+
+            # Submit a job to this QPU
+            result = qpu.submit(job)
+
+        By default, :class:`~qat.interop.qiskit.runtime.QiskitRuntimeQPU` uses the
+        :code:`QiskitRuntimeService` with no parameter. To execute the previous code,
+        your credentials must be stored on your computer
+
+        .. dropdown:: Saving Qiskit Runtime credentials
+            :icon: code
+
+            Function :code:`QiskitRuntimeService.save_account` can be used to store credentials
+            on your computer. Please refer to the Qiskit documentation to get more information on
+            this function
+
+            .. code-block:: python
+
+                from qiskit_ibm_runtime import QiskitRuntimeService
+
+                # Define your IBM Token
+                MY_IBM_TOKEN = ...
+
+                # Save your credentials
+                QiskitRuntimeService.save_account(channel="ibm_quantum", token=MY_IBM_TOKEN)
+
+    .. tab-item:: Using Qiskit Backend
         :sync: backend
 
         .. warning::
@@ -24,4 +77,63 @@ Connecting to a QPU/Backend
             Qiskit Runtime is designed to replace the Backend API. Please consider
             using the new Qiskit Runtime API
 
-        .. include-docstring:: qat.interop.qiskit.providers
+        myQLM can be used to connect to a Qiskit Backend. This module is composed of
+        three main classes:
+
+         - :class:`~qat.interop.qiskit.BackendToQPU`: Synchronous QPU,
+           capable of running in a Qiskit backend
+
+            .. code-block:: python
+
+                from qat.interop.qiskit import BackendToQPU
+
+                # Declare your IBM token
+                MY_IBM_TOKEN = "..."
+
+                # Wrap a Qiskit backend in a QPU
+                qpu = BackendToQPU(token=MY_IBM_TOKEN, ibm_backend="ibm_brisbane")
+
+                # Submit a job to IBM
+                result = qpu.submit(job)
+
+         - :class:`~qat.interop.qiskit.AsyncBackendToQPU`: Asynchronous QPU,
+           capable of running in a Qiskit Backend. This QPU returns instances
+           of :class:`~qat.interop.qiskit.QiskitJob`
+
+           .. code-block:: python
+
+               import time
+               from qat.interop.qiskit import AsyncBackendToQPU
+
+               # Declare your IBM token
+               MY_IBM_TOKEN = "..."
+
+               # Wrap a Qiskit backend in a QPU
+               async_qpu = AsyncBackendToQPU(token=MY_IBM_TOKEN, ibm_backend="ibm_brisbane")
+
+               # Submit a job to IBM
+               async_result = async_qpu.submit(job)
+
+               # Wait for the result
+               while not async_result.result():
+                    time.sleep(1)
+
+               # Get result
+               result = async_result.result()
+
+         - :class:`~qat.interop.qiskit.QPUToBackend`: Qiskit backend,
+           capable of running in a QLM QPU
+
+           .. code-block:: python
+
+                from qat.qpus import PyLinalg
+                from qat.interop.qiskit import QPUToBackend
+                from qiskit import transpile
+
+                # Creates a Qiskit Backend
+                qpu = PyLinalg()
+                backend = QPUToBackend(qpu)
+
+                # Returns a qiskit result
+                new_circuit = transpile(qiskit_circuit, backend)
+                qiskit_result = self.backend.run(new_circuit, shots=15)

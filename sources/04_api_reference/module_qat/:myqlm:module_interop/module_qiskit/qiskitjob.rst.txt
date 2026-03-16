@@ -1,5 +1,36 @@
 qat.interop.qiskit.QiskitJob
 ============================
 
-.. autoclass:: qat.interop.qiskit.QiskitJob
-    :members: job_id, status, cancel, result, dump
+.. class:: qat.interop.qiskit.QiskitJob(qlm_batch, async_job, max_shots)
+
+   Wrapper around Qiskit’s asynchronous jobs.
+
+   .. method:: cancel()
+
+      Attempts to cancel the job.
+
+      :returns: Boolean indicating whether the attempt was successful or not.
+
+   .. method:: dump(file_name)
+
+      Dumps the :class:`~qat.core.Batch` object used for creating the job into a binary file.
+      This file should later be used with AsyncBackendToQPU's
+      :func:`~qat.interop.qiskit.AsyncBackendToQPU.retrieve_job`.
+
+      :param file_name: Name of the binary file to create.
+
+   .. method:: job_id()
+
+      Returns the job’s ID.
+
+   .. method:: result()
+
+      Returns the result if available.
+
+      :returns: :class:`~qat.core.Result` object or :class:`~qat.core.BatchResult` object if the batch submitted
+                contains several jobs.
+
+   .. method:: status()
+
+      Returns the job status.
+

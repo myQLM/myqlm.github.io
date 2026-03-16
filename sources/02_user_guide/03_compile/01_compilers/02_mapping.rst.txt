@@ -13,7 +13,7 @@ the initial qubit mapping:
  - **frequency mapping** defined by :func:`~qat.synthopline.initial_mapping.frequency_mapping`
 
 These methods can sometimes help reduce the entangling gate count of the circuit when used
-before a routing/synthesis algorithm. 
+before a routing/synthesis algorithm.
 Keep in mind that they do not provide definite improvements and can sometimes hinder the quality of the
 final circuit when used improperly!
 
@@ -111,12 +111,12 @@ For instance, we can use it together with a :class:`~qat.plugins.Nnizer` plugin:
     batch2 = stack2.compile(batch, device)
 
     print(
-        "Without remap:", 
+        "Without remap:",
         sum(1 for op in batch1.jobs[0].circuit.iterate_simple() if op[0] == "SWAP"),
         "inserted"
     )
     print(
-        "With remap:", 
+        "With remap:",
         sum(1 for op in batch2.jobs[0].circuit.iterate_simple() if op[0] == "SWAP"),
         "inserted"
     )

@@ -8,12 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>qat.interop.qiskit.qlm_to_qiskit &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../../../static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=bee1f38e" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=749de493" />
       <link rel="stylesheet" type="text/css" href="../../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
-    <link rel="shortcut icon" href="../../../../static/favicon.png"/>
+    <link rel="shortcut icon" href="../../../../static/favicon.ico"/>
       <script src="../../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../../static/documentation_options.js?v=8a448e45"></script>
@@ -38,7 +38,7 @@
           
           <a href="../../../../index.html" class="icon icon-home">
             myQLM documentation
-              <img src="../../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+              <img src="../../../../static/doc-logo.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -139,22 +139,20 @@
 <dt class="sig sig-object py" id="qat.interop.qiskit.qlm_to_qiskit">
 <span class="sig-prename descclassname"><span class="pre">qat.interop.qiskit.</span></span><span class="sig-name descname"><span class="pre">qlm_to_qiskit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qlm_circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qubits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.qiskit.qlm_to_qiskit" title="Link to this definition"></a></dt>
 <dd><p>Converts a QLM circuit to a Qiskit circuit.</p>
-<p>The supported translatable gates are:
-<code class="code docutils literal notranslate"><span class="pre">H</span></code>, <code class="code docutils literal notranslate"><span class="pre">X</span></code>, <code class="code docutils literal notranslate"><span class="pre">Y</span></code>, <code class="code docutils literal notranslate"><span class="pre">Z</span></code>, <code class="code docutils literal notranslate"><span class="pre">SWAP</span></code>,
-<code class="code docutils literal notranslate"><span class="pre">I</span></code>, <code class="code docutils literal notranslate"><span class="pre">S</span></code>, <code class="code docutils literal notranslate"><span class="pre">S.dag()</span></code>, <code class="code docutils literal notranslate"><span class="pre">T</span></code>, <code class="code docutils literal notranslate"><span class="pre">T.dag()</span></code>,
-<code class="code docutils literal notranslate"><span class="pre">RX</span></code>, <code class="code docutils literal notranslate"><span class="pre">RY</span></code>, <code class="code docutils literal notranslate"><span class="pre">RZ</span></code>, <code class="code docutils literal notranslate"><span class="pre">H.ctrl()</span></code>, <code class="code docutils literal notranslate"><span class="pre">CNOT</span></code>,
-<code class="code docutils literal notranslate"><span class="pre">Y.ctrl()</span></code>, <code class="code docutils literal notranslate"><span class="pre">CSIGN</span></code>, <code class="code docutils literal notranslate"><span class="pre">RZ.ctrl()</span></code>, <code class="code docutils literal notranslate"><span class="pre">CCNOT</span></code>,
-<code class="code docutils literal notranslate"><span class="pre">SWAP.ctrl()</span></code>, <code class="code docutils literal notranslate"><span class="pre">U</span></code>, <code class="code docutils literal notranslate"><span class="pre">RXX</span></code>, <code class="code docutils literal notranslate"><span class="pre">RZZ</span></code>, <code class="code docutils literal notranslate"><span class="pre">R</span></code>,
-<code class="code docutils literal notranslate"><span class="pre">MS</span></code></p>
+<p>The supported translatable gates are:</p>
+<p><code class="code docutils literal notranslate"><span class="pre">H</span></code>, <code class="code docutils literal notranslate"><span class="pre">X</span></code>, <code class="code docutils literal notranslate"><span class="pre">Y</span></code>, <code class="code docutils literal notranslate"><span class="pre">Z</span></code>, <code class="code docutils literal notranslate"><span class="pre">SWAP</span></code>, <code class="code docutils literal notranslate"><span class="pre">I</span></code>, <code class="code docutils literal notranslate"><span class="pre">S</span></code>, <code class="code docutils literal notranslate"><span class="pre">S.dag()</span></code>, <code class="code docutils literal notranslate"><span class="pre">T</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">T.dag()</span></code>, <code class="code docutils literal notranslate"><span class="pre">RX</span></code>, <code class="code docutils literal notranslate"><span class="pre">RY</span></code>, <code class="code docutils literal notranslate"><span class="pre">RZ</span></code>, <code class="code docutils literal notranslate"><span class="pre">H.ctrl()</span></code>, <code class="code docutils literal notranslate"><span class="pre">CNOT</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">Y.ctrl()</span></code>, <code class="code docutils literal notranslate"><span class="pre">CSIGN</span></code>, <code class="code docutils literal notranslate"><span class="pre">RZ.ctrl()</span></code>, <code class="code docutils literal notranslate"><span class="pre">CCNOT</span></code>, <code class="code docutils literal notranslate"><span class="pre">SWAP.ctrl()</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">U</span></code>, <code class="code docutils literal notranslate"><span class="pre">RXX</span></code>, <code class="code docutils literal notranslate"><span class="pre">RZZ</span></code>, <code class="code docutils literal notranslate"><span class="pre">Ri</span></code>, <code class="code docutils literal notranslate"><span class="pre">MS</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>qlm_circuit</strong> – The input QLM circuit to convert</p></li>
-<li><p><strong>qubits</strong> (<em>list&lt;int&gt;</em><em>, </em><em>optional</em>) – measured qubits</p></li>
+<li><p><strong>qlm_circuit</strong> – The input QLM circuit to convert.</p></li>
+<li><p><strong>qubits</strong> (<em>list</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – List of measured qubits.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A QuantumCircuit Qiskit object resulting from the conversion</p>
+<dd class="field-even"><p>A Qiskit QuantumCircuit object resulting from the conversion.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -172,7 +170,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Eviden 2016-2025.</p>
+    <p>&#169; Copyright Bull 2016-2026, Bull SAS - All rights reserved.</p>
   </div>
 
    

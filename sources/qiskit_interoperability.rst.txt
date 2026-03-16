@@ -1,18 +1,46 @@
-
-
 Qiskit 2.0 interoperability with qat-qiskit
-============================================
+===========================================
 
-Because IBM's qiskit is the most widely used API in quantum computing, with :mod:`qat.qiskit` it is now possible to use a qiskit 
-wrapper that uses qaptiva qpus and computations before returning results in the form of qiskit basic data structures. 
-It is possible to run either a :class:`qat.qiskit.Sampler` or a :class:`qat.qiskit.Estimator`. 
-Both have basically the same API and inherit from qiskit base classes. The qaptiva backend is accessed through 
-the :class:`qat.qiskit.QaptivaService` class.
+Translating circuits from one framework to the other
+----------------------------------------------------
+
+:mod:`qat.qiskit` allows to translate a Qiskit circuit into a Qaptiva one and vice versa.
+It can convert a circuit to Qiskit (respectively Qaptiva) by either using the class
+:class:`~qat.qiskit.converters.QaptivaToQiskit` (respectively :class:`~qat.qiskit.converters.QiskitToQaptiva`)
+or the function :func:`~qat.qiskit.converters.qaptiva_to_qiskit` (respectively :func:`~qat.qiskit.converters.qiskit_to_qaptiva`).
+
+Here is an example of a translation:
+
+.. tab-set::
+
+    .. tab-item:: Translate to Qiskit
+
+        .. code-block:: python
+
+            from qat.qiskit.QaptivaToQiskit
+
+            qiskit_circuit = QaptivaToQiskit(your_qaptiva_circuit)
+
+    .. tab-item:: Translate to Qaptiva
+
+        .. code-block:: python
+
+            from qat.qiskit.QiskitToQaptiva
+
+            qaptiva_circuit = QiskitToQaptiva(your_qiskit_circuit)
+
+Submitting circuits to Qaptiva Access
+-------------------------------------
+
+:mod:`qat.qiskit` also allows to use a Qiskit wrapper that uses Qaptiva qpus and computations before returning results in the form of qiskit basic data structures.
+It is possible to run either a :class:`~qat.qiskit.Sampler` or a :class:`~qat.qiskit.Estimator`.
+Both have basically the same API and inherit from Qiskit base classes. The Qaptiva backend is accessed through
+the :class:`~qat.qiskit.QaptivaService` class.
 
 .. warning::
 
     For the moment, both the Sampler and the Estimator require a connection with a Qaptiva Access server to get access
-    to the backend. It would not run without it. 
+    to the backend. It would not run without it.
 
 First, here is an example of a sampler
 
@@ -30,7 +58,7 @@ First, here is an example of a sampler
         circuit.cx(qr[0], qr[1])
         circuit.measure(qr, cr)
         return circuit
-    
+
     circuit = bell_pair()
     service = QaptivaService()
     backend = service.backend("LinAlg")

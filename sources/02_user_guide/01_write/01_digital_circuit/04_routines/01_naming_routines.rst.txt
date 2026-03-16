@@ -25,7 +25,7 @@ The :func:`~qat.lang.build_gate` decorator simplfies this step by allowing you t
     prog = Program()
     qbits = prog.qalloc(4)
     wht(4)(qbits)
-    # This circuit will contain a gate containing a subcircuit 
+    # This circuit will contain a gate containing a subcircuit
     # of length 4
     circuit = prog.to_circ()
 
@@ -42,7 +42,7 @@ Consider for instance the following program:
 .. run-block:: python
 
     from qat.lang import Program, AbstractGate
-    
+
     prog = Program()
     qbits = prog.qalloc(2 * 10)
     adder = AbstractGate("ADD", [int, int], arity=lambda n1, n2: n1 + n2)
@@ -56,13 +56,13 @@ Its definition will look like this:
 
 .. run-block:: python
 
-    from qat.lang import QRoutine, H, build_gate 
+    from qat.lang import QRoutine, H, build_gate
 
     @build_gate("ADD", [int, int], arity=lambda n1, n2: n1 + n2)
     def my_adder(length1, length2):
         routine = QRoutine()
         wires = routine.new_wires(length1 + length2)
-        
+
         ## Here a proper addition is implemented
 
         return routine

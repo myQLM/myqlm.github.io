@@ -109,7 +109,7 @@ For instance the following code:
     output = expr2.evaluate()
 
     print(rout.arity)
-    
+
 will produce the following circuit:
 
  .. figure:: images/pyaqasm_boolean_expr_1.png
@@ -118,11 +118,11 @@ will produce the following circuit:
 In this circuit, we have:
 
  - two CNOTs to compute the XOR of the first two qubits in some ancilla :math:`q_4`, (corresponding to the `qbools[0] ^ qbools[1]` term)
- 
+
  - a CNOT and a X gate to compute the `~qbools[2]` term in another ancilla :math:`q_5`
 
  - 5 X gates and a Toffoli gate to compute the final **OR** operator in :math:`q_3`, the output qubit. Here we use the de Morgan law to turn our **OR** into **NOTS** and a **AND** operator.
- 
+
 
 
 .. note::
@@ -139,7 +139,7 @@ It is also possible to specify an output qubit for the evaluation procedure:
 
     rout = QRoutine()
     qbools = rout.new_wires(3, QBoolArray)
-    
+
     output = rout.new_wires(1)
 
     expr2 = qbools[0] ^ qbools[1] | ~qbools[2]
@@ -163,7 +163,7 @@ For instance, the following piece of code evaluates an expression in a **with** 
 
     rout = QRoutine()
     qbools = rout.new_wires(3, QBoolArray)
-    
+
     output = rout.new_wires(1)
 
     expr2 = qbools[0] ^ qbools[1] | ~qbools[2]
@@ -189,7 +189,7 @@ The **with** statement is in fact just a syntactic sugar for the following code:
 
     rout = QRoutine()
     qbools = rout.new_wires(3, QBoolArray)
-    
+
     output = rout.new_wires(1)
 
     expr2 = qbools[0] ^ qbools[1] | ~qbools[2]
@@ -228,7 +228,7 @@ This is done by calling the method `phase` on an expression.
     qbools = prog.qalloc(2, QBoolArray)
     for qbit in qbools:
         H(qbit)
-    expr = qbools[0] & qbools[1] 
+    expr = qbools[0] & qbools[1]
     expr.phase()
 
     job = prog.to_circ().to_job()
@@ -249,7 +249,7 @@ Since our expression evaluates at `True` if and only if the two qubits are set t
 Quantum integers
 ----------------
 
-The second type allows to type registers as quantum integers. 
+The second type allows to type registers as quantum integers.
 
 Allocation
 ..........
@@ -295,7 +295,7 @@ Arithmetic expressions
 
 Instances of :class:`~qat.lang.AQASM.qint.QInt` can be combined via addition and multiplication. Combining them forms an arithmetic expression without adding any gate to the underlying circuit.
 
-The only operation that triggers a circuit generation is the `+=` operator. 
+The only operation that triggers a circuit generation is the `+=` operator.
 
 .. run-block:: python
 
@@ -366,7 +366,7 @@ For instance, one can write a program that:
     from qat.lang.AQASM import QRoutine
     from qat.lang.AQASM.qint import QInt
 
-    rout = QRoutine() 
+    rout = QRoutine()
     qint1 = rout.new_wires(5, QInt)
     qint2 = rout.new_wires(5, QInt)
     qint3 = rout.new_wires(5, QInt)
@@ -454,7 +454,7 @@ Asymptotically, this oracle uses :math:`b|V| + |E|` qubits, without considering 
 It is possible to save up some qubits, at the cost of an increased number of gates. The following code snippet implements the same oracle, but a bit differently:
 
   - it allocates a counter large enough to count up to :math:`|E|`
-  
+
   - for each edge, if :math:`c_i \neq c_j`, it increments the counter by 1
 
   - it flips the phase of the basis state if and only if the counter contains exactly :math:`|E|`
@@ -489,5 +489,5 @@ It is possible to save up some qubits, at the cost of an increased number of gat
     print("Oracle uses {} ancillae".format(len(oracle.ancillae)))
 
 Asymptotically, this oracle is far more frugal since it uses only :math:`b|V| + log(|E|)` qubits.
-   
+
 Notice that in both examples, we didn't have to directly mention any quantum gate. Everything is handled by the quantum types.

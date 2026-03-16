@@ -1,5 +1,50 @@
 qat.interop.qiskit.BackendToQPU
 ===============================
 
-.. autoclass:: qat.interop.qiskit.BackendToQPU
-    :members: submit
+.. class:: qat.interop.qiskit.BackendToQPU(backend=None, plugins=None, token=None, ibm_backend='ibm_brisbane', optimization_level=0)
+
+   Wrapper around any Qiskit simulator or quantum chip connection.
+   Despite the asynchronous nature of Qiskit's backends, this class defines a
+   **synchronous QPU**. If you need an asynchronous QPU, please use
+   :class:`~qat.interop.qiskit.AsyncBackendToQPU`.
+
+   This QPU can be instantiated using:
+
+   * A Qiskit backend: use the keyword argument :code:`backen`
+   * An IBM token and the name of the backend: please use the keyword arguments
+     :code:`token` and :code:`ibm_backend` (default backend is :code:`"ibm_brisbane"`)
+   * No argument: the :code:`"aer_simulator"` is used if no argument is specified
+
+   :param backend: The Backend Qiskit object that is supposed to execute the circuit.
+
+   :param plugins: Linked plugins.
+   :type plugins: list
+
+   :param token: Qiskit IBM login token. If not supplied, it is loaded from the
+                 environment variable :code:`QISKIT_TOKEN`.
+   :type token: str
+
+   :param ibm_backend: Name of the backend. Default to 'ibm_brisbane'
+   :type ibm_backend: str, optional
+
+   :param optimization_level: Optimization level applied to the circuit.
+
+                               * :code:`0`: No optimization (default),
+                               * :code:`1`: Light optimization,
+                               * :code:`2`: Heavy optimization,
+                               * :code:`3`: Highest optimization.
+   :type optimization_level: int, optional
+
+
+   .. method:: submit(batch: Batch, meta_data : dict = None) -> BatchResult
+
+      Executes a batch of jobs and returns the corresponding list of Results.
+
+      :param batch: A batch of jobs. If a single job is provided, the job is
+                    embedded into a Batch, executed, and the first
+                    result is returned.
+      :type batch: :class:`~qat.core.Batch`
+
+      :returns: A batch result.
+      :rtype: :class:`~qat.core.BatchResult`
+

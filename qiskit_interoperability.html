@@ -8,12 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Qiskit 2.0 interoperability with qat-qiskit &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="static/css/custom.css?v=bee1f38e" />
+      <link rel="stylesheet" type="text/css" href="static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="static/css/custom.css?v=749de493" />
       <link rel="stylesheet" type="text/css" href="static/sphinx-design.min.css?v=95c83b7e" />
 
   
-    <link rel="shortcut icon" href="static/favicon.png"/>
+    <link rel="shortcut icon" href="static/favicon.ico"/>
       <script src="static/jquery.js?v=5d32c60e"></script>
       <script src="static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="static/documentation_options.js?v=8a448e45"></script>
@@ -23,7 +23,9 @@
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API reference" href="04_api_reference.html" />
+    <link rel="prev" title="Interoperability with annealing framework" href="interoperability_annealing.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -36,7 +38,7 @@
           
           <a href="index.html" class="icon icon-home">
             myQLM documentation
-              <img src="static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+              <img src="static/doc-logo.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -49,8 +51,25 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="01_getting_started.html">Getting started</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="02_user_guide.html">User guide</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="02_user_guide/01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_user_guide/02_execute.html">Executing / Simulating quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_user_guide/03_compile.html">Compiling and rewriting quantum circuits</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="fermion.html">Spin and fermionic systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="combinatorial_optim_applic.html">Combinatorial optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interoperability_annealing.html">Interoperability with annealing framework</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Qiskit 2.0 interoperability with qat-qiskit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#translating-circuits-from-one-framework-to-the-other">Translating circuits from one framework to the other</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submitting-circuits-to-qaptiva-access">Submitting circuits to Qaptiva Access</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="04_api_reference.html">API reference</a></li>
@@ -79,6 +98,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="02_user_guide.html">User guide</a></li>
       <li class="breadcrumb-item active">Qiskit 2.0 interoperability with qat-qiskit</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -90,11 +110,40 @@
              
   <section id="qiskit-2-0-interoperability-with-qat-qiskit">
 <h1>Qiskit 2.0 interoperability with qat-qiskit<a class="headerlink" href="#qiskit-2-0-interoperability-with-qat-qiskit" title="Link to this heading"></a></h1>
-<p>Because IBM’s qiskit is the most widely used API in quantum computing, with <a class="reference internal" href="04_api_reference/module_qat/module_qiskit.html#module-qat.qiskit" title="qat.qiskit"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.qiskit</span></code></a> it is now possible to use a qiskit
-wrapper that uses qaptiva qpus and computations before returning results in the form of qiskit basic data structures.
-It is possible to run either a <a class="reference internal" href="04_api_reference/module_qat/module_qiskit/sampler.html#qat.qiskit.Sampler" title="qat.qiskit.Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.qiskit.Sampler</span></code></a> or a <a class="reference internal" href="04_api_reference/module_qat/module_qiskit/estimator.html#qat.qiskit.Estimator" title="qat.qiskit.Estimator"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.qiskit.Estimator</span></code></a>.
-Both have basically the same API and inherit from qiskit base classes. The qaptiva backend is accessed through
-the <a class="reference internal" href="04_api_reference/module_qat/module_qiskit/qaptivaservice.html#qat.qiskit.QaptivaService" title="qat.qiskit.QaptivaService"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.qiskit.QaptivaService</span></code></a> class.</p>
+<section id="translating-circuits-from-one-framework-to-the-other">
+<h2>Translating circuits from one framework to the other<a class="headerlink" href="#translating-circuits-from-one-framework-to-the-other" title="Link to this heading"></a></h2>
+<p><a class="reference internal" href="04_api_reference/module_qat/module_qiskit.html#module-qat.qiskit" title="qat.qiskit"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.qiskit</span></code></a> allows to translate a Qiskit circuit into a Qaptiva one and vice versa.
+It can convert a circuit to Qiskit (respectively Qaptiva) by either using the class
+<a class="reference internal" href="04_api_reference/module_qat/module_qiskit/qaptivatoqiskit.html#qat.qiskit.converters.QaptivaToQiskit" title="qat.qiskit.converters.QaptivaToQiskit"><code class="xref py py-class docutils literal notranslate"><span class="pre">QaptivaToQiskit</span></code></a> (respectively <a class="reference internal" href="04_api_reference/module_qat/module_qiskit/qiskittoqaptiva.html#qat.qiskit.converters.QiskitToQaptiva" title="qat.qiskit.converters.QiskitToQaptiva"><code class="xref py py-class docutils literal notranslate"><span class="pre">QiskitToQaptiva</span></code></a>)
+or the function <a class="reference internal" href="04_api_reference/module_qat/module_qiskit/qaptiva_to_qiskit.html#qat.qiskit.converters.qaptiva_to_qiskit" title="qat.qiskit.converters.qaptiva_to_qiskit"><code class="xref py py-func docutils literal notranslate"><span class="pre">qaptiva_to_qiskit()</span></code></a> (respectively <a class="reference internal" href="04_api_reference/module_qat/module_qiskit/qiskit_to_qaptiva.html#qat.qiskit.converters.qiskit_to_qaptiva" title="qat.qiskit.converters.qiskit_to_qaptiva"><code class="xref py py-func docutils literal notranslate"><span class="pre">qiskit_to_qaptiva()</span></code></a>).</p>
+<p>Here is an example of a translation:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+Translate to Qiskit</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.qiskit.QaptivaToQiskit</span>
+
+<span class="n">qiskit_circuit</span> <span class="o">=</span> <span class="n">QaptivaToQiskit</span><span class="p">(</span><span class="n">your_qaptiva_circuit</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+Translate to Qaptiva</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.qiskit.QiskitToQaptiva</span>
+
+<span class="n">qaptiva_circuit</span> <span class="o">=</span> <span class="n">QiskitToQaptiva</span><span class="p">(</span><span class="n">your_qiskit_circuit</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="submitting-circuits-to-qaptiva-access">
+<h2>Submitting circuits to Qaptiva Access<a class="headerlink" href="#submitting-circuits-to-qaptiva-access" title="Link to this heading"></a></h2>
+<p><a class="reference internal" href="04_api_reference/module_qat/module_qiskit.html#module-qat.qiskit" title="qat.qiskit"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.qiskit</span></code></a> also allows to use a Qiskit wrapper that uses Qaptiva qpus and computations before returning results in the form of qiskit basic data structures.
+It is possible to run either a <a class="reference internal" href="04_api_reference/module_qat/module_qiskit/sampler.html#qat.qiskit.Sampler" title="qat.qiskit.Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sampler</span></code></a> or a <a class="reference internal" href="04_api_reference/module_qat/module_qiskit/estimator.html#qat.qiskit.Estimator" title="qat.qiskit.Estimator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Estimator</span></code></a>.
+Both have basically the same API and inherit from Qiskit base classes. The Qaptiva backend is accessed through
+the <a class="reference internal" href="04_api_reference/module_qat/module_qiskit/qaptivaservice.html#qat.qiskit.QaptivaService" title="qat.qiskit.QaptivaService"><code class="xref py py-class docutils literal notranslate"><span class="pre">QaptivaService</span></code></a> class.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>For the moment, both the Sampler and the Estimator require a connection with a Qaptiva Access server to get access
@@ -154,16 +203,20 @@ to the backend. It would not run without it.</p>
 </pre></div>
 </div>
 </section>
+</section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="interoperability_annealing.html" class="btn btn-neutral float-left" title="Interoperability with annealing framework" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="04_api_reference.html" class="btn btn-neutral float-right" title="API reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Eviden 2016-2025.</p>
+    <p>&#169; Copyright Bull 2016-2026, Bull SAS - All rights reserved.</p>
   </div>
 
    

@@ -41,7 +41,7 @@ Let's see what happens when a simple rotation by 180° is applied to a qubit ini
     res = qpu.submit(job_sample)
     for sample in res:
         print(sample.state, sample.probability)
- 
+
 
 Without noise we would expect the final state of the qubit to be exactly :math:`\left|1\right>`. However, due to the dephasing present, the larger the noise, the higher the probability for the qubit to be found in the state :math:`\left|0\right>`. Hence, we get a superposition of the two states. An example with a more involved Hamiltonian is presented in the following :notebook:`(notebook)[aqpu_getting_started.ipynb]`.
 

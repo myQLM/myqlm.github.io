@@ -12,7 +12,7 @@ SQA computing
     contains no more than two :class:`~qat.opt.boolexpr.Var`, such that it is translatable to :class:`~qat.opt.Ising` or :class:`~qat.opt.QUBO`.
 
     The SQA solver is inside the class :class:`~qat.qpus.SQAQPU` which receives a :class:`~qat.core.Job` created via the
-    :func:`~qat.opt.Ising.to_job()` method of the special purpose :class:`~qat.opt.Ising` or :class:`~qat.opt.QUBO` classes (or
+    :func:`~qat.opt.Ising.to_job` method of the special purpose :class:`~qat.opt.Ising` or :class:`~qat.opt.QUBO` classes (or
     :class:`~qat.opt.CombinatorialProblem`, if applicable).
 
     Inner workings
@@ -38,19 +38,19 @@ SQA computing
 
     .. math::
 
-        H = -\sum_{k=1}^{n_{trotters}}\left( \sum_{i,j} J_{i,j} s_{i}^{k}s_{j}^{k} + \sum_{i} h_{i} s_{i}^{k} + J^{\perp}s_{l}^{k}s_{l}^{k+1} \right) 
+        H = -\sum_{k=1}^{n_{trotters}}\left( \sum_{i,j} J_{i,j} s_{i}^{k}s_{j}^{k} + \sum_{i} h_{i} s_{i}^{k} + J^{\perp}s_{l}^{k}s_{l}^{k+1} \right)
 
-    with :math:`J^{\perp} = - \frac{n_{trotters}T}{2}\cdot \log\left(\tanh(\frac{\Gamma}{n_{trotters}T})\right)` and :math:`n` quantum spins 
+    with :math:`J^{\perp} = - \frac{n_{trotters}T}{2}\cdot \log\left(\tanh(\frac{\Gamma}{n_{trotters}T})\right)` and :math:`n` quantum spins
     are replaced with :math:`n_{trotters}\times n` classical spins.
 
     In quantum annealing, :math:`\Gamma` is typically gradually decreased
     from a high value to :math:`0`, such that, if the system is prepared in the
-    ground state of :math:`\sum_{i}\Gamma\sigma_{x}^{i}`, it ends up 
+    ground state of :math:`\sum_{i}\Gamma\sigma_{x}^{i}`, it ends up
     in the ground state of the Ising Hamiltonian at the end of the transition.
 
     The idea of simulated quantum annealing is to sample from the equilibrium
     distribution of the equivalent classical Hamiltonian at several
-    points :math:`\{\Gamma_{l}\}` along that transition. 
+    points :math:`\{\Gamma_{l}\}` along that transition.
     The configuration resulting from sampling at :math:`\Gamma_{l}`
     is kept at the starting configuration for :math:`\Gamma_{l+1}`.
 
@@ -78,15 +78,15 @@ SQA computing
 
     .. parseonly:: myqlm
 
-        myQLM is equipped with a simulated annealer (SA), which can solve combinatorial problems encoded in an :ref:`Ising <ising_description>` or Quadratic Unconstrained Binary Optimization (:ref:`QUBO <qubo_description>`) formalism - take a look at an 
+        myQLM is equipped with a simulated annealer (SA), which can solve combinatorial problems encoded in an :ref:`Ising <ising_description>` or Quadratic Unconstrained Binary Optimization (:ref:`QUBO <qubo_description>`) formalism - take a look at an
         :notebook:`(Introductory notebook)[introduction_combinatorial_optimization_myqlm.ipynb]`. It could also handle a general :class:`~qat.opt.CombinatorialProblem` with clauses and variables, as long as each of its :class:`~qat.opt.boolexpr.Clause` contains no more than two :class:`~qat.opt.boolexpr.Var`, such that it is translatable to :class:`~qat.opt.Ising` or :class:`~qat.opt.QUBO`.
 
     .. parseonly:: distributed
 
-        Distributed Qaptiva is equipped with a simulated annealer (SA), which can solve combinatorial problems encoded in an :ref:`Ising <ising_description>` or Quadratic Unconstrained Binary Optimization (:ref:`QUBO <qubo_description>`) formalism - take a look at an 
+        Qaptiva HPC is equipped with a simulated annealer (SA), which can solve combinatorial problems encoded in an :ref:`Ising <ising_description>` or Quadratic Unconstrained Binary Optimization (:ref:`QUBO <qubo_description>`) formalism - take a look at an
         :notebook:`(Introductory notebook)[introduction_combinatorial_optimization_distributed.ipynb]`. It could also handle a general :class:`~qat.opt.CombinatorialProblem` with clauses and variables, as long as each of its :class:`~qat.opt.boolexpr.Clause` contains no more than two :class:`~qat.opt.boolexpr.Var`, such that it is translatable to :class:`~qat.opt.Ising` or :class:`~qat.opt.QUBO`.
 
-    Albeit not quantum, the simulated annealing solver is wrapped with a Quantum Processing Unit (QPU) interface which is made to resemble the rest of the QPUs on myQLM. It therefore consists of an implementation of the submit method of :class:`~qat.qpus.SimulatedAnnealing`, which receives a :class:`~qat.core.Job` and returns a :class:`~qat.core.Result`. The :class:`~qat.core.Job` is created via the :func:`~qat.opt.Ising.to_job()` method of the special purpose :class:`~qat.opt.Ising` or :class:`~qat.opt.QUBO` classes (or :class:`~qat.opt.CombinatorialProblem`, if applicable).
+    Albeit not quantum, the simulated annealing solver is wrapped with a Quantum Processing Unit (QPU) interface which is made to resemble the rest of the QPUs on myQLM. It therefore consists of an implementation of the submit method of :class:`~qat.qpus.SimulatedAnnealing`, which receives a :class:`~qat.core.Job` and returns a :class:`~qat.core.Result`. The :class:`~qat.core.Job` is created via the :func:`~qat.opt.Ising.to_job` method of the special purpose :class:`~qat.opt.Ising` or :class:`~qat.opt.QUBO` classes (or :class:`~qat.opt.CombinatorialProblem`, if applicable).
 
     .. note::
 
@@ -101,13 +101,13 @@ SQA computing
 
     Stochasticity is specified by a temperature. In practice, a decreasing temperature schedule is given to the algorithm. At the beginning of the execution, large temperature values allow to jump over energy barriers to escape local optima. When temperature settles to lower values, the Markov chain will hopefully settle to the global optimum of the cost function.
 
-    Mathematically, simulated annealing tries to find, given :math:`h` and :math:`J`, the global minimum configuration of: 
+    Mathematically, simulated annealing tries to find, given :math:`h` and :math:`J`, the global minimum configuration of:
 
     .. math::
 
         H(s_{1},...,s_{n}) = -\sum_{i,j=1}^{n} J_{ij}s_{i}s_{j}-\sum_{i=1} h_{i}s_{i}
 
-    It does so by first choosing a random configuration, which then evolves by applying updates. In the case of simulated annealing, 
+    It does so by first choosing a random configuration, which then evolves by applying updates. In the case of simulated annealing,
     an update consists in flipping the value :math:`s_{i}` of a single spin.
 
     An update is accepted with probability:
@@ -128,7 +128,7 @@ SQA computing
     .. parseonly:: myqlm
 
         A basic example of the use of SA - to solve the Antiferromagnetic Ising Model, is presented in the notebook :notebook:`(Getting started with SA)[getting_started_with_sa.ipynb]`. Some more involved examples where SA solves some of the :ref:`NP-hard problems <np_problems_annealing>` have also been implemented in the following :notebook:`(notebooks)[overview_combinatorial_optimization_myqlm.ipynb]`.
-    
+
     .. parseonly:: distributed
 
         A basic example of the use of SA - to solve the Antiferromagnetic Ising Model, is presented in the notebook :notebook:`(Getting started with SA)[getting_started_with_sa.ipynb]`. Some more involved examples where SA solves some of the :ref:`NP-hard problems <np_problems_annealing>` have also been implemented in the following :notebook:`(notebooks)[overview_combinatorial_optimization_distributed.ipynb]`.

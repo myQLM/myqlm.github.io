@@ -8,12 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>qat.plugins.Nnizer &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=bee1f38e" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
-    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+    <link rel="shortcut icon" href="../../../static/favicon.ico"/>
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
@@ -38,7 +38,7 @@
           
           <a href="../../../index.html" class="icon icon-home">
             myQLM documentation
-              <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+              <img src="../../../static/doc-logo.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -151,7 +151,7 @@
 it match the QPU topology. The usage of this plugin is detailed in the <a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers/03_nnize.html#compile-nnize"><span class="std std-ref">compilation section of the documentation</span></a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.plugins.Nnizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">Nnizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method='atos'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_large_gates=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_initial_order=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iteration=250</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature=1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric=&lt;libcpp_nnize.QuantumCostMetric</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.Nnizer" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">Nnizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method='atos'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_large_gates=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_initial_order=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iteration=250</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature=1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric=&lt;libcpp_nnize.QuantumCostMetric</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.Nnizer" title="Link to this definition"></a></dt>
 <dd><p>Swap insertion problem solver.</p>
 <p>This plugin can use different algorithms to nnize your quantum
 circuit. The following algorithms are implemented:</p>
@@ -234,23 +234,26 @@ the swap insertion problem (“atos”, “sabre”, “bka” or “pbn”)</p>
 <li><p><strong>metric</strong> (<em>fun&lt;Circuit -&gt; score&gt;</em><em>, </em><em>optional</em>) – score function this nnizer
 will try to maximize (used only by “atos” and “pbn”)</p></li>
 <li><p><strong>window_size</strong> (<em>int</em><em>, </em><em>optional</em>) – window size. The higher the value is,
-the higher the complexity is (used only by “atos” and “sabre”)</p></li>
+the higher the complexity is (used only by “atos” and “sabre”).
+Default is 4.</p></li>
 <li><p><strong>basic_heuristic</strong> (<em>bool</em><em>, </em><em>optional</em>) – use the basic heuristic for
-sabre (used only by “sabre”)</p></li>
+sabre (used only by “sabre”). Default is False.</p></li>
 <li><p><strong>weight</strong> (<em>float</em><em>, </em><em>optional</em>) – weight of the second layer for sabre
-(used only by “sabre”)</p></li>
-<li><p><strong>delta</strong> (<em>float</em><em>, </em><em>optional</em>) – decay parameter (used only by “sabre”)</p></li>
+(used only by “sabre”). Default is 0.5.</p></li>
+<li><p><strong>delta</strong> (<em>float</em><em>, </em><em>optional</em>) – decay parameter (used only by “sabre”).
+Default is 0.001.</p></li>
 <li><p><strong>size_slice</strong> (<em>int</em><em>, </em><em>optional</em>) – maximal number of gates per slice
-(used only by “bka”)</p></li>
+(used only by “bka”). Default is 0.</p></li>
 <li><p><strong>use_sum_heuristic</strong> (<em>bool</em><em>, </em><em>optional</em>) – select the heuristic used
-by bka (only used by “bka”)</p></li>
+by bka (only used by “bka”). Default is False.</p></li>
 <li><p><strong>update_initial_order</strong> (<em>&quot;annealing&quot;</em><em>, </em><em>&quot;reverse&quot;</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – update the initial mapping of qubits to optimize the final
 nnization. Optimizing the initial order uses a metric,
 please use <code class="code docutils literal notranslate"><span class="pre">metric</span></code> keyword to set the metric</p></li>
 <li><p><strong>rewriting_method</strong> (<em>&quot;gradient&quot;</em><em> or </em><em>&quot;annealing&quot;</em><em>, </em><em>optional</em>) – PBN
 uses <a class="reference internal" href="patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a> to optimized the nnized
 circuit. Please use this argument to select the optimization
-method used by <a class="reference internal" href="patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a></p></li>
+method used by <a class="reference internal" href="patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a>.
+Default is “gradient”.</p></li>
 <li><p><strong>max_iteration</strong> (<em>int</em><em>, </em><em>optional</em>) – maximal number of iterations
 done by the simulated annealing to find an initial mapping</p></li>
 <li><p><strong>temperature</strong> (<em>float</em><em>, </em><em>optional</em>) – initial temperature of the simulated
@@ -292,7 +295,7 @@ connectivity constraints)</p></li>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Eviden 2016-2025.</p>
+    <p>&#169; Copyright Bull 2016-2026, Bull SAS - All rights reserved.</p>
   </div>
 
    

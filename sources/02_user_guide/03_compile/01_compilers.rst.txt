@@ -7,7 +7,7 @@ However, these tools, due to their generality and expressivity, require a lot of
 
 All-in-one compiler
 -------------------
-The :class:`~qat.plugins.NISQCompiler` plugin provides a unified interface that calls several |product| plugins 
+The :class:`~qat.plugins.NISQCompiler` plugin provides a unified interface that calls several |product| plugins
 (such as :class:`~qat.plugins.LazySynthesis`, :class:`~qat.plugins.Nnizer`, :class:`~qat.plugins.PatternManager`, :class:`~qat.plugins.KAKCompression`, etc).
 
 It basically proceeds in three stages:
@@ -54,7 +54,7 @@ Additionally, it can handle controlled phase gates. All other gates in the stand
 Final transpilation and possible target gate sets
 .................................................
 
-This last step starts by replacing entangling gates into equivalent patterns that use a single type of Clifford entangling gate among: 
+This last step starts by replacing entangling gates into equivalent patterns that use a single type of Clifford entangling gate among:
 CNOT, CZ/CSIGN, ZZ(:math:`\pi/2`), XX(:math:`\pi/2`)
 The rewriting is done using the following rewriting strategy:
 
@@ -65,7 +65,7 @@ The rewriting is done using the following rewriting strategy:
 |
 
 For instance, if the target gate set contains the entangling gate ZZ(:math:`\pi/2`), this last step will first rewrite all CNOT gates into CZ gates, and
-then all CZ gates into ZZ(:math:`\pi/2`). 
+then all CZ gates into ZZ(:math:`\pi/2`).
 Since step 1. and step 2. can only produce CNOT gates, this strategy guarantees that any gate in CNOT, CZ/CSIGN, ZZ(:math:`\pi/2`), XX(:math:`\pi/2`)
 can be reached.
 
@@ -103,7 +103,7 @@ Examples
         from qat.devices import AllToAll
 
         compiler = NISQCompiler(
-            compiler_options={'optimize_initial': True, 'bidirectional': True, 'depth': 3}, 
+            compiler_options={'optimize_initial': True, 'bidirectional': True, 'depth': 3},
             target_gate_set=['XX', 'RX+', 'RZ']
         )
         device = AllToAll(5)
@@ -155,7 +155,7 @@ Examples
         from qat.devices import GridDevice
 
         compiler = NISQCompiler(
-            compiler_options={'optimize_initial': True, 'bidirectional': True, 'depth': 3}, 
+            compiler_options={'optimize_initial': True, 'bidirectional': True, 'depth': 3},
             target_gate_set=['CNOT', 'U3']
         )
         device = GridDevice(3, 2)
@@ -191,7 +191,7 @@ Examples
         print("Output circuit:")
         compiled_job.circuit.display(batchmode=True)
 
-    Notice that the output circuit is quite similar to the one in the previous example, except that the number of one qubit gates 
+    Notice that the output circuit is quite similar to the one in the previous example, except that the number of one qubit gates
     is lower (due to the fact that the gates can handle 3 parameters).
 
 Other compilers

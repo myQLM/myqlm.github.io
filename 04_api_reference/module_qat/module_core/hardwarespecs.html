@@ -8,12 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>qat.core.HardwareSpecs &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=bee1f38e" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
-    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+    <link rel="shortcut icon" href="../../../static/favicon.ico"/>
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="qat.core.Topology" href="topology.html" />
-    <link rel="prev" title="qat.core.Term" href="term.html" /> 
+    <link rel="prev" title="qat.core.default_gate_set" href="default_gate_set.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,7 +38,7 @@
           
           <a href="../../../index.html" class="icon icon-home">
             myQLM documentation
-              <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+              <img src="../../../static/doc-logo.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -76,6 +76,7 @@
 <li class="toctree-l4"><a class="reference internal" href="state.html">qat.core.wrappers.result.State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="observable.html">qat.core.Observable</a></li>
 <li class="toctree-l4"><a class="reference internal" href="term.html">qat.core.Term</a></li>
+<li class="toctree-l4"><a class="reference internal" href="default_gate_set.html">qat.core.default_gate_set</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">qat.core.HardwareSpecs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="topology.html">qat.core.Topology</a></li>
 <li class="toctree-l4"><a class="reference internal" href="topologytype.html">qat.core.TopologyType</a></li>
@@ -86,8 +87,10 @@
 <li class="toctree-l4"><a class="reference internal" href="assert_qpu.html">qat.core.assertion.assert_qpu</a></li>
 <li class="toctree-l4"><a class="reference internal" href="display.html">qat.core.console.display</a></li>
 <li class="toctree-l4"><a class="reference internal" href="evaluate.html">qat.core.formula_eval.evaluate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_substate.html">qat.core.simutil.get_substate</a></li>
 <li class="toctree-l4"><a class="reference internal" href="load_state_vector_from_bin.html">qat.core.util.load_state_vector_from_bin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plot_in_notebook.html">qat.core.printer.plot_in_notebook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="qlmaas_warning.html">qat.core.qlmaas.qlmaas_warning</a></li>
 <li class="toctree-l4"><a class="reference internal" href="wavefunction.html">qat.core.simutil.wavefunction</a></li>
 </ul>
 </li>
@@ -152,7 +155,7 @@
 <h1>qat.core.HardwareSpecs<a class="headerlink" href="#qat-core-hardwarespecs" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.core.HardwareSpecs">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">HardwareSpecs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nbqbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.HardwareSpecs" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">HardwareSpecs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nbqbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.HardwareSpecs" title="Link to this definition"></a></dt>
 <dd><p>Simple higher level wrapper for the serializable HardwareSpecs class.</p>
 <dl class="simple">
 <dt>Instance attributes:</dt><dd><ul class="simple">
@@ -234,19 +237,19 @@ the device’s connectivity for easy inclusion in a QLM stack</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="qat.core.HardwareSpecs.file_extension">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">file_extension</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#qat.core.HardwareSpecs.file_extension" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">file_extension</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#qat.core.HardwareSpecs.file_extension" title="Link to this definition"></a></dt>
 <dd><p>Read-only property returning the file extension used by <a class="reference internal" href="#qat.core.HardwareSpecs.dump" title="qat.core.HardwareSpecs.dump"><code class="xref py py-meth docutils literal notranslate"><span class="pre">dump()</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.core.HardwareSpecs.from_thrift">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_thrift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tobject</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.HardwareSpecs.from_thrift" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_thrift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tobject</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.HardwareSpecs.from_thrift" title="Link to this definition"></a></dt>
 <dd><p>Builds a HardwareSpecs object from a thrift object</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.core.HardwareSpecs.load">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.HardwareSpecs.load" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.HardwareSpecs.load" title="Link to this definition"></a></dt>
 <dd><p>Loads a Qaptiva object from a binary file</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -264,7 +267,7 @@ the device’s connectivity for easy inclusion in a QLM stack</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="qat.core.HardwareSpecs.nbqbits">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nbqbits</span></span><a class="headerlink" href="#qat.core.HardwareSpecs.nbqbits" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nbqbits</span></span><a class="headerlink" href="#qat.core.HardwareSpecs.nbqbits" title="Link to this definition"></a></dt>
 <dd><p>Number of qubits composing the hardware</p>
 </dd></dl>
 
@@ -282,14 +285,14 @@ the device’s connectivity for easy inclusion in a QLM stack</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="term.html" class="btn btn-neutral float-left" title="qat.core.Term" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="default_gate_set.html" class="btn btn-neutral float-left" title="qat.core.default_gate_set" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="topology.html" class="btn btn-neutral float-right" title="qat.core.Topology" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Eviden 2016-2025.</p>
+    <p>&#169; Copyright Bull 2016-2026, Bull SAS - All rights reserved.</p>
   </div>
 
    

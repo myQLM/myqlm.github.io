@@ -8,12 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Make your own QPU &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=bee1f38e" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
-    <link rel="shortcut icon" href="../../../static/favicon.png"/>
+    <link rel="shortcut icon" href="../../../static/favicon.ico"/>
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
@@ -38,7 +38,7 @@
           
           <a href="../../../index.html" class="icon icon-home">
             myQLM documentation
-              <img src="../../../static/myqlm-doc-logo.png" class="logo" alt="Logo"/>
+              <img src="../../../static/doc-logo.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -293,7 +293,14 @@ can be clean-up using function <a class="reference internal" href="../../../04_a
 </pre></div>
 </div>
 </div>
-</details></section>
+</details><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If a sampling job is submitted, the list of qubits to measure is defined by the attribute <code class="code docutils literal notranslate"><span class="pre">.qubits</span></code> of
+the <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> object.
+If your QPU is designed to measure all the qubits, please use the <a class="reference internal" href="../../../04_api_reference/module_qat/module_core/get_substate.html#qat.core.simutil.get_substate" title="qat.core.simutil.get_substate"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_substate()</span></code></a> function to extract
+the desired result, from the full state computed by your QPU.</p>
+</div>
+</section>
 <section id="method-get-specs">
 <h2>Method get_specs<a class="headerlink" href="#method-get-specs" title="Link to this heading"></a></h2>
 <p>This method does not take any parameter and returns a description of the hardware. The output of this function is used by compilers
@@ -337,7 +344,7 @@ measurements</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Eviden 2016-2025.</p>
+    <p>&#169; Copyright Bull 2016-2026, Bull SAS - All rights reserved.</p>
   </div>
 
    
