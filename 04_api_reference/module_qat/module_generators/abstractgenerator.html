@@ -9,7 +9,7 @@
   <title>qat.generators.AbstractGenerator &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../static/js/theme.js"></script>
@@ -130,7 +131,7 @@
 <h1>qat.generators.AbstractGenerator<a class="headerlink" href="#qat-generators-abstractgenerator" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.generators.AbstractGenerator">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.generators.</span></span><span class="sig-name descname"><span class="pre">AbstractGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.generators.AbstractGenerator" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.generators.</span></span><span class="sig-name descname"><span class="pre">AbstractGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.generators.AbstractGenerator" title="Link to this definition"></a></dt>
 <dd><p>Abstract interface for a batch generator.</p>
 <p>An abctract generator has a single abstract method ‘generate’. This
 generate function can return either:</p>
@@ -152,7 +153,7 @@ does not contains any <a class="reference internal" href="../module_core/batchre
 <p>The <a class="reference internal" href="../../../02_user_guide/02_execute/01_job/03_automated_batch_generation.html#batch-generators"><span class="std std-ref">batch generator section</span></a> give some examples of dummy batch generators</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.generators.AbstractGenerator.generate">
-<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">specs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.generators.AbstractGenerator.generate" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">specs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.generators.AbstractGenerator.generate" title="Link to this definition"></a></dt>
 <dd><p>Generates a batch. This function could return either
 an iterator or a Batch</p>
 </dd></dl>
@@ -164,7 +165,7 @@ an iterator or a Batch</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>port</strong> (<em>int</em>) – the port on which to listen</p></li>
+<li><p><strong>port</strong> (<a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a>) – the port on which to listen</p></li>
 <li><p><strong>host_ip</strong> (<em>str</em><em>, </em><em>optional</em>) – the hostname on which to publish the API.
 Defaults to ‘localhost’</p></li>
 <li><p><strong>server_type</strong> (<em>str</em><em>, </em><em>optional</em>) – <p>type of server. The different types

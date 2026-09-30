@@ -9,7 +9,7 @@
   <title>qat.core.Schedule &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -157,7 +158,7 @@
 <h1>qat.core.Schedule<a class="headerlink" href="#qat-core-schedule" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.core.Schedule">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">Schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">drive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma_t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Schedule" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">Schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">drive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma_t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Schedule" title="Link to this definition"></a></dt>
 <dd><p>Schedules encode time-dependent Hamiltonians, described by the general expression:</p>
 <div class="math notranslate nohighlight">
 \[H(t) = \sum_i \lambda_i(t) H_i\]</div>
@@ -197,7 +198,7 @@ evolution halts. Default is 1.0.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.core.Schedule.load">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Schedule.load" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Schedule.load" title="Link to this definition"></a></dt>
 <dd><p>Loads a Qaptiva object from a binary file</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -235,7 +236,7 @@ respective superposition states, so a six-qubit input may look like ‘1+-01+’
 If of type ndarray or list&lt;ComplexNumber&gt;, it is a length 2^nqbits
 array containing the complex amplitudes of the input state.
 Defaults to None (i.e <code class="docutils literal notranslate"><span class="pre">|00..0&gt;</span></code>).</p></li>
-<li><p><strong>nbshots</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of shots to perform. Defaults to zero in which
+<li><p><strong>nbshots</strong> (<a class="reference internal" href="state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a><em>, </em><em>optional</em>) – The number of shots to perform. Defaults to zero in which
 case the convention is that the QPU should do its best: a quantum
 processor will use the largest amount of shots authorized by its configuration,
 while a simulator will try to output all the possible states contained in the

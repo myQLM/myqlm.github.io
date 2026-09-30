@@ -9,7 +9,7 @@
   <title>General Combinatorial Problems &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../static/js/theme.js"></script>
@@ -116,7 +117,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.opt</span><span class="w"> </span><span class="kn">import</span> <span class="n">CombinatorialProblem</span>
 
 <span class="c1"># Create a problem</span>
-<span class="n">comb_prob</span> <span class="o">=</span> <span class="n">CombinatorialProblem</span><span class="p">(</span><span class="s2">&quot;3-SAT&quot;</span><span class="p">)</span>
+<span class="n">comb_prob</span> <span class="o">=</span> <span class="n">CombinatorialProblem</span><span class="p">(</span><span class="s2">"3-SAT"</span><span class="p">)</span>
 
 <span class="c1"># Declare five variables</span>
 <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">x4</span> <span class="o">=</span> <span class="n">comb_prob</span><span class="o">.</span><span class="n">new_vars</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -126,16 +127,16 @@
 <span class="n">comb_prob</span><span class="o">.</span><span class="n">add_clause</span><span class="p">(</span><span class="o">~</span><span class="n">x1</span> <span class="o">^</span>  <span class="n">x3</span> <span class="o">^</span>  <span class="n">x4</span> <span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mf">1.12</span><span class="p">)</span>
 <span class="n">comb_prob</span><span class="o">.</span><span class="n">add_clause</span><span class="p">(</span> <span class="n">x4</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x0</span> <span class="o">^</span> <span class="o">~</span><span class="n">x1</span><span class="p">),</span> <span class="n">weight</span><span class="o">=</span><span class="mf">0.86</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">comb_prob</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">comb_prob</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># Can translate to a terms Observable for a gate-based or analog manipulation</span>
-<span class="n">comb_prob_obs</span> <span class="o">=</span> <span class="n">comb_prob</span><span class="o">.</span><span class="n">get_observable</span><span class="p">(</span><span class="s2">&quot;terms&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;As terms Observable:&quot;</span><span class="p">)</span>
+<span class="n">comb_prob_obs</span> <span class="o">=</span> <span class="n">comb_prob</span><span class="o">.</span><span class="n">get_observable</span><span class="p">(</span><span class="s2">"terms"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"As terms Observable:"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">comb_prob_obs</span><span class="p">)</span>
 
 <span class="c1"># If the problem had only two variables, one could also translate to an</span>
 <span class="c1"># ising Observable for an annealing manipulation</span>
-<span class="c1"># comb_prob_obs = comb_prob.get_observable(&quot;ising&quot;)</span>
+<span class="c1"># comb_prob_obs = comb_prob.get_observable("ising")</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span><span class="o">-</span><span class="n">SAT</span><span class="p">:</span>

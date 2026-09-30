@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CNOT + RZ circuit synthesis &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=a0c26f31" />
+      <link rel="stylesheet" type="text/css" href="../static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="shortcut icon" href="../static/favicon.ico"/>
+      <script src="../static/jquery.js?v=5d32c60e"></script>
+      <script src="../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../static/js/custom.js?v=e5e94349"></script>
+      <script src="../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Variational Ansätze synthesis" href="03_trotter.html" />
+    <link rel="prev" title="CNOT circuit synthesis" href="01_linear.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../static/doc-logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../02_user_guide/01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02_user_guide/02_execute.html">Executing / Simulating quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02_user_guide/03_compile.html">Compiling and rewriting quantum circuits</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../fermion.html">Spin and fermionic systems</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../synthesis.html">Synthesizing quantum circuits</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="01_linear.html">CNOT circuit synthesis</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">CNOT + RZ circuit synthesis</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#problem">Problem</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#synthesis">Synthesis</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="03_trotter.html">Variational Ansätze synthesis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="04_codiag.html">Stabilizer state synthesis</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../combinatorial_optim_applic.html">Combinatorial optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interoperability_annealing.html">Interoperability with annealing framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../qiskit_interoperability.html">Qiskit 2.0 interoperability with qat-qiskit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../02_user_guide.html">User guide</a></li>
+          <li class="breadcrumb-item"><a href="../synthesis.html">Synthesizing quantum circuits</a></li>
+      <li class="breadcrumb-item active">CNOT + RZ circuit synthesis</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cnot-rz-circuit-synthesis">
+<span id="ppol-synth"></span><h1>CNOT + RZ circuit synthesis<a class="headerlink" href="#cnot-rz-circuit-synthesis" title="Link to this heading"></a></h1>
+<section id="problem">
+<h2>Problem<a class="headerlink" href="#problem" title="Link to this heading"></a></h2>
+<p>Phase polynomials are another quite standard class of unitary operators that can be efficiently represented and manipulated.
+They exactly capture unitary operators implementable using only CNOT and RZ gates.
+The circuits generate operators of the form:</p>
+<p><span class="math notranslate nohighlight">\(|x\rangle \mapsto e^{2i\pi f(x)}|Ax\rangle\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(A\)</span> is a linear map (as described in the previous section) and <span class="math notranslate nohighlight">\(f\)</span> is a phase polynomial:</p>
+<p><span class="math notranslate nohighlight">\(f(x) = \sum_{y\in\mathbb{F}_2^n} \hat{f}(y).(x_1 y_1 \oplus ... \oplus x_n y_n)\)</span></p>
+<p>with fourier coefficients <span class="math notranslate nohighlight">\(\hat{f}(y) \in \mathbb{R}\)</span>.</p>
+<p>These operators can be represented by their support <span class="math notranslate nohighlight">\(\{y | \hat{f}(y) \neq 0\}\)</span>, the value of their coefficients on their support, and, if it is not trivial, the final linear operator <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</section>
+<section id="synthesis">
+<h2>Synthesis<a class="headerlink" href="#synthesis" title="Link to this heading"></a></h2>
+<p>Synthopline provides a function <a class="reference internal" href="../04_api_reference/module_qat/module_synthopline/phase_polynomial_synthesis.html#qat.synthopline.phase_polynomial_synthesis" title="qat.synthopline.phase_polynomial_synthesis"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qat.synthopline.phase_polynomial_synthesis()</span></code></a> to synthesize a phase polynomial described as a dictionary mapping elements of the support of <span class="math notranslate nohighlight">\(f\)</span> to the value of their fourier coefficients.</p>
+<p>Let us try to synthesize a phase polynomial with abstract values for the angles. For the sake of demonstration,
+we will call the synthesis algorithm with and without including the synthesis of the final linear operator.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.synthopline</span><span class="w"> </span><span class="kn">import</span> <span class="n">phase_polynomial_synthesis</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Variable</span>
+
+<span class="n">phase_pol</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">"a"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">"b"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">"c"</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="n">circuit</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="n">phase_polynomial_synthesis</span><span class="p">(</span>
+    <span class="n">phase_pol</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"gray_synth"</span><span class="p">,</span> <span class="n">synthesize_final</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Circuit has variables:"</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Without fixing the final parities:"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+
+<span class="n">circuit</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="n">phase_polynomial_synthesis</span><span class="p">(</span>
+    <span class="n">phase_pol</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"gray_synth"</span><span class="p">,</span> <span class="n">synthesize_final</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Fixing the final parities:"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Circuit</span> <span class="n">has</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">]</span>
+<span class="n">Without</span> <span class="n">fixing</span> <span class="n">the</span> <span class="n">final</span> <span class="n">parities</span><span class="p">:</span>
+<span class="p">(</span><span class="s1">'PH'</span><span class="p">,</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7f35c5c35d00</span><span class="o">&gt;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'PH'</span><span class="p">,</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7f35c5c35d00</span><span class="o">&gt;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'PH'</span><span class="p">,</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7f35c5daf450</span><span class="o">&gt;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">Fixing</span> <span class="n">the</span> <span class="n">final</span> <span class="n">parities</span><span class="p">:</span>
+<span class="p">(</span><span class="s1">'PH'</span><span class="p">,</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7f35c5c5c890</span><span class="o">&gt;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'PH'</span><span class="p">,</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7f35c5c5c890</span><span class="o">&gt;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'PH'</span><span class="p">,</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">qat</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7f35c5ca94f0</span><span class="o">&gt;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>This method can also use a qubit connectivity graph to synthesize an architecture compliant circuit:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.synthopline</span><span class="w"> </span><span class="kn">import</span> <span class="n">phase_polynomial_synthesis</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Variable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">RIGETTI_ASPEN</span>
+
+<span class="n">aspen</span> <span class="o">=</span> <span class="n">RIGETTI_ASPEN</span><span class="o">.</span><span class="n">as_graph</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">RIGETTI_ASPEN</span><span class="p">)</span>
+
+<span class="n">phase_pol</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()):</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">"a_</span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">circuit_gs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">phase_polynomial_synthesis</span><span class="p">(</span>
+    <span class="n">phase_pol</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"gray_synth_on_graph"</span><span class="p">,</span> <span class="n">synthesize_final</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">graph</span><span class="o">=</span><span class="n">aspen</span>
+<span class="p">)</span>
+<span class="n">circuit_ls3</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">phase_polynomial_synthesis</span><span class="p">(</span>
+    <span class="n">phase_pol</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"lazy_synth"</span><span class="p">,</span> <span class="n">synthesize_final</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">graph</span><span class="o">=</span><span class="n">aspen</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">"Cnot count with gray_synth on graph:"</span><span class="p">,</span>
+    <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">op</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"CNOT"</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">circuit_gs</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">())</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">"Cnot count with lazy_synth (depth 3):"</span><span class="p">,</span>
+    <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">op</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"CNOT"</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">circuit_ls3</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">())</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+  <span class="mi">4</span> <span class="o">--</span> <span class="mi">3</span>         <span class="mi">12</span> <span class="o">--</span> <span class="mi">11</span>
+ <span class="o">/</span>      \       <span class="o">/</span>        \
+<span class="mi">5</span>        <span class="mi">2</span> <span class="o">--</span> <span class="mi">13</span>          <span class="mi">10</span>
+<span class="o">|</span>        <span class="o">|</span>     <span class="o">|</span>          <span class="o">|</span>
+<span class="mi">6</span>        <span class="mi">1</span> <span class="o">--</span> <span class="mi">14</span>          <span class="mi">9</span>
+ \      <span class="o">/</span>       \        <span class="o">/</span>
+  <span class="mi">7</span> <span class="o">--</span> <span class="mi">0</span>         <span class="mi">15</span> <span class="o">--</span> <span class="mi">8</span>
+<span class="n">Cnot</span> <span class="n">count</span> <span class="k">with</span> <span class="n">gray_synth</span> <span class="n">on</span> <span class="n">graph</span><span class="p">:</span> <span class="mi">131</span>
+<span class="n">Cnot</span> <span class="n">count</span> <span class="k">with</span> <span class="n">lazy_synth</span> <span class="p">(</span><span class="n">depth</span> <span class="mi">3</span><span class="p">):</span> <span class="mi">99</span>
+</pre></div>
+</div>
+<p>Conveniently, <cite>qat.synthopline</cite> also provides a method to extract phase polynomials out of a CNOT + RZ circuit: <a class="reference internal" href="../04_api_reference/module_qat/module_synthopline/extract_phase_polynomial.html#qat.synthopline.phase_polynomials.extract_phase_polynomial" title="qat.synthopline.phase_polynomials.extract_phase_polynomial"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qat.synthopline.phase_polynomials.extract_phase_polynomial()</span></code></a>.</p>
+<p>This can be used to check circuits after synthesis:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.synthopline</span><span class="w"> </span><span class="kn">import</span> <span class="n">phase_polynomial_synthesis</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Variable</span>
+
+<span class="n">phase_pol</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">"a"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span> <span class="mf">0.3432</span>
+<span class="p">}</span>
+
+<span class="n">circuit</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="n">phase_polynomial_synthesis</span><span class="p">(</span>
+    <span class="n">phase_pol</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"gray_synth"</span><span class="p">,</span> <span class="n">synthesize_final</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.synthopline.phase_polynomials</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_phase_polynomial</span>
+
+<span class="n">phase_pol_2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">extract_phase_polynomial</span><span class="p">(</span><span class="n">circuit</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">phase_pol_2</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">phase_pol</span>
+    <span class="k">assert</span> <span class="n">phase_pol_2</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">==</span> <span class="n">phase_pol</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The method <a class="reference internal" href="../04_api_reference/module_qat/module_synthopline/random_phase_polynomial.html#qat.synthopline.phase_polynomials.random_phase_polynomial" title="qat.synthopline.phase_polynomials.random_phase_polynomial"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qat.synthopline.phase_polynomials.random_phase_polynomial()</span></code></a> provides a basic interface to quickly generate random phase polynomials.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="01_linear.html" class="btn btn-neutral float-left" title="CNOT circuit synthesis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="03_trotter.html" class="btn btn-neutral float-right" title="Variational Ansätze synthesis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Bull 2016-2026, Bull SAS - All rights reserved.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

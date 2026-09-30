@@ -9,7 +9,7 @@
   <title>qat.qiskit.Sampler &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../static/js/theme.js"></script>
@@ -129,7 +130,7 @@
 <h1>qat.qiskit.Sampler<a class="headerlink" href="#qat-qiskit-sampler" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.qiskit.Sampler">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.qiskit.</span></span><span class="sig-name descname"><span class="pre">Sampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QaptivaAccessBackend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_shots</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1024</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.qiskit.Sampler" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.qiskit.</span></span><span class="sig-name descname"><span class="pre">Sampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QaptivaAccessBackend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_shots</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1024</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.qiskit.Sampler" title="Link to this definition"></a></dt>
 <dd><p>This is a qiskit Sampler that works with a Qaptiva Access Backend. It allows users
 to submit their circuits and use the qaptiva qpus available to make computations.
 All results are returned within qiskit data structures.</p>
@@ -137,20 +138,20 @@ All results are returned within qiskit data structures.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>backend</strong> (<em>QaptivaAccessBackend</em>) – backend that should run the sampling jobs</p></li>
-<li><p><strong>default_shots</strong> (<em>int</em>) – number of shots to ask by default</p></li>
+<li><p><strong>default_shots</strong> (<a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a>) – number of shots to ask by default</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.qiskit.Sampler.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pubs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">qiskit.primitives.SamplerPubLike</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">shots</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QaptivaJob</span></span></span><a class="headerlink" href="#qat.qiskit.Sampler.run" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pubs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">qiskit.primitives.SamplerPubLike</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">shots</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QaptivaJob</span></span></span><a class="headerlink" href="#qat.qiskit.Sampler.run" title="Link to this definition"></a></dt>
 <dd><p>Qaptiva Access implementation of the BaseSamplerV2.run method</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pubs</strong> (<em>Iterable</em><em>[</em><em>SamplerPubLike</em><em>]</em>) – A ‘primitive unified bloc’ that a specific qiskit data strucure
 under the form a tuple containing the necessary parameters for the sampler</p></li>
-<li><p><strong>shots</strong> (<em>int</em>) – The number of shots to be specified, by default it is set to None</p></li>
+<li><p><strong>shots</strong> (<a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a>) – The number of shots to be specified, by default it is set to None</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

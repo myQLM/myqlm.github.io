@@ -9,7 +9,7 @@
   <title>Creating observables &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../static/js/theme.js"></script>
@@ -126,9 +127,9 @@ The <a class="reference internal" href="../../04_api_reference/module_qat/module
 
 <span class="n">my_observable</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="c1"># A 4 qubits observable</span>
                            <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span>
-                               <span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;ZZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
-                               <span class="n">Term</span><span class="p">(</span><span class="mf">4.</span><span class="p">,</span> <span class="s2">&quot;XZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
-                               <span class="n">Term</span><span class="p">(</span><span class="mf">3.</span><span class="p">,</span> <span class="s2">&quot;ZXZX&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+                               <span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">"ZZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+                               <span class="n">Term</span><span class="p">(</span><span class="mf">4.</span><span class="p">,</span> <span class="s2">"XZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
+                               <span class="n">Term</span><span class="p">(</span><span class="mf">3.</span><span class="p">,</span> <span class="s2">"ZXZX"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
                            <span class="p">],</span>
                            <span class="n">constant_coeff</span><span class="o">=</span><span class="mf">23.</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">my_observable</span><span class="p">)</span>
@@ -149,8 +150,8 @@ The <a class="reference internal" href="../../04_api_reference/module_qat/module
 <span class="sd-summary-text">Observable basic arithmetic</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
 
-<span class="n">obs1</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;ZZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])],</span> <span class="n">constant_coeff</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
-<span class="n">obs2</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="n">constant_coeff</span><span class="o">=</span><span class="mf">2.</span><span class="p">)</span>
+<span class="n">obs1</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">"ZZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])],</span> <span class="n">constant_coeff</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">obs2</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">"X"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="n">constant_coeff</span><span class="o">=</span><span class="mf">2.</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">obs1</span> <span class="o">+</span> <span class="n">obs2</span><span class="p">)</span>
 </pre></div>
@@ -162,7 +163,7 @@ The <a class="reference internal" href="../../04_api_reference/module_qat/module
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
 
-<span class="n">obs1</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;ZZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
+<span class="n">obs1</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">"ZZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">obs1</span><span class="p">)</span>
 </pre></div>
@@ -177,8 +178,8 @@ The <a class="reference internal" href="../../04_api_reference/module_qat/module
 <span class="sd-summary-text">Observable composition</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
 
-<span class="n">obs1</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;ZZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
-<span class="n">obs2</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+<span class="n">obs1</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">"ZZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
+<span class="n">obs2</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">"X"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">obs1</span> <span class="o">^</span> <span class="n">obs2</span><span class="p">)</span>
 </pre></div>
@@ -193,8 +194,8 @@ The <a class="reference internal" href="../../04_api_reference/module_qat/module
 <span class="sd-summary-text">Observable commutation</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
 
-<span class="n">obs1</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;ZZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
-<span class="n">obs2</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+<span class="n">obs1</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">"ZZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
+<span class="n">obs2</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">"X"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">obs1</span> <span class="o">|</span> <span class="n">obs2</span><span class="p">)</span>
 </pre></div>
@@ -221,9 +222,9 @@ sigma_{x, y, z} notation</label><div class="sd-tab-content docutils">
 <span class="n">obs2</span> <span class="o">=</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">obs3</span> <span class="o">=</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_z</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nbqbits</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;obs1:&quot;</span><span class="p">,</span> <span class="n">obs1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;obs2:&quot;</span><span class="p">,</span> <span class="n">obs2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;obs3:&quot;</span><span class="p">,</span> <span class="n">obs3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"obs1:"</span><span class="p">,</span> <span class="n">obs1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"obs2:"</span><span class="p">,</span> <span class="n">obs2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"obs3:"</span><span class="p">,</span> <span class="n">obs3</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">obs1</span><span class="p">:</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -241,9 +242,9 @@ sigma_{x, y, z} notation</label><div class="sd-tab-content docutils">
 <span class="n">obs2</span> <span class="o">=</span> <span class="n">Observable</span><span class="o">.</span><span class="n">y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">obs3</span> <span class="o">=</span> <span class="n">Observable</span><span class="o">.</span><span class="n">z</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nbqbits</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;obs1:&quot;</span><span class="p">,</span> <span class="n">obs1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;obs2:&quot;</span><span class="p">,</span> <span class="n">obs2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;obs3:&quot;</span><span class="p">,</span> <span class="n">obs3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"obs1:"</span><span class="p">,</span> <span class="n">obs1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"obs2:"</span><span class="p">,</span> <span class="n">obs2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"obs3:"</span><span class="p">,</span> <span class="n">obs3</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">obs1</span><span class="p">:</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -275,7 +276,7 @@ to get more complex ones.</p>
 (see the <a class="reference internal" href="../02_execute/01_job.html#job"><span class="std std-ref">job section</span></a> for more examples):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
 
-<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;ZZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="s2">"ZZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
 <span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">nbshots</span><span class="o">=</span><span class="mi">2048</span><span class="p">)</span>
 </pre></div>
 </div>

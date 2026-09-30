@@ -9,7 +9,7 @@
   <title>qat.plugins.PSOMinimizePlugin &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../static/js/theme.js"></script>
@@ -93,10 +94,12 @@
 <li class="toctree-l4"><a class="reference internal" href="zeronoiseextrapolator.html">qat.plugins.ZeroNoiseExtrapolator</a></li>
 <li class="toctree-l4"><a class="reference internal" href="abstractplugin.html">qat.plugins.AbstractPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="display.html">qat.plugins.Display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="emptyplugin.html">qat.plugins.EmptyPlugin.rst</a></li>
 <li class="toctree-l4"><a class="reference internal" href="junction.html">qat.plugins.Junction</a></li>
 <li class="toctree-l4"><a class="reference internal" href="optimizer.html">qat.plugins.Optimizer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quameleonplugin.html">qat.plugins.QuameleonPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="remoteplugin.html">qat.plugins.RemotePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="statplugin.html">qat.plugins.StatPlugin</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
@@ -149,7 +152,7 @@
 <h1>qat.plugins.PSOMinimizePlugin<a class="headerlink" href="#qat-plugins-psominimizeplugin" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.plugins.PSOMinimizePlugin">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">PSOMinimizePlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binding_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.PSOMinimizePlugin" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">PSOMinimizePlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binding_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.PSOMinimizePlugin" title="Link to this definition"></a></dt>
 <dd><p>A variational minimizer based on the Particle Swarm Optimization (PSO) algorithm.</p>
 <p>It is a particularization of the <a class="reference internal" href="optimizer.html#qat.plugins.Optimizer" title="qat.plugins.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> class.</p>
 <dl class="field-list simple">
@@ -162,8 +165,8 @@ parameters to optimize.</p></li>
 ‘random’, ‘linearly_decreasing’ (default), ‘chaotic_random’.</p></li>
 <li><p><strong>name_method_used</strong> (<em>str</em><em>, </em><em>optional</em>) – Kind of PSO to be used. It may be ‘PSO’ (default), ‘CLPSO’,
 ‘FDR_PSO’, ‘LIPS’, ‘HPSO_TVAC’.</p></li>
-<li><p><strong>max_iter</strong> (<em>int</em><em>, </em><em>optional</em>) – maximum number of iterations. Defaults to 10.</p></li>
-<li><p><strong>swarm_number</strong> (<em>int</em><em>, </em><em>optional</em>) – size of the swarm. Defaults to 10.</p></li>
+<li><p><strong>max_iter</strong> (<a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a><em>, </em><em>optional</em>) – maximum number of iterations. Defaults to 10.</p></li>
+<li><p><strong>swarm_number</strong> (<a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a><em>, </em><em>optional</em>) – size of the swarm. Defaults to 10.</p></li>
 <li><p><strong>size_initial_vector_space</strong> (<em>float</em><em>, </em><em>optional</em>) – size of the hypercube. Defaults to 1.</p></li>
 <li><p><strong>inertia_kwargs</strong> (<em>float</em><em>, </em><em>optional</em>) – depending on the inertia_function used.
 See class Inertia_weight for more details.</p></li>

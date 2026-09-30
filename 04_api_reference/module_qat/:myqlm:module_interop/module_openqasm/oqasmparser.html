@@ -9,7 +9,7 @@
   <title>qat.interop.openqasm.OqasmParser &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../../static/js/theme.js"></script>
@@ -131,7 +132,7 @@
 <h1>qat.interop.openqasm.OqasmParser<a class="headerlink" href="#qat-interop-openqasm-oqasmparser" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.interop.openqasm.OqasmParser">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.interop.openqasm.</span></span><span class="sig-name descname"><span class="pre">OqasmParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_matrices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.openqasm.OqasmParser" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.interop.openqasm.</span></span><span class="sig-name descname"><span class="pre">OqasmParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_matrices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.openqasm.OqasmParser" title="Link to this definition"></a></dt>
 <dd><p>Parser of OpenQASM 2.0 files. This class provides tools to translate a string object
 (containing OpenQASM 2.0 source code) into a <a class="reference internal" href="../../module_core/circuit.html#qat.core.Circuit" title="qat.core.Circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Circuit</span></code></a></p>
 <div class="sd-tab-set docutils">
@@ -141,7 +142,7 @@ Basic example</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.interop.openqasm</span><span class="w"> </span><span class="kn">import</span> <span class="n">OqasmParser</span>
 
 <span class="c1"># Define a dummy circuit</span>
-<span class="n">data</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">OPENQASM 2.0;</span>
 
 <span class="s2">// Allocate qubits and cbits</span>
@@ -151,16 +152,16 @@ Basic example</label><div class="sd-tab-content docutils">
 <span class="s2">// Apply gates and measure</span>
 <span class="s2">x q[0];</span>
 <span class="s2">measure q[0] -&gt; c[0];</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 
 <span class="c1"># Translate into a myQLM circuit</span>
 <span class="n">parser</span> <span class="o">=</span> <span class="n">OqasmParser</span><span class="p">()</span>
 <span class="n">circuit</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The circuit is composed of gates&quot;</span><span class="p">,</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"The circuit is composed of gates"</span><span class="p">,</span>
       <span class="nb">list</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">()))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">circuit</span> <span class="ow">is</span> <span class="n">composed</span> <span class="n">of</span> <span class="n">gates</span> <span class="p">[(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s1">&#39;MEASURE&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">circuit</span> <span class="ow">is</span> <span class="n">composed</span> <span class="n">of</span> <span class="n">gates</span> <span class="p">[(</span><span class="s1">'X'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s1">'MEASURE'</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
 </pre></div>
 </div>
 </div>
@@ -170,7 +171,7 @@ Advanced example</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang.AQASM</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbstractGate</span>
 
 <span class="c1"># Define a circuit using OpenQASM</span>
-<span class="n">OPENQASM_CODE</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="n">OPENQASM_CODE</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">OPENQASM 2.0;</span>
 
 <span class="s2">// Allocating registers</span>
@@ -180,23 +181,23 @@ Advanced example</label><div class="sd-tab-content docutils">
 <span class="s2">// Dummy circuit</span>
 <span class="s2">p(pi/4) q[0];</span>
 <span class="s2">my_custom_gate q[0];</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 
-<span class="c1"># Register gates (i.e. &quot;p&quot; gate is an alias for &quot;PH&quot; gate, &quot;my_custom_gate&quot; is defined by an abstract gate)</span>
-<span class="n">custom_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;custom_gate&quot;</span><span class="p">,</span> <span class="p">[],</span> <span class="n">arity</span><span class="p">)</span>
-<span class="n">parser</span> <span class="o">=</span> <span class="n">OqasmParser</span><span class="p">(</span><span class="n">gates</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="s2">&quot;PH&quot;</span><span class="p">,</span> <span class="s2">&quot;my_custom_gate&quot;</span><span class="p">:</span> <span class="n">custom_gate</span><span class="p">},</span> <span class="n">include_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># Register gates (i.e. "p" gate is an alias for "PH" gate, "my_custom_gate" is defined by an abstract gate)</span>
+<span class="n">custom_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">"custom_gate"</span><span class="p">,</span> <span class="p">[],</span> <span class="n">arity</span><span class="p">)</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">OqasmParser</span><span class="p">(</span><span class="n">gates</span><span class="o">=</span><span class="p">{</span><span class="s2">"p"</span><span class="p">:</span> <span class="s2">"PH"</span><span class="p">,</span> <span class="s2">"my_custom_gate"</span><span class="p">:</span> <span class="n">custom_gate</span><span class="p">},</span> <span class="n">include_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># Compile circuit and display it</span>
 <span class="k">for</span> <span class="n">gate</span><span class="p">,</span> <span class="n">angles</span><span class="p">,</span> <span class="n">qubits</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">OQASM_CODE</span><span class="p">)</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
     <span class="k">if</span> <span class="n">angles</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Apply </span><span class="si">{</span><span class="n">gate</span><span class="si">}{</span><span class="n">angles</span><span class="si">}</span><span class="s2"> on qubits </span><span class="si">{</span><span class="n">qubits</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Apply </span><span class="si">{</span><span class="n">gate</span><span class="si">}{</span><span class="n">angles</span><span class="si">}</span><span class="s2"> on qubits </span><span class="si">{</span><span class="n">qubits</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Apply </span><span class="si">{</span><span class="n">gate</span><span class="si">}</span><span class="s2"> on qubits </span><span class="si">{</span><span class="n">qubits</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Apply </span><span class="si">{</span><span class="n">gate</span><span class="si">}</span><span class="s2"> on qubits </span><span class="si">{</span><span class="n">qubits</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">17</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">NameError</span><span class="p">:</span> <span class="n">name</span> <span class="s1">&#39;arity&#39;</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
+  <span class="n">File</span> <span class="s2">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">17</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">NameError</span><span class="p">:</span> <span class="n">name</span> <span class="s1">'arity'</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
 </pre></div>
 </div>
 </div>

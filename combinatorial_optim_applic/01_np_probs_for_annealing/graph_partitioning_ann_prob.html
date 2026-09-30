@@ -9,7 +9,7 @@
   <title>Graph Partitioning &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -60,6 +61,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../02_user_guide/03_compile.html">Compiling and rewriting quantum circuits</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../../fermion.html">Spin and fermionic systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../synthesis.html">Synthesizing quantum circuits</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../../combinatorial_optim_applic.html">Combinatorial optimization</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="../01_np_probs_for_annealing.html">NP-hard problems</a><ul class="current">
 <li class="toctree-l5 current"><a class="reference internal" href="../01_np_probs_for_annealing.html#unconstrained-graph-problems">Unconstrained Graph Problems</a><ul class="current">
@@ -69,7 +71,6 @@
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../01_np_probs_for_annealing.html#constrained-graph-problems">Constrained Graph Problems</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../01_np_probs_for_annealing.html#other-problems">Other problems</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../01_np_probs_for_annealing.html#simulated-quantum-annealing-benchmarking-and-performance">Simulated Quantum Annealing Benchmarking and Performance</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../02_qaoa.html">Quantum Approximate Optimization Algorithm (QAOA)</a></li>
@@ -152,32 +153,32 @@ class (or <a class="reference internal" href="../../04_api_reference/module_qat/
 <span class="n">graph_partitioning_problem</span> <span class="o">=</span> <span class="n">GraphPartitioning</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">)</span>
 
 <span class="c1"># Extract parameters for SA</span>
-<span class="n">problem_parameters_dict</span> <span class="o">=</span> <span class="n">graph_partitioning_problem</span><span class="o">.</span><span class="n">get_best_parameters</span><span class="p">()</span>
-<span class="n">n_steps</span> <span class="o">=</span> <span class="n">problem_parameters_dict</span><span class="p">[</span><span class="s2">&quot;n_steps&quot;</span><span class="p">]</span>
-<span class="n">temp_max</span> <span class="o">=</span> <span class="n">problem_parameters_dict</span><span class="p">[</span><span class="s2">&quot;temp_max&quot;</span><span class="p">]</span>
-<span class="n">temp_min</span> <span class="o">=</span> <span class="n">problem_parameters_dict</span><span class="p">[</span><span class="s2">&quot;temp_min&quot;</span><span class="p">]</span>
+<span class="n">problem_parameters_dict</span> <span class="o">=</span> <span class="n">graph_partitioning_problem</span><span class="o">.</span><span class="n">get_sa_initial_parameters</span><span class="p">()</span>
+<span class="n">n_steps</span> <span class="o">=</span> <span class="n">problem_parameters_dict</span><span class="p">[</span><span class="s2">"n_steps"</span><span class="p">]</span>
+<span class="n">temp_max</span> <span class="o">=</span> <span class="n">problem_parameters_dict</span><span class="p">[</span><span class="s2">"temp_max"</span><span class="p">]</span>
+<span class="n">temp_min</span> <span class="o">=</span> <span class="n">problem_parameters_dict</span><span class="p">[</span><span class="s2">"temp_min"</span><span class="p">]</span>
 
 <span class="c1"># Create a temperature schedule and a QPU</span>
 <span class="n">tmax</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">"t"</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
 <span class="n">temp_t</span> <span class="o">=</span> <span class="n">temp_min</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">/</span> <span class="n">tmax</span><span class="p">)</span> <span class="o">+</span> <span class="n">temp_max</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span> <span class="o">/</span> <span class="n">tmax</span><span class="p">)</span>
 <span class="n">sa_qpu</span> <span class="o">=</span> <span class="n">SimulatedAnnealing</span><span class="p">(</span><span class="n">temp_t</span><span class="o">=</span><span class="n">temp_t</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="n">n_steps</span><span class="p">)</span>
 
 <span class="c1"># Create a job and send it to the QPU</span>
-<span class="n">problem_job</span> <span class="o">=</span> <span class="n">graph_partitioning_problem</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="s1">&#39;sqa&#39;</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="n">tmax</span><span class="p">)</span>
+<span class="n">problem_job</span> <span class="o">=</span> <span class="n">graph_partitioning_problem</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="s1">'sqa'</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="n">tmax</span><span class="p">)</span>
 <span class="n">problem_result</span> <span class="o">=</span> <span class="n">sa_qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">problem_job</span><span class="p">)</span>
 
 <span class="c1"># Extract and print the solution configuration</span>
 <span class="n">state</span> <span class="o">=</span> <span class="n">problem_result</span><span class="o">.</span><span class="n">raw_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">int</span>  <span class="c1"># raw_data is a list of Samples - one per computation</span>
 <span class="n">solution_configuration</span> <span class="o">=</span> <span class="n">integer_to_spins</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Solution configuration: </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">solution_configuration</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Solution configuration: </span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">solution_configuration</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># Show nodes of subgraphs</span>
 <span class="n">indices_spin_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">solution_configuration</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The nodes in the first subgraph:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">indices_spin_1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"The nodes in the first subgraph:</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">indices_spin_1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="n">indices_spin_minus_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">solution_configuration</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The nodes in the second subgraph:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">indices_spin_minus_1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"The nodes in the second subgraph:</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">indices_spin_minus_1</span><span class="p">))</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Solution</span> <span class="n">configuration</span><span class="p">:</span> 

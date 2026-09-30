@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CNOT circuit synthesis &mdash; myQLM documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=a0c26f31" />
+      <link rel="stylesheet" type="text/css" href="../static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="shortcut icon" href="../static/favicon.ico"/>
+      <script src="../static/jquery.js?v=5d32c60e"></script>
+      <script src="../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../static/documentation_options.js?v=8a448e45"></script>
+      <script src="../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../static/js/custom.js?v=e5e94349"></script>
+      <script src="../static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CNOT + RZ circuit synthesis" href="02_phase_pol.html" />
+    <link rel="prev" title="Synthesizing quantum circuits" href="../synthesis.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            myQLM documentation
+              <img src="../static/doc-logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../01_getting_started.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../02_user_guide.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../02_user_guide/01_write.html">Writing quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02_user_guide/02_execute.html">Executing / Simulating quantum programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02_user_guide/03_compile.html">Compiling and rewriting quantum circuits</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../fermion.html">Spin and fermionic systems</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../synthesis.html">Synthesizing quantum circuits</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">CNOT circuit synthesis</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#problem">Problem</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#synthesis">Synthesis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#benchmarks">Benchmarks</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="02_phase_pol.html">CNOT + RZ circuit synthesis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="03_trotter.html">Variational Ansätze synthesis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="04_codiag.html">Stabilizer state synthesis</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../combinatorial_optim_applic.html">Combinatorial optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interoperability_annealing.html">Interoperability with annealing framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../qiskit_interoperability.html">Qiskit 2.0 interoperability with qat-qiskit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../04_api_reference.html">API reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../05_demos.html">Demos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../%3Amyqlm%3A06_support.html">Contributing to myQLM</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../07_release_notes.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">myQLM documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../02_user_guide.html">User guide</a></li>
+          <li class="breadcrumb-item"><a href="../synthesis.html">Synthesizing quantum circuits</a></li>
+      <li class="breadcrumb-item active">CNOT circuit synthesis</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cnot-circuit-synthesis">
+<span id="lin-op-synth"></span><h1>CNOT circuit synthesis<a class="headerlink" href="#cnot-circuit-synthesis" title="Link to this heading"></a></h1>
+<section id="problem">
+<h2>Problem<a class="headerlink" href="#problem" title="Link to this heading"></a></h2>
+<p>Linear boolean operators form a common class of reversible circuits corresponding to circuits that can be implemented using only CNOT gates.
+Even though it may seem restrictive, they appear almost everywhere in quantum circuits when dealing with parity rotations (or phase polynomials), or even syndrom detection for error correction.</p>
+<p>These operators can in fact be represented in an implementation-independent manner via a <span class="math notranslate nohighlight">\(n\times n\)</span> boolean matrix representing parities carried by qubits after application of the operator.</p>
+<p>Consider for instance the following CNOT circuit:</p>
+<a class="reference internal image-reference" href="../images/cnot_circut_simple.png"><img alt="../images/cnot_circut_simple.png" class="align-center" src="../images/cnot_circut_simple.png" style="width: 250px;" />
+</a>
+<p>This circuit simply permutes the computational basis. We describe the output boolean value of each qubit depending on the input values of the qubits.</p>
+<p>For this precise circuit, we have:</p>
+<p><span class="math notranslate nohighlight">\(q'_0 = q_1 \oplus q_2\)</span></p>
+<p><span class="math notranslate nohighlight">\(q'_1 = q_2\)</span></p>
+<p><span class="math notranslate nohighlight">\(q'_2 = q_0 \oplus q_1 \oplus q_2\)</span></p>
+<p>which can be equivalently described using the following table:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H = \begin{bmatrix}
+        0 &amp; 1 &amp; 1 \\
+        0 &amp; 0 &amp; 1 \\
+        1 &amp; 1 &amp; 1
+    \end{bmatrix}\end{split}\]</div>
+<p>Each row describes the output of the corresponding qubit.</p>
+<p>The problem of circuit synthesis consists in, starting with a high-level data structure (here, a table), produce a quantum circuit implementing the described operator.</p>
+</section>
+<section id="synthesis">
+<h2>Synthesis<a class="headerlink" href="#synthesis" title="Link to this heading"></a></h2>
+<p>The method <a class="reference internal" href="../04_api_reference/module_qat/module_synthopline/linear_operator_synthesis.html#qat.synthopline.linear_operator_synthesis" title="qat.synthopline.linear_operator_synthesis"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qat.synthopline.linear_operator_synthesis()</span></code></a> takes a table as input and outputs a CNOT circuit implementing it.
+It implements various state of the art algorithms to perform this task (see documentation of the method for more details).</p>
+<p>For instance, we can run it on the above example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.synthopline</span><span class="w"> </span><span class="kn">import</span> <span class="n">linear_operator_synthesis</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">linear_operator_synthesis</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">qbits</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">qbits</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CNOT</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">CNOT</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">CNOT</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">CNOT</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The output circuit is in fact equivalent to our initial circuit. In some cases, re-synthesising the circuit can lead to quite large optimizations.</p>
+<p>Notice that some of the algorithms wrapped in this method are architecture aware, meaning that they can produce circuits that are compliant with some qubit connectivity constraint specified as a graph. This is the case of the <cite>steiner_gauss</cite> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.synthopline</span><span class="w"> </span><span class="kn">import</span> <span class="n">linear_operator_synthesis</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="c1"># Let us consider a simple path graph of length 3 (LNN architecture)</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">path_graph</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">linear_operator_synthesis</span><span class="p">(</span>
+    <span class="n">table</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"steiner_gauss"</span><span class="p">,</span>
+    <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">,</span> <span class="n">ham_path</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">qbits</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">qbits</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CNOT</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">CNOT</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">CNOT</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">CNOT</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">CNOT</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">CNOT</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">CNOT</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Notice that all the gates are compliant with the input connectivity (a line 0 - 1 - 2). Of course, this comes at a price, and this circuit has more gates than the previous one.</p>
+<p>The method <a class="reference internal" href="../04_api_reference/module_qat/module_synthopline/extract_linear_operator.html#qat.synthopline.linear_synthesis.extract_linear_operator" title="qat.synthopline.linear_synthesis.extract_linear_operator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qat.synthopline.linear_synthesis.extract_linear_operator()</span></code></a> can be used to check (or build) linear operators:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.synthopline</span><span class="w"> </span><span class="kn">import</span> <span class="n">linear_operator_synthesis</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">linear_operator_synthesis</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.synthopline.linear_synthesis</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_linear_operator</span>
+
+<span class="n">table_2</span> <span class="o">=</span> <span class="n">extract_linear_operator</span><span class="p">(</span><span class="n">circuit</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">table_2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Additionally, the method <a class="reference internal" href="../04_api_reference/module_qat/module_synthopline/random_linear_operator.html#qat.synthopline.linear_synthesis.random_linear_operator" title="qat.synthopline.linear_synthesis.random_linear_operator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qat.synthopline.linear_synthesis.random_linear_operator()</span></code></a> provides a basic interface to quickly generate a random linear operator. This is useful to quickly generate benchmarks, or test synthesis methods.</p>
+</section>
+<section id="benchmarks">
+<h2>Benchmarks<a class="headerlink" href="#benchmarks" title="Link to this heading"></a></h2>
+<p>To give you a quick idea of the performance of various algorithms accessible via the <a class="reference internal" href="../04_api_reference/module_qat/module_synthopline/linear_operator_synthesis.html#qat.synthopline.linear_operator_synthesis" title="qat.synthopline.linear_operator_synthesis"><code class="xref py py-meth docutils literal notranslate"><span class="pre">linear_operator_synthesis()</span></code></a> method, we have run some benchmarks.</p>
+<p>This benchmark only considers methods <strong>gauss</strong>, <strong>pmh_opt</strong>, <strong>syndrome</strong>, <strong>greedy_gauss</strong>, and <strong>divide_and_conquer</strong> for a number of qubits ranging from 10 to 80. Each point is generated by synthesizing 20 random operators obtained via the <a class="reference internal" href="../04_api_reference/module_qat/module_synthopline/random_linear_operator.html#qat.synthopline.linear_synthesis.random_linear_operator" title="qat.synthopline.linear_synthesis.random_linear_operator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">random_linear_operator()</span></code></a>. Variance is omitted since it is not significant.</p>
+<img alt="../images/cnot_count_linear_op.png" src="../images/cnot_count_linear_op.png" />
+<img alt="../images/cnot_depth_linear_op.png" src="../images/cnot_depth_linear_op.png" />
+<p>As you can see, on typical instances, <strong>syndrome</strong> performs better than any other method regarding CNOT count. As expected, <strong>divide_and_conquer</strong> performs (way) better in terms of circuit depth. Keep in mind that <strong>syndrome</strong> might be a bit more time costly than the other methods. The faster method remains <strong>greedy_gauss</strong>, which happens to perform quite good in terms of CNOT count (it is the default method).</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../synthesis.html" class="btn btn-neutral float-left" title="Synthesizing quantum circuits" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="02_phase_pol.html" class="btn btn-neutral float-right" title="CNOT + RZ circuit synthesis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Bull 2016-2026, Bull SAS - All rights reserved.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

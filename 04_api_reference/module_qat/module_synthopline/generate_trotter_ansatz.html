@@ -9,7 +9,7 @@
   <title>qat.synthopline.generate_trotter_ansatz &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -169,22 +170,22 @@ circuits <span class="math notranslate nohighlight">\(H_1\)</span> comes before 
 
 <span class="n">H0</span> <span class="o">=</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_z</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_z</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>\
     <span class="o">+</span>  <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_z</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_z</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;H0:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">H0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"H0:</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">H0</span><span class="p">)</span>
 <span class="n">H1</span> <span class="o">=</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>\
     <span class="o">+</span>  <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;H1:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">H1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"H1:</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">H1</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Without grouping:&quot;</span><span class="p">)</span>
-<span class="n">ansatz</span> <span class="o">=</span> <span class="n">generate_trotter_ansatz</span><span class="p">(</span><span class="n">H0</span><span class="p">,</span> <span class="n">H1</span><span class="p">,</span> <span class="n">nsteps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;pauli_synth&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">ansatz</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">()</span> <span class="k">if</span> <span class="n">op</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;CNOT&quot;</span><span class="p">),</span> <span class="s2">&quot;CNOTs&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Without grouping:"</span><span class="p">)</span>
+<span class="n">ansatz</span> <span class="o">=</span> <span class="n">generate_trotter_ansatz</span><span class="p">(</span><span class="n">H0</span><span class="p">,</span> <span class="n">H1</span><span class="p">,</span> <span class="n">nsteps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">"pauli_synth"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">ansatz</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">()</span> <span class="k">if</span> <span class="n">op</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"CNOT"</span><span class="p">),</span> <span class="s2">"CNOTs"</span><span class="p">)</span>
 <span class="c1"># We expect to find all terms of H0, followed by all terms of H1</span>
 <span class="n">rotations</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">extract_pauli_rotations</span><span class="p">(</span><span class="n">ansatz</span><span class="o">.</span><span class="n">circuit</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">angle</span><span class="p">,</span> <span class="n">rotation</span> <span class="ow">in</span> <span class="n">rotations</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">rotation</span><span class="p">,</span> <span class="n">angle</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;With grouping:&quot;</span><span class="p">)</span>
-<span class="n">ansatz</span> <span class="o">=</span> <span class="n">generate_trotter_ansatz</span><span class="p">(</span><span class="n">H0</span><span class="p">,</span> <span class="n">H1</span><span class="p">,</span> <span class="n">nsteps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;pauli_synth&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">ansatz</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">()</span> <span class="k">if</span> <span class="n">op</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;CNOT&quot;</span><span class="p">),</span> <span class="s2">&quot;CNOTs&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"With grouping:"</span><span class="p">)</span>
+<span class="n">ansatz</span> <span class="o">=</span> <span class="n">generate_trotter_ansatz</span><span class="p">(</span><span class="n">H0</span><span class="p">,</span> <span class="n">H1</span><span class="p">,</span> <span class="n">nsteps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">"pauli_synth"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">ansatz</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">()</span> <span class="k">if</span> <span class="n">op</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"CNOT"</span><span class="p">),</span> <span class="s2">"CNOTs"</span><span class="p">)</span>
 <span class="c1"># We expect to find terms of H0 and H1 mixed in arbitrary order</span>
 <span class="n">rotations</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">extract_pauli_rotations</span><span class="p">(</span><span class="n">ansatz</span><span class="o">.</span><span class="n">circuit</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">angle</span><span class="p">,</span> <span class="n">rotation</span> <span class="ow">in</span> <span class="n">rotations</span><span class="p">:</span>
@@ -218,7 +219,7 @@ Depending of the application, both situations can be useful.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>*operators</strong> (list of <a class="reference internal" href="../module_core/observable.html#qat.core.Observable" title="qat.core.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a>) – a collection of operators (at least one)</p></li>
-<li><p><strong>nsteps</strong> (<em>optional</em><em>, </em><em>int</em>) – the number of Trotter steps to perform. Defaults to 1.</p></li>
+<li><p><strong>nsteps</strong> (<em>optional</em><em>, </em><a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a>) – the number of Trotter steps to perform. Defaults to 1.</p></li>
 <li><p><strong>group</strong> (<em>optional</em><em>, </em><em>bool</em>) – if set to True, the operators are (1) parametrized and then (2) summed and
 considered as a single large operator to expand. This is the expected behavior for UCCSD
 Ansätze, for instance. Defaults to False.</p></li>
@@ -241,7 +242,7 @@ operator is diagonalized using local Clifford gates, then reduced using a cascad
 of CNOT gates, thus using <span class="math notranslate nohighlight">\(2(k-1)\)</span> CNOT gates per rotation of weight <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
 <li><p><strong>pauli_synth</strong> uses a recursive strategy to optimize the rotation order as an
 attempt to reduce the overall CNOT cost of the circuit.</p></li>
-<li><p><strong>commute</strong> was introduce in <span id="id1">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id9" title="Alexander Cowtan, Will Simmons, and Ross Duncan. A generic compilation strategy for the unitary coupled cluster ansatz. 2020. arXiv:2007.10515.">CSD20</a>]</span>. It consists in co-diagonalizing
+<li><p><strong>commute</strong> was introduce in <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id9" title="Alexander Cowtan, Will Simmons, and Ross Duncan. A generic compilation strategy for the unitary coupled cluster ansatz. 2020. arXiv:2007.10515.">CSD20</a>]</span>. It consists in co-diagonalizing
 commuting terms of each operator, and synthesizing them using the GraySynth algorithm.</p></li>
 <li><p><strong>commute_improved</strong> is a variant of <strong>commute</strong> where co-diagonalization fixes are pulled
 to the end of the circuit. This can sometimes reduce the CNOT count.</p></li>

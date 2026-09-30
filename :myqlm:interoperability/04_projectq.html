@@ -9,7 +9,7 @@
   <title>ProjectQ interoperability &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../static/jquery.js?v=5d32c60e"></script>
       <script src="../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../static/doctools.js?v=9bcbadda"></script>
-      <script src="../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../static/js/custom.js?v=e5e94349"></script>
       <script src="../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../static/js/theme.js"></script>
@@ -58,6 +59,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../02_user_guide/03_compile.html">Compiling and rewriting quantum circuits</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../fermion.html">Spin and fermionic systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../synthesis.html">Synthesizing quantum circuits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../combinatorial_optim_applic.html">Combinatorial optimization</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html#available-binders">Available binders</a><ul class="current">
@@ -120,6 +122,11 @@
              
   <section id="projectq-interoperability">
 <h1>ProjectQ interoperability<a class="headerlink" href="#projectq-interoperability" title="Link to this heading"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Module <a class="reference internal" href="../04_api_reference/module_qat/%3Amyqlm%3Amodule_interop/module_projectq.html#module-qat.interop.projectq" title="qat.interop.projectq"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.interop.projectq</span></code></a> is deprecated. Bugs found in this module will not
+be fixed.</p>
+</div>
 <section id="translating-quantum-circuits">
 <h2>Translating quantum circuits<a class="headerlink" href="#translating-quantum-circuits" title="Link to this heading"></a></h2>
 <p>myQLM provides binders to translate ProjectQ circuits into
@@ -141,13 +148,13 @@ and <a class="reference internal" href="../04_api_reference/module_qat/%3Amyqlm%
 
 <span class="c1"># Then recover your generated qlm circuit with</span>
 <span class="n">circ</span> <span class="o">=</span> <span class="n">eng</span><span class="o">.</span><span class="n">projectq_to_qlm</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The circuit is composed of the gates:&quot;</span><span class="p">,</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"The circuit is composed of the gates:"</span><span class="p">,</span>
       <span class="nb">list</span><span class="p">(</span><span class="n">circ</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">()))</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">ModuleNotFoundError</span><span class="p">:</span> <span class="n">No</span> <span class="n">module</span> <span class="n">named</span> <span class="s1">&#39;projectq&#39;</span>
+  <span class="n">File</span> <span class="s2">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">ModuleNotFoundError</span><span class="p">:</span> <span class="n">No</span> <span class="n">module</span> <span class="n">named</span> <span class="s1">'projectq'</span>
 </pre></div>
 </div>
 </section>

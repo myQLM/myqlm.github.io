@@ -9,7 +9,7 @@
   <title>qat.synthopline.linear_operator_synthesis &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -141,24 +142,24 @@
 <h1>qat.synthopline.linear_operator_synthesis<a class="headerlink" href="#qat-synthopline-linear-operator-synthesis" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="qat.synthopline.linear_operator_synthesis">
-<span class="sig-prename descclassname"><span class="pre">qat.synthopline.</span></span><span class="sig-name descname"><span class="pre">linear_operator_synthesis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">np.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.synthopline.linear_operator_synthesis" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">qat.synthopline.</span></span><span class="sig-name descname"><span class="pre">linear_operator_synthesis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.synthopline.linear_operator_synthesis" title="Link to this definition"></a></dt>
 <dd><p>Produces a CNOT circuit equivalent to a reversible linear boolean operator.</p>
 <p>This method is wrapper for serveral C++ algorithms. The underlying method can be chosen
 via the <cite>method</cite> keyword.</p>
 <dl>
 <dt>Algorithms:</dt><dd><p><strong>gauss</strong>: standard Gaussian elimination. This is the reference naive algorithm to
 synthesize linear boolean operators.</p>
-<p><strong>pmh</strong>: A block-wise Gaussian elimination introduced in <span id="id1">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id13" title="K. N. Patel, I. L. Markov, and J. P. Hayes. Efficient synthesis of linear reversible circuits. 2003. arXiv:quant-ph/0302002.">PMH03</a>]</span></p>
-<p><strong>pmh_opt</strong>: an optimization of <span id="id2">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id13" title="K. N. Patel, I. L. Markov, and J. P. Hayes. Efficient synthesis of linear reversible circuits. 2003. arXiv:quant-ph/0302002.">PMH03</a>]</span> where the block parameter
+<p><strong>pmh</strong>: A block-wise Gaussian elimination introduced in <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id13" title="K. N. Patel, I. L. Markov, and J. P. Hayes. Efficient synthesis of linear reversible circuits. 2003. arXiv:quant-ph/0302002.">PMH03</a>]</span></p>
+<p><strong>pmh_opt</strong>: an optimization of <span class="bibtex-citation" id="id2">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id13" title="K. N. Patel, I. L. Markov, and J. P. Hayes. Efficient synthesis of linear reversible circuits. 2003. arXiv:quant-ph/0302002.">PMH03</a>]</span> where the block parameter
 is automatically picked (set to <span class="math notranslate nohighlight">\(log(n)\)</span>).</p>
 <p><strong>greedy_gauss</strong>: Goubault de Brugière et al greedy Gaussian elimination
-algorithm. More details to appear in <span id="id3">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id5" title="Timothée Goubault de Brugière, Marc Baboulin, Benoît Valiron, Simon Martiel, and Cyril Allouche. Gaussian elimination versus greedy methods for the synthesis of linear reversible circuits. 2020.">dBrugiereBV+20a</a>]</span>.</p>
+algorithm. More details to appear in <span class="bibtex-citation" id="id3">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id5" title="Timothée Goubault de Brugière, Marc Baboulin, Benoît Valiron, Simon Martiel, and Cyril Allouche. Gaussian elimination versus greedy methods for the synthesis of linear reversible circuits. 2020.">dBrugiereBV+20a</a>]</span>.</p>
 <p><strong>syndrome</strong>: Goubault de Brugière et al syndrome decoding based heuristic. More details
-in <span id="id4">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id2" title="Timothée Goubault de Brugière, Marc Baboulin, Benoît Valiron, Simon Martiel, and Cyril Allouche. Quantum cnot circuits synthesis for nisq architectures using the syndrome decoding problem. In Reversible Computation. 2020. doi:10.1007/978-3-030-52482-1_11.">dBrugiereBV+20b</a>]</span>.</p>
+in <span class="bibtex-citation" id="id4">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id2" title="Timothée Goubault de Brugière, Marc Baboulin, Benoît Valiron, Simon Martiel, and Cyril Allouche. Quantum cnot circuits synthesis for nisq architectures using the syndrome decoding problem. In Reversible Computation. 2020. doi:10.1007/978-3-030-52482-1_11.">dBrugiereBV+20b</a>]</span>.</p>
 <p><strong>pathfinding</strong>: Goubault de Brugière et al greedy pathfinding algorithm(s). This method
 is a wrapper for a pathfinding meta-heuristics that greedily picks the next CNOT
 to apply by minimizing some local cost function. The cost function is controlled via
-various parameters (see below). More details to appear in <span id="id5">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id5" title="Timothée Goubault de Brugière, Marc Baboulin, Benoît Valiron, Simon Martiel, and Cyril Allouche. Gaussian elimination versus greedy methods for the synthesis of linear reversible circuits. 2020.">dBrugiereBV+20a</a>]</span>. <strong>This
+various parameters (see below). More details to appear in <span class="bibtex-citation" id="id5">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id5" title="Timothée Goubault de Brugière, Marc Baboulin, Benoît Valiron, Simon Martiel, and Cyril Allouche. Gaussian elimination versus greedy methods for the synthesis of linear reversible circuits. 2020.">dBrugiereBV+20a</a>]</span>. <strong>This
 method can quickly become unstable for large number of qubits (&gt;30) and should be
 considered as an experimental feature.</strong></p>
 <p><strong>divide_and_conquer</strong>: Goubault de Brugière et al recursive depth
@@ -168,7 +169,7 @@ the depth of the circuit. Publication to appear.</p>
 algorithm also takes an architecture connectivity graph and outputs a compliant
 circuit. It more or less performs a Gaussian elimination while smartly routing
 information accross the chip. Notice that this method requires you to provide
-a Hamiltonian path of the connectivity graph. More details in <span id="id6">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id30" title="Aleks Kissinger and Arianne Meijer-van de Griend. Cnot circuit extraction for topologically-constrained quantum memories. 2019. arXiv:1904.00633.">KdG19</a>]</span>.</p>
+a Hamiltonian path of the connectivity graph. More details in <span class="bibtex-citation" id="id6">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id30" title="Aleks Kissinger and Arianne Meijer-van de Griend. Cnot circuit extraction for topologically-constrained quantum memories. 2019. arXiv:1904.00633.">KdG19</a>]</span>.</p>
 </dd>
 </dl>
 <p>The default method is <strong>greedy_gauss</strong>.
@@ -248,11 +249,11 @@ the circuit. Below is an example on how to obtain this permutation from the synt
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">881</span><span class="p">)</span>
 <span class="n">operator</span> <span class="o">=</span> <span class="n">random_linear_operator</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">permutation</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">circuit</span> <span class="o">=</span> <span class="n">linear_operator_synthesis</span><span class="p">(</span><span class="n">operator</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">permutation</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;syndrome&quot;</span><span class="p">)</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">linear_operator_synthesis</span><span class="p">(</span><span class="n">operator</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">permutation</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"syndrome"</span><span class="p">)</span>
 
 <span class="n">table_implemented</span> <span class="o">=</span> <span class="n">extract_linear_operator</span><span class="p">(</span><span class="n">circuit</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Target table:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">operator</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Implemented table:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">table_implemented</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Target table:</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">operator</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Implemented table:</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">table_implemented</span><span class="p">)</span>
 
 <span class="n">new_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">byte</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>

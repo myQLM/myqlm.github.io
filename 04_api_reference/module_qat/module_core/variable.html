@@ -9,7 +9,7 @@
   <title>qat.core.Variable &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../static/js/theme.js"></script>
@@ -155,7 +156,7 @@
 <h1>qat.core.Variable<a class="headerlink" href="#qat-core-variable" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.core.Variable">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">Variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_type=&lt;class</span> <span class="pre">'float'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Variable" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">Variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;class</span> <span class="pre">'float'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Variable" title="Link to this definition"></a></dt>
 <dd><p>Class for typed variables.
 Variables can be used in any python arithmetic expression to build an
 <a class="reference internal" href="module_variables/arithexpression.html#qat.core.variables.ArithExpression" title="qat.core.variables.ArithExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithExpression</span></code></a> object.</p>
@@ -180,9 +181,9 @@ Variables can be used in any python arithmetic expression to build an
 <span class="sig-name descname"><span class="pre">differentiate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other_var</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Variable.differentiate" title="Link to this definition"></a></dt>
 <dd><p>Differentiate a variable w.r.t. a variable.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Variable</span>
-<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">),</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">differentiate</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">differentiate</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">))</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">"a"</span><span class="p">),</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">"b"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">differentiate</span><span class="p">(</span><span class="s2">"a"</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">differentiate</span><span class="p">(</span><span class="s2">"b"</span><span class="p">))</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
@@ -214,7 +215,7 @@ Variables can be used in any python arithmetic expression to build an
 <dd><p>Generates a thrift RPN version of the expression.
 This is used to store the expression in a serializable format.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Variable</span>
-<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">),</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">"a"</span><span class="p">),</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">"b"</span><span class="p">)</span>
 <span class="n">expr</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">to_thrift</span><span class="p">())</span>

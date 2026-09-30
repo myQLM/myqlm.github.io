@@ -9,7 +9,7 @@
   <title>Automated batch generation &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -157,13 +158,13 @@ generator submit a cat state to the QPU</p>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CatStateGenerator</span><span class="p">(</span><span class="n">AbstractGenerator</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Generator creating a cat state job. This generator will</span>
 <span class="sd">    take the number of qubits in arguments to generate the right</span>
 <span class="sd">    circuit</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">specs</span><span class="p">,</span> <span class="n">nbqbits</span><span class="p">):</span>
-        <span class="s2">&quot;Generate the circuit&quot;</span>
+        <span class="s2">"Generate the circuit"</span>
         <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
         <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">)</span>
         <span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -178,7 +179,7 @@ generator submit a cat state to the QPU</p>
 <span class="n">result</span> <span class="o">=</span> <span class="n">application</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">nbqbits</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span><span class="mi">000</span><span class="o">&gt;</span><span class="p">:</span> <span class="mf">0.50</span>
@@ -214,28 +215,28 @@ is returned to the user</p></li>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">DummyEnergyMinimizer</span><span class="p">(</span><span class="n">AbstractGenerator</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Dummy generator that tries to find a state that minimize the energy</span>
 <span class="sd">    of an Observable</span>
 
 <span class="sd">    The Ansatz used is very dummy (a wall or RX gates). In practise, a better</span>
 <span class="sd">    Ansatz must be used.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">specs</span><span class="p">,</span> <span class="n">observable</span><span class="p">):</span>
-        <span class="s2">&quot;Generate the circuit&quot;</span>
+        <span class="s2">"Generate the circuit"</span>
         <span class="c1"># Create dummy Ansatz. This Ansatz is a wall of RX gate</span>
         <span class="c1"># each RX having its own angle</span>
         <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
         <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="n">observable</span><span class="o">.</span><span class="n">nbqbits</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">qb</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">qbits</span><span class="p">):</span>
-            <span class="n">angle</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;V</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">angle</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"V</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">RX</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">qb</span><span class="p">)</span>
 
         <span class="n">circ</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
 
         <span class="c1"># Find best angles -&gt; submit first job</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">circ</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="s2">&quot;OBS&quot;</span><span class="p">,</span> <span class="n">observable</span><span class="o">=</span><span class="n">observable</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">circ</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="s2">"OBS"</span><span class="p">,</span> <span class="n">observable</span><span class="o">=</span><span class="n">observable</span><span class="p">)</span>
         <span class="n">angles</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">parameter_map</span>
 
         <span class="c1"># Create sample job -&gt; submit second job</span>
@@ -255,15 +256,15 @@ should find the state <span class="math notranslate nohighlight">\(|11..1\rangle
 <span class="n">result</span> <span class="o">=</span> <span class="n">application</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">observable</span><span class="p">)</span>
 
 <span class="c1"># Print result</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Following state(s) ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== Following state(s) ==="</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">):</span>
         <span class="k">continue</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Minimize the energy of: ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== Minimize the energy of: ==="</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">observable</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -299,33 +300,33 @@ depending on the object’s type returned by the generate method - and return an
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CatStateResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    User friendly parsed result</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
         <span class="c1"># Check length</span>
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Invalid number of sample&quot;</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"Invalid number of sample"</span>
 
         <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">bitstring</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[{</span><span class="s2">&quot;0&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;1&quot;</span><span class="p">}],</span> <span class="s2">&quot;Invalid state - expected |0..0&gt; or |1..1&gt;&quot;</span>
+            <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">bitstring</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[{</span><span class="s2">"0"</span><span class="p">},</span> <span class="p">{</span><span class="s2">"1"</span><span class="p">}],</span> <span class="s2">"Invalid state - expected |0..0&gt; or |1..1&gt;"</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">result</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="s2">&quot;Display result&quot;</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;== Displaying a cat state result ==&quot;</span><span class="p">)</span>
+        <span class="s2">"Display result"</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"== Displaying a cat state result =="</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CatStateGenerator</span><span class="p">(</span><span class="n">AbstractGenerator</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Generator creating a cat state job. This generator will</span>
 <span class="sd">    take the number of qubits in arguments to generate the right</span>
 <span class="sd">    circuit</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">specs</span><span class="p">,</span> <span class="n">nbqbits</span><span class="p">):</span>
-        <span class="s2">&quot;Generate the circuit&quot;</span>
+        <span class="s2">"Generate the circuit"</span>
         <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
         <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">)</span>
         <span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -336,7 +337,7 @@ depending on the object’s type returned by the generate method - and return an
         <span class="k">return</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
-        <span class="s2">&quot;Parse result&quot;</span>
+        <span class="s2">"Parse result"</span>
         <span class="k">return</span> <span class="n">CatStateResult</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
 
@@ -374,7 +375,7 @@ This method takes the PORT and the IP as arguments. For instance:</p>
 
 <span class="c1"># Define a PORT and a IP</span>
 <span class="n">PORT</span> <span class="o">=</span> <span class="mi">1234</span>
-<span class="n">IP</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
+<span class="n">IP</span> <span class="o">=</span> <span class="s2">"*"</span>
 
 <span class="c1"># Define a generator</span>
 <span class="n">generator</span> <span class="o">=</span> <span class="n">MaxCutGenerator</span><span class="p">()</span>
@@ -391,7 +392,7 @@ the port <code class="code docutils literal notranslate"><span class="pre">1234<
 
 <span class="c1"># Define PORT and IP</span>
 <span class="n">PORT</span> <span class="o">=</span> <span class="mi">1234</span>
-<span class="n">IP</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
+<span class="n">IP</span> <span class="o">=</span> <span class="s2">"127.0.0.1"</span>
 
 <span class="c1"># Define a client</span>
 <span class="n">plugin</span> <span class="o">=</span> <span class="n">RemoteBatchGenerator</span><span class="p">(</span><span class="n">PORT</span><span class="p">,</span> <span class="n">IP</span><span class="p">)</span>

@@ -9,7 +9,7 @@
   <title>Quantum Approximate Optimization Algorithm (QAOA) &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../static/jquery.js?v=5d32c60e"></script>
       <script src="../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../static/doctools.js?v=9bcbadda"></script>
-      <script src="../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../static/js/custom.js?v=e5e94349"></script>
       <script src="../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -60,6 +61,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../02_user_guide/03_compile.html">Compiling and rewriting quantum circuits</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../fermion.html">Spin and fermionic systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../synthesis.html">Synthesizing quantum circuits</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../combinatorial_optim_applic.html">Combinatorial optimization</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="01_np_probs_for_annealing.html">NP-hard problems</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Quantum Approximate Optimization Algorithm (QAOA)</a><ul>
@@ -128,7 +130,7 @@
 <p>Once such a circuit is produced, one can use a QPU, along with a classical optimizer, to minimize the quantity:
 <span class="math notranslate nohighlight">\(\langle 0|C(\gamma, \beta)^\dagger H_C C(\gamma, \beta)|0 \rangle\)</span>
 in order to produce a quantum state with the lowest possible energy (i.e that overlaps well with the proper ground state of <span class="math notranslate nohighlight">\(H_C\)</span>, which, by construction, corresponds to the optimal solution of our problem). This can be handled via a <a class="reference internal" href="../04_api_reference/module_qat/module_plugins.html#variational-programs"><span class="std std-ref">variational plugin</span></a> on Qaptiva.</p>
-<p>As you can see, the circuit is also parametrized by a depth <span class="math notranslate nohighlight">\(d\)</span> corresponding to the number of alternating variational layers. The larger the depth, the better the approximation of the solution (at least in theory). In practice, increasing this parameter yields a larger circuit with greater number of parameters to optimize, which can slow down the convergence of the algorithm (which is fully described in <span id="id1">[<a class="reference internal" href="#id3" title="Edward Farhi, Jeffrey Goldstone, and Sam Gutmann. A quantum approximate optimization algorithm. 2014. arXiv:1411.4028.">FGG14</a>]</span>).</p>
+<p>As you can see, the circuit is also parametrized by a depth <span class="math notranslate nohighlight">\(d\)</span> corresponding to the number of alternating variational layers. The larger the depth, the better the approximation of the solution (at least in theory). In practice, increasing this parameter yields a larger circuit with greater number of parameters to optimize, which can slow down the convergence of the algorithm (which is fully described in <span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id3" title="Edward Farhi, Jeffrey Goldstone, and Sam Gutmann. A quantum approximate optimization algorithm. 2014. arXiv:1411.4028.">FGG14</a>]</span>).</p>
 <p>It is possible to directly generate ready to run QAOA jobs (containing an Ansatz and the target Hamiltonian) from an instance of <a class="reference internal" href="../04_api_reference/module_qat/module_opt/combinatorialproblem.html#qat.opt.CombinatorialProblem" title="qat.opt.CombinatorialProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinatorialProblem</span></code></a>/<a class="reference internal" href="../04_api_reference/module_qat/module_opt/qubo.html#qat.opt.QUBO" title="qat.opt.QUBO"><code class="xref py py-class docutils literal notranslate"><span class="pre">QUBO</span></code></a>/<a class="reference internal" href="../04_api_reference/module_qat/module_opt/ising.html#qat.opt.Ising" title="qat.opt.Ising"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ising</span></code></a> via the <a class="reference internal" href="../04_api_reference/module_qat/module_opt/circuitgenerator.html#qat.opt.circuit_generator.CircuitGenerator" title="qat.opt.circuit_generator.CircuitGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">CircuitGenerator</span></code></a> class from which they inherit. In that case Qaptiva will take care of generating a cost Hamiltonian for the problem (depending on how it is specified).</p>
 <p>If you need a lower level interface, the <a class="reference internal" href="../04_api_reference/module_qat/module_opt/ansatzfactory.html#qat.vsolve.ansatz.AnsatzFactory" title="qat.vsolve.ansatz.AnsatzFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnsatzFactory</span></code></a> provides a recipe to produce such a variational circuit from a target Hamiltonian. In both cases, the Ansatz factory allows you to pick between (at least) three different circuit synthesis strategies, yielding functionally equivalent circuits with different shapes.</p>
 <section id="bibliography">

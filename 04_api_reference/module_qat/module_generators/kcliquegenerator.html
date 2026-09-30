@@ -9,7 +9,7 @@
   <title>qat.generators.KCliqueGenerator &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -132,7 +133,7 @@
 <h1>qat.generators.KCliqueGenerator<a class="headerlink" href="#qat-generators-kcliquegenerator" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.generators.KCliqueGenerator">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.generators.</span></span><span class="sig-name descname"><span class="pre">KCliqueGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'qaoa'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.generators.KCliqueGenerator" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.generators.</span></span><span class="sig-name descname"><span class="pre">KCliqueGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'qaoa'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.generators.KCliqueGenerator" title="Link to this definition"></a></dt>
 <dd><p>Specialization of the <cite>CombinatorialOptimizerGenerator</cite> class for generator that solves the KClique problem</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -150,7 +151,7 @@ sent to a computational stack of plugins and QPU to be executed. The result will
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>specs</strong> (<a class="reference internal" href="../module_core/hardwarespecs.html#qat.core.HardwareSpecs" title="qat.core.HardwareSpecs"><code class="xref py py-class docutils literal notranslate"><span class="pre">HardwareSpecs</span></code></a>) – will be used to run the job</p></li>
 <li><p><strong>graph</strong> (<em>networkx.Graph</em>) – a networkx graph to run the KClique algorithm on</p></li>
-<li><p><strong>K</strong> (<em>int</em>) – the size of the clique</p></li>
+<li><p><strong>K</strong> (<a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a>) – the size of the clique</p></li>
 <li><p><strong>A</strong> (<em>double</em>) – a positive constant by which the terms inside <span class="math notranslate nohighlight">\(H_A\)</span> from <span class="math notranslate nohighlight">\(H = H_A + H_B\)</span>
 are multiplied. This equation comes from the Hamiltonian representation of the problem.</p></li>
 <li><p><strong>B</strong> (<em>double</em><em>, </em><em>optional</em>) – similar to <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span> is a positive factor for the <span class="math notranslate nohighlight">\(H_B\)</span> terms,

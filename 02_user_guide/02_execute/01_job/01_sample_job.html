@@ -9,7 +9,7 @@
   <title>Sample Job &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -137,12 +138,12 @@ Infinite number of shots, all qubits</label><div class="sd-tab-content docutils"
 <span class="n">circuit</span> <span class="o">=</span> <span class="n">qprog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
 
 <span class="c1"># Create a job</span>
-<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span> <span class="c1"># no parameters, equivalent to &quot;nbshots=0&quot;</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span> <span class="c1"># no parameters, equivalent to "nbshots=0"</span>
 
 <span class="c1"># Execute</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;State </span><span class="si">%s</span><span class="s2">: probability </span><span class="si">%s</span><span class="s2">, amplitude </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">amplitude</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"State </span><span class="si">%s</span><span class="s2">: probability </span><span class="si">%s</span><span class="s2">, amplitude </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">amplitude</span><span class="p">))</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">State</span> <span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.4999999999999999</span><span class="p">,</span> <span class="n">amplitude</span> <span class="p">(</span><span class="mf">0.7071067811865475</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">)</span>
@@ -171,11 +172,11 @@ Finite number of shots, all qubits</label><div class="sd-tab-content docutils">
 <span class="c1"># Execute</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;State </span><span class="si">%s</span><span class="s2">: probability </span><span class="si">%s</span><span class="s2"> +/- </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">err</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"State </span><span class="si">%s</span><span class="s2">: probability </span><span class="si">%s</span><span class="s2"> +/- </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">err</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">State</span> <span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.5</span> <span class="o">+/-</span> <span class="mf">0.050251890762960605</span>
-<span class="n">State</span> <span class="o">|</span><span class="mi">11</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.5</span> <span class="o">+/-</span> <span class="mf">0.050251890762960605</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">State</span> <span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.53</span> <span class="o">+/-</span> <span class="mf">0.050161355804659184</span>
+<span class="n">State</span> <span class="o">|</span><span class="mi">11</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.47</span> <span class="o">+/-</span> <span class="mf">0.050161355804659184</span>
 </pre></div>
 </div>
 <p>We can see that the estimated probability of the states differs from the ideal one due to “shot noise”. The <code class="docutils literal notranslate"><span class="pre">err</span></code>
@@ -202,7 +203,7 @@ Infinite number of shots, only one qubit</label><div class="sd-tab-content docut
 <span class="c1"># Execute</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;State </span><span class="si">%s</span><span class="s2">: probability </span><span class="si">%s</span><span class="s2"> +/- </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">err</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"State </span><span class="si">%s</span><span class="s2">: probability </span><span class="si">%s</span><span class="s2"> +/- </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">probability</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">err</span><span class="p">))</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">State</span> <span class="o">|</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">probability</span> <span class="mf">0.4999999999999999</span> <span class="o">+/-</span> <span class="kc">None</span>

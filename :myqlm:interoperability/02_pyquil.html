@@ -9,7 +9,7 @@
   <title>PyQuil interoperability &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../static/jquery.js?v=5d32c60e"></script>
       <script src="../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../static/doctools.js?v=9bcbadda"></script>
-      <script src="../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../static/js/custom.js?v=e5e94349"></script>
       <script src="../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../static/js/theme.js"></script>
@@ -58,6 +59,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../02_user_guide/03_compile.html">Compiling and rewriting quantum circuits</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../fermion.html">Spin and fermionic systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../synthesis.html">Synthesizing quantum circuits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../combinatorial_optim_applic.html">Combinatorial optimization</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html#available-binders">Available binders</a><ul class="current">
@@ -121,23 +123,13 @@
              
   <section id="pyquil-interoperability">
 <h1>PyQuil interoperability<a class="headerlink" href="#pyquil-interoperability" title="Link to this heading"></a></h1>
-<p><strong>Warning:</strong> Deprecated for python 3.6</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Module <a class="reference internal" href="../04_api_reference/module_qat/%3Amyqlm%3Amodule_interop/module_pyquil.html#module-qat.interop.pyquil" title="qat.interop.pyquil"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qat.interop.pyquil</span></code></a> is deprecated. Bugs found in this module will not
+be fixed.</p>
+</div>
 <section id="translating-quantum-circuits">
 <h2>Translating quantum circuits<a class="headerlink" href="#translating-quantum-circuits" title="Link to this heading"></a></h2>
-<p>myQLM provides binders to translate quantum circuit from PyQuil to myQLM
-and vice-verse throught functions <a class="reference internal" href="../04_api_reference/module_qat/%3Amyqlm%3Amodule_interop/module_pyquil/pyquil_to_qlm.html#qat.interop.pyquil.pyquil_to_qlm" title="qat.interop.pyquil.pyquil_to_qlm"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyquil_to_qlm()</span></code></a>
-and <a class="reference internal" href="../04_api_reference/module_qat/%3Amyqlm%3Amodule_interop/module_pyquil/qlm_to_pyquil.html#qat.interop.pyquil.qlm_to_pyquil" title="qat.interop.pyquil.qlm_to_pyquil"><code class="xref py py-func docutils literal notranslate"><span class="pre">qlm_to_pyquil()</span></code></a></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.interop.pyquil</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyquil_to_qlm</span>
-
-<span class="n">qlm_circuit</span> <span class="o">=</span> <span class="n">pyquil_to_qlm</span><span class="p">(</span><span class="n">your_pyquil_circuit</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Or</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.interop.pyquil</span><span class="w"> </span><span class="kn">import</span> <span class="n">qlm_to_pyquil</span>
-
-<span class="n">pyquil_circuit</span> <span class="o">=</span> <span class="n">qlm_to_pyquil</span><span class="p">(</span><span class="n">your_qlm_circuit</span><span class="p">)</span>
-</pre></div>
-</div>
 </section>
 <section id="connecting-to-a-qpu">
 <h2>Connecting to a QPU<a class="headerlink" href="#connecting-to-a-qpu" title="Link to this heading"></a></h2>
@@ -149,12 +141,12 @@ to the port 15011. The following code defines a myQLM QPU wrapping the PyQuil QV
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyquil</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_qc</span>
 
 <span class="c1"># Define port and ip</span>
-<span class="n">IP</span>   <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
-<span class="n">PORT</span> <span class="o">=</span> <span class="s2">&quot;15011&quot;</span>
+<span class="n">IP</span>   <span class="o">=</span> <span class="s2">"127.0.0.1"</span>
+<span class="n">PORT</span> <span class="o">=</span> <span class="s2">"15011"</span>
 
 <span class="c1"># Define a QPU</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;QCS_SETTINGS_APPLICATIONS_PYQUIL_QVM_URL&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;http://</span><span class="si">{ip}</span><span class="s2">:</span><span class="si">{port}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">IP</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">PORT</span><span class="p">)</span>
-<span class="n">qvm</span> <span class="o">=</span> <span class="n">get_qc</span><span class="p">(</span><span class="s1">&#39;9q-qvm&#39;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"QCS_SETTINGS_APPLICATIONS_PYQUIL_QVM_URL"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"http://</span><span class="si">{ip}</span><span class="s2">:</span><span class="si">{port}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">IP</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">PORT</span><span class="p">)</span>
+<span class="n">qvm</span> <span class="o">=</span> <span class="n">get_qc</span><span class="p">(</span><span class="s1">'9q-qvm'</span><span class="p">)</span>
 <span class="n">qpu</span> <span class="o">=</span> <span class="n">PyquilQPU</span><span class="p">(</span><span class="n">qvm</span><span class="p">)</span>
 
 <span class="c1"># Submit a job to the QVM</span>

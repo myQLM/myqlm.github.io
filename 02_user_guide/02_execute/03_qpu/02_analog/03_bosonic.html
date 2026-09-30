@@ -9,7 +9,7 @@
   <title>Bosonic simulations &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -109,7 +110,7 @@
 
 <span class="c1"># Encode the SHO Hamiltonian in a Schedule</span>
 <span class="n">omega</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">hamiltonian</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Aa&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])],</span> <span class="n">constant_coeff</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">hamiltonian</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"Aa"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])],</span> <span class="n">constant_coeff</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">drive_sho</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">hamiltonian</span>  <span class="c1"># taking h bar as 1</span>
 <span class="n">schedule</span> <span class="o">=</span> <span class="n">Schedule</span><span class="p">(</span><span class="n">drive</span><span class="o">=</span><span class="n">drive_sho</span><span class="p">,</span>
                     <span class="n">tmax</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
@@ -126,7 +127,7 @@
 <span class="n">psi_0</span><span class="p">[</span><span class="n">n_state</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="c1"># A Job to find the value of the SHO observable</span>
-<span class="n">job_observable</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s2">&quot;OBS&quot;</span><span class="p">,</span>
+<span class="n">job_observable</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s2">"OBS"</span><span class="p">,</span>
                                  <span class="n">observable</span><span class="o">=</span><span class="n">hamiltonian</span><span class="p">,</span>
                                  <span class="n">psi_0</span><span class="o">=</span><span class="n">psi_0</span><span class="p">)</span>
 
@@ -135,7 +136,7 @@
 
 <span class="c1"># Submit the job and print the result</span>
 <span class="n">res_value</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job_observable</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Computed observable value:&quot;</span><span class="p">,</span> <span class="n">res_value</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Computed observable value:"</span><span class="p">,</span> <span class="n">res_value</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Computed</span> <span class="n">observable</span> <span class="n">value</span><span class="p">:</span> <span class="mf">2.5</span>

@@ -1,0 +1,75 @@
+
+.. _trotter_synth:
+
+Variational Ansätze synthesis
+=============================
+Problem
+-------
+In plenty of applications ranging from material science to quantum chemistry and linear system resolution, one needs to perform a task called Hamiltonian simulation.
+
+In this setup, we are given some Hamiltonian :math:`H = \sum_i \alpha_i h_i` and we want to build a circuit implementing :math:`e^{-i\gamma H}`. The standard approach is to perform a (first order) Trotter-Suzuki expansion. This expansion is based on the fact that the operator :math:`\left(\prod_i e^{-i\gamma \frac{\alpha_i}{n}h_i}\right)^n` converges to our target unitary operator as :math:`n` diverges.
+
+Hence, we can simply take a large enough :math:`n` and implement a circuit composed of :math:`n` identical layers, each corresponding to a sequence of simpler unitary operators :math:`e^{-i\beta h_i}`.
+Under the assumption that each :math:`h_i` is simple (e.g a Pauli operator), we can efficiently produce this circuit and thus approximate the propagator :math:`e^{-i\gamma H}`.
+
+It is rather easy to formulate a simple circuit that implements each of the terms of a so called Trotter expansion (at least in the case where the :math:`h_i` are Pauli operators, which fits most applications). However, it is far from optimal.
+
+
+Synthesis
+---------
+
+Synthopline comes with a collection of algorithms that, given a high level description of :math:`H`, can generate circuits implementing its Trotter expanded propagator.
+The main function packing these algorithms is the :meth:`qat.synthopline.generate_trotter_ansatz` method.
+
+For instance, we can use this method to generate a QAOA like Ansatz:
+
+.. run-block:: python
+
+    from qat.synthopline.pauli_synth import generate_trotter_ansatz
+
+    from qat.core import Observable
+
+    import networkx as nx
+
+    # Generating a random graph
+    nbqbits = 3
+    graph = nx.generators.path_graph(nbqbits)
+
+    # Generating a target Hamiltonian
+    H1 = sum(Observable.sigma_z(a, nbqbits) * Observable.sigma_z(b, nbqbits) for a, b in graph.edges())
+    # Generating an initial Hamiltonian
+    H0 = sum(Observable.sigma_x(qb, nbqbits) for qb in range(nbqbits))
+    # Our initial state will be a uniform superposition |+>
+    init_state = "+" * nbqbits
+
+    # nsteps plays the role of the `depth` parameter
+    ansatz = generate_trotter_ansatz(H1, H0, nsteps=2, final_observable=H1, init_state=init_state)
+
+    for name, params, qbits in ansatz.circuit.iterate_simple():
+        print(name, params[0] if params else "", qbits)
+
+
+The resulting job is more or less equivalent to a job produced by the :meth:`~qat.opt.CombinatorialProblem.qaoa_job` method of the
+:class:`~qat.opt.CombinatorialProblem` class.
+
+As for linear operator and phase polynomial synthesis, we provide a helper function to generate random instances of Pauli products called :meth:`qat.synthopline.pauli_synth.generate_random_observable`.
+
+
+Additionally, we also provide a utility function that extracts a sequence of Pauli rotation out of a quantum circuit called :meth:`qat.synthopline.util.extract_pauli_rotations`.
+
+
+Benchmarks
+----------
+
+We ran all the possible backend strategies of :meth:`qat.synthopline.generate_trotter_ansatz` on random observablen measuring both
+the CNOT count and the CNOT depth of the output circuit.
+Results are reported in the two figures below.
+
+.. image:: images/benchmark_trotter.png
+
+.. image:: images/benchmark_trotter_depth.png
+
+According to these benchmarks:
+ * The choice of the `greedy` strategy seems the logical one to optimize CNOT count
+
+ * The choice of the `greedy_depth` strategy seems the best choice to minimize CNOT depth

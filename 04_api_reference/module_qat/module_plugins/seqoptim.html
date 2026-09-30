@@ -9,7 +9,7 @@
   <title>qat.plugins.SeqOptim &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -95,10 +96,12 @@
 <li class="toctree-l4"><a class="reference internal" href="zeronoiseextrapolator.html">qat.plugins.ZeroNoiseExtrapolator</a></li>
 <li class="toctree-l4"><a class="reference internal" href="abstractplugin.html">qat.plugins.AbstractPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="display.html">qat.plugins.Display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="emptyplugin.html">qat.plugins.EmptyPlugin.rst</a></li>
 <li class="toctree-l4"><a class="reference internal" href="junction.html">qat.plugins.Junction</a></li>
 <li class="toctree-l4"><a class="reference internal" href="optimizer.html">qat.plugins.Optimizer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quameleonplugin.html">qat.plugins.QuameleonPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="remoteplugin.html">qat.plugins.RemotePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="statplugin.html">qat.plugins.StatPlugin</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
@@ -151,7 +154,7 @@
 <h1>qat.plugins.SeqOptim<a class="headerlink" href="#qat-plugins-seqoptim" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.plugins.SeqOptim">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">SeqOptim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncycles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.SeqOptim" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">SeqOptim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncycles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.SeqOptim" title="Link to this definition"></a></dt>
 <dd><p>This plugin implements the sequential parameter optimization technique (also known as <em>rotosolve</em>) described in:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://dx.doi.org/10.1103/PhysRevResearch.2.043158">Nakanishi et al.</a> (arXiv:1903.12166) [2020]</p></li>
@@ -174,7 +177,7 @@ It belongs to the user to provide a circuit matching the requirements mentioned 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ncycles</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of times the plugin cycles through each angle, defaults to 10. The value to which it should
+<li><p><strong>ncycles</strong> (<a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a><em>, </em><em>optional</em>) – Number of times the plugin cycles through each angle, defaults to 10. The value to which it should
 be set so that the cost function converges is however strongly problem-dependent.</p></li>
 <li><p><strong>coeff</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) – Rescaling parameter <span class="math notranslate nohighlight">\(c\)</span> for all the circuit’s angles. Defaults to 1.</p></li>
 <li><p><strong>x0</strong> (<em>Optional</em><em>[</em><em>np.ndarray</em><em>]</em>) – Initial value of the parameters. Defaults to None, in which case we assume random initialization.</p></li>

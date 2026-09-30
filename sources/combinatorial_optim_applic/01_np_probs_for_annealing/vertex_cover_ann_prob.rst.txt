@@ -38,15 +38,14 @@ with :math:`\#V` spins (one spin per vertex).
         vertex_cover_problem = VertexCover(graph, A=A, B=B)
 
         # Extract parameters for SQA
-        problem_parameters_dict = vertex_cover_problem.get_best_parameters()
-        n_monte_carlo_updates = problem_parameters_dict["n_monte_carlo_updates"]
-        n_trotters = problem_parameters_dict["n_trotters"]
-        n_steps = int(n_monte_carlo_updates /
-                    (n_trotters * len(graph.nodes()))) # the last one is the number of spins, i.e. the problem size
+        problem_parameters_dict = vertex_cover_problem.get_sqa_initial_parameters()
         temp_max = problem_parameters_dict["temp_max"]
         temp_min = problem_parameters_dict["temp_min"]
         gamma_max = problem_parameters_dict["gamma_max"]
         gamma_min = problem_parameters_dict["gamma_min"]
+        nbshots = problem_parameters_dict['nbshots']
+        n_steps = problem_parameters_dict['n_steps']
+        n_trotters = problem_parameters_dict['n_trotters']
 
         # Create a temperature and a gamma schedule
         tmax = 1.0
@@ -55,13 +54,24 @@ with :math:`\#V` spins (one spin per vertex).
         gamma_t = gamma_min * (t / tmax) + gamma_max * (1 - t / tmax)
 
         # Create a job and send it to a QPU
-        problem_job = vertex_cover_problem.to_job('sqa', gamma_t=gamma_t, tmax=tmax, nbshots=1)
+        problem_job = vertex_cover_problem.to_job('sqa', gamma_t=gamma_t, tmax=tmax, nbshots=nbshots)
         sqa_qpu = SQAQPU(temp_t=temp_t, n_steps=n_steps, n_trotters=n_trotters)
         problem_result = sqa_qpu.submit(problem_job)
 
-        # Present best configuration
-        state_int = problem_result.raw_data[0].state.int  # raw_data is a list of Samples - one per shot
-        solution_configuration = integer_to_spins(state_int, len(graph.nodes()))
+        # Analyse samples
+        Q = vertex_cover_problem.q_matrix
+        offset = vertex_cover_problem.offset_q
+        energies = []
+        best_state = 0
+        for sample in problem_result: # raw_data is a list of Samples - one per shot
+            x = np.array([int(b) for b in sample.state.bitstring])
+            energy = -x.T @ Q @ x - offset
+            energies.append(energy)
+            if energy <= min(energies):
+                    best_state= sample.state.int
+
+        # Extract and print solution configuration
+        solution_configuration = integer_to_spins(best_state, len(graph.nodes()))
         print("Solution configuration: \n" + str(solution_configuration) + "\n")
         indices_spin_1 = np.where(solution_configuration == 1)[0]
         number_of_colours = len(indices_spin_1)
@@ -89,7 +99,7 @@ with :math:`\#V` spins (one spin per vertex).
         vertex_cover_problem = VertexCover(graph, A=A, B=B)
 
         # Extract parameters for SA
-        problem_parameters_dict = vertex_cover_problem.get_best_parameters()
+        problem_parameters_dict = vertex_cover_problem.get_sa_initial_parameters()
         n_steps = problem_parameters_dict["n_steps"]
         temp_max = problem_parameters_dict["temp_max"]
         temp_min = problem_parameters_dict["temp_min"]

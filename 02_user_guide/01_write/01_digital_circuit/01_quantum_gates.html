@@ -9,7 +9,7 @@
   <title>Creating and adding quantum gates to a circuit &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../static/js/theme.js"></script>
@@ -200,9 +201,9 @@ Gates can be applied to the qubits from its index:</p>
 <p>By convention, the outermost control qubit is always the first argument when calling a gate.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@qrout</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">my_routine</span><span class="p">():</span>
-    <span class="c1"># Here &quot;0&quot; is the control qubit:</span>
+    <span class="c1"># Here "0" is the control qubit:</span>
     <span class="n">H</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="c1"># And here, &quot;0&quot; and &quot;2&quot; are the controls:</span>
+    <span class="c1"># And here, "0" and "2" are the controls:</span>
     <span class="n">H</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()</span><span class="o">.</span><span class="n">ctrl</span><span class="p">()(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -235,9 +236,9 @@ However, when the time comes to simulate or properly execute the quantum circuit
 <span class="k">def</span><span class="w"> </span><span class="nf">phase_matrix</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)])</span>
 
-<span class="n">phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;PHASE&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">matrix_generator</span><span class="o">=</span><span class="n">phase_matrix</span><span class="p">,</span> <span class="n">arity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">"PHASE"</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">matrix_generator</span><span class="o">=</span><span class="n">phase_matrix</span><span class="p">,</span> <span class="n">arity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="c1"># Or alternatively</span>
-<span class="n">phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;PHASE&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">"PHASE"</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">phase_gate</span><span class="o">.</span><span class="n">set_matrix_generator</span><span class="p">(</span><span class="n">phase_matrix</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -258,9 +259,9 @@ However, when the time comes to simulate or properly execute the quantum circuit
     <span class="k">return</span> <span class="n">routine</span>
 
 
-<span class="n">c_phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;C_PHASE&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">circuit_generator</span><span class="o">=</span><span class="n">c_phase</span><span class="p">)</span>
+<span class="n">c_phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">"C_PHASE"</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">circuit_generator</span><span class="o">=</span><span class="n">c_phase</span><span class="p">)</span>
 <span class="c1"># Or alternatively</span>
-<span class="n">c_phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;C_PHASE&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">c_phase_gate</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">"C_PHASE"</span><span class="p">,</span> <span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">c_phase_gate</span><span class="o">.</span><span class="n">set_circuit_generator</span><span class="p">(</span><span class="n">c_phase</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -271,7 +272,7 @@ However, when the time comes to simulate or properly execute the quantum circuit
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbstractGate</span>
 
 <span class="c1"># A QFT has arity equals to its sole parameter</span>
-<span class="n">qft</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;QFT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n</span> <span class="p">:</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">qft</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">"QFT"</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n</span> <span class="p">:</span> <span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This way, pyAQASM is able to statically check that the gate is applied on the right number of qubits.</p>

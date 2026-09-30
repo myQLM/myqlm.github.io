@@ -9,7 +9,7 @@
   <title>Quantum application (including Ansätze and state preparation) &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../static/jquery.js?v=5d32c60e"></script>
       <script src="../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../static/doctools.js?v=9bcbadda"></script>
-      <script src="../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../static/js/custom.js?v=e5e94349"></script>
       <script src="../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -72,6 +73,7 @@
 <li class="toctree-l5"><a class="reference internal" href="#quantum-phase-estimation">Quantum phase estimation</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#trotterization-tools">Trotterization tools</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#quantum-subspace-expansion">Quantum subspace expansion</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#correlation-functions">Correlation functions</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="03_plugins.html">Plugins</a></li>
@@ -79,6 +81,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../fermion.html#demos">Demos</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../synthesis.html">Synthesizing quantum circuits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../combinatorial_optim_applic.html">Combinatorial optimization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../interoperability_annealing.html">Interoperability with annealing framework</a></li>
@@ -143,6 +146,7 @@
 <li><p><a class="reference internal" href="#quantum-phase-estimation" id="id6">Quantum phase estimation</a></p></li>
 <li><p><a class="reference internal" href="#trotterization-tools" id="id7">Trotterization tools</a></p></li>
 <li><p><a class="reference internal" href="#quantum-subspace-expansion" id="id8">Quantum subspace expansion</a></p></li>
+<li><p><a class="reference internal" href="#correlation-functions" id="id9">Correlation functions</a></p></li>
 </ul>
 </nav>
 <section id="variational-quantum-eigensolver-vqe">
@@ -183,7 +187,7 @@ this kind of Hamiltonian</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">exact_energy</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">hamiltonian_sp</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()))</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exact_energy = </span><span class="si">{</span><span class="n">exact_energy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Exact_energy = </span><span class="si">{</span><span class="n">exact_energy</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="go">Exact_energy = -1.0</span>
 </pre></div>
 </div>
@@ -193,8 +197,8 @@ this kind of Hamiltonian</p>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="n">nqbits</span><span class="p">)</span>
 
 <span class="c1"># Initialize the parameters</span>
-<span class="n">theta</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">theta&quot;</span><span class="p">)</span>
-<span class="n">phi</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">phi&quot;</span><span class="p">)</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">theta"</span><span class="p">)</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">phi"</span><span class="p">)</span>
 
 <span class="c1"># Write the ansatz</span>
 <span class="n">H</span><span class="p">(</span><span class="n">qbits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -206,14 +210,14 @@ this kind of Hamiltonian</p>
 <p>Finally, we optimize the parameters such that they minimize the expectation value of the Hamiltonian we defined previously.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Choose the QPU and define the VQE stack</span>
 <span class="n">qpu</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span>
-<span class="n">stack</span> <span class="o">=</span> <span class="n">ScipyMinimizePlugin</span><span class="p">(</span><span class="n">x0</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.23</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;COBYLA&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">qpu</span>
+<span class="n">stack</span> <span class="o">=</span> <span class="n">ScipyMinimizePlugin</span><span class="p">(</span><span class="n">x0</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.23</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s2">"COBYLA"</span><span class="p">)</span> <span class="o">|</span> <span class="n">qpu</span>
 
 <span class="c1"># Submit the job to the stack</span>
 <span class="n">res</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">hamiltonian_sp</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>We find <span class="math notranslate nohighlight">\(\theta\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span>:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;=== VQE COBYLA RESULTS ===</span><span class="se">\n</span><span class="s2">Energy = </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="se">\n</span><span class="s2">theta, phi = </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">meta_data</span><span class="p">[</span><span class="s1">&#39;parameters&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"=== VQE COBYLA RESULTS ===</span><span class="se">\n</span><span class="s2">Energy = </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="se">\n</span><span class="s2">theta, phi = </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">meta_data</span><span class="p">[</span><span class="s1">'parameters'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="go">=== VQE COBYLA RESULTS ===</span>
 <span class="go">Energy = -0.9999999974320526</span>
 <span class="go">theta, phi = [3.1416940034276815, 1.2147911128415545]</span>
@@ -254,8 +258,8 @@ which collects the information we need.</p>
 <p>We start by inputting the geometry, the basis, the spin and the charge of the molecule.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.fermion.chemistry.pyscf_tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">perform_pyscf_computation</span>
 
-<span class="n">geometry</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;Li&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">))]</span>
-<span class="n">basis</span> <span class="o">=</span> <span class="s2">&quot;6-31g&quot;</span>
+<span class="n">geometry</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"Li"</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)),</span> <span class="p">(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">))]</span>
+<span class="n">basis</span> <span class="o">=</span> <span class="s2">"6-31g"</span>
 <span class="n">spin</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">charge</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -407,7 +411,7 @@ with a given eigenvector. Let us see how to use this algorithm with a simple exa
     <span class="n">size_interval</span><span class="o">=</span><span class="n">size_interval</span><span class="p">,</span>
     <span class="n">qpu</span><span class="o">=</span><span class="n">qpu</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;E = </span><span class="si">{</span><span class="n">energy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"E = </span><span class="si">{</span><span class="n">energy</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">-</span><span class="mf">1.1403</span> <span class="o">-</span><span class="mf">1.</span>     <span class="o">-</span><span class="mf">1.</span>     <span class="o">-</span><span class="mf">1.</span>     <span class="o">-</span><span class="mf">0.7</span>    <span class="o">-</span><span class="mf">0.7</span>    <span class="o">-</span><span class="mf">0.7</span>    <span class="o">-</span><span class="mf">0.7</span>    <span class="o">-</span><span class="mf">0.3</span>
@@ -449,7 +453,7 @@ with a given eigenvector. Let us see how to use this algorithm with a simple exa
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">circ</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../images/qat-fermion_trotter.png"><img alt="../images/qat-fermion_trotter.png" src="../images/qat-fermion_trotter.png" style="width: 800px;" />
+<a class="reference internal image-reference" href="../images/qat-fermion_trotter.png"><img alt="../images/qat-fermion_trotter.png" src="../images/qat-fermion_trotter.png" width="800" />
 </a>
 <p>For more information, see the <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/make_trotterisation_routine.html#qat.fermion.trotterisation.make_trotterisation_routine" title="qat.fermion.trotterisation.make_trotterisation_routine"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_trotterisation_routine()</span></code></a> function documentation.
 The trotterization is used for the UCC ansatz construction in our UCC VQE notebooks,
@@ -460,6 +464,54 @@ see <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tuto
 <p>The quantum subspace expansion is a method that can allow to reach a better precision at the cost of doing additional measurements.
 You will find more details directly in the <a class="reference internal" href="../04_api_reference/module_qat/module_fermion/apply_quantum_subspace_expansion.html#qat.fermion.chemistry.qse.apply_quantum_subspace_expansion" title="qat.fermion.chemistry.qse.apply_quantum_subspace_expansion"><code class="xref py py-func docutils literal notranslate"><span class="pre">apply_quantum_subspace_expansion()</span></code></a> documentation.
 See how to use it in <a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fdigital_quantum_simulations_spin_fermion%2Fqat_fermion_quantum_subspace_expansion_h2.ipynb" style="color: #ff7823; text-decoration: underline; cursor: pointer">the quantum subspace expansion notebook</a>.</p>
+</section>
+<section id="correlation-functions">
+<h2>Correlation functions<a class="headerlink" href="#correlation-functions" title="Link to this heading"></a></h2>
+<p>Given two operators <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> and an initial state <span class="math notranslate nohighlight">\(|\psi_0\rangle\)</span>, the correlation function</p>
+<div class="math notranslate nohighlight">
+\[C_{AB}(t, t') = \langle \psi_0 | A(t) B(t') | \psi_0 \rangle\]</div>
+<p>can be obtained on a quantum computer with variations of the Hadamard test.
+To do so, one needds to know a circuit to perform time evolution during an arbitrary time <span class="math notranslate nohighlight">\(t\)</span>, e.g. through trotterization.
+In Qaptiva, this corresponds to a function taking in a time and returning a <a class="reference internal" href="../04_api_reference/module_qat/module_lang/qroutine.html#qat.lang.QRoutine" title="qat.lang.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.lang.QRoutine</span></code></a>.</p>
+<p>For example, here we compute, in a 2-spins Ising transverse field model, a correlation between X on the first spin and Y on the second spin, at different times:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span> <span class="k">as</span> <span class="n">Obs</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang</span><span class="w"> </span><span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">H</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.fermion</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpinHamiltonian</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.fermion.trotterisation</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_trotterisation_routine</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qat.fermion.correlators</span><span class="w"> </span><span class="kn">import</span> <span class="n">circuits_for_correlator</span><span class="p">,</span> <span class="n">evaluate_circuits</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">delta_t</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">ham</span> <span class="o">=</span> <span class="n">Obs</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="o">+</span> <span class="n">Obs</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">Obs</span><span class="o">.</span><span class="n">z</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="n">Obs</span><span class="o">.</span><span class="n">z</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>  <span class="c1"># Ising transverse field</span>
+<span class="n">ham</span> <span class="o">=</span> <span class="n">SpinHamiltonian</span><span class="o">.</span><span class="n">from_observable</span><span class="p">(</span><span class="n">ham</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">time_evol_qrout</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
+    <span class="n">nsteps</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">time</span> <span class="o">/</span> <span class="n">delta_t</span><span class="p">)</span>
+    <span class="n">nsteps</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nsteps</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">make_trotterisation_routine</span><span class="p">(</span><span class="n">ham</span><span class="p">,</span> <span class="n">nsteps</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+
+<span class="nd">@qrout</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">state_prep</span><span class="p">():</span>  <span class="c1"># Prepare state |++&gt;</span>
+    <span class="n">H</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">H</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">Obs</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">Obs</span><span class="o">.</span><span class="n">y</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+
+<span class="n">t_a</span><span class="p">,</span> <span class="n">t_b</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.5</span>
+<span class="n">circuit_list</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">circuits_for_correlator</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">t_a</span><span class="p">,</span> <span class="n">t_b</span><span class="p">,</span> <span class="n">time_evol_qrout</span><span class="p">,</span> <span class="n">state_prep</span><span class="p">)</span>
+
+<span class="n">res</span><span class="p">,</span> <span class="n">std_real</span><span class="p">,</span> <span class="n">std_imag</span> <span class="o">=</span> <span class="n">evaluate_circuits</span><span class="p">(</span><span class="n">circuit_list</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">+=</span> <span class="n">offset</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Correlator = </span><span class="si">{</span><span class="n">res</span><span class="si">}</span><span class="s2"> +- </span><span class="si">{</span><span class="n">std_real</span><span class="si">}</span><span class="s2"> + i</span><span class="si">{</span><span class="n">std_imag</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.4999999999999227</span>
+<span class="mf">0.4999999999999228</span>
+<span class="n">Correlator</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.546540673302843e-13</span><span class="o">+</span><span class="mf">1.5443202272535927e-13</span><span class="n">j</span><span class="p">)</span> <span class="o">+-</span> <span class="mf">0.9999999999999999</span> <span class="o">+</span> <span class="n">i1</span><span class="mf">.0</span>
+</pre></div>
+</div>
 </section>
 </section>
 

@@ -9,7 +9,7 @@
   <title>qat.core.Term &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../static/js/theme.js"></script>
@@ -155,7 +156,7 @@
 <h1>qat.core.Term<a class="headerlink" href="#qat-core-term" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.core.Term">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">Term</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coefficient</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pauli_op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_validity_check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Term" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">Term</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coefficient</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pauli_op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_validity_check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Term" title="Link to this definition"></a></dt>
 <dd><p>Class describing a term in the Pauli basis of an observable.
 It basically consists in a pair (coeffcient, pauli operator).</p>
 <p>This class supports Thrift serialization and can be transmitted directly
@@ -164,7 +165,7 @@ to the <cite>to_job</cite> method of a circuit object.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Term</span>
 
 <span class="n">term</span> <span class="o">=</span> <span class="n">Term</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="c1"># Coefficient of the term</span>
-            <span class="s2">&quot;XXY&quot;</span><span class="p">,</span> <span class="c1"># tensor of operators X, X, and Y</span>
+            <span class="s2">"XXY"</span><span class="p">,</span> <span class="c1"># tensor of operators X, X, and Y</span>
             <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span> <span class="c1"># over qubits 1, 4, and 7</span>
 </pre></div>
 </div>

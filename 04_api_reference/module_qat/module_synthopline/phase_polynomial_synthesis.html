@@ -9,7 +9,7 @@
   <title>qat.synthopline.phase_polynomial_synthesis &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -159,11 +160,11 @@ the output circuit will be a parametrized circuit.</p>
 <cite>method</cite> parameter. Some methods have additional required parameters that can be
 passed via the <cite>kwargs</cite> argument (see below).</p>
 <dl>
-<dt>Algorithms:</dt><dd><p><strong>gray_synth</strong>: GraySynth is an algorithm introduced by Amy et al in <span id="id1">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id6" title="Matthew Amy, Parsiad Azimzadeh, and Michele Mosca. On the controlled-not complexity of controlled-not–phase circuits. Quantum Science and Technology, 4(1):015002, Sep 2018. doi:10.1088/2058-9565/aad8ca.">AAM18</a>]</span>.
+<dt>Algorithms:</dt><dd><p><strong>gray_synth</strong>: GraySynth is an algorithm introduced by Amy et al in <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id6" title="Matthew Amy, Parsiad Azimzadeh, and Michele Mosca. On the controlled-not complexity of controlled-not–phase circuits. Quantum Science and Technology, 4(1):015002, Sep 2018. doi:10.1088/2058-9565/aad8ca.">AAM18</a>]</span>.
 It is provably optimal when <span class="math notranslate nohighlight">\(f\)</span> is full.</p>
 <p><strong>gray_synth_on_graph</strong>: An extension of GraySynth to limited connectivity. The heuristics
-is developed in <span id="id2">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id7" title="Arianne Meijer-van de Griend and Ross Duncan. Architecture-aware synthesis of phase polynomials for nisq devices. 2020. arXiv:2004.06052.">dGD20</a>]</span>
-and adopts the same recursive formulation as <span id="id3">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id6" title="Matthew Amy, Parsiad Azimzadeh, and Michele Mosca. On the controlled-not complexity of controlled-not–phase circuits. Quantum Science and Technology, 4(1):015002, Sep 2018. doi:10.1088/2058-9565/aad8ca.">AAM18</a>]</span>
+is developed in <span class="bibtex-citation" id="id2">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id7" title="Arianne Meijer-van de Griend and Ross Duncan. Architecture-aware synthesis of phase polynomials for nisq devices. 2020. arXiv:2004.06052.">dGD20</a>]</span>
+and adopts the same recursive formulation as <span class="bibtex-citation" id="id3">[<a class="reference internal" href="../../../02_user_guide/03_compile.html#id6" title="Matthew Amy, Parsiad Azimzadeh, and Michele Mosca. On the controlled-not complexity of controlled-not–phase circuits. Quantum Science and Technology, 4(1):015002, Sep 2018. doi:10.1088/2058-9565/aad8ca.">AAM18</a>]</span>
 with additional constraints on the pivot choices.</p>
 <p><strong>lazy_synth</strong>: A lazy linear operator synthesis algorithm that greedily generates
 pieces of circuit in order to insert phase gates. The algorithm depends on a depth

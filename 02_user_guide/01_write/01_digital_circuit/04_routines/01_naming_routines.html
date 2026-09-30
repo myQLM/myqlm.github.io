@@ -9,7 +9,7 @@
   <title>Naming quantum routines &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../../static/js/theme.js"></script>
@@ -132,7 +133,7 @@ of quantum routines, it might still seem a bit clunky to have to define circuit 
 <a class="reference internal" href="../../../../04_api_reference/module_qat/module_lang/qroutine.html#qat.lang.QRoutine" title="qat.lang.QRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">QRoutine</span></code></a> into an <a class="reference internal" href="../../../../04_api_reference/module_qat/module_lang/abstractgate.html#qat.lang.AbstractGate" title="qat.lang.AbstractGate"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractGate</span></code></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang</span><span class="w"> </span><span class="kn">import</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">build_gate</span><span class="p">,</span> <span class="n">Program</span>
 
-<span class="nd">@build_gate</span><span class="p">(</span><span class="s2">&quot;WALSH_HADAMARD&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span><span class="p">)</span>
+<span class="nd">@build_gate</span><span class="p">(</span><span class="s2">"WALSH_HADAMARD"</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">wht</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">):</span>
     <span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
     <span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">)</span>
@@ -157,7 +158,7 @@ of quantum routines, it might still seem a bit clunky to have to define circuit 
 
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">adder</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;ADD&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">:</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)</span>
+<span class="n">adder</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">"ADD"</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">:</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)</span>
 <span class="n">adder</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -167,7 +168,7 @@ execute this circuit on most QPUs will fail.</p>
 Its definition will look like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang</span><span class="w"> </span><span class="kn">import</span> <span class="n">QRoutine</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">build_gate</span>
 
-<span class="nd">@build_gate</span><span class="p">(</span><span class="s2">&quot;ADD&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">:</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)</span>
+<span class="nd">@build_gate</span><span class="p">(</span><span class="s2">"ADD"</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">:</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">my_adder</span><span class="p">(</span><span class="n">length1</span><span class="p">,</span> <span class="n">length2</span><span class="p">):</span>
     <span class="n">routine</span> <span class="o">=</span> <span class="n">QRoutine</span><span class="p">()</span>
     <span class="n">wires</span> <span class="o">=</span> <span class="n">routine</span><span class="o">.</span><span class="n">new_wires</span><span class="p">(</span><span class="n">length1</span> <span class="o">+</span> <span class="n">length2</span><span class="p">)</span>
@@ -185,7 +186,7 @@ Lets update the first piece of code to link the implementation <cite>foo.my_adde
 
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">adder</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;ADD&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">:</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)</span>
+<span class="n">adder</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">"ADD"</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">:</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)</span>
 <span class="n">adder</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">foo</span>
@@ -199,7 +200,7 @@ Equivalently one could have linked the full namespace <cite>foo</cite>, if we ha
 
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">adder</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;ADD&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">:</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)</span>
+<span class="n">adder</span> <span class="o">=</span> <span class="n">AbstractGate</span><span class="p">(</span><span class="s2">"ADD"</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">arity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">:</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)</span>
 <span class="n">adder</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">foo</span>

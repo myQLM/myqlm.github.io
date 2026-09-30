@@ -9,7 +9,7 @@
   <title>qat.plugins.Junction &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,15 +17,16 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="qat.plugins.Optimizer" href="optimizer.html" />
-    <link rel="prev" title="qat.plugins.Display" href="display.html" /> 
+    <link rel="prev" title="qat.plugins.EmptyPlugin.rst" href="emptyplugin.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -93,10 +94,12 @@
 <li class="toctree-l4"><a class="reference internal" href="zeronoiseextrapolator.html">qat.plugins.ZeroNoiseExtrapolator</a></li>
 <li class="toctree-l4"><a class="reference internal" href="abstractplugin.html">qat.plugins.AbstractPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="display.html">qat.plugins.Display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="emptyplugin.html">qat.plugins.EmptyPlugin.rst</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">qat.plugins.Junction</a></li>
 <li class="toctree-l4"><a class="reference internal" href="optimizer.html">qat.plugins.Optimizer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quameleonplugin.html">qat.plugins.QuameleonPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="remoteplugin.html">qat.plugins.RemotePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="statplugin.html">qat.plugins.StatPlugin</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
@@ -149,7 +152,7 @@
 <h1>qat.plugins.Junction<a class="headerlink" href="#qat-plugins-junction" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.plugins.Junction">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">Junction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.Junction" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">Junction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.Junction" title="Link to this definition"></a></dt>
 <dd><p>Junctions are elements of a stack that allow for iterations inside a QLM stack.
 They implement the standard QPU interface (submit, submit_job, etc), but can
 be seen as some kind of iterative plugin that delegates execution of jobs to the
@@ -183,7 +186,7 @@ corresponding to the transmitted Job or Batch</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.plugins.Junction.run">
-<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.Junction.run" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.Junction.run" title="Link to this definition"></a></dt>
 <dd><p>This function will be called upon the reception of a fresh
 abstract QLM object (e.g a Job or a Batch depending the Junction
 configuration)</p>
@@ -221,7 +224,7 @@ BatchResult depending on the <cite>collective</cite> constructor parameter</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="display.html" class="btn btn-neutral float-left" title="qat.plugins.Display" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="emptyplugin.html" class="btn btn-neutral float-left" title="qat.plugins.EmptyPlugin.rst" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="optimizer.html" class="btn btn-neutral float-right" title="qat.plugins.Optimizer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

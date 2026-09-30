@@ -9,7 +9,7 @@
   <title>qat.comm.datamodel.ttypes.Op &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../../static/js/theme.js"></script>
@@ -133,7 +134,7 @@
 <a class="reference internal" href="#qat.comm.datamodel.ttypes.Op" title="qat.comm.datamodel.ttypes.Op"><code class="xref py py-class docutils literal notranslate"><span class="pre">Op</span></code></a>.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.comm.datamodel.ttypes.Op">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.comm.datamodel.ttypes.</span></span><span class="sig-name descname"><span class="pre">Op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.comm.datamodel.ttypes.Op" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.comm.datamodel.ttypes.</span></span><span class="sig-name descname"><span class="pre">Op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.comm.datamodel.ttypes.Op" title="Link to this definition"></a></dt>
 <dd><p>Operator structure. This structure describes any operation that
 is accessible in AQASM/pyAQASM like quantum gate applications
 (optionally classically controled) or measures, resets, breaks,
@@ -154,7 +155,7 @@ are cbit indexes (for resets, etc.)</p></li>
 </dd></dl>
 
 <p>More precisely the field <cite>.type</cite> in <a class="reference internal" href="#qat.comm.datamodel.ttypes.Op" title="qat.comm.datamodel.ttypes.Op"><code class="xref py py-class docutils literal notranslate"><span class="pre">Op</span></code></a> can be:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[&#39;BREAK&#39;, &#39;CLASSIC&#39;, &#39;CLASSICCTRL&#39;, &#39;GATETYPE&#39;, &#39;MEASURE&#39;, &#39;REMAP&#39;, &#39;RESET&#39;]
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>['BREAK', 'CLASSIC', 'CLASSICCTRL', 'GATETYPE', 'MEASURE', 'REMAP', 'RESET']
 </pre></div>
 </div>
 <p>Once the type is set, various attributes of the <a class="reference internal" href="#qat.comm.datamodel.ttypes.Op" title="qat.comm.datamodel.ttypes.Op"><code class="xref py py-class docutils literal notranslate"><span class="pre">Op</span></code></a> object
@@ -198,7 +199,7 @@ this evaluation, if required.</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core.formula_eval</span><span class="w"> </span><span class="kn">import</span> <span class="n">evaluate</span>
 
-<span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;AND 1 OR 0 2&quot;</span>
+<span class="n">formula</span> <span class="o">=</span> <span class="s2">"AND 1 OR 0 2"</span>
 <span class="n">cbit_values</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
 <span class="n">evaluate</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">cbit_values</span><span class="p">)</span> <span class="c1">#should return False</span>
 </pre></div>

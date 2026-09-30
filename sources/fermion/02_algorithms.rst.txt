@@ -354,3 +354,51 @@ Quantum subspace expansion
 The quantum subspace expansion is a method that can allow to reach a better precision at the cost of doing additional measurements.
 You will find more details directly in the :func:`~qat.fermion.chemistry.qse.apply_quantum_subspace_expansion` documentation.
 See how to use it in :notebook:`(the quantum subspace expansion notebook)[qat_fermion_quantum_subspace_expansion_h2.ipynb]`.
+
+Correlation functions
+---------------------
+
+Given two operators :math:`A` and :math:`B` and an initial state :math:`|\psi_0\rangle`, the correlation function
+
+.. math::
+   C_{AB}(t, t') = \langle \psi_0 | A(t) B(t') | \psi_0 \rangle
+
+can be obtained on a quantum computer with variations of the Hadamard test.
+To do so, one needds to know a circuit to perform time evolution during an arbitrary time :math:`t`, e.g. through trotterization.
+In Qaptiva, this corresponds to a function taking in a time and returning a :class:`qat.lang.QRoutine`.
+
+For example, here we compute, in a 2-spins Ising transverse field model, a correlation between X on the first spin and Y on the second spin, at different times:
+
+.. run-block:: python
+
+    from qat.core import Observable as Obs
+    from qat.lang import qrout, H
+    from qat.fermion import SpinHamiltonian
+    from qat.fermion.trotterisation import make_trotterisation_routine
+    from qat.fermion.correlators import circuits_for_correlator, evaluate_circuits
+
+    N = 2
+    delta_t = 0.01
+    ham = Obs.x(0, N) + Obs.x(1, N) + 0.5 * Obs.z(0, N) * Obs.z(1, N)  # Ising transverse field
+    ham = SpinHamiltonian.from_observable(ham)
+
+    def time_evol_qrout(time):
+        nsteps = round(time / delta_t)
+        nsteps = max(1, nsteps)
+        return make_trotterisation_routine(ham, nsteps, time)
+
+    @qrout
+    def state_prep():  # Prepare state |++>
+        H(0)
+        H(1)
+
+    A = Obs.x(0, N)
+    B = Obs.y(1, N)
+
+    t_a, t_b = 2.0, 0.5
+    circuit_list, offset = circuits_for_correlator(A, B, t_a, t_b, time_evol_qrout, state_prep)
+
+    res, std_real, std_imag = evaluate_circuits(circuit_list)
+    res += offset
+
+    print(f"Correlator = {res} +- {std_real} + i{std_imag}")

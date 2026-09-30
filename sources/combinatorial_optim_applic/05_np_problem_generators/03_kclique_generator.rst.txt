@@ -83,7 +83,6 @@ an input graph. Some examples using different types of job generation and QPUs o
                 from qat.generators import KCliqueGenerator
                 from qat.qpus import SimulatedAnnealing
                 from qat.core import Variable
-                from qat.opt.sqa_best_parameters import sqa_best_parameters_dicts
 
                 graph = nx.Graph()
                 graph.add_nodes_from(np.arange(8))
@@ -94,8 +93,8 @@ an input graph. Some examples using different types of job generation and QPUs o
 
                 # Create a temperature function
                 t = Variable("t", float)
-                temp_max = sqa_best_parameters_dicts["KClique"]["temp_max"]
-                temp_min = sqa_best_parameters_dicts["KClique"]["temp_min"]
+                temp_max = 2.  # The temperatures are critical parameters that must be fine-tuned.
+                temp_min = 0.02
                 temp_t = temp_min * t + temp_max * (1 - t)  # annealing requires going from a high to a very low temperature
                 n_steps = 5000
 

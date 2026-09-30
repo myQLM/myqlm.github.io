@@ -62,8 +62,10 @@ SQA computing
 
     .. note::
 
-        * The quality of the solutions returned by SQA will depend on the parameters given to the algorithm (minimum and maximum `gamma` and temperature, number of Monte Carlo steps, etc).
+        * The quality of the solutions returned by SQA will depend on the parameters given to the algorithm (minimum and maximum :math:`\gamma` and temperature, number of Monte Carlo steps, etc).
+        * Initial parameters can be derived from the problem to be solved using the method :meth:`qat.opt.Ising.get_sqa_initial_parameters` / :meth:`qat.opt.QUBO.get_sqa_initial_parameters`, which can be further fine-tuned.
         * The **memory requirements** of simulated quantum annealing are **polynomial in the number of spins**. There is **no hard memory limit** as to how many spins can be represented and manipulated with this technique.
+        * If the number of trotters steps is set to 1, the algorithm corresponds to classical Simulated Annealing.
 
 
     Bibliography

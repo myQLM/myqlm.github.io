@@ -9,7 +9,7 @@
   <title>Low-level optimization &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -167,7 +168,7 @@ circuit and replace it by the right one.</p>
 <span class="n">graph</span><span class="o">.</span><span class="n">load_circuit</span><span class="p">(</span><span class="n">circ</span><span class="p">)</span>
 
 <span class="c1"># Define two patterns</span>
-<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
 <span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="c1"># Replace left_pattern by right_pattern, i.e. the old one by the new one</span>
@@ -209,17 +210,17 @@ See code block below for an example:</p>
 <span class="n">circ</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
 
 <span class="c1"># Replace pattern</span>
-<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
-<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;HZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"X"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"HZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
 
 <span class="n">graph</span> <span class="o">=</span> <span class="n">GraphCircuit</span><span class="p">()</span>
 <span class="n">graph</span><span class="o">.</span><span class="n">load_circuit</span><span class="p">(</span><span class="n">circ</span><span class="p">)</span>
 <span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">(</span><span class="n">left_pattern</span><span class="p">,</span> <span class="n">right_pattern</span><span class="p">)</span>
 
-<span class="c1"># graph.to_circ() won&#39;t work since &quot;HZ&quot; gate is not known</span>
+<span class="c1"># graph.to_circ() won't work since "HZ" gate is not known</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang.AQASM</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbstractGate</span>
-<span class="n">graph</span><span class="o">.</span><span class="n">add_abstract_gate</span><span class="p">(</span><span class="n">AbstractGate</span><span class="p">(</span><span class="s2">&quot;HZ&quot;</span><span class="p">,</span> <span class="p">[],</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_abstract_gate</span><span class="p">(</span><span class="n">AbstractGate</span><span class="p">(</span><span class="s2">"HZ"</span><span class="p">,</span> <span class="p">[],</span> <span class="mi">1</span><span class="p">))</span>
 
 <span class="c1"># graph.to_circ() is now working</span>
 <span class="n">optimized_circ</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
@@ -258,7 +259,7 @@ gate composing it.</p>
 <span class="n">graph</span><span class="o">.</span><span class="n">load_circuit</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">())</span>
 
 <span class="c1"># Find pattern</span>
-<span class="n">graph</span><span class="o">.</span><span class="n">find_pattern</span><span class="p">([(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">find_pattern</span><span class="p">([(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
 <span class="c1"># Possible output -&gt; [1, 3]</span>
 </pre></div>
 </div>
@@ -269,20 +270,20 @@ See code block below, for instance:</p>
 <span class="c1">#</span>
 
 <span class="c1"># Remove the first found pattern (pattern of index 1)</span>
-<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">([(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="p">[],</span> <span class="n">pos</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">([(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="p">[],</span> <span class="n">pos</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="c1"># Remove the second found pattern (pattern of index 3)</span>
-<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">([(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="p">[],</span> <span class="n">pos</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">([(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="p">[],</span> <span class="n">pos</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
 <span class="c1">#</span>
 <span class="c1"># Remove all patterns</span>
 <span class="c1">#</span>
 
 <span class="c1"># Case 1</span>
-<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">([(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="p">[],</span> <span class="n">pos</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">([(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="p">[],</span> <span class="n">pos</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 
 <span class="c1"># Case 2</span>
-<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">([(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="p">[],</span> <span class="n">pos</span><span class="o">=</span><span class="nb">all</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">([(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="p">[],</span> <span class="n">pos</span><span class="o">=</span><span class="nb">all</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -317,7 +318,7 @@ circuit are useless. For example:</p>
 
 <span class="c1"># Select pattern connected to the beginning of the circuit on qubits</span>
 <span class="c1"># 0 and 1</span>
-<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">([(</span><span class="s2">&quot;SWAP&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])],</span> <span class="p">[],</span> <span class="n">begin</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">([(</span><span class="s2">"SWAP"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])],</span> <span class="p">[],</span> <span class="n">begin</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>On this example, only patterns composed of a single <code class="code docutils literal notranslate"><span class="pre">&quot;SWAP&quot;</span></code> connected

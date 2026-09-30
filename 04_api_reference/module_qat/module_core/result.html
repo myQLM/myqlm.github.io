@@ -9,7 +9,7 @@
   <title>qat.core.Result &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../static/js/theme.js"></script>
@@ -155,7 +156,7 @@
 <h1>qat.core.Result<a class="headerlink" href="#qat-core-result" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.core.Result">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">Result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lsb_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbqbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Result" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.core.</span></span><span class="sig-name descname"><span class="pre">Result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lsb_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbqbits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Result" title="Link to this definition"></a></dt>
 <dd><p>Simple higher level wrapper for the serializable Result class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -163,7 +164,7 @@
 <li><p><strong>result</strong> (<em>ThriftResult</em><em>, </em><em>optional</em>) – result</p></li>
 <li><p><strong>lsb_first</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether to use convention with least
 significant bit first. Defaults to False.</p></li>
-<li><p><strong>nbqbits</strong> (<em>int</em><em>, </em><em>optional</em>) – number of qubits, required if lsb_first is
+<li><p><strong>nbqbits</strong> (<a class="reference internal" href="state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a><em>, </em><em>optional</em>) – number of qubits, required if lsb_first is
 False.
 Defaults to None.</p></li>
 </ul>
@@ -191,7 +192,7 @@ describing either a state vector or a probability distribution. Not always set.<
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>state</strong> (<em>int</em>) – the index of the state in comput. basis</p></li>
+<li><p><strong>state</strong> (<a class="reference internal" href="state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a>) – the index of the state in comput. basis</p></li>
 <li><p><strong>amplitude</strong> (<em>complex</em><em>, </em><em>optional</em>) – a complex number for the amplitude</p></li>
 <li><p><strong>probability</strong> (<em>float</em><em>, </em><em>optional</em>) – the probability</p></li>
 <li><p><strong>err</strong> (<em>float</em><em>, </em><em>optional</em>) – the error on the probability estimate</p></li>
@@ -225,25 +226,25 @@ intermediate measures</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="qat.core.Result.file_extension">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">file_extension</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#qat.core.Result.file_extension" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">file_extension</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#qat.core.Result.file_extension" title="Link to this definition"></a></dt>
 <dd><p>Read-only property returning the file extension used by <a class="reference internal" href="#qat.core.Result.dump" title="qat.core.Result.dump"><code class="xref py py-meth docutils literal notranslate"><span class="pre">dump()</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.core.Result.from_bytes">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Result.from_bytes" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Result.from_bytes" title="Link to this definition"></a></dt>
 <dd><p>Builds a result from raw bytes object</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.core.Result.from_thrift">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_thrift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tobject</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Result.from_thrift" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_thrift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tobject</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Result.from_thrift" title="Link to this definition"></a></dt>
 <dd><p>Builds a Result object from a thrift object</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qat.core.Result.load">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Result.load" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.core.Result.load" title="Link to this definition"></a></dt>
 <dd><p>Loads a Qaptiva object from a binary file</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -261,7 +262,7 @@ intermediate measures</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="qat.core.Result.parameter_map">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parameter_map</span></span><a class="headerlink" href="#qat.core.Result.parameter_map" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">parameter_map</span></span><a class="headerlink" href="#qat.core.Result.parameter_map" title="Link to this definition"></a></dt>
 <dd><p>complex}</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -291,13 +292,13 @@ intermediate measures</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="qat.core.Result.value">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#qat.core.Result.value" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#qat.core.Result.value" title="Link to this definition"></a></dt>
 <dd><p>Scalar output - complex number</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="qat.core.Result.values">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><a class="headerlink" href="#qat.core.Result.values" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">values</span></span><a class="headerlink" href="#qat.core.Result.values" title="Link to this definition"></a></dt>
 <dd><p>Scalar output - complex number</p>
 </dd></dl>
 

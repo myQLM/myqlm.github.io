@@ -9,7 +9,7 @@
   <title>Stochastic noise &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" />
@@ -108,8 +109,8 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.hardware</span><span class="w"> </span><span class="kn">import</span> <span class="n">HardwareModel</span>
 
 <span class="c1"># Define the frequency and noise variables</span>
-<span class="n">f</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="c1"># a variable for the frequency</span>
-<span class="n">omega0</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;omega0&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">"f"</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="c1"># a variable for the frequency</span>
+<span class="n">omega0</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">"omega0"</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
 
 <span class="c1"># Create a Parameter for white noise</span>
 <span class="n">intensity</span> <span class="o">=</span> <span class="mf">0.5</span>
@@ -121,27 +122,27 @@
                         <span class="n">sampling_frequency</span><span class="o">=</span><span class="n">sampling_frequency</span><span class="p">)</span>
 
 <span class="c1"># Define the Parameter in a HardwareModel</span>
-<span class="n">hardware_model</span> <span class="o">=</span> <span class="n">HardwareModel</span><span class="p">(</span><span class="n">params_specification</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;omega0&quot;</span><span class="p">:</span> <span class="n">omega_param</span><span class="p">})</span>
+<span class="n">hardware_model</span> <span class="o">=</span> <span class="n">HardwareModel</span><span class="p">(</span><span class="n">params_specification</span><span class="o">=</span><span class="p">{</span><span class="s2">"omega0"</span><span class="p">:</span> <span class="n">omega_param</span><span class="p">})</span>
 
 <span class="c1"># Create the schedule</span>
-<span class="n">schedule</span> <span class="o">=</span> <span class="n">Schedule</span><span class="p">(</span><span class="n">drive</span><span class="o">=</span><span class="n">Observable</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="n">omega0</span><span class="p">,</span> <span class="s2">&quot;Z&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]),</span>
+<span class="n">schedule</span> <span class="o">=</span> <span class="n">Schedule</span><span class="p">(</span><span class="n">drive</span><span class="o">=</span><span class="n">Observable</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="n">omega0</span><span class="p">,</span> <span class="s2">"Z"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]),</span>
                     <span class="n">tmax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
 
 <span class="c1"># Use QutipQPU in stochastic mode</span>
 <span class="n">qpu</span> <span class="o">=</span> <span class="n">QutipQPU</span><span class="p">(</span><span class="n">hardware_model</span><span class="o">=</span><span class="n">hardware_model</span><span class="p">,</span>
-               <span class="n">sim_method</span><span class="o">=</span><span class="s2">&quot;stochastic&quot;</span><span class="p">,</span>
+               <span class="n">sim_method</span><span class="o">=</span><span class="s2">"stochastic"</span><span class="p">,</span>
                <span class="n">nsteps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="c1"># number of time steps</span>
                <span class="n">n_samples</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="c1"># number of noise realizations</span>
 
 <span class="c1"># Create a job and use the submit method to simulate the Hamiltonian</span>
-<span class="n">job</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s2">&quot;OBS&quot;</span><span class="p">,</span>
-                      <span class="n">observable</span><span class="o">=</span><span class="n">Observable</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]),</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s2">"OBS"</span><span class="p">,</span>
+                      <span class="n">observable</span><span class="o">=</span><span class="n">Observable</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"X"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]),</span>
                       <span class="n">psi_0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="c1"># set an initial state</span>
 <span class="n">res</span> <span class="o">=</span> <span class="n">qpu</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.5086713512352341</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.41655003214986996</span>
 </pre></div>
 </div>
 <p>In the above example we start from the state <span class="math notranslate nohighlight">\(\frac{\left|0\right&gt; + \left|1\right&gt;}{\sqrt2}\)</span>, we evolve it for time <span class="math notranslate nohighlight">\(\frac{\pi}{4}\)</span> and we measure the observable <span class="math notranslate nohighlight">\(\sigma_x\)</span>. With no noise and just <span class="math notranslate nohighlight">\(H(t) = \sigma_z\)</span> this would correspond to a rotation <span class="math notranslate nohighlight">\(R_z \left(\frac{\pi}{2}\right)\)</span> hence giving <span class="math notranslate nohighlight">\(\left&lt;\sigma_z\right&gt; = 0\)</span>. But as we can see, the presence of noise changes this behaviour.</p>

@@ -9,7 +9,7 @@
   <title>Observable Job &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -138,14 +139,14 @@ Infinite number of shots, all qubits</label><div class="sd-tab-content docutils"
 
 <span class="c1"># Create an observable</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
-<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;XZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"XZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
 
 <span class="c1"># Create a job</span>
 <span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">)</span>
 
 <span class="c1"># Execute</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&lt;O&gt; = &quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"&lt;O&gt; = "</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="o">=</span>  <span class="mf">0.0</span>
@@ -170,7 +171,7 @@ Here, we will submit three jobs, each with a different number of shots <code cla
 
 <span class="c1"># Create an observable</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span>
-<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;XZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"XZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
 
 <span class="c1"># Create a job</span>
 <span class="k">for</span> <span class="n">nbshots</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">]:</span>
@@ -181,12 +182,12 @@ Here, we will submit three jobs, each with a different number of shots <code cla
     <span class="kn">from</span><span class="w"> </span><span class="nn">qat.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">ObservableSplitter</span>
     <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">ObservableSplitter</span><span class="p">()</span> <span class="o">|</span> <span class="n">get_default_qpu</span><span class="p">())</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;O&gt; (</span><span class="si">{</span><span class="n">nbshots</span><span class="si">}</span><span class="s2"> shots) = </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"&lt;O&gt; (</span><span class="si">{</span><span class="n">nbshots</span><span class="si">}</span><span class="s2"> shots) = </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">100</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.060000000000000026</span> <span class="o">+/-</span> <span class="mf">0.10032271160931837</span>
-<span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">1000</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.028000000000000025</span> <span class="o">+/-</span> <span class="mf">0.03162619509546186</span>
-<span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">10000</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.007600000000000023</span> <span class="o">+/-</span> <span class="mf">0.010000211218891442</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">100</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.03999999999999998</span> <span class="o">+/-</span> <span class="mf">0.10042334631373566</span>
+<span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">1000</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.013999999999999985</span> <span class="o">+/-</span> <span class="mf">0.031635499123687065</span>
+<span class="o">&lt;</span><span class="n">O</span><span class="o">&gt;</span> <span class="p">(</span><span class="mi">10000</span> <span class="n">shots</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.023999999999999966</span> <span class="o">+/-</span> <span class="mf">0.009997619478632098</span>
 </pre></div>
 </div>
 <p>We can see that the expectation <code class="docutils literal notranslate"><span class="pre">value</span></code> <span class="math notranslate nohighlight">\(\langle O \rangle\)</span> of the result differs from the ideal one due to “shot noise”.

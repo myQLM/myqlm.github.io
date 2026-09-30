@@ -9,7 +9,7 @@
   <title>Compiling quantum jobs using plugins &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -150,14 +151,14 @@ Additionally, it can handle controlled phase gates. All other gates in the stand
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang.AQASM</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">display_pattern</span><span class="p">(</span><span class="n">gate</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">30</span><span class="p">)</span>
     <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
     <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="n">gate</span><span class="o">.</span><span class="n">arity</span><span class="p">)</span>
     <span class="n">gate</span><span class="p">(</span><span class="n">qbits</span><span class="p">)</span>
     <span class="n">job</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Before:"</span><span class="p">)</span>
     <span class="n">job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">batchmode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"After:"</span><span class="p">)</span>
     <span class="n">new_circuit</span> <span class="o">=</span> <span class="n">plugin</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">Batch</span><span class="p">(</span><span class="n">jobs</span><span class="o">=</span><span class="p">[</span><span class="n">job</span><span class="p">]),</span> <span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">jobs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">circuit</span>
     <span class="n">new_circuit</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">batchmode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -283,7 +284,7 @@ in order to compress large sequences of single qubit gates. This also allows to 
 <span class="nb">print</span><span class="p">(</span><span class="n">NISQCompiler</span><span class="o">.</span><span class="n">GATE_SETS</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;IBM&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="s1">&#39;U3&#39;</span><span class="p">],</span> <span class="s1">&#39;IQM&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;CZ&#39;</span><span class="p">,</span> <span class="s1">&#39;RX+&#39;</span><span class="p">,</span> <span class="s1">&#39;RZ&#39;</span><span class="p">],</span> <span class="s1">&#39;IONS&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;XX&#39;</span><span class="p">,</span> <span class="s1">&#39;RX+&#39;</span><span class="p">,</span> <span class="s1">&#39;RZ&#39;</span><span class="p">],</span> <span class="s1">&#39;QUOBLY&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;ZZ&#39;</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="s1">&#39;RZ&#39;</span><span class="p">]}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">'IBM_LEGACY'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="s1">'U3'</span><span class="p">],</span> <span class="s1">'IQM_LEGACY'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'CZ'</span><span class="p">,</span> <span class="s1">'RX+'</span><span class="p">,</span> <span class="s1">'RZ'</span><span class="p">],</span> <span class="s1">'AQT'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'RXX'</span><span class="p">,</span> <span class="s1">'PRX'</span><span class="p">,</span> <span class="s1">'RZ'</span><span class="p">],</span> <span class="s1">'IQM'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'CZ'</span><span class="p">,</span> <span class="s1">'PRX'</span><span class="p">,</span> <span class="s1">'RZ'</span><span class="p">],</span> <span class="s1">'IONS'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'XX'</span><span class="p">,</span> <span class="s1">'RX+'</span><span class="p">,</span> <span class="s1">'RZ'</span><span class="p">],</span> <span class="s1">'QUOBLY'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'ZZ'</span><span class="p">,</span> <span class="s1">'K'</span><span class="p">,</span> <span class="s1">'RZ'</span><span class="p">],</span> <span class="s1">'IBM_FALCON'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="s1">'RZ'</span><span class="p">,</span> <span class="s1">'SX'</span><span class="p">,</span> <span class="s1">'X'</span><span class="p">],</span> <span class="s1">'IBM_EAGLE'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'ECR'</span><span class="p">,</span> <span class="s1">'RZ'</span><span class="p">,</span> <span class="s1">'SX'</span><span class="p">,</span> <span class="s1">'X'</span><span class="p">],</span> <span class="s1">'IBM_HERON'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'CZ'</span><span class="p">,</span> <span class="s1">'RX'</span><span class="p">,</span> <span class="s1">'RZ'</span><span class="p">,</span> <span class="s1">'RZZ'</span><span class="p">,</span> <span class="s1">'SX'</span><span class="p">,</span> <span class="s1">'X'</span><span class="p">],</span> <span class="s1">'IBM_NIGHTHAWK'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'CZ'</span><span class="p">,</span> <span class="s1">'RX'</span><span class="p">,</span> <span class="s1">'RZ'</span><span class="p">,</span> <span class="s1">'SX'</span><span class="p">,</span> <span class="s1">'X'</span><span class="p">],</span> <span class="s1">'IONQ_ARIA'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'GPi'</span><span class="p">,</span> <span class="s1">'GPi2'</span><span class="p">,</span> <span class="s1">'PMS'</span><span class="p">],</span> <span class="s1">'IONQ_FORTE'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'GPi'</span><span class="p">,</span> <span class="s1">'GPi2'</span><span class="p">,</span> <span class="s1">'ZZ'</span><span class="p">],</span> <span class="s1">'IBM'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'CZ'</span><span class="p">,</span> <span class="s1">'RX'</span><span class="p">,</span> <span class="s1">'RZ'</span><span class="p">,</span> <span class="s1">'SX'</span><span class="p">,</span> <span class="s1">'X'</span><span class="p">],</span> <span class="s1">'IONQ'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'GPi'</span><span class="p">,</span> <span class="s1">'GPi2'</span><span class="p">,</span> <span class="s1">'ZZ'</span><span class="p">]}</span>
 </pre></div>
 </div>
 </section>
@@ -305,8 +306,8 @@ in order to compress large sequences of single qubit gates. This also allows to 
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">AllToAll</span>
 
 <span class="n">compiler</span> <span class="o">=</span> <span class="n">NISQCompiler</span><span class="p">(</span>
-    <span class="n">compiler_options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;optimize_initial&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;bidirectional&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
-    <span class="n">target_gate_set</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;XX&#39;</span><span class="p">,</span> <span class="s1">&#39;RX+&#39;</span><span class="p">,</span> <span class="s1">&#39;RZ&#39;</span><span class="p">]</span>
+    <span class="n">compiler_options</span><span class="o">=</span><span class="p">{</span><span class="s1">'optimize_initial'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">'bidirectional'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">'depth'</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+    <span class="n">target_gate_set</span><span class="o">=</span><span class="p">[</span><span class="s1">'XX'</span><span class="p">,</span> <span class="s1">'RX+'</span><span class="p">,</span> <span class="s1">'RZ'</span><span class="p">]</span>
 <span class="p">)</span>
 <span class="n">device</span> <span class="o">=</span> <span class="n">AllToAll</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
@@ -316,7 +317,7 @@ in order to compress large sequences of single qubit gates. This also allows to 
 
 <span class="nd">@qrout</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">circuit</span><span class="p">():</span>
-    <span class="s2">&quot; Create a circuit &quot;</span>
+    <span class="s2">" Create a circuit "</span>
     <span class="n">nbqbits</span> <span class="o">=</span> <span class="mi">5</span>
 
     <span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">):</span>
@@ -333,10 +334,10 @@ in order to compress large sequences of single qubit gates. This also allows to 
     <span class="n">compiled_job</span> <span class="o">=</span> <span class="n">initial_job</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">specs</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
 
 <span class="c1"># Print output</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input circuit:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Input circuit:"</span><span class="p">)</span>
 <span class="n">initial_job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">batchmode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Output circuit:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Output circuit:"</span><span class="p">)</span>
 <span class="n">compiled_job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">batchmode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -363,47 +364,68 @@ in order to compress large sequences of single qubit gates. This also allows to 
                             
 
 Output circuit:
- ┌───────┐┌───────┐┌───────┐┌───────┐                                          &gt;
-─┤RX[π/2]├┤RZ[π/2]├┤RX[π/2]├┤RZ[π/4]├───────────────────────────────────────── &gt;
- └───────┘└───────┘└───────┘└───────┘                                          &gt;
-                                                                               &gt;
- ┌───────┐┌───────┐┌───────┐                                                   &gt;
-─┤RX[π/2]├┤RZ[π/2]├┤RX[π/2]├────────────────────────────────────────────────── &gt;
- └───────┘└───────┘└───────┘                                                   &gt;
-                                                                               &gt;
- ┌───────┐┌───────┐┌───────┐┌───────┐                                          &gt;
-─┤RX[π/2]├┤RZ[π/2]├┤RX[π/2]├┤RZ[π/4]├───────────────────────────────────────── &gt;
- └───────┘└───────┘└───────┘└───────┘                                          &gt;
-                                                                               &gt;
- ┌───────┐┌───────┐┌───────┐         ┌──┐┌────────┐┌───────┐┌─────┐┌───────┐┌─ &gt;
-─┤RX[π/2]├┤RZ[π/4]├┤RX[π/2]├─────────┤XX├┤RZ[4.45]├┤RX[π/2]├┤RZ[π]├┤RX[π/2]├┤R &gt;
- └───────┘└───────┘└───────┘         │  │└────────┘└───────┘└─────┘└───────┘└─ &gt;
+ ┌───────┐┌───────┐┌───────┐         ┌──┐┌────────┐┌───────┐┌───────┐┌───────┐ &gt;
+─┤RX[π/2]├┤RZ[π/4]├┤RX[π/2]├─────────┤  ├┤RZ[2.36]├┤RX[π/2]├┤RZ[π/2]├┤RX[π/2]├ &gt;
+ └───────┘└───────┘└───────┘         │  │└────────┘└───────┘└───────┘└───────┘ &gt;
+                                     │  │                                      &gt;
+ ┌───────┐┌───────┐┌───────┐         │  │                                      &gt;
+─┤RX[π/2]├┤RZ[π/2]├┤RX[π/2]├─────────│XX│───────────────────────────────────── &gt;
+ └───────┘└───────┘└───────┘         │  │                                      &gt;
                                      │  │                                      &gt;
  ┌───────┐┌───────┐┌───────┐┌───────┐│  │┌───────┐┌───────┐┌───────┐           &gt;
 ─┤RX[π/2]├┤RZ[π/2]├┤RX[π/2]├┤RZ[π/2]├┤  ├┤RX[π/2]├┤RZ[π/2]├┤RX[π/2]├────────── &gt;
  └───────┘└───────┘└───────┘└───────┘└──┘└───────┘└───────┘└───────┘           &gt;
                                                                                &gt;
+ ┌───────┐┌───────┐┌───────┐┌───────┐                                          &gt;
+─┤RX[π/2]├┤RZ[π/2]├┤RX[π/2]├┤RZ[π/2]├───────────────────────────────────────── &gt;
+ └───────┘└───────┘└───────┘└───────┘                                          &gt;
+                                                                               &gt;
+ ┌───────┐┌───────┐┌───────┐┌───────┐                                          &gt;
+─┤RX[π/2]├┤RZ[π/2]├┤RX[π/2]├┤RZ[π/2]├───────────────────────────────────────── &gt;
+ └───────┘└───────┘└───────┘└───────┘                                          &gt;
+                                                                               &gt;
 
-         
-─────────
-         
-         
-         
-─────────
-         
-         
-         
-─────────
-         
-         
-────────┐
-Z[-0.52]├
-────────┘
-         
-         
-─────────
-         
-         
+┌───────┐┌──┐┌────────┐┌───────┐┌───────┐┌───────┐┌───────┐┌──┐┌────────┐┌──── &gt;
+┤RZ[π/2]├┤  ├┤RZ[2.36]├┤RX[π/2]├┤RZ[π/2]├┤RX[π/2]├┤RZ[π/2]├┤  ├┤RZ[4.45]├┤RX[π &gt;
+└───────┘│  │└────────┘└───────┘└───────┘└───────┘└───────┘│  │└────────┘└──── &gt;
+         │  │                                              │  │                &gt;
+         │  │                                              │  │                &gt;
+─────────│XX│──────────────────────────────────────────────│  │─────────────── &gt;
+         │  │                                              │  │                &gt;
+         │  │                                              │  │                &gt;
+         │  │                                              │  │                &gt;
+─────────│  │──────────────────────────────────────────────│XX│─────────────── &gt;
+         │  │                                              │  │                &gt;
+         │  │                                              │  │                &gt;
+         │  │┌───────┐┌───────┐┌───────┐                   │  │                &gt;
+─────────┤  ├┤RX[π/2]├┤RZ[π/2]├┤RX[π/2]├───────────────────│  │─────────────── &gt;
+         └──┘└───────┘└───────┘└───────┘                   │  │                &gt;
+                                                           │  │                &gt;
+                                                           │  │┌───────┐┌───── &gt;
+───────────────────────────────────────────────────────────┤  ├┤RX[π/2]├┤RZ[π/ &gt;
+                                                           └──┘└───────┘└───── &gt;
+                                                                               &gt;
+
+───┐┌─────┐┌───────┐┌─────────┐
+/2]├┤RZ[π]├┤RX[π/2]├┤RZ[-0.52]├
+───┘└─────┘└───────┘└─────────┘
+                               
+                               
+───────────────────────────────
+                               
+                               
+                               
+───────────────────────────────
+                               
+                               
+                               
+───────────────────────────────
+                               
+                               
+──┐┌───────┐                   
+2]├┤RX[π/2]├───────────────────
+──┘└───────┘                   
+                               
 
 </pre></div>
 </div>
@@ -420,8 +442,8 @@ CNOT and U3 gates.</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridDevice</span>
 
 <span class="n">compiler</span> <span class="o">=</span> <span class="n">NISQCompiler</span><span class="p">(</span>
-    <span class="n">compiler_options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;optimize_initial&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;bidirectional&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
-    <span class="n">target_gate_set</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="s1">&#39;U3&#39;</span><span class="p">]</span>
+    <span class="n">compiler_options</span><span class="o">=</span><span class="p">{</span><span class="s1">'optimize_initial'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">'bidirectional'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">'depth'</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+    <span class="n">target_gate_set</span><span class="o">=</span><span class="p">[</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="s1">'U3'</span><span class="p">]</span>
 <span class="p">)</span>
 <span class="n">device</span> <span class="o">=</span> <span class="n">GridDevice</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
@@ -431,7 +453,7 @@ CNOT and U3 gates.</p>
 
 <span class="nd">@qrout</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">circuit</span><span class="p">():</span>
-    <span class="s2">&quot; Create a circuit &quot;</span>
+    <span class="s2">" Create a circuit "</span>
     <span class="n">nbqbits</span> <span class="o">=</span> <span class="mi">5</span>
 
     <span class="k">for</span> <span class="n">qb</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">):</span>
@@ -448,10 +470,10 @@ CNOT and U3 gates.</p>
     <span class="n">compiled_job</span> <span class="o">=</span> <span class="n">initial_job</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">specs</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
 
 <span class="c1"># Print output</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input circuit:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Input circuit:"</span><span class="p">)</span>
 <span class="n">initial_job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">batchmode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Output circuit:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Output circuit:"</span><span class="p">)</span>
 <span class="n">compiled_job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">batchmode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -478,30 +500,30 @@ CNOT and U3 gates.</p>
                             
 
 Output circuit:
- ┌───────────────┐                              
-─┤U3[π/2, π/4, π]├──────────────────────────────
- └───────────────┘                              
-                                                
- ┌────────────────┐                             
-─┤U3[π/2, 0.00, π]├─────────────────────────────
- └────────────────┘                             
-                                                
- ┌───────────────┐                              
-─┤U3[π/2, π/4, π]├──────────────────────────────
- └───────────────┘                              
-                                                
- ┌───────────────┐    ┌─┐┌─────────────────────┐
-─┤U3[π/2, π/4, π]├────┤X├┤U3[0.00, 3.30, -2.52]├
- └───────────────┘    └┬┘└─────────────────────┘
-                       │                        
- ┌────────────────┐    │                        
-─┤U3[π/2, 0.00, π]├─●──┼────────────────────────
- └────────────────┘ │  │                        
-                    │  │                        
-                   ┌┴┐ │                        
-───────────────────┤X├─●────────────────────────
-                   └─┘                          
-                                                
+ ┌───────────────┐                                                  
+─┤U3[π/2, π/4, π]├──────────────────────────────────────────────────
+ └───────────────┘                                                  
+                                                                    
+ ┌────────────────┐                                                 
+─┤U3[π/2, 0.00, π]├─────────────────────────────────────────────────
+ └────────────────┘                                                 
+                                                                    
+ ┌───────────────┐ ┌─┐┌──────────────────┐┌─┐┌─────────────────────┐
+─┤U3[π/2, π/4, π]├─┤X├┤U3[0.00, π/8, π/8]├┤X├┤U3[0.00, 3.30, -2.52]├
+ └───────────────┘ └┬┘└──────────────────┘└┬┘└─────────────────────┘
+                    │                      │                        
+ ┌────────────────┐ │                      │                        
+─┤U3[π/2, 0.00, π]├─●──────────────────────┼────────────────────────
+ └────────────────┘                        │                        
+                                           │                        
+ ┌────────────────┐                        │                        
+─┤U3[π/2, 0.00, π]├────────────────────────●────────────────────────
+ └────────────────┘                                                 
+                                                                    
+                                                                    
+────────────────────────────────────────────────────────────────────
+                                                                    
+                                                                    
 
 </pre></div>
 </div>

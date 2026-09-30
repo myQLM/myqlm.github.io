@@ -9,7 +9,7 @@
   <title>Ising Hamiltonians &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -140,7 +141,7 @@ function</strong>:</p>
 </div>
 <p>Quantum annealing machines are typically designed to try and reach the <strong>minimum energy state
 of Ising Hamiltonians</strong>, also called <strong>ground state</strong>, relying on the <strong>Adiabatic Theorem</strong>.
-See for instance <span id="id1">[<a class="reference internal" href="#id3" title="Tameem Albash and Daniel A Lidar. Adiabatic quantum computation. Reviews of Modern Physics, 90(1):015002, 2018. URL: https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.90.015002.">AL18</a>]</span> for a general reference on adiabatic quantum computation.</p>
+See for instance <span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id3" title="Tameem Albash and Daniel A Lidar. Adiabatic quantum computation. Reviews of Modern Physics, 90(1):015002, 2018. URL: https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.90.015002.">AL18</a>]</span> for a general reference on adiabatic quantum computation.</p>
 <p><strong>Classical annealing codes</strong> like Simulated Quantum Annealing (<a class="reference internal" href="../../02_execute/03_qpu/03_annealing.html#simulated-annealing"><span class="std std-ref">SA</span></a>) try and do the same thing:
 Given <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(J\)</span> as input, they will, starting from a random configuration, try to apply <strong>updates</strong>, as part of
 <strong>Markov chain over the configuration space</strong>, in order to look for <strong>low energy states</strong>, where “energy” is defined by the
@@ -180,19 +181,19 @@ making it closer to its <strong>ground state</strong>.</p>
                       <span class="n">h</span><span class="o">=</span><span class="n">h_field</span><span class="p">,</span>
                       <span class="n">offset_i</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Magnetic field h:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">problem_Ising</span><span class="o">.</span><span class="n">magnetic_field_h</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;J-coupling matrix:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Magnetic field h:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">problem_Ising</span><span class="o">.</span><span class="n">magnetic_field_h</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"J-coupling matrix:"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">problem_Ising</span><span class="o">.</span><span class="n">j_coupling_matrix</span><span class="p">)</span>
 
 <span class="c1"># Create a job</span>
 <span class="n">tmax</span> <span class="o">=</span> <span class="mf">1.23</span>
-<span class="n">problem_Ising_job</span> <span class="o">=</span> <span class="n">problem_Ising</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s2">&quot;sqa&quot;</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="n">tmax</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">An Ising Job has been created - ready to run on an annealing QPU.&quot;</span><span class="p">)</span>
+<span class="n">problem_Ising_job</span> <span class="o">=</span> <span class="n">problem_Ising</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s2">"sqa"</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="n">tmax</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">An Ising Job has been created - ready to run on an annealing QPU."</span><span class="p">)</span>
 
 <span class="c1"># Create an Ising Observable</span>
-<span class="n">problem_Ising_obs</span> <span class="o">=</span> <span class="n">problem_Ising</span><span class="o">.</span><span class="n">get_observable</span><span class="p">(</span><span class="s2">&quot;ising&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;An Ising Observable has also been created - to be fed in a Schedule from which a Job can also be produced.&quot;</span><span class="p">)</span>
+<span class="n">problem_Ising_obs</span> <span class="o">=</span> <span class="n">problem_Ising</span><span class="o">.</span><span class="n">get_observable</span><span class="p">(</span><span class="s2">"ising"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"An Ising Observable has also been created - to be fed in a Schedule from which a Job can also be produced."</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Magnetic</span> <span class="n">field</span> <span class="n">h</span><span class="p">:</span>

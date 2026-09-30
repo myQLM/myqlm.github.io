@@ -1,0 +1,82 @@
+Stabilizer state synthesis
+==========================
+
+
+
+Problem
+-------
+
+The problem is the following: given some Clifford operator :math:`C`, produce a Clifford circuit :math:`U` (usually containing CZ/CNOT/H/S gates)
+such that:
+
+.. math::
+
+    U|0\rangle = C|0\rangle
+
+Of course, one usually require :math:`U` to be as cheap as possible (in depth or two-qubit gate count).
+This problem has application in quantum circuit compilation (it is used for the bi-directional renormalization in the :class:`~qat.synthopline.clifford_normalizer.CliffordNormalizer`)
+plugin for instance.
+
+Interestingly, an algorithm solving this problem can be used to solve another problem: the problem of co-diagonalizing (via a Clifford circuit) a collection
+of pairwise commuting Pauli operators.
+The problem is the following: given a collection of Pauli operators :math:`P_1, ..., P_k` such that :math:`[P_i, P_j]` for all :math:`i,j`, produce a Clifford circuit
+:math:`U` such that :
+
+.. math::
+
+    \forall 1\leq i \leq k, U P_i U^\dagger \textrm{ is diagonal}
+
+Indeed, if the :math:`P_i` operators commute with one another, they can be expressed as a subset of the stabilizer group of a stabilizer state :math:`C|0\rangle`,
+and thus can be linked to the previous problem.
+
+Synthesis
+---------
+
+The stabilizer state synthesis problem can solved via the :meth:`~qat.synthopline.co_diagonalization.synthesize_stabilizer_state` method.
+In Qaptiva, we use the `stim` library in order to specify Clifford operator. The method support three different backends based. One of them is based
+on :cite:`cowtan2020generic`. The two other methods are based on graph state synthesis, either via a naive approach of via a syndrome decoding appraoch.
+
+
+
+.. run-block:: python
+
+    from qat.synthopline.co_diagonalization import synthesize_stabilizer_state
+    from stim import Tableau
+
+    clifford_op = Tableau.random(20)
+
+    for backend in range(3):
+        circuit = synthesize_stabilizer_state(clifford_op, backend)
+        print(circuit.statistics()['gates'])
+
+As you can see, the first two methods are quite similar in terms of circuit "cost" (i.e. number of CNOT and CZ gates).
+The last one seems to perform better. The next section provides additional benchmarks.
+
+This methods can be used to prepare Stabilizer states on constrained hardware. The :meth:`~qat.synthopline.co_diagonalization.synthesize_stabilizer_state` method
+also accepts as input some set of hardware specs, and, in return, modify the output circuit so that it is hardware compliant.
+
+
+.. run-block:: python
+
+    from qat.devices import GridDevice
+    from qat.synthopline.co_diagonalization import synthesize_stabilizer_state
+    from stim import Tableau
+
+    specs = GridDevice(4, 5)
+    clifford_op = Tableau.random(20)
+
+    for backend in range(3):
+        circuit = synthesize_stabilizer_state(clifford_op, backend, specs)
+        print(circuit.statistics()['gates'])
+
+
+The method uses the :class:`qat.plugins.Nnizer` plugin in order to modify the circuits (hence the swaps).
+
+Benchmarks
+----------
+
+We benchmarked the three backends on random Tableaux of increasing sizes. The results are displayed below (neglecting the deviation).
+It is quite obvious that the third backend performs better for large state preparations.
+
+
+.. image:: images/benchmark_stabs_noarch.png

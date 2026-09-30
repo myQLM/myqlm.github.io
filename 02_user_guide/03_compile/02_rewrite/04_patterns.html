@@ -9,7 +9,7 @@
   <title>Writing patterns &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -140,10 +141,10 @@ gate can be used in a pattern definition:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">pi</span>
 
 <span class="c1"># H gate</span>
-<span class="n">H_gate</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">H_gate</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
 <span class="c1"># PH gate</span>
-<span class="n">PH_gate</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;PH&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">PH_gate</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"PH"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 <details class="related-notebooks"><summary>There are 2 related notebooks</summary><div><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcircuit_optimization%2Fgraph_circuit.ipynb" target="_blank" rel="noreferrer noopener"><i class="icon icon-book"></i><p>graph_circuit.ipynb</p></a><a href="https://mybinder.org/v2/gh/myQLM/myqlm-notebooks/HEAD?filepath=tutorials%2Fcircuit_optimization%2Fpattern_manager.ipynb" target="_blank" rel="noreferrer noopener"><i class="icon icon-book"></i><p>pattern_manager.ipynb</p></a></div></details><section id="parameters-in-pattern">
@@ -155,8 +156,8 @@ gate can be used in a pattern definition:</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">pi</span>
 
 <span class="c1"># Define two patterns</span>
-<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pi</span><span class="p">)]</span>
-<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;Z&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"RZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pi</span><span class="p">)]</span>
+<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"Z"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
 
 <span class="c1"># Replace all patterns</span>
 <span class="k">while</span> <span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">(</span><span class="n">left_pattern</span><span class="p">,</span> <span class="n">right_pattern</span><span class="p">):</span>
@@ -178,8 +179,8 @@ merge two rotation gates using abstract parameters. The rule is
 <span class="n">y</span> <span class="o">=</span> <span class="n">VAR</span><span class="p">()</span>
 
 <span class="c1"># Define two patterns</span>
-<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">)]</span>
-<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)]</span>
+<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"RZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="s2">"RZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">)]</span>
+<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"RZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)]</span>
 
 <span class="c1"># Replace all patterns</span>
 <span class="k">while</span> <span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">(</span><span class="n">left_pattern</span><span class="p">,</span> <span class="n">right_pattern</span><span class="p">):</span>
@@ -197,7 +198,7 @@ following code is used to remove patterns <span class="math notranslate nohighli
 <span class="n">x</span> <span class="o">=</span> <span class="n">VAR</span><span class="p">()</span>
 
 <span class="c1"># Define two patterns</span>
-<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">x</span><span class="p">)]</span>
+<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"RZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="s2">"RZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">x</span><span class="p">)]</span>
 <span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="c1"># Replace all patterns</span>
@@ -228,8 +229,8 @@ function accepting abstract variables:</p>
 <span class="n">x</span> <span class="o">=</span> <span class="n">VAR</span><span class="p">()</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">VAR</span><span class="p">()</span>
 
-<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">)]</span>
-<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">update_angle</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">))]</span>
+<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"RZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="s2">"RZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">)]</span>
+<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"RZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">update_angle</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">))]</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -265,13 +266,13 @@ patterns and not compliant ones.</p>
 <span class="n">log_var</span> <span class="o">=</span> <span class="n">VAR</span><span class="o">.</span><span class="n">add_function</span><span class="p">(</span><span class="n">log</span><span class="p">)</span>
 
 <span class="c1"># Accepted pattern (left_pattern)</span>
-<span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">)]</span>
-<span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">log_var</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span> <span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">)]</span>
+<span class="p">[(</span><span class="s2">"RZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="s2">"RZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">)]</span>
+<span class="p">[(</span><span class="s2">"RZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">log_var</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span> <span class="s2">"RZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">)]</span>
 
 <span class="c1"># Not accepted pattern (left_pattern)</span>
-<span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">log_var</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span> <span class="c1"># The optimizer will not be able to set a value</span>
+<span class="p">[(</span><span class="s2">"RZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">log_var</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span> <span class="c1"># The optimizer will not be able to set a value</span>
                           <span class="c1"># to x</span>
-<span class="p">[(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">x</span><span class="p">)]</span> <span class="c1"># The optimizer will not be able to set a value to x</span>
+<span class="p">[(</span><span class="s2">"RZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">x</span><span class="p">)]</span> <span class="c1"># The optimizer will not be able to set a value to x</span>
                   <span class="c1"># -x is seen as f(x) by the optimizer</span>
 </pre></div>
 </div>
@@ -292,8 +293,8 @@ some values are going to be prohibited.</p>
     <span class="n">x</span><span class="o">.</span><span class="n">add_prohibited_value</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
 
 <span class="c1"># Define two patterns</span>
-<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;RX&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">)]</span>
-<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;RZ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+<span class="n">left_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"RX"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">)]</span>
+<span class="n">right_pattern</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"RZ"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
 
 <span class="c1"># Replace all patterns</span>
 <span class="k">while</span> <span class="n">graph</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">(</span><span class="n">left_pattern</span><span class="p">,</span> <span class="n">right_pattern</span><span class="p">):</span>
@@ -315,10 +316,10 @@ If the order of qubits does not matter, please use a set.</p>
 a pattern is multiplied by <span class="math notranslate nohighlight">\(q!\)</span> (where <span class="math notranslate nohighlight">\(q\)</span> is the number of
 qubits) so please try limit the number of <code class="code docutils literal notranslate"><span class="pre">set</span></code> is the pattern.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Non-optimal left pattern</span>
-<span class="p">[(</span><span class="s2">&quot;SWAP&quot;</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}),</span> <span class="p">(</span><span class="s2">&quot;SWAP&quot;</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})]</span>
+<span class="p">[(</span><span class="s2">"SWAP"</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}),</span> <span class="p">(</span><span class="s2">"SWAP"</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})]</span>
 
 <span class="c1"># Optimal left pattern</span>
-<span class="p">[(</span><span class="s2">&quot;SWAP&quot;</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}),</span> <span class="p">(</span><span class="s2">&quot;SWAP&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])]</span>
+<span class="p">[(</span><span class="s2">"SWAP"</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}),</span> <span class="p">(</span><span class="s2">"SWAP"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])]</span>
 </pre></div>
 </div>
 <p>In our example, the two patterns are equivalent but since the second pattern
@@ -361,7 +362,7 @@ want to merge two controlled phase gates:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.pbo</span><span class="w"> </span><span class="kn">import</span> <span class="n">GateName</span><span class="p">,</span> <span class="n">AbstractRegister</span><span class="p">,</span> <span class="n">VAR</span>
 
 <span class="c1"># Define name</span>
-<span class="n">ctrl_phase</span> <span class="o">=</span> <span class="n">GateName</span><span class="p">(</span><span class="s2">&quot;(C-)*PH&quot;</span><span class="p">)</span>
+<span class="n">ctrl_phase</span> <span class="o">=</span> <span class="n">GateName</span><span class="p">(</span><span class="s2">"(C-)*PH"</span><span class="p">)</span>
 <span class="n">register</span> <span class="o">=</span> <span class="n">AbstractRegister</span><span class="p">()</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">VAR</span><span class="p">()</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">VAR</span><span class="p">()</span>

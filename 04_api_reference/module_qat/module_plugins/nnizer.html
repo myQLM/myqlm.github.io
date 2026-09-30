@@ -9,7 +9,7 @@
   <title>qat.plugins.Nnizer &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../static/js/theme.js"></script>
@@ -93,10 +94,12 @@
 <li class="toctree-l4"><a class="reference internal" href="zeronoiseextrapolator.html">qat.plugins.ZeroNoiseExtrapolator</a></li>
 <li class="toctree-l4"><a class="reference internal" href="abstractplugin.html">qat.plugins.AbstractPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="display.html">qat.plugins.Display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="emptyplugin.html">qat.plugins.EmptyPlugin.rst</a></li>
 <li class="toctree-l4"><a class="reference internal" href="junction.html">qat.plugins.Junction</a></li>
 <li class="toctree-l4"><a class="reference internal" href="optimizer.html">qat.plugins.Optimizer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quameleonplugin.html">qat.plugins.QuameleonPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="remoteplugin.html">qat.plugins.RemotePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="statplugin.html">qat.plugins.StatPlugin</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
@@ -151,17 +154,17 @@
 it match the QPU topology. The usage of this plugin is detailed in the <a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers/03_nnize.html#compile-nnize"><span class="std std-ref">compilation section of the documentation</span></a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.plugins.Nnizer">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">Nnizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method='atos'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_large_gates=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_initial_order=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iteration=250</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature=1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric=&lt;libcpp_nnize.QuantumCostMetric</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.Nnizer" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">Nnizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'atos'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_large_gates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_initial_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iteration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">250</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;libcpp_nnize.QuantumCostMetric</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.Nnizer" title="Link to this definition"></a></dt>
 <dd><p>Swap insertion problem solver.</p>
 <p>This plugin can use different algorithms to nnize your quantum
 circuit. The following algorithms are implemented:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><strong>atos</strong>: Atos algorithm (strict generalization of <span id="id1">[<a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers/03_nnize.html#id2" title="Y. Hirata, M. Nakanishi, S. Yamashita, and Y. Nakashima. An efficient method to convert arbitrary quantum circuits to ones on a linear nearest neighbor architecture. In 2009 Third International Conference on Quantum, Nano and Micro Technologies, 26-33. 2009. URL: https://ieeexplore.ieee.org/document/4782917.">HirataNakanishiYamashitaNakashima09</a>]</span>)</p></li>
-<li><p><strong>sabre</strong>: Sabre algorithm (implementation of <span id="id2">[<a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers/03_nnize.html#id3" title="Gushu Li, Yufei Ding, and Yan Xie. Tackling the qubit mapping problem for nisq-era quantum devices. In ASPLOS: Architectural Support for Programming Languages and Operating Systems, 1001-1014. April 2019. URL: https://doi.org/10.1145/3297858.3304023.">LDX19</a>]</span>)</p></li>
+<li><p><strong>atos</strong>: Atos algorithm (strict generalization of <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers/03_nnize.html#id2" title="Y. Hirata, M. Nakanishi, S. Yamashita, and Y. Nakashima. An efficient method to convert arbitrary quantum circuits to ones on a linear nearest neighbor architecture. In 2009 Third International Conference on Quantum, Nano and Micro Technologies, 26-33. 2009. URL: https://ieeexplore.ieee.org/document/4782917.">HirataNakanishiYamashitaNakashima09</a>]</span>)</p></li>
+<li><p><strong>sabre</strong>: Sabre algorithm (implementation of <span class="bibtex-citation" id="id2">[<a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers/03_nnize.html#id3" title="Gushu Li, Yufei Ding, and Yan Xie. Tackling the qubit mapping problem for nisq-era quantum devices. In ASPLOS: Architectural Support for Programming Languages and Operating Systems, 1001-1014. April 2019. URL: https://doi.org/10.1145/3297858.3304023.">LDX19</a>]</span>)</p></li>
 <li><p><strong>bka</strong>: Best Known Algorithm (High Complexity)
-(implementation of <span id="id3">[<a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers/03_nnize.html#id4" title="A. Zulehner, A. Paler, and R. Wille. Efficient mapping of quantum circuits to the ibm qx architectures. In 2018 Design, Automation Test in Europe Conference Exhibition (DATE), 1135-1138. 2018. URL: https://ieeexplore.ieee.org/document/8342181.">ZulehnerPalerWille18</a>]</span>)</p></li>
-<li><p><strong>pbn</strong>: Pattern Based Optimizer (strict generalization of <span id="id4">[<a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers/03_nnize.html#id5" title="Mehdi Saeedi, Robert Wille, and Rolf Drechsler. Synthesis of quantum circuits for linear nearest neighbor architectures. Quantum Information Processing, 10(3):355-377, Jun 2011. URL: https://doi.org/10.1007/s11128-010-0201-2, doi:10.1007/s11128-010-0201-2.">SWD11</a>]</span>)</p></li>
+(implementation of <span class="bibtex-citation" id="id3">[<a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers/03_nnize.html#id4" title="A. Zulehner, A. Paler, and R. Wille. Efficient mapping of quantum circuits to the ibm qx architectures. In 2018 Design, Automation Test in Europe Conference Exhibition (DATE), 1135-1138. 2018. URL: https://ieeexplore.ieee.org/document/8342181.">ZulehnerPalerWille18</a>]</span>)</p></li>
+<li><p><strong>pbn</strong>: Pattern Based Optimizer (strict generalization of <span class="bibtex-citation" id="id4">[<a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers/03_nnize.html#id5" title="Mehdi Saeedi, Robert Wille, and Rolf Drechsler. Synthesis of quantum circuits for linear nearest neighbor architectures. Quantum Information Processing, 10(3):355-377, Jun 2011. URL: https://doi.org/10.1007/s11128-010-0201-2, doi:10.1007/s11128-010-0201-2.">SWD11</a>]</span>)</p></li>
 </ul>
 </div></blockquote>
 <p>Each method can be parametrized. A list of
@@ -233,7 +236,7 @@ the equivalent Qaptiva plugin.</p>
 the swap insertion problem (“atos”, “sabre”, “bka” or “pbn”)</p></li>
 <li><p><strong>metric</strong> (<em>fun&lt;Circuit -&gt; score&gt;</em><em>, </em><em>optional</em>) – score function this nnizer
 will try to maximize (used only by “atos” and “pbn”)</p></li>
-<li><p><strong>window_size</strong> (<em>int</em><em>, </em><em>optional</em>) – window size. The higher the value is,
+<li><p><strong>window_size</strong> (<a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a><em>, </em><em>optional</em>) – window size. The higher the value is,
 the higher the complexity is (used only by “atos” and “sabre”).
 Default is 4.</p></li>
 <li><p><strong>basic_heuristic</strong> (<em>bool</em><em>, </em><em>optional</em>) – use the basic heuristic for
@@ -242,7 +245,7 @@ sabre (used only by “sabre”). Default is False.</p></li>
 (used only by “sabre”). Default is 0.5.</p></li>
 <li><p><strong>delta</strong> (<em>float</em><em>, </em><em>optional</em>) – decay parameter (used only by “sabre”).
 Default is 0.001.</p></li>
-<li><p><strong>size_slice</strong> (<em>int</em><em>, </em><em>optional</em>) – maximal number of gates per slice
+<li><p><strong>size_slice</strong> (<a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a><em>, </em><em>optional</em>) – maximal number of gates per slice
 (used only by “bka”). Default is 0.</p></li>
 <li><p><strong>use_sum_heuristic</strong> (<em>bool</em><em>, </em><em>optional</em>) – select the heuristic used
 by bka (only used by “bka”). Default is False.</p></li>
@@ -254,7 +257,7 @@ uses <a class="reference internal" href="patternmanager.html#qat.plugins.Pattern
 circuit. Please use this argument to select the optimization
 method used by <a class="reference internal" href="patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a>.
 Default is “gradient”.</p></li>
-<li><p><strong>max_iteration</strong> (<em>int</em><em>, </em><em>optional</em>) – maximal number of iterations
+<li><p><strong>max_iteration</strong> (<a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a><em>, </em><em>optional</em>) – maximal number of iterations
 done by the simulated annealing to find an initial mapping</p></li>
 <li><p><strong>temperature</strong> (<em>float</em><em>, </em><em>optional</em>) – initial temperature of the simulated
 annealing used to find the initial mapping</p></li>

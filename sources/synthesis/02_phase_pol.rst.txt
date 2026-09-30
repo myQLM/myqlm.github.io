@@ -1,0 +1,128 @@
+.. _ppol_synth:
+
+CNOT + RZ circuit synthesis
+___________________________
+
+
+Problem
+-------
+
+Phase polynomials are another quite standard class of unitary operators that can be efficiently represented and manipulated.
+They exactly capture unitary operators implementable using only CNOT and RZ gates.
+The circuits generate operators of the form:
+
+:math:`|x\rangle \mapsto e^{2i\pi f(x)}|Ax\rangle`
+
+where :math:`A` is a linear map (as described in the previous section) and :math:`f` is a phase polynomial:
+
+:math:`f(x) = \sum_{y\in\mathbb{F}_2^n} \hat{f}(y).(x_1 y_1 \oplus ... \oplus x_n y_n)`
+
+with fourier coefficients :math:`\hat{f}(y) \in \mathbb{R}`.
+
+These operators can be represented by their support :math:`\{y | \hat{f}(y) \neq 0\}`, the value of their coefficients on their support, and, if it is not trivial, the final linear operator :math:`A`.
+
+Synthesis
+---------
+
+Synthopline provides a function :meth:`qat.synthopline.phase_polynomial_synthesis` to synthesize a phase polynomial described as a dictionary mapping elements of the support of :math:`f` to the value of their fourier coefficients.
+
+
+
+Let us try to synthesize a phase polynomial with abstract values for the angles. For the sake of demonstration,
+we will call the synthesis algorithm with and without including the synthesis of the final linear operator.
+
+.. run-block:: python
+
+    import numpy as np
+    from qat.synthopline import phase_polynomial_synthesis
+    from qat.core import Variable
+
+    phase_pol = {
+        (0, 1, 1): Variable("a"),
+        (0, 0, 1): Variable("b"),
+        (1, 1, 1): Variable("c"),
+    }
+
+    circuit, table = phase_polynomial_synthesis(
+        phase_pol, method="gray_synth", synthesize_final=False
+    )
+    print("Circuit has variables:", circuit.get_variables())
+    print("Without fixing the final parities:")
+    for op in circuit.iterate_simple():
+        print(op)
+
+    circuit, table = phase_polynomial_synthesis(
+        phase_pol, method="gray_synth", synthesize_final=True
+    )
+    print("Fixing the final parities:")
+    for op in circuit.iterate_simple():
+        print(op)
+
+
+This method can also use a qubit connectivity graph to synthesize an architecture compliant circuit:
+
+.. run-block:: python
+
+    import numpy as np
+    import networkx as nx
+    from qat.synthopline import phase_polynomial_synthesis
+    from qat.core import Variable
+    from qat.devices import RIGETTI_ASPEN
+
+    aspen = RIGETTI_ASPEN.as_graph()
+    print(RIGETTI_ASPEN)
+
+    phase_pol = {
+        tuple(np.random.choice([0, 1], replace=True, size=16).tolist()): Variable("a_{}".format(i))
+        for i in range(10)
+    }
+
+    circuit_gs, _ = phase_polynomial_synthesis(
+        phase_pol, method="gray_synth_on_graph", synthesize_final=False,
+        graph=aspen
+    )
+    circuit_ls3, _ = phase_polynomial_synthesis(
+        phase_pol, method="lazy_synth", synthesize_final=False,
+        graph=aspen, depth=3
+    )
+    print(
+        "Cnot count with gray_synth on graph:",
+        sum(1 if op[0] == "CNOT" else 0 for op in circuit_gs.iterate_simple())
+    )
+    print(
+        "Cnot count with lazy_synth (depth 3):",
+        sum(1 if op[0] == "CNOT" else 0 for op in circuit_ls3.iterate_simple())
+    )
+
+
+Conveniently, `qat.synthopline` also provides a method to extract phase polynomials out of a CNOT + RZ circuit: :meth:`qat.synthopline.phase_polynomials.extract_phase_polynomial`.
+
+
+This can be used to check circuits after synthesis:
+
+.. run-block:: python
+
+    import numpy as np
+    from qat.synthopline import phase_polynomial_synthesis
+    from qat.core import Variable
+
+    phase_pol = {
+        (0, 1, 1): Variable("a"),
+        (0, 0, 1): np.pi,
+        (1, 1, 1): 0.3432
+    }
+
+    circuit, table = phase_polynomial_synthesis(
+        phase_pol, method="gray_synth", synthesize_final=False
+    )
+
+    from qat.synthopline.phase_polynomials import extract_phase_polynomial
+
+    phase_pol_2, _ = extract_phase_polynomial(circuit)
+
+    for key in phase_pol_2:
+        assert key in phase_pol
+        assert phase_pol_2[key] == phase_pol[key]
+
+
+The method :meth:`qat.synthopline.phase_polynomials.random_phase_polynomial` provides a basic interface to quickly generate random phase polynomials.

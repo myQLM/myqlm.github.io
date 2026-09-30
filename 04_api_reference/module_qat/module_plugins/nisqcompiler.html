@@ -9,7 +9,7 @@
   <title>qat.plugins.NISQCompiler &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../static/js/theme.js"></script>
@@ -93,10 +94,12 @@
 <li class="toctree-l4"><a class="reference internal" href="zeronoiseextrapolator.html">qat.plugins.ZeroNoiseExtrapolator</a></li>
 <li class="toctree-l4"><a class="reference internal" href="abstractplugin.html">qat.plugins.AbstractPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="display.html">qat.plugins.Display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="emptyplugin.html">qat.plugins.EmptyPlugin.rst</a></li>
 <li class="toctree-l4"><a class="reference internal" href="junction.html">qat.plugins.Junction</a></li>
 <li class="toctree-l4"><a class="reference internal" href="optimizer.html">qat.plugins.Optimizer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quameleonplugin.html">qat.plugins.QuameleonPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="remoteplugin.html">qat.plugins.RemotePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="statplugin.html">qat.plugins.StatPlugin</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
@@ -150,7 +153,7 @@
 <p>The usage of this plugin is detailed in the user guide, in the <a class="reference internal" href="../../../02_user_guide/03_compile/01_compilers.html#nisq-compiler"><span class="std std-ref">compilation section</span></a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.plugins.NISQCompiler">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">NISQCompiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">compiler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'LazySynthesis'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compiler_options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_gate_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.NISQCompiler" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">NISQCompiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">compiler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'LazySynthesis'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compiler_options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_gate_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.NISQCompiler" title="Link to this definition"></a></dt>
 <dd><p>A generic compiler for NISQ quantum circuits.</p>
 <p>It compiles the circuit in three stages:</p>
 <blockquote>
@@ -181,7 +184,9 @@ Possible values are “LazySynthesis” or “Nnizer”.</p></li>
 <li><p><strong>compiler_options</strong> (<em>optional</em><em>, </em><em>dict</em>) – the arguments passed to the “main” compilation engine.
 The default is a preset for LazySynthesis. Refer to the documentation of <a class="reference internal" href="lazysynthesis.html#qat.plugins.LazySynthesis" title="qat.plugins.LazySynthesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.LazySynthesis</span></code></a>
 or <a class="reference internal" href="nnizer.html#qat.plugins.Nnizer" title="qat.plugins.Nnizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.Nnizer</span></code></a> if you want to customize these options.</p></li>
-<li><p><strong>target_gate_set</strong> (<em>optional</em><em>, </em><em>str</em><em> or </em><em>list</em>) – Either a key in [‘IBM’, ‘IQM’, ‘IONS’, ‘QUOBLY’] or a list of allowed gates.
+<li><p><strong>target_gate_set</strong> (<em>optional</em><em>, </em><em>str</em><em> or </em><em>list</em>) – Either a key in [‘AQT’, ‘IQM’, ‘IONS’, ‘QUOBLY’, ‘IBM_NIGHTHAWK’
+‘IBM_HERON’, ‘IBM_EAGLE’, ‘IBM_FALCON’, ‘IBM’, ‘IONQ_ARIA’, ‘IONQ_FORTE’, ‘IONQ’, ‘IBM_LEGACY’, ‘IQM_LEGACY’]
+or a list of allowed gates.
 See below for more information on that argument.</p></li>
 </ul>
 </dd>
@@ -193,32 +198,47 @@ See below for more information on that argument.</p></li>
 <p>The preset gate sets are the following:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>“IBM”: CNOT + U3 where U3 is the tri-parametrized native gate of IBM’s processors</p></li>
-<li><p>“IQM”: CZ + RX(pi/2) + RZ</p></li>
+<li><p>“AQT”: RXX + PRX + RZ</p></li>
+<li><p>“IQM”: CZ + PRX + RZ</p></li>
 <li><p>“IONS”: XX(pi/2) + RX(pi/2) + RZ</p></li>
 <li><p>“QUOBLY”: ZZ(pi/2) + K + RZ where K is the rotation of pi/2 around axis [cos(phi), sin(phi), 0] native on Quobly’s chip</p></li>
+<li><p>“IBM_NIGHTHAWK”: CZ + RX + RZ + SX + X</p></li>
+<li><p>“IBM_HERON”: CZ + RX + RZ + RZZ + SX + X</p></li>
+<li><p>“IBM_EAGLE”: ECR + RZ + SX + X</p></li>
+<li><p>“IBM_FALCON”: CNOT + RZ + SX + X</p></li>
+<li><p>“IBM”: the default IBM gateset, which currently refers to IBM_NIGHTHAWK</p></li>
+<li><p>“IONQ_FORTE”: GPi + GPi2 + ZZ</p></li>
+<li><p>“IONQ_ARIA”: GPi + GPi2 + PMS</p></li>
+<li><p>“IONQ”: the default IONQ gateset, which currently refers to IONQ_FORTE</p></li>
+<li><p>“IQM_LEGACY”: CZ + RX(pi/2) + RZ</p></li>
+<li><p>“IBM_LEGACY”: CNOT + U3 where U3 is the tri-parametrized native gate of IBM’s processors</p></li>
 </ul>
 </div></blockquote>
 <p>The possible target gates (in the case you have specific needs) are:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>CNOT, CZ, RX, RZ for the “standard” gates</p></li>
-<li><p>Pauli rotations XX(pi/2) and ZZ(pi/2) which are refered by names “XX” and “ZZ” respectively.</p></li>
-<li><p>RX(pi/2), refered by name “RX+”</p></li>
+<li><p>Pauli rotations XX(pi/2) and ZZ(pi/2) which are refered by names “XX” and “ZZ” respectively</p></li>
+<li><p>Pauli rotation XX with arbitrary angle is refered by “RXX”</p></li>
+<li><p>Pauli rotation ZZ with arbitrary angle is refered by “RZZ”</p></li>
+<li><p>RX(pi/2), refered by name “RX+” or “SX”</p></li>
+<li><p>K for Quobly’s K</p></li>
+<li><p>ECR for IBM’s ECR gate</p></li>
 <li><p>U3 for IBM’s U3 gate</p></li>
-<li><p>K for Quobly’s K gate</p></li>
+<li><p>PRX for AQT’s or IQM’s phased RX gate</p></li>
+<li><p>GPi, GPi2 and PMS for IonQ gates</p></li>
 </ul>
 </div></blockquote>
 <p>For instance, if you wish to specify a gate set where you allow CNOT, CZ, RX(pi/2) and RZ gates, you would write:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.synthopline</span><span class="w"> </span><span class="kn">import</span> <span class="n">NISQCompiler</span>
 
-<span class="n">compiler</span> <span class="o">=</span> <span class="n">NISQCompiler</span><span class="p">(</span><span class="n">target_gate_set</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="s1">&#39;CZ&#39;</span><span class="p">,</span> <span class="s1">&#39;RX+&#39;</span><span class="p">,</span> <span class="s1">&#39;RZ&#39;</span><span class="p">])</span>
+<span class="n">compiler</span> <span class="o">=</span> <span class="n">NISQCompiler</span><span class="p">(</span><span class="n">target_gate_set</span><span class="o">=</span><span class="p">[</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="s1">'CZ'</span><span class="p">,</span> <span class="s1">'RX+'</span><span class="p">,</span> <span class="s1">'RZ'</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>or if you allow ZZ(pi/2) gate together with U3 gates:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.synthopline</span><span class="w"> </span><span class="kn">import</span> <span class="n">NISQCompiler</span>
 
-<span class="n">compiler</span> <span class="o">=</span> <span class="n">NISQCompiler</span><span class="p">(</span><span class="n">target_gate_set</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ZZ&#39;</span><span class="p">,</span> <span class="s1">&#39;U3&#39;</span><span class="p">])</span>
+<span class="n">compiler</span> <span class="o">=</span> <span class="n">NISQCompiler</span><span class="p">(</span><span class="n">target_gate_set</span><span class="o">=</span><span class="p">[</span><span class="s1">'ZZ'</span><span class="p">,</span> <span class="s1">'U3'</span><span class="p">])</span>
 </pre></div>
 </div>
 <dl class="py method">

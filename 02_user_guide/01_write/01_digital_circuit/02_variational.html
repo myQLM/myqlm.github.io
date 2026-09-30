@@ -9,7 +9,7 @@
   <title>Creating variational circuits &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -140,14 +141,14 @@ Functional mode</label><div class="sd-tab-content docutils">
     <span class="n">RY</span><span class="p">(</span><span class="n">theta</span><span class="p">)(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)(</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variables:&quot;</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Variables:"</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
 
 <span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Job variables:&quot;</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Job variables:"</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span>
-<span class="n">Job</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">'theta'</span><span class="p">]</span>
+<span class="n">Job</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">'theta'</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -159,20 +160,20 @@ Sequential mode</label><div class="sd-tab-content docutils">
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">variable</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="n">variable</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">)</span>
 <span class="n">RY</span><span class="p">(</span><span class="n">variable</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
 <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">variable</span><span class="p">)(</span><span class="n">qbits</span><span class="p">)</span>
 
 <span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variables:&quot;</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Variables:"</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
 
 <span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Job variables:&quot;</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Job variables:"</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
-<span class="n">Job</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">'a'</span><span class="p">]</span>
+<span class="n">Job</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">'a'</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -184,7 +185,7 @@ Sequential mode</label><div class="sd-tab-content docutils">
 Functional mode</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
 
-<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">"t"</span><span class="p">)</span>
 
 <span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="c1"># Obs = \sum_i \sigma_x^i</span>
@@ -192,7 +193,7 @@ Functional mode</label><div class="sd-tab-content docutils">
     <span class="n">obs</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Observable variables:&quot;</span><span class="p">,</span> <span class="n">obs</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Observable variables:"</span><span class="p">,</span> <span class="n">obs</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang</span><span class="w"> </span><span class="kn">import</span> <span class="n">qrout</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
 
@@ -202,18 +203,18 @@ Functional mode</label><div class="sd-tab-content docutils">
         <span class="n">RY</span><span class="p">(</span><span class="n">theta</span><span class="p">)(</span><span class="n">qbit_idx</span><span class="p">)</span>
         <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)(</span><span class="n">qbit_idx</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Circuit variables:&quot;</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Circuit variables:"</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
 
 <span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Job variables:&quot;</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Job variables:"</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
 <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
 <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="n">Observable</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span>
-<span class="n">Circuit</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span>
-<span class="n">Job</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;theta&#39;</span><span class="p">]</span>
+<span class="n">Observable</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">'t'</span><span class="p">]</span>
+<span class="n">Circuit</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">'theta'</span><span class="p">]</span>
+<span class="n">Job</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">'t'</span><span class="p">,</span> <span class="s1">'theta'</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -222,7 +223,7 @@ Functional mode</label><div class="sd-tab-content docutils">
 Sequential mode</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
 
-<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">"t"</span><span class="p">)</span>
 
 <span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="c1"># Obs = \sum_i \sigma_x^i</span>
@@ -230,32 +231,32 @@ Sequential mode</label><div class="sd-tab-content docutils">
     <span class="n">obs</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">Observable</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Observable variables:&quot;</span><span class="p">,</span> <span class="n">obs</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Observable variables:"</span><span class="p">,</span> <span class="n">obs</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang</span><span class="w"> </span><span class="kn">import</span> <span class="n">Program</span><span class="p">,</span> <span class="n">RY</span><span class="p">,</span> <span class="n">RZ</span>
 
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 
-<span class="n">variable</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="n">variable</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">qbit</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
     <span class="n">RY</span><span class="p">(</span><span class="n">variable</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
     <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">variable</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
 
 <span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Circuit variables:&quot;</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Circuit variables:"</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
 
 <span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Job variables:&quot;</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Job variables:"</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
 <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
 <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="n">Observable</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span>
-<span class="n">Circuit</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
-<span class="n">Job</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">]</span>
+<span class="n">Observable</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">'t'</span><span class="p">]</span>
+<span class="n">Circuit</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">'a'</span><span class="p">]</span>
+<span class="n">Job</span> <span class="n">variables</span><span class="p">:</span> <span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'t'</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -274,7 +275,7 @@ Functional mode</label><div class="sd-tab-content docutils">
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
 
 <span class="c1"># Step 1: defining observable</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">"t"</span><span class="p">)</span>
 
 <span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
@@ -303,15 +304,15 @@ Functional mode</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
 <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
 <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="mf">0.4888639972386112</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
-<span class="mf">0.4888639972386112</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
-<span class="mf">0.4888639972386112</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.7860226569226303</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">3.144090627690521</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.7860226569226303</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">3.144090627690521</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.7860226569226303</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">3.144090627690521</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="mf">0.3383055610113821</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.3383055610113821</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.3383055610113821</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'RY'</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.4814251027234392</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'RZ'</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.9257004108937568</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'RY'</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.4814251027234392</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'RZ'</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.9257004108937568</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'RY'</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.4814251027234392</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'RZ'</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.9257004108937568</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -323,7 +324,7 @@ Sequential mode</label><div class="sd-tab-content docutils">
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Term</span><span class="p">,</span> <span class="n">Variable</span>
 
 <span class="c1"># Step 1: defining observable</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">"t"</span><span class="p">)</span>
 
 <span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
@@ -333,7 +334,7 @@ Sequential mode</label><div class="sd-tab-content docutils">
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 
-<span class="n">variable</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="n">variable</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">qbit</span> <span class="ow">in</span> <span class="n">qbits</span><span class="p">:</span>
     <span class="n">RY</span><span class="p">(</span><span class="n">variable</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
     <span class="n">RZ</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">variable</span><span class="p">)(</span><span class="n">qbit</span><span class="p">)</span>
@@ -354,15 +355,15 @@ Sequential mode</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
 <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
 <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="mf">0.3800869481995348</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
-<span class="mf">0.3800869481995348</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
-<span class="mf">0.3800869481995348</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.31326553945553126</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.253062157822125</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.31326553945553126</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.253062157822125</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RY&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.31326553945553126</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.253062157822125</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="mf">0.17194624518755097</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.17194624518755097</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+<span class="mf">0.17194624518755097</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">|</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'RY'</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.20456937288170352</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'RZ'</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.8182774915268141</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'RY'</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.20456937288170352</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'RZ'</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.8182774915268141</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'RY'</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.20456937288170352</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'RZ'</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.8182774915268141</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>

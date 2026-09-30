@@ -9,7 +9,7 @@
   <title>qat.fermion.chemistry.ucc.get_cluster_ops &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -92,6 +93,8 @@
 <li class="toctree-l4"><a class="reference internal" href="perform_phase_estimation.html">qat.fermion.phase_estimation.perform_phase_estimation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="make_trotterisation_routine.html">qat.fermion.trotterisation.make_trotterisation_routine</a></li>
 <li class="toctree-l4"><a class="reference internal" href="perform_pyscf_computation.html">qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="circuits_for_correlator.html">qat.fermion.correlators.circuits_for_correlator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="evaluate_circuits.html">qat.fermion.correlators.evaluate_circuits</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../module_fusion.html">qat.fusion</a></li>
@@ -153,13 +156,13 @@
 <h1>qat.fermion.chemistry.ucc.get_cluster_ops<a class="headerlink" href="#qat-fermion-chemistry-ucc-get-cluster-ops" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="qat.fermion.chemistry.ucc.get_cluster_ops">
-<span class="sig-prename descclassname"><span class="pre">qat.fermion.chemistry.ucc.</span></span><span class="sig-name descname"><span class="pre">get_cluster_ops</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_electrons</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nqbits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noons</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="fermionhamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian" title="qat.fermion.hamiltonians.FermionHamiltonian"><span class="pre">FermionHamiltonian</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#qat.fermion.chemistry.ucc.get_cluster_ops" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">qat.fermion.chemistry.ucc.</span></span><span class="sig-name descname"><span class="pre">get_cluster_ops</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_electrons</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nqbits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noons</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="fermionhamiltonian.html#qat.fermion.hamiltonians.FermionHamiltonian" title="qat.fermion.hamiltonians.FermionHamiltonian"><span class="pre">FermionHamiltonian</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#qat.fermion.chemistry.ucc.get_cluster_ops" title="Link to this definition"></a></dt>
 <dd><p>Compute the cluster operators.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n_electrons</strong> (<em>int</em>) – The number of active electrons of the system.</p></li>
-<li><p><strong>nqbits</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The number of qubits.</p></li>
+<li><p><strong>n_electrons</strong> (<a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a>) – The number of active electrons of the system.</p></li>
+<li><p><strong>nqbits</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a><em>]</em>) – The number of qubits.</p></li>
 <li><p><strong>noons</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>]</em>) – The natural-orbital occupation numbers
 <span class="math notranslate nohighlight">\(n_i\)</span>, sorted in descending order (from high occupations
 to low occupations) (doubled due to spin degeneracy).</p></li>

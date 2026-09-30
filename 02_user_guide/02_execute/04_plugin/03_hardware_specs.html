@@ -9,7 +9,7 @@
   <title>Getting information from the QPU &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../static/js/theme.js"></script>
@@ -152,7 +153,7 @@ between a few pairs of qubits defined by the topology below. This QPU is assumed
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.core.gate_set</span><span class="w"> </span><span class="kn">import</span> <span class="n">GateSet</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.lang</span><span class="w"> </span><span class="kn">import</span> <span class="n">RX</span><span class="p">,</span> <span class="n">RZ</span><span class="p">,</span> <span class="n">CNOT</span>
 
-<span class="n">gateset</span> <span class="o">=</span> <span class="n">GateSet</span><span class="p">({</span><span class="s2">&quot;RX&quot;</span><span class="p">:</span> <span class="n">RX</span><span class="p">,</span> <span class="s2">&quot;RZ&quot;</span><span class="p">:</span> <span class="n">RZ</span><span class="p">,</span> <span class="s2">&quot;CNOT&quot;</span><span class="p">:</span> <span class="n">CNOT</span><span class="p">})</span>
+<span class="n">gateset</span> <span class="o">=</span> <span class="n">GateSet</span><span class="p">({</span><span class="s2">"RX"</span><span class="p">:</span> <span class="n">RX</span><span class="p">,</span> <span class="s2">"RZ"</span><span class="p">:</span> <span class="n">RZ</span><span class="p">,</span> <span class="s2">"CNOT"</span><span class="p">:</span> <span class="n">CNOT</span><span class="p">})</span>
 </pre></div>
 </div>
 <p>Now, hardware specifications can be merged into a single object:</p>
@@ -160,7 +161,7 @@ between a few pairs of qubits defined by the topology below. This QPU is assumed
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.comm.shared.ttypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcessingType</span>
 
 <span class="n">my_specs</span> <span class="o">=</span> <span class="n">HardwareSpecs</span><span class="p">(</span><span class="n">nbqbits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">topology</span><span class="o">=</span><span class="n">topology</span><span class="p">,</span> <span class="n">gateset</span><span class="o">=</span><span class="n">gateset</span><span class="p">,</span> <span class="n">processing_types</span><span class="o">=</span><span class="p">[</span><span class="n">ProcessingType</span><span class="o">.</span><span class="n">SAMPLE</span><span class="p">],</span>
-                         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Example of QPU specs&quot;</span><span class="p">,</span> <span class="n">meta_data</span><span class="o">=</span><span class="p">{</span> <span class="s2">&quot;last calibration date&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-03-18 15:50:00&quot;</span> <span class="p">})</span>
+                         <span class="n">description</span><span class="o">=</span><span class="s2">"Example of QPU specs"</span><span class="p">,</span> <span class="n">meta_data</span><span class="o">=</span><span class="p">{</span> <span class="s2">"last calibration date"</span><span class="p">:</span> <span class="s2">"2024-03-18 15:50:00"</span> <span class="p">})</span>
 </pre></div>
 </div>
 </section>

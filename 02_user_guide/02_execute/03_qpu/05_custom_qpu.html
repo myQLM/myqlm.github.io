@@ -9,7 +9,7 @@
   <title>Make your own QPU &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../static/js/theme.js"></script>
@@ -138,7 +139,7 @@ mode). This exception can be serialized and re-raised on the client side</p>
 
 <span class="c1"># If my_condition() returns False:  raises a QPUException</span>
 <span class="c1"># If my_condition() returns True: do nothing</span>
-<span class="n">assert_qpu</span><span class="p">(</span><span class="n">my_condition</span><span class="p">(),</span> <span class="s2">&quot;Error message&quot;</span><span class="p">)</span>
+<span class="n">assert_qpu</span><span class="p">(</span><span class="n">my_condition</span><span class="p">(),</span> <span class="s2">"Error message"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -183,16 +184,16 @@ can improve the interaction between these components and the QPU.</p>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>  <span class="c1"># Please ensure parents constructor is called</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parameter</span> <span class="o">=</span> <span class="n">parameter</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_default_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;parameter&quot;</span><span class="p">:</span> <span class="n">parameter</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_default_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"parameter"</span><span class="p">:</span> <span class="n">parameter</span><span class="p">}</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_override</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
-        <span class="k">if</span> <span class="s2">&quot;parameter&quot;</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parameter</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;parameter&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">"parameter"</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parameter</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s2">"parameter"</span><span class="p">]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">submit_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">,</span> <span class="n">meta_data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="c1"># Override &quot;self._parameter&quot;</span>
+        <span class="c1"># Override "self._parameter"</span>
         <span class="k">if</span> <span class="n">meta_data</span><span class="p">:</span>
-            <span class="n">options</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">meta_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;MyQPU&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">))</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">meta_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"MyQPU"</span><span class="p">,</span> <span class="s2">"</span><span class="si">{}</span><span class="s2">"</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_override</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
 
         <span class="o">...</span> <span class="c1"># Perform execution</span>
@@ -239,14 +240,14 @@ can be clean-up using function <a class="reference internal" href="../../../04_a
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">QPUSkeleton</span><span class="p">(</span><span class="n">QPUHandler</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Skeleton of a custom QPU</span>
 
 <span class="sd">    This skeleton execute a circuit, by running gates one by one. This skeleton also returns</span>
 <span class="sd">    a result</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">submit_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Result</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Execute a job</span>
 <span class="sd">        The job should contain a circuit (neither a analog job, nor a annealing job)</span>
 
@@ -255,19 +256,19 @@ can be clean-up using function <a class="reference internal" href="../../../04_a
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Result: result of the computation</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Check job</span>
         <span class="n">nb_shots</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">nbshots</span> <span class="ow">or</span> <span class="n">MAX_NB_SHOTS</span>
 
-        <span class="n">assert_qpu</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">circuit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;This skeleton can only execute a circuit job&quot;</span><span class="p">)</span>
-        <span class="n">assert_qpu</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">nb_shots</span> <span class="o">&lt;=</span> <span class="n">MAX_NB_SHOTS</span><span class="p">,</span> <span class="s2">&quot;Invalid number of shots&quot;</span><span class="p">)</span>
-        <span class="n">assert_qpu</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">ProcessingType</span><span class="o">.</span><span class="n">SAMPLE</span><span class="p">,</span> <span class="s2">&quot;This QPU does not support OBSERVABLE measurement&quot;</span><span class="p">)</span>
+        <span class="n">assert_qpu</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">circuit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"This skeleton can only execute a circuit job"</span><span class="p">)</span>
+        <span class="n">assert_qpu</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">nb_shots</span> <span class="o">&lt;=</span> <span class="n">MAX_NB_SHOTS</span><span class="p">,</span> <span class="s2">"Invalid number of shots"</span><span class="p">)</span>
+        <span class="n">assert_qpu</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">ProcessingType</span><span class="o">.</span><span class="n">SAMPLE</span><span class="p">,</span> <span class="s2">"This QPU does not support OBSERVABLE measurement"</span><span class="p">)</span>
 
         <span class="c1"># Initialize result</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Result</span><span class="p">()</span>
 
         <span class="c1"># Measured qubits: qubits which should be measured at the end</span>
-        <span class="c1"># The &quot;qubits&quot; attribute is either:</span>
+        <span class="c1"># The "qubits" attribute is either:</span>
         <span class="c1">#   - a list of qubits (list of integer)</span>
         <span class="c1">#   - None (all qubits should be measured)</span>
         <span class="n">measured_qubits</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">qubits</span> <span class="ow">or</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">nbqbits</span><span class="p">))</span>
@@ -277,14 +278,14 @@ can be clean-up using function <a class="reference internal" href="../../../04_a
             <span class="k">for</span> <span class="n">gate</span> <span class="ow">in</span> <span class="n">job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
                 <span class="o">...</span> <span class="c1"># TODO: execute gate</span>
 
-            <span class="n">state</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># TODO: measure qubits listed in &quot;measured_qubits&quot;</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># TODO: measure qubits listed in "measured_qubits"</span>
             <span class="n">result</span><span class="o">.</span><span class="n">add_sample</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
 
         <span class="c1"># Aggregate data</span>
         <span class="c1"># If set to True, the output will be compressed. The list of sample will be caster into a shorter</span>
         <span class="c1"># list of tuple [state, probability]</span>
         <span class="k">if</span> <span class="n">job</span><span class="o">.</span><span class="n">aggregate_data</span><span class="p">:</span>
-            <span class="c1"># The &quot;threshold&quot; parameter is used to remove state having a probability lower than this value</span>
+            <span class="c1"># The "threshold" parameter is used to remove state having a probability lower than this value</span>
             <span class="c1"># are removed</span>
             <span class="n">aggregate_data</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">job</span><span class="o">.</span><span class="n">threshold</span><span class="p">)</span>
 
@@ -323,9 +324,9 @@ measurements</p>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">MyQPU</span><span class="p">(</span><span class="n">QPUHandler</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_specs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns a description of the hardware</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="n">HardwareSpecs</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>

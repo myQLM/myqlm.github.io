@@ -17,17 +17,17 @@ Here is an example of a translation:
 
         .. code-block:: python
 
-            from qat.qiskit.QaptivaToQiskit
+            from qat.qiskit.converters import qaptiva_to_qiskit
 
-            qiskit_circuit = QaptivaToQiskit(your_qaptiva_circuit)
+            qiskit_circuit = qaptiva_to_qiskit(your_qaptiva_circuit)
 
     .. tab-item:: Translate to Qaptiva
 
         .. code-block:: python
 
-            from qat.qiskit.QiskitToQaptiva
+            from qat.qiskit.converts import qiskit_to_qaptiva
 
-            qaptiva_circuit = QiskitToQaptiva(your_qiskit_circuit)
+            qaptiva_circuit = qiskit_to_qaptiva(your_qiskit_circuit)
 
 Submitting circuits to Qaptiva Access
 -------------------------------------
@@ -95,7 +95,7 @@ Next, here is an example with an Estimator:
     service = QaptivaService()
     backend = service.backend("LinAlg")
     estimator = Estimator(backend)
-    job = estimator.run([qiskit_pub], shots=10)
+    job = estimator.run([qiskit_pub], precision=0.01)
     print(job)
     print(job.status())
     print(job.result())

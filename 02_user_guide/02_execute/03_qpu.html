@@ -9,7 +9,7 @@
   <title>Quantum Processing Unit (QPU) &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../static/js/theme.js"></script>
@@ -61,7 +62,7 @@
 <li class="toctree-l4"><a class="reference internal" href="03_qpu/%3Amyqlm%3A01_gate_based.html">Gate based computing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="03_qpu/02_analog.html">Analog computing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="03_qpu/03_annealing.html">SQA computing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="03_qpu/04_custom_qpu.html">Make your own QPU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="03_qpu/05_custom_qpu.html">Make your own QPU</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="04_plugin.html">Extending a QPU (by using Plugins)</a></li>
@@ -148,7 +149,7 @@ server mode. This method takes the PORT and the IP as arguments. For instance:</
 
 <span class="c1"># Define a PORT and a IP</span>
 <span class="n">PORT</span> <span class="o">=</span> <span class="mi">1234</span>
-<span class="n">IP</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
+<span class="n">IP</span> <span class="o">=</span> <span class="s2">"*"</span>
 
 <span class="c1"># Define a QPU</span>
 <span class="n">qpu</span> <span class="o">=</span> <span class="n">CLinalg</span><span class="p">()</span>
@@ -167,7 +168,7 @@ Assuming the server is listening to the port <code class="code docutils literal 
 
 <span class="c1"># Define PORT and IP</span>
 <span class="n">PORT</span> <span class="o">=</span> <span class="mi">1234</span>
-<span class="n">IP</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
+<span class="n">IP</span> <span class="o">=</span> <span class="s2">"127.0.0.1"</span>
 
 <span class="c1"># Define a client</span>
 <span class="n">qpu</span> <span class="o">=</span> <span class="n">RemoteQPU</span><span class="p">(</span><span class="n">PORT</span><span class="p">,</span> <span class="n">IP</span><span class="p">)</span>
@@ -183,7 +184,7 @@ of a Batch/Job, the result of the execution would be lost</p>
 </div>
 </details><div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Executing a <a class="reference internal" href="../../04_api_reference/module_qat/module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> (or a <a class="reference internal" href="../../04_api_reference/module_qat/module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) on any of the available QPUs (even for <a class="reference internal" href="03_qpu/04_custom_qpu.html#custom-qpu-sec"><span class="std std-ref">custom-made</span></a> ones) should be performed by calling the <a class="reference internal" href="../../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler.submit" title="qat.qpus.QPUHandler.submit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">submit()</span></code></a> function (inherited from the parent class <a class="reference internal" href="../../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler" title="qat.qpus.QPUHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUHandler</span></code></a>) thus not circumventing any beneficial pre- or post-processing.</p>
+<p>Executing a <a class="reference internal" href="../../04_api_reference/module_qat/module_core/job.html#qat.core.Job" title="qat.core.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a> (or a <a class="reference internal" href="../../04_api_reference/module_qat/module_core/batch.html#qat.core.Batch" title="qat.core.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>) on any of the available QPUs (even for <a class="reference internal" href="03_qpu/05_custom_qpu.html#custom-qpu-sec"><span class="std std-ref">custom-made</span></a> ones) should be performed by calling the <a class="reference internal" href="../../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler.submit" title="qat.qpus.QPUHandler.submit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">submit()</span></code></a> function (inherited from the parent class <a class="reference internal" href="../../04_api_reference/module_qat/module_qpus/qpuhandler.html#qat.qpus.QPUHandler" title="qat.qpus.QPUHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">QPUHandler</span></code></a>) thus not circumventing any beneficial pre- or post-processing.</p>
 </div>
 <div class="toctree-wrapper compound">
 </div>
@@ -225,7 +226,7 @@ SQA computing</div>
 <div class="sd-card-title sd-font-weight-bold docutils">
 Make your own QPU</div>
 </div>
-<a class="sd-stretched-link sd-hide-link-text reference internal" href="03_qpu/04_custom_qpu.html"><span class="doc">03_qpu/04_custom_qpu.rst</span></a></div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="03_qpu/05_custom_qpu.html"><span class="doc">03_qpu/05_custom_qpu.rst</span></a></div>
 </div>
 </div>
 </div>

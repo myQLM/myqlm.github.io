@@ -9,7 +9,7 @@
   <title>Qiskit 2.0 interoperability with qat-qiskit &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="static/jquery.js?v=5d32c60e"></script>
       <script src="static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="static/documentation_options.js?v=8a448e45"></script>
-      <script src="static/doctools.js?v=9bcbadda"></script>
-      <script src="static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="static/doctools.js?v=fd6eb6e6"></script>
+      <script src="static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="static/js/custom.js?v=e5e94349"></script>
       <script src="static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="static/js/theme.js"></script>
@@ -58,6 +59,7 @@
 <li class="toctree-l2"><a class="reference internal" href="02_user_guide/03_compile.html">Compiling and rewriting quantum circuits</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="fermion.html">Spin and fermionic systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="synthesis.html">Synthesizing quantum circuits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="combinatorial_optim_applic.html">Combinatorial optimization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a></li>
 <li class="toctree-l3"><a class="reference internal" href="interoperability_annealing.html">Interoperability with annealing framework</a></li>
@@ -121,18 +123,18 @@ or the function <a class="reference internal" href="04_api_reference/module_qat/
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-0">
 Translate to Qiskit</label><div class="sd-tab-content docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.qiskit.QaptivaToQiskit</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.qiskit.converters</span><span class="w"> </span><span class="kn">import</span> <span class="n">qaptiva_to_qiskit</span>
 
-<span class="n">qiskit_circuit</span> <span class="o">=</span> <span class="n">QaptivaToQiskit</span><span class="p">(</span><span class="n">your_qaptiva_circuit</span><span class="p">)</span>
+<span class="n">qiskit_circuit</span> <span class="o">=</span> <span class="n">qaptiva_to_qiskit</span><span class="p">(</span><span class="n">your_qaptiva_circuit</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-1">
 Translate to Qaptiva</label><div class="sd-tab-content docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.qiskit.QiskitToQaptiva</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.qiskit.converts</span><span class="w"> </span><span class="kn">import</span> <span class="n">qiskit_to_qaptiva</span>
 
-<span class="n">qaptiva_circuit</span> <span class="o">=</span> <span class="n">QiskitToQaptiva</span><span class="p">(</span><span class="n">your_qiskit_circuit</span><span class="p">)</span>
+<span class="n">qaptiva_circuit</span> <span class="o">=</span> <span class="n">qiskit_to_qaptiva</span><span class="p">(</span><span class="n">your_qiskit_circuit</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -155,8 +157,8 @@ to the backend. It would not run without it.</p>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">bell_pair</span><span class="p">():</span>
-    <span class="n">qr</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;q&#39;</span><span class="p">)</span>
-    <span class="n">cr</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+    <span class="n">qr</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'q'</span><span class="p">)</span>
+    <span class="n">cr</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">)</span>
     <span class="n">circuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
     <span class="n">circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">qr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">circuit</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">qr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qr</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -165,7 +167,7 @@ to the backend. It would not run without it.</p>
 
 <span class="n">circuit</span> <span class="o">=</span> <span class="n">bell_pair</span><span class="p">()</span>
 <span class="n">service</span> <span class="o">=</span> <span class="n">QaptivaService</span><span class="p">()</span>
-<span class="n">backend</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">backend</span><span class="p">(</span><span class="s2">&quot;LinAlg&quot;</span><span class="p">)</span>
+<span class="n">backend</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">backend</span><span class="p">(</span><span class="s2">"LinAlg"</span><span class="p">)</span>
 <span class="n">sampler</span> <span class="o">=</span> <span class="n">Sampler</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
 <span class="n">job</span> <span class="o">=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">circuit</span><span class="p">],</span> <span class="n">shots</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
@@ -180,11 +182,11 @@ to the backend. It would not run without it.</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">QaptivaService</span><span class="p">,</span> <span class="n">Estimator</span>
 
 <span class="n">observable</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
-    <span class="p">[(</span><span class="s2">&quot;II&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;XX&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;YY&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;ZZ&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">)]</span>
+    <span class="p">[(</span><span class="s2">"II"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s2">"XX"</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s2">"YY"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s2">"ZZ"</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">)]</span>
 <span class="p">)</span>
 
-<span class="n">theta</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;θ&#39;</span><span class="p">)</span>
-<span class="n">phi</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;φ&#39;</span><span class="p">)</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="s1">'θ'</span><span class="p">)</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="s1">'φ'</span><span class="p">)</span>
 
 <span class="n">quantum_circuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">quantum_circuit</span><span class="o">.</span><span class="n">rx</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
@@ -194,9 +196,9 @@ to the backend. It would not run without it.</p>
 <span class="n">qiskit_pub</span> <span class="o">=</span>  <span class="p">(</span><span class="n">quantum_circuit</span><span class="p">,</span> <span class="n">observable</span><span class="p">,</span> <span class="n">param_dict</span><span class="p">)</span>
 
 <span class="n">service</span> <span class="o">=</span> <span class="n">QaptivaService</span><span class="p">()</span>
-<span class="n">backend</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">backend</span><span class="p">(</span><span class="s2">&quot;LinAlg&quot;</span><span class="p">)</span>
+<span class="n">backend</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">backend</span><span class="p">(</span><span class="s2">"LinAlg"</span><span class="p">)</span>
 <span class="n">estimator</span> <span class="o">=</span> <span class="n">Estimator</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
-<span class="n">job</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">qiskit_pub</span><span class="p">],</span> <span class="n">shots</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">qiskit_pub</span><span class="p">],</span> <span class="n">precision</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>

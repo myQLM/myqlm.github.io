@@ -20,6 +20,101 @@ section :ref:`gate-based programming <circuit>`
     [:func:`qat.lang.qfunc`] qfunc decorator, to define a gate-based quantum function
 
 
+Default gate set
+----------------
+|product| provides a set of predefined gates, which can be used to create quantum circuits.
+
+.. autoapi::
+
+    [:const:`qat.lang.CNOT`] Definition of the Controlled NOT gate
+    [:const:`qat.lang.CCNOT`] Definition of the Toffoli gate
+    [:const:`qat.lang.CSIGN`] Definition of the Controlled Z gate
+    [:const:`qat.lang.H`] Definition of the H gate
+    [:const:`qat.lang.I`] Definition of the I gate
+    [:const:`qat.lang.ISWAP`] Definition of the iSWAP gate
+    [:const:`qat.lang.PH`] Definition of the Phase shift gate
+    [:const:`qat.lang.RX`] Definition of the RX gate
+    [:const:`qat.lang.RY`] Definition of the RY gate
+    [:const:`qat.lang.RZ`] Definition of the RZ gate
+    [:const:`qat.lang.S`] Definition of the S gate
+    [:const:`qat.lang.SQRTSWAP`] Definition of the :math:`\sqrt{SWAP}` gate
+    [:const:`qat.lang.SWAP`] Definition of the SWAP gate
+    [:const:`qat.lang.T`] Definition of the T gate
+    [:const:`qat.lang.X`] Definition of the X gate
+    [:const:`qat.lang.Y`] Definition of the Y gate
+    [:const:`qat.lang.Z`] Definition of the Z gate
+
+Additionally, |product| provides somes gates which can be used to directly build a :class:`~qat.lang.Program`.
+
+.. toctree::
+    :hidden:
+
+    module_lang/prx.rst
+    module_lang/rxx.rst
+    module_lang/ecr.rst
+    module_lang/rzz.rst
+    module_lang/sx.rst
+    module_lang/k.rst
+    module_lang/zz.rst
+    module_lang/gpi.rst
+    module_lang/gpi2.rst
+    module_lang/pms.rst
+
+.. tab-set::
+
+    .. tab-item:: AQT gates
+
+        .. autoapi::
+            :no-toctree:
+
+            [:const:`qat.lang.vendors.PRX`] R gate from AQT gate set (also known as PRX)
+            [:const:`qat.lang.vendors.RXX`] RXX gate from AQT gate set
+            [:const:`qat.lang.RZ`] RZ gate similar to the one in default gate set
+
+    .. tab-item:: IBM gates
+
+        .. autoapi::
+            :no-toctree:
+
+            [:const:`qat.lang.CSIGN`] CZ gate similar to the one in default gate set
+            [:const:`qat.lang.vendors.ECR`] ECR gate from IBM gate set
+            [:const:`qat.lang.I`] I gate similar to the one in default gate set
+            [:const:`qat.lang.RX`] RX gate similar to the one in default gate set
+            [:const:`qat.lang.RZ`] RZ gate similar to the one in default gate set
+            [:const:`qat.lang.vendors.RZZ`] RZZ gate from IBM gate set
+            [:const:`qat.lang.vendors.SX`] :math:`\sqrt{X}` gate from IBM gate set
+            [:const:`qat.lang.X`] X gate similar to the one in default gate set
+            [:const:`qat.lang.vendors.ZZ`] ZZ gate from IBM gate set
+
+    .. tab-item:: IonQ gates
+
+        .. autoapi::
+            :no-toctree:
+
+            [:const:`qat.lang.vendors.GPi`] GPi gate (Gate Pi) from IonQ gate set
+            [:const:`qat.lang.vendors.GPi2`] GPi2 gate (Gate Pi/2) from IonQ gate set
+            [:const:`qat.lang.vendors.PMS`] PMS (Phased Mølmer-Sørensen gate) gate from IonQ gate set
+            [:const:`qat.lang.vendors.ZZ`] ZZ gate from IonQ gate set
+
+    .. tab-item:: IQM gates
+
+        .. autoapi::
+            :no-toctree:
+
+            [:const:`qat.lang.CSIGN`] CZ gate similar to the one in default gate set
+            [:const:`qat.lang.vendors.PRX`] PRX gate from IQM gate set
+            [:const:`qat.lang.RZ`] RZ gate similar to the one in default gate set
+
+    .. tab-item:: Quobly gates
+
+        .. autoapi::
+            :no-toctree:
+
+            [:const:`qat.lang.vendors.K`] K gate from Quobly gate set
+            [:const:`qat.lang.RZ`] RZ gate similar to the one in default gate set
+            [:const:`qat.lang.vendors.ZZ`] ZZ gate from Quobly gate set
+
+
 Gate structures
 ---------------
 
@@ -77,6 +172,19 @@ Gate set management
 .. autoapi::
 
     [:func:`qat.lang.AQASM.misc.generate_gate_set`] Gate set generator
+
+
+External gate sets
+------------------
+|product| provides some gate set builder, corresponding to the gate set of known QPUs:
+
+.. autoapi::
+
+    [:func:`qat.lang.vendors.aqt_gate_set`] Generate a gate set corresponding to AQT's hardware
+    [:func:`qat.lang.vendors.ibm_gate_set`] Generate a gate set corresponding to IBM's hardware
+    [:func:`qat.lang.vendors.ionq_gate_set`] Generate a gate set corresponding to IonQ's hardware
+    [:func:`qat.lang.vendors.iqm_gate_set`] Generate a gate set corresponding to IQM's hardware
+    [:func:`qat.lang.vendors.quobly_gate_set`] Generate a gate set corresponding to Quobly's hardware
 
 
 Linker and low level circuit manipulation
@@ -176,12 +284,3 @@ Additionally, the submodule `qat.lang.algorithms.amplification` contains some fu
     [:func:`qat.lang.algorithms.amplification.uniform_distribution`] Prepare a uniform distribution from state :math:`|0...0\rangle`
     [:func:`qat.lang.algorithms.amplification.householder`] Performs a Householder for any unitary
     [:func:`qat.lang.algorithms.amplification.grover_diffusion`] Grover diffusion
-
-
-External gate sets
-------------------
-|product| provides some gate set builder, corresponding to the gate set of known QPUs:
-
-.. autoapi::
-
-    [:func:`qat.lang.vendors.quobly_gate_set`] Generate a gate set corresponding to Quobly's hardware

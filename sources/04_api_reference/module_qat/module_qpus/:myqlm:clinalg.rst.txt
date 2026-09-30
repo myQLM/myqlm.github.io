@@ -33,44 +33,6 @@ High-level Quantum Processing Unit
 This high-level class wrapping the simulator follows the convention
 of the :class:`qat.qpus.QPUHandler` structure.
 
+.. note::
 
-C++ Low-level Statevector
--------------------------
-
-Though not the standard or recommended way of using :class:`qat.qpus.CLinalg`, the C++ statevector
-object underneath this QPU can be accessed throught the *statevector* parameter, for instance:
-
-.. run-block:: python
-
-    from qat.clinalg import CLinalg
-    qpu = CLinalg()
-    # change number of qubits to 2
-    qpu.statevector.resize(2)
-    # reset the state to |00> and print the state
-    qpu.statevector.reset()
-    qpu.statevector.print()
-
-
-.. warning::
-
-    Do consider that the bit convention used in this lower-level statevector is reversed compared
-    to the more intuitive one supported by the QPU interface.
-    Intuitively, you will consider a state :math:`|i_0i_1i_2i_3\rangle` (with qubit 0 being the
-    most significant bit); however the ordering used by the low-level statevector instance
-    :math:`|i_3i_2i_1i_0\rangle` (with qubit 0 being the least significant bit).
-    This influences the statevector methods *print*, *reset* (if a value is provided) and the way
-    in which the statevector is interacted with through the *array* property.
-
-
-Pybind interface
-................
-
-.. parseonly:: myqlm
-
-    .. autoclass:: qat.myqlm_clinalg.wrapper.StateVectorCPUDouble
-        :members:
-
-.. parseonly:: distributed
-
-    .. autoclass:: qat.hpc_clinalg.wrapper.StateVectorCPUDouble
-        :members:
+   :code:`CLinAlg` is an alias of :class:`~qat.qpus.CLinalg`.

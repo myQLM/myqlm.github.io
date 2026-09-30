@@ -9,7 +9,7 @@
   <title>Getting started &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="static/jquery.js?v=5d32c60e"></script>
       <script src="static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="static/documentation_options.js?v=8a448e45"></script>
-      <script src="static/doctools.js?v=9bcbadda"></script>
-      <script src="static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="static/doctools.js?v=fd6eb6e6"></script>
+      <script src="static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="static/js/custom.js?v=e5e94349"></script>
       <script src="static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="static/js/theme.js"></script>
@@ -110,7 +111,7 @@ in an analog schedule, etc.)</p>
 Quantum Hello World</div>
 <p class="sd-card-text">The following code snippet creates and simulates a simple Bell pair circuit:</p>
 <figure class="align-default">
-<a class="reference internal image-reference" href="images/bell_pair.png"><img alt="images/bell_pair.png" src="images/bell_pair.png" style="width: 153.0px; height: 76.0px;" />
+<a class="reference internal image-reference" href="images/bell_pair.png"><img alt="images/bell_pair.png" height="76" src="images/bell_pair.png" width="153" />
 </a>
 </figure>
 <div class="sd-tab-set docutils">
@@ -127,7 +128,7 @@ Functional mode</label><div class="sd-tab-content docutils">
 <span class="n">result</span> <span class="o">=</span> <span class="n">bell_pair</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 
 <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;State </span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="si">}</span><span class="s2"> amplitude </span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">amplitude</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"State </span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="si">}</span><span class="s2"> amplitude </span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">amplitude</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">State</span> <span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span> <span class="n">amplitude</span> <span class="p">(</span><span class="mf">0.7071067811865475</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">)</span>
@@ -173,7 +174,7 @@ Sequential mode</label><div class="sd-tab-content docutils">
 
 <span class="c1"># Iterate over the final state vector to get all final components</span>
 <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;State </span><span class="si">%s</span><span class="s2"> amplitude </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">amplitude</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"State </span><span class="si">%s</span><span class="s2"> amplitude </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">amplitude</span><span class="p">))</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">State</span> <span class="o">|</span><span class="mi">00</span><span class="o">&gt;</span> <span class="n">amplitude</span> <span class="p">(</span><span class="mf">0.7071067811865475</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">)</span>

@@ -9,7 +9,7 @@
   <title>LazySynthesis: quantum circuit compilation &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -129,7 +130,7 @@
 <h2>The base algorithm/plugin<a class="headerlink" href="#the-base-algorithm-plugin" title="Link to this heading"></a></h2>
 <p>The <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/lazysynthesis.html#qat.plugins.LazySynthesis" title="qat.plugins.LazySynthesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.LazySynthesis</span></code></a> plugin uses in-house meta-heuristics that strictly generalize the standard SWAP insertion techniques in order to generate connectivity compliant circuit.
 It works by lazily synthesizing pieces of linear boolean operators using sub-circuits matching the hardware connectivity.
-The algorithm itself is detailed in <span id="id1">[<a class="reference internal" href="../../03_compile.html#id3" title="Simon Martiel and Timothée Goubault de Brugière. Architecture aware compilation of quantum circuits via lazy synthesis. 2020. arXiv:2012.09663.">MdB20</a>]</span>.</p>
+The algorithm itself is detailed in <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../../03_compile.html#id3" title="Simon Martiel and Timothée Goubault de Brugière. Architecture aware compilation of quantum circuits via lazy synthesis. 2020. arXiv:2012.09663.">MdB20</a>]</span>.</p>
 <p>Additionally, since it is a Plugin, <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/lazysynthesis.html#qat.plugins.LazySynthesis" title="qat.plugins.LazySynthesis"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazySynthesis</span></code></a> is able to skip the synthesis of the final CNOTs and store the final linear operator
 in order to post-process samples or alter the compiled job’s observable to an equivalent one.
 This feature might save up a large number of CNOTs depending on the connectivity and/or the circuit.
@@ -171,89 +172,89 @@ These passes might change operators <span class="math notranslate nohighlight">\
 <span class="n">circuit</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
 <span class="n">job</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineDevice</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Without renormalization:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Without renormalization:"</span><span class="p">)</span>
 <span class="n">new_job</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">LazySynthesis</span><span class="p">(</span><span class="n">bidirectional</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">compile_job</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">LineDevice</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">gate</span> <span class="ow">in</span> <span class="n">new_job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">gate</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;With renormalization:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"With renormalization:"</span><span class="p">)</span>
 <span class="n">new_job</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">LazySynthesis</span><span class="p">(</span><span class="n">bidirectional</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">compile_job</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">LineDevice</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">gate</span> <span class="ow">in</span> <span class="n">new_job</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">gate</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Without</span> <span class="n">renormalization</span><span class="p">:</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.2311</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">4</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">5</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">6</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">7</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">8</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">9</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">4</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">5</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">6</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">7</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">8</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'RZ'</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.2311</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">9</span><span class="p">])</span>
 <span class="n">With</span> <span class="n">renormalization</span><span class="p">:</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">9</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">8</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">7</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">6</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">5</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">4</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">9</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">8</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">7</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">6</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">5</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">4</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;RZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.2311</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">4</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">5</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">6</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">7</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">8</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">9</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">4</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">5</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">6</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">7</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">8</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'RZ'</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.2311</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">9</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>In this example, the renormalization process basically stripped all Clifford gates out of the circuit. This is of course an extreme example.
@@ -293,10 +294,10 @@ normalization backend:         LazySynthesis
     initial rotation count: 1
     new rotation count after pruning: 0
  Final circuit CNOT-equivalent count: 0
-(&#39;H&#39;, [], [0])
-(&#39;H&#39;, [], [1])
-(&#39;H&#39;, [], [0])
-(&#39;H&#39;, [], [1])
+('H', [], [0])
+('H', [], [1])
+('H', [], [0])
+('H', [], [1])
 </pre></div>
 </div>
 <p>Indeed, in this example, the circuit does strictly nothing when applied to state <span class="math notranslate nohighlight">\(|0\rangle\)</span> (since it contains a single ZZ rotations, and operator ZZ stabilizes <span class="math notranslate nohighlight">\(|0\rangle\)</span>).

@@ -9,7 +9,7 @@
   <title>qat.plugins.ScipyMinimizePlugin &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../static/js/theme.js"></script>
@@ -93,10 +94,12 @@
 <li class="toctree-l4"><a class="reference internal" href="zeronoiseextrapolator.html">qat.plugins.ZeroNoiseExtrapolator</a></li>
 <li class="toctree-l4"><a class="reference internal" href="abstractplugin.html">qat.plugins.AbstractPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="display.html">qat.plugins.Display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="emptyplugin.html">qat.plugins.EmptyPlugin.rst</a></li>
 <li class="toctree-l4"><a class="reference internal" href="junction.html">qat.plugins.Junction</a></li>
 <li class="toctree-l4"><a class="reference internal" href="optimizer.html">qat.plugins.Optimizer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quameleonplugin.html">qat.plugins.QuameleonPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="remoteplugin.html">qat.plugins.RemotePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="statplugin.html">qat.plugins.StatPlugin</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
@@ -149,7 +152,7 @@
 <h1>qat.plugins.ScipyMinimizePlugin<a class="headerlink" href="#qat-plugins-scipyminimizeplugin" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.plugins.ScipyMinimizePlugin">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">ScipyMinimizePlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binding_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.ScipyMinimizePlugin" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">ScipyMinimizePlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binding_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.ScipyMinimizePlugin" title="Link to this definition"></a></dt>
 <dd><p>A variational plugin for hybrid quantum classical optimization
 based on the <cite>scipy.optimize.minimize</cite> method.</p>
 <p>It is a particularization of the <a class="reference internal" href="optimizer.html#qat.plugins.Optimizer" title="qat.plugins.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> class.</p>
@@ -174,9 +177,9 @@ in which case we assume random initilization.</p></li>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinAlg</span>
 
 <span class="n">plugin</span> <span class="o">=</span> <span class="n">ScipyMinimizePlugin</span><span class="p">(</span><span class="n">x0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
-                             <span class="n">method</span><span class="o">=</span><span class="s2">&quot;COBYLA&quot;</span><span class="p">,</span>
+                             <span class="n">method</span><span class="o">=</span><span class="s2">"COBYLA"</span><span class="p">,</span>
                              <span class="n">tol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
-                             <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;maxiter&quot;</span><span class="p">:</span> <span class="mi">300</span><span class="p">})</span>
+                             <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">"maxiter"</span><span class="p">:</span> <span class="mi">300</span><span class="p">})</span>
 
 <span class="n">stack</span> <span class="o">=</span> <span class="n">plugin</span> <span class="o">|</span> <span class="n">LinAlg</span><span class="p">()</span>
 <span class="c1"># Any job will run, as long as it contains 10 variables!</span>

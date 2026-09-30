@@ -9,9 +9,8 @@ The code of :mod:`qat.fermion` is open-source and part of the myQLM suite. The s
 
 .. module:: qat.fermion.hamiltonians
 
-
 Hamiltonians constructors
-_________________________
+-------------------------
 
 To help you write your own Hamiltonian for various spin and fermionic systems, we provide various Hamiltonian classes.
 
@@ -23,10 +22,9 @@ To help you write your own Hamiltonian for various spin and fermionic systems, w
 
 
 Common many-body Hamiltonians
-_____________________________
+-----------------------------
 
 Some of the most common models have their own Hamiltonian generators.
-
 
 .. autoapi::
 
@@ -35,11 +33,10 @@ Some of the most common models have their own Hamiltonian generators.
     [:func:`qat.fermion.hamiltonians.make_embedded_model`] The generalized impurity Hamiltonian
 
 
-The spin-fermion transforms
-___________________________
-
 .. module:: qat.fermion.transforms
 
+The spin-fermion transforms
+---------------------------
 
 Various fermionic-to-spin transforms are provided.
 
@@ -50,10 +47,10 @@ Various fermionic-to-spin transforms are provided.
     [:func:`qat.fermion.transforms.transform_to_parity_basis`] Fermionic to spin using parity encoding
 
 
-Fermionic ansatz circuits
-_________________________
-
 .. module:: qat.fermion.circuits
+
+Fermionic ansatz circuits
+-------------------------
 
 We provide various common ansatz generators.
 
@@ -70,7 +67,7 @@ We provide various common ansatz generators.
 .. module:: qat.fermion.chemistry
 
 Atomic and molecular studies
-____________________________
+----------------------------
 
 We provide helper classes aimed at automating various aspects of atomic and molecular studies.
 
@@ -83,7 +80,7 @@ We provide helper classes aimed at automating various aspects of atomic and mole
 .. module:: qat.fermion.chemistry.ucc
 
 Unitary Coupled-Cluster (UCC)
-_____________________________
+-----------------------------
 
 We provide various tools specific to UCC.
 
@@ -99,10 +96,10 @@ We provide various tools specific to UCC.
     [:func:`qat.fermion.chemistry.ucc.get_cluster_ops`] Compute the cluster operators
 
 
-Quantum subspace expansion
-__________________________
-
 .. module:: qat.fermion.chemistry.qse
+
+Quantum subspace expansion
+--------------------------
 
 An implementation of the quantum subspace expansion is available.
 
@@ -113,10 +110,12 @@ An implementation of the quantum subspace expansion is available.
 
 .. _qat-fermion_source_qpe:
 
-Quantum phase estimation
-________________________
 
 .. module:: qat.fermion.phase_estimation
+
+Quantum phase estimation
+------------------------
+
 
 An implementation of the quantum phase estimation algorithm is available.
 
@@ -126,7 +125,7 @@ An implementation of the quantum phase estimation algorithm is available.
 
 
 Utility functions
-_________________
+-----------------
 
 Two utility functions may be used to speed up your own implementations.
 
@@ -135,3 +134,15 @@ Two utility functions may be used to speed up your own implementations.
     [:func:`qat.fermion.trotterisation.make_trotterisation_routine`] Trotterizes (first order) the evolution operator of a Hamiltonian
     [:func:`qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation`] Helper function to perform various calculations using PySCF
 
+
+.. module:: qat.fermion.correlators
+
+Correlation functions
+---------------------
+
+Cicuits to compute correlation functions.
+
+.. autoapi::
+
+   [:func:`qat.fermion.correlators.circuits_for_correlator`] Make circuits to obtain correlation function using the Hadamard test
+   [:func:`qat.fermion.correlators.evaluate_circuits`] Evaluate the circuits and process the results to yield a correlator

@@ -9,7 +9,7 @@
   <title>qat.fermion &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../static/js/theme.js"></script>
@@ -90,6 +91,8 @@
 <li class="toctree-l4"><a class="reference internal" href="module_fermion/perform_phase_estimation.html">qat.fermion.phase_estimation.perform_phase_estimation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_fermion/make_trotterisation_routine.html">qat.fermion.trotterisation.make_trotterisation_routine</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_fermion/perform_pyscf_computation.html">qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_fermion/circuits_for_correlator.html">qat.fermion.correlators.circuits_for_correlator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_fermion/evaluate_circuits.html">qat.fermion.correlators.evaluate_circuits</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="module_fusion.html">qat.fusion</a></li>
@@ -196,8 +199,8 @@ The code of <a class="reference internal" href="#module-qat.fermion" title="qat.
 <div class="toctree-wrapper compound">
 </div>
 </section>
-<section id="module-qat.fermion.transforms">
-<span id="the-spin-fermion-transforms"></span><h2>The spin-fermion transforms<a class="headerlink" href="#module-qat.fermion.transforms" title="Link to this heading"></a></h2>
+<section id="the-spin-fermion-transforms">
+<span id="module-qat.fermion.transforms"></span><h2>The spin-fermion transforms<a class="headerlink" href="#the-spin-fermion-transforms" title="Link to this heading"></a></h2>
 <p>Various fermionic-to-spin transforms are provided.</p>
 <table class="docutils align-center" style="width: 80%">
 <colgroup>
@@ -219,8 +222,8 @@ The code of <a class="reference internal" href="#module-qat.fermion" title="qat.
 <div class="toctree-wrapper compound">
 </div>
 </section>
-<section id="module-qat.fermion.circuits">
-<span id="fermionic-ansatz-circuits"></span><h2>Fermionic ansatz circuits<a class="headerlink" href="#module-qat.fermion.circuits" title="Link to this heading"></a></h2>
+<section id="fermionic-ansatz-circuits">
+<span id="module-qat.fermion.circuits"></span><h2>Fermionic ansatz circuits<a class="headerlink" href="#fermionic-ansatz-circuits" title="Link to this heading"></a></h2>
 <p>We provide various common ansatz generators.</p>
 <table class="docutils align-center" style="width: 80%">
 <colgroup>
@@ -309,8 +312,8 @@ The code of <a class="reference internal" href="#module-qat.fermion" title="qat.
 <div class="toctree-wrapper compound">
 </div>
 </section>
-<section id="module-qat.fermion.chemistry.qse">
-<span id="quantum-subspace-expansion"></span><h2>Quantum subspace expansion<a class="headerlink" href="#module-qat.fermion.chemistry.qse" title="Link to this heading"></a></h2>
+<section id="quantum-subspace-expansion">
+<span id="module-qat.fermion.chemistry.qse"></span><h2>Quantum subspace expansion<a class="headerlink" href="#quantum-subspace-expansion" title="Link to this heading"></a></h2>
 <p>An implementation of the quantum subspace expansion is available.</p>
 <table class="docutils align-center" style="width: 80%">
 <colgroup>
@@ -326,8 +329,8 @@ The code of <a class="reference internal" href="#module-qat.fermion" title="qat.
 <div class="toctree-wrapper compound">
 </div>
 </section>
-<section id="module-qat.fermion.phase_estimation">
-<span id="quantum-phase-estimation"></span><span id="qat-fermion-source-qpe"></span><h2>Quantum phase estimation<a class="headerlink" href="#module-qat.fermion.phase_estimation" title="Link to this heading"></a></h2>
+<section id="quantum-phase-estimation">
+<span id="module-qat.fermion.phase_estimation"></span><span id="qat-fermion-source-qpe"></span><h2>Quantum phase estimation<a class="headerlink" href="#quantum-phase-estimation" title="Link to this heading"></a></h2>
 <p>An implementation of the quantum phase estimation algorithm is available.</p>
 <table class="docutils align-center" style="width: 80%">
 <colgroup>
@@ -357,6 +360,26 @@ The code of <a class="reference internal" href="#module-qat.fermion" title="qat.
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="module_fermion/perform_pyscf_computation.html#qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation" title="qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.fermion.chemistry.pyscf_tools.perform_pyscf_computation()</span></code></a></p></td>
 <td><p>Helper function to perform various calculations using PySCF</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="correlation-functions">
+<span id="module-qat.fermion.correlators"></span><h2>Correlation functions<a class="headerlink" href="#correlation-functions" title="Link to this heading"></a></h2>
+<p>Cicuits to compute correlation functions.</p>
+<table class="docutils align-center" style="width: 80%">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_fermion/circuits_for_correlator.html#qat.fermion.correlators.circuits_for_correlator" title="qat.fermion.correlators.circuits_for_correlator"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.fermion.correlators.circuits_for_correlator()</span></code></a></p></td>
+<td><p>Make circuits to obtain correlation function using the Hadamard test</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_fermion/evaluate_circuits.html#qat.fermion.correlators.evaluate_circuits" title="qat.fermion.correlators.evaluate_circuits"><code class="xref py py-func docutils literal notranslate"><span class="pre">qat.fermion.correlators.evaluate_circuits()</span></code></a></p></td>
+<td><p>Evaluate the circuits and process the results to yield a correlator</p></td>
 </tr>
 </tbody>
 </table>

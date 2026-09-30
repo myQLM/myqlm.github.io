@@ -9,7 +9,7 @@
   <title>qat.plugins &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../static/js/theme.js"></script>
@@ -93,10 +94,12 @@
 <li class="toctree-l4"><a class="reference internal" href="module_plugins/zeronoiseextrapolator.html">qat.plugins.ZeroNoiseExtrapolator</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_plugins/abstractplugin.html">qat.plugins.AbstractPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_plugins/display.html">qat.plugins.Display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/emptyplugin.html">qat.plugins.EmptyPlugin.rst</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_plugins/junction.html">qat.plugins.Junction</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_plugins/optimizer.html">qat.plugins.Optimizer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_plugins/quameleonplugin.html">qat.plugins.QuameleonPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="module_plugins/remoteplugin.html">qat.plugins.RemotePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_plugins/statplugin.html">qat.plugins.StatPlugin</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
@@ -277,17 +280,23 @@
 <tr class="row-even"><td><p><a class="reference internal" href="module_plugins/display.html#qat.plugins.Display" title="qat.plugins.Display"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.Display</span></code></a></p></td>
 <td><p>Display a quantum circuit in a terminal</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="module_plugins/junction.html#qat.plugins.Junction" title="qat.plugins.Junction"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.Junction</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_plugins/emptyplugin.html#qat.plugins.EmptyPlugin" title="qat.plugins.EmptyPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.EmptyPlugin</span></code></a></p></td>
+<td><p>Empty plugin doing nothing</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_plugins/junction.html#qat.plugins.Junction" title="qat.plugins.Junction"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.Junction</span></code></a></p></td>
 <td><p>Specialized abstract plugin allowing iterations inside a Qaptiva stack</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="module_plugins/optimizer.html#qat.plugins.Optimizer" title="qat.plugins.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.Optimizer</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_plugins/optimizer.html#qat.plugins.Optimizer" title="qat.plugins.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.Optimizer</span></code></a></p></td>
 <td><p>Specialized abstract junction performing variational optimization</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="module_plugins/quameleonplugin.html#qat.plugins.QuameleonPlugin" title="qat.plugins.QuameleonPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.QuameleonPlugin</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="module_plugins/quameleonplugin.html#qat.plugins.QuameleonPlugin" title="qat.plugins.QuameleonPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.QuameleonPlugin</span></code></a></p></td>
 <td><p>Plugin emulating hardware constraints</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="module_plugins/remoteplugin.html#qat.plugins.RemotePlugin" title="qat.plugins.RemotePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.RemotePlugin</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="module_plugins/remoteplugin.html#qat.plugins.RemotePlugin" title="qat.plugins.RemotePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.RemotePlugin</span></code></a></p></td>
 <td><p>Connect to a plugin running in a remote server</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="module_plugins/statplugin.html#qat.plugins.StatPlugin" title="qat.plugins.StatPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">qat.plugins.StatPlugin</span></code></a></p></td>
+<td><p>Plugin printing statistics on each job to compile</p></td>
 </tr>
 </tbody>
 </table>

@@ -9,7 +9,7 @@
   <title>InitialMapping: a qubit placement optimization plugin &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../static/js/theme.js"></script>
@@ -162,10 +163,10 @@ final circuit when used improperly!</p>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>The frequency mapping will start by mapping pairs of qubits that interact more frequently
@@ -197,11 +198,11 @@ In the present example, this leads to a worse mapping.</p>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>This illustrates the fact that these mapping methods should be used carefully since
@@ -213,12 +214,12 @@ For instance, we can use it together with a <a class="reference internal" href="
 
 <span class="n">instance</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
 <span class="n">problem</span> <span class="o">=</span> <span class="n">MaxCut</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
-<span class="n">job</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="s2">&quot;qaoa&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># &#39;2&#39; is the depth</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="s2">"qaoa"</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># '2' is the depth</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">InitialMapping</span><span class="p">,</span> <span class="n">Nnizer</span>
 
 <span class="n">stack1</span> <span class="o">=</span> <span class="n">Nnizer</span><span class="p">()</span>
-<span class="n">stack2</span> <span class="o">=</span> <span class="n">InitialMapping</span><span class="p">(</span><span class="s2">&quot;frequency&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">Nnizer</span><span class="p">()</span>
+<span class="n">stack2</span> <span class="o">=</span> <span class="n">InitialMapping</span><span class="p">(</span><span class="s2">"frequency"</span><span class="p">)</span> <span class="o">|</span> <span class="n">Nnizer</span><span class="p">()</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">qat.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridDevice</span>
 
@@ -231,19 +232,19 @@ For instance, we can use it together with a <a class="reference internal" href="
 <span class="n">batch2</span> <span class="o">=</span> <span class="n">stack2</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;Without remap:&quot;</span><span class="p">,</span>
-    <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">batch1</span><span class="o">.</span><span class="n">jobs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">()</span> <span class="k">if</span> <span class="n">op</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;SWAP&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;inserted&quot;</span>
+    <span class="s2">"Without remap:"</span><span class="p">,</span>
+    <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">batch1</span><span class="o">.</span><span class="n">jobs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">()</span> <span class="k">if</span> <span class="n">op</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"SWAP"</span><span class="p">),</span>
+    <span class="s2">"inserted"</span>
 <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;With remap:&quot;</span><span class="p">,</span>
-    <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">batch2</span><span class="o">.</span><span class="n">jobs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">()</span> <span class="k">if</span> <span class="n">op</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;SWAP&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;inserted&quot;</span>
+    <span class="s2">"With remap:"</span><span class="p">,</span>
+    <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">batch2</span><span class="o">.</span><span class="n">jobs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">()</span> <span class="k">if</span> <span class="n">op</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"SWAP"</span><span class="p">),</span>
+    <span class="s2">"inserted"</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Without</span> <span class="n">remap</span><span class="p">:</span> <span class="mi">213</span> <span class="n">inserted</span>
-<span class="n">With</span> <span class="n">remap</span><span class="p">:</span> <span class="mi">187</span> <span class="n">inserted</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Without</span> <span class="n">remap</span><span class="p">:</span> <span class="mi">220</span> <span class="n">inserted</span>
+<span class="n">With</span> <span class="n">remap</span><span class="p">:</span> <span class="mi">172</span> <span class="n">inserted</span>
 </pre></div>
 </div>
 </section>

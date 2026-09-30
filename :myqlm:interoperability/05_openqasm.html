@@ -9,7 +9,7 @@
   <title>OpenQASM Compiler &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../static/jquery.js?v=5d32c60e"></script>
       <script src="../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../static/doctools.js?v=9bcbadda"></script>
-      <script src="../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../static/js/custom.js?v=e5e94349"></script>
       <script src="../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../static/js/theme.js"></script>
@@ -58,6 +59,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../02_user_guide/03_compile.html">Compiling and rewriting quantum circuits</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../fermion.html">Spin and fermionic systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../synthesis.html">Synthesizing quantum circuits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../combinatorial_optim_applic.html">Combinatorial optimization</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html#available-binders">Available binders</a><ul class="current">
@@ -134,7 +136,7 @@ oqasm2circ<span class="w"> </span>bell.qasm<span class="w"> </span>bell.cirq
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qat.interop.openqasm</span><span class="w"> </span><span class="kn">import</span> <span class="n">OqasmParser</span>
 
 <span class="c1"># Define a bell pair QASM circuit</span>
-<span class="n">bell_data</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="n">bell_data</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">OPENQASM 2.0;</span>
 
 <span class="s2">// Allocate qubits and cbits</span>
@@ -148,16 +150,16 @@ oqasm2circ<span class="w"> </span>bell.qasm<span class="w"> </span>bell.cirq
 <span class="s2">// Measure</span>
 <span class="s2">measure q[0] -&gt; c[0];</span>
 <span class="s2">measure q[1] -&gt; c[1];</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 
 <span class="c1"># Translate into a myQLM circuit</span>
 <span class="n">parser</span> <span class="o">=</span> <span class="n">OqasmParser</span><span class="p">()</span>
 <span class="n">circuit</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">bell_data</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The circuit is composed of gates&quot;</span><span class="p">,</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"The circuit is composed of gates"</span><span class="p">,</span>
       <span class="nb">list</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">iterate_simple</span><span class="p">()))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">circuit</span> <span class="ow">is</span> <span class="n">composed</span> <span class="n">of</span> <span class="n">gates</span> <span class="p">[(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s1">&#39;CNOT&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="s1">&#39;MEASURE&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s1">&#39;MEASURE&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">circuit</span> <span class="ow">is</span> <span class="n">composed</span> <span class="n">of</span> <span class="n">gates</span> <span class="p">[(</span><span class="s1">'H'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s1">'CNOT'</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="s1">'MEASURE'</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s1">'MEASURE'</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
 </pre></div>
 </div>
 <div class="admonition note">

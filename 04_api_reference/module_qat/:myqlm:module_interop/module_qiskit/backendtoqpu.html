@@ -9,7 +9,7 @@
   <title>qat.interop.qiskit.BackendToQPU &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../../static/js/theme.js"></script>
@@ -137,7 +138,7 @@
 <h1>qat.interop.qiskit.BackendToQPU<a class="headerlink" href="#qat-interop-qiskit-backendtoqpu" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.interop.qiskit.BackendToQPU">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.interop.qiskit.</span></span><span class="sig-name descname"><span class="pre">BackendToQPU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plugins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ibm_backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ibm_brisbane'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.qiskit.BackendToQPU" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.interop.qiskit.</span></span><span class="sig-name descname"><span class="pre">BackendToQPU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plugins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ibm_backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ibm_brisbane'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.interop.qiskit.BackendToQPU" title="Link to this definition"></a></dt>
 <dd><p>Wrapper around any Qiskit simulator or quantum chip connection.
 Despite the asynchronous nature of Qiskit’s backends, this class defines a
 <strong>synchronous QPU</strong>. If you need an asynchronous QPU, please use
@@ -157,7 +158,7 @@ Despite the asynchronous nature of Qiskit’s backends, this class defines a
 <li><p><strong>token</strong> (<em>str</em>) – Qiskit IBM login token. If not supplied, it is loaded from the
 environment variable <code class="code docutils literal notranslate"><span class="pre">QISKIT_TOKEN</span></code>.</p></li>
 <li><p><strong>ibm_backend</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the backend. Default to ‘ibm_brisbane’</p></li>
-<li><p><strong>optimization_level</strong> (<em>int</em><em>, </em><em>optional</em>) – <p>Optimization level applied to the circuit.</p>
+<li><p><strong>optimization_level</strong> (<a class="reference internal" href="../../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a><em>, </em><em>optional</em>) – <p>Optimization level applied to the circuit.</p>
 <ul>
 <li><p><code class="code docutils literal notranslate"><span class="pre">0</span></code>: No optimization (default),</p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">1</span></code>: Light optimization,</p></li>

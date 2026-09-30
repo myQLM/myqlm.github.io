@@ -9,7 +9,7 @@
   <title>High-level optimization &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -149,12 +150,12 @@ two patterns could be defined.</p>
 <table class="docutils align-default">
 <tbody>
 <tr class="row-odd"><td><figure class="align-default">
-<a class="reference internal image-reference" href="../../../images/group1.png"><img alt="../../../images/group1.png" src="../../../images/group1.png" style="width: 289.5px; height: 177.5px;" />
+<a class="reference internal image-reference" href="../../../images/group1.png"><img alt="../../../images/group1.png" height="178" src="../../../images/group1.png" width="290" />
 </a>
 </figure>
 </td>
 <td><figure class="align-default">
-<a class="reference internal image-reference" href="../../../images/group2.png"><img alt="../../../images/group2.png" src="../../../images/group2.png" style="width: 289.5px; height: 177.5px;" />
+<a class="reference internal image-reference" href="../../../images/group2.png"><img alt="../../../images/group2.png" height="178" src="../../../images/group2.png" width="290" />
 </a>
 </figure>
 </td>
@@ -169,8 +170,8 @@ two patterns could be defined.</p>
 
 <span class="c1"># Create group</span>
 <span class="n">group</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">new_group</span><span class="p">()</span>
-<span class="n">group</span><span class="o">.</span><span class="n">add_pattern</span><span class="p">([(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])])</span>
-<span class="n">group</span><span class="o">.</span><span class="n">add_pattern</span><span class="p">([(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
+<span class="n">group</span><span class="o">.</span><span class="n">add_pattern</span><span class="p">([(</span><span class="s2">"CNOT"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"CNOT"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])])</span>
+<span class="n">group</span><span class="o">.</span><span class="n">add_pattern</span><span class="p">([(</span><span class="s2">"CNOT"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"CNOT"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
 </pre></div>
 </div>
 <p>The optimizer is allowed to replace a pattern by any pattern of the same group.
@@ -229,9 +230,9 @@ same group.</p>
 <span class="c1"># Define group</span>
 <span class="n">group</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">new_group</span><span class="p">()</span>
 <span class="n">group</span><span class="o">.</span><span class="n">add_pattern</span><span class="p">([])</span>
-<span class="n">group</span><span class="o">.</span><span class="n">pattern_to_remove</span><span class="p">([(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+<span class="n">group</span><span class="o">.</span><span class="n">pattern_to_remove</span><span class="p">([(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"H"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
 
-<span class="c1"># The plugin &quot;manager&quot; removes H - H patterns.</span>
+<span class="c1"># The plugin "manager" removes H - H patterns.</span>
 </pre></div>
 </div>
 <p>The plugin <code class="code docutils literal notranslate"><span class="pre">&quot;manager&quot;</span></code> is composed of a single group composed of two
@@ -274,7 +275,7 @@ take the overall <strong>execution time</strong> of the circuit.</p>
 computation of any quantum gate is 1 unit of time. The duration of our
 circuit is then 3 units of time.</p>
 <figure class="align-default">
-<a class="reference internal image-reference" href="../../../images/non-optimal.png"><img alt="../../../images/non-optimal.png" src="../../../images/non-optimal.png" style="width: 394.0px; height: 196.5px;" />
+<a class="reference internal image-reference" href="../../../images/non-optimal.png"><img alt="../../../images/non-optimal.png" height="196" src="../../../images/non-optimal.png" width="394" />
 </a>
 </figure>
 <p>The class <a class="reference internal" href="../../../04_api_reference/module_qat/module_plugins/patternmanager.html#qat.plugins.PatternManager" title="qat.plugins.PatternManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatternManager</span></code></a> may be used to optimize this
@@ -284,12 +285,12 @@ defined (group of two equivalent patterns):</p>
 <table class="docutils align-default">
 <tbody>
 <tr class="row-odd"><td><figure class="align-default">
-<a class="reference internal image-reference" href="../../../images/group1.png"><img alt="../../../images/group1.png" src="../../../images/group1.png" style="width: 289.5px; height: 177.5px;" />
+<a class="reference internal image-reference" href="../../../images/group1.png"><img alt="../../../images/group1.png" height="178" src="../../../images/group1.png" width="290" />
 </a>
 </figure>
 </td>
 <td><figure class="align-default">
-<a class="reference internal image-reference" href="../../../images/group2.png"><img alt="../../../images/group2.png" src="../../../images/group2.png" style="width: 289.5px; height: 177.5px;" />
+<a class="reference internal image-reference" href="../../../images/group2.png"><img alt="../../../images/group2.png" height="178" src="../../../images/group2.png" width="290" />
 </a>
 </figure>
 </td>
@@ -299,7 +300,7 @@ defined (group of two equivalent patterns):</p>
 <p>Using this rule, our optimizer can perform local changes to get the following
 optimal circuit (the duration has been reduced to 2 units of time):</p>
 <figure class="align-default">
-<a class="reference internal image-reference" href="../../../images/optimal.png"><img alt="../../../images/optimal.png" src="../../../images/optimal.png" style="width: 318.0px; height: 196.5px;" />
+<a class="reference internal image-reference" href="../../../images/optimal.png"><img alt="../../../images/optimal.png" height="196" src="../../../images/optimal.png" width="318" />
 </a>
 </figure>
 </section>
@@ -339,7 +340,7 @@ of time.</p>
 <span class="n">metric</span> <span class="o">=</span> <span class="n">DurationMetric</span><span class="p">()</span>
 
 <span class="c1"># Set duration of each gate equal to 1 unit of time</span>
-<span class="n">metric</span><span class="o">.</span><span class="n">set_gate_time</span><span class="p">({</span><span class="s2">&quot;-DEFAULT-&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="n">metric</span><span class="o">.</span><span class="n">set_gate_time</span><span class="p">({</span><span class="s2">"-DEFAULT-"</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
 
 <span class="c1"># Adapt metric to minimize duration of the circuit</span>
 <span class="n">metric</span><span class="o">.</span><span class="n">minimize_overall_time</span><span class="p">()</span>
@@ -356,12 +357,12 @@ equivalent patterns. The optimizer will use this rule to maximize our metric
 
 <span class="c1"># Define group</span>
 <span class="n">group</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">new_group</span><span class="p">()</span>
-<span class="n">group</span><span class="o">.</span><span class="n">add_pattern</span><span class="p">([(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])])</span>
-<span class="n">group</span><span class="o">.</span><span class="n">add_pattern</span><span class="p">([(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span> <span class="p">(</span><span class="s2">&quot;CNOT&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
+<span class="n">group</span><span class="o">.</span><span class="n">add_pattern</span><span class="p">([(</span><span class="s2">"CNOT"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"CNOT"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])])</span>
+<span class="n">group</span><span class="o">.</span><span class="n">add_pattern</span><span class="p">([(</span><span class="s2">"CNOT"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"CNOT"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])])</span>
 
 <span class="c1"># Optimize</span>
 <span class="n">opt_circ</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">replace_pattern</span><span class="p">(</span><span class="n">circ</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Final duration: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="o">-</span><span class="n">metric</span><span class="p">(</span><span class="n">opt_circ</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Final duration: </span><span class="si">%d</span><span class="s2">"</span> <span class="o">%</span> <span class="o">-</span><span class="n">metric</span><span class="p">(</span><span class="n">opt_circ</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>The circuit has been optimized.</p>

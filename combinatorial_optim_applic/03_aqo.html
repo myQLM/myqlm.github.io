@@ -9,7 +9,7 @@
   <title>Adiabatic Quantum Optimization (AQO) &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../static/jquery.js?v=5d32c60e"></script>
       <script src="../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../static/doctools.js?v=9bcbadda"></script>
-      <script src="../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../static/js/custom.js?v=e5e94349"></script>
       <script src="../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -60,6 +61,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../02_user_guide/03_compile.html">Compiling and rewriting quantum circuits</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../fermion.html">Spin and fermionic systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../synthesis.html">Synthesizing quantum circuits</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../combinatorial_optim_applic.html">Combinatorial optimization</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="01_np_probs_for_annealing.html">NP-hard problems</a></li>
 <li class="toctree-l4"><a class="reference internal" href="02_qaoa.html">Quantum Approximate Optimization Algorithm (QAOA)</a></li>
@@ -135,7 +137,7 @@ In practice, this framework is often applied to combinatorial optimization since
 <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
 <span class="n">problem</span> <span class="o">=</span> <span class="n">MaxCut</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
 <span class="c1"># We just need to specify the value of T (tmax)</span>
-<span class="n">aqo_job</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="s2">&quot;aqo&quot;</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mi">47</span><span class="p">)</span>
+<span class="n">aqo_job</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="s2">"aqo"</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mi">47</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The default mixing Hamitonian (<span class="math notranslate nohighlight">\(H_0\)</span>) is :</p>
@@ -152,7 +154,7 @@ In practice, this framework is often applied to combinatorial optimization since
 
 <span class="c1"># Looking for a solution of Hamming weight 3</span>
 <span class="n">mixing</span> <span class="o">=</span> <span class="n">MixingFactory</span><span class="o">.</span><span class="n">bit_move</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">aqo_job</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="s2">&quot;aqo&quot;</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mi">47</span><span class="p">,</span> <span class="n">mixing</span><span class="o">=</span><span class="n">mixing</span><span class="p">)</span>
+<span class="n">aqo_job</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="s2">"aqo"</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mi">47</span><span class="p">,</span> <span class="n">mixing</span><span class="o">=</span><span class="n">mixing</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Doing this will effectively change the mixing Hamiltonian, and, of course, the initial state of the computation. This change can lead to an increase in the computation time since some mixing Hamiltonians have non-trivial ground states whose preparation might involve a problem-independent optimization to take place before the true optimization.</p>

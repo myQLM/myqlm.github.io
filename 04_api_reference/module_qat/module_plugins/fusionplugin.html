@@ -9,7 +9,7 @@
   <title>qat.plugins.FusionPlugin &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../../../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,8 +17,9 @@
       <script src="../../../static/jquery.js?v=5d32c60e"></script>
       <script src="../../../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../../../static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../static/js/custom.js?v=e5e94349"></script>
       <script src="../../../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../static/js/theme.js"></script>
@@ -93,10 +94,12 @@
 <li class="toctree-l4"><a class="reference internal" href="zeronoiseextrapolator.html">qat.plugins.ZeroNoiseExtrapolator</a></li>
 <li class="toctree-l4"><a class="reference internal" href="abstractplugin.html">qat.plugins.AbstractPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="display.html">qat.plugins.Display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="emptyplugin.html">qat.plugins.EmptyPlugin.rst</a></li>
 <li class="toctree-l4"><a class="reference internal" href="junction.html">qat.plugins.Junction</a></li>
 <li class="toctree-l4"><a class="reference internal" href="optimizer.html">qat.plugins.Optimizer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quameleonplugin.html">qat.plugins.QuameleonPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="remoteplugin.html">qat.plugins.RemotePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="statplugin.html">qat.plugins.StatPlugin</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Amodule_pylinalg.html">qat.pylinalg</a></li>
@@ -156,7 +159,7 @@ It should improve the simulation time of supremacy-like quantum circuits, that i
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="qat.plugins.FusionPlugin">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">FusionPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_compilation_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">strat_args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.FusionPlugin" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">qat.plugins.</span></span><span class="sig-name descname"><span class="pre">FusionPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qbits_compilation_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">strat_args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qat.plugins.FusionPlugin" title="Link to this definition"></a></dt>
 <dd><p>A plugin that can group adjacent gates into bigger gates.
 Its purpose is to form an equivalent circuit with less, but larger, gates.
 It is designed to improve performances of subsequent simulation via a linear algebra based simulator.
@@ -167,7 +170,7 @@ intermediate measurements are not compatible, and circuits containing those will
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>strategy</strong> (<em>optional</em><em>, </em><em>str</em>) – the grouping strategy to apply (possible strategies are “eager”, “naive”, “adjacent”).
 Default is “eager”.</p></li>
-<li><p><strong>qbits_compilation_threshold</strong> (<em>optional</em><em>, </em><em>int</em>) – the minimum number of qubits in a circuit for it to be compiled
+<li><p><strong>qbits_compilation_threshold</strong> (<em>optional</em><em>, </em><a class="reference internal" href="../module_core/state.html#qat.core.wrappers.result.State.int" title="qat.core.wrappers.result.State.int"><em>int</em></a>) – the minimum number of qubits in a circuit for it to be compiled
 Default is 1.</p></li>
 <li><p><strong>strategies</strong> (<em>optional</em><em>, </em><em>list</em>) – list of user-initialized strategies; if this parameter is provided,
 the <em>strategy</em> parameter as well as <em>strat_args</em> shall be ignored.
@@ -237,7 +240,7 @@ to first instantiate the parameters before compiling the circuit.</p>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">random_circuit</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">,</span> <span class="n">depth</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates a random circuit&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Generates a random circuit"""</span>
     <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
     <span class="n">qbits</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">depth</span><span class="p">):</span>
@@ -259,14 +262,14 @@ to first instantiate the parameters before compiling the circuit.</p>
 <span class="n">job</span> <span class="o">=</span> <span class="n">random_circuit</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span><span class="o">.</span><span class="n">to_job</span><span class="p">()</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
 <span class="n">stack_default</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Time CLinalg only:  &quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Time CLinalg only:  "</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
 <span class="n">stack_improved</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Time Fusion+CLinalg:&quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Time Fusion+CLinalg:"</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Time</span> <span class="n">CLinalg</span> <span class="n">only</span><span class="p">:</span>   <span class="mf">0.8968369530048221</span>
-<span class="n">Time</span> <span class="n">Fusion</span><span class="o">+</span><span class="n">CLinalg</span><span class="p">:</span> <span class="mf">1.1260576289932942</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Time</span> <span class="n">CLinalg</span> <span class="n">only</span><span class="p">:</span>   <span class="mf">2.8723610370070674</span>
+<span class="n">Time</span> <span class="n">Fusion</span><span class="o">+</span><span class="n">CLinalg</span><span class="p">:</span> <span class="mf">1.0349824400036596</span>
 </pre></div>
 </div>
 </section>

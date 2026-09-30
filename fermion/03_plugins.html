@@ -9,7 +9,7 @@
   <title>Plugins &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,13 @@
       <script src="../static/jquery.js?v=5d32c60e"></script>
       <script src="../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../static/doctools.js?v=9bcbadda"></script>
-      <script src="../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../static/js/custom.js?v=e5e94349"></script>
       <script src="../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -67,6 +68,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../fermion.html#demos">Demos</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../synthesis.html">Synthesizing quantum circuits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../combinatorial_optim_applic.html">Combinatorial optimization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%3Amyqlm%3Ainteroperability.html">Interoperability with gate-based framework</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../interoperability_annealing.html">Interoperability with annealing framework</a></li>
@@ -143,8 +145,8 @@ representation, represented by the variable <code class="code docutils literal n
 <span class="n">reg</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="n">hamiltonian</span><span class="o">.</span><span class="n">nbqbits</span><span class="p">)</span>
 
 <span class="c1"># Define the circuit which prepares a Hartree-Fock state</span>
-<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">format</span><span class="p">(</span><span class="n">hf_init</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">hamiltonian</span><span class="o">.</span><span class="n">nbqbits</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;b&quot;</span><span class="p">)):</span>
-    <span class="k">if</span> <span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">format</span><span class="p">(</span><span class="n">hf_init</span><span class="p">,</span> <span class="s2">"0"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">hamiltonian</span><span class="o">.</span><span class="n">nbqbits</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"b"</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">char</span> <span class="o">==</span> <span class="s2">"1"</span><span class="p">:</span>
         <span class="n">prog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">reg</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
 
 <span class="c1"># Generate the associated circuit</span>
@@ -159,7 +161,7 @@ representation, represented by the variable <code class="code docutils literal n
 
 <span class="c1"># Define the stack</span>
 <span class="n">adaptvqe_plugin</span> <span class="o">=</span> <span class="n">AdaptVQEPlugin</span><span class="p">(</span><span class="n">cluster_operators</span><span class="p">,</span> <span class="n">n_iterations</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">ScipyMinimizePlugin</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;COBYLA&quot;</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;maxiter&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span> <span class="n">x0</span><span class="o">=</span><span class="n">theta_init</span><span class="p">)</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">ScipyMinimizePlugin</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">"COBYLA"</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">"maxiter"</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span> <span class="n">x0</span><span class="o">=</span><span class="n">theta_init</span><span class="p">)</span>
 <span class="n">qpu</span> <span class="o">=</span> <span class="n">get_default_qpu</span><span class="p">()</span>
 
 <span class="n">stack</span> <span class="o">=</span> <span class="n">adaptvqe_plugin</span> <span class="o">|</span> <span class="n">optimizer</span> <span class="o">|</span> <span class="n">qpu</span>
@@ -172,8 +174,8 @@ submit the job:</p>
 <span class="n">result</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
 
 <span class="c1"># Print the energy value</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Computed energy = </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected energy = </span><span class="si">{</span><span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">hamiltonian</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()))</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Computed energy = </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Expected energy = </span><span class="si">{</span><span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">hamiltonian</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()))</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Computed</span> <span class="n">energy</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.1372701679264894</span>
@@ -219,22 +221,22 @@ observable by VQE, using a custom ansatz.</p>
 <span class="n">nbqbits</span> <span class="o">=</span> <span class="mi">3</span>
 
 <span class="c1"># Define the observable</span>
-<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">,</span> <span class="n">pauli_terms</span><span class="o">=</span><span class="p">[</span><span class="n">Term</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"Y"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
 
 <span class="c1"># Build a parameterized circuit</span>
 <span class="n">prog</span> <span class="o">=</span> <span class="n">Program</span><span class="p">()</span>
 <span class="n">reg</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">qalloc</span><span class="p">(</span><span class="n">nbqbits</span><span class="p">)</span>
 
 <span class="n">RY</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)(</span><span class="n">reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">RZ</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">theta_0&quot;</span><span class="p">))(</span><span class="n">reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">RZ</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">theta_1&quot;</span><span class="p">))(</span><span class="n">reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">RZ</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">theta_2&quot;</span><span class="p">))(</span><span class="n">reg</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">RZ</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">theta_0"</span><span class="p">))(</span><span class="n">reg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">RZ</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">theta_1"</span><span class="p">))(</span><span class="n">reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">RZ</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">theta_2"</span><span class="p">))(</span><span class="n">reg</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">RY</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)(</span><span class="n">reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">CNOT</span><span class="p">(</span><span class="n">reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">RY</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">theta_3&quot;</span><span class="p">))(</span><span class="n">reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">RY</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">theta_3"</span><span class="p">))(</span><span class="n">reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">RY</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)(</span><span class="n">reg</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">CNOT</span><span class="p">(</span><span class="n">reg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">RY</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">theta_4&quot;</span><span class="p">))(</span><span class="n">reg</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">RY</span><span class="p">(</span><span class="n">prog</span><span class="o">.</span><span class="n">new_var</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">theta_4"</span><span class="p">))(</span><span class="n">reg</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">CNOT</span><span class="p">(</span><span class="n">reg</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reg</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 
 <span class="n">circ</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">to_circ</span><span class="p">()</span>
@@ -255,9 +257,9 @@ observable by VQE, using a custom ansatz.</p>
 </pre></div>
 </div>
 <p>The stack is defined ! Let us run the job on the QPU:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">circ</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s2">&quot;OBS&quot;</span><span class="p">,</span> <span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">circ</span><span class="o">.</span><span class="n">to_job</span><span class="p">(</span><span class="n">job_type</span><span class="o">=</span><span class="s2">"OBS"</span><span class="p">,</span> <span class="n">observable</span><span class="o">=</span><span class="n">obs</span><span class="p">))</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected value for the observable = </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Expected value for the observable = </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Expected</span> <span class="n">value</span> <span class="k">for</span> <span class="n">the</span> <span class="n">observable</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.8660254037652464</span>

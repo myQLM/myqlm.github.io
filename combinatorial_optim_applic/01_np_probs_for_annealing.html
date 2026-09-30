@@ -9,7 +9,7 @@
   <title>NP-hard problems &mdash; myQLM documentation  documentation</title>
       <link rel="stylesheet" type="text/css" href="../static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=749de493" />
+      <link rel="stylesheet" type="text/css" href="../static/css/custom.css?v=a0c26f31" />
       <link rel="stylesheet" type="text/css" href="../static/sphinx-design.min.css?v=95c83b7e" />
 
   
@@ -17,12 +17,11 @@
       <script src="../static/jquery.js?v=5d32c60e"></script>
       <script src="../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../static/documentation_options.js?v=8a448e45"></script>
-      <script src="../static/doctools.js?v=9bcbadda"></script>
-      <script src="../static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../static/js/custom.js?v=e5e94349"></script>
       <script src="../static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -60,6 +59,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../02_user_guide/03_compile.html">Compiling and rewriting quantum circuits</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../02_user_guide.html#libraries-built-upon-qaptiva">Libraries built upon Qaptiva</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../fermion.html">Spin and fermionic systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../synthesis.html">Synthesizing quantum circuits</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../combinatorial_optim_applic.html">Combinatorial optimization</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">NP-hard problems</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="#unconstrained-graph-problems">Unconstrained Graph Problems</a><ul>
@@ -76,7 +76,6 @@
 <li><a class="reference internal" href="01_np_probs_for_annealing/number_partitioning_ann_prob.html">Number Partitioning</a></li>
 </ul>
 </li>
-<li class="toctree-l5"><a class="reference internal" href="#simulated-quantum-annealing-benchmarking-and-performance">Simulated Quantum Annealing Benchmarking and Performance</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="02_qaoa.html">Quantum Approximate Optimization Algorithm (QAOA)</a></li>
@@ -210,104 +209,10 @@ Number Partitioning</div>
 </div>
 </div>
 </div>
-<p>For all the problems above we provide a set of fine tuned parameters which Simulated Quantum Annealing that is offered in the full
-Qaptiva Appliance would need. The solver was tested with various benchmarks and the respective performances were recorded. Along
-with the problem size and annealing times, the results are presented in the benchmarking section below.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Many of these parameters showed overall good performances with Simulated Annealing as well.</p>
-</div>
-</section>
-<section id="simulated-quantum-annealing-benchmarking-and-performance">
-<span id="sqa-benchmarking"></span><h2>Simulated Quantum Annealing Benchmarking and Performance<a class="headerlink" href="#simulated-quantum-annealing-benchmarking-and-performance" title="Link to this heading"></a></h2>
-<p>Although Simulated Quantum Annealing is only provided in the full Qaptiva Appliance, we present here its performance for some of the different NP
-problems to hint on its capabilities. Below are shown the benchmark sources, the range of spins for the problem instances, together
-with the average execution times.</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-0">
-Max Cut</label><div class="sd-tab-content docutils">
-<ul>
-<li><p><strong>Performance optimized</strong>: <span class="math notranslate nohighlight">\(\frac {\text{number of Max Cut edges found}} {\text{best number of Max Cut edges}}\)</span></p></li>
-<li><p><strong>Problem instances</strong>:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><strong>Benchmarks</strong>: 9 planar and random graphs from the <a class="reference external" href="http://web.stanford.edu/~yyye/yyye/Gset/">Gset benchmark dataset</a></p></li>
-<li><p><strong>Others</strong>: &gt; 20 random trees</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p><strong>Spin count</strong>: from 20 to 10 000</p></li>
-<li><p><strong>Performance</strong>: &gt; 98%</p></li>
-<li><p><strong>Execution time</strong>: mostly &lt; 1 sec and up to 5 seconds for 10 000 spins</p></li>
-</ul>
-</div>
-<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-1">
-Graph Colouring</label><div class="sd-tab-content docutils">
-<ul>
-<li><p><strong>Performance optimized</strong>: <span class="math notranslate nohighlight">\(\frac {\text{number of edges with vertices of different colours}} {\text{number of all edges}}\)</span></p></li>
-<li><p><strong>Problem instances</strong>:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><strong>Benchmarks</strong>: 6 - random graphs and a Leighton graph from <a class="reference external" href="http://cedric.cnam.fr/~porumbed/graphs/index.html">DIMACS Graphs</a></p></li>
-<li><p><strong>Others</strong>: 13 random graphs</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p><strong>Spin count</strong>: from 60 to 24 000</p></li>
-<li><p><strong>Performance</strong>: 88% for best colouring, 95% - 99%  for a few more colours</p></li>
-<li><p><strong>Execution time</strong>: &lt; 10 sec for up to 24 000 spins</p></li>
-</ul>
-</div>
-<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-2">
-K-Clique</label><div class="sd-tab-content docutils">
-<ul>
-<li><p><strong>Performance optimized</strong>: <span class="math notranslate nohighlight">\(\frac {\text{number of edges in the subgraph found}} {\text{required number of edges for the subgraph to be complete}}\)</span></p></li>
-<li><p><strong>Problem instances</strong>:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><strong>Benchmarks</strong>: 27 differently generated graphs from the <a class="reference external" href="http://sites.nlsde.buaa.edu.cn/~kexu/benchmarks/graph-benchmarks.htm">BHOSLIB</a>, <a class="reference external" href="https://mat.gsia.cmu.edu/COLOR02/clq.html">DIMACS</a> and <a class="reference external" href="https://turing.cs.hbg.psu.edu/txn131/clique.html">Clique benchmark datasets</a></p></li>
-<li><p><strong>Others</strong>: 5 random graphs</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p><strong>Spin count</strong>: from 450 to 4000</p></li>
-<li><p><strong>Performance</strong>: &gt; 98%</p></li>
-<li><p><strong>Execution time</strong>: mostly &lt; 1 sec when below 4000 spins</p></li>
-</ul>
-</div>
-<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-3">
-Vertex Cover</label><div class="sd-tab-content docutils">
-<ul>
-<li><p><strong>Performance optimized</strong>: <span class="math notranslate nohighlight">\(\frac {\text{best number of coloured nodes}} {\text{found number of coloured nodes}}\)</span></p></li>
-<li><p><strong>Problem instances</strong>:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><strong>Benchmarks</strong>: 21 random graphs from the <a class="reference external" href="http://sites.nlsde.buaa.edu.cn/~kexu/benchmarks/graph-benchmarks.htm">BHOSLIB</a> and <a class="reference external" href="https://oeis.org/A265032/a265032.html">OEIS benchmark datasets</a></p></li>
-<li><p><strong>Others</strong>: 5 random graphs</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p><strong>Spin count</strong>: from 450 to 4000</p></li>
-<li><p><strong>Performance</strong>: &gt; 98%</p></li>
-<li><p><strong>Execution time</strong>: mostly &lt; 1 sec and up to 10 seconds for 4000 spins</p></li>
-</ul>
-</div>
-<input id="sd-tab-item-4" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-4">
-Number Partitioning</label><div class="sd-tab-content docutils">
-<ul class="simple">
-<li><p><strong>Performance optimized</strong>: <span class="math notranslate nohighlight">\(\frac {\text{sum of numbers in smaller sum subset}} {\text{sum of numbers in larger sum subset}}\)</span></p></li>
-<li><p><strong>Problem instances</strong>: &gt; 30 random number sets of integer or real, non-repeating or repeating numbers</p></li>
-<li><p><strong>Spin count</strong>: from 20 to 40 000</p></li>
-<li><p><strong>Performance</strong>: &gt; 99%</p></li>
-<li><p><strong>Execution time</strong>: from instantly to 15 sec for 40 000 spins</p></li>
-</ul>
-</div>
-</div>
+<p>To solve each of the combinatorial problems with Simulated Annealing (<a class="reference internal" href="../02_user_guide/02_execute/03_qpu/03_annealing.html#simulated-annealing"><span class="std std-ref">SA</span></a>) we need to feed the
+solver in <a class="reference internal" href="../04_api_reference/module_qat/module_qpus/%3Amyqlm%3Asimulatedannealing.html#qat.qpus.SimulatedAnnealing" title="qat.qpus.SimulatedAnnealing"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimulatedAnnealing</span></code></a> with parameters tailored for the specific problem. We provide initial parameters derived
+from the target problem that can be then further fine-tuned. They can be accessed from the <code class="code docutils literal notranslate"><span class="pre">get_sa_initial_parameters</span></code> method of
+the respective problem class.</p>
 </section>
 </section>
 
