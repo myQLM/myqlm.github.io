@@ -54,7 +54,7 @@ Please install myQLM by typing the following commands in a Windows, :ref:`MacOS 
 
         .. code-block::
 
-            conda install -c myqlm -c conda-forge myqlm
+            conda install --override-channels --strict-channel-priority -c myqlm -c conda-forge myqlm
 
 
         For CPython, the commands above install all dependency packages needed for myqlm to work, but not under Conda.
@@ -62,7 +62,7 @@ Please install myQLM by typing the following commands in a Windows, :ref:`MacOS 
         Consequently, all dependency packages have not been included in the bz2 files.
         Instead, it is expected to install them manually before using myqlm. They will need to be installed using pip from from pypi.org
         because anaconda does not have all required packages.
-        Finally, make sure that you keep a clean base environment to avoid packages conflict, and use `conda clean --all` as needed. If problems occur, you can also remove the pip cache.
+        Finally, make sure that you keep a new clean Conda environment to avoid package conflicts. The command above uses only the myqlm and conda-forge channels to avoid mixing incompatible packages from other configured channels. Use `conda clean --all` as needed. If problems occur, you can also remove the pip cache.
 
         .. tab-set::
 

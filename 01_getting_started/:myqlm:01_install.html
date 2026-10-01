@@ -223,7 +223,7 @@ CPython</label><div class="sd-tab-content docutils">
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-1">
 Conda</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">myqlm</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">myqlm</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">--</span><span class="n">override</span><span class="o">-</span><span class="n">channels</span> <span class="o">--</span><span class="n">strict</span><span class="o">-</span><span class="n">channel</span><span class="o">-</span><span class="n">priority</span> <span class="o">-</span><span class="n">c</span> <span class="n">myqlm</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">myqlm</span>
 </pre></div>
 </div>
 <p>For CPython, the commands above install all dependency packages needed for myqlm to work, but not under Conda.
@@ -231,7 +231,7 @@ The Conda environment resolver can take an infinite time to complete, and will l
 Consequently, all dependency packages have not been included in the bz2 files.
 Instead, it is expected to install them manually before using myqlm. They will need to be installed using pip from from pypi.org
 because anaconda does not have all required packages.
-Finally, make sure that you keep a clean base environment to avoid packages conflict, and use <cite>conda clean –all</cite> as needed. If problems occur, you can also remove the pip cache.</p>
+Finally, make sure that you keep a new clean Conda environment to avoid package conflicts. The command above uses only the myqlm and conda-forge channels to avoid mixing incompatible packages from other configured channels. Use <cite>conda clean –all</cite> as needed. If problems occur, you can also remove the pip cache.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-2">
